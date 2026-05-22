@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Англійські слова</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 20px;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 32px;
+    width: 460px;
+    max-width: 94vw;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  .stats .label { opacity: 0.7; font-size: 13px; display: block; }
+  #timer.low { color: #ff6b6b; }
+  .mode-hint {
+    font-size: 13px;
+    opacity: 0.65;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+  .word-display {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 4px 0 20px;
+    min-height: 64px;
+    word-break: break-word;
+    line-height: 1.15;
+  }
+  #answer {
+    width: 100%;
+    font-size: 28px;
+    text-align: center;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    background: #fff;
+    color: #1e3c72;
+    outline: 3px solid transparent;
+    transition: outline-color 0.15s;
+  }
+  #answer:focus { outline-color: #ffd166; }
+  button {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 14px;
+    background: #ffd166;
+    color: #1e3c72;
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.15s;
+  }
+  button:hover { filter: brightness(1.08); }
+  button:active { transform: scale(0.96); }
+  #start-btn, #restart-btn { margin-top: 22px; }
+  .skip {
+    margin-top: 12px;
+    font-size: 15px;
+    padding: 9px 26px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+  }
+  .hidden { display: none; }
+
+  /* mode selector */
+  .mode-select { margin: 20px 0 8px; }
+  .mode-select p { opacity: 0.8; font-size: 14px; margin-bottom: 10px; }
+  .mode-btns { display: flex; gap: 10px; justify-content: center; }
+  .mode-btn {
+    flex: 1;
+    max-width: 180px;
+    font-size: 16px;
+    padding: 12px 10px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border-radius: 12px;
+  }
+  .mode-btn.active { background: #ffd166; color: #1e3c72; }
+
+  /* start screen description */
+  #start-screen p.desc {
+    font-size: 15px;
+    opacity: 0.8;
+    line-height: 1.55;
+  }
+
+  /* result */
+  .result { font-size: 20px; line-height: 1.6; }
+  .result .big { font-size: 52px; font-weight: 700; color: #ffd166; }
+  .summary { margin: 14px 0 10px; font-size: 15px; opacity: 0.85; }
+  .filter-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .tab {
+    flex: 1;
+    font-size: 14px;
+    padding: 9px 6px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+  .tab.active { background: #ffd166; color: #1e3c72; }
+  .results-list {
+    max-height: 260px;
+    overflow-y: auto;
+    text-align: left;
+    border-radius: 12px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  .row.correct { background: rgba(76, 217, 123, 0.18); }
+  .row.wrong   { background: rgba(255, 107, 107, 0.20); }
+  .row.skipped { background: rgba(255, 255, 255, 0.10); }
+  .row .mark { white-space: nowrap; opacity: 0.95; font-weight: 600; }
+  .empty { padding: 24px; opacity: 0.7; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Англійські слова</h1>
+
+  <!-- START SCREEN -->
+  <div id="start-screen">
+    <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
+    <div class="mode-select">
+      <p>Оберіть режим:</p>
+      <div class="mode-btns">
+        <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇬🇧</button>
+        <button id="btn-en-ua" class="mode-btn">🇬🇧 → 🇺🇦</button>
+      </div>
+    </div>
+    <button id="start-btn">Почати</button>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game" class="hidden">
+    <div class="stats">
+      <div><span class="label">Час</span><span id="timer">60</span></div>
+      <div><span class="label">Правильних</span><span id="score">0</span></div>
+    </div>
+    <div class="mode-hint" id="mode-hint">Перекладіть англійською:</div>
+    <div class="word-display" id="word-display">—</div>
+    <input id="answer" type="text" placeholder="Переклад" autocomplete="off" autocorrect="off" spellcheck="false">
+    <button id="skip-btn" class="skip">Пропустити</button>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="end-screen" class="hidden">
+    <div class="result">
+      Час вийшов!<br>
+      <span class="big" id="final-score">0</span><br>
+      правильних відповідей
+    </div>
+    <div class="summary" id="summary"></div>
+    <div class="filter-tabs">
+      <button id="tab-all" class="tab active">Усі</button>
+      <button id="tab-bad" class="tab">Помилки і пропуски</button>
+    </div>
+    <div class="results-list" id="results-list"></div>
+    <button id="restart-btn">Спробувати ще раз</button>
+  </div>
+</div>
+
+<script>
+const DURATION = 60;
+
+// ── WORD BANK (Oxford 1000) ────────────────────────────────────────────────
+// Each entry: { en, ua }
+// For UA→EN, all words sharing the same `ua` are accepted as correct answers.
+const WORDS = [
+  // ── VERBS ──────────────────────────────────────────────────────────────
+  {en:"be",ua:"бути"},{en:"have",ua:"мати"},{en:"do",ua:"робити"},
+  {en:"say",ua:"казати"},{en:"go",ua:"іти"},{en:"get",ua:"отримувати"},
+  {en:"make",ua:"виготовляти"},{en:"know",ua:"знати"},{en:"think",ua:"думати"},
+  {en:"take",ua:"брати"},{en:"come",ua:"приходити"},{en:"see",ua:"бачити"},
+  {en:"want",ua:"хотіти"},{en:"look",ua:"дивитися"},{en:"use",ua:"використовувати"},
+  {en:"find",ua:"знаходити"},{en:"give",ua:"давати"},{en:"tell",ua:"розповідати"},
+  {en:"work",ua:"працювати"},{en:"call",ua:"дзвонити"},{en:"try",ua:"намагатися"},
+  {en:"ask",ua:"питати"},{en:"need",ua:"потребувати"},{en:"feel",ua:"відчувати"},
+  {en:"become",ua:"ставати"},{en:"leave",ua:"залишати"},{en:"put",ua:"класти"},
+  {en:"keep",ua:"тримати"},{en:"let",ua:"дозволяти"},{en:"begin",ua:"починати"},
+  {en:"show",ua:"показувати"},{en:"hear",ua:"чути"},{en:"play",ua:"грати"},
+  {en:"run",ua:"бігти"},{en:"move",ua:"рухатися"},{en:"live",ua:"жити"},
+  {en:"believe",ua:"вірити"},{en:"hold",ua:"тримати"},{en:"bring",ua:"приносити"},
+  {en:"write",ua:"писати"},{en:"sit",ua:"сидіти"},{en:"stand",ua:"стояти"},
+  {en:"lose",ua:"губити"},{en:"pay",ua:"платити"},{en:"meet",ua:"зустрічати"},
+  {en:"learn",ua:"вчитися"},{en:"change",ua:"змінювати"},{en:"understand",ua:"розуміти"},
+  {en:"watch",ua:"спостерігати"},{en:"follow",ua:"слідувати"},{en:"stop",ua:"зупинятися"},
+  {en:"create",ua:"створювати"},{en:"read",ua:"читати"},{en:"grow",ua:"рости"},
+  {en:"open",ua:"відчиняти"},{en:"walk",ua:"ходити"},{en:"win",ua:"вигравати"},
+  {en:"remember",ua:"пам'ятати"},{en:"love",ua:"любити"},{en:"buy",ua:"купувати"},
+  {en:"wait",ua:"чекати"},{en:"die",ua:"вмирати"},{en:"send",ua:"надсилати"},
+  {en:"build",ua:"будувати"},{en:"stay",ua:"залишатися"},{en:"fall",ua:"падати"},
+  {en:"cut",ua:"різати"},{en:"reach",ua:"досягати"},{en:"pass",ua:"проходити"},
+  {en:"sell",ua:"продавати"},{en:"decide",ua:"вирішувати"},{en:"break",ua:"ламати"},
+  {en:"eat",ua:"їсти"},{en:"drink",ua:"пити"},{en:"sleep",ua:"спати"},
+  {en:"help",ua:"допомагати"},{en:"talk",ua:"розмовляти"},{en:"turn",ua:"повертати"},
+  {en:"start",ua:"починати"},{en:"carry",ua:"нести"},{en:"drive",ua:"їздити"},
+  {en:"fly",ua:"літати"},{en:"swim",ua:"плавати"},{en:"jump",ua:"стрибати"},
+  {en:"smile",ua:"посміхатися"},{en:"laugh",ua:"сміятися"},{en:"cry",ua:"плакати"},
+  {en:"fight",ua:"битися"},{en:"dance",ua:"танцювати"},{en:"sing",ua:"співати"},
+  {en:"cook",ua:"готувати"},{en:"clean",ua:"прибирати"},{en:"close",ua:"закривати"},
+  {en:"choose",ua:"вибирати"},{en:"check",ua:"перевіряти"},{en:"count",ua:"рахувати"},
+  {en:"cover",ua:"покривати"},{en:"climb",ua:"підніматися"},{en:"collect",ua:"збирати"},
+  {en:"complete",ua:"завершувати"},{en:"connect",ua:"з'єднувати"},{en:"control",ua:"контролювати"},
+  {en:"copy",ua:"копіювати"},{en:"cost",ua:"коштувати"},{en:"cross",ua:"перетинати"},
+  {en:"depend",ua:"залежати"},{en:"describe",ua:"описувати"},{en:"develop",ua:"розвивати"},
+  {en:"draw",ua:"малювати"},{en:"drop",ua:"кидати"},{en:"enjoy",ua:"насолоджуватися"},
+  {en:"enter",ua:"входити"},{en:"exist",ua:"існувати"},{en:"expect",ua:"очікувати"},
+  {en:"explain",ua:"пояснювати"},{en:"express",ua:"висловлювати"},{en:"fail",ua:"провалювати"},
+  {en:"fill",ua:"наповнювати"},{en:"finish",ua:"закінчувати"},{en:"fix",ua:"ремонтувати"},
+  {en:"happen",ua:"траплятися"},{en:"imagine",ua:"уявляти"},{en:"improve",ua:"покращувати"},
+  {en:"include",ua:"включати"},{en:"increase",ua:"збільшувати"},{en:"join",ua:"приєднуватися"},
+  {en:"kill",ua:"вбивати"},{en:"pull",ua:"тягнути"},{en:"push",ua:"штовхати"},
+  {en:"raise",ua:"піднімати"},{en:"receive",ua:"отримати"},{en:"reduce",ua:"зменшувати"},
+  {en:"remove",ua:"видаляти"},{en:"repeat",ua:"повторювати"},{en:"replace",ua:"замінювати"},
+  {en:"rest",ua:"відпочивати"},{en:"return",ua:"повертатися"},{en:"rise",ua:"зростати"},
+  {en:"save",ua:"зберігати"},{en:"share",ua:"ділитися"},{en:"solve",ua:"вирішувати"},
+  {en:"spend",ua:"витрачати"},{en:"support",ua:"підтримувати"},{en:"teach",ua:"навчати"},
+  {en:"throw",ua:"кидати"},{en:"travel",ua:"подорожувати"},{en:"visit",ua:"відвідувати"},
+  {en:"accept",ua:"приймати"},{en:"achieve",ua:"досягти"},{en:"add",ua:"додавати"},
+  {en:"agree",ua:"погоджуватися"},{en:"allow",ua:"дозволяти"},{en:"answer",ua:"відповідати"},
+  {en:"appear",ua:"з'являтися"},{en:"apply",ua:"застосовувати"},{en:"attack",ua:"атакувати"},
+  {en:"avoid",ua:"уникати"},{en:"breathe",ua:"дихати"},{en:"catch",ua:"ловити"},
+  {en:"celebrate",ua:"святкувати"},{en:"continue",ua:"продовжувати"},{en:"defeat",ua:"перемагати"},
+  {en:"deliver",ua:"доставляти"},{en:"design",ua:"проектувати"},{en:"discover",ua:"відкривати"},
+  {en:"divide",ua:"ділити"},{en:"earn",ua:"заробляти"},{en:"escape",ua:"тікати"},
+  {en:"feed",ua:"годувати"},{en:"forget",ua:"забувати"},{en:"guess",ua:"вгадувати"},
+  {en:"hit",ua:"вдаряти"},{en:"hurt",ua:"боліти"},{en:"ignore",ua:"ігнорувати"},
+  {en:"inform",ua:"інформувати"},{en:"introduce",ua:"знайомити"},{en:"invite",ua:"запрошувати"},
+  {en:"kick",ua:"копати"},{en:"kiss",ua:"цілувати"},{en:"knock",ua:"стукати"},
+  {en:"land",ua:"приземлятися"},{en:"lock",ua:"замикати"},{en:"miss",ua:"сумувати"},
+  {en:"mix",ua:"змішувати"},{en:"order",ua:"замовляти"},{en:"organize",ua:"організовувати"},
+  {en:"own",ua:"володіти"},{en:"prefer",ua:"воліти"},{en:"prepare",ua:"готуватися"},
+  {en:"prevent",ua:"запобігати"},{en:"produce",ua:"виробляти"},{en:"protect",ua:"захищати"},
+  {en:"prove",ua:"доводити"},{en:"provide",ua:"забезпечувати"},{en:"publish",ua:"публікувати"},
+  {en:"realize",ua:"усвідомлювати"},{en:"recognize",ua:"впізнавати"},{en:"record",ua:"записувати"},
+  {en:"refuse",ua:"відмовлятися"},{en:"release",ua:"випускати"},{en:"rent",ua:"орендувати"},
+  {en:"report",ua:"повідомляти"},{en:"require",ua:"вимагати"},{en:"search",ua:"шукати"},
+  {en:"speak",ua:"говорити"},{en:"suggest",ua:"пропонувати"},{en:"survive",ua:"виживати"},
+  {en:"trust",ua:"довіряти"},{en:"warn",ua:"попереджати"},{en:"wonder",ua:"дивуватися"},
+  {en:"wake",ua:"прокидатися"},{en:"type",ua:"друкувати"},{en:"test",ua:"тестувати"},
+
+  // ── NOUNS – Time ───────────────────────────────────────────────────────
+  {en:"time",ua:"час"},{en:"year",ua:"рік"},{en:"month",ua:"місяць"},
+  {en:"week",ua:"тиждень"},{en:"day",ua:"день"},{en:"hour",ua:"година"},
+  {en:"minute",ua:"хвилина"},{en:"second",ua:"секунда"},{en:"morning",ua:"ранок"},
+  {en:"afternoon",ua:"полудень"},{en:"evening",ua:"вечір"},{en:"night",ua:"ніч"},
+  {en:"season",ua:"сезон"},{en:"spring",ua:"весна"},{en:"summer",ua:"літо"},
+  {en:"autumn",ua:"осінь"},{en:"winter",ua:"зима"},{en:"century",ua:"сторіччя"},
+  {en:"decade",ua:"десятиліття"},{en:"moment",ua:"момент"},{en:"period",ua:"період"},
+  {en:"past",ua:"минуле"},{en:"future",ua:"майбутнє"},
+
+  // ── NOUNS – People ─────────────────────────────────────────────────────
+  {en:"man",ua:"чоловік"},{en:"woman",ua:"жінка"},{en:"child",ua:"дитина"},
+  {en:"boy",ua:"хлопець"},{en:"girl",ua:"дівчина"},{en:"baby",ua:"немовля"},
+  {en:"person",ua:"людина"},{en:"people",ua:"люди"},{en:"friend",ua:"друг"},
+  {en:"family",ua:"сім'я"},{en:"mother",ua:"мати"},{en:"father",ua:"батько"},
+  {en:"brother",ua:"брат"},{en:"sister",ua:"сестра"},{en:"son",ua:"син"},
+  {en:"daughter",ua:"дочка"},{en:"husband",ua:"чоловік"},{en:"wife",ua:"дружина"},
+  {en:"grandma",ua:"бабуся"},{en:"grandpa",ua:"дідусь"},{en:"aunt",ua:"тітка"},
+  {en:"uncle",ua:"дядько"},{en:"neighbor",ua:"сусід"},{en:"teacher",ua:"вчитель"},
+  {en:"student",ua:"студент"},{en:"doctor",ua:"лікар"},{en:"nurse",ua:"медсестра"},
+  {en:"police",ua:"поліція"},{en:"soldier",ua:"солдат"},{en:"farmer",ua:"фермер"},
+  {en:"worker",ua:"робітник"},{en:"manager",ua:"менеджер"},{en:"president",ua:"президент"},
+  {en:"king",ua:"король"},{en:"queen",ua:"королева"},{en:"prince",ua:"принц"},
+  {en:"princess",ua:"принцеса"},{en:"stranger",ua:"незнайомець"},{en:"enemy",ua:"ворог"},
+  {en:"hero",ua:"герой"},{en:"leader",ua:"лідер"},{en:"expert",ua:"експерт"},
+  {en:"artist",ua:"художник"},{en:"singer",ua:"співак"},{en:"actor",ua:"актор"},
+  {en:"writer",ua:"письменник"},{en:"scientist",ua:"вчений"},{en:"engineer",ua:"інженер"},
+  {en:"lawyer",ua:"юрист"},{en:"pilot",ua:"пілот"},{en:"journalist",ua:"журналіст"},
+  {en:"volunteer",ua:"волонтер"},{en:"passenger",ua:"пасажир"},{en:"customer",ua:"клієнт"},
+
+  // ── NOUNS – Body ───────────────────────────────────────────────────────
+  {en:"head",ua:"голова"},{en:"face",ua:"обличчя"},{en:"eye",ua:"око"},
+  {en:"ear",ua:"вухо"},{en:"nose",ua:"ніс"},{en:"mouth",ua:"рот"},
+  {en:"lip",ua:"губа"},{en:"tooth",ua:"зуб"},{en:"tongue",ua:"язик"},
+  {en:"hair",ua:"волосся"},{en:"hand",ua:"рука"},{en:"finger",ua:"палець"},
+  {en:"foot",ua:"стопа"},{en:"leg",ua:"нога"},{en:"knee",ua:"коліно"},
+  {en:"back",ua:"спина"},{en:"chest",ua:"груди"},{en:"stomach",ua:"шлунок"},
+  {en:"heart",ua:"серце"},{en:"brain",ua:"мозок"},{en:"blood",ua:"кров"},
+  {en:"bone",ua:"кістка"},{en:"skin",ua:"шкіра"},{en:"shoulder",ua:"плече"},
+  {en:"neck",ua:"шия"},{en:"chin",ua:"підборіддя"},{en:"cheek",ua:"щока"},
+  {en:"forehead",ua:"лоб"},{en:"nail",ua:"ніготь"},{en:"elbow",ua:"лікоть"},
+  {en:"wrist",ua:"зап'ясток"},
+
+  // ── NOUNS – Animals ────────────────────────────────────────────────────
+  {en:"dog",ua:"собака"},{en:"cat",ua:"кіт"},{en:"horse",ua:"кінь"},
+  {en:"cow",ua:"корова"},{en:"pig",ua:"свиня"},{en:"sheep",ua:"вівця"},
+  {en:"chicken",ua:"курка"},{en:"bird",ua:"птах"},{en:"fish",ua:"риба"},
+  {en:"lion",ua:"лев"},{en:"tiger",ua:"тигр"},{en:"elephant",ua:"слон"},
+  {en:"bear",ua:"ведмідь"},{en:"wolf",ua:"вовк"},{en:"fox",ua:"лисиця"},
+  {en:"rabbit",ua:"кролик"},{en:"mouse",ua:"миша"},{en:"rat",ua:"щур"},
+  {en:"snake",ua:"змія"},{en:"frog",ua:"жаба"},{en:"turtle",ua:"черепаха"},
+  {en:"duck",ua:"качка"},{en:"eagle",ua:"орел"},{en:"monkey",ua:"мавпа"},
+  {en:"bee",ua:"бджола"},{en:"butterfly",ua:"метелик"},{en:"spider",ua:"павук"},
+  {en:"ant",ua:"мураха"},{en:"mosquito",ua:"комар"},{en:"whale",ua:"кит"},
+  {en:"dolphin",ua:"дельфін"},{en:"crocodile",ua:"крокодил"},{en:"giraffe",ua:"жираф"},
+  {en:"zebra",ua:"зебра"},{en:"deer",ua:"олень"},{en:"squirrel",ua:"білка"},
+  {en:"parrot",ua:"папуга"},{en:"owl",ua:"сова"},{en:"swan",ua:"лебідь"},
+  {en:"penguin",ua:"пінгвін"},{en:"camel",ua:"верблюд"},{en:"gorilla",ua:"горила"},
+
+  // ── NOUNS – Food & Drink ───────────────────────────────────────────────
+  {en:"food",ua:"їжа"},{en:"water",ua:"вода"},{en:"milk",ua:"молоко"},
+  {en:"bread",ua:"хліб"},{en:"rice",ua:"рис"},{en:"meat",ua:"м'ясо"},
+  {en:"egg",ua:"яйце"},{en:"butter",ua:"масло"},{en:"cheese",ua:"сир"},
+  {en:"sugar",ua:"цукор"},{en:"salt",ua:"сіль"},{en:"pepper",ua:"перець"},
+  {en:"oil",ua:"олія"},{en:"soup",ua:"суп"},{en:"salad",ua:"салат"},
+  {en:"fruit",ua:"фрукт"},{en:"apple",ua:"яблуко"},{en:"banana",ua:"банан"},
+  {en:"orange",ua:"апельсин"},{en:"lemon",ua:"лимон"},{en:"strawberry",ua:"полуниця"},
+  {en:"grape",ua:"виноград"},{en:"vegetable",ua:"овоч"},{en:"carrot",ua:"морква"},
+  {en:"potato",ua:"картопля"},{en:"tomato",ua:"помідор"},{en:"onion",ua:"цибуля"},
+  {en:"garlic",ua:"часник"},{en:"cake",ua:"торт"},{en:"coffee",ua:"кава"},
+  {en:"tea",ua:"чай"},{en:"juice",ua:"сік"},{en:"wine",ua:"вино"},
+  {en:"beer",ua:"пиво"},{en:"chocolate",ua:"шоколад"},{en:"pizza",ua:"піца"},
+  {en:"mushroom",ua:"гриб"},{en:"corn",ua:"кукурудза"},{en:"cucumber",ua:"огірок"},
+  {en:"cabbage",ua:"капуста"},{en:"berry",ua:"ягода"},{en:"cherry",ua:"вишня"},
+  {en:"peach",ua:"персик"},{en:"pear",ua:"груша"},{en:"watermelon",ua:"кавун"},
+  {en:"nut",ua:"горіх"},{en:"honey",ua:"мед"},{en:"jam",ua:"варення"},
+  {en:"flour",ua:"борошно"},{en:"pasta",ua:"паста"},{en:"sandwich",ua:"бутерброд"},
+  {en:"pineapple",ua:"ананас"},{en:"mango",ua:"манго"},
+
+  // ── NOUNS – Places ─────────────────────────────────────────────────────
+  {en:"home",ua:"дім"},{en:"house",ua:"будинок"},{en:"room",ua:"кімната"},
+  {en:"kitchen",ua:"кухня"},{en:"bedroom",ua:"спальня"},{en:"bathroom",ua:"ванна"},
+  {en:"garden",ua:"сад"},{en:"city",ua:"місто"},{en:"town",ua:"містечко"},
+  {en:"village",ua:"село"},{en:"country",ua:"країна"},{en:"world",ua:"світ"},
+  {en:"school",ua:"школа"},{en:"university",ua:"університет"},{en:"hospital",ua:"лікарня"},
+  {en:"hotel",ua:"готель"},{en:"restaurant",ua:"ресторан"},{en:"airport",ua:"аеропорт"},
+  {en:"station",ua:"станція"},{en:"market",ua:"ринок"},{en:"store",ua:"магазин"},
+  {en:"bank",ua:"банк"},{en:"church",ua:"церква"},{en:"park",ua:"парк"},
+  {en:"street",ua:"вулиця"},{en:"road",ua:"дорога"},{en:"bridge",ua:"міст"},
+  {en:"mountain",ua:"гора"},{en:"sea",ua:"море"},{en:"ocean",ua:"океан"},
+  {en:"lake",ua:"озеро"},{en:"river",ua:"річка"},{en:"forest",ua:"ліс"},
+  {en:"field",ua:"поле"},{en:"beach",ua:"пляж"},{en:"island",ua:"острів"},
+  {en:"desert",ua:"пустеля"},{en:"valley",ua:"долина"},{en:"hill",ua:"пагорб"},
+  {en:"cave",ua:"печера"},{en:"farm",ua:"ферма"},{en:"castle",ua:"фортеця"},
+  {en:"museum",ua:"музей"},{en:"theater",ua:"театр"},{en:"library",ua:"бібліотека"},
+  {en:"stadium",ua:"стадіон"},{en:"factory",ua:"завод"},{en:"office",ua:"офіс"},
+  {en:"prison",ua:"в'язниця"},{en:"gym",ua:"спортзал"},
+
+  // ── NOUNS – Nature ─────────────────────────────────────────────────────
+  {en:"sky",ua:"небо"},{en:"sun",ua:"сонце"},{en:"moon",ua:"місяць"},
+  {en:"star",ua:"зірка"},{en:"cloud",ua:"хмара"},{en:"rain",ua:"дощ"},
+  {en:"snow",ua:"сніг"},{en:"wind",ua:"вітер"},{en:"storm",ua:"буря"},
+  {en:"thunder",ua:"грім"},{en:"lightning",ua:"блискавка"},{en:"ice",ua:"лід"},
+  {en:"fog",ua:"туман"},{en:"temperature",ua:"температура"},{en:"weather",ua:"погода"},
+  {en:"earth",ua:"земля"},{en:"rock",ua:"скеля"},{en:"stone",ua:"камінь"},
+  {en:"sand",ua:"пісок"},{en:"fire",ua:"вогонь"},{en:"smoke",ua:"дим"},
+  {en:"wave",ua:"хвиля"},{en:"flower",ua:"квітка"},{en:"tree",ua:"дерево"},
+  {en:"grass",ua:"трава"},{en:"leaf",ua:"листок"},{en:"root",ua:"корінь"},
+  {en:"seed",ua:"насіння"},{en:"plant",ua:"рослина"},{en:"branch",ua:"гілка"},
+
+  // ── NOUNS – Objects ────────────────────────────────────────────────────
+  {en:"car",ua:"машина"},{en:"bus",ua:"автобус"},{en:"train",ua:"поїзд"},
+  {en:"boat",ua:"човен"},{en:"ship",ua:"корабель"},{en:"plane",ua:"літак"},
+  {en:"bike",ua:"велосипед"},{en:"door",ua:"двері"},{en:"window",ua:"вікно"},
+  {en:"wall",ua:"стіна"},{en:"floor",ua:"підлога"},{en:"roof",ua:"дах"},
+  {en:"table",ua:"стіл"},{en:"chair",ua:"стілець"},{en:"bed",ua:"ліжко"},
+  {en:"sofa",ua:"диван"},{en:"lamp",ua:"лампа"},{en:"book",ua:"книга"},
+  {en:"pen",ua:"ручка"},{en:"pencil",ua:"олівець"},{en:"paper",ua:"папір"},
+  {en:"letter",ua:"лист"},{en:"phone",ua:"телефон"},{en:"computer",ua:"комп'ютер"},
+  {en:"screen",ua:"екран"},{en:"camera",ua:"камера"},{en:"television",ua:"телевізор"},
+  {en:"key",ua:"ключ"},{en:"bag",ua:"сумка"},{en:"box",ua:"коробка"},
+  {en:"bottle",ua:"пляшка"},{en:"cup",ua:"чашка"},{en:"glass",ua:"склянка"},
+  {en:"plate",ua:"тарілка"},{en:"knife",ua:"ніж"},{en:"fork",ua:"виделка"},
+  {en:"spoon",ua:"ложка"},{en:"clock",ua:"годинник"},{en:"mirror",ua:"дзеркало"},
+  {en:"towel",ua:"рушник"},{en:"soap",ua:"мило"},{en:"brush",ua:"щітка"},
+  {en:"umbrella",ua:"парасоля"},{en:"hat",ua:"капелюх"},{en:"shirt",ua:"сорочка"},
+  {en:"pants",ua:"штани"},{en:"dress",ua:"сукня"},{en:"shoe",ua:"черевик"},
+  {en:"sock",ua:"шкарпетка"},{en:"jacket",ua:"куртка"},{en:"coat",ua:"пальто"},
+  {en:"glove",ua:"рукавичка"},{en:"ring",ua:"кільце"},{en:"money",ua:"гроші"},
+  {en:"coin",ua:"монета"},{en:"card",ua:"картка"},{en:"ticket",ua:"квиток"},
+  {en:"map",ua:"карта"},{en:"flag",ua:"прапор"},{en:"gift",ua:"подарунок"},
+  {en:"toy",ua:"іграшка"},{en:"ball",ua:"м'яч"},{en:"photo",ua:"фото"},
+  {en:"tool",ua:"інструмент"},{en:"engine",ua:"двигун"},{en:"wheel",ua:"колесо"},
+  {en:"button",ua:"кнопка"},{en:"machine",ua:"механізм"},{en:"ladder",ua:"драбина"},
+  {en:"rope",ua:"мотузка"},{en:"chain",ua:"ланцюг"},
+
+  // ── NOUNS – Abstract ───────────────────────────────────────────────────
+  {en:"idea",ua:"ідея"},{en:"plan",ua:"план"},{en:"problem",ua:"проблема"},
+  {en:"answer",ua:"відповідь"},{en:"question",ua:"питання"},{en:"reason",ua:"причина"},
+  {en:"result",ua:"результат"},{en:"example",ua:"приклад"},{en:"information",ua:"інформація"},
+  {en:"news",ua:"новини"},{en:"story",ua:"розповідь"},{en:"truth",ua:"правда"},
+  {en:"lie",ua:"брехня"},{en:"dream",ua:"мрія"},{en:"hope",ua:"надія"},
+  {en:"fear",ua:"страх"},{en:"love",ua:"кохання"},{en:"hate",ua:"ненависть"},
+  {en:"joy",ua:"радість"},{en:"sadness",ua:"сум"},{en:"anger",ua:"злість"},
+  {en:"peace",ua:"мир"},{en:"war",ua:"війна"},{en:"freedom",ua:"свобода"},
+  {en:"power",ua:"сила"},{en:"knowledge",ua:"знання"},{en:"experience",ua:"досвід"},
+  {en:"memory",ua:"пам'ять"},{en:"choice",ua:"вибір"},{en:"chance",ua:"шанс"},
+  {en:"risk",ua:"ризик"},{en:"success",ua:"успіх"},{en:"failure",ua:"невдача"},
+  {en:"effort",ua:"зусилля"},{en:"progress",ua:"прогрес"},{en:"difference",ua:"різниця"},
+  {en:"importance",ua:"важливість"},{en:"value",ua:"цінність"},{en:"quality",ua:"якість"},
+  {en:"quantity",ua:"кількість"},{en:"price",ua:"ціна"},{en:"profit",ua:"прибуток"},
+  {en:"loss",ua:"втрата"},{en:"space",ua:"простір"},{en:"language",ua:"мова"},
+  {en:"word",ua:"слово"},{en:"sentence",ua:"речення"},{en:"number",ua:"число"},
+  {en:"name",ua:"ім'я"},{en:"color",ua:"колір"},{en:"shape",ua:"форма"},
+  {en:"size",ua:"розмір"},{en:"weight",ua:"вага"},{en:"age",ua:"вік"},
+  {en:"health",ua:"здоров'я"},{en:"beauty",ua:"краса"},{en:"strength",ua:"міцність"},
+  {en:"speed",ua:"швидкість"},{en:"distance",ua:"відстань"},{en:"direction",ua:"напрямок"},
+  {en:"level",ua:"рівень"},{en:"step",ua:"крок"},{en:"way",ua:"шлях"},
+  {en:"method",ua:"метод"},{en:"system",ua:"система"},{en:"process",ua:"процес"},
+  {en:"situation",ua:"ситуація"},{en:"condition",ua:"умова"},{en:"rule",ua:"правило"},
+  {en:"law",ua:"закон"},{en:"right",ua:"право"},{en:"relationship",ua:"стосунки"},
+  {en:"goal",ua:"мета"},{en:"task",ua:"завдання"},{en:"purpose",ua:"ціль"},
+  {en:"advantage",ua:"перевага"},{en:"opinion",ua:"думка"},{en:"belief",ua:"переконання"},
+  {en:"agreement",ua:"угода"},{en:"argument",ua:"суперечка"},{en:"decision",ua:"рішення"},
+  {en:"mistake",ua:"помилка"},{en:"accident",ua:"випадок"},{en:"event",ua:"подія"},
+  {en:"meeting",ua:"зустріч"},{en:"journey",ua:"подорож"},{en:"adventure",ua:"пригода"},
+  {en:"mystery",ua:"загадка"},{en:"invention",ua:"винахід"},{en:"surprise",ua:"сюрприз"},
+  {en:"prize",ua:"приз"},{en:"reward",ua:"нагорода"},{en:"opportunity",ua:"нагода"},
+
+  // ── NOUNS – Society / Work ─────────────────────────────────────────────
+  {en:"culture",ua:"культура"},{en:"tradition",ua:"традиція"},{en:"religion",ua:"релігія"},
+  {en:"society",ua:"суспільство"},{en:"economy",ua:"економіка"},{en:"industry",ua:"промисловість"},
+  {en:"energy",ua:"енергія"},{en:"electricity",ua:"електрика"},{en:"technology",ua:"технологія"},
+  {en:"science",ua:"наука"},{en:"education",ua:"освіта"},{en:"art",ua:"мистецтво"},
+  {en:"music",ua:"музика"},{en:"sport",ua:"спорт"},{en:"politics",ua:"політика"},
+  {en:"government",ua:"уряд"},{en:"election",ua:"вибори"},{en:"history",ua:"історія"},
+  {en:"media",ua:"медіа"},{en:"advertisement",ua:"реклама"},{en:"career",ua:"кар'єра"},
+  {en:"job",ua:"робота"},{en:"salary",ua:"зарплата"},{en:"project",ua:"проект"},
+  {en:"team",ua:"команда"},{en:"boss",ua:"бос"},{en:"employee",ua:"працівник"},
+  {en:"interview",ua:"інтерв'ю"},{en:"report",ua:"звіт"},{en:"contract",ua:"контракт"},
+  {en:"company",ua:"компанія"},{en:"business",ua:"бізнес"},
+
+  // ── NOUNS – Education ──────────────────────────────────────────────────
+  {en:"class",ua:"клас"},{en:"lesson",ua:"урок"},{en:"subject",ua:"предмет"},
+  {en:"math",ua:"математика"},{en:"geography",ua:"географія"},{en:"literature",ua:"література"},
+  {en:"physics",ua:"фізика"},{en:"chemistry",ua:"хімія"},{en:"biology",ua:"біологія"},
+  {en:"exam",ua:"іспит"},{en:"grade",ua:"оцінка"},{en:"diploma",ua:"диплом"},
+  {en:"homework",ua:"домашнє завдання"},{en:"experiment",ua:"експеримент"},
+  {en:"theory",ua:"теорія"},{en:"research",ua:"дослідження"},
+
+  // ── NOUNS – Numbers ────────────────────────────────────────────────────
+  {en:"zero",ua:"нуль"},{en:"one",ua:"один"},{en:"two",ua:"два"},
+  {en:"three",ua:"три"},{en:"four",ua:"чотири"},{en:"five",ua:"п'ять"},
+  {en:"six",ua:"шість"},{en:"seven",ua:"сім"},{en:"eight",ua:"вісім"},
+  {en:"nine",ua:"дев'ять"},{en:"ten",ua:"десять"},{en:"hundred",ua:"сто"},
+  {en:"thousand",ua:"тисяча"},{en:"million",ua:"мільйон"},{en:"half",ua:"половина"},
+  {en:"quarter",ua:"чверть"},
+
+  // ── NOUNS – Other ──────────────────────────────────────────────────────
+  {en:"part",ua:"частина"},{en:"type",ua:"тип"},{en:"group",ua:"група"},
+  {en:"member",ua:"учасник"},{en:"point",ua:"точка"},{en:"line",ua:"лінія"},
+  {en:"area",ua:"площа"},{en:"side",ua:"сторона"},{en:"end",ua:"кінець"},
+  {en:"beginning",ua:"початок"},{en:"middle",ua:"середина"},{en:"top",ua:"верхівка"},
+  {en:"bottom",ua:"дно"},{en:"center",ua:"центр"},{en:"edge",ua:"край"},
+  {en:"corner",ua:"кут"},{en:"surface",ua:"поверхня"},{en:"material",ua:"матеріал"},
+  {en:"metal",ua:"метал"},{en:"wood",ua:"деревина"},{en:"plastic",ua:"пластик"},
+  {en:"fabric",ua:"тканина"},{en:"cotton",ua:"бавовна"},{en:"wool",ua:"вовна"},
+  {en:"silk",ua:"шовк"},{en:"rubber",ua:"гума"},
+
+  // ── ADJECTIVES ─────────────────────────────────────────────────────────
+  {en:"good",ua:"добрий"},{en:"bad",ua:"поганий"},{en:"big",ua:"великий"},
+  {en:"small",ua:"маленький"},{en:"long",ua:"довгий"},{en:"short",ua:"короткий"},
+  {en:"tall",ua:"високий"},{en:"wide",ua:"широкий"},{en:"narrow",ua:"вузький"},
+  {en:"deep",ua:"глибокий"},{en:"thick",ua:"товстий"},{en:"thin",ua:"тонкий"},
+  {en:"heavy",ua:"важкий"},{en:"light",ua:"легкий"},{en:"fast",ua:"швидкий"},
+  {en:"slow",ua:"повільний"},{en:"hot",ua:"гарячий"},{en:"cold",ua:"холодний"},
+  {en:"warm",ua:"теплий"},{en:"cool",ua:"прохолодний"},{en:"hard",ua:"твердий"},
+  {en:"soft",ua:"м'який"},{en:"old",ua:"старий"},{en:"young",ua:"молодий"},
+  {en:"new",ua:"новий"},{en:"ancient",ua:"стародавній"},{en:"modern",ua:"сучасний"},
+  {en:"early",ua:"ранній"},{en:"late",ua:"пізній"},{en:"first",ua:"перший"},
+  {en:"last",ua:"останній"},{en:"next",ua:"наступний"},{en:"near",ua:"близький"},
+  {en:"far",ua:"далекий"},{en:"full",ua:"повний"},{en:"empty",ua:"порожній"},
+  {en:"clean",ua:"чистий"},{en:"dirty",ua:"брудний"},{en:"beautiful",ua:"красивий"},
+  {en:"ugly",ua:"потворний"},{en:"nice",ua:"приємний"},{en:"kind",ua:"лагідний"},
+  {en:"cruel",ua:"жорстокий"},{en:"brave",ua:"хоробрий"},{en:"afraid",ua:"наляканий"},
+  {en:"happy",ua:"щасливий"},{en:"sad",ua:"сумний"},{en:"angry",ua:"злий"},
+  {en:"excited",ua:"схвильований"},{en:"boring",ua:"нудний"},{en:"interesting",ua:"цікавий"},
+  {en:"funny",ua:"смішний"},{en:"strange",ua:"дивний"},{en:"wonderful",ua:"чудовий"},
+  {en:"terrible",ua:"жахливий"},{en:"excellent",ua:"відмінний"},{en:"perfect",ua:"ідеальний"},
+  {en:"important",ua:"важливий"},{en:"necessary",ua:"необхідний"},{en:"possible",ua:"можливий"},
+  {en:"impossible",ua:"неможливий"},{en:"difficult",ua:"складний"},{en:"easy",ua:"простий"},
+  {en:"correct",ua:"правильний"},{en:"wrong",ua:"неправильний"},{en:"true",ua:"правдивий"},
+  {en:"false",ua:"хибний"},{en:"real",ua:"реальний"},{en:"fake",ua:"фальшивий"},
+  {en:"safe",ua:"безпечний"},{en:"dangerous",ua:"небезпечний"},{en:"sick",ua:"хворий"},
+  {en:"healthy",ua:"здоровий"},{en:"tired",ua:"втомлений"},{en:"hungry",ua:"голодний"},
+  {en:"thirsty",ua:"спраглий"},{en:"rich",ua:"багатий"},{en:"poor",ua:"бідний"},
+  {en:"expensive",ua:"дорогий"},{en:"cheap",ua:"дешевий"},{en:"free",ua:"вільний"},
+  {en:"busy",ua:"зайнятий"},{en:"ready",ua:"готовий"},{en:"same",ua:"однаковий"},
+  {en:"different",ua:"різний"},{en:"similar",ua:"схожий"},{en:"special",ua:"особливий"},
+  {en:"common",ua:"звичайний"},{en:"rare",ua:"рідкісний"},{en:"popular",ua:"популярний"},
+  {en:"famous",ua:"відомий"},{en:"secret",ua:"секретний"},{en:"public",ua:"публічний"},
+  {en:"private",ua:"приватний"},{en:"local",ua:"місцевий"},{en:"national",ua:"національний"},
+  {en:"international",ua:"міжнародний"},{en:"natural",ua:"природній"},{en:"artificial",ua:"штучний"},
+  {en:"fresh",ua:"свіжий"},{en:"frozen",ua:"заморожений"},{en:"raw",ua:"сирий"},
+  {en:"sweet",ua:"солодкий"},{en:"sour",ua:"кислий"},{en:"bitter",ua:"гіркий"},
+  {en:"salty",ua:"солоний"},{en:"spicy",ua:"пряний"},{en:"delicious",ua:"смачний"},
+  {en:"strong",ua:"сильний"},{en:"weak",ua:"слабкий"},{en:"whole",ua:"цілий"},
+  {en:"broken",ua:"зламаний"},{en:"dead",ua:"мертвий"},{en:"alive",ua:"живий"},
+  {en:"lost",ua:"загублений"},{en:"clear",ua:"ясний"},{en:"dark",ua:"темний"},
+  {en:"bright",ua:"яскравий"},{en:"quiet",ua:"тихий"},{en:"loud",ua:"гучний"},
+  {en:"wet",ua:"мокрий"},{en:"dry",ua:"сухий"},{en:"sharp",ua:"гострий"},
+  {en:"round",ua:"круглий"},{en:"flat",ua:"плоский"},{en:"straight",ua:"прямий"},
+  {en:"rough",ua:"шорсткий"},{en:"smooth",ua:"гладкий"},{en:"tight",ua:"щільний"},
+  {en:"smart",ua:"розумний"},{en:"stupid",ua:"дурний"},{en:"clever",ua:"кмітливий"},
+  {en:"wise",ua:"мудрий"},{en:"honest",ua:"чесний"},{en:"polite",ua:"ввічливий"},
+  {en:"rude",ua:"грубий"},{en:"friendly",ua:"привітний"},{en:"shy",ua:"сором'язливий"},
+  {en:"confident",ua:"впевнений"},{en:"nervous",ua:"нервовий"},{en:"calm",ua:"спокійний"},
+  {en:"serious",ua:"серйозний"},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий"},
+  {en:"hardworking",ua:"працьовитий"},{en:"creative",ua:"творчий"},{en:"logical",ua:"логічний"},
+  {en:"romantic",ua:"романтичний"},{en:"practical",ua:"практичний"},{en:"political",ua:"політичний"},
+  {en:"economic",ua:"економічний"},{en:"social",ua:"соціальний"},{en:"cultural",ua:"культурний"},
+  {en:"scientific",ua:"науковий"},{en:"medical",ua:"медичний"},{en:"legal",ua:"законний"},
+  {en:"financial",ua:"фінансовий"},{en:"digital",ua:"цифровий"},{en:"electric",ua:"електричний"},
+  {en:"physical",ua:"фізичний"},{en:"mental",ua:"ментальний"},{en:"emotional",ua:"емоційний"},
+  {en:"general",ua:"загальний"},{en:"specific",ua:"конкретний"},{en:"basic",ua:"основний"},
+  {en:"main",ua:"головний"},{en:"central",ua:"центральний"},{en:"original",ua:"оригінальний"},
+  {en:"normal",ua:"нормальний"},{en:"regular",ua:"регулярний"},{en:"typical",ua:"типовий"},
+  {en:"extreme",ua:"екстремальний"},{en:"previous",ua:"попередній"},{en:"open",ua:"відкритий"},
+  {en:"closed",ua:"закритий"},
+
+  // ── ADVERBS ────────────────────────────────────────────────────────────
+  {en:"very",ua:"дуже"},{en:"really",ua:"справді"},{en:"quite",ua:"досить"},
+  {en:"almost",ua:"майже"},{en:"always",ua:"завжди"},{en:"never",ua:"ніколи"},
+  {en:"sometimes",ua:"іноді"},{en:"often",ua:"часто"},{en:"rarely",ua:"рідко"},
+  {en:"usually",ua:"зазвичай"},{en:"already",ua:"вже"},{en:"still",ua:"ще"},
+  {en:"soon",ua:"скоро"},{en:"again",ua:"знову"},{en:"also",ua:"також"},
+  {en:"too",ua:"теж"},{en:"enough",ua:"достатньо"},{en:"probably",ua:"мабуть"},
+  {en:"maybe",ua:"можливо"},{en:"certainly",ua:"звичайно"},{en:"here",ua:"тут"},
+  {en:"there",ua:"там"},{en:"everywhere",ua:"скрізь"},{en:"nowhere",ua:"ніде"},
+  {en:"somewhere",ua:"десь"},{en:"outside",ua:"зовні"},{en:"inside",ua:"всередині"},
+  {en:"above",ua:"вгорі"},{en:"below",ua:"внизу"},{en:"now",ua:"зараз"},
+  {en:"then",ua:"тоді"},{en:"quickly",ua:"швидко"},{en:"slowly",ua:"повільно"},
+  {en:"carefully",ua:"обережно"},{en:"easily",ua:"легко"},{en:"well",ua:"добре"},
+  {en:"badly",ua:"погано"},{en:"loudly",ua:"голосно"},{en:"quietly",ua:"тихо"},
+  {en:"suddenly",ua:"раптово"},{en:"finally",ua:"нарешті"},{en:"together",ua:"разом"},
+  {en:"alone",ua:"один"},{en:"simply",ua:"просто"},{en:"exactly",ua:"точно"},
+  {en:"recently",ua:"нещодавно"},{en:"clearly",ua:"чітко"},{en:"deeply",ua:"глибоко"},
+  {en:"strongly",ua:"сильно"},{en:"especially",ua:"особливо"},{en:"mostly",ua:"переважно"},
+  {en:"however",ua:"однак"},{en:"therefore",ua:"тому"},{en:"instead",ua:"натомість"},
+  {en:"otherwise",ua:"інакше"},{en:"yet",ua:"ще"},{en:"even",ua:"навіть"},
+  {en:"only",ua:"тільки"},{en:"forward",ua:"вперед"},{en:"backward",ua:"назад"},
+  {en:"nearby",ua:"поруч"},{en:"apart",ua:"окремо"}
+];
+// ── END WORD BANK ──────────────────────────────────────────────────────────
+
+const gameEl      = document.getElementById("game");
+const startScreen = document.getElementById("start-screen");
+const endScreen   = document.getElementById("end-screen");
+const wordDisplay = document.getElementById("word-display");
+const answerEl    = document.getElementById("answer");
+const timerEl     = document.getElementById("timer");
+const scoreEl     = document.getElementById("score");
+const finalScoreEl= document.getElementById("final-score");
+const summaryEl   = document.getElementById("summary");
+const listEl      = document.getElementById("results-list");
+const modeHintEl  = document.getElementById("mode-hint");
+const tabAll      = document.getElementById("tab-all");
+const tabBad      = document.getElementById("tab-bad");
+const btnUaEn     = document.getElementById("btn-ua-en");
+const btnEnUa     = document.getElementById("btn-en-ua");
+
+let mode = "ua-en";   // "ua-en" | "en-ua"
+let score = 0;
+let timeLeft = DURATION;
+let currentWord = null;
+let intervalId = null;
+let records = [];
+let currentFilter = "all";
+let usedIndices = [];
+
+function setMode(m) {
+  mode = m;
+  btnUaEn.classList.toggle("active", m === "ua-en");
+  btnEnUa.classList.toggle("active", m === "en-ua");
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+let shuffledIndices = [];
+let shufflePos = 0;
+
+function nextWord() {
+  if (shufflePos >= shuffledIndices.length) {
+    shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
+    shufflePos = 0;
+  }
+  currentWord = WORDS[shuffledIndices[shufflePos++]];
+  const shown = mode === "ua-en" ? currentWord.ua : currentWord.en;
+  wordDisplay.textContent = shown;
+  answerEl.value = "";
+  answerEl.focus();
+}
+
+function isCorrect(input) {
+  const inp = input.toLowerCase().trim();
+  if (inp === "") return false;
+  if (mode === "en-ua") {
+    // accept any UA translation for this EN word (covers verb/noun/adj duplicates)
+    return WORDS.some(w => w.en === currentWord.en && w.ua.toLowerCase() === inp);
+  } else {
+    // accept any EN word that shares the same Ukrainian translation
+    return WORDS.some(w => w.ua === currentWord.ua && w.en.toLowerCase() === inp);
+  }
+}
+
+function getCorrectAnswer() {
+  if (mode === "ua-en") {
+    const alts = [...new Set(WORDS.filter(w => w.ua === currentWord.ua).map(w => w.en))];
+    return alts.join(" / ");
+  } else {
+    const alts = [...new Set(WORDS.filter(w => w.en === currentWord.en).map(w => w.ua))];
+    return alts.join(" / ");
+  }
+}
+
+function handleInput() {
+  if (answerEl.value === "") return;
+  if (isCorrect(answerEl.value)) {
+    recordAnswer(answerEl.value, "correct");
+    nextWord();
+  }
+}
+
+function submitAnswer() {
+  if (answerEl.value.trim() === "") { skipWord(); return; }
+  const correct = isCorrect(answerEl.value);
+  recordAnswer(answerEl.value, correct ? "correct" : "wrong");
+  nextWord();
+}
+
+function skipWord() {
+  recordAnswer(null, "skipped");
+  nextWord();
+}
+
+function recordAnswer(userVal, status) {
+  records.push({
+    shown: mode === "ua-en" ? currentWord.ua : currentWord.en,
+    correct: getCorrectAnswer(),
+    user: userVal,
+    status: status
+  });
+  if (status === "correct") { score++; scoreEl.textContent = score; }
+}
+
+function tick() {
+  timeLeft--;
+  timerEl.textContent = timeLeft;
+  if (timeLeft <= 10) timerEl.classList.add("low");
+  if (timeLeft <= 0) endGame();
+}
+
+function startGame() {
+  score = 0; timeLeft = DURATION; records = [];
+  currentFilter = "all";
+  scoreEl.textContent = "0";
+  timerEl.textContent = DURATION;
+  timerEl.classList.remove("low");
+  shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
+  shufflePos = 0;
+
+  modeHintEl.textContent = mode === "ua-en"
+    ? "Перекладіть англійською:"
+    : "Перекладіть українською:";
+
+  startScreen.classList.add("hidden");
+  endScreen.classList.add("hidden");
+  gameEl.classList.remove("hidden");
+
+  nextWord();
+  intervalId = setInterval(tick, 1000);
+}
+
+function endGame() {
+  clearInterval(intervalId);
+  gameEl.classList.add("hidden");
+  finalScoreEl.textContent = score;
+  const wrong   = records.filter(r => r.status === "wrong").length;
+  const skipped = records.filter(r => r.status === "skipped").length;
+  summaryEl.textContent =
+    "Правильних: " + score + " · Помилок: " + wrong + " · Пропущено: " + skipped;
+  setFilter("all");
+  endScreen.classList.remove("hidden");
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  tabAll.classList.toggle("active", f === "all");
+  tabBad.classList.toggle("active", f === "bad");
+  renderList();
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function renderList() {
+  const rows = records.filter(r =>
+    currentFilter === "all" ? true : r.status !== "correct");
+
+  if (rows.length === 0) {
+    listEl.innerHTML = '<div class="empty">' +
+      (currentFilter === "bad"
+        ? "Жодної помилки чи пропуску — чудово!"
+        : "Тут поки порожньо.") + "</div>";
+    return;
+  }
+
+  listEl.innerHTML = rows.map(r => {
+    const pair = esc(r.shown) + " = " + esc(r.correct);
+    if (r.status === "correct") {
+      return '<div class="row correct"><span>' + pair +
+             '</span><span class="mark">✓</span></div>';
+    } else if (r.status === "wrong") {
+      return '<div class="row wrong"><span>' + pair +
+             '</span><span class="mark">твоя: ' + esc(r.user) + ' ✗</span></div>';
+    } else {
+      return '<div class="row skipped"><span>' + pair +
+             '</span><span class="mark">пропущено</span></div>';
+    }
+  }).join("");
+}
+
+answerEl.addEventListener("input", handleInput);
+answerEl.addEventListener("keydown", e => { if (e.key === "Enter") submitAnswer(); });
+document.getElementById("skip-btn").addEventListener("click", skipWord);
+document.getElementById("start-btn").addEventListener("click", startGame);
+document.getElementById("restart-btn").addEventListener("click", () => {
+  endScreen.classList.add("hidden");
+  startScreen.classList.remove("hidden");
+});
+tabAll.addEventListener("click", () => setFilter("all"));
+tabBad.addEventListener("click", () => setFilter("bad"));
+btnUaEn.addEventListener("click", () => setMode("ua-en"));
+btnEnUa.addEventListener("click", () => setMode("en-ua"));
+</script>
+</body>
+</html>
