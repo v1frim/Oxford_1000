@@ -1425,19 +1425,12 @@ const EXAMPLES = {
 function speak(word) {
   if (!window.speechSynthesis) return;
   const synth = window.speechSynthesis;
-  const make = () => {
-    const u = new SpeechSynthesisUtterance(word);
-    u.lang = "en-US";
-    u.rate = 0.85;
-    synth.speak(u);
-  };
-  if (synth.speaking || synth.pending) {
-    synth.cancel();
-    setTimeout(make, 60);
-  } else {
-    if (synth.paused) synth.resume();
-    make();
-  }
+  synth.cancel();
+  if (synth.paused) synth.resume();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = "en-US";
+  u.rate = 0.85;
+  synth.speak(u);
 }
 
 const gameEl         = document.getElementById("game");
