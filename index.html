@@ -1424,13 +1424,20 @@ const EXAMPLES = {
 
 function speak(word) {
   if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  setTimeout(() => {
+  const synth = window.speechSynthesis;
+  const make = () => {
     const u = new SpeechSynthesisUtterance(word);
     u.lang = "en-US";
     u.rate = 0.85;
-    window.speechSynthesis.speak(u);
-  }, 50);
+    synth.speak(u);
+  };
+  if (synth.speaking || synth.pending) {
+    synth.cancel();
+    setTimeout(make, 60);
+  } else {
+    if (synth.paused) synth.resume();
+    make();
+  }
 }
 
 const gameEl         = document.getElementById("game");
