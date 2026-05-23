@@ -157,6 +157,7 @@
   }
   .correction .corr-label { opacity: 0.75; font-size: 13px; }
   .correction .corr-answer { font-weight: 700; font-size: 18px; color: #ffd166; }
+  .correction .corr-trans { font-size: 15px; opacity: 0.8; font-family: monospace; letter-spacing: 0.4px; margin-top: 2px; }
   .correction .corr-hint { font-size: 13px; opacity: 0.65; margin-top: 4px; }
   #answer.wrong { outline-color: #ff6b6b !important; }
   @keyframes popIn {
@@ -195,6 +196,7 @@
     <div id="correction" class="correction hidden">
       <div class="corr-label">Правильна відповідь:</div>
       <div class="corr-answer" id="correction-answer"></div>
+      <div class="corr-trans" id="correction-trans"></div>
       <div class="corr-hint">Enter або «Пропустити» — далі</div>
     </div>
   </div>
@@ -591,6 +593,300 @@ const WORDS = [
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
+// ── IPA TRANSCRIPTIONS (American English) ──────────────────────────────────
+const TRANS = {
+  // Verbs
+  "be":"/biː/","have":"/hæv/","do":"/duː/","say":"/seɪ/","go":"/ɡoʊ/",
+  "get":"/ɡɛt/","make":"/meɪk/","know":"/noʊ/","think":"/θɪŋk/","take":"/teɪk/",
+  "come":"/kʌm/","see":"/siː/","want":"/wɑːnt/","look":"/lʊk/","use":"/juːz/",
+  "find":"/faɪnd/","give":"/ɡɪv/","tell":"/tɛl/","work":"/wɜːrk/","call":"/kɔːl/",
+  "try":"/traɪ/","ask":"/æsk/","need":"/niːd/","feel":"/fiːl/","become":"/bɪˈkʌm/",
+  "leave":"/liːv/","put":"/pʊt/","keep":"/kiːp/","let":"/lɛt/","begin":"/bɪˈɡɪn/",
+  "show":"/ʃoʊ/","hear":"/hɪr/","play":"/pleɪ/","run":"/rʌn/","move":"/muːv/",
+  "live":"/lɪv/","believe":"/bɪˈliːv/","hold":"/hoʊld/","bring":"/brɪŋ/",
+  "write":"/raɪt/","sit":"/sɪt/","stand":"/stænd/","lose":"/luːz/","pay":"/peɪ/",
+  "meet":"/miːt/","learn":"/lɜːrn/","change":"/tʃeɪndʒ/","understand":"/ˌʌndərˈstænd/",
+  "watch":"/wɑːtʃ/","follow":"/ˈfɑːloʊ/","stop":"/stɑːp/","create":"/kriˈeɪt/",
+  "read":"/riːd/","grow":"/ɡroʊ/","open":"/ˈoʊpən/","walk":"/wɔːk/","win":"/wɪn/",
+  "remember":"/rɪˈmɛmbər/","love":"/lʌv/","buy":"/baɪ/","wait":"/weɪt/",
+  "die":"/daɪ/","send":"/sɛnd/","build":"/bɪld/","stay":"/steɪ/","fall":"/fɔːl/",
+  "cut":"/kʌt/","reach":"/riːtʃ/","pass":"/pæs/","sell":"/sɛl/","decide":"/dɪˈsaɪd/",
+  "break":"/breɪk/","eat":"/iːt/","drink":"/drɪŋk/","sleep":"/sliːp/",
+  "help":"/hɛlp/","talk":"/tɔːk/","turn":"/tɜːrn/","start":"/stɑːrt/",
+  "carry":"/ˈkæri/","drive":"/draɪv/","fly":"/flaɪ/","swim":"/swɪm/",
+  "jump":"/dʒʌmp/","smile":"/smaɪl/","laugh":"/læf/","cry":"/kraɪ/",
+  "fight":"/faɪt/","dance":"/dæns/","sing":"/sɪŋ/","cook":"/kʊk/",
+  "clean":"/kliːn/","close":"/kloʊz/","choose":"/tʃuːz/","check":"/tʃɛk/",
+  "count":"/kaʊnt/","cover":"/ˈkʌvər/","climb":"/klaɪm/","collect":"/kəˈlɛkt/",
+  "complete":"/kəmˈpliːt/","connect":"/kəˈnɛkt/","control":"/kənˈtroʊl/",
+  "copy":"/ˈkɑːpi/","cost":"/kɔːst/","cross":"/krɔːs/","depend":"/dɪˈpɛnd/",
+  "describe":"/dɪˈskraɪb/","develop":"/dɪˈvɛləp/","draw":"/drɔː/","drop":"/drɑːp/",
+  "enjoy":"/ɪnˈdʒɔɪ/","enter":"/ˈɛntər/","exist":"/ɪɡˈzɪst/","expect":"/ɪkˈspɛkt/",
+  "explain":"/ɪkˈspleɪn/","express":"/ɪkˈsprɛs/","fail":"/feɪl/","fill":"/fɪl/",
+  "finish":"/ˈfɪnɪʃ/","fix":"/fɪks/","happen":"/ˈhæpən/","imagine":"/ɪˈmædʒɪn/",
+  "improve":"/ɪmˈpruːv/","include":"/ɪnˈkluːd/","increase":"/ɪnˈkriːs/",
+  "join":"/dʒɔɪn/","kill":"/kɪl/","pull":"/pʊl/","push":"/pʊʃ/","raise":"/reɪz/",
+  "receive":"/rɪˈsiːv/","reduce":"/rɪˈduːs/","remove":"/rɪˈmuːv/","repeat":"/rɪˈpiːt/",
+  "replace":"/rɪˈpleɪs/","rest":"/rɛst/","return":"/rɪˈtɜːrn/","rise":"/raɪz/",
+  "save":"/seɪv/","share":"/ʃɛr/","solve":"/sɑːlv/","spend":"/spɛnd/",
+  "support":"/səˈpɔːrt/","teach":"/tiːtʃ/","throw":"/θroʊ/","travel":"/ˈtrævəl/",
+  "visit":"/ˈvɪzɪt/","accept":"/əkˈsɛpt/","achieve":"/əˈtʃiːv/","add":"/æd/",
+  "agree":"/əˈɡriː/","allow":"/əˈlaʊ/","answer":"/ˈænsər/","appear":"/əˈpɪr/",
+  "apply":"/əˈplaɪ/","attack":"/əˈtæk/","avoid":"/əˈvɔɪd/","breathe":"/briːð/",
+  "catch":"/kætʃ/","celebrate":"/ˈsɛlɪbreɪt/","continue":"/kənˈtɪnjuː/",
+  "defeat":"/dɪˈfiːt/","deliver":"/dɪˈlɪvər/","design":"/dɪˈzaɪn/",
+  "discover":"/dɪˈskʌvər/","divide":"/dɪˈvaɪd/","earn":"/ɜːrn/",
+  "escape":"/ɪˈskeɪp/","feed":"/fiːd/","forget":"/fərˈɡɛt/","guess":"/ɡɛs/",
+  "hit":"/hɪt/","hurt":"/hɜːrt/","ignore":"/ɪɡˈnɔːr/","inform":"/ɪnˈfɔːrm/",
+  "introduce":"/ˌɪntrəˈduːs/","invite":"/ɪnˈvaɪt/","kick":"/kɪk/","kiss":"/kɪs/",
+  "knock":"/nɑːk/","land":"/lænd/","lock":"/lɑːk/","miss":"/mɪs/","mix":"/mɪks/",
+  "order":"/ˈɔːrdər/","organize":"/ˈɔːrɡənaɪz/","own":"/oʊn/","prefer":"/prɪˈfɜːr/",
+  "prepare":"/prɪˈpɛr/","prevent":"/prɪˈvɛnt/","produce":"/prəˈduːs/",
+  "protect":"/prəˈtɛkt/","prove":"/pruːv/","provide":"/prəˈvaɪd/",
+  "publish":"/ˈpʌblɪʃ/","realize":"/ˈriːəlaɪz/","recognize":"/ˈrɛkəɡnaɪz/",
+  "record":"/rɪˈkɔːrd/","refuse":"/rɪˈfjuːz/","release":"/rɪˈliːs/","rent":"/rɛnt/",
+  "report":"/rɪˈpɔːrt/","require":"/rɪˈkwaɪər/","search":"/sɜːrtʃ/",
+  "speak":"/spiːk/","suggest":"/səˈdʒɛst/","survive":"/sərˈvaɪv/",
+  "trust":"/trʌst/","warn":"/wɔːrn/","wonder":"/ˈwʌndər/","wake":"/weɪk/",
+  "type":"/taɪp/","test":"/tɛst/",
+  // Time
+  "time":"/taɪm/","year":"/jɪr/","month":"/mʌnθ/","week":"/wiːk/","day":"/deɪ/",
+  "hour":"/ˈaʊər/","minute":"/ˈmɪnɪt/","second":"/ˈsɛkənd/","morning":"/ˈmɔːrnɪŋ/",
+  "afternoon":"/ˌæftərˈnuːn/","evening":"/ˈiːvnɪŋ/","night":"/naɪt/",
+  "season":"/ˈsiːzən/","spring":"/sprɪŋ/","summer":"/ˈsʌmər/",
+  "autumn":"/ˈɔːtəm/","winter":"/ˈwɪntər/","century":"/ˈsɛntʃuri/",
+  "decade":"/ˈdɛkeɪd/","moment":"/ˈmoʊmənt/","period":"/ˈpɪriəd/",
+  "past":"/pæst/","future":"/ˈfjuːtʃər/",
+  // People
+  "man":"/mæn/","woman":"/ˈwʊmən/","child":"/tʃaɪld/","boy":"/bɔɪ/",
+  "girl":"/ɡɜːrl/","baby":"/ˈbeɪbi/","person":"/ˈpɜːrsən/","people":"/ˈpiːpəl/",
+  "friend":"/frɛnd/","family":"/ˈfæməli/","mother":"/ˈmʌðər/","father":"/ˈfɑːðər/",
+  "brother":"/ˈbrʌðər/","sister":"/ˈsɪstər/","son":"/sʌn/","daughter":"/ˈdɔːtər/",
+  "husband":"/ˈhʌzbənd/","wife":"/waɪf/","grandma":"/ˈɡrænmɑː/","grandpa":"/ˈɡrænpɑː/",
+  "aunt":"/ænt/","uncle":"/ˈʌŋkəl/","neighbor":"/ˈneɪbər/","teacher":"/ˈtiːtʃər/",
+  "student":"/ˈstuːdənt/","doctor":"/ˈdɑːktər/","nurse":"/nɜːrs/","police":"/pəˈliːs/",
+  "soldier":"/ˈsoʊldʒər/","farmer":"/ˈfɑːrmər/","worker":"/ˈwɜːrkər/",
+  "manager":"/ˈmænɪdʒər/","president":"/ˈprɛzɪdənt/","king":"/kɪŋ/",
+  "queen":"/kwiːn/","prince":"/prɪns/","princess":"/ˈprɪnsɛs/",
+  "stranger":"/ˈstreɪndʒər/","enemy":"/ˈɛnəmi/","hero":"/ˈhɪroʊ/",
+  "leader":"/ˈliːdər/","expert":"/ˈɛkspɜːrt/","artist":"/ˈɑːrtɪst/",
+  "singer":"/ˈsɪŋər/","actor":"/ˈæktər/","writer":"/ˈraɪtər/",
+  "scientist":"/ˈsaɪəntɪst/","engineer":"/ˌɛndʒɪˈnɪr/","lawyer":"/ˈlɔːjər/",
+  "pilot":"/ˈpaɪlət/","journalist":"/ˈdʒɜːrnəlɪst/","volunteer":"/ˌvɑːlənˈtɪr/",
+  "passenger":"/ˈpæsɪndʒər/","customer":"/ˈkʌstəmər/",
+  // Body
+  "head":"/hɛd/","face":"/feɪs/","eye":"/aɪ/","ear":"/ɪr/","nose":"/noʊz/",
+  "mouth":"/maʊθ/","lip":"/lɪp/","tooth":"/tuːθ/","tongue":"/tʌŋ/",
+  "hair":"/hɛr/","hand":"/hænd/","finger":"/ˈfɪŋɡər/","foot":"/fʊt/",
+  "leg":"/lɛɡ/","knee":"/niː/","back":"/bæk/","chest":"/tʃɛst/",
+  "stomach":"/ˈstʌmək/","heart":"/hɑːrt/","brain":"/breɪn/","blood":"/blʌd/",
+  "bone":"/boʊn/","skin":"/skɪn/","shoulder":"/ˈʃoʊldər/","neck":"/nɛk/",
+  "chin":"/tʃɪn/","cheek":"/tʃiːk/","forehead":"/ˈfɔːrhɛd/","nail":"/neɪl/",
+  "elbow":"/ˈɛlboʊ/","wrist":"/rɪst/",
+  // Animals
+  "dog":"/dɔːɡ/","cat":"/kæt/","horse":"/hɔːrs/","cow":"/kaʊ/","pig":"/pɪɡ/",
+  "sheep":"/ʃiːp/","chicken":"/ˈtʃɪkɪn/","bird":"/bɜːrd/","fish":"/fɪʃ/",
+  "lion":"/ˈlaɪən/","tiger":"/ˈtaɪɡər/","elephant":"/ˈɛlɪfənt/","bear":"/bɛr/",
+  "wolf":"/wʊlf/","fox":"/fɑːks/","rabbit":"/ˈræbɪt/","mouse":"/maʊs/",
+  "rat":"/ræt/","snake":"/sneɪk/","frog":"/frɔːɡ/","turtle":"/ˈtɜːrtəl/",
+  "duck":"/dʌk/","eagle":"/ˈiːɡəl/","monkey":"/ˈmʌŋki/","bee":"/biː/",
+  "butterfly":"/ˈbʌtərflaɪ/","spider":"/ˈspaɪdər/","ant":"/ænt/",
+  "mosquito":"/məˈskiːtoʊ/","whale":"/weɪl/","dolphin":"/ˈdɑːlfɪn/",
+  "crocodile":"/ˈkrɑːkədaɪl/","giraffe":"/dʒɪˈræf/","zebra":"/ˈziːbrə/",
+  "deer":"/dɪr/","squirrel":"/ˈskwɜːrəl/","parrot":"/ˈpærət/","owl":"/aʊl/",
+  "swan":"/swɑːn/","penguin":"/ˈpɛŋɡwɪn/","camel":"/ˈkæməl/","gorilla":"/ɡəˈrɪlə/",
+  // Food & Drink
+  "food":"/fuːd/","water":"/ˈwɔːtər/","milk":"/mɪlk/","bread":"/brɛd/",
+  "rice":"/raɪs/","meat":"/miːt/","egg":"/ɛɡ/","butter":"/ˈbʌtər/",
+  "cheese":"/tʃiːz/","sugar":"/ˈʃʊɡər/","salt":"/sɔːlt/","pepper":"/ˈpɛpər/",
+  "oil":"/ɔɪl/","soup":"/suːp/","salad":"/ˈsæləd/","fruit":"/fruːt/",
+  "apple":"/ˈæpəl/","banana":"/bəˈnænə/","orange":"/ˈɔːrɪndʒ/","lemon":"/ˈlɛmən/",
+  "strawberry":"/ˈstrɔːbɛri/","grape":"/ɡreɪp/","vegetable":"/ˈvɛdʒtəbəl/",
+  "carrot":"/ˈkærət/","potato":"/pəˈteɪtoʊ/","tomato":"/təˈmeɪtoʊ/",
+  "onion":"/ˈʌnjən/","garlic":"/ˈɡɑːrlɪk/","cake":"/keɪk/","coffee":"/ˈkɔːfi/",
+  "tea":"/tiː/","juice":"/dʒuːs/","wine":"/waɪn/","beer":"/bɪr/",
+  "chocolate":"/ˈtʃɑːklət/","pizza":"/ˈpiːtsə/","mushroom":"/ˈmʌʃruːm/",
+  "corn":"/kɔːrn/","cucumber":"/ˈkjuːkʌmbər/","cabbage":"/ˈkæbɪdʒ/",
+  "berry":"/ˈbɛri/","cherry":"/ˈtʃɛri/","peach":"/piːtʃ/","pear":"/pɛr/",
+  "watermelon":"/ˈwɔːtərˌmɛlən/","nut":"/nʌt/","honey":"/ˈhʌni/","jam":"/dʒæm/",
+  "flour":"/flaʊər/","pasta":"/ˈpɑːstə/","sandwich":"/ˈsændwɪtʃ/",
+  "pineapple":"/ˈpaɪnæpəl/","mango":"/ˈmæŋɡoʊ/",
+  // Places
+  "home":"/hoʊm/","house":"/haʊs/","room":"/ruːm/","kitchen":"/ˈkɪtʃɪn/",
+  "bedroom":"/ˈbɛdruːm/","bathroom":"/ˈbæθruːm/","garden":"/ˈɡɑːrdən/",
+  "city":"/ˈsɪti/","town":"/taʊn/","village":"/ˈvɪlɪdʒ/","country":"/ˈkʌntri/",
+  "world":"/wɜːrld/","school":"/skuːl/","university":"/ˌjuːnɪˈvɜːrsɪti/",
+  "hospital":"/ˈhɑːspɪtəl/","hotel":"/hoʊˈtɛl/","restaurant":"/ˈrɛstərɑːnt/",
+  "airport":"/ˈɛrpɔːrt/","station":"/ˈsteɪʃən/","market":"/ˈmɑːrkɪt/",
+  "store":"/stɔːr/","bank":"/bæŋk/","church":"/tʃɜːrtʃ/","park":"/pɑːrk/",
+  "street":"/striːt/","road":"/roʊd/","bridge":"/brɪdʒ/","mountain":"/ˈmaʊntən/",
+  "sea":"/siː/","ocean":"/ˈoʊʃən/","lake":"/leɪk/","river":"/ˈrɪvər/",
+  "forest":"/ˈfɔːrɪst/","field":"/fiːld/","beach":"/biːtʃ/","island":"/ˈaɪlənd/",
+  "desert":"/ˈdɛzərt/","valley":"/ˈvæli/","hill":"/hɪl/","cave":"/keɪv/",
+  "farm":"/fɑːrm/","castle":"/ˈkæsəl/","museum":"/mjuˈziːəm/",
+  "theater":"/ˈθiːətər/","library":"/ˈlaɪbrɛri/","stadium":"/ˈsteɪdiəm/",
+  "factory":"/ˈfæktəri/","office":"/ˈɔːfɪs/","prison":"/ˈprɪzən/","gym":"/dʒɪm/",
+  // Nature
+  "sky":"/skaɪ/","sun":"/sʌn/","moon":"/muːn/","star":"/stɑːr/","cloud":"/klaʊd/",
+  "rain":"/reɪn/","snow":"/snoʊ/","wind":"/wɪnd/","storm":"/stɔːrm/",
+  "thunder":"/ˈθʌndər/","lightning":"/ˈlaɪtnɪŋ/","ice":"/aɪs/","fog":"/fɔːɡ/",
+  "temperature":"/ˈtɛmpərətʃər/","weather":"/ˈwɛðər/","earth":"/ɜːrθ/",
+  "rock":"/rɑːk/","stone":"/stoʊn/","sand":"/sænd/","fire":"/faɪər/",
+  "smoke":"/smoʊk/","wave":"/weɪv/","flower":"/ˈflaʊər/","tree":"/triː/",
+  "grass":"/ɡræs/","leaf":"/liːf/","root":"/ruːt/","seed":"/siːd/",
+  "plant":"/plænt/","branch":"/bræntʃ/",
+  // Objects
+  "car":"/kɑːr/","bus":"/bʌs/","train":"/treɪn/","boat":"/boʊt/",
+  "ship":"/ʃɪp/","plane":"/pleɪn/","bike":"/baɪk/","door":"/dɔːr/",
+  "window":"/ˈwɪndoʊ/","wall":"/wɔːl/","floor":"/flɔːr/","roof":"/ruːf/",
+  "table":"/ˈteɪbəl/","chair":"/tʃɛr/","bed":"/bɛd/","sofa":"/ˈsoʊfə/",
+  "lamp":"/læmp/","book":"/bʊk/","pen":"/pɛn/","pencil":"/ˈpɛnsəl/",
+  "paper":"/ˈpeɪpər/","letter":"/ˈlɛtər/","phone":"/foʊn/",
+  "computer":"/kəmˈpjuːtər/","screen":"/skriːn/","camera":"/ˈkæmərə/",
+  "television":"/ˈtɛlɪˌvɪʒən/","key":"/kiː/","bag":"/bæɡ/","box":"/bɑːks/",
+  "bottle":"/ˈbɑːtəl/","cup":"/kʌp/","glass":"/ɡlæs/","plate":"/pleɪt/",
+  "knife":"/naɪf/","fork":"/fɔːrk/","spoon":"/spuːn/","clock":"/klɑːk/",
+  "mirror":"/ˈmɪrər/","towel":"/ˈtaʊəl/","soap":"/soʊp/","brush":"/brʌʃ/",
+  "umbrella":"/ʌmˈbrɛlə/","hat":"/hæt/","shirt":"/ʃɜːrt/","pants":"/pænts/",
+  "dress":"/drɛs/","shoe":"/ʃuː/","sock":"/sɑːk/","jacket":"/ˈdʒækɪt/",
+  "coat":"/koʊt/","glove":"/ɡlʌv/","ring":"/rɪŋ/","money":"/ˈmʌni/",
+  "coin":"/kɔɪn/","card":"/kɑːrd/","ticket":"/ˈtɪkɪt/","map":"/mæp/",
+  "flag":"/flæɡ/","gift":"/ɡɪft/","toy":"/tɔɪ/","ball":"/bɔːl/",
+  "photo":"/ˈfoʊtoʊ/","tool":"/tuːl/","engine":"/ˈɛndʒɪn/","wheel":"/wiːl/",
+  "button":"/ˈbʌtən/","machine":"/məˈʃiːn/","ladder":"/ˈlædər/",
+  "rope":"/roʊp/","chain":"/tʃeɪn/",
+  // Abstract
+  "idea":"/aɪˈdiːə/","plan":"/plæn/","problem":"/ˈprɑːbləm/",
+  "question":"/ˈkwɛstʃən/","reason":"/ˈriːzən/","result":"/rɪˈzʌlt/",
+  "example":"/ɪɡˈzæmpəl/","information":"/ˌɪnfərˈmeɪʃən/","news":"/njuːz/",
+  "story":"/ˈstɔːri/","truth":"/truːθ/","lie":"/laɪ/","dream":"/driːm/",
+  "hope":"/hoʊp/","fear":"/fɪr/","hate":"/heɪt/","joy":"/dʒɔɪ/",
+  "sadness":"/ˈsædnəs/","anger":"/ˈæŋɡər/","peace":"/piːs/","war":"/wɔːr/",
+  "freedom":"/ˈfriːdəm/","power":"/ˈpaʊər/","knowledge":"/ˈnɑːlɪdʒ/",
+  "experience":"/ɪkˈspɪriəns/","memory":"/ˈmɛməri/","choice":"/tʃɔɪs/",
+  "chance":"/tʃæns/","risk":"/rɪsk/","success":"/səkˈsɛs/","failure":"/ˈfeɪljər/",
+  "effort":"/ˈɛfərt/","progress":"/ˈprɑːɡrɛs/","difference":"/ˈdɪfərəns/",
+  "importance":"/ɪmˈpɔːrtəns/","value":"/ˈvæljuː/","quality":"/ˈkwɑːlɪti/",
+  "quantity":"/ˈkwɑːntɪti/","price":"/praɪs/","profit":"/ˈprɑːfɪt/",
+  "loss":"/lɔːs/","space":"/speɪs/","language":"/ˈlæŋɡwɪdʒ/","word":"/wɜːrd/",
+  "sentence":"/ˈsɛntəns/","number":"/ˈnʌmbər/","name":"/neɪm/","color":"/ˈkʌlər/",
+  "shape":"/ʃeɪp/","size":"/saɪz/","weight":"/weɪt/","age":"/eɪdʒ/",
+  "health":"/hɛlθ/","beauty":"/ˈbjuːti/","strength":"/strɛŋkθ/",
+  "speed":"/spiːd/","distance":"/ˈdɪstəns/","direction":"/dɪˈrɛkʃən/",
+  "level":"/ˈlɛvəl/","step":"/stɛp/","way":"/weɪ/","method":"/ˈmɛθəd/",
+  "system":"/ˈsɪstəm/","process":"/ˈprɑːsɛs/","situation":"/ˌsɪtʃuˈeɪʃən/",
+  "condition":"/kənˈdɪʃən/","rule":"/ruːl/","law":"/lɔː/","right":"/raɪt/",
+  "relationship":"/rɪˈleɪʃənʃɪp/","goal":"/ɡoʊl/","task":"/tæsk/",
+  "purpose":"/ˈpɜːrpəs/","advantage":"/ədˈvæntɪdʒ/","opinion":"/əˈpɪnjən/",
+  "belief":"/bɪˈliːf/","agreement":"/əˈɡriːmənt/","argument":"/ˈɑːrɡjumənt/",
+  "decision":"/dɪˈsɪʒən/","mistake":"/mɪˈsteɪk/","accident":"/ˈæksɪdənt/",
+  "event":"/ɪˈvɛnt/","meeting":"/ˈmiːtɪŋ/","journey":"/ˈdʒɜːrni/",
+  "adventure":"/ədˈvɛntʃər/","mystery":"/ˈmɪstəri/","invention":"/ɪnˈvɛnʃən/",
+  "surprise":"/sərˈpraɪz/","prize":"/praɪz/","reward":"/rɪˈwɔːrd/",
+  "opportunity":"/ˌɑːpərˈtjuːnɪti/",
+  // Society / Work
+  "culture":"/ˈkʌltʃər/","tradition":"/trəˈdɪʃən/","religion":"/rɪˈlɪdʒən/",
+  "society":"/səˈsaɪəti/","economy":"/ɪˈkɑːnəmi/","industry":"/ˈɪndəstri/",
+  "energy":"/ˈɛnərdʒi/","electricity":"/ɪˌlɛkˈtrɪsɪti/","technology":"/tɛkˈnɑːlədʒi/",
+  "science":"/ˈsaɪəns/","education":"/ˌɛdʒuˈkeɪʃən/","art":"/ɑːrt/",
+  "music":"/ˈmjuːzɪk/","sport":"/spɔːrt/","politics":"/ˈpɑːlɪtɪks/",
+  "government":"/ˈɡʌvərnmənt/","election":"/ɪˈlɛkʃən/","history":"/ˈhɪstəri/",
+  "media":"/ˈmiːdiə/","advertisement":"/ˈædvərˌtaɪzmənt/","career":"/kəˈrɪr/",
+  "job":"/dʒɑːb/","salary":"/ˈsæləri/","project":"/ˈprɑːdʒɛkt/",
+  "team":"/tiːm/","boss":"/bɔːs/","employee":"/ɪmˈplɔɪiː/",
+  "interview":"/ˈɪntərˌvjuː/","contract":"/ˈkɑːntrækt/",
+  "company":"/ˈkʌmpəni/","business":"/ˈbɪznɪs/",
+  // Education
+  "class":"/klæs/","lesson":"/ˈlɛsən/","subject":"/ˈsʌbdʒɪkt/",
+  "math":"/mæθ/","geography":"/dʒiˈɑːɡrəfi/","literature":"/ˈlɪtərətʃər/",
+  "physics":"/ˈfɪzɪks/","chemistry":"/ˈkɛmɪstri/","biology":"/baɪˈɑːlədʒi/",
+  "exam":"/ɪɡˈzæm/","grade":"/ɡreɪd/","diploma":"/dɪˈploʊmə/",
+  "homework":"/ˈhoʊmwɜːrk/","experiment":"/ɪkˈspɛrɪmənt/",
+  "theory":"/ˈθɪəri/","research":"/ˈriːsɜːrtʃ/",
+  // Numbers
+  "zero":"/ˈzɪroʊ/","one":"/wʌn/","two":"/tuː/","three":"/θriː/",
+  "four":"/fɔːr/","five":"/faɪv/","six":"/sɪks/","seven":"/ˈsɛvən/",
+  "eight":"/eɪt/","nine":"/naɪn/","ten":"/tɛn/","hundred":"/ˈhʌndrəd/",
+  "thousand":"/ˈθaʊzənd/","million":"/ˈmɪljən/","half":"/hæf/","quarter":"/ˈkwɔːrtər/",
+  // Other nouns
+  "part":"/pɑːrt/","group":"/ɡruːp/","member":"/ˈmɛmbər/","point":"/pɔɪnt/",
+  "line":"/laɪn/","area":"/ˈɛriə/","side":"/saɪd/","end":"/ɛnd/",
+  "beginning":"/bɪˈɡɪnɪŋ/","middle":"/ˈmɪdəl/","top":"/tɑːp/",
+  "bottom":"/ˈbɑːtəm/","center":"/ˈsɛntər/","edge":"/ɛdʒ/","corner":"/ˈkɔːrnər/",
+  "surface":"/ˈsɜːrfɪs/","material":"/məˈtɪriəl/","metal":"/ˈmɛtəl/",
+  "wood":"/wʊd/","plastic":"/ˈplæstɪk/","fabric":"/ˈfæbrɪk/",
+  "cotton":"/ˈkɑːtən/","wool":"/wʊl/","silk":"/sɪlk/","rubber":"/ˈrʌbər/",
+  // Adjectives
+  "good":"/ɡʊd/","bad":"/bæd/","big":"/bɪɡ/","small":"/smɔːl/",
+  "long":"/lɔːŋ/","short":"/ʃɔːrt/","tall":"/tɔːl/","wide":"/waɪd/",
+  "narrow":"/ˈnæroʊ/","deep":"/diːp/","thick":"/θɪk/","thin":"/θɪn/",
+  "heavy":"/ˈhɛvi/","light":"/laɪt/","fast":"/fæst/","slow":"/sloʊ/",
+  "hot":"/hɑːt/","cold":"/koʊld/","warm":"/wɔːrm/","cool":"/kuːl/",
+  "hard":"/hɑːrd/","soft":"/sɔːft/","old":"/oʊld/","young":"/jʌŋ/",
+  "new":"/njuː/","ancient":"/ˈeɪnʃənt/","modern":"/ˈmɑːdərn/","early":"/ˈɜːrli/",
+  "late":"/leɪt/","first":"/fɜːrst/","last":"/læst/","next":"/nɛkst/",
+  "near":"/nɪr/","far":"/fɑːr/","full":"/fʊl/","empty":"/ˈɛmpti/",
+  "clean":"/kliːn/","dirty":"/ˈdɜːrti/","beautiful":"/ˈbjuːtɪfəl/","ugly":"/ˈʌɡli/",
+  "nice":"/naɪs/","kind":"/kaɪnd/","cruel":"/kruːəl/","brave":"/breɪv/",
+  "afraid":"/əˈfreɪd/","happy":"/ˈhæpi/","sad":"/sæd/","angry":"/ˈæŋɡri/",
+  "excited":"/ɪkˈsaɪtɪd/","boring":"/ˈbɔːrɪŋ/","interesting":"/ˈɪntrɪstɪŋ/",
+  "funny":"/ˈfʌni/","strange":"/streɪndʒ/","wonderful":"/ˈwʌndərfəl/",
+  "terrible":"/ˈtɛrɪbəl/","excellent":"/ˈɛksələnt/","perfect":"/ˈpɜːrfɪkt/",
+  "important":"/ɪmˈpɔːrtənt/","necessary":"/ˈnɛsəˌsɛri/","possible":"/ˈpɑːsɪbəl/",
+  "impossible":"/ɪmˈpɑːsɪbəl/","difficult":"/ˈdɪfɪkəlt/","easy":"/ˈiːzi/",
+  "correct":"/kəˈrɛkt/","wrong":"/rɔːŋ/","true":"/truː/","false":"/fɔːls/",
+  "real":"/riːl/","fake":"/feɪk/","safe":"/seɪf/","dangerous":"/ˈdeɪndʒərəs/",
+  "sick":"/sɪk/","healthy":"/ˈhɛlθi/","tired":"/ˈtaɪərd/","hungry":"/ˈhʌŋɡri/",
+  "thirsty":"/ˈθɜːrsti/","rich":"/rɪtʃ/","poor":"/pʊr/","expensive":"/ɪkˈspɛnsɪv/",
+  "cheap":"/tʃiːp/","free":"/friː/","busy":"/ˈbɪzi/","ready":"/ˈrɛdi/",
+  "same":"/seɪm/","different":"/ˈdɪfərənt/","similar":"/ˈsɪmɪlər/",
+  "special":"/ˈspɛʃəl/","common":"/ˈkɑːmən/","rare":"/rɛr/","popular":"/ˈpɑːpjulər/",
+  "famous":"/ˈfeɪməs/","secret":"/ˈsiːkrɪt/","public":"/ˈpʌblɪk/",
+  "private":"/ˈpraɪvɪt/","local":"/ˈloʊkəl/","national":"/ˈnæʃənəl/",
+  "international":"/ˌɪntərˈnæʃənəl/","natural":"/ˈnætʃərəl/","artificial":"/ˌɑːrtɪˈfɪʃəl/",
+  "fresh":"/frɛʃ/","frozen":"/ˈfroʊzən/","raw":"/rɔː/","sweet":"/swiːt/",
+  "sour":"/saʊər/","bitter":"/ˈbɪtər/","salty":"/ˈsɔːlti/",
+  "spicy":"/ˈspaɪsi/","delicious":"/dɪˈlɪʃəs/","strong":"/strɔːŋ/","weak":"/wiːk/",
+  "whole":"/hoʊl/","broken":"/ˈbroʊkən/","dead":"/dɛd/","alive":"/əˈlaɪv/",
+  "lost":"/lɔːst/","clear":"/klɪr/","dark":"/dɑːrk/","bright":"/braɪt/",
+  "quiet":"/ˈkwaɪət/","loud":"/laʊd/","wet":"/wɛt/","dry":"/draɪ/",
+  "sharp":"/ʃɑːrp/","round":"/raʊnd/","flat":"/flæt/","straight":"/streɪt/",
+  "rough":"/rʌf/","smooth":"/smuːð/","tight":"/taɪt/","smart":"/smɑːrt/",
+  "stupid":"/ˈstuːpɪd/","clever":"/ˈklɛvər/","wise":"/waɪz/","honest":"/ˈɑːnɪst/",
+  "polite":"/pəˈlaɪt/","rude":"/ruːd/","friendly":"/ˈfrɛndli/","shy":"/ʃaɪ/",
+  "confident":"/ˈkɑːnfɪdənt/","nervous":"/ˈnɜːrvəs/","calm":"/kɑːm/",
+  "serious":"/ˈsɪriəs/","silly":"/ˈsɪli/","lazy":"/ˈleɪzi/",
+  "hardworking":"/ˈhɑːrdˌwɜːrkɪŋ/","creative":"/kriˈeɪtɪv/","logical":"/ˈlɑːdʒɪkəl/",
+  "romantic":"/roʊˈmæntɪk/","practical":"/ˈpræktɪkəl/","political":"/pəˈlɪtɪkəl/",
+  "economic":"/ˌɛkəˈnɑːmɪk/","social":"/ˈsoʊʃəl/","cultural":"/ˈkʌltʃərəl/",
+  "scientific":"/ˌsaɪənˈtɪfɪk/","medical":"/ˈmɛdɪkəl/","legal":"/ˈliːɡəl/",
+  "financial":"/faɪˈnænʃəl/","digital":"/ˈdɪdʒɪtəl/","electric":"/ɪˈlɛktrɪk/",
+  "physical":"/ˈfɪzɪkəl/","mental":"/ˈmɛntəl/","emotional":"/ɪˈmoʊʃənəl/",
+  "general":"/ˈdʒɛnərəl/","specific":"/spɪˈsɪfɪk/","basic":"/ˈbeɪsɪk/",
+  "main":"/meɪn/","central":"/ˈsɛntrəl/","original":"/əˈrɪdʒɪnəl/",
+  "normal":"/ˈnɔːrməl/","regular":"/ˈrɛɡjulər/","typical":"/ˈtɪpɪkəl/",
+  "extreme":"/ɪkˈstriːm/","previous":"/ˈpriːviəs/","open":"/ˈoʊpən/","closed":"/kloʊzd/",
+  // Adverbs
+  "very":"/ˈvɛri/","really":"/ˈriːəli/","quite":"/kwaɪt/","almost":"/ˈɔːlmoʊst/",
+  "always":"/ˈɔːlweɪz/","never":"/ˈnɛvər/","sometimes":"/ˈsʌmtaɪmz/",
+  "often":"/ˈɔːfən/","rarely":"/ˈrɛrli/","usually":"/ˈjuːʒuəli/",
+  "already":"/ɔːlˈrɛdi/","still":"/stɪl/","soon":"/suːn/","again":"/əˈɡɛn/",
+  "also":"/ˈɔːlsoʊ/","too":"/tuː/","enough":"/ɪˈnʌf/","probably":"/ˈprɑːbəbli/",
+  "maybe":"/ˈmeɪbi/","certainly":"/ˈsɜːrtənli/","here":"/hɪr/","there":"/ðɛr/",
+  "everywhere":"/ˈɛvriˌwɛr/","nowhere":"/ˈnoʊˌwɛr/","somewhere":"/ˈsʌmˌwɛr/",
+  "outside":"/ˌaʊtˈsaɪd/","inside":"/ˌɪnˈsaɪd/","above":"/əˈbʌv/",
+  "below":"/bɪˈloʊ/","now":"/naʊ/","then":"/ðɛn/","quickly":"/ˈkwɪkli/",
+  "slowly":"/ˈsloʊli/","carefully":"/ˈkɛrfəli/","easily":"/ˈiːzɪli/",
+  "well":"/wɛl/","badly":"/ˈbædli/","loudly":"/ˈlaʊdli/","quietly":"/ˈkwaɪətli/",
+  "suddenly":"/ˈsʌdənli/","finally":"/ˈfaɪnəli/","together":"/təˈɡɛðər/",
+  "alone":"/əˈloʊn/","simply":"/ˈsɪmpli/","exactly":"/ɪɡˈzæktli/",
+  "recently":"/ˈriːsəntli/","clearly":"/ˈklɪrli/","deeply":"/ˈdiːpli/",
+  "strongly":"/ˈstrɔːŋli/","especially":"/ɪˈspɛʃəli/","mostly":"/ˈmoʊstli/",
+  "however":"/haʊˈɛvər/","therefore":"/ˈðɛrˌfɔːr/","instead":"/ɪnˈstɛd/",
+  "otherwise":"/ˈʌðərˌwaɪz/","yet":"/jɛt/","even":"/ˈiːvən/","only":"/ˈoʊnli/",
+  "forward":"/ˈfɔːrwərd/","backward":"/ˈbækwərd/","nearby":"/ˈnɪrbaɪ/","apart":"/əˈpɑːrt/"
+};
+
 const gameEl         = document.getElementById("game");
 const startScreen    = document.getElementById("start-screen");
 const endScreen      = document.getElementById("end-screen");
@@ -683,6 +979,11 @@ function getCorrectAnswer() {
 
 function showCorrection(answer) {
   corrAnswerEl.textContent = answer;
+  const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
+  const transEl = document.getElementById("correction-trans");
+  const tr = TRANS[enWord] || "";
+  transEl.textContent = tr;
+  transEl.style.display = tr ? "" : "none";
   correctionEl.classList.remove("hidden");
   answerEl.classList.add("wrong");
   answerEl.disabled = true;
@@ -691,7 +992,7 @@ function showCorrection(answer) {
     hideCorrection();
     if (waitingForLastAnswer) endGame();
     else nextWord();
-  }, 2500);
+  }, 3500);
 }
 
 function hideCorrection() {
@@ -735,8 +1036,7 @@ function submitAnswer() {
 function skipWord() {
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   recordAnswer(null, "skipped");
-  if (waitingForLastAnswer) endGame();
-  else nextWord();
+  showCorrection(getCorrectAnswer());
 }
 
 function recordAnswer(userVal, status) {
