@@ -1698,7 +1698,7 @@ function renderList() {
 }
 
 answerEl.addEventListener("input", handleInput);
-answerEl.addEventListener("keydown", e => { if (e.key === "Enter") submitAnswer(); });
+answerEl.addEventListener("keydown", e => { if (e.key === "Enter") { submitAnswer(); e.stopPropagation(); } });
 document.getElementById("skip-btn").addEventListener("click", skipWord);
 document.getElementById("start-btn").addEventListener("click", startGame);
 document.getElementById("restart-btn").addEventListener("click", () => {
