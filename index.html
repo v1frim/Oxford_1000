@@ -156,9 +156,25 @@
     animation: popIn 0.2s ease;
   }
   .correction .corr-label { opacity: 0.75; font-size: 13px; }
-  .correction .corr-answer { font-weight: 700; font-size: 18px; color: #ffd166; }
-  .correction .corr-trans { font-size: 15px; opacity: 0.8; font-family: monospace; letter-spacing: 0.4px; margin-top: 2px; }
-  .correction .corr-hint { font-size: 13px; opacity: 0.65; margin-top: 4px; }
+  .correction .corr-top { display: flex; align-items: center; gap: 8px; }
+  .correction .corr-answer { font-weight: 700; font-size: 18px; color: #ffd166; flex: 1; }
+  .correction .corr-example { font-size: 13px; opacity: 0.72; font-style: italic; margin-top: 5px; }
+  .correction .corr-hint { font-size: 13px; opacity: 0.65; margin-top: 6px; }
+  .speak-btn {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .speak-btn:hover { background: rgba(255,255,255,0.22); }
+  .row-example { font-size: 12px; opacity: 0.62; font-style: italic; margin-top: 3px; }
+  .row-left { flex: 1; min-width: 0; }
+  .row-right { display: flex; align-items: flex-start; gap: 7px; flex-shrink: 0; }
   #answer.wrong { outline-color: #ff6b6b !important; }
   @keyframes popIn {
     from { opacity: 0; transform: translateY(-5px); }
@@ -195,8 +211,11 @@
     <button id="skip-btn" class="skip">Пропустити</button>
     <div id="correction" class="correction hidden">
       <div class="corr-label">Правильна відповідь:</div>
-      <div class="corr-answer" id="correction-answer"></div>
-      <div class="corr-trans" id="correction-trans"></div>
+      <div class="corr-top">
+        <div class="corr-answer" id="correction-answer"></div>
+        <button class="speak-btn" id="corr-speak" title="Прослухати">🔊</button>
+      </div>
+      <div class="corr-example" id="corr-example"></div>
       <div class="corr-hint">Enter або «Пропустити» — далі</div>
     </div>
   </div>
@@ -887,6 +906,531 @@ const TRANS = {
   "forward":"/ˈfɔːrwərd/","backward":"/ˈbækwərd/","nearby":"/ˈnɪrbaɪ/","apart":"/əˈpɑːrt/"
 };
 
+// ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
+const EXAMPLES = {
+  // Verbs
+  "be":"She wants to be a doctor.","have":"I have two cats at home.",
+  "do":"What do you do every morning?","say":"What did she say to you?",
+  "go":"Let's go to the park today.","get":"Can you get some milk?",
+  "make":"He can make great coffee.","know":"Do you know the answer?",
+  "think":"I think this is a great idea.","take":"Take an umbrella — it might rain.",
+  "come":"Please come to my birthday party.","see":"Can you see the mountain?",
+  "want":"I want a glass of water.","look":"Look at that beautiful bird!",
+  "use":"Use a pen to sign the form.","find":"I can't find my keys.",
+  "give":"Give me a hand with this.","tell":"Tell me what happened.",
+  "work":"She works at a hospital.","call":"Call me when you arrive.",
+  "try":"Try this dish — it's delicious!","ask":"Ask the teacher if you don't know.",
+  "need":"We need more time.","feel":"I feel tired today.",
+  "become":"She became a great leader.","leave":"Don't leave without your bag.",
+  "put":"Put the book on the shelf.","keep":"Keep this a secret, please.",
+  "let":"Let me help you with that.","begin":"Let's begin the lesson now.",
+  "show":"Show me your passport.","hear":"I hear someone at the door.",
+  "play":"Do you play any sport?","run":"He runs every morning.",
+  "move":"We moved to a new city.","live":"They live near the ocean.",
+  "believe":"I believe you can do it.","hold":"Hold my hand — it's slippery.",
+  "bring":"Bring a jacket — it's cold.","write":"Write your name at the top.",
+  "sit":"Please sit down and relax.","stand":"Stand in line and wait.",
+  "lose":"Don't lose your ticket.","pay":"How do you want to pay?",
+  "meet":"Nice to meet you!","learn":"I want to learn Spanish.",
+  "change":"Change your password often.","understand":"Do you understand the rules?",
+  "watch":"We watched a great movie.","follow":"Follow the instructions carefully.",
+  "stop":"Stop talking and listen.","create":"She created a beautiful painting.",
+  "read":"I read a book every week.","grow":"This plant grows very fast.",
+  "open":"Open the window, please.","walk":"Let's walk to the café.",
+  "win":"Our team won the game!","remember":"Do you remember her name?",
+  "love":"I love this city.","buy":"I need to buy some food.",
+  "wait":"Wait here — I'll be right back.","die":"The plant died without water.",
+  "send":"Send me the file by email.","build":"They built a new bridge.",
+  "stay":"Stay calm in an emergency.","fall":"Be careful not to fall.",
+  "cut":"Cut the bread into slices.","reach":"She reached the top of the mountain.",
+  "pass":"Pass the salt, please.","sell":"They sell fresh fruit here.",
+  "decide":"Have you decided what to order?","break":"Don't break that vase!",
+  "eat":"Eat more vegetables every day.","drink":"Drink plenty of water.",
+  "sleep":"I sleep eight hours a night.","help":"Can you help me move this?",
+  "talk":"We talked for hours.","turn":"Turn left at the corner.",
+  "start":"The movie starts at eight.","carry":"Can you carry these bags?",
+  "drive":"She drives to work every day.","fly":"Birds fly south in winter.",
+  "swim":"He swims faster than me.","jump":"Jump over the puddle.",
+  "smile":"She always smiles at everyone.","laugh":"We laughed at his joke.",
+  "cry":"The baby cried all night.","fight":"Don't fight — talk it out.",
+  "dance":"We danced until midnight.","sing":"She sings beautifully.",
+  "cook":"He cooks dinner every night.","clean":"Clean your room before dinner.",
+  "close":"Close the door when you leave.","choose":"Choose the color you like.",
+  "check":"Check your answers before submitting.","count":"Count from one to ten.",
+  "cover":"Cover the pot with a lid.","climb":"We climbed to the top of the hill.",
+  "collect":"He collects old stamps.","complete":"Complete the form and sign it.",
+  "connect":"Connect the cable to the computer.","control":"Control your emotions.",
+  "copy":"Copy this text into a new document.","cost":"How much does it cost?",
+  "cross":"Cross the street at the light.","depend":"It depends on the weather.",
+  "describe":"Describe what you saw.","develop":"She developed a new app.",
+  "draw":"Draw a map for me.","drop":"Don't drop the glass.",
+  "enjoy":"I really enjoy cooking.","enter":"Enter your password to log in.",
+  "exist":"Do aliens exist?","expect":"I expect a reply by Monday.",
+  "explain":"Can you explain this word?","express":"Express your feelings openly.",
+  "fail":"Don't be afraid to fail.","fill":"Fill the glass with water.",
+  "finish":"Finish your homework first.","fix":"Can you fix my bike?",
+  "happen":"What happened here?","imagine":"Imagine a world without cars.",
+  "improve":"Your English has improved a lot!","include":"The price includes breakfast.",
+  "increase":"Prices increase every year.","join":"Join us for dinner tonight.",
+  "kill":"Boredom can kill creativity.","pull":"Pull the door to open it.",
+  "push":"Push the button to start.","raise":"Raise your hand if you know.",
+  "receive":"I received a letter today.","reduce":"We need to reduce waste.",
+  "remove":"Remove the sticker carefully.","repeat":"Please repeat after me.",
+  "replace":"Replace the old battery.","rest":"Rest for a few minutes.",
+  "return":"Return the book to the library.","rise":"Prices are rising quickly.",
+  "save":"Save your work before closing.","share":"Share your food with others.",
+  "solve":"Can you solve this puzzle?","spend":"Don't spend all your money at once.",
+  "support":"Support your local team.","teach":"She teaches math at school.",
+  "throw":"Throw the ball to me.","travel":"I love to travel.",
+  "visit":"Visit us whenever you can.","accept":"Accept the challenge!",
+  "achieve":"Hard work helps you achieve your goals.","add":"Add some salt to the soup.",
+  "agree":"I agree with your point.","allow":"Dogs are not allowed here.",
+  "answer":"Please answer my question.","appear":"A rainbow appeared in the sky.",
+  "apply":"Apply sunscreen before going out.","attack":"The dog attacked the postman.",
+  "avoid":"Avoid eating too much sugar.","breathe":"Breathe in and breathe out slowly.",
+  "catch":"Catch the ball!","celebrate":"Let's celebrate your birthday!",
+  "continue":"Please continue with your story.","defeat":"They defeated the champion.",
+  "deliver":"The package was delivered today.","design":"She designed a beautiful logo.",
+  "discover":"Columbus discovered America in 1492.","divide":"Divide the cake into eight pieces.",
+  "earn":"He earns a good salary.","escape":"The prisoner escaped from jail.",
+  "feed":"Feed the cat twice a day.","forget":"Don't forget your keys.",
+  "guess":"Guess who called today!","hit":"He hit the ball hard.",
+  "hurt":"My knee hurts after running.","ignore":"Ignore rude comments online.",
+  "inform":"I'll inform you of any changes.","introduce":"Let me introduce you to my friend.",
+  "invite":"I'd like to invite you to dinner.","kick":"Kick the ball into the goal.",
+  "kiss":"She kissed her baby goodnight.","knock":"Knock before entering.",
+  "land":"The plane landed safely.","lock":"Lock the door when you leave.",
+  "miss":"I miss my family so much.","mix":"Mix the ingredients in a bowl.",
+  "order":"I'd like to order a pizza.","organize":"She organized the whole event.",
+  "own":"He owns a house by the lake.","prefer":"I prefer tea over coffee.",
+  "prepare":"Prepare everything before the guests arrive.",
+  "prevent":"Wash your hands to prevent illness.","produce":"This factory produces cars.",
+  "protect":"Wear a helmet to protect your head.","prove":"He proved his theory was correct.",
+  "provide":"The hotel provides free Wi-Fi.","publish":"She published her first novel.",
+  "realize":"I realized I had made a mistake.","recognize":"I didn't recognize him at first.",
+  "record":"Record the meeting for later.","refuse":"She refused to give up.",
+  "release":"The band released a new album.","rent":"They rent a flat in the city.",
+  "report":"Report any problems to the manager.","require":"This job requires experience.",
+  "search":"Search for the answer online.","speak":"She speaks three languages.",
+  "suggest":"I suggest we leave early.","survive":"He survived a car accident.",
+  "trust":"Trust your instincts.","warn":"Warn others about the danger.",
+  "wonder":"I wonder what he meant.","wake":"Wake up — you'll be late!",
+  "type":"Type your password and press Enter.","test":"The doctor tested his blood.",
+  // Time
+  "time":"There is no time to waste.","year":"We go on holiday every year.",
+  "month":"She visits once a month.","week":"I work five days a week.",
+  "day":"Every day is a new chance.","hour":"The flight is one hour long.",
+  "minute":"Wait just a minute.","second":"It took only a second.",
+  "morning":"I go jogging every morning.","afternoon":"Let's meet in the afternoon.",
+  "evening":"The concert starts this evening.","night":"I stayed up all night.",
+  "season":"Summer is my favourite season.","spring":"Flowers bloom in spring.",
+  "summer":"We swim at the beach in summer.","autumn":"Leaves fall from trees in autumn.",
+  "winter":"It snows a lot in winter.","century":"The castle is four centuries old.",
+  "decade":"A lot changed in the last decade.","moment":"This is a special moment.",
+  "period":"This was a difficult period.","past":"Learn from the past.",
+  "future":"The future looks bright.",
+  // People
+  "man":"A man asked me for directions.","woman":"A woman walked into the office.",
+  "child":"Every child deserves an education.","boy":"The boy kicked the ball.",
+  "girl":"The girl drew a beautiful picture.","baby":"The baby smiled at her mother.",
+  "person":"She's a very kind person.","people":"Many people enjoy hiking.",
+  "friend":"A good friend is hard to find.","family":"Family is the most important thing.",
+  "mother":"My mother makes great soup.","father":"His father taught him to drive.",
+  "brother":"My brother lives in another city.","sister":"Her sister is a doctor.",
+  "son":"Their son just started school.","daughter":"Their daughter loves painting.",
+  "husband":"Her husband is very funny.","wife":"His wife is an architect.",
+  "grandma":"Grandma baked cookies for us.","grandpa":"Grandpa tells great stories.",
+  "aunt":"My aunt lives in France.","uncle":"My uncle has a big farm.",
+  "neighbor":"Our neighbor has a friendly dog.","teacher":"Our teacher explains things well.",
+  "student":"She is an excellent student.","doctor":"The doctor gave her medicine.",
+  "nurse":"The nurse took his blood pressure.","police":"Call the police immediately.",
+  "soldier":"Soldiers protect the country.","farmer":"The farmer grew tomatoes and corn.",
+  "worker":"Workers built the new road.","manager":"The manager approved the plan.",
+  "president":"The president gave a speech.","king":"The king ruled for many years.",
+  "queen":"The queen visited the school.","prince":"The prince rode a white horse.",
+  "princess":"The princess wore a golden crown.","stranger":"Don't talk to strangers.",
+  "enemy":"Treat your enemy with respect.","hero":"She is a hero in her community.",
+  "leader":"A good leader listens to others.","expert":"Ask an expert for advice.",
+  "artist":"The artist sold all her paintings.","singer":"The singer performed beautifully.",
+  "actor":"He is a famous actor.","writer":"She is my favourite writer.",
+  "scientist":"Scientists discovered a new planet.","engineer":"The engineer fixed the problem.",
+  "lawyer":"She hired a good lawyer.","pilot":"The pilot landed safely in the storm.",
+  "journalist":"The journalist wrote a great article.","volunteer":"We need more volunteers.",
+  "passenger":"The passenger forgot his bag.","customer":"The customer complained about the food.",
+  // Body
+  "head":"She shook her head slowly.","face":"He covered his face with his hands.",
+  "eye":"She has beautiful blue eyes.","ear":"I have a pain in my ear.",
+  "nose":"His nose was red from the cold.","mouth":"Keep your mouth closed while eating.",
+  "lip":"She bit her lip nervously.","tooth":"I have a terrible toothache.",
+  "tongue":"He burned his tongue on hot tea.","hair":"She has long red hair.",
+  "hand":"Give me your hand.","finger":"She cut her finger while cooking.",
+  "foot":"My foot hurts from walking all day.","leg":"He broke his leg skiing.",
+  "knee":"My knee is sore from running.","back":"My back hurts from sitting all day.",
+  "chest":"She felt a pain in her chest.","stomach":"My stomach is empty — let's eat!",
+  "heart":"Exercise keeps your heart healthy.","brain":"The human brain is amazing.",
+  "blood":"He donated blood at the hospital.","bone":"Milk is good for your bones.",
+  "skin":"Protect your skin from the sun.","shoulder":"He put his hand on her shoulder.",
+  "neck":"My neck hurts from bad posture.","chin":"She rested her chin on her hand.",
+  "cheek":"He kissed her on the cheek.","forehead":"She pressed a cloth to her forehead.",
+  "nail":"She painted her nails red.","elbow":"He leaned on his elbow.",
+  "wrist":"She wore a bracelet on her wrist.",
+  // Animals
+  "dog":"My dog loves to run in the park.","cat":"The cat sat on the warm roof.",
+  "horse":"She rides her horse every weekend.","cow":"The cow produces fresh milk.",
+  "pig":"Pigs are actually very intelligent.","sheep":"The sheep grazed in the green field.",
+  "chicken":"We have chickens in our garden.","bird":"A bird built a nest in our tree.",
+  "fish":"I caught a big fish today.","lion":"The lion is the king of animals.",
+  "tiger":"Tigers are the largest wild cats.","elephant":"Elephants never forget.",
+  "bear":"We saw a bear in the forest.","wolf":"Wolves live in packs.",
+  "fox":"The fox was quick and clever.","rabbit":"The rabbit jumped over the fence.",
+  "mouse":"A mouse ran across the kitchen floor.","rat":"The rat stole a piece of cheese.",
+  "snake":"I saw a snake near the river.","frog":"Frogs live near water.",
+  "turtle":"A turtle moves very slowly.","duck":"Ducks swim on the pond.",
+  "eagle":"An eagle flew over the mountain.","monkey":"Monkeys love bananas.",
+  "bee":"Bees make honey.","butterfly":"A butterfly landed on the flower.",
+  "spider":"The spider built a web overnight.","ant":"Ants work together as a team.",
+  "mosquito":"A mosquito bit my arm.","whale":"Whales are the largest animals on Earth.",
+  "dolphin":"Dolphins are very intelligent.","crocodile":"The crocodile waited by the river.",
+  "giraffe":"A giraffe's neck is very long.","zebra":"Zebras have black and white stripes.",
+  "deer":"A deer ran across the road.","squirrel":"The squirrel hid its nuts for winter.",
+  "parrot":"The parrot learned to say hello.","owl":"Owls hunt at night.",
+  "swan":"Swans swim gracefully on the lake.","penguin":"Penguins live in Antarctica.",
+  "camel":"Camels can survive without water for days.","gorilla":"Gorillas are our closest relatives.",
+  // Food & Drink
+  "food":"Good food makes people happy.","water":"Drink eight glasses of water a day.",
+  "milk":"She drinks a glass of milk every morning.","bread":"Fresh bread smells wonderful.",
+  "rice":"We eat rice with almost every meal.","meat":"He doesn't eat meat — he's vegetarian.",
+  "egg":"Scrambled eggs for breakfast?","butter":"Spread butter on the warm toast.",
+  "cheese":"This cheese is cheap but delicious.","sugar":"Don't add too much sugar.",
+  "salt":"Pass the salt, please.","pepper":"Add pepper to taste.",
+  "oil":"Fry the onions in a little oil.","soup":"Hot soup is perfect on a cold day.",
+  "salad":"She makes a great salad.","fruit":"Eat more fruit every day.",
+  "apple":"An apple a day keeps the doctor away.","banana":"Peel the banana before eating.",
+  "orange":"She squeezed fresh orange juice.","lemon":"Add a slice of lemon to your tea.",
+  "strawberry":"Strawberries are sweet and red.","grape":"I love white grapes.",
+  "vegetable":"Eat a variety of vegetables.","carrot":"Carrots are good for your eyes.",
+  "potato":"Bake the potato for one hour.","tomato":"The tomato is technically a fruit.",
+  "onion":"Chop the onion and fry it.","garlic":"Add garlic for more flavour.",
+  "cake":"She baked a cake for his birthday.","coffee":"I drink two cups of coffee a day.",
+  "tea":"Tea is very popular in Britain.","juice":"Fresh orange juice, please.",
+  "wine":"This wine is from France.","beer":"He ordered a cold beer.",
+  "chocolate":"Dark chocolate is good for you.","pizza":"We ordered pizza for delivery.",
+  "mushroom":"Add sliced mushrooms to the pasta.","corn":"Corn grows tall in the summer.",
+  "cucumber":"Add cucumber to the salad.","cabbage":"She made cabbage soup.",
+  "berry":"Pick wild berries in the forest.","cherry":"Cherry pie is my favourite.",
+  "peach":"The peach was sweet and juicy.","pear":"She ate a pear for a snack.",
+  "watermelon":"Nothing beats cold watermelon in summer.","nut":"He's allergic to nuts.",
+  "honey":"Add honey instead of sugar.","jam":"Spread strawberry jam on the toast.",
+  "flour":"Mix flour and water to make dough.","pasta":"I love pasta with tomato sauce.",
+  "sandwich":"He made a chicken sandwich for lunch.","pineapple":"Pineapple on pizza — yes or no?",
+  "mango":"Mango is my favourite tropical fruit.",
+  // Places
+  "home":"There's no place like home.","house":"They built a new house.",
+  "room":"My room is small but cosy.","kitchen":"We cook together in the kitchen.",
+  "bedroom":"The bedroom has a nice view.","bathroom":"The bathroom is on the second floor.",
+  "garden":"She grows roses in her garden.","city":"London is a huge city.",
+  "town":"It's a small town with few shops.","village":"They live in a quiet village.",
+  "country":"She moved to another country.","world":"Travel the world while you can.",
+  "school":"School starts at eight in the morning.","university":"She studied medicine at university.",
+  "hospital":"Take her to the hospital immediately.","hotel":"We stayed at a great hotel.",
+  "restaurant":"The restaurant was full of people.","airport":"Get to the airport two hours early.",
+  "station":"The train station is downtown.","market":"Buy fresh food at the market.",
+  "store":"The store closes at nine.","bank":"I need to go to the bank.",
+  "church":"The old church is beautiful.","park":"Let's have a picnic in the park.",
+  "street":"The streets were empty at night.","road":"The road was blocked by snow.",
+  "bridge":"The bridge crosses a wide river.","mountain":"They hiked up the mountain.",
+  "sea":"We swam in the warm sea.","ocean":"The Pacific Ocean is the largest.",
+  "lake":"They went fishing on the lake.","river":"The river flooded after heavy rain.",
+  "forest":"Wild animals live in the forest.","field":"Cows graze in the green fields.",
+  "beach":"We spent the day at the beach.","island":"The island is very remote.",
+  "desert":"The desert gets very hot at noon.","valley":"A river runs through the valley.",
+  "hill":"We climbed the hill to see the view.","cave":"Explorers found paintings in the cave.",
+  "farm":"The farm has cows and chickens.","castle":"The medieval castle is now a museum.",
+  "museum":"We visited the history museum.","theater":"The theater was full for opening night.",
+  "library":"The library opens at nine.","stadium":"The stadium holds fifty thousand fans.",
+  "factory":"The factory produces glass bottles.","office":"She works in a large open office.",
+  "prison":"He spent three years in prison.","gym":"I go to the gym three times a week.",
+  // Nature
+  "sky":"The sky was clear and blue.","sun":"The sun rose at six this morning.",
+  "moon":"The moon was full and bright.","star":"We saw thousands of stars.",
+  "cloud":"Dark clouds appeared before the storm.","rain":"We got caught in the rain.",
+  "snow":"Snow covered everything overnight.","wind":"The wind blew the hat off his head.",
+  "storm":"A huge storm hit the coast.","thunder":"Thunder woke me up last night.",
+  "lightning":"Lightning struck the tall tree.","ice":"Be careful — there's ice on the road.",
+  "fog":"Thick fog made driving dangerous.","temperature":"The temperature dropped below zero.",
+  "weather":"What's the weather like today?","earth":"The earth orbits the sun.",
+  "rock":"She sat on a flat rock.","stone":"The path was made of old stones.",
+  "sand":"The sand was hot under our feet.","fire":"The fire warmed the whole room.",
+  "smoke":"Smoke filled the kitchen.","wave":"A huge wave knocked him down.",
+  "flower":"She planted flowers in the garden.","tree":"The tree provided good shade.",
+  "grass":"The grass was wet with morning dew.","leaf":"A leaf fell from the tree.",
+  "root":"Tree roots can damage old walls.","seed":"Plant the seeds in spring.",
+  "plant":"Water your plants every day.","branch":"A bird sat on the branch.",
+  // Objects
+  "car":"She drives a red car.","bus":"Take the bus to save money.",
+  "train":"The train arrives at noon.","boat":"We rented a small boat.",
+  "ship":"The ship crossed the ocean.","plane":"The plane landed on time.",
+  "bike":"He rides his bike to work.","door":"Close the door behind you.",
+  "window":"Open the window for some fresh air.","wall":"Hang the picture on the wall.",
+  "floor":"The floor was slippery.","roof":"The roof needs to be repaired.",
+  "table":"Set the table for dinner.","chair":"Pull up a chair and sit down.",
+  "bed":"Go to bed early tonight.","sofa":"She fell asleep on the sofa.",
+  "lamp":"Turn on the lamp — it's getting dark.","book":"I finished the book in one day.",
+  "pen":"Sign the letter with a pen.","pencil":"Draw the outline with a pencil.",
+  "paper":"Write it down on paper.","letter":"She wrote a letter to her grandmother.",
+  "phone":"My phone needs charging.","computer":"The computer crashed again.",
+  "screen":"The screen is cracked.","camera":"She took photos with a digital camera.",
+  "television":"We watched the news on television.","key":"I lost my key again.",
+  "bag":"Pack your bag the night before.","box":"Put it in the big brown box.",
+  "bottle":"Fill the bottle with water.","cup":"She held the cup with both hands.",
+  "glass":"Pour water into the glass.","plate":"Finish everything on your plate.",
+  "knife":"Use a sharp knife to cut the bread.","fork":"He ate the salad with a fork.",
+  "spoon":"Stir the soup with a spoon.","clock":"The clock on the wall says nine.",
+  "mirror":"She looked at herself in the mirror.","towel":"Dry your hands with the towel.",
+  "soap":"Wash your hands with soap.","brush":"Brush your teeth twice a day.",
+  "umbrella":"Take an umbrella — it looks like rain.","hat":"Wear a hat in the summer sun.",
+  "shirt":"He wore a white shirt to work.","pants":"These pants are too tight.",
+  "dress":"She wore a beautiful blue dress.","shoe":"My shoes are hurting my feet.",
+  "sock":"I can't find a matching sock.","jacket":"It's cold — put on your jacket.",
+  "coat":"She wore a long winter coat.","glove":"Don't forget your gloves!",
+  "ring":"She lost her wedding ring.","money":"Money can't buy happiness.",
+  "coin":"He flipped a coin to decide.","card":"Pay by card or cash?",
+  "ticket":"Buy your ticket online in advance.","map":"Look at the map to find the way.",
+  "flag":"The flag flew in the wind.","gift":"She gave him a lovely gift.",
+  "toy":"The child played with a toy car.","ball":"Kick the ball into the goal.",
+  "photo":"We took lots of photos.","tool":"Use the right tool for the job.",
+  "engine":"The engine stopped working.","wheel":"The wheel is flat — we need to change it.",
+  "button":"Press the green button to start.","machine":"The machine broke down again.",
+  "ladder":"He climbed the ladder to the roof.","rope":"Tie the boat with a rope.",
+  "chain":"The chain on my bike is broken.",
+  // Abstract
+  "idea":"That's a great idea!","plan":"Make a plan before you start.",
+  "problem":"Every problem has a solution.","question":"Ask a question if you're not sure.",
+  "reason":"Give me one good reason.","result":"The test results were positive.",
+  "example":"Give me an example.","information":"I need more information.",
+  "news":"Have you heard the latest news?","story":"Tell me a story.",
+  "truth":"The truth always comes out.","lie":"Don't tell a lie.",
+  "dream":"Follow your dream.","hope":"Never lose hope.",
+  "fear":"Fear of failure stops many people.","hate":"Hate only hurts yourself.",
+  "joy":"Her baby brought her great joy.","sadness":"There was sadness in his eyes.",
+  "anger":"Take a breath to control your anger.","peace":"We all wish for world peace.",
+  "war":"War destroys everything.","freedom":"Freedom is a basic human right.",
+  "power":"Knowledge is power.","knowledge":"Knowledge is better than money.",
+  "experience":"Experience is the best teacher.","memory":"That memory makes me smile.",
+  "choice":"You have a choice.","chance":"Give me one more chance.",
+  "risk":"Every new business involves risk.","success":"Success takes time and effort.",
+  "failure":"Failure is not the end.","effort":"Put in effort and you will succeed.",
+  "progress":"We're making great progress.","difference":"Small actions make a big difference.",
+  "importance":"Stress the importance of good habits.","value":"Hard work has real value.",
+  "quality":"Quality is better than quantity.","quantity":"Don't focus only on quantity.",
+  "price":"The price is too high.","profit":"The company made a good profit.",
+  "loss":"His loss affected the whole team.","space":"There's no space on the shelf.",
+  "language":"Learning a language takes time.","word":"What does this word mean?",
+  "sentence":"Write the answer in a full sentence.","number":"What's your phone number?",
+  "name":"What's your name?","color":"Her favourite color is blue.",
+  "shape":"A circle is a round shape.","size":"What size shoe do you wear?",
+  "weight":"The baby's birth weight was normal.","age":"Age is just a number.",
+  "health":"Health is the greatest wealth.","beauty":"Beauty is in the eye of the beholder.",
+  "strength":"Strength comes from hard work.","speed":"The speed limit here is fifty.",
+  "distance":"What's the distance to the city?","direction":"Follow the directions on the map.",
+  "level":"Her English is at an advanced level.","step":"Take it one step at a time.",
+  "way":"Is this the right way to the museum?","method":"Try a different method.",
+  "system":"The education system needs reform.","process":"The process takes about a week.",
+  "situation":"The situation is under control.","condition":"The patient is in stable condition.",
+  "rule":"Follow the rules of the game.","law":"Breaking the law has consequences.",
+  "right":"Everyone has the right to speak.","relationship":"They have a strong relationship.",
+  "goal":"Set a goal and work toward it.","task":"Complete each task before moving on.",
+  "purpose":"What is the purpose of this meeting?","advantage":"Being bilingual is a great advantage.",
+  "opinion":"In my opinion, this is wrong.","belief":"Respect everyone's beliefs.",
+  "agreement":"We reached an agreement.","argument":"They had a big argument.",
+  "decision":"Think before making a decision.","mistake":"Everyone makes mistakes.",
+  "accident":"It was just an accident.","event":"The event starts at seven.",
+  "meeting":"The meeting is at two o'clock.","journey":"The journey took three days.",
+  "adventure":"Every trip is an adventure.","mystery":"The mystery was never solved.",
+  "invention":"The wheel was a great invention.","surprise":"It was a wonderful surprise.",
+  "prize":"She won first prize.","reward":"Hard work brings its own reward.",
+  "opportunity":"Don't miss this opportunity.",
+  // Society / Work
+  "culture":"Every country has its own culture.","tradition":"This is an old family tradition.",
+  "religion":"Respect all religions.","society":"We all play a role in society.",
+  "economy":"The economy is growing.","industry":"The car industry is changing fast.",
+  "energy":"Turn off lights to save energy.","electricity":"The electricity went out in the storm.",
+  "technology":"Technology changes our lives.","science":"Science helps us understand the world.",
+  "education":"Education is the key to success.","art":"Art expresses what words cannot.",
+  "music":"Music makes everything better.","sport":"Sport keeps you healthy.",
+  "politics":"Avoid politics at dinner.","government":"The government announced new rules.",
+  "election":"The election is next month.","history":"History repeats itself.",
+  "media":"The media has great power.","advertisement":"The advertisement was very creative.",
+  "career":"She built a great career in medicine.","job":"I got the job!",
+  "salary":"She asked for a higher salary.","project":"The project is due next week.",
+  "team":"The whole team worked together.","boss":"My boss is very supportive.",
+  "employee":"All employees received a bonus.","interview":"He was nervous before the interview.",
+  "contract":"Sign the contract before starting.","company":"She started her own company.",
+  "business":"Running a business is not easy.",
+  // Education
+  "class":"There are thirty students in the class.","lesson":"Today's lesson is about history.",
+  "subject":"Math is my favourite subject.","math":"Math can be fun if taught well.",
+  "geography":"Geography helped me understand the world.","literature":"She studies English literature.",
+  "physics":"Physics explains how things move.","chemistry":"Chemistry is my hardest subject.",
+  "biology":"Biology teaches us about living things.","exam":"She studied hard for the exam.",
+  "grade":"He got a top grade.","diploma":"She received her diploma in June.",
+  "homework":"Do your homework before watching TV.","experiment":"The experiment proved the theory.",
+  "theory":"Einstein's theory changed science.","research":"The research took five years.",
+  // Numbers
+  "zero":"The score was zero to zero.","one":"I need just one more minute.",
+  "two":"She has two brothers.","three":"The meeting is in three days.",
+  "four":"Four seasons — spring, summer, fall, winter.","five":"Give me five!",
+  "six":"They lived there for six years.","seven":"There are seven days in a week.",
+  "eight":"She woke up at eight.","nine":"He scored nine out of ten.",
+  "ten":"Count to ten before you react.","hundred":"A hundred people came to the event.",
+  "thousand":"A thousand thanks!","million":"A million people watched it live.",
+  "half":"Eat only half — save the rest.","quarter":"A quarter of the class was absent.",
+  // Other nouns
+  "part":"This is the hardest part.","type":"What type of music do you like?",
+  "group":"She joined a study group.","member":"Every member must pay the fee.",
+  "point":"What's the point of this?","line":"Stand in line and wait your turn.",
+  "area":"This is a quiet residential area.","side":"Look at it from both sides.",
+  "end":"The end of the book was surprising.","beginning":"Let's start from the beginning.",
+  "middle":"He sat in the middle of the row.","top":"Put it on top of the fridge.",
+  "bottom":"The answer is at the bottom of the page.","center":"Meet me in the center of town.",
+  "edge":"Be careful at the edge of the cliff.","corner":"Turn right at the corner.",
+  "surface":"Wipe the surface clean.","material":"The jacket is made of a light material.",
+  "metal":"The bridge is made of strong metal.","wood":"The table is made of dark wood.",
+  "plastic":"Try to use less plastic.","fabric":"This fabric is very soft.",
+  "cotton":"Cotton shirts are cool in summer.","wool":"She knitted a wool sweater.",
+  "silk":"The dress is made of silk.","rubber":"The tires are made of rubber.",
+  // Adjectives
+  "good":"That was a really good idea.","bad":"I had a bad day at work.",
+  "big":"They live in a big house.","small":"She has a small but cosy apartment.",
+  "long":"It was a long and tiring journey.","short":"He has a short memory.",
+  "tall":"She is the tallest in the class.","wide":"The wide river flooded the road.",
+  "narrow":"The path was too narrow for a car.","deep":"The water is too deep to cross.",
+  "thick":"The walls were thick and strong.","thin":"She cut thin slices of bread.",
+  "heavy":"The box was too heavy to lift.","light":"Carry something light on the hike.",
+  "fast":"He is the fastest runner.","slow":"The service at that restaurant is slow.",
+  "hot":"The soup is still hot — be careful.","cold":"It's too cold to go outside.",
+  "warm":"Put on something warm.","cool":"The evening air was cool.",
+  "hard":"The exam was really hard.","soft":"The puppy's fur is so soft.",
+  "old":"This is an old family recipe.","young":"She started painting at a young age.",
+  "new":"Have you seen his new car?","ancient":"The temple is over two thousand years old.",
+  "modern":"This is a very modern design.","early":"She caught an early morning flight.",
+  "late":"Don't be late for the meeting.","first":"She was the first to finish.",
+  "last":"This is the last warning.","next":"The next bus is in ten minutes.",
+  "near":"The hotel is near the station.","far":"The nearest shop is far from here.",
+  "full":"My bag is full.","empty":"The bottle is empty.",
+  "clean":"Keep your workspace clean.","dirty":"His shoes were dirty from the mud.",
+  "beautiful":"What a beautiful sunset!","ugly":"The old building is ugly.",
+  "nice":"It was nice to see you again.","kind":"She is always kind to everyone.",
+  "cruel":"Don't be cruel to animals.","brave":"It was brave of you to speak up.",
+  "afraid":"Are you afraid of spiders?","happy":"I'm so happy for you!",
+  "sad":"The movie had a sad ending.","angry":"She was angry about the delay.",
+  "excited":"He was excited about the trip.","boring":"The lecture was really boring.",
+  "interesting":"That is a very interesting question.","funny":"His jokes are always funny.",
+  "strange":"That's a strange thing to say.","wonderful":"We had a wonderful time!",
+  "terrible":"The weather was terrible.","excellent":"Excellent work — well done!",
+  "perfect":"This is the perfect moment.","important":"Regular exercise is very important.",
+  "necessary":"Is it necessary to bring a jacket?","possible":"Is it possible to change the date?",
+  "impossible":"Nothing is impossible.","difficult":"The puzzle was very difficult.",
+  "easy":"This recipe is easy to follow.","correct":"That answer is correct.",
+  "wrong":"Something went wrong.","true":"Is it true that he quit his job?",
+  "false":"The information was false.","real":"Are those flowers real?",
+  "fake":"That bag is a fake.","safe":"Is it safe to drink this water?",
+  "dangerous":"Texting while driving is dangerous.","sick":"She stayed home because she felt sick.",
+  "healthy":"Eating vegetables keeps you healthy.","tired":"I'm tired after a long day.",
+  "hungry":"I'm so hungry — let's eat!","thirsty":"Are you thirsty? Want some water?",
+  "rich":"He became rich from his business.","poor":"The family was poor but happy.",
+  "expensive":"This restaurant is too expensive.","cheap":"This cheese is cheap but delicious.",
+  "free":"Is this service free of charge?","busy":"I'm too busy to talk right now.",
+  "ready":"Are you ready to order?","same":"We have the same opinion.",
+  "different":"We have very different tastes.","similar":"These two words have similar meanings.",
+  "special":"Today is a very special day.","common":"Colds are the most common illness.",
+  "rare":"Seeing a wolf in the wild is rare.","popular":"This café is very popular.",
+  "famous":"She is a famous musician.","secret":"It's a secret — don't tell anyone.",
+  "public":"The event is open to the public.","private":"This is a private beach.",
+  "local":"Support your local businesses.","national":"It's a national holiday.",
+  "international":"She has an international career.","natural":"Use natural products when possible.",
+  "artificial":"Artificial flowers don't need water.","fresh":"Fresh bread just came out of the oven.",
+  "frozen":"Frozen vegetables are still nutritious.","raw":"Wash raw vegetables before eating.",
+  "sweet":"This dessert is too sweet for me.","sour":"Lemon juice is very sour.",
+  "bitter":"Strong coffee can taste bitter.","salty":"The soup is a bit too salty.",
+  "spicy":"This curry is really spicy!","delicious":"The pasta was absolutely delicious.",
+  "strong":"He is strong enough to carry it.","weak":"She felt weak after being sick.",
+  "whole":"I ate the whole pizza by myself.","broken":"My phone screen is broken.",
+  "dead":"The battery is completely dead.","alive":"He is lucky to be alive.",
+  "lost":"I'm lost — can you help me?","clear":"The instructions were not clear.",
+  "dark":"It gets dark early in winter.","bright":"Her future looks bright.",
+  "quiet":"The library must be quiet.","loud":"The music was too loud.",
+  "wet":"My shoes got wet in the rain.","dry":"Let the paint dry before touching.",
+  "sharp":"Be careful — this knife is sharp.","round":"The Earth is round.",
+  "flat":"The road was long and flat.","straight":"Go straight and then turn right.",
+  "rough":"The sea was rough in the storm.","smooth":"The road was smooth after repairs.",
+  "tight":"These shoes are too tight.","smart":"She found a smart solution.",
+  "stupid":"That was a stupid mistake.","clever":"He found a clever way to fix it.",
+  "wise":"Listen to wise advice.","honest":"Always be honest with your friends.",
+  "polite":"Be polite to everyone you meet.","rude":"It's rude to interrupt others.",
+  "friendly":"The staff were very friendly.","shy":"She's shy but very kind.",
+  "confident":"Walk in feeling confident.","nervous":"He was nervous before the speech.",
+  "calm":"Stay calm and think clearly.","serious":"This is a serious situation.",
+  "silly":"Stop being silly and focus.","lazy":"Don't be lazy — start now!",
+  "hardworking":"She is the most hardworking person I know.",
+  "creative":"She has a very creative mind.","logical":"His arguments are clear and logical.",
+  "romantic":"He planned a romantic dinner.","practical":"She always gives practical advice.",
+  "political":"I avoid political debates.","economic":"The economic situation is improving.",
+  "social":"Social skills are very important.","cultural":"It was a great cultural experience.",
+  "scientific":"The scientific evidence is clear.","medical":"He needed medical attention.",
+  "legal":"This is not legal.","financial":"She is in financial trouble.",
+  "digital":"We live in a digital world.","electric":"He drives an electric car.",
+  "physical":"Physical exercise is good for the mind.","mental":"Mental health is as important as physical.",
+  "emotional":"It was an emotional moment.","general":"In general, I agree with you.",
+  "specific":"Can you be more specific?","basic":"Learn the basic rules first.",
+  "main":"What is the main idea?","central":"The central issue is trust.",
+  "original":"This is an original painting.","normal":"Everything looks normal.",
+  "regular":"She does regular exercise.","typical":"This is typical of him.",
+  "extreme":"Don't take extreme risks.","previous":"Compare it with the previous version.",
+  "open":"The shop is open until midnight.","closed":"The museum is closed on Mondays.",
+  // Adverbs
+  "very":"She speaks very clearly.","really":"I really enjoyed the film.",
+  "quite":"It was quite cold this morning.","almost":"I almost missed the bus.",
+  "always":"She always arrives on time.","never":"I never eat fast food.",
+  "sometimes":"Sometimes a walk helps me think.","often":"How often do you exercise?",
+  "rarely":"I rarely get sick.","usually":"He usually has coffee in the morning.",
+  "already":"Have you already finished?","still":"Is he still sleeping?",
+  "soon":"Dinner will be ready soon.","again":"Please say that again.",
+  "also":"She also speaks French.","too":"I want some cake too.",
+  "enough":"Is that enough for everyone?","probably":"It will probably rain later.",
+  "maybe":"Maybe we should wait.","certainly":"I certainly agree with you.",
+  "here":"Come here, please.","there":"Put it over there.",
+  "everywhere":"There were flowers everywhere.","nowhere":"There's nowhere to sit.",
+  "somewhere":"Let's go somewhere quiet.","outside":"Wait for me outside.",
+  "inside":"Stay inside — it's raining.","above":"The plane flew above the clouds.",
+  "below":"The temperature dropped below zero.","now":"What do we do now?",
+  "then":"Finish your work, then relax.","quickly":"She quickly solved the problem.",
+  "slowly":"Drive slowly in the fog.","carefully":"Read the instructions carefully.",
+  "easily":"She easily passed the test.","well":"He speaks English very well.",
+  "badly":"The team played badly today.","loudly":"Don't speak loudly in the library.",
+  "quietly":"She quietly closed the door.","suddenly":"It suddenly started to rain.",
+  "finally":"We finally arrived!","together":"We'll solve it together.",
+  "alone":"She travels alone often.","simply":"Simply add water and stir.",
+  "exactly":"That's exactly what I meant.","recently":"I recently moved to a new city.",
+  "clearly":"Speak clearly so everyone can hear.","deeply":"She was deeply moved by the story.",
+  "strongly":"I strongly disagree.","especially":"I love music, especially jazz.",
+  "mostly":"I mostly work from home.","however":"It's expensive; however, it's worth it.",
+  "therefore":"She studied hard; therefore, she passed.","instead":"Have tea instead of coffee.",
+  "otherwise":"Hurry up, otherwise we'll be late.","yet":"Has he finished yet?",
+  "even":"Even a child could do this.","only":"I only need five minutes.",
+  "forward":"Move forward and don't look back.","backward":"Take one step backward.",
+  "nearby":"There is a café nearby.","apart":"They live far apart."
+};
+
+function speak(word) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = "en-US";
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
 const gameEl         = document.getElementById("game");
 const startScreen    = document.getElementById("start-screen");
 const endScreen      = document.getElementById("end-screen");
@@ -980,10 +1524,12 @@ function getCorrectAnswer() {
 function showCorrection(answer) {
   corrAnswerEl.textContent = answer;
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
-  const transEl = document.getElementById("correction-trans");
-  const tr = TRANS[enWord] || "";
-  transEl.textContent = tr;
-  transEl.style.display = tr ? "" : "none";
+  const speakBtn = document.getElementById("corr-speak");
+  speakBtn.onclick = () => speak(enWord);
+  const exEl = document.getElementById("corr-example");
+  const ex = EXAMPLES[enWord] || "";
+  exEl.textContent = ex ? "«" + ex + "»" : "";
+  exEl.style.display = ex ? "" : "none";
   correctionEl.classList.remove("hidden");
   answerEl.classList.add("wrong");
   answerEl.disabled = true;
@@ -1040,7 +1586,8 @@ function skipWord() {
 }
 
 function recordAnswer(userVal, status) {
-  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status });
+  const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
+  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord });
   if (status === "correct") { score++; scoreEl.textContent = score; }
 }
 
@@ -1121,15 +1668,22 @@ function renderList() {
 
   listEl.innerHTML = rows.map(r => {
     const pair = esc(r.shown) + " = " + esc(r.correct);
+    const enW = r.enWord || "";
+    const ex = EXAMPLES[enW] || "";
+    const exHtml = ex ? '<div class="row-example">«' + esc(ex) + '»</div>' : "";
+    const spk = enW ? '<button class="speak-btn" onclick="speak(' + JSON.stringify(enW) + ')">🔊</button>' : "";
     if (r.status === "correct") {
-      return '<div class="row correct"><span>' + pair +
-             '</span><span class="mark">✓</span></div>';
+      return '<div class="row correct"><span>' + pair + '</span><span class="mark">✓</span></div>';
     } else if (r.status === "wrong") {
-      return '<div class="row wrong"><span>' + pair +
-             '</span><span class="mark">твоя: ' + esc(r.user) + ' ✗</span></div>';
+      return '<div class="row wrong">' +
+             '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
+             '<div class="row-right">' + spk + '<span class="mark">твоя: ' + esc(r.user) + ' ✗</span></div>' +
+             '</div>';
     } else {
-      return '<div class="row skipped"><span>' + pair +
-             '</span><span class="mark">пропущено</span></div>';
+      return '<div class="row skipped">' +
+             '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
+             '<div class="row-right">' + spk + '<span class="mark">пропущено</span></div>' +
+             '</div>';
     }
   }).join("");
 }
@@ -1148,7 +1702,12 @@ btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
 document.addEventListener("keydown", e => {
-  if (e.key === "Enter" && !startScreen.classList.contains("hidden")) startGame();
+  if (e.key !== "Enter") return;
+  if (!startScreen.classList.contains("hidden")) { startGame(); return; }
+  if (!endScreen.classList.contains("hidden")) {
+    endScreen.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+  }
 });
 </script>
 </body>
