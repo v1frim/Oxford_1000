@@ -142,6 +142,27 @@
   .row.skipped { background: rgba(255, 255, 255, 0.10); }
   .row .mark { white-space: nowrap; opacity: 0.95; font-weight: 600; }
   .empty { padding: 24px; opacity: 0.7; }
+
+  /* correction panel */
+  .correction {
+    margin-top: 14px;
+    padding: 13px 16px;
+    background: rgba(255,107,107,0.18);
+    border: 1px solid rgba(255,107,107,0.38);
+    border-radius: 14px;
+    font-size: 15px;
+    text-align: left;
+    line-height: 1.55;
+    animation: popIn 0.2s ease;
+  }
+  .correction .corr-label { opacity: 0.75; font-size: 13px; }
+  .correction .corr-answer { font-weight: 700; font-size: 18px; color: #ffd166; }
+  .correction .corr-hint { font-size: 13px; opacity: 0.65; margin-top: 4px; }
+  #answer.wrong { outline-color: #ff6b6b !important; }
+  @keyframes popIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 <body>
@@ -171,6 +192,11 @@
     <div class="word-display" id="word-display">—</div>
     <input id="answer" type="text" placeholder="Переклад" autocomplete="off" autocorrect="off" spellcheck="false">
     <button id="skip-btn" class="skip">Пропустити</button>
+    <div id="correction" class="correction hidden">
+      <div class="corr-label">Правильна відповідь:</div>
+      <div class="corr-answer" id="correction-answer"></div>
+      <div class="corr-hint">Enter або «Пропустити» — далі</div>
+    </div>
   </div>
 
   <!-- END SCREEN -->
@@ -199,7 +225,7 @@ const DURATION = 60;
 const WORDS = [
   // ── VERBS ──────────────────────────────────────────────────────────────
   {en:"be",ua:"бути"},{en:"have",ua:"мати"},{en:"do",ua:"робити"},
-  {en:"say",ua:"казати"},{en:"go",ua:"іти"},{en:"get",ua:"отримувати"},
+  {en:"say",ua:"казати"},{en:"go",ua:"іти"},{en:"get",ua:["отримувати","діставати"]},
   {en:"make",ua:"виготовляти"},{en:"know",ua:"знати"},{en:"think",ua:"думати"},
   {en:"take",ua:"брати"},{en:"come",ua:"приходити"},{en:"see",ua:"бачити"},
   {en:"want",ua:"хотіти"},{en:"look",ua:"дивитися"},{en:"use",ua:"використовувати"},
@@ -207,44 +233,44 @@ const WORDS = [
   {en:"work",ua:"працювати"},{en:"call",ua:"дзвонити"},{en:"try",ua:"намагатися"},
   {en:"ask",ua:"питати"},{en:"need",ua:"потребувати"},{en:"feel",ua:"відчувати"},
   {en:"become",ua:"ставати"},{en:"leave",ua:"залишати"},{en:"put",ua:"класти"},
-  {en:"keep",ua:"тримати"},{en:"let",ua:"дозволяти"},{en:"begin",ua:"починати"},
+  {en:"keep",ua:["тримати","зберігати"]},{en:"let",ua:"дозволяти"},{en:"begin",ua:"починати"},
   {en:"show",ua:"показувати"},{en:"hear",ua:"чути"},{en:"play",ua:"грати"},
-  {en:"run",ua:"бігти"},{en:"move",ua:"рухатися"},{en:"live",ua:"жити"},
+  {en:"run",ua:["бігти","бігати"]},{en:"move",ua:"рухатися"},{en:"live",ua:"жити"},
   {en:"believe",ua:"вірити"},{en:"hold",ua:"тримати"},{en:"bring",ua:"приносити"},
   {en:"write",ua:"писати"},{en:"sit",ua:"сидіти"},{en:"stand",ua:"стояти"},
   {en:"lose",ua:"губити"},{en:"pay",ua:"платити"},{en:"meet",ua:"зустрічати"},
   {en:"learn",ua:"вчитися"},{en:"change",ua:"змінювати"},{en:"understand",ua:"розуміти"},
-  {en:"watch",ua:"спостерігати"},{en:"follow",ua:"слідувати"},{en:"stop",ua:"зупинятися"},
+  {en:"watch",ua:["спостерігати","дивитися","стежити"]},{en:"follow",ua:"слідувати"},{en:"stop",ua:"зупинятися"},
   {en:"create",ua:"створювати"},{en:"read",ua:"читати"},{en:"grow",ua:"рости"},
-  {en:"open",ua:"відчиняти"},{en:"walk",ua:"ходити"},{en:"win",ua:"вигравати"},
+  {en:"open",ua:["відчиняти","відкривати"]},{en:"walk",ua:"ходити"},{en:"win",ua:"вигравати"},
   {en:"remember",ua:"пам'ятати"},{en:"love",ua:"любити"},{en:"buy",ua:"купувати"},
   {en:"wait",ua:"чекати"},{en:"die",ua:"вмирати"},{en:"send",ua:"надсилати"},
   {en:"build",ua:"будувати"},{en:"stay",ua:"залишатися"},{en:"fall",ua:"падати"},
-  {en:"cut",ua:"різати"},{en:"reach",ua:"досягати"},{en:"pass",ua:"проходити"},
-  {en:"sell",ua:"продавати"},{en:"decide",ua:"вирішувати"},{en:"break",ua:"ламати"},
+  {en:"cut",ua:"різати"},{en:"reach",ua:"досягати"},{en:"pass",ua:["проходити","передавати","здавати"]},
+  {en:"sell",ua:"продавати"},{en:"decide",ua:"вирішувати"},{en:"break",ua:["ламати","перерва"]},
   {en:"eat",ua:"їсти"},{en:"drink",ua:"пити"},{en:"sleep",ua:"спати"},
-  {en:"help",ua:"допомагати"},{en:"talk",ua:"розмовляти"},{en:"turn",ua:"повертати"},
+  {en:"help",ua:"допомагати"},{en:"talk",ua:"розмовляти"},{en:"turn",ua:["повертати","черга"]},
   {en:"start",ua:"починати"},{en:"carry",ua:"нести"},{en:"drive",ua:"їздити"},
   {en:"fly",ua:"літати"},{en:"swim",ua:"плавати"},{en:"jump",ua:"стрибати"},
   {en:"smile",ua:"посміхатися"},{en:"laugh",ua:"сміятися"},{en:"cry",ua:"плакати"},
   {en:"fight",ua:"битися"},{en:"dance",ua:"танцювати"},{en:"sing",ua:"співати"},
-  {en:"cook",ua:"готувати"},{en:"clean",ua:"прибирати"},{en:"close",ua:"закривати"},
+  {en:"cook",ua:"готувати"},{en:"clean",ua:"прибирати"},{en:"close",ua:["закривати","зачиняти"]},
   {en:"choose",ua:"вибирати"},{en:"check",ua:"перевіряти"},{en:"count",ua:"рахувати"},
   {en:"cover",ua:"покривати"},{en:"climb",ua:"підніматися"},{en:"collect",ua:"збирати"},
   {en:"complete",ua:"завершувати"},{en:"connect",ua:"з'єднувати"},{en:"control",ua:"контролювати"},
   {en:"copy",ua:"копіювати"},{en:"cost",ua:"коштувати"},{en:"cross",ua:"перетинати"},
   {en:"depend",ua:"залежати"},{en:"describe",ua:"описувати"},{en:"develop",ua:"розвивати"},
-  {en:"draw",ua:"малювати"},{en:"drop",ua:"кидати"},{en:"enjoy",ua:"насолоджуватися"},
+  {en:"draw",ua:"малювати"},{en:"drop",ua:["кидати","краплина","впускати"]},{en:"enjoy",ua:"насолоджуватися"},
   {en:"enter",ua:"входити"},{en:"exist",ua:"існувати"},{en:"expect",ua:"очікувати"},
   {en:"explain",ua:"пояснювати"},{en:"express",ua:"висловлювати"},{en:"fail",ua:"провалювати"},
   {en:"fill",ua:"наповнювати"},{en:"finish",ua:"закінчувати"},{en:"fix",ua:"ремонтувати"},
   {en:"happen",ua:"траплятися"},{en:"imagine",ua:"уявляти"},{en:"improve",ua:"покращувати"},
   {en:"include",ua:"включати"},{en:"increase",ua:"збільшувати"},{en:"join",ua:"приєднуватися"},
   {en:"kill",ua:"вбивати"},{en:"pull",ua:"тягнути"},{en:"push",ua:"штовхати"},
-  {en:"raise",ua:"піднімати"},{en:"receive",ua:"отримати"},{en:"reduce",ua:"зменшувати"},
+  {en:"raise",ua:["піднімати","виховувати","збільшувати"]},{en:"receive",ua:"отримати"},{en:"reduce",ua:"зменшувати"},
   {en:"remove",ua:"видаляти"},{en:"repeat",ua:"повторювати"},{en:"replace",ua:"замінювати"},
-  {en:"rest",ua:"відпочивати"},{en:"return",ua:"повертатися"},{en:"rise",ua:"зростати"},
-  {en:"save",ua:"зберігати"},{en:"share",ua:"ділитися"},{en:"solve",ua:"вирішувати"},
+  {en:"rest",ua:["відпочивати","відпочинок"]},{en:"return",ua:"повертатися"},{en:"rise",ua:"зростати"},
+  {en:"save",ua:["зберігати","рятувати"]},{en:"share",ua:"ділитися"},{en:"solve",ua:"вирішувати"},
   {en:"spend",ua:"витрачати"},{en:"support",ua:"підтримувати"},{en:"teach",ua:"навчати"},
   {en:"throw",ua:"кидати"},{en:"travel",ua:"подорожувати"},{en:"visit",ua:"відвідувати"},
   {en:"accept",ua:"приймати"},{en:"achieve",ua:"досягти"},{en:"add",ua:"додавати"},
@@ -258,12 +284,12 @@ const WORDS = [
   {en:"hit",ua:"вдаряти"},{en:"hurt",ua:"боліти"},{en:"ignore",ua:"ігнорувати"},
   {en:"inform",ua:"інформувати"},{en:"introduce",ua:"знайомити"},{en:"invite",ua:"запрошувати"},
   {en:"kick",ua:"копати"},{en:"kiss",ua:"цілувати"},{en:"knock",ua:"стукати"},
-  {en:"land",ua:"приземлятися"},{en:"lock",ua:"замикати"},{en:"miss",ua:"сумувати"},
-  {en:"mix",ua:"змішувати"},{en:"order",ua:"замовляти"},{en:"organize",ua:"організовувати"},
+  {en:"land",ua:"приземлятися"},{en:"lock",ua:"замикати"},{en:"miss",ua:["скучати","сумувати","пропускати"]},
+  {en:"mix",ua:"змішувати"},{en:"order",ua:["замовляти","порядок","наказ"]},{en:"organize",ua:"організовувати"},
   {en:"own",ua:"володіти"},{en:"prefer",ua:"воліти"},{en:"prepare",ua:"готуватися"},
   {en:"prevent",ua:"запобігати"},{en:"produce",ua:"виробляти"},{en:"protect",ua:"захищати"},
   {en:"prove",ua:"доводити"},{en:"provide",ua:"забезпечувати"},{en:"publish",ua:"публікувати"},
-  {en:"realize",ua:"усвідомлювати"},{en:"recognize",ua:"впізнавати"},{en:"record",ua:"записувати"},
+  {en:"realize",ua:"усвідомлювати"},{en:"recognize",ua:"впізнавати"},{en:"record",ua:["записувати","рекорд"]},
   {en:"refuse",ua:"відмовлятися"},{en:"release",ua:"випускати"},{en:"rent",ua:"орендувати"},
   {en:"report",ua:"повідомляти"},{en:"require",ua:"вимагати"},{en:"search",ua:"шукати"},
   {en:"speak",ua:"говорити"},{en:"suggest",ua:"пропонувати"},{en:"survive",ua:"виживати"},
@@ -276,7 +302,7 @@ const WORDS = [
   {en:"minute",ua:"хвилина"},{en:"second",ua:"секунда"},{en:"morning",ua:"ранок"},
   {en:"afternoon",ua:"полудень"},{en:"evening",ua:"вечір"},{en:"night",ua:"ніч"},
   {en:"season",ua:"сезон"},{en:"spring",ua:"весна"},{en:"summer",ua:"літо"},
-  {en:"autumn",ua:"осінь"},{en:"winter",ua:"зима"},{en:"century",ua:"сторіччя"},
+  {en:["fall","autumn"],ua:"осінь"},{en:"winter",ua:"зима"},{en:"century",ua:"сторіччя"},
   {en:"decade",ua:"десятиліття"},{en:"moment",ua:"момент"},{en:"period",ua:"період"},
   {en:"past",ua:"минуле"},{en:"future",ua:"майбутнє"},
 
@@ -430,7 +456,7 @@ const WORDS = [
   {en:"level",ua:"рівень"},{en:"step",ua:"крок"},{en:"way",ua:"шлях"},
   {en:"method",ua:"метод"},{en:"system",ua:"система"},{en:"process",ua:"процес"},
   {en:"situation",ua:"ситуація"},{en:"condition",ua:"умова"},{en:"rule",ua:"правило"},
-  {en:"law",ua:"закон"},{en:"right",ua:"право"},{en:"relationship",ua:"стосунки"},
+  {en:"law",ua:"закон"},{en:"right",ua:["право","правий","правильний"]},{en:"relationship",ua:"стосунки"},
   {en:"goal",ua:"мета"},{en:"task",ua:"завдання"},{en:"purpose",ua:"ціль"},
   {en:"advantage",ua:"перевага"},{en:"opinion",ua:"думка"},{en:"belief",ua:"переконання"},
   {en:"agreement",ua:"угода"},{en:"argument",ua:"суперечка"},{en:"decision",ua:"рішення"},
@@ -486,7 +512,7 @@ const WORDS = [
   {en:"deep",ua:"глибокий"},{en:"thick",ua:"товстий"},{en:"thin",ua:"тонкий"},
   {en:"heavy",ua:"важкий"},{en:"light",ua:"легкий"},{en:"fast",ua:"швидкий"},
   {en:"slow",ua:"повільний"},{en:"hot",ua:"гарячий"},{en:"cold",ua:"холодний"},
-  {en:"warm",ua:"теплий"},{en:"cool",ua:"прохолодний"},{en:"hard",ua:"твердий"},
+  {en:"warm",ua:"теплий"},{en:"cool",ua:"прохолодний"},{en:"hard",ua:["твердий","важкий","складний"]},
   {en:"soft",ua:"м'який"},{en:"old",ua:"старий"},{en:"young",ua:"молодий"},
   {en:"new",ua:"новий"},{en:"ancient",ua:"стародавній"},{en:"modern",ua:"сучасний"},
   {en:"early",ua:"ранній"},{en:"late",ua:"пізній"},{en:"first",ua:"перший"},
@@ -497,7 +523,7 @@ const WORDS = [
   {en:"cruel",ua:"жорстокий"},{en:"brave",ua:"хоробрий"},{en:"afraid",ua:"наляканий"},
   {en:"happy",ua:"щасливий"},{en:"sad",ua:"сумний"},{en:"angry",ua:"злий"},
   {en:"excited",ua:"схвильований"},{en:"boring",ua:"нудний"},{en:"interesting",ua:"цікавий"},
-  {en:"funny",ua:"смішний"},{en:"strange",ua:"дивний"},{en:"wonderful",ua:"чудовий"},
+  {en:"funny",ua:["смішний","кумедний"]},{en:"strange",ua:"дивний"},{en:"wonderful",ua:"чудовий"},
   {en:"terrible",ua:"жахливий"},{en:"excellent",ua:"відмінний"},{en:"perfect",ua:"ідеальний"},
   {en:"important",ua:"важливий"},{en:"necessary",ua:"необхідний"},{en:"possible",ua:"можливий"},
   {en:"impossible",ua:"неможливий"},{en:"difficult",ua:"складний"},{en:"easy",ua:"простий"},
@@ -515,12 +541,12 @@ const WORDS = [
   {en:"international",ua:"міжнародний"},{en:"natural",ua:"природній"},{en:"artificial",ua:"штучний"},
   {en:"fresh",ua:"свіжий"},{en:"frozen",ua:"заморожений"},{en:"raw",ua:"сирий"},
   {en:"sweet",ua:"солодкий"},{en:"sour",ua:"кислий"},{en:"bitter",ua:"гіркий"},
-  {en:"salty",ua:"солоний"},{en:"spicy",ua:"пряний"},{en:"delicious",ua:"смачний"},
+  {en:"salty",ua:"солоний"},{en:"spicy",ua:["пряний","гострий"]},{en:"delicious",ua:"смачний"},
   {en:"strong",ua:"сильний"},{en:"weak",ua:"слабкий"},{en:"whole",ua:"цілий"},
   {en:"broken",ua:"зламаний"},{en:"dead",ua:"мертвий"},{en:"alive",ua:"живий"},
   {en:"lost",ua:"загублений"},{en:"clear",ua:"ясний"},{en:"dark",ua:"темний"},
   {en:"bright",ua:"яскравий"},{en:"quiet",ua:"тихий"},{en:"loud",ua:"гучний"},
-  {en:"wet",ua:"мокрий"},{en:"dry",ua:"сухий"},{en:"sharp",ua:"гострий"},
+  {en:"wet",ua:"мокрий"},{en:"dry",ua:"сухий"},{en:"sharp",ua:["гострий","різкий","точний"]},
   {en:"round",ua:"круглий"},{en:"flat",ua:"плоский"},{en:"straight",ua:"прямий"},
   {en:"rough",ua:"шорсткий"},{en:"smooth",ua:"гладкий"},{en:"tight",ua:"щільний"},
   {en:"smart",ua:"розумний"},{en:"stupid",ua:"дурний"},{en:"clever",ua:"кмітливий"},
@@ -565,30 +591,40 @@ const WORDS = [
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
-const gameEl      = document.getElementById("game");
-const startScreen = document.getElementById("start-screen");
-const endScreen   = document.getElementById("end-screen");
-const wordDisplay = document.getElementById("word-display");
-const answerEl    = document.getElementById("answer");
-const timerEl     = document.getElementById("timer");
-const scoreEl     = document.getElementById("score");
-const finalScoreEl= document.getElementById("final-score");
-const summaryEl   = document.getElementById("summary");
-const listEl      = document.getElementById("results-list");
-const modeHintEl  = document.getElementById("mode-hint");
-const tabAll      = document.getElementById("tab-all");
-const tabBad      = document.getElementById("tab-bad");
-const btnUaEn     = document.getElementById("btn-ua-en");
-const btnEnUa     = document.getElementById("btn-en-ua");
+const gameEl         = document.getElementById("game");
+const startScreen    = document.getElementById("start-screen");
+const endScreen      = document.getElementById("end-screen");
+const wordDisplay    = document.getElementById("word-display");
+const answerEl       = document.getElementById("answer");
+const timerEl        = document.getElementById("timer");
+const scoreEl        = document.getElementById("score");
+const finalScoreEl   = document.getElementById("final-score");
+const summaryEl      = document.getElementById("summary");
+const listEl         = document.getElementById("results-list");
+const modeHintEl     = document.getElementById("mode-hint");
+const tabAll         = document.getElementById("tab-all");
+const tabBad         = document.getElementById("tab-bad");
+const btnUaEn        = document.getElementById("btn-ua-en");
+const btnEnUa        = document.getElementById("btn-en-ua");
+const correctionEl   = document.getElementById("correction");
+const corrAnswerEl   = document.getElementById("correction-answer");
 
-let mode = "ua-en";   // "ua-en" | "en-ua"
+function getEn(w) { return Array.isArray(w.en) ? w.en : [w.en]; }
+function getUa(w) { return Array.isArray(w.ua) ? w.ua : [w.ua]; }
+
+let mode = "ua-en";
 let score = 0;
 let timeLeft = DURATION;
 let currentWord = null;
+let currentShown = "";
 let intervalId = null;
 let records = [];
 let currentFilter = "all";
-let usedIndices = [];
+let shuffledIndices = [];
+let shufflePos = 0;
+let waitingForLastAnswer = false;
+let awaitingAfterWrong = false;
+let correctionTimer = null;
 
 function setMode(m) {
   mode = m;
@@ -604,17 +640,16 @@ function shuffle(arr) {
   return arr;
 }
 
-let shuffledIndices = [];
-let shufflePos = 0;
-
 function nextWord() {
+  hideCorrection();
   if (shufflePos >= shuffledIndices.length) {
     shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
     shufflePos = 0;
   }
   currentWord = WORDS[shuffledIndices[shufflePos++]];
-  const shown = mode === "ua-en" ? currentWord.ua : currentWord.en;
-  wordDisplay.textContent = shown;
+  const vals = mode === "ua-en" ? getUa(currentWord) : getEn(currentWord);
+  currentShown = vals[Math.floor(Math.random() * vals.length)];
+  wordDisplay.textContent = currentShown;
   answerEl.value = "";
   answerEl.focus();
 }
@@ -622,52 +657,90 @@ function nextWord() {
 function isCorrect(input) {
   const inp = input.toLowerCase().trim();
   if (inp === "") return false;
+  const shownUa = getUa(currentWord);
   if (mode === "en-ua") {
-    // accept any UA translation for this EN word (covers verb/noun/adj duplicates)
-    return WORDS.some(w => w.en === currentWord.en && w.ua.toLowerCase() === inp);
+    return shownUa.some(u => u.toLowerCase() === inp);
   } else {
-    // accept any EN word that shares the same Ukrainian translation
-    return WORDS.some(w => w.ua === currentWord.ua && w.en.toLowerCase() === inp);
+    return WORDS.some(w =>
+      getUa(w).some(u => shownUa.includes(u)) &&
+      getEn(w).some(e => e.toLowerCase() === inp)
+    );
   }
 }
 
 function getCorrectAnswer() {
   if (mode === "ua-en") {
-    const alts = [...new Set(WORDS.filter(w => w.ua === currentWord.ua).map(w => w.en))];
-    return alts.join(" / ");
+    const shownUa = getUa(currentWord);
+    const ans = new Set();
+    WORDS.forEach(w => {
+      if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(e));
+    });
+    return [...ans].join(" / ");
   } else {
-    const alts = [...new Set(WORDS.filter(w => w.en === currentWord.en).map(w => w.ua))];
-    return alts.join(" / ");
+    return getUa(currentWord).join(" / ");
   }
 }
 
+function showCorrection(answer) {
+  corrAnswerEl.textContent = answer;
+  correctionEl.classList.remove("hidden");
+  answerEl.classList.add("wrong");
+  answerEl.disabled = true;
+  awaitingAfterWrong = true;
+  correctionTimer = setTimeout(() => {
+    hideCorrection();
+    if (waitingForLastAnswer) endGame();
+    else nextWord();
+  }, 2500);
+}
+
+function hideCorrection() {
+  correctionEl.classList.add("hidden");
+  answerEl.classList.remove("wrong");
+  answerEl.disabled = false;
+  awaitingAfterWrong = false;
+  if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
+}
+
+function advanceAfterCorrection() {
+  if (!awaitingAfterWrong) return;
+  clearTimeout(correctionTimer); correctionTimer = null;
+  hideCorrection();
+  if (waitingForLastAnswer) endGame();
+  else nextWord();
+}
+
 function handleInput() {
-  if (answerEl.value === "") return;
+  if (awaitingAfterWrong || answerEl.value === "") return;
   if (isCorrect(answerEl.value)) {
     recordAnswer(answerEl.value, "correct");
-    nextWord();
+    if (waitingForLastAnswer) endGame();
+    else nextWord();
   }
 }
 
 function submitAnswer() {
+  if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (answerEl.value.trim() === "") { skipWord(); return; }
   const correct = isCorrect(answerEl.value);
   recordAnswer(answerEl.value, correct ? "correct" : "wrong");
-  nextWord();
+  if (correct) {
+    if (waitingForLastAnswer) endGame();
+    else nextWord();
+  } else {
+    showCorrection(getCorrectAnswer());
+  }
 }
 
 function skipWord() {
+  if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   recordAnswer(null, "skipped");
-  nextWord();
+  if (waitingForLastAnswer) endGame();
+  else nextWord();
 }
 
 function recordAnswer(userVal, status) {
-  records.push({
-    shown: mode === "ua-en" ? currentWord.ua : currentWord.en,
-    correct: getCorrectAnswer(),
-    user: userVal,
-    status: status
-  });
+  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status });
   if (status === "correct") { score++; scoreEl.textContent = score; }
 }
 
@@ -675,12 +748,21 @@ function tick() {
   timeLeft--;
   timerEl.textContent = timeLeft;
   if (timeLeft <= 10) timerEl.classList.add("low");
-  if (timeLeft <= 0) endGame();
+  if (timeLeft <= 0) {
+    clearInterval(intervalId);
+    intervalId = null;
+    waitingForLastAnswer = true;
+    timerEl.textContent = "⏰";
+  }
 }
 
 function startGame() {
   score = 0; timeLeft = DURATION; records = [];
   currentFilter = "all";
+  waitingForLastAnswer = false;
+  awaitingAfterWrong = false;
+  if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
+  answerEl.disabled = false;
   scoreEl.textContent = "0";
   timerEl.textContent = DURATION;
   timerEl.classList.remove("low");
@@ -700,7 +782,10 @@ function startGame() {
 }
 
 function endGame() {
-  clearInterval(intervalId);
+  if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
+  correctionEl.classList.add("hidden");
+  answerEl.disabled = false;
+  if (intervalId) { clearInterval(intervalId); intervalId = null; }
   gameEl.classList.add("hidden");
   finalScoreEl.textContent = score;
   const wrong   = records.filter(r => r.status === "wrong").length;
@@ -719,8 +804,7 @@ function setFilter(f) {
 }
 
 function esc(s) {
-  return String(s)
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
 function renderList() {
@@ -762,6 +846,10 @@ tabAll.addEventListener("click", () => setFilter("all"));
 tabBad.addEventListener("click", () => setFilter("bad"));
 btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !startScreen.classList.contains("hidden")) startGame();
+});
 </script>
 </body>
 </html>
