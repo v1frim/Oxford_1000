@@ -1425,10 +1425,12 @@ const EXAMPLES = {
 function speak(word) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(word);
-  u.lang = "en-US";
-  u.rate = 0.85;
-  window.speechSynthesis.speak(u);
+  setTimeout(() => {
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = "en-US";
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }, 50);
 }
 
 const gameEl         = document.getElementById("game");
@@ -1703,6 +1705,7 @@ btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
 document.addEventListener("keydown", e => {
   if (e.key !== "Enter") return;
+  if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (!startScreen.classList.contains("hidden")) { startGame(); return; }
   if (!endScreen.classList.contains("hidden")) {
     endScreen.classList.add("hidden");
