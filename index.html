@@ -2199,7 +2199,7 @@ function renderList() {
     const exUa = EXAMPLES_UA[enW] || "";
     const exHtml = ex ? '<div class="row-example">«' + esc(ex) + '»</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
-    const spk = enW ? '<button class="speak-btn" onclick="speak(' + JSON.stringify(enW) + ')">🔊</button>' : "";
+    const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
     if (r.status === "correct") {
       return '<div class="row correct"><span>' + pair + '</span><span class="mark">✓</span></div>';
     } else if (r.status === "wrong") {
@@ -2226,6 +2226,10 @@ document.getElementById("restart-btn").addEventListener("click", () => {
 });
 tabAll.addEventListener("click", () => setFilter("all"));
 tabBad.addEventListener("click", () => setFilter("bad"));
+listEl.addEventListener("click", e => {
+  const btn = e.target.closest(".speak-btn");
+  if (btn && btn.dataset.word) speak(btn.dataset.word);
+});
 btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
