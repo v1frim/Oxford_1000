@@ -1942,8 +1942,8 @@ const EXAMPLES_UA = {
 function speak(word) {
   if (!window.speechSynthesis) return;
   const synth = window.speechSynthesis;
-  synth.cancel();
-  if (synth.paused) synth.resume();
+  if (synth.speaking || synth.pending) synth.cancel();
+  synth.resume();
   const u = new SpeechSynthesisUtterance(word);
   u.lang = "en-US";
   u.rate = 0.85;
@@ -2149,6 +2149,7 @@ function startGame() {
 
 function endGame() {
   if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   correctionEl.classList.add("hidden");
   answerEl.disabled = false;
   if (intervalId) { clearInterval(intervalId); intervalId = null; }
