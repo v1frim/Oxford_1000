@@ -172,6 +172,12 @@
     transition: background 0.15s;
   }
   .speak-btn:hover { background: rgba(255,255,255,0.22); }
+  .speak-btn-sm { font-size: 12px; padding: 2px 6px; }
+  .corr-example-row { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
+  .corr-example-row.hidden { display: none; }
+  .corr-example-row .corr-example { margin-top: 0; flex: 1; min-width: 0; }
+  .row-example-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+  .row-example-row .row-example { margin-top: 0; flex: 1; min-width: 0; }
   .row-example { font-size: 12px; opacity: 0.62; font-style: italic; margin-top: 3px; }
   .row-example-ua { font-size: 12px; opacity: 0.58; font-style: italic; margin-top: 3px; color: #ffd166; }
   .row-left { flex: 1; min-width: 0; }
@@ -217,7 +223,10 @@
         <div class="corr-answer" id="correction-answer"></div>
         <button class="speak-btn" id="corr-speak" title="Прослухати">🔊</button>
       </div>
-      <div class="corr-example" id="corr-example"></div>
+      <div class="corr-example-row hidden" id="corr-example-row">
+        <div class="corr-example" id="corr-example"></div>
+        <button class="speak-btn speak-btn-sm" id="corr-example-speak" title="Прослухати речення">🔊</button>
+      </div>
       <div class="corr-hint">Enter або «Пропустити» — далі</div>
     </div>
   </div>
@@ -2617,9 +2626,12 @@ function showCorrection(answer) {
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
   const exEl = document.getElementById("corr-example");
+  const exRow = document.getElementById("corr-example-row");
+  const exSpeak = document.getElementById("corr-example-speak");
   const ex = EXAMPLES[enWord] || "";
   exEl.textContent = ex ? "«" + ex + "»" : "";
-  exEl.style.display = ex ? "" : "none";
+  exRow.classList.toggle("hidden", !ex);
+  exSpeak.onclick = ex ? () => speak(ex) : null;
   correctionEl.classList.remove("hidden");
   answerEl.classList.add("wrong");
   answerEl.disabled = true;
@@ -2761,7 +2773,8 @@ function renderList() {
     const enW = r.enWord || "";
     const ex = EXAMPLES[enW] || "";
     const exUa = EXAMPLES_UA[enW] || "";
-    const exHtml = ex ? '<div class="row-example">«' + esc(ex) + '»</div>' : "";
+    const exSpk = ex ? '<button class="speak-btn speak-btn-sm" data-sentence="' + esc(ex) + '" title="Прослухати речення">🔊</button>' : "";
+    const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + esc(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
     const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
     if (r.status === "correct") {
@@ -2792,7 +2805,9 @@ tabAll.addEventListener("click", () => setFilter("all"));
 tabBad.addEventListener("click", () => setFilter("bad"));
 listEl.addEventListener("click", e => {
   const btn = e.target.closest(".speak-btn");
-  if (btn && btn.dataset.word) speak(btn.dataset.word);
+  if (!btn) return;
+  if (btn.dataset.sentence) speak(btn.dataset.sentence);
+  else if (btn.dataset.word) speak(btn.dataset.word);
 });
 btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
