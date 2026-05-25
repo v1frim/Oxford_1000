@@ -78,6 +78,13 @@
   button:hover { filter: brightness(1.08); }
   button:active { transform: scale(0.96); }
   #start-btn, #restart-btn { margin-top: 22px; }
+  #review-btn {
+    margin-top: 18px;
+    background: #ff9d6c;
+    color: #1e3c72;
+    font-size: 17px;
+    padding: 11px 24px;
+  }
   .skip {
     margin-top: 12px;
     font-size: 15px;
@@ -244,6 +251,7 @@
       <button id="tab-bad" class="tab">Помилки і пропуски</button>
     </div>
     <div class="results-list" id="results-list"></div>
+    <button id="review-btn" class="hidden">🔁 Повторити помилки</button>
     <button id="restart-btn">Спробувати ще раз</button>
   </div>
 </div>
@@ -2664,6 +2672,8 @@ let records = [];
 let currentFilter = "all";
 let shuffledIndices = [];
 let shufflePos = 0;
+let activePool = null;
+let currentWordIndex = -1;
 let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
 let correctionTimer = null;
@@ -2685,10 +2695,12 @@ function shuffle(arr) {
 function nextWord() {
   hideCorrection();
   if (shufflePos >= shuffledIndices.length) {
-    shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
+    const pool = activePool || [...Array(WORDS.length).keys()];
+    shuffledIndices = shuffle([...pool]);
     shufflePos = 0;
   }
-  currentWord = WORDS[shuffledIndices[shufflePos++]];
+  currentWordIndex = shuffledIndices[shufflePos++];
+  currentWord = WORDS[currentWordIndex];
   const vals = mode === "ua-en" ? getUa(currentWord) : getEn(currentWord);
   currentShown = vals[Math.floor(Math.random() * vals.length)];
   wordDisplay.textContent = currentShown;
@@ -2794,7 +2806,7 @@ function skipWord() {
 function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
-  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord });
+  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex });
   if (status === "correct") { score++; scoreEl.textContent = score; }
 }
 
@@ -2815,7 +2827,8 @@ function tick() {
   }
 }
 
-function startGame() {
+function startGame(pool) {
+  activePool = pool || null;
   score = 0; timeLeft = DURATION; records = [];
   currentFilter = "all";
   waitingForLastAnswer = false;
@@ -2825,7 +2838,8 @@ function startGame() {
   scoreEl.textContent = "0";
   timerEl.textContent = DURATION;
   timerEl.classList.remove("low");
-  shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
+  const sourcePool = activePool || [...Array(WORDS.length).keys()];
+  shuffledIndices = shuffle([...sourcePool]);
   shufflePos = 0;
 
   modeHintEl.textContent = mode === "ua-en"
@@ -2851,8 +2865,18 @@ function endGame() {
   const skipped = records.filter(r => r.status === "skipped").length;
   summaryEl.textContent =
     "Правильних: " + score + " · Помилок: " + wrong + " · Пропущено: " + skipped;
+  const reviewBtn = document.getElementById("review-btn");
+  reviewBtn.classList.toggle("hidden", wrong + skipped === 0);
   setFilter("all");
   endScreen.classList.remove("hidden");
+}
+
+function startReview() {
+  const failedIndices = [...new Set(
+    records.filter(r => r.status !== "correct").map(r => r.wordIndex)
+  )];
+  if (failedIndices.length === 0) return;
+  startGame(failedIndices);
 }
 
 function setFilter(f) {
@@ -2907,11 +2931,12 @@ function renderList() {
 answerEl.addEventListener("input", handleInput);
 answerEl.addEventListener("keydown", e => { if (e.key === "Enter") { submitAnswer(); e.stopPropagation(); } });
 document.getElementById("skip-btn").addEventListener("click", skipWord);
-document.getElementById("start-btn").addEventListener("click", startGame);
+document.getElementById("start-btn").addEventListener("click", () => startGame());
 document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
   startScreen.classList.remove("hidden");
 });
+document.getElementById("review-btn").addEventListener("click", startReview);
 tabAll.addEventListener("click", () => setFilter("all"));
 tabBad.addEventListener("click", () => setFilter("bad"));
 listEl.addEventListener("click", e => {
