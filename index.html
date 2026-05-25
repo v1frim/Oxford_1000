@@ -68,7 +68,9 @@
   }
   .lb-list li.is-new { background: rgba(255, 209, 102, 0.18); border-radius: 6px; }
   .lb-score { font-weight: 700; color: #ffd166; }
-  .lb-detail { opacity: 0.6; font-size: 12px; }
+  .lb-detail { opacity: 0.7; font-size: 12px; }
+  .lb-bad { color: #ff6b6b; font-weight: 600; }
+  .lb-total { opacity: 0.6; }
   .lb-mode { margin-left: auto; font-size: 11px; opacity: 0.55; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
@@ -3122,7 +3124,7 @@ function renderLeaderboard(highlightId) {
       const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
       return '<li class="' + isNew + '">' +
         '<span class="lb-score">' + s.score + '</span>' +
-        '<span class="lb-detail">(' + s.wrong + '/' + s.skipped + ')</span>' +
+        '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)</span>' +
         '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
       '</li>';
     }).join("");
