@@ -36,6 +36,7 @@
   }
   .stats .label { opacity: 0.7; font-size: 13px; display: block; }
   #timer.low { color: #ff6b6b; }
+  #timer.overtime { color: #ff6b6b; font-weight: 700; }
   .mode-hint {
     font-size: 13px;
     opacity: 0.65;
@@ -2844,6 +2845,16 @@ function lookupExample(table, enWord, uaWord) {
 
 function tick() {
   timeLeft--;
+  if (reviewRemaining) {
+    if (timeLeft >= 0) {
+      timerEl.textContent = timeLeft;
+      if (timeLeft <= 10) timerEl.classList.add("low");
+    } else {
+      timerEl.textContent = "+" + (-timeLeft);
+      timerEl.classList.add("overtime");
+    }
+    return;
+  }
   timerEl.textContent = timeLeft;
   if (timeLeft <= 10) timerEl.classList.add("low");
   if (timeLeft <= 0) {
@@ -2871,7 +2882,7 @@ function startGame(pool) {
   answerEl.disabled = false;
   scoreEl.textContent = "0";
   timerEl.textContent = DURATION;
-  timerEl.classList.remove("low");
+  timerEl.classList.remove("low", "overtime");
   const sourcePool = activePool || [...Array(WORDS.length).keys()];
   shuffledIndices = shuffle([...sourcePool]);
   shufflePos = 0;
