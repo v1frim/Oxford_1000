@@ -92,6 +92,12 @@
     background: rgba(255, 255, 255, 0.16);
     color: #fff;
   }
+  .end-btn {
+    margin-top: 8px;
+    margin-left: 8px;
+    background: rgba(255, 107, 107, 0.22);
+  }
+  .end-btn:hover { background: rgba(255, 107, 107, 0.35); }
   .hidden { display: none; }
 
   /* mode selector */
@@ -224,6 +230,7 @@
     <div class="word-display" id="word-display">—</div>
     <input id="answer" type="text" placeholder="Переклад" autocomplete="off" autocorrect="off" spellcheck="false">
     <button id="skip-btn" class="skip">Пропустити</button>
+    <button id="end-btn" class="skip end-btn">Закінчити</button>
     <div id="correction" class="correction hidden">
       <div class="corr-label">Правильна відповідь:</div>
       <div class="corr-top">
@@ -2674,6 +2681,9 @@ let shuffledIndices = [];
 let shufflePos = 0;
 let activePool = null;
 let currentWordIndex = -1;
+let reviewRemaining = null;
+let reviewCorrectCounts = null;
+const REVIEW_REQUIRED_CORRECT = 3;
 let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
 let correctionTimer = null;
@@ -2694,12 +2704,21 @@ function shuffle(arr) {
 
 function nextWord() {
   hideCorrection();
-  if (shufflePos >= shuffledIndices.length) {
-    const pool = activePool || [...Array(WORDS.length).keys()];
-    shuffledIndices = shuffle([...pool]);
-    shufflePos = 0;
+  if (reviewRemaining) {
+    if (reviewRemaining.size === 0) { endGame(); return; }
+    const indices = [...reviewRemaining];
+    let pick = indices[Math.floor(Math.random() * indices.length)];
+    if (indices.length > 1 && pick === currentWordIndex) {
+      pick = indices[(indices.indexOf(pick) + 1) % indices.length];
+    }
+    currentWordIndex = pick;
+  } else {
+    if (shufflePos >= shuffledIndices.length) {
+      shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
+      shufflePos = 0;
+    }
+    currentWordIndex = shuffledIndices[shufflePos++];
   }
-  currentWordIndex = shuffledIndices[shufflePos++];
   currentWord = WORDS[currentWordIndex];
   const vals = mode === "ua-en" ? getUa(currentWord) : getEn(currentWord);
   currentShown = vals[Math.floor(Math.random() * vals.length)];
@@ -2807,7 +2826,15 @@ function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
   records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex });
-  if (status === "correct") { score++; scoreEl.textContent = score; }
+  if (status === "correct") {
+    score++; scoreEl.textContent = score;
+    if (reviewRemaining) {
+      reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
+      if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
+        reviewRemaining.delete(currentWordIndex);
+      }
+    }
+  }
 }
 
 function lookupExample(table, enWord, uaWord) {
@@ -2829,6 +2856,13 @@ function tick() {
 
 function startGame(pool) {
   activePool = pool || null;
+  if (activePool) {
+    reviewRemaining = new Set(activePool);
+    reviewCorrectCounts = {};
+  } else {
+    reviewRemaining = null;
+    reviewCorrectCounts = null;
+  }
   score = 0; timeLeft = DURATION; records = [];
   currentFilter = "all";
   waitingForLastAnswer = false;
@@ -2931,6 +2965,10 @@ function renderList() {
 answerEl.addEventListener("input", handleInput);
 answerEl.addEventListener("keydown", e => { if (e.key === "Enter") { submitAnswer(); e.stopPropagation(); } });
 document.getElementById("skip-btn").addEventListener("click", skipWord);
+document.getElementById("end-btn").addEventListener("click", () => {
+  awaitingAfterWrong = false;
+  endGame();
+});
 document.getElementById("start-btn").addEventListener("click", () => startGame());
 document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
