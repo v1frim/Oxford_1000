@@ -767,7 +767,26 @@ const WORDS = [
   {en:"motivated",ua:"вмотивований"},{en:"narrow",ua:"вузький"},{en:"neutral",ua:"нейтральний"},
   {en:"pale",ua:"блідий"},{en:"permanent",ua:"постійний"},{en:"precise",ua:"точний"},
   {en:"realistic",ua:"реалістичний"},{en:"temporary",ua:"тимчасовий"},{en:"urgent",ua:"терміновий"},
-  {en:"valid",ua:"дійсний"},{en:"vulnerable",ua:"вразливий"},{en:"worthy",ua:"гідний"}
+  {en:"valid",ua:"дійсний"},{en:"vulnerable",ua:"вразливий"},{en:"worthy",ua:"гідний"},
+  // ── POLYSEMOUS DUPLICATES (different meanings of same word) ──
+  {en:"light",ua:"світлий"},{en:"run",ua:"керувати"},{en:"fly",ua:"муха"},
+  {en:"spring",ua:"пружина"},{en:"kind",ua:"тип"},{en:"bank",ua:"берег"},
+  {en:"book",ua:"бронювати"},{en:"orange",ua:"помаранчевий"},{en:"watch",ua:"годинник"},
+  {en:"wave",ua:"махати"},{en:"ring",ua:"дзвонити"},{en:"point",ua:"показувати"},
+  {en:"close",ua:"близький"},{en:"lie",ua:"лежати"},{en:"bear",ua:"терпіти"},
+  {en:"cool",ua:"крутий"},{en:"hot",ua:"гострий"},{en:"play",ua:"п'єса"},
+  {en:"season",ua:"приправляти"},{en:"last",ua:"тривати"},{en:"fair",ua:"ярмарок"},
+  // ── NEW POLYSEMOUS WORDS (each meaning as separate entry) ──
+  {en:"fine",ua:"чудовий"},{en:"fine",ua:"штраф"},
+  {en:"match",ua:"матч"},{en:"match",ua:"сірник"},
+  {en:"mean",ua:"означати"},{en:"mean",ua:"підлий"},
+  {en:"like",ua:"любити"},{en:"like",ua:"подібний"},
+  {en:"present",ua:"подарунок"},{en:"present",ua:"теперішній"},
+  {en:"content",ua:"вміст"},{en:"content",ua:"задоволений"},
+  {en:"board",ua:"дошка"},{en:"board",ua:"правління"},
+  {en:"lead",ua:"вести"},{en:"lead",ua:"свинець"},
+  {en:"address",ua:"адреса"},{en:"address",ua:"звертатися"},
+  {en:"tear",ua:"сльоза"},{en:"tear",ua:"рвати"}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -1786,7 +1805,49 @@ const EXAMPLES = {
   "permanent":"He got a permanent job at the company.","precise":"Give me a precise answer.",
   "realistic":"Be realistic about what you can achieve.","temporary":"This is a temporary solution.",
   "urgent":"I have an urgent message for you.","valid":"Is your passport still valid?",
-  "vulnerable":"Young children are vulnerable to infections.","worthy":"It is worthy of your attention."
+  "vulnerable":"Young children are vulnerable to infections.","worthy":"It is worthy of your attention.",
+  // Polysemous: specific meaning examples
+  "light:світлий":"The room is bright and light.",
+  "run:керувати":"She runs a small business in the city.",
+  "fly:муха":"There's a fly on the kitchen window.",
+  "spring:пружина":"The spring in the mattress is broken.",
+  "kind:тип":"What kind of music do you like?",
+  "bank:берег":"We had a picnic on the river bank.",
+  "book:бронювати":"I want to book a table for two.",
+  "orange:помаранчевий":"She wore a bright orange dress.",
+  "watch:годинник":"My watch shows the wrong time.",
+  "wave:махати":"She waved goodbye from the train.",
+  "ring:дзвонити":"The phone is ringing in the kitchen.",
+  "point:показувати":"Don't point at people — it's rude.",
+  "close:близький":"My house is close to the school.",
+  "lie:лежати":"I want to lie down for a moment.",
+  "bear:терпіти":"I can't bear this loud noise.",
+  "cool:крутий":"That's a really cool car!",
+  "hot:гострий":"This curry is too hot for me.",
+  "play:п'єса":"We saw a great play at the theater.",
+  "season:приправляти":"Season the meat with salt and pepper.",
+  "last:тривати":"The meeting lasted two hours.",
+  "fair:ярмарок":"We had fun at the summer fair.",
+  "fine":"It's a fine day for a walk.",
+  "fine:штраф":"He had to pay a parking fine.",
+  "match":"The football match starts at seven.",
+  "match:сірник":"I need a match to light the candle.",
+  "mean":"What does this word mean?",
+  "mean:підлий":"Don't be mean to your sister.",
+  "like":"Do you like coffee in the morning?",
+  "like:подібний":"She looks like her mother.",
+  "present":"She got a beautiful present for her birthday.",
+  "present:теперішній":"Live in the present moment.",
+  "content":"The box's content was a mystery.",
+  "content:задоволений":"She felt content with her quiet life.",
+  "board":"The teacher wrote on the board.",
+  "board:правління":"The board approved the new budget.",
+  "lead":"She will lead the team to victory.",
+  "lead:свинець":"In the past, pipes were made of lead.",
+  "address":"What's your home address?",
+  "address:звертатися":"The president will address the nation.",
+  "tear":"A tear ran down her cheek.",
+  "tear:рвати":"Don't tear the paper — fold it carefully."
 };
 
 const EXAMPLES_UA = {
@@ -2509,7 +2570,49 @@ const EXAMPLES_UA = {
   "permanent":"Він отримав постійну роботу в компанії.","precise":"Дай мені точну відповідь.",
   "realistic":"Будь реалістичним щодо того, чого можеш досягти.","temporary":"Це тимчасове рішення.",
   "urgent":"У мене для тебе термінове повідомлення.","valid":"Твій паспорт ще дійсний?",
-  "vulnerable":"Маленькі діти вразливі до інфекцій.","worthy":"Це гідно твоєї уваги."
+  "vulnerable":"Маленькі діти вразливі до інфекцій.","worthy":"Це гідно твоєї уваги.",
+  // Polysemous: specific meaning examples
+  "light:світлий":"Кімната яскрава і світла.",
+  "run:керувати":"Вона керує невеликим бізнесом у місті.",
+  "fly:муха":"На кухонному вікні муха.",
+  "spring:пружина":"Пружина в матраці зламана.",
+  "kind:тип":"Який тип музики тобі подобається?",
+  "bank:берег":"Ми влаштували пікнік на березі річки.",
+  "book:бронювати":"Я хочу забронювати столик на двох.",
+  "orange:помаранчевий":"Вона була в яскравій помаранчевій сукні.",
+  "watch:годинник":"Мій годинник показує неправильний час.",
+  "wave:махати":"Вона махала на прощання з поїзда.",
+  "ring:дзвонити":"На кухні дзвонить телефон.",
+  "point:показувати":"Не показуй на людей — це нечемно.",
+  "close:близький":"Мій будинок близько до школи.",
+  "lie:лежати":"Я хочу прилягти на хвилину.",
+  "bear:терпіти":"Я не можу терпіти цей гучний шум.",
+  "cool:крутий":"Це дуже крута машина!",
+  "hot:гострий":"Це каррі занадто гостре для мене.",
+  "play:п'єса":"Ми бачили чудову п'єсу в театрі.",
+  "season:приправляти":"Приправ м'ясо сіллю і перцем.",
+  "last:тривати":"Зустріч тривала дві години.",
+  "fair:ярмарок":"Ми весело провели час на літньому ярмарку.",
+  "fine":"Це чудовий день для прогулянки.",
+  "fine:штраф":"Йому довелося заплатити штраф за паркування.",
+  "match":"Футбольний матч починається о сьомій.",
+  "match:сірник":"Мені потрібен сірник, щоб запалити свічку.",
+  "mean":"Що означає це слово?",
+  "mean:підлий":"Не будь підлим до сестри.",
+  "like":"Ти любиш каву вранці?",
+  "like:подібний":"Вона подібна до своєї матері.",
+  "present":"На день народження вона отримала чудовий подарунок.",
+  "present:теперішній":"Живи теперішнім моментом.",
+  "content":"Вміст коробки був загадкою.",
+  "content:задоволений":"Вона була задоволена своїм спокійним життям.",
+  "board":"Вчитель писав на дошці.",
+  "board:правління":"Правління затвердило новий бюджет.",
+  "lead":"Вона буде вести команду до перемоги.",
+  "lead:свинець":"У минулому труби робили зі свинцю.",
+  "address":"Яка твоя домашня адреса?",
+  "address:звертатися":"Президент звернеться до нації.",
+  "tear":"По її щоці скотилася сльоза.",
+  "tear:рвати":"Не рви папір — складай обережно."
 };
 
 function speak(word) {
@@ -2623,12 +2726,13 @@ function getCorrectAnswer() {
 function showCorrection(answer) {
   corrAnswerEl.textContent = answer;
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
+  const uaWord = getUa(currentWord)[0];
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
   const exEl = document.getElementById("corr-example");
   const exRow = document.getElementById("corr-example-row");
   const exSpeak = document.getElementById("corr-example-speak");
-  const ex = EXAMPLES[enWord] || "";
+  const ex = lookupExample(EXAMPLES, enWord, uaWord);
   exEl.textContent = ex ? "«" + ex + "»" : "";
   exRow.classList.toggle("hidden", !ex);
   exSpeak.onclick = ex ? () => speak(ex) : null;
@@ -2689,8 +2793,14 @@ function skipWord() {
 
 function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
-  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord });
+  const uaWord = getUa(currentWord)[0];
+  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord });
   if (status === "correct") { score++; scoreEl.textContent = score; }
+}
+
+function lookupExample(table, enWord, uaWord) {
+  if (uaWord && table[enWord + ":" + uaWord]) return table[enWord + ":" + uaWord];
+  return table[enWord] || "";
 }
 
 function tick() {
@@ -2771,8 +2881,9 @@ function renderList() {
   listEl.innerHTML = rows.map(r => {
     const pair = esc(r.shown) + " = " + esc(r.correct);
     const enW = r.enWord || "";
-    const ex = EXAMPLES[enW] || "";
-    const exUa = EXAMPLES_UA[enW] || "";
+    const uaW = r.uaWord || "";
+    const ex = lookupExample(EXAMPLES, enW, uaW);
+    const exUa = lookupExample(EXAMPLES_UA, enW, uaW);
     const exSpk = ex ? '<button class="speak-btn speak-btn-sm" data-sentence="' + esc(ex) + '" title="Прослухати речення">🔊</button>' : "";
     const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + esc(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
