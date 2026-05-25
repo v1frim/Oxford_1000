@@ -16,6 +16,13 @@
     color: #fff;
     padding: 20px;
   }
+  .layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .card {
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
@@ -27,6 +34,43 @@
     text-align: center;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   }
+  .leaderboard {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 22px 20px;
+    width: 260px;
+    max-width: 94vw;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .lb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .lb-header h2 { font-size: 17px; font-weight: 600; }
+  .lb-reset {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff; cursor: pointer; padding: 4px 10px;
+    border-radius: 8px; font-size: 13px;
+  }
+  .lb-reset:hover { background: rgba(255, 107, 107, 0.35); }
+  .lb-list { list-style: none; padding: 0; margin: 0; counter-reset: rank; }
+  .lb-list li {
+    display: flex; align-items: baseline; gap: 8px;
+    padding: 7px 4px; font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    counter-increment: rank;
+  }
+  .lb-list li:last-child { border-bottom: none; }
+  .lb-list li::before {
+    content: counter(rank) ".";
+    opacity: 0.55; font-size: 12px; min-width: 22px;
+  }
+  .lb-list li.is-new { background: rgba(255, 209, 102, 0.18); border-radius: 6px; }
+  .lb-score { font-weight: 700; color: #ffd166; }
+  .lb-detail { opacity: 0.6; font-size: 12px; }
+  .lb-mode { margin-left: auto; font-size: 11px; opacity: 0.55; }
+  .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
   .stats {
     display: flex;
@@ -205,6 +249,7 @@
 </style>
 </head>
 <body>
+<div class="layout">
 <div class="card">
   <h1>Англійські слова</h1>
 
@@ -262,6 +307,15 @@
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
     <button id="restart-btn">Спробувати ще раз</button>
   </div>
+</div>
+<aside class="leaderboard hidden" id="leaderboard">
+  <div class="lb-header">
+    <h2>🏆 Топ-10</h2>
+    <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
+  </div>
+  <ol class="lb-list" id="lb-list"></ol>
+  <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
+</aside>
 </div>
 
 <script>
@@ -2894,6 +2948,7 @@ function startGame(pool) {
   startScreen.classList.add("hidden");
   endScreen.classList.add("hidden");
   gameEl.classList.remove("hidden");
+  hideLeaderboard();
 
   nextWord();
   intervalId = setInterval(tick, 1000);
@@ -2912,6 +2967,11 @@ function endGame() {
     "Правильних: " + score + " · Помилок: " + wrong + " · Пропущено: " + skipped;
   const reviewBtn = document.getElementById("review-btn");
   reviewBtn.classList.toggle("hidden", wrong + skipped === 0);
+  let newEntryId = null;
+  if (!activePool) {
+    newEntryId = saveScore({ score, wrong, skipped, mode, ts: Date.now() });
+  }
+  renderLeaderboard(newEntryId);
   setFilter("all");
   endScreen.classList.remove("hidden");
 }
@@ -2984,6 +3044,7 @@ document.getElementById("start-btn").addEventListener("click", () => startGame()
 document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
   startScreen.classList.remove("hidden");
+  renderLeaderboard();
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
 tabAll.addEventListener("click", () => setFilter("all"));
@@ -3018,8 +3079,65 @@ document.addEventListener("keydown", e => {
   if (!endScreen.classList.contains("hidden")) {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
+    renderLeaderboard();
   }
 });
+
+// ── LEADERBOARD ────────────────────────────────────────────────────────────
+const LB_KEY = "oxford_scores_v1";
+const LB_LIMIT = 10;
+const leaderboardEl = document.getElementById("leaderboard");
+const lbListEl = document.getElementById("lb-list");
+const lbEmptyEl = document.getElementById("lb-empty");
+
+function loadScores() {
+  try { return JSON.parse(localStorage.getItem(LB_KEY)) || []; }
+  catch { return []; }
+}
+function saveScore(entry) {
+  const id = "e" + Date.now() + "-" + Math.random().toString(36).slice(2, 7);
+  entry.id = id;
+  const all = loadScores();
+  all.push(entry);
+  all.sort((a, b) => b.score - a.score || (a.wrong + a.skipped) - (b.wrong + b.skipped));
+  const trimmed = all.slice(0, LB_LIMIT);
+  localStorage.setItem(LB_KEY, JSON.stringify(trimmed));
+  return trimmed.some(e => e.id === id) ? id : null;
+}
+function fmtDate(ts) {
+  const d = new Date(ts);
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  return dd + "." + mm;
+}
+function renderLeaderboard(highlightId) {
+  const scores = loadScores();
+  if (scores.length === 0) {
+    lbListEl.innerHTML = "";
+    lbEmptyEl.classList.remove("hidden");
+  } else {
+    lbEmptyEl.classList.add("hidden");
+    lbListEl.innerHTML = scores.map(s => {
+      const isNew = s.id === highlightId ? " is-new" : "";
+      const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
+      return '<li class="' + isNew + '">' +
+        '<span class="lb-score">' + s.score + '</span>' +
+        '<span class="lb-detail">(' + s.wrong + '/' + s.skipped + ')</span>' +
+        '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
+      '</li>';
+    }).join("");
+  }
+  leaderboardEl.classList.remove("hidden");
+}
+function hideLeaderboard() { leaderboardEl.classList.add("hidden"); }
+
+document.getElementById("lb-reset").addEventListener("click", () => {
+  if (!confirm("Очистити всю історію результатів?")) return;
+  localStorage.removeItem(LB_KEY);
+  renderLeaderboard();
+});
+
+renderLeaderboard();
 </script>
 </body>
 </html>
