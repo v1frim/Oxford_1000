@@ -258,7 +258,7 @@
       <button id="tab-bad" class="tab">Помилки і пропуски</button>
     </div>
     <div class="results-list" id="results-list"></div>
-    <button id="review-btn" class="hidden">🔁 Повторити помилки</button>
+    <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
     <button id="restart-btn">Спробувати ще раз</button>
   </div>
 </div>
@@ -2992,6 +2992,14 @@ document.addEventListener("keydown", e => {
     const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
     speak(enWord);
     return;
+  }
+  if (e.key === " " && !endScreen.classList.contains("hidden")) {
+    const reviewBtn = document.getElementById("review-btn");
+    if (!reviewBtn.classList.contains("hidden")) {
+      e.preventDefault();
+      startReview();
+      return;
+    }
   }
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
