@@ -241,7 +241,7 @@
         <div class="corr-example" id="corr-example"></div>
         <button class="speak-btn speak-btn-sm" id="corr-example-speak" title="Прослухати речення">🔊</button>
       </div>
-      <div class="corr-hint">Enter або «Пропустити» — далі</div>
+      <div class="corr-hint">Enter — далі · Пробіл — озвучити слово</div>
     </div>
   </div>
 
@@ -2987,6 +2987,12 @@ btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
 document.addEventListener("keydown", e => {
+  if (e.key === " " && awaitingAfterWrong) {
+    e.preventDefault();
+    const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
+    speak(enWord);
+    return;
+  }
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (!startScreen.classList.contains("hidden")) { startGame(); return; }
