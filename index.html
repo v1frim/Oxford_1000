@@ -108,7 +108,15 @@
     box-shadow: inset 3px 0 0 #ffd166;
     border-radius: 6px;
   }
-  .lb-list li.lb-today::before { content: "ти"; opacity: 0.7; font-size: 10px; }
+  .lb-list li.lb-today::before { content: "★"; opacity: 0.85; font-size: 13px; color: #ffd166; }
+  .lb-list li.lb-latest {
+    counter-increment: none;
+    background: rgba(135, 180, 255, 0.10);
+    box-shadow: inset 3px 0 0 #87b4ff;
+    border-radius: 6px;
+  }
+  .lb-list li.lb-latest::before { content: "ост"; opacity: 0.85; font-size: 10px; color: #87b4ff; }
+  .lb-list li.is-today-game .lb-mode { font-weight: 600; opacity: 0.85; color: #ffe39e; }
   h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
   .stats {
     display: flex;
@@ -3051,6 +3059,7 @@ function endGame() {
     newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
     newDayKey = recordDayStats(score, wrong, skipped, wordCount);
     updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
+    updateLatest({ score, wrong, skipped, mode, ts, wordCount });
   }
   renderLeaderboard(newEntryId, newDayKey);
   setFilter("all");
@@ -3176,6 +3185,7 @@ document.addEventListener("keydown", e => {
 const LB_KEY = "oxford_scores_v1";
 const LB_DAYS_KEY = "oxford_days_v1";
 const LB_TODAY_BEST_KEY = "oxford_today_best_v1";
+const LB_LATEST_KEY = "oxford_latest_v1";
 const LB_LIMIT = 10;
 const leaderboardEl = document.getElementById("leaderboard");
 const lbListEl = document.getElementById("lb-list");
@@ -3241,6 +3251,18 @@ function updateTodayBest(game) {
     localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify(entry));
   }
 }
+function loadLatest() {
+  try { return JSON.parse(localStorage.getItem(LB_LATEST_KEY)); }
+  catch { return null; }
+}
+function updateLatest(game) {
+  const entry = { key: todayKey(), score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
+  localStorage.setItem(LB_LATEST_KEY, JSON.stringify(entry));
+}
+function tsToDayKey(ts) {
+  const d = new Date(ts);
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
 function fmtDate(ts) {
   const d = new Date(ts);
   return String(d.getDate()).padStart(2, "0") + "." + String(d.getMonth() + 1).padStart(2, "0");
@@ -3273,31 +3295,37 @@ function renderTabGames() {
   lbTitleEl.textContent = "Найкращі ігри";
   const scores = loadScores();
   const todayBest = loadTodayBest();
+  const latest = loadLatest();
   const today = todayKey();
-  if (scores.length === 0 && !(todayBest && todayBest.key === today)) {
+  const renderGameRow = (s, cls) => {
+    const modeStr = s.mode === "ua-en" ? "🇺🇦→🇺🇸" : "🇺🇸→🇺🇦";
+    const isTodayGame = tsToDayKey(s.ts) === today;
+    const klass = (cls || "") + (isTodayGame && !cls ? " is-today-game" : "");
+    return '<li class="' + klass + '">' +
+      '<span class="lb-score">' + s.score + '</span>' +
+      '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)</span>' +
+      '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
+    '</li>';
+  };
+  const hasTodayBest = todayBest && todayBest.key === today;
+  const hasLatest = latest && latest.key === today;
+  if (scores.length === 0 && !hasTodayBest && !hasLatest) {
     lbListEl.innerHTML = "";
     lbEmptyEl.textContent = "Зіграй кілька разів, щоб тут з'явились результати.";
     lbEmptyEl.classList.remove("hidden");
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  let html = scores.map(s => {
-    const isNew = s.id === lbNewGameId ? " is-new" : "";
-    const modeStr = s.mode === "ua-en" ? "🇺🇦→🇺🇸" : "🇺🇸→🇺🇦";
-    return '<li class="' + isNew + '">' +
-      '<span class="lb-score">' + s.score + '</span>' +
-      '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)</span>' +
-      '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
-    '</li>';
-  }).join("");
-  if (todayBest && todayBest.key === today && !scores.some(s => s.ts === todayBest.ts)) {
-    const modeStr = todayBest.mode === "ua-en" ? "🇺🇦→🇺🇸" : "🇺🇸→🇺🇦";
-    html += '<li class="lb-sep"></li>' +
-      '<li class="lb-today">' +
-      '<span class="lb-score">' + todayBest.score + '</span>' +
-      '<span class="lb-detail">(<span class="lb-bad">' + (todayBest.wrong + todayBest.skipped) + '</span>/<span class="lb-total">' + (todayBest.score + todayBest.wrong + todayBest.skipped) + '</span>)</span>' +
-      '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(todayBest.ts) + '</span>' +
-    '</li>';
+  let html = scores.map(s => renderGameRow(s, s.id === lbNewGameId ? "is-new" : "")).join("");
+  const extra = [];
+  if (hasTodayBest && !scores.some(s => s.ts === todayBest.ts)) {
+    extra.push(renderGameRow(todayBest, "lb-today"));
+  }
+  if (hasLatest && !scores.some(s => s.ts === latest.ts) && (!hasTodayBest || latest.ts !== todayBest.ts)) {
+    extra.push(renderGameRow(latest, "lb-latest"));
+  }
+  if (extra.length) {
+    html += '<li class="lb-sep"></li>' + extra.join("");
   }
   lbListEl.innerHTML = html;
 }
