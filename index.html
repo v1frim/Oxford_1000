@@ -3289,9 +3289,16 @@ function renderTabStreaks() {
     const period = s.length === 1
       ? fmtDayKey(s.start)
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
+    let games = 0;
+    for (let d = new Date(s.start); d <= new Date(s.end); d.setDate(d.getDate() + 1)) {
+      const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+      games += (days[k] && days[k].games) || 0;
+    }
+    const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
     return '<li class="' + isNew + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
-      '<span class="lb-detail">' + (s.length === 1 ? "день" : "днів") + '</span>' +
+      '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
+      gamesStr +
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
   }).join("");
