@@ -292,6 +292,31 @@
   .row-example-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
   .row-example-row .row-example { margin-top: 0; flex: 1; min-width: 0; }
   .row-example { font-size: 12px; opacity: 0.62; font-style: italic; margin-top: 3px; }
+  .hw {
+    border-bottom: 1px dotted rgba(255,255,255,0.28);
+    cursor: help;
+    position: relative;
+  }
+  .hw:hover { color: #ffd166; }
+  .hw:hover::after {
+    content: attr(data-trans);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 4px;
+    background: #1e3c72;
+    border: 1px solid rgba(255,209,102,0.45);
+    color: #ffd166;
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-style: normal;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
   .row-example-ua { font-size: 12px; opacity: 0.58; font-style: italic; margin-top: 3px; color: #ffd166; }
   .row-left { flex: 1; min-width: 0; }
   .row-right { display: flex; align-items: flex-start; gap: 7px; flex-shrink: 0; max-width: 50%; }
@@ -2913,7 +2938,7 @@ function showCorrection(answer) {
   const exRow = document.getElementById("corr-example-row");
   const exSpeak = document.getElementById("corr-example-speak");
   const ex = lookupExample(EXAMPLES, enWord, uaWord);
-  exEl.textContent = ex ? "«" + ex + "»" : "";
+  exEl.innerHTML = ex ? "«" + wrapSentence(ex) + "»" : "";
   exRow.classList.toggle("hidden", !ex);
   exSpeak.onclick = ex ? () => speak(ex) : null;
   correctionEl.classList.remove("hidden");
@@ -3100,6 +3125,149 @@ function esc(s) {
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
+// Reverse en→ua map for sentence hover translations
+const EN_TO_UA = (() => {
+  const m = new Map();
+  WORDS.forEach(w => {
+    const enList = getEn(w);
+    const uaList = getUa(w);
+    enList.forEach(en => {
+      const key = en.toLowerCase();
+      if (!m.has(key)) m.set(key, []);
+      const arr = m.get(key);
+      uaList.forEach(ua => { if (!arr.includes(ua)) arr.push(ua); });
+    });
+  });
+  return m;
+})();
+const IRREGULAR = {
+  was:"be",were:"be","been":"be",am:"be",is:"be",are:"be",
+  had:"have",has:"have",
+  did:"do",done:"do",does:"do",
+  said:"say",
+  went:"go",gone:"go",goes:"go",
+  got:"get",gotten:"get",
+  made:"make",
+  knew:"know",known:"know",
+  saw:"see",seen:"see",
+  took:"take",taken:"take",
+  came:"come",
+  thought:"think",
+  found:"find",
+  gave:"give",given:"give",
+  told:"tell",
+  felt:"feel",
+  left:"leave",
+  meant:"mean",
+  kept:"keep",
+  began:"begin",begun:"begin",
+  built:"build",
+  bought:"buy",
+  caught:"catch",
+  chose:"choose",chosen:"choose",
+  drove:"drive",driven:"drive",
+  ate:"eat",eaten:"eat",
+  fell:"fall",fallen:"fall",
+  flew:"fly",flown:"fly",
+  forgot:"forget",forgotten:"forget",
+  held:"hold",
+  lost:"lose",
+  met:"meet",
+  paid:"pay",
+  rode:"ride",ridden:"ride",
+  ran:"run",
+  sold:"sell",
+  sent:"send",
+  sat:"sit",
+  slept:"sleep",
+  spoke:"speak",spoken:"speak",
+  spent:"spend",
+  stood:"stand",
+  swam:"swim",swum:"swim",
+  taught:"teach",
+  threw:"throw",thrown:"throw",
+  won:"win",
+  wrote:"write",written:"write",
+  wore:"wear",worn:"wear",
+  heard:"hear",
+  showed:"show",shown:"show",
+  understood:"understand",
+  sang:"sing",sung:"sing",
+  brought:"bring",
+  fought:"fight",
+  lit:"light",
+  grew:"grow",grown:"grow",
+  rose:"rise",risen:"rise",
+  shook:"shake",shaken:"shake",
+  bore:"bear",borne:"bear",
+  broke:"break",broken:"break",
+  drew:"draw",drawn:"draw",
+  woke:"wake",woken:"wake",
+  rang:"ring",rung:"ring",
+  drank:"drink",drunk:"drink",
+  became:"become",
+  hid:"hide",hidden:"hide",
+  lay:"lie",lain:"lie",
+  rang:"ring",
+  read:"read",
+  put:"put",
+  cut:"cut",
+  set:"set",
+  hit:"hit",
+  let:"let",
+  cost:"cost",
+  hurt:"hurt",
+  stole:"steal",stolen:"steal",
+  stuck:"stick",
+  bit:"bite",bitten:"bite",
+  blew:"blow",blown:"blow",
+  burnt:"burn",burned:"burn",
+  laid:"lay",
+  better:"good",best:"good",worse:"bad",worst:"bad"
+};
+function stemEn(word) {
+  word = word.toLowerCase().replace(/[^a-z']/g, "");
+  if (!word) return null;
+  if (EN_TO_UA.has(word)) return word;
+  if (IRREGULAR[word] && EN_TO_UA.has(IRREGULAR[word])) return IRREGULAR[word];
+  const tries = [
+    word.replace(/ies$/, "y"),
+    word.replace(/sses$/, "ss"),
+    word.replace(/ses$/, "s"),
+    word.replace(/xes$/, "x"),
+    word.replace(/ches$/, "ch"),
+    word.replace(/shes$/, "sh"),
+    word.replace(/es$/, ""),
+    word.replace(/s$/, ""),
+    word.replace(/ied$/, "y"),
+    word.replace(/(.)\1ed$/, "$1"),
+    word.replace(/ed$/, ""),
+    word.replace(/ed$/, "e"),
+    word.replace(/(.)\1ing$/, "$1"),
+    word.replace(/ing$/, ""),
+    word.replace(/ing$/, "e"),
+    word.replace(/ily$/, "y"),
+    word.replace(/ly$/, ""),
+    word.replace(/er$/, ""),
+    word.replace(/er$/, "e"),
+    word.replace(/est$/, ""),
+    word.replace(/est$/, "e"),
+  ];
+  for (const t of tries) if (t !== word && EN_TO_UA.has(t)) return t;
+  return null;
+}
+function wrapSentence(sentence) {
+  return String(sentence).replace(/([A-Za-z']+)|([^A-Za-z']+)/g, (m, word, other) => {
+    if (other !== undefined) return esc(other);
+    const stem = stemEn(word);
+    if (stem) {
+      const trans = EN_TO_UA.get(stem).join(", ");
+      return '<span class="hw" data-trans="' + esc(trans) + '">' + esc(word) + '</span>';
+    }
+    return esc(word);
+  });
+}
+
 function renderList() {
   const rows = records.filter(r =>
     currentFilter === "all" ? true : r.status !== "correct");
@@ -3119,7 +3287,7 @@ function renderList() {
     const ex = lookupExample(EXAMPLES, enW, uaW);
     const exUa = lookupExample(EXAMPLES_UA, enW, uaW);
     const exSpk = ex ? '<button class="speak-btn speak-btn-sm" data-sentence="' + esc(ex) + '" title="Прослухати речення">🔊</button>' : "";
-    const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + esc(ex) + '»</div>' + exSpk + '</div>' : "";
+    const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + wrapSentence(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
     const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
     if (r.status === "correct") {
