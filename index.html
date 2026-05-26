@@ -3283,7 +3283,7 @@ function renderTabGames() {
   lbEmptyEl.classList.add("hidden");
   let html = scores.map(s => {
     const isNew = s.id === lbNewGameId ? " is-new" : "";
-    const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
+    const modeStr = s.mode === "ua-en" ? "🇺🇦→🇺🇸" : "🇺🇸→🇺🇦";
     return '<li class="' + isNew + '">' +
       '<span class="lb-score">' + s.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)</span>' +
@@ -3291,7 +3291,7 @@ function renderTabGames() {
     '</li>';
   }).join("");
   if (todayBest && todayBest.key === today && !scores.some(s => s.ts === todayBest.ts)) {
-    const modeStr = todayBest.mode === "ua-en" ? "UA→US" : "US→UA";
+    const modeStr = todayBest.mode === "ua-en" ? "🇺🇦→🇺🇸" : "🇺🇸→🇺🇦";
     html += '<li class="lb-sep"></li>' +
       '<li class="lb-today">' +
       '<span class="lb-score">' + todayBest.score + '</span>' +
