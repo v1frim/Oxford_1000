@@ -75,15 +75,18 @@
   .lb-list li:last-child { border-bottom: none; }
   .lb-list li::before {
     content: counter(rank) ".";
-    opacity: 0.55; font-size: 12px; min-width: 22px;
+    opacity: 0.55; font-size: 12px;
+    width: 26px;
+    text-align: center;
+    display: inline-block;
   }
   .lb-list li.is-new { box-shadow: inset 3px 0 0 #ffd166; }
   .lb-list li:nth-child(1) { background: rgba(255, 215, 0, 0.20); border-radius: 6px; }
   .lb-list li:nth-child(2) { background: rgba(192, 200, 215, 0.18); border-radius: 6px; }
   .lb-list li:nth-child(3) { background: rgba(205, 127, 50, 0.22); border-radius: 6px; }
-  .lb-list li:nth-child(1)::before { content: "🥇"; opacity: 1; font-size: 16px; min-width: 24px; }
-  .lb-list li:nth-child(2)::before { content: "🥈"; opacity: 1; font-size: 16px; min-width: 24px; }
-  .lb-list li:nth-child(3)::before { content: "🥉"; opacity: 1; font-size: 16px; min-width: 24px; }
+  .lb-list li:nth-child(1)::before { content: "🥇"; opacity: 1; font-size: 16px; }
+  .lb-list li:nth-child(2)::before { content: "🥈"; opacity: 1; font-size: 16px; }
+  .lb-list li:nth-child(3)::before { content: "🥉"; opacity: 1; font-size: 16px; }
   .lb-score { font-weight: 700; color: #ffd166; }
   .lb-detail { opacity: 0.7; font-size: 12px; }
   .lb-bad { color: #ff6b6b; font-weight: 600; }
