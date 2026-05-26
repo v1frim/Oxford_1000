@@ -3172,6 +3172,12 @@ btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
 document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !gameEl.classList.contains("hidden")) {
+    e.preventDefault();
+    awaitingAfterWrong = false;
+    endGame();
+    return;
+  }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
     e.preventDefault();
     const tabs = ["games", "days", "streaks"];
