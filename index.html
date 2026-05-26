@@ -2981,11 +2981,12 @@ function recordAnswer(userVal, status) {
       reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
       if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
         reviewRemaining.delete(currentWordIndex);
+        removeDayMistake(currentWordIndex);
       }
     }
-    removeDayMistake(currentWordIndex);
   } else {
     addDayMistake(currentWordIndex);
+    if (reviewCorrectCounts) reviewCorrectCounts[currentWordIndex] = 0;
   }
 }
 
