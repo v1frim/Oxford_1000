@@ -3300,7 +3300,7 @@ function renderTabGames() {
   const renderGameRow = (s, cls) => {
     const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
-    const klass = (cls || "") + (isTodayGame && !cls ? " is-today-game" : "");
+    const klass = (cls || "") + (isTodayGame ? " is-today-game" : "");
     return '<li class="' + klass + '">' +
       '<span class="lb-score">' + s.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)</span>' +
