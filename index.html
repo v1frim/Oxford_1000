@@ -3152,7 +3152,11 @@ document.getElementById("restart-btn").addEventListener("click", () => {
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
 document.getElementById("review-today-btn").addEventListener("click", () => {
-  const mistakes = getTodayMistakes();
+  const btn = document.getElementById("review-today-btn");
+  const day = btn.dataset.day;
+  if (!day) return;
+  const m = loadDayMistakes();
+  const mistakes = m[day] || [];
   if (mistakes.length === 0) return;
   startGame(mistakes);
 });
@@ -3297,26 +3301,41 @@ function addDayMistake(idx) {
 }
 function removeDayMistake(idx) {
   const m = loadDayMistakes();
-  const key = todayKey();
-  if (!m[key] || m[key].length === 0) return;
-  const next = m[key].filter(i => i !== idx);
-  if (next.length === m[key].length) return;
-  if (next.length === 0) delete m[key]; else m[key] = next;
-  saveDayMistakes(m);
+  let changed = false;
+  for (const key of Object.keys(m)) {
+    const next = m[key].filter(i => i !== idx);
+    if (next.length === m[key].length) continue;
+    if (next.length === 0) delete m[key]; else m[key] = next;
+    changed = true;
+  }
+  if (changed) saveDayMistakes(m);
 }
-function getTodayMistakes() {
+function isYesterdayKey(key) {
+  const d = new Date(todayKey() + "T00:00:00");
+  d.setDate(d.getDate() - 1);
+  return key === d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function pickReviewDay() {
   const m = loadDayMistakes();
-  return m[todayKey()] || [];
+  const today = todayKey();
+  if (m[today] && m[today].length > 0) return { key: today, list: m[today], label: "за сьогодні" };
+  const older = Object.keys(m).filter(k => k !== today && m[k].length > 0).sort();
+  if (older.length === 0) return null;
+  const recent = older[older.length - 1];
+  const label = isYesterdayKey(recent) ? "за вчора" : "за " + fmtDayKey(recent);
+  return { key: recent, list: m[recent], label };
 }
 function updateReviewTodayBtn() {
   const btn = document.getElementById("review-today-btn");
   if (!btn) return;
-  const mistakes = getTodayMistakes();
-  if (mistakes.length === 0) {
+  const pick = pickReviewDay();
+  if (!pick) {
     btn.classList.add("hidden");
+    delete btn.dataset.day;
   } else {
     btn.classList.remove("hidden");
-    btn.textContent = "📒 Помилки за сьогодні (" + mistakes.length + ")";
+    btn.textContent = "📒 Помилки " + pick.label + " (" + pick.list.length + ")";
+    btn.dataset.day = pick.key;
   }
 }
 function tsToDayKey(ts) {
