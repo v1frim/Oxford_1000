@@ -3331,8 +3331,8 @@ document.querySelectorAll(".lb-tab").forEach(btn => {
 
 document.getElementById("lb-reset").addEventListener("click", () => {
   const target = lbActiveTab === "games" ? "топ ігор" : (lbActiveTab === "days" ? "статистику днів" : "серії днів");
-  const reallyAll = confirm("Очистити " + target + "?\n\nOK — очистити лише цю вкладку\nCancel — нічого не очищати");
-  if (!reallyAll) return;
+  if (!confirm("Очистити " + target + "?")) return;
+  if (!confirm("Ви впевнені? Цю дію неможливо скасувати.")) return;
   if (lbActiveTab === "games") localStorage.removeItem(LB_KEY);
   else localStorage.removeItem(LB_DAYS_KEY);
   lbNewGameId = null; lbNewDayKey = null;
