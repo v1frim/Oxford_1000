@@ -2712,14 +2712,47 @@ const EXAMPLES_UA = {
   "tear:рвати":"Не рви папір — складай обережно."
 };
 
+let preferredVoice = null;
+function pickVoice() {
+  if (!window.speechSynthesis) return null;
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length === 0) return null;
+  const enUS = voices.filter(v => /^en[-_]US/i.test(v.lang));
+  const pool = enUS.length ? enUS : voices.filter(v => /^en/i.test(v.lang));
+  if (!pool.length) return null;
+  const priorities = [
+    v => /Google US English/i.test(v.name) && !/Male/i.test(v.name),
+    v => /Google.*English/i.test(v.name) && !/Male/i.test(v.name),
+    v => /Microsoft.*(Aria|Jenny|Michelle|Ana).*Neural/i.test(v.name),
+    v => /Microsoft.*(Aria|Jenny|Michelle|Ana)/i.test(v.name),
+    v => /Samantha/i.test(v.name),
+    v => /Karen|Moira|Tessa/i.test(v.name),
+    v => /female/i.test(v.name),
+    v => !/male/i.test(v.name),
+    v => true,
+  ];
+  for (const pred of priorities) {
+    const match = pool.find(pred);
+    if (match) return match;
+  }
+  return pool[0];
+}
+if (window.speechSynthesis) {
+  preferredVoice = pickVoice();
+  window.speechSynthesis.addEventListener("voiceschanged", () => {
+    preferredVoice = pickVoice();
+  });
+}
 function speak(word) {
   if (!window.speechSynthesis) return;
   const synth = window.speechSynthesis;
+  if (!preferredVoice) preferredVoice = pickVoice();
   const doSpeak = () => {
     synth.resume();
     const u = new SpeechSynthesisUtterance(word);
     u.lang = "en-US";
     u.rate = 0.85;
+    if (preferredVoice) u.voice = preferredVoice;
     synth.speak(u);
   };
   if (synth.speaking || synth.pending) {
