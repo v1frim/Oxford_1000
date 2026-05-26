@@ -95,6 +95,20 @@
   .lb-mode { margin-left: auto; font-size: 11px; opacity: 0.55; }
   .lb-games { font-size: 11px; opacity: 0.7; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
+  .lb-list li.lb-sep {
+    background: transparent !important; box-shadow: none !important;
+    border-top: 1px dashed rgba(255,255,255,0.25);
+    padding: 0; margin: 8px 4px 4px;
+    counter-increment: none; height: 0; pointer-events: none;
+  }
+  .lb-list li.lb-sep::before { content: none; }
+  .lb-list li.lb-today {
+    counter-increment: none;
+    background: rgba(255, 209, 102, 0.10);
+    box-shadow: inset 3px 0 0 #ffd166;
+    border-radius: 6px;
+  }
+  .lb-list li.lb-today::before { content: "ти"; opacity: 0.7; font-size: 10px; }
   h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
   .stats {
     display: flex;
@@ -3032,8 +3046,10 @@ function endGame() {
   let newEntryId = null;
   let newDayKey = null;
   if (!activePool) {
-    newEntryId = saveScore({ score, wrong, skipped, mode, ts: Date.now() });
+    const ts = Date.now();
+    newEntryId = saveScore({ score, wrong, skipped, mode, ts });
     newDayKey = recordDayStats(score, wrong, skipped);
+    updateTodayBest({ score, wrong, skipped, mode, ts });
   }
   renderLeaderboard(newEntryId, newDayKey);
   setFilter("all");
@@ -3158,6 +3174,7 @@ document.addEventListener("keydown", e => {
 // ── LEADERBOARD ────────────────────────────────────────────────────────────
 const LB_KEY = "oxford_scores_v1";
 const LB_DAYS_KEY = "oxford_days_v1";
+const LB_TODAY_BEST_KEY = "oxford_today_best_v1";
 const LB_LIMIT = 10;
 const leaderboardEl = document.getElementById("leaderboard");
 const lbListEl = document.getElementById("lb-list");
@@ -3206,6 +3223,22 @@ function plural(n, one, few, many) {
   if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
   return many;
 }
+function loadTodayBest() {
+  try { return JSON.parse(localStorage.getItem(LB_TODAY_BEST_KEY)); }
+  catch { return null; }
+}
+function updateTodayBest(game) {
+  const today = todayKey();
+  const stored = loadTodayBest();
+  const isFresh = !stored || stored.key !== today;
+  const isBetter = isFresh
+    || game.score > stored.score
+    || (game.score === stored.score && (game.wrong + game.skipped) < (stored.wrong + stored.skipped));
+  if (isBetter) {
+    const entry = { key: today, score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts };
+    localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify(entry));
+  }
+}
 function fmtDate(ts) {
   const d = new Date(ts);
   return String(d.getDate()).padStart(2, "0") + "." + String(d.getMonth() + 1).padStart(2, "0");
@@ -3237,14 +3270,16 @@ function computeStreaks(days) {
 function renderTabGames() {
   lbTitleEl.textContent = "Найкращі ігри";
   const scores = loadScores();
-  if (scores.length === 0) {
+  const todayBest = loadTodayBest();
+  const today = todayKey();
+  if (scores.length === 0 && !(todayBest && todayBest.key === today)) {
     lbListEl.innerHTML = "";
     lbEmptyEl.textContent = "Зіграй кілька разів, щоб тут з'явились результати.";
     lbEmptyEl.classList.remove("hidden");
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  lbListEl.innerHTML = scores.map(s => {
+  let html = scores.map(s => {
     const isNew = s.id === lbNewGameId ? " is-new" : "";
     const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
     return '<li class="' + isNew + '">' +
@@ -3253,47 +3288,66 @@ function renderTabGames() {
       '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
     '</li>';
   }).join("");
+  if (todayBest && todayBest.key === today && !scores.some(s => s.ts === todayBest.ts)) {
+    const modeStr = todayBest.mode === "ua-en" ? "UA→US" : "US→UA";
+    html += '<li class="lb-sep"></li>' +
+      '<li class="lb-today">' +
+      '<span class="lb-score">' + todayBest.score + '</span>' +
+      '<span class="lb-detail">(<span class="lb-bad">' + (todayBest.wrong + todayBest.skipped) + '</span>/<span class="lb-total">' + (todayBest.score + todayBest.wrong + todayBest.skipped) + '</span>)</span>' +
+      '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(todayBest.ts) + '</span>' +
+    '</li>';
+  }
+  lbListEl.innerHTML = html;
 }
 function renderTabDays() {
   lbTitleEl.textContent = "Найкращі дні";
   const days = loadDays();
+  const today = todayKey();
+  const todayEntry = days[today] ? { key: today, ...days[today] } : null;
   const entries = Object.entries(days)
     .map(([key, s]) => ({ key, ...s }))
     .sort((a, b) => b.correct - a.correct || (a.wrong + a.skipped) - (b.wrong + b.skipped))
     .slice(0, LB_LIMIT);
-  if (entries.length === 0) {
+  if (entries.length === 0 && !todayEntry) {
     lbListEl.innerHTML = "";
     lbEmptyEl.textContent = "Тут будуть твої найкращі дні.";
     lbEmptyEl.classList.remove("hidden");
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  const today = todayKey();
-  lbListEl.innerHTML = entries.map(e => {
-    const isNew = (e.key === lbNewDayKey || e.key === today) ? " is-new" : "";
+  const renderEntry = (e, cls) => {
     const games = e.games || 0;
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    return '<li class="' + isNew + '">' +
+    return '<li class="' + cls + '">' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
       gamesStr +
       '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
     '</li>';
+  };
+  let html = entries.map(e => {
+    const isNew = (e.key === lbNewDayKey || e.key === today) ? " is-new" : "";
+    return renderEntry(e, isNew);
   }).join("");
+  if (todayEntry && !entries.some(e => e.key === today)) {
+    html += '<li class="lb-sep"></li>' + renderEntry(todayEntry, "lb-today");
+  }
+  lbListEl.innerHTML = html;
 }
 function renderTabStreaks() {
   lbTitleEl.textContent = "Серії днів підряд";
   const days = loadDays();
-  const streaks = computeStreaks(days).slice(0, LB_LIMIT);
-  if (streaks.length === 0) {
+  const allStreaks = computeStreaks(days);
+  const top = allStreaks.slice(0, LB_LIMIT);
+  const ongoing = allStreaks.find(s => s.ongoing);
+  if (top.length === 0) {
     lbListEl.innerHTML = "";
     lbEmptyEl.textContent = "Грай щодня — будуть серії.";
     lbEmptyEl.classList.remove("hidden");
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  lbListEl.innerHTML = streaks.map(s => {
-    const isNew = s.ongoing ? " is-new" : "";
+  const renderStreak = (s, cls) => {
     const period = s.length === 1
       ? fmtDayKey(s.start)
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
@@ -3303,13 +3357,18 @@ function renderTabStreaks() {
       games += (days[k] && days[k].games) || 0;
     }
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    return '<li class="' + isNew + '">' +
+    return '<li class="' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
       '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
       gamesStr +
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
-  }).join("");
+  };
+  let html = top.map(s => renderStreak(s, s.ongoing ? "is-new" : "")).join("");
+  if (ongoing && !top.some(s => s.start === ongoing.start)) {
+    html += '<li class="lb-sep"></li>' + renderStreak(ongoing, "lb-today");
+  }
+  lbListEl.innerHTML = html;
 }
 function renderLeaderboard(newGameId, newDayKey) {
   if (newGameId !== undefined) lbNewGameId = newGameId;
