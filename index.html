@@ -319,7 +319,7 @@
       </div>
     </div>
     <button id="start-btn">Почати</button>
-    <button id="review-today-btn" class="hidden">📒 Повторити помилки за сьогодні</button>
+    <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
   </div>
 
   <!-- GAME SCREEN -->
@@ -3217,6 +3217,14 @@ document.addEventListener("keydown", e => {
     if (!reviewBtn.classList.contains("hidden")) {
       e.preventDefault();
       startReview();
+      return;
+    }
+  }
+  if (e.key === " " && !startScreen.classList.contains("hidden")) {
+    const todayBtn = document.getElementById("review-today-btn");
+    if (todayBtn && !todayBtn.classList.contains("hidden")) {
+      e.preventDefault();
+      todayBtn.click();
       return;
     }
   }
