@@ -3123,6 +3123,14 @@ btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
 document.addEventListener("keydown", e => {
+  if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
+    e.preventDefault();
+    const tabs = ["games", "days", "streaks"];
+    const i = tabs.indexOf(lbActiveTab);
+    const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
+    document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
+    return;
+  }
   if (e.key === " " && awaitingAfterWrong) {
     e.preventDefault();
     const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
