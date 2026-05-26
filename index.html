@@ -3173,6 +3173,24 @@ listEl.addEventListener("click", e => {
 btnUaEn.addEventListener("click", () => setMode("ua-en"));
 btnEnUa.addEventListener("click", () => setMode("en-ua"));
 
+let pendingShiftCode = null;
+document.addEventListener("keydown", e => {
+  if (e.key === "Shift") {
+    if (pendingShiftCode === null) pendingShiftCode = e.code;
+  } else {
+    pendingShiftCode = null;
+  }
+});
+document.addEventListener("keyup", e => {
+  if (e.key !== "Shift") { pendingShiftCode = null; return; }
+  const code = pendingShiftCode;
+  pendingShiftCode = null;
+  if (!code) return;
+  if (startScreen.classList.contains("hidden")) return;
+  if (code === "ShiftLeft") setMode("ua-en");
+  else if (code === "ShiftRight") setMode("en-ua");
+});
+
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
