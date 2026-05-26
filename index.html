@@ -178,6 +178,13 @@
     font-size: 17px;
     padding: 11px 24px;
   }
+  #review-today-btn {
+    margin-top: 14px;
+    background: #87b4ff;
+    color: #1e3c72;
+    font-size: 15px;
+    padding: 10px 22px;
+  }
   .skip {
     margin-top: 12px;
     font-size: 15px;
@@ -312,6 +319,7 @@
       </div>
     </div>
     <button id="start-btn">Почати</button>
+    <button id="review-today-btn" class="hidden">📒 Повторити помилки за сьогодні</button>
   </div>
 
   <!-- GAME SCREEN -->
@@ -2975,6 +2983,9 @@ function recordAnswer(userVal, status) {
         reviewRemaining.delete(currentWordIndex);
       }
     }
+    removeDayMistake(currentWordIndex);
+  } else {
+    addDayMistake(currentWordIndex);
   }
 }
 
@@ -3137,8 +3148,14 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
   startScreen.classList.remove("hidden");
   renderLeaderboard();
+  updateReviewTodayBtn();
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
+document.getElementById("review-today-btn").addEventListener("click", () => {
+  const mistakes = getTodayMistakes();
+  if (mistakes.length === 0) return;
+  startGame(mistakes);
+});
 tabAll.addEventListener("click", () => setFilter("all"));
 tabBad.addEventListener("click", () => setFilter("bad"));
 listEl.addEventListener("click", e => {
@@ -3180,6 +3197,7 @@ document.addEventListener("keydown", e => {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
     renderLeaderboard();
+    updateReviewTodayBtn();
   }
 });
 
@@ -3260,6 +3278,46 @@ function loadLatest() {
 function updateLatest(game) {
   const entry = { key: todayKey(), score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
   localStorage.setItem(LB_LATEST_KEY, JSON.stringify(entry));
+}
+const LB_DAY_MISTAKES_KEY = "oxford_day_mistakes_v1";
+function loadDayMistakes() {
+  try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveDayMistakes(m) {
+  localStorage.setItem(LB_DAY_MISTAKES_KEY, JSON.stringify(m));
+}
+function addDayMistake(idx) {
+  if (typeof idx !== "number" || idx < 0) return;
+  const m = loadDayMistakes();
+  const key = todayKey();
+  if (!m[key]) m[key] = [];
+  if (!m[key].includes(idx)) m[key].push(idx);
+  saveDayMistakes(m);
+}
+function removeDayMistake(idx) {
+  const m = loadDayMistakes();
+  const key = todayKey();
+  if (!m[key] || m[key].length === 0) return;
+  const next = m[key].filter(i => i !== idx);
+  if (next.length === m[key].length) return;
+  if (next.length === 0) delete m[key]; else m[key] = next;
+  saveDayMistakes(m);
+}
+function getTodayMistakes() {
+  const m = loadDayMistakes();
+  return m[todayKey()] || [];
+}
+function updateReviewTodayBtn() {
+  const btn = document.getElementById("review-today-btn");
+  if (!btn) return;
+  const mistakes = getTodayMistakes();
+  if (mistakes.length === 0) {
+    btn.classList.add("hidden");
+  } else {
+    btn.classList.remove("hidden");
+    btn.textContent = "📒 Помилки за сьогодні (" + mistakes.length + ")";
+  }
 }
 function tsToDayKey(ts) {
   const d = new Date(ts);
@@ -3434,6 +3492,7 @@ document.getElementById("lb-reset").addEventListener("click", () => {
 });
 
 renderLeaderboard();
+updateReviewTodayBtn();
 </script>
 </body>
 </html>
