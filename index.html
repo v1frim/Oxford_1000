@@ -3182,12 +3182,19 @@ function todayKey() {
 function recordDayStats(correct, wrong, skipped) {
   const days = loadDays();
   const key = todayKey();
-  if (!days[key]) days[key] = { correct: 0, wrong: 0, skipped: 0 };
+  if (!days[key]) days[key] = { correct: 0, wrong: 0, skipped: 0, games: 0 };
   days[key].correct += correct;
   days[key].wrong += wrong;
   days[key].skipped += skipped;
+  days[key].games = (days[key].games || 0) + 1;
   localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
   return key;
+}
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
 }
 function fmtDate(ts) {
   const d = new Date(ts);
@@ -3254,10 +3261,12 @@ function renderTabDays() {
   const today = todayKey();
   lbListEl.innerHTML = entries.map(e => {
     const isNew = (e.key === lbNewDayKey || e.key === today) ? " is-new" : "";
+    const games = e.games || 0;
+    const gamesStr = games > 0 ? games + " " + plural(games, "гра", "ігри", "ігор") + " · " : "";
     return '<li class="' + isNew + '">' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
-      '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
+      '<span class="lb-mode">' + gamesStr + fmtDayKey(e.key) + '</span>' +
     '</li>';
   }).join("");
 }
