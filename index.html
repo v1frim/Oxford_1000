@@ -3384,8 +3384,10 @@ document.addEventListener("keyup", e => {
   pendingShiftCode = null;
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
-  if (code === "ShiftLeft") setMode("ua-en");
-  else if (code === "ShiftRight") setMode("en-ua");
+  const modes = ["ua-en", "en-ua"];
+  const dir = code === "ShiftRight" ? 1 : modes.length - 1;
+  const next = modes[(modes.indexOf(mode) + dir) % modes.length];
+  setMode(next);
 });
 
 document.addEventListener("keydown", e => {
