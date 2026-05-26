@@ -43,7 +43,7 @@
     padding: 22px 20px;
     width: 260px;
     max-width: 94vw;
-    min-height: 488px;
+    min-height: 560px;
     color: #fff;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   }
@@ -3142,6 +3142,9 @@ const EN_TO_UA = (() => {
       uaList.forEach(ua => { if (!arr.includes(ua)) arr.push(ua); });
     });
   });
+  m.set("could", ["міг би"]);
+  m.set("would", ["би", "хотів би"]);
+  m.set("should", ["мав би", "повинен"]);
   return m;
 })();
 const HW_SKIP = new Set([
@@ -3149,7 +3152,7 @@ const HW_SKIP = new Set([
   "have","has","had","having",
   "do","does","did","done","doing",
   "need","needs","needed","needing",
-  "can","could","will","would","shall","should","may","might","must","ought",
+  "can","will","shall","may","might","must","ought",
   "i","you","he","she","it","we","they","me","him","her","us","them",
   "my","your","his","its","our","their","mine","yours","ours","theirs",
   "this","that","these","those","there","here",
