@@ -3052,7 +3052,7 @@ function startGame(pool) {
   intervalId = setInterval(tick, 1000);
 }
 
-function endGame() {
+function endGame(endedEarly) {
   if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
   correctionEl.classList.add("hidden");
   answerEl.disabled = false;
@@ -3071,7 +3071,9 @@ function endGame() {
     const ts = Date.now();
     const wordCount = WORDS.length;
     newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
-    newDayKey = recordDayStats(score, wrong, skipped, wordCount);
+    if (!endedEarly) {
+      newDayKey = recordDayStats(score, wrong, skipped, wordCount);
+    }
     updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
     updateLatest({ score, wrong, skipped, mode, ts, wordCount });
   }
@@ -3142,7 +3144,7 @@ answerEl.addEventListener("keydown", e => { if (e.key === "Enter") { submitAnswe
 document.getElementById("skip-btn").addEventListener("click", skipWord);
 document.getElementById("end-btn").addEventListener("click", () => {
   awaitingAfterWrong = false;
-  endGame();
+  endGame(timeLeft > 0);
 });
 document.getElementById("start-btn").addEventListener("click", () => startGame());
 document.getElementById("restart-btn").addEventListener("click", () => {
@@ -3176,7 +3178,7 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
     awaitingAfterWrong = false;
-    endGame();
+    endGame(timeLeft > 0);
     return;
   }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
