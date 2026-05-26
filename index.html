@@ -3298,7 +3298,7 @@ function renderTabGames() {
   const latest = loadLatest();
   const today = todayKey();
   const renderGameRow = (s, cls) => {
-    const modeStr = s.mode === "ua-en" ? "🇺🇦→🇺🇸" : "🇺🇸→🇺🇦";
+    const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
     const klass = (cls || "") + (isTodayGame && !cls ? " is-today-game" : "");
     return '<li class="' + klass + '">' +
