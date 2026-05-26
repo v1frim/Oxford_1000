@@ -92,6 +92,7 @@
   .lb-bad { color: #ff6b6b; font-weight: 600; }
   .lb-total { opacity: 0.6; }
   .lb-mode { margin-left: auto; font-size: 11px; opacity: 0.55; }
+  .lb-games { font-size: 11px; opacity: 0.7; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
   .stats {
@@ -3262,11 +3263,12 @@ function renderTabDays() {
   lbListEl.innerHTML = entries.map(e => {
     const isNew = (e.key === lbNewDayKey || e.key === today) ? " is-new" : "";
     const games = e.games || 0;
-    const gamesStr = games > 0 ? games + " " + plural(games, "гра", "ігри", "ігор") + " · " : "";
+    const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
     return '<li class="' + isNew + '">' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
-      '<span class="lb-mode">' + gamesStr + fmtDayKey(e.key) + '</span>' +
+      gamesStr +
+      '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
     '</li>';
   }).join("");
 }
