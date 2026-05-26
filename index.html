@@ -3047,9 +3047,10 @@ function endGame() {
   let newDayKey = null;
   if (!activePool) {
     const ts = Date.now();
-    newEntryId = saveScore({ score, wrong, skipped, mode, ts });
-    newDayKey = recordDayStats(score, wrong, skipped);
-    updateTodayBest({ score, wrong, skipped, mode, ts });
+    const wordCount = WORDS.length;
+    newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
+    newDayKey = recordDayStats(score, wrong, skipped, wordCount);
+    updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
   }
   renderLeaderboard(newEntryId, newDayKey);
   setFilter("all");
@@ -3206,7 +3207,7 @@ function todayKey() {
   const d = new Date();
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 }
-function recordDayStats(correct, wrong, skipped) {
+function recordDayStats(correct, wrong, skipped, wordCount) {
   const days = loadDays();
   const key = todayKey();
   if (!days[key]) days[key] = { correct: 0, wrong: 0, skipped: 0, games: 0 };
@@ -3214,6 +3215,7 @@ function recordDayStats(correct, wrong, skipped) {
   days[key].wrong += wrong;
   days[key].skipped += skipped;
   days[key].games = (days[key].games || 0) + 1;
+  if (wordCount) days[key].wordCount = Math.max(days[key].wordCount || 0, wordCount);
   localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
   return key;
 }
@@ -3235,7 +3237,7 @@ function updateTodayBest(game) {
     || game.score > stored.score
     || (game.score === stored.score && (game.wrong + game.skipped) < (stored.wrong + stored.skipped));
   if (isBetter) {
-    const entry = { key: today, score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts };
+    const entry = { key: today, score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
     localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify(entry));
   }
 }
