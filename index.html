@@ -3215,8 +3215,9 @@ function renderTabDays() {
     return;
   }
   lbEmptyEl.classList.add("hidden");
+  const today = todayKey();
   lbListEl.innerHTML = entries.map(e => {
-    const isNew = e.key === lbNewDayKey ? " is-new" : "";
+    const isNew = (e.key === lbNewDayKey || e.key === today) ? " is-new" : "";
     return '<li class="' + isNew + '">' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
