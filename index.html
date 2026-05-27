@@ -3858,9 +3858,14 @@ function getCorrectAnswer() {
 }
 
 function showCorrection(answer) {
-  corrAnswerEl.textContent = answer;
   const enWord = (mode === "en-ua") ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
+  // For Def/Cloze: append UA translation so user sees both word and meaning
+  if ((mode === "en-def" || mode === "en-cloze") && uaWord) {
+    corrAnswerEl.textContent = answer + " — " + uaWord;
+  } else {
+    corrAnswerEl.textContent = answer;
+  }
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
   const exEl  = document.getElementById("corr-example");
@@ -3950,7 +3955,7 @@ function skipWord() {
 function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
-  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex });
+  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex, mode });
   if (status === "correct") {
     score++; scoreEl.textContent = score;
     if (reviewRemaining) {
@@ -4669,7 +4674,10 @@ function renderList() {
   }
 
   listEl.innerHTML = rows.map(r => {
-    const pair = esc(r.shown) + " = " + esc(r.correct);
+    // For Def/Cloze: avoid showing "wake = wake" — display "wake — прокидатися" instead
+    const pair = (r.mode === "en-def" || r.mode === "en-cloze") && r.enWord && r.uaWord
+      ? esc(r.enWord) + " — " + esc(r.uaWord)
+      : esc(r.shown) + " = " + esc(r.correct);
     const enW = r.enWord || "";
     const uaW = r.uaWord || "";
     const ex = lookupExample(EXAMPLES, enW, uaW);
@@ -4781,7 +4789,7 @@ document.addEventListener("keyup", e => {
   pendingShiftCode = null;
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
-  const dir = code === "ShiftRight" ? 1 : ALL_MODES.length - 1;
+  const dir = code === "ShiftLeft" ? 1 : ALL_MODES.length - 1;
   const next = ALL_MODES[(ALL_MODES.indexOf(mode) + dir) % ALL_MODES.length];
   setMode(next);
 });
