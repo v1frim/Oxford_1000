@@ -1260,7 +1260,7 @@ const WORDS = [
   {en:"glance",ua:"поглянути"},
   {en:"gloomy",ua:"похмурий"},
   {en:"glowing",ua:"сяючий"},
-  {en:"gorgeous",ua:"приголомшливий"},
+  {en:"gorgeous",ua:"розкішний"},
   {en:"grab",ua:"хапати"},
   {en:"gracious",ua:"ласкавий"},
   {en:"gradual",ua:"поступовий"},
@@ -6946,7 +6946,7 @@ const EN_TO_UA = (() => {
   m.set("wealth",      ["багатство"]);
   m.set("web",         ["мережа", "павутина"]);
   m.set("weekend",     ["вихідні"]);
-  m.set("whenever",    ["коли б не"]);
+  m.set("whenever",    ["будь-коли"]);
   m.set("wipe",        ["витирати"]);
   m.set("wish",        ["бажати", "бажання"]);
   m.set("workspace",   ["робочий простір"]);
@@ -7397,6 +7397,11 @@ document.addEventListener("keydown", e => {
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
+    return;
+  }
+  if (e.key === "Control" && mode === "en-ua" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
+    e.preventDefault();
+    speak(currentShown);
     return;
   }
   if (e.key === " " && awaitingAfterWrong) {
