@@ -4207,6 +4207,246 @@ const EN_TO_UA = (() => {
   m.set("dog",         ["собака"]);
   m.set("bird",        ["птах"]);
   m.set("horse",       ["кінь"]);
+  // Question words & common adverbs
+  m.set("what",        ["що", "який"]);
+  m.set("when",        ["коли"]);
+  m.set("where",       ["де", "куди"]);
+  m.set("how",         ["як"]);
+  m.set("why",         ["чому"]);
+  m.set("who",         ["хто"]);
+  m.set("which",       ["який", "котрий"]);
+  m.set("whose",       ["чий"]);
+  m.set("before",      ["до", "перед", "раніше"]);
+  m.set("after",       ["після", "потім"]);
+  m.set("all",         ["всі", "весь", "уся"]);
+  m.set("some",        ["деякі", "трохи", "якісь"]);
+  m.set("any",         ["будь-який", "якийсь"]);
+  m.set("once",        ["один раз", "колись"]);
+  m.set("twice",       ["двічі"]);
+  m.set("later",       ["пізніше"]);
+  m.set("immediately", ["негайно", "одразу"]);
+  m.set("tonight",     ["сьогодні ввечері"]);
+  m.set("midnight",    ["північ"]);
+  m.set("noon",        ["полудень"]);
+  m.set("overnight",   ["на ніч", "за одну ніч"]);
+  m.set("online",      ["онлайн", "в інтернеті"]);
+  // Directions
+  m.set("north",       ["північ"]);
+  m.set("south",       ["південь"]);
+  m.set("east",        ["схід"]);
+  m.set("west",        ["захід"]);
+  m.set("left",        ["лівий", "ліворуч"]);
+  m.set("right",       ["правий", "праворуч"]);
+  // Common content words
+  m.set("respect",     ["повага", "поважати"]);
+  m.set("recipe",      ["рецепт"]);
+  m.set("life",        ["життя"]);
+  m.set("party",       ["вечірка", "партія"]);
+  m.set("holiday",     ["свято", "відпустка"]);
+  m.set("picture",     ["картина", "фотографія"]);
+  m.set("taste",       ["смак", "куштувати"]);
+  m.set("fry",         ["смажити"]);
+  m.set("advice",      ["порада"]);
+  m.set("illness",     ["хвороба"]);
+  m.set("concert",     ["концерт"]);
+  m.set("band",        ["гурт", "стрічка"]);
+  m.set("article",     ["стаття"]);
+  m.set("human",       ["людина", "людський"]);
+  m.set("speech",      ["мова", "промова"]);
+  m.set("painting",    ["картина", "живопис"]);
+  m.set("solution",    ["рішення", "розчин"]);
+  m.set("air",         ["повітря"]);
+  m.set("guest",       ["гість"]);
+  m.set("shelf",       ["полиця"]);
+  m.set("bowl",        ["миска", "чаша"]);
+  m.set("wash",        ["мити", "прати"]);
+  m.set("stamp",       ["марка", "штамп"]);
+  m.set("puzzle",      ["головоломка", "пазл"]);
+  m.set("slice",       ["шматочок", "скибка"]);
+  m.set("slippery",    ["слизький"]);
+  m.set("relax",       ["розслаблятися", "відпочивати"]);
+  m.set("animal",      ["тварина"]);
+  m.set("english",     ["англійська"]);
+  m.set("france",      ["Франція"]);
+  m.set("spread",      ["поширюватися", "намазувати"]);
+  m.set("toast",       ["тост"]);
+  m.set("posture",     ["постава"]);
+  m.set("largest",     ["найбільший"]);
+  m.set("arrive",      ["прибувати", "приходити"]);
+  m.set("approve",     ["схвалювати"]);
+  m.set("hiking",      ["похід", "піший туризм"]);
+  m.set("hike",        ["похід", "ходити в похід"]);
+  // More common nouns from sentences
+  m.set("bottle",      ["пляшка"]);
+  m.set("glass",       ["склянка", "скло"]);
+  m.set("cup",         ["чашка"]);
+  m.set("plate",       ["тарілка"]);
+  m.set("knife",       ["ніж"]);
+  m.set("fork",        ["виделка"]);
+  m.set("spoon",       ["ложка"]);
+  m.set("bag",         ["сумка", "пакет"]);
+  m.set("box",         ["коробка"]);
+  m.set("key",         ["ключ"]);
+  m.set("lock",        ["замок"]);
+  m.set("clock",       ["годинник"]);
+  m.set("watch",       ["годинник", "дивитися"]);
+  m.set("paper",       ["папір"]);
+  m.set("pen",         ["ручка"]);
+  m.set("pencil",      ["олівець"]);
+  m.set("pocket",      ["кишеня"]);
+  m.set("shoe",        ["взуття", "туфля"]);
+  m.set("shirt",       ["сорочка"]);
+  m.set("dress",       ["сукня", "одягати"]);
+  m.set("coat",        ["пальто"]);
+  m.set("hat",         ["капелюх", "шапка"]);
+  m.set("glove",       ["рукавичка"]);
+  m.set("ring",        ["каблучка", "дзвеніти"]);
+  m.set("flower",      ["квітка"]);
+  m.set("tree",        ["дерево"]);
+  m.set("leaf",        ["лист", "листок"]);
+  m.set("grass",       ["трава"]);
+  m.set("sun",         ["сонце"]);
+  m.set("moon",        ["місяць"]);
+  m.set("star",        ["зірка"]);
+  m.set("rain",        ["дощ"]);
+  m.set("snow",        ["сніг"]);
+  m.set("wind",        ["вітер"]);
+  m.set("cloud",       ["хмара"]);
+  m.set("sea",         ["море"]);
+  m.set("ocean",       ["океан"]);
+  m.set("lake",        ["озеро"]);
+  m.set("ice",         ["лід"]);
+  m.set("fire",        ["вогонь"]);
+  m.set("smoke",       ["дим"]);
+  m.set("cafe",        ["кафе"]);
+  // Common verbs frequently in examples
+  m.set("arrive",      ["прибувати"]);
+  m.set("attend",      ["відвідувати", "бути присутнім"]);
+  m.set("avoid",       ["уникати"]);
+  m.set("borrow",      ["позичати"]);
+  m.set("burn",        ["горіти", "пекти"]);
+  m.set("celebrate",   ["святкувати"]);
+  m.set("check",       ["перевіряти"]);
+  m.set("collect",     ["збирати", "колекціонувати"]);
+  m.set("compare",     ["порівнювати"]);
+  m.set("complete",    ["завершувати", "повний"]);
+  m.set("contain",     ["містити"]);
+  m.set("cover",       ["накривати", "обкладинка"]);
+  m.set("deliver",     ["доставляти"]);
+  m.set("design",      ["дизайн", "проектувати"]);
+  m.set("discover",    ["відкривати", "виявляти"]);
+  m.set("draw",        ["малювати", "тягнути"]);
+  m.set("escape",      ["втекти", "уникнути"]);
+  m.set("explore",     ["досліджувати"]);
+  m.set("fix",         ["лагодити", "виправляти"]);
+  m.set("greet",       ["вітати"]);
+  m.set("guide",       ["вести", "гід"]);
+  m.set("happen",      ["ставатися", "відбуватися"]);
+  m.set("hire",        ["наймати"]);
+  m.set("imagine",     ["уявляти"]);
+  m.set("invite",      ["запрошувати"]);
+  m.set("invent",      ["винаходити"]);
+  m.set("introduce",   ["представляти", "знайомити"]);
+  m.set("join",        ["приєднуватися"]);
+  m.set("knock",       ["стукати"]);
+  m.set("lift",        ["піднімати"]);
+  m.set("link",        ["зв'язувати", "посилання"]);
+  m.set("manage",      ["керувати", "впоратися"]);
+  m.set("mention",     ["згадувати"]);
+  m.set("miss",        ["сумувати", "пропускати"]);
+  m.set("mix",         ["змішувати"]);
+  m.set("notice",      ["помічати"]);
+  m.set("offer",       ["пропонувати"]);
+  m.set("order",       ["замовляти", "порядок"]);
+  m.set("organize",    ["організовувати"]);
+  m.set("pack",        ["пакувати"]);
+  m.set("paint",       ["фарбувати", "малювати"]);
+  m.set("plant",       ["рослина", "садити"]);
+  m.set("pour",        ["наливати"]);
+  m.set("prepare",     ["готувати", "підготовляти"]);
+  m.set("present",     ["представляти", "подарунок"]);
+  m.set("print",       ["друкувати"]);
+  m.set("promise",     ["обіцянка", "обіцяти"]);
+  m.set("realize",     ["усвідомлювати"]);
+  m.set("recommend",   ["рекомендувати"]);
+  m.set("relax",       ["розслаблятися"]);
+  m.set("repair",      ["ремонтувати"]);
+  m.set("repeat",      ["повторювати"]);
+  m.set("replace",     ["замінювати"]);
+  m.set("report",      ["звіт", "повідомляти"]);
+  m.set("rescue",      ["рятувати"]);
+  m.set("save",        ["зберігати", "рятувати"]);
+  m.set("share",       ["ділитися"]);
+  m.set("shout",       ["кричати"]);
+  m.set("smile",       ["усміхатися", "усмішка"]);
+  m.set("solve",       ["вирішувати"]);
+  m.set("spend",       ["витрачати", "проводити"]);
+  m.set("succeed",     ["досягати успіху"]);
+  m.set("support",     ["підтримувати"]);
+  m.set("surprise",    ["здивувати", "сюрприз"]);
+  m.set("teach",       ["навчати"]);
+  m.set("touch",       ["торкатися"]);
+  m.set("translate",   ["перекладати"]);
+  m.set("trust",       ["довіра", "довіряти"]);
+  m.set("type",        ["друкувати", "тип"]);
+  m.set("visit",       ["відвідувати"]);
+  m.set("worry",       ["хвилюватися"]);
+  // More common words from sentences
+  m.set("green",       ["зелений"]);
+  m.set("red",         ["червоний"]);
+  m.set("blue",        ["синій", "блакитний"]);
+  m.set("yellow",      ["жовтий"]);
+  m.set("black",       ["чорний"]);
+  m.set("white",       ["білий"]);
+  m.set("cosy",        ["затишний"]);
+  m.set("downtown",    ["центр міста"]);
+  m.set("picnic",      ["пікнік"]);
+  m.set("explorer",    ["дослідник"]);
+  m.set("path",        ["шлях", "стежка"]);
+  m.set("asleep",      ["сплячий"]);
+  m.set("stir",        ["мішати", "розмішувати"]);
+  m.set("wedding",     ["весілля"]);
+  m.set("latest",      ["останній", "найновіший"]);
+  m.set("action",      ["дія"]);
+  m.set("stress",      ["стрес"]);
+  m.set("high",        ["високий"]);
+  m.set("higher",      ["вищий"]);
+  m.set("trip",        ["подорож", "поїздка"]);
+  m.set("due",         ["належний", "очікуваний"]);
+  m.set("supportive",  ["підтримуючий"]);
+  m.set("fun",         ["веселощі", "веселий"]);
+  m.set("hardest",     ["найважчий"]);
+  m.set("score",       ["рахунок", "забивати"]);
+  m.set("fur",         ["хутро", "шерсть"]);
+  m.set("shop",        ["магазин", "робити покупки"]);
+  m.set("sunset",      ["захід сонця"]);
+  m.set("sunrise",     ["схід сонця"]);
+  m.set("curry",       ["каррі"]);
+  m.set("mind",        ["розум", "не заперечувати"]);
+  m.set("attention",   ["увага"]);
+  m.set("film",        ["фільм"]);
+  m.set("coding",      ["програмування"]);
+  m.set("code",        ["код"]);
+  m.set("drop",        ["крапля", "впускати"]);
+  m.set("dropped",     ["впав", "упустив"]);
+  m.set("emergency",   ["надзвичайна ситуація"]);
+  m.set("safe",        ["безпечний", "сейф"]);
+  m.set("religion",    ["релігія"]);
+  m.set("scary",       ["страшний"]);
+  m.set("ahead",       ["попереду"]);
+  m.set("along",       ["вздовж", "разом"]);
+  m.set("around",      ["навколо", "приблизно"]);
+  m.set("away",        ["далеко", "геть"]);
+  m.set("through",     ["через", "крізь"]);
+  m.set("toward",      ["до", "у напрямку"]);
+  m.set("towards",     ["до", "у напрямку"]);
+  m.set("along",       ["вздовж"]);
+  m.set("upstairs",    ["нагорі", "наверх"]);
+  m.set("downstairs",  ["внизу", "вниз"]);
+  m.set("everywhere",  ["скрізь"]);
+  m.set("somewhere",   ["десь"]);
+  m.set("anywhere",    ["будь-де"]);
+  m.set("nowhere",     ["ніде"]);
   return m;
 })();
 const HW_SKIP = new Set([
@@ -4331,7 +4571,39 @@ const IRREGULAR = {
   windows:"window",rooms:"room",floors:"floor",walls:"wall",
   restaurants:"restaurant",airports:"airport",
   vegetables:"vegetable",fruits:"fruit",
-  allergies:"allergy"
+  allergies:"allergy",
+  // Newly added plural/inflected forms
+  guests:"guest",animals:"animal",bowls:"bowl",shelves:"shelf",
+  recipes:"recipe",concerts:"concert",bands:"band",articles:"article",
+  humans:"human",paintings:"painting",solutions:"solution",
+  pictures:"picture",lives:"life",parties:"party",holidays:"holiday",
+  slices:"slice",stamps:"stamp",puzzles:"puzzle",
+  bottles:"bottle",glasses:"glass",cups:"cup",plates:"plate",
+  knives:"knife",forks:"fork",spoons:"spoon",bags:"bag",boxes:"box",
+  keys:"key",locks:"lock",clocks:"clock",papers:"paper",
+  pens:"pen",pencils:"pencil",pockets:"pocket",shoes:"shoe",
+  shirts:"shirt",dresses:"dress",coats:"coat",hats:"hat",
+  gloves:"glove",rings:"ring",flowers:"flower",trees:"tree",
+  leaves:"leaf",stars:"star",clouds:"cloud",lakes:"lake",
+  rides:"ride",arrives:"arrive",arrived:"arrive",arriving:"arrive",
+  approved:"approve",approves:"approve",approving:"approve",
+  running:"run",
+  taste:"taste",tastes:"taste",tasted:"taste",tasting:"taste",
+  fried:"fry",fries:"fry",frying:"fry",
+  washed:"wash",washes:"wash",washing:"wash",
+  spreads:"spread",spreading:"spread",
+  // already exists but keep consistency
+  cafes:"cafe",
+  explorers:"explorer",actions:"action",trips:"trip",
+  shops:"shop",films:"film",weddings:"wedding",
+  paths:"path",religions:"religion",
+  scored:"score",scoring:"score",scores:"score",
+  drops:"drop",dropping:"drop",
+  stirring:"stir",stirred:"stir",
+  shopping:"shop",shopped:"shop",
+  // -er/-est for newly added adjectives
+  scarier:"scary",scariest:"scary",
+  funnier:"funny",funniest:"funny"
 };
 function stemEn(word) {
   word = word.toLowerCase().replace(/[^a-z']/g, "");
