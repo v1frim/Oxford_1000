@@ -314,29 +314,24 @@
   .hw {
     border-bottom: 1px dotted rgba(255,255,255,0.28);
     cursor: pointer;
-    position: relative;
   }
   .hw:hover { color: #ffd166; }
-  .hw:hover::after {
-    content: attr(data-trans);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 4px;
+  /* Viewport-safe hover tooltip — positioned by JS */
+  #hw-tooltip {
+    display: none;
+    position: fixed;
+    z-index: 9999;
     background: #1e3c72;
     border: 1px solid rgba(255,209,102,0.45);
     color: #ffd166;
-    padding: 4px 9px;
+    padding: 4px 10px;
     border-radius: 6px;
     font-size: 12px;
     font-style: normal;
     white-space: normal;
     max-width: 220px;
-    width: max-content;
     text-align: center;
-    line-height: 1.3;
-    z-index: 100;
+    line-height: 1.4;
     pointer-events: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
@@ -4105,9 +4100,113 @@ const EN_TO_UA = (() => {
       uaList.forEach(ua => { if (!arr.includes(ua)) arr.push(ua); });
     });
   });
-  m.set("could", ["міг би"]);
-  m.set("would", ["би", "хотів би"]);
-  m.set("should", ["мав би", "повинен"]);
+  m.set("could",       ["міг би"]);
+  m.set("would",       ["би", "хотів би"]);
+  m.set("should",      ["мав би", "повинен"]);
+  // Common words not in WORDS but frequent in example sentences
+  m.set("great",       ["чудовий", "великий"]);
+  m.set("every",       ["кожен", "кожна", "кожне"]);
+  m.set("many",        ["багато"]);
+  m.set("more",        ["більше", "ще"]);
+  m.set("most",        ["найбільше", "більшість"]);
+  m.set("much",        ["багато", "дуже"]);
+  m.set("please",      ["будь ласка", "задовольняти"]);
+  m.set("today",       ["сьогодні"]);
+  m.set("tomorrow",    ["завтра"]);
+  m.set("yesterday",   ["вчора"]);
+  m.set("everyone",    ["всі", "кожен"]);
+  m.set("everything",  ["все"]);
+  m.set("something",   ["щось"]);
+  m.set("somewhere",   ["десь"]);
+  m.set("nothing",     ["ніщо", "нічого"]);
+  m.set("nobody",      ["ніхто"]);
+  m.set("someone",     ["хтось"]);
+  m.set("anyone",      ["будь-хто", "хтось"]);
+  m.set("anything",    ["що завгодно", "щось"]);
+  m.set("dinner",      ["вечеря"]);
+  m.set("lunch",       ["обід"]);
+  m.set("breakfast",   ["сніданок"]);
+  m.set("favourite",   ["улюблений"]);
+  m.set("birthday",    ["день народження"]);
+  m.set("movie",       ["фільм", "кіно"]);
+  m.set("sign",        ["знак", "підписувати"]);
+  m.set("lot",         ["багато", "ділянка"]);
+  m.set("allergy",     ["алергія"]);
+  m.set("game",        ["гра"]);
+  m.set("place",       ["місце"]);
+  m.set("street",      ["вулиця"]);
+  m.set("town",        ["місто", "містечко"]);
+  m.set("village",     ["село"]);
+  m.set("week",        ["тиждень"]);  // ensure
+  m.set("hour",        ["година"]);   // ensure
+  m.set("minute",      ["хвилина"]);  // ensure
+  m.set("during",      ["під час", "протягом"]);
+  m.set("while",       ["поки", "в той час як"]);
+  m.set("though",      ["хоча"]);
+  m.set("although",    ["хоча", "незважаючи на те що"]);
+  m.set("unless",      ["якщо не", "хіба що"]);
+  m.set("until",       ["поки", "до тих пір"]);
+  m.set("without",     ["без"]);
+  m.set("between",     ["між"]);
+  m.set("among",       ["серед"]);
+  m.set("behind",      ["за", "позаду"]);
+  m.set("beside",      ["поруч", "біля"]);
+  m.set("beyond",      ["за межами", "поза"]);
+  m.set("within",      ["всередині", "в межах"]);
+  m.set("throughout",  ["скрізь", "протягом"]);
+  m.set("despite",     ["незважаючи на"]);
+  m.set("except",      ["окрім", "крім"]);
+  m.set("both",        ["обидва", "обидві"]);
+  m.set("either",      ["або", "будь-який"]);
+  m.set("neither",     ["ні те ні інше", "жоден"]);
+  m.set("other",       ["інший"]);
+  m.set("another",     ["ще один", "інший"]);
+  m.set("such",        ["такий"]);
+  m.set("same",        ["той самий", "однаковий"]);
+  m.set("own",         ["власний"]);
+  m.set("few",         ["кілька", "небагато"]);
+  m.set("each",        ["кожен"]);
+  m.set("less",        ["менше", "менший"]);
+  m.set("little",      ["маленький", "небагато"]);
+  m.set("whole",       ["цілий", "весь"]);
+  m.set("every",       ["кожен"]);
+  m.set("dollar",      ["долар"]);
+  m.set("euro",        ["євро"]);
+  m.set("phone",       ["телефон"]);
+  m.set("computer",    ["комп'ютер"]);
+  m.set("table",       ["стіл", "таблиця"]);
+  m.set("chair",       ["стілець"]);
+  m.set("door",        ["двері"]);
+  m.set("window",      ["вікно"]);
+  m.set("floor",       ["підлога", "поверх"]);
+  m.set("wall",        ["стіна"]);
+  m.set("room",        ["кімната"]);
+  m.set("kitchen",     ["кухня"]);
+  m.set("bedroom",     ["спальня"]);
+  m.set("bathroom",    ["ванна кімната"]);
+  m.set("garden",      ["сад"]);
+  m.set("park",        ["парк"]);
+  m.set("beach",       ["пляж"]);
+  m.set("airport",     ["аеропорт"]);
+  m.set("station",     ["станція", "вокзал"]);
+  m.set("restaurant",  ["ресторан"]);
+  m.set("coffee",      ["кава"]);
+  m.set("tea",         ["чай"]);
+  m.set("milk",        ["молоко"]);
+  m.set("bread",       ["хліб"]);
+  m.set("cake",        ["торт", "пиріг"]);
+  m.set("soup",        ["суп"]);
+  m.set("rice",        ["рис"]);
+  m.set("meat",        ["м'ясо"]);
+  m.set("fish",        ["риба"]);
+  m.set("fruit",       ["фрукт", "фрукти"]);
+  m.set("vegetable",   ["овоч"]);
+  m.set("apple",       ["яблуко"]);
+  m.set("orange",      ["апельсин"]);
+  m.set("cat",         ["кіт", "кішка"]);
+  m.set("dog",         ["собака"]);
+  m.set("bird",        ["птах"]);
+  m.set("horse",       ["кінь"]);
   return m;
 })();
 const HW_SKIP = new Set([
@@ -4206,7 +4305,33 @@ const IRREGULAR = {
   blew:"blow",blown:"blow",
   burnt:"burn",burned:"burn",
   laid:"lay",
-  better:"good",best:"good",worse:"bad",worst:"bad"
+  better:"good",best:"good",worse:"bad",worst:"bad",
+  children:"child",
+  men:"man",women:"woman",
+  teeth:"tooth",feet:"foot",
+  mice:"mouse",geese:"goose",
+  oxen:"ox",
+  having:"have",
+  allergies:"allergy",medicines:"medicine",
+  stories:"story",countries:"country",cities:"city",families:"family",
+  babies:"baby",ladies:"lady",bodies:"body",
+  knives:"knife",leaves:"leaf",lives:"life",halves:"half",
+  shelves:"shelf",wolves:"wolf",
+  parties:"party",duties:"duty",
+  studies:"study",abilities:"ability",activities:"activity",
+  companies:"company",communities:"community",
+  difficulties:"difficulty",
+  injuries:"injury",injuries:"injury",
+  memories:"memory",centuries:"century",
+  varieties:"variety",injuries:"injury",
+  greater:"great",greatest:"great",
+  dollars:"dollar",euros:"euro",
+  phones:"phone",computers:"computer",
+  tables:"table",chairs:"chair",doors:"door",
+  windows:"window",rooms:"room",floors:"floor",walls:"wall",
+  restaurants:"restaurant",airports:"airport",
+  vegetables:"vegetable",fruits:"fruit",
+  allergies:"allergy"
 };
 function stemEn(word) {
   word = word.toLowerCase().replace(/[^a-z']/g, "");
@@ -4243,10 +4368,17 @@ function stemEn(word) {
 function wrapSentence(sentence) {
   return String(sentence).replace(/([A-Za-z']+)|([^A-Za-z']+)/g, (m, word, other) => {
     if (other !== undefined) return esc(other);
+    const lower = word.toLowerCase().replace(/[^a-z]/g, "");
     const stem = stemEn(word);
     if (stem) {
+      // Has translation
       const trans = EN_TO_UA.get(stem).join(", ");
       return '<span class="hw" data-trans="' + esc(trans) + '">' + esc(word) + '</span>';
+    }
+    // TTS-only: wrap real content words that have no translation in our dict
+    // (but skip HW_SKIP words, contractions, and very short words)
+    if (lower.length > 2 && !HW_SKIP.has(lower) && !lower.includes("'")) {
+      return '<span class="hw">' + esc(word) + '</span>';
     }
     return esc(word);
   });
@@ -4330,6 +4462,32 @@ document.getElementById("corr-example").addEventListener("click", e => {
   const hw = e.target.closest(".hw");
   if (hw) speak(hw.textContent);
 });
+
+// ── Viewport-safe hover tooltip for .hw spans ────────────────────────────────
+const hwTip = document.createElement("div");
+hwTip.id = "hw-tooltip";
+document.body.appendChild(hwTip);
+
+document.addEventListener("mouseover", e => {
+  const hw = e.target.closest(".hw");
+  if (!hw || !hw.dataset.trans) { hwTip.style.display = "none"; return; }
+  hwTip.textContent = hw.dataset.trans;
+  hwTip.style.display = "block";
+  // Position: above the word, centered, clamped to viewport
+  const r = hw.getBoundingClientRect();
+  const tw = hwTip.offsetWidth, th = hwTip.offsetHeight;
+  let left = r.left + r.width / 2 - tw / 2;
+  let top  = r.top - th - 6;
+  if (top < 6) top = r.bottom + 6;           // flip below if no room above
+  left = Math.max(6, Math.min(left, window.innerWidth  - tw - 6));
+  top  = Math.max(6, Math.min(top,  window.innerHeight - th - 6));
+  hwTip.style.left = left + "px";
+  hwTip.style.top  = top  + "px";
+});
+document.addEventListener("mouseover", e => {
+  if (!e.target.closest(".hw")) hwTip.style.display = "none";
+});
+
 btnUaEn.addEventListener("click",    () => setMode("ua-en"));
 btnEnUa.addEventListener("click",    () => setMode("en-ua"));
 btnEnDef.addEventListener("click",   () => setMode("en-def"));
