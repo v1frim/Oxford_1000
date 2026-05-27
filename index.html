@@ -202,18 +202,37 @@
 
   /* mode selector */
   .mode-select { margin: 20px 0 8px; }
-  .mode-select p { opacity: 0.8; font-size: 14px; margin-bottom: 10px; }
-  .mode-btns { display: flex; gap: 10px; justify-content: center; }
+  .mode-group { margin-bottom: 10px; }
+  .mode-group-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 6px;
+  }
+  .mode-btns { display: flex; gap: 8px; justify-content: center; }
   .mode-btn {
     flex: 1;
-    max-width: 180px;
-    font-size: 16px;
-    padding: 12px 10px;
+    font-size: 14px;
+    padding: 10px 8px;
     background: rgba(255,255,255,0.12);
     color: #fff;
-    border-radius: 12px;
+    border-radius: 10px;
+    white-space: nowrap;
   }
   .mode-btn.active { background: #ffd166; color: #1e3c72; }
+  /* Cloze/def: word-display needs smaller text and wrapping */
+  .word-display.multiline {
+    font-size: 20px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .blank { letter-spacing: 0.12em; font-weight: 700; color: #ffd166; }
 
   /* start screen description */
   #start-screen p.desc {
@@ -295,29 +314,24 @@
   .hw {
     border-bottom: 1px dotted rgba(255,255,255,0.28);
     cursor: pointer;
-    position: relative;
   }
   .hw:hover { color: #ffd166; }
-  .hw:hover::after {
-    content: attr(data-trans);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 4px;
+  /* Viewport-safe hover tooltip — positioned by JS */
+  #hw-tooltip {
+    display: none;
+    position: fixed;
+    z-index: 9999;
     background: #1e3c72;
     border: 1px solid rgba(255,209,102,0.45);
     color: #ffd166;
-    padding: 4px 9px;
+    padding: 4px 10px;
     border-radius: 6px;
     font-size: 12px;
     font-style: normal;
     white-space: normal;
     max-width: 220px;
-    width: max-content;
     text-align: center;
-    line-height: 1.3;
-    z-index: 100;
+    line-height: 1.4;
     pointer-events: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
@@ -341,10 +355,21 @@
   <div id="start-screen">
     <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
     <div class="mode-select">
-      <p>Оберіть режим:</p>
-      <div class="mode-btns">
-        <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
-        <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
+      <div class="mode-group">
+        <div class="mode-group-label">Переклад</div>
+        <div class="mode-btns">
+          <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
+          <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
+        </div>
+      </div>
+      <div class="mode-group">
+        <div class="mode-group-label">English only</div>
+        <div class="mode-btns">
+          <button id="btn-en-def" class="mode-btn">📖 Def</button>
+          <button id="btn-en-syn" class="mode-btn">🔁 Syn</button>
+          <button id="btn-en-ant" class="mode-btn">↔ Ant</button>
+          <button id="btn-en-cloze" class="mode-btn">📝 Cloze</button>
+        </div>
       </div>
     </div>
     <button id="start-btn">Почати</button>
@@ -2775,6 +2800,828 @@ const EXAMPLES_UA = {
   "tear:рвати":"Не рви папір — складай обережно."
 };
 
+// ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
+// Definitions for "Definition → Word" mode
+const DEFS = {
+  "happy":"feeling or showing pleasure, satisfaction, or contentment",
+  "sad":"feeling or showing sorrow; unhappy or unfortunate",
+  "angry":"feeling or showing strong displeasure or hostility",
+  "afraid":"feeling fear or anxiety; frightened",
+  "tired":"in need of sleep or rest; feeling weary",
+  "hungry":"feeling a strong desire for food",
+  "thirsty":"feeling a need to drink something",
+  "busy":"having a great deal to do; occupied with work",
+  "ready":"in a suitable state for action or use; prepared",
+  "sick":"affected by physical illness; unwell",
+  "strong":"having great physical power or force",
+  "weak":"lacking strength or power; not strong",
+  "fast":"moving or capable of moving at high speed",
+  "slow":"not moving quickly; taking a long time to act",
+  "hot":"having a high temperature; feeling very warm",
+  "cold":"having a very low temperature; not warm",
+  "big":"of large size, extent, or amount",
+  "small":"of a size that is less than normal or usual",
+  "tall":"of great height; measuring more than average from bottom to top",
+  "short":"measuring a small distance from top to bottom or end to end",
+  "long":"measuring a great distance from one end to the other",
+  "wide":"measuring a great distance from side to side; broad",
+  "narrow":"of little width; not wide",
+  "heavy":"of great weight; difficult to lift or move",
+  "light":"not heavy; of little weight",
+  "hard":"firm and solid; not easy to break or bend",
+  "soft":"easy to press or bend; not hard or firm",
+  "loud":"producing a great deal of noise; noisy",
+  "quiet":"making little or no noise; calm and peaceful",
+  "clean":"free from dirt, marks, or mess",
+  "dirty":"covered with or marked by dirt or an unwanted substance",
+  "beautiful":"pleasing the senses or mind; very attractive",
+  "ugly":"unpleasant or repulsive to look at",
+  "young":"having lived or existed for only a short time",
+  "old":"having lived for a long time; not new",
+  "new":"not existing before; recently made or discovered",
+  "rich":"having a great deal of money or assets; wealthy",
+  "poor":"lacking sufficient money to live comfortably",
+  "important":"of great significance or value",
+  "easy":"achieved without great effort; not difficult",
+  "difficult":"needing much effort or skill to accomplish",
+  "interesting":"arousing curiosity or attention; not dull",
+  "boring":"not interesting; tedious",
+  "funny":"causing amusement or laughter; amusing",
+  "serious":"needing careful thought; not lighthearted",
+  "brave":"showing courage; ready to face danger without fear",
+  "kind":"having a friendly and generous nature",
+  "cruel":"causing pain or suffering without feeling; unkind",
+  "honest":"free from deceit; truthful and sincere",
+  "lazy":"unwilling to work or use energy",
+  "clever":"quick to understand and learn things; intelligent",
+  "stupid":"lacking intelligence or common sense",
+  "polite":"having or showing good manners and respect",
+  "rude":"behaving in a way that is not polite",
+  "shy":"being nervous or timid around other people",
+  "confident":"feeling certain about yourself and your abilities",
+  "careful":"giving attention and thought to what you do",
+  "careless":"not giving enough attention to what you are doing",
+  "healthy":"in a good physical or mental condition",
+  "sick":"affected by physical illness; unwell",
+  "safe":"protected from danger, harm, or risk",
+  "dangerous":"likely to cause harm or injury",
+  "free":"not under the control of another person; able to act as desired",
+  "fresh":"recently made or obtained; not stale",
+  "strange":"unusual or surprising in a way that is hard to explain",
+  "normal":"conforming to a standard; usual and typical",
+  "different":"not the same as something or someone else",
+  "similar":"resembling someone or something without being identical",
+  "perfect":"having all the required qualities; complete and faultless",
+  "wrong":"not correct or true; in error",
+  "right":"correct, true, or suitable",
+  "early":"before the usual or expected time",
+  "late":"after the correct, usual, or expected time",
+  "empty":"containing nothing; not filled",
+  "full":"holding or containing as much as possible",
+  "open":"allowing access or passage; not closed or blocked",
+  "closed":"shut; not open or not in operation",
+  "loud":"making a great deal of noise; very noisy",
+  "sharp":"having a thin edge that can cut; clever and quick",
+  "flat":"having a level surface; not curved",
+  "round":"shaped like a circle or sphere",
+  "dark":"with very little or no light",
+  "bright":"giving out a strong light; intelligent",
+  "deep":"extending far down or far inward",
+  "high":"extending far upward; at a great height",
+  "low":"not high; close to the ground",
+  "near":"at a short distance; close to",
+  "far":"at or to a great distance",
+  "local":"relating or belonging to a particular area",
+  "national":"relating to an entire country",
+  "public":"of or concerning people in general",
+  "private":"belonging to or for the use of one person only",
+  "real":"actually existing; not imagined or invented",
+  "false":"not according to truth; incorrect or misleading",
+  "true":"in accordance with fact or reality",
+  "possible":"able to happen or exist; achievable",
+  "impossible":"not able to occur, exist, or be done",
+  "necessary":"required to be done; essential",
+  "special":"better than usual; exceptional",
+  "wonderful":"inspiring delight, pleasure, or admiration; excellent",
+  "terrible":"extremely bad or serious; causing great fear",
+  "excellent":"extremely good; outstanding",
+  "terrible":"extremely bad or distressing",
+  "alive":"living; not dead",
+  "dead":"no longer alive",
+  "aware":"knowing or understanding something; conscious",
+  "alone":"having no one else present; on one's own",
+  "together":"with or in the company of another person or people",
+  "certain":"known for sure; without any doubt",
+  "likely":"probable; expected to happen",
+  "able":"having the power, skill, or means to do something",
+  "popular":"liked or admired by many people",
+  "lucky":"having, bringing, or resulting from good luck",
+  "natural":"existing in or caused by nature",
+  "human":"of or relating to people; typical of human beings",
+  "annual":"happening or done once every year",
+  "exact":"accurate and precise; without any error",
+  "actual":"existing in fact; real",
+  "complete":"having all parts; total and whole",
+  "main":"most important; principal",
+  "central":"at the point or position in the middle of something",
+  "common":"occurring, found, or done often; widespread",
+  "general":"affecting or applying to all or most",
+  "specific":"clearly defined and identified",
+  "basic":"forming an essential foundation; fundamental",
+  "simple":"easily understood; not complex",
+  "complex":"consisting of many connected parts; not simple",
+  "obvious":"easily seen or understood; clear",
+  "clear":"easy to understand; not confusing",
+  "traditional":"following the customs and practices of the past",
+  "modern":"relating to the present or recent times; up to date",
+  "foreign":"from or in another country; not your own",
+  "international":"relating to or involving more than one country",
+  "physical":"relating to the body or material things; not mental",
+  "mental":"relating to the mind or psychological processes",
+  "emotional":"relating to a person's feelings",
+  "social":"relating to society or its organization",
+  "political":"relating to government or public affairs",
+  "financial":"relating to money and finances",
+  "professional":"relating to a skilled job that requires training",
+  "personal":"of or belonging to a particular person",
+  "original":"present from the beginning; first and not copied",
+  "normal":"usual; expected; not different from others",
+  "regular":"occurring at equal intervals; consistent",
+  "official":"relating to an authority or public organization",
+  "military":"relating to the armed forces or soldiers",
+  "scientific":"relating to science and systematic knowledge",
+  "medical":"relating to medicine and the treatment of illness",
+  "legal":"permitted by law; relating to the law",
+  "digital":"using numerical digits or computer technology",
+  "electric":"powered by electricity",
+  "extreme":"reaching a high degree; very great",
+  "previous":"existing or occurring before in time; former",
+  "typical":"having the qualities expected of that type; normal",
+  "absolute":"complete and total; without any limit",
+  "automatic":"working or done without conscious thought",
+  "immediate":"occurring or done at once; without delay",
+  "obvious":"easily perceived or understood; clear",
+  "independent":"free from outside control; self-governing",
+  "intelligent":"having or showing a great ability to learn and think",
+  "responsible":"having an obligation to do or care for something",
+  "successful":"achieving desired results; accomplishing a goal",
+  "suitable":"right for a particular purpose or occasion",
+  "available":"able to be used or obtained; accessible",
+  "comfortable":"providing physical ease and relaxation",
+  "pleasant":"giving a sense of happy satisfaction; enjoyable",
+  "useful":"able to be used for a practical purpose",
+  "valuable":"worth a great deal of money or importance",
+  "effective":"producing a desired or intended result",
+  "efficient":"achieving maximum productivity with minimum waste",
+  "necessary":"absolutely needed; essential",
+  "familiar":"well known from long or close association",
+  "formal":"following established conventions; official",
+  "informal":"having a relaxed and friendly manner; casual",
+  "reasonable":"having sound judgment; fair and sensible",
+  "reliable":"consistently good in quality or performance",
+  "responsible":"having a duty to deal with something",
+  "sensitive":"aware of the needs and feelings of others",
+  "generous":"giving more than necessary; unselfish",
+  "curious":"eager to know or learn; inquisitive",
+  "creative":"using imagination to produce new and original ideas",
+  "patient":"able to wait without becoming angry or upset",
+  "independent":"not needing others; self-sufficient",
+  // Nouns
+  "teacher":"a person whose job is to teach, especially in a school",
+  "student":"a person who is studying at a school or college",
+  "doctor":"a qualified practitioner of medicine",
+  "nurse":"a person trained to care for sick or injured people",
+  "police":"the civil force responsible for preventing crime and maintaining order",
+  "soldier":"a person who serves in an army",
+  "friend":"a person with whom one has a bond of mutual affection",
+  "enemy":"a person who is opposed or hostile to another",
+  "family":"a group consisting of parents and children living together",
+  "child":"a young human being below the age of puberty",
+  "baby":"a very young child or infant",
+  "man":"an adult human male",
+  "woman":"an adult human female",
+  "city":"a large town; a place where many people live and work",
+  "country":"a nation with its own government and territory",
+  "school":"a place where children are educated",
+  "hospital":"a place where sick or injured people receive medical care",
+  "house":"a building in which people live",
+  "home":"the place where one lives; a person's house",
+  "road":"a wide way between places, used by vehicles",
+  "street":"a road in a city or town with buildings along it",
+  "river":"a large natural flow of water moving towards the sea",
+  "mountain":"a large natural elevation of earth rising above the land",
+  "forest":"a large area covered with trees",
+  "animal":"a living creature that is not a plant or human",
+  "bird":"a warm-blooded animal with feathers, wings, and a beak",
+  "fish":"a cold-blooded vertebrate animal that lives in water",
+  "food":"any substance that is eaten to provide nutrition",
+  "water":"a clear liquid that forms rivers, lakes, and the sea",
+  "money":"a medium of exchange used to buy goods and services",
+  "work":"activity done in order to achieve a result; employment",
+  "time":"the ongoing sequence of events from past to future",
+  "day":"a period of twenty-four hours",
+  "night":"the period of darkness between sunset and sunrise",
+  "morning":"the early part of the day before noon",
+  "evening":"the period of time at the end of the day",
+  "week":"a period of seven days",
+  "month":"one of the twelve periods that a year is divided into",
+  "year":"a period of 365 days; one revolution of the Earth around the Sun",
+  "weather":"the condition of the atmosphere at a particular time",
+  "problem":"a matter or situation that needs to be dealt with",
+  "question":"a sentence asking for information",
+  "answer":"a response to a question or problem",
+  "idea":"a thought or suggestion about what to do",
+  "plan":"a detailed proposal for achieving something",
+  "story":"an account of imaginary or real events",
+  "book":"a written or printed work consisting of pages",
+  "word":"a single unit of language",
+  "language":"a system of communication used by people",
+  "music":"vocal or instrumental sounds producing beauty or emotion",
+  "art":"creative activity expressing ideas or emotions",
+  "game":"an activity for entertainment with rules",
+  "sport":"physical activity done for exercise or competition",
+  "team":"a group of people working together for a common goal",
+  "winner":"a person or team that wins a competition",
+  "prize":"something given to the winner of a competition",
+  "dream":"a series of thoughts and images during sleep; a hope or ambition",
+  "hope":"a feeling that something desired may happen",
+  "chance":"a possibility of something happening",
+  "danger":"the possibility of suffering harm or injury",
+  "secret":"something kept hidden from others",
+  "mistake":"an error; something done wrongly",
+  "success":"the achievement of a goal or desired outcome",
+  "failure":"the lack of success in doing something",
+  "experience":"practical knowledge gained from doing something",
+  "memory":"the ability to remember things; a recollection",
+  "heart":"the organ that pumps blood around the body",
+  "mind":"the part of a person that thinks, feels, and remembers",
+  "body":"the physical structure of a person or animal",
+  "face":"the front part of the head",
+  "hand":"the end part of the arm below the wrist",
+  "eye":"the organ of sight",
+  "voice":"the sound produced when speaking or singing",
+  "name":"a word by which a person or thing is known",
+  "life":"the period of time between birth and death",
+  "death":"the end of life",
+  "world":"the earth and all the people on it",
+  "nature":"the physical world, especially plants, animals, and landscapes",
+  "power":"the ability to do something; force or energy",
+  "freedom":"the power to act, speak, or think without restriction",
+  "peace":"a state of tranquility; freedom from conflict",
+  "war":"armed conflict between nations or groups",
+  "love":"deep affection for someone or something",
+  "truth":"the quality of being in accordance with fact or reality",
+  "fact":"a thing that is known to have happened; true information",
+  "science":"the study of the natural world through observation and experiment",
+  "technology":"the application of scientific knowledge for practical purposes",
+  "information":"facts provided or learned about something",
+  "internet":"a global network connecting computers worldwide",
+  "message":"a spoken or written communication",
+  "news":"newly received information about recent events",
+  "price":"the amount of money for which something is bought or sold",
+  "gift":"a thing given to someone without payment; a present",
+  "trip":"a journey to a place and back",
+  "holiday":"a day or period of recreation and rest",
+  "weather":"the state of the atmosphere at a place and time",
+  "climate":"the weather conditions prevailing in an area over a long time",
+  "government":"the group of people who govern a country",
+  "law":"a rule made by the government that everyone must follow",
+  "justice":"the quality of being fair and reasonable",
+  "society":"the community of people living in a particular region",
+  "culture":"the customs, arts, and social institutions of a group",
+  "history":"the study of past events",
+  "future":"the time that is yet to come",
+  "past":"the time before the present",
+  "present":"the period of time happening now",
+  "age":"the length of time something has existed; a period of history",
+  "century":"a period of one hundred years",
+  "human":"a person; a member of the species Homo sapiens",
+  "citizen":"a legally recognized member of a country or city",
+  "leader":"a person who leads a group or organization",
+  "president":"the elected head of a republic",
+  "king":"a male ruler of a country",
+  "queen":"a female ruler of a country, or a king's wife",
+  "army":"an organized military force for land warfare",
+  "hospital":"a place where sick people receive medical treatment",
+  "medicine":"science of treating and preventing illness; a drug taken to cure illness",
+  "disease":"a disorder of the body or mind with specific symptoms",
+  "pain":"physical suffering caused by illness or injury",
+  "building":"a structure with walls and a roof",
+  "bridge":"a structure built over a river or road to allow crossing",
+  "station":"a place where trains stop to allow passengers to get on or off",
+  "airport":"a place where aircraft can take off and land",
+  "hotel":"a place providing accommodation and meals for travellers",
+  "shop":"a building where goods are sold",
+  "market":"a place where goods are bought and sold",
+  "office":"a room used for work or administration",
+  "factory":"a building where goods are manufactured",
+  "farm":"an area of land used for growing crops or raising animals",
+  "garden":"a piece of ground where plants are grown",
+  "park":"a public area of land for recreation",
+  "beach":"a sandy or pebbly shore by the sea or a lake",
+  // Verbs
+  "travel":"to go from one place to another; journey",
+  "learn":"to acquire knowledge or skill through study or experience",
+  "teach":"to instruct someone in knowledge or a skill",
+  "help":"to make it easier for someone to do something",
+  "build":"to construct something by putting parts together",
+  "create":"to bring something into existence for the first time",
+  "choose":"to pick or select from a number of options",
+  "decide":"to reach a conclusion after consideration",
+  "understand":"to know the meaning of something; to comprehend",
+  "remember":"to have in or retrieve from your memory",
+  "forget":"to fail to remember; to lose memory of something",
+  "believe":"to accept that something is true without proof",
+  "think":"to use the mind to consider ideas and form opinions",
+  "feel":"to experience an emotion or physical sensation",
+  "want":"to desire or wish for something",
+  "need":"to require something as essential",
+  "love":"to feel deep affection or great liking for something",
+  "hate":"to feel strong dislike or hostility toward something",
+  "like":"to find something enjoyable or satisfactory",
+  "enjoy":"to take pleasure in doing something",
+  "prefer":"to like one thing more than another",
+  "agree":"to share the same opinion; to say yes to something",
+  "disagree":"to have a different opinion from someone",
+  "accept":"to agree to receive or take something",
+  "refuse":"to indicate that you will not do or accept something",
+  "allow":"to give permission for something to happen",
+  "prevent":"to stop something from happening",
+  "protect":"to keep someone or something safe from harm",
+  "destroy":"to damage something so badly it no longer exists",
+  "discover":"to find or learn something for the first time",
+  "invent":"to design or create something new for the first time",
+  "improve":"to make something better than it was before",
+  "change":"to make or become different from what it was",
+  "increase":"to become larger in amount, number, or degree",
+  "decrease":"to become smaller in amount, number, or degree",
+  "grow":"to increase in size or amount over time",
+  "reduce":"to make something smaller or less in amount",
+  "produce":"to make or create something",
+  "provide":"to give or supply something that is needed",
+  "receive":"to be given or obtain something",
+  "contain":"to have something inside; to include",
+  "include":"to have something as a part of a whole",
+  "cause":"to make something happen",
+  "result":"to happen as a consequence; to end with a particular outcome",
+  "develop":"to grow or cause to grow and become more advanced",
+  "achieve":"to successfully accomplish a goal or desired result",
+  "fail":"to be unsuccessful in achieving something",
+  "win":"to be the best in a competition",
+  "lose":"to fail to win a competition or keep something",
+  "start":"to begin doing something; to commence",
+  "finish":"to bring something to an end; to complete",
+  "continue":"to go on without stopping; to carry on",
+  "stop":"to cause to cease moving or doing something",
+  "open":"to move so as to allow access; to begin operating",
+  "close":"to move so as to cover an opening; to end",
+  "enter":"to come or go into a place",
+  "leave":"to go away from a place or person",
+  "arrive":"to reach a destination",
+  "return":"to come or go back to a place",
+  "visit":"to go to see a person or place",
+  "move":"to go from one place to another; to change position",
+  "carry":"to take something from one place to another",
+  "bring":"to take something toward the speaker",
+  "send":"to cause something to go to a different place",
+  "give":"to freely transfer possession of something to someone",
+  "take":"to reach for and hold something; to carry away",
+  "buy":"to get something by paying money for it",
+  "sell":"to exchange something for money",
+  "pay":"to give money in exchange for goods or services",
+  "earn":"to receive money in return for work done",
+  "spend":"to pay out money; to use time on an activity",
+  "save":"to keep money for future use; to rescue from danger",
+  "share":"to divide and distribute between people",
+  "use":"to take and work with something for a purpose",
+  "make":"to create or produce something",
+  "do":"to perform or carry out an action",
+  "say":"to speak words; to express in words",
+  "speak":"to use the voice to say words",
+  "ask":"to put a question to someone",
+  "answer":"to say something in response to a question",
+  "explain":"to make something clear by describing it in detail",
+  "describe":"to give details about how something looks or is",
+  "show":"to let someone see or know something",
+  "look":"to direct your eyes toward something",
+  "see":"to perceive with your eyes",
+  "watch":"to look at something for a period of time",
+  "listen":"to pay attention to sounds",
+  "hear":"to perceive sounds with your ears",
+  "read":"to look at and understand written text",
+  "write":"to mark letters and words on a surface",
+  "draw":"to make a picture using a pencil or pen",
+  "paint":"to apply paint to a surface to make a picture",
+  "play":"to engage in activity for enjoyment",
+  "sing":"to make musical sounds with the voice",
+  "dance":"to move the body rhythmically to music",
+  "cook":"to prepare food by heating it",
+  "eat":"to put food in your mouth and swallow it",
+  "drink":"to swallow liquid",
+  "sleep":"to be in the natural resting state of unconsciousness",
+  "wake":"to stop sleeping; to become conscious",
+  "run":"to move at a speed faster than walking",
+  "walk":"to move at a regular pace by lifting each foot",
+  "jump":"to push yourself into the air by bending your legs",
+  "swim":"to move through water using the body",
+  "fly":"to travel through the air using wings or an aircraft",
+  "drive":"to operate and steer a vehicle",
+  "sit":"to rest with your bottom on a surface and back upright",
+  "stand":"to be upright on your feet",
+  "fall":"to move downward quickly; to drop",
+  "catch":"to grab something that is moving",
+  "throw":"to send something through the air with your hand",
+  "hit":"to bring your hand or an object forcefully against something",
+  "kick":"to strike something with your foot",
+  "pull":"to draw something toward you with force",
+  "push":"to apply force to move something away from you",
+  "cut":"to divide something with a sharp tool",
+  "break":"to separate into pieces; to damage something",
+  "fix":"to repair something that is damaged or broken",
+  "clean":"to remove dirt from something",
+  "wash":"to clean something with water",
+  "wear":"to have clothes or accessories on your body",
+  "dress":"to put on clothes",
+  "meet":"to come into the presence of someone",
+  "visit":"to go to see a person or place",
+  "call":"to speak to someone on the phone; to shout",
+  "invite":"to ask someone to come to an event",
+  "celebrate":"to mark a special occasion with festivities",
+  "congratulate":"to express praise or good wishes on success",
+  "apologize":"to say sorry for something you did wrong",
+  "forgive":"to stop feeling angry at someone for something they did",
+  "promise":"to tell someone you will definitely do something",
+  "suggest":"to put forward an idea for others to consider",
+  "recommend":"to advise someone to do or use something",
+  "warn":"to tell someone about a possible danger or problem",
+  "announce":"to make something known publicly",
+  "report":"to give a spoken or written account of something",
+  "discuss":"to talk about something with others",
+  "argue":"to give reasons to support or oppose a view",
+  "fight":"to struggle against someone or something with force",
+  "compete":"to try to win against others in a contest",
+  "compare":"to look at the similarities and differences of things",
+  "measure":"to determine the size or amount of something",
+  "count":"to calculate the total number of something",
+  "add":"to put something with another to increase the total",
+  "subtract":"to take one number away from another",
+  "multiply":"to increase a number by adding it to itself a number of times",
+  "divide":"to separate into parts; to share equally",
+  "calculate":"to find a number or amount by using mathematics",
+  "guess":"to estimate something without being certain",
+  "know":"to have information or awareness of something",
+  "wonder":"to think about something with curiosity",
+  "hope":"to want something to happen and think it is possible",
+  "wish":"to want something that may not be possible",
+  "expect":"to think that something will happen",
+  "imagine":"to form a mental picture of something",
+  "plan":"to decide in advance what to do",
+  "prepare":"to make ready for something",
+  "practice":"to do something repeatedly to improve skill",
+  "study":"to give time to learning a subject",
+  "work":"to perform tasks requiring effort",
+  "rest":"to relax and stop activity after exertion"
+};
+
+// Synonyms for "Word → Synonym" mode
+const SYNS = {
+  "happy":["joyful","pleased","glad","content","cheerful","delighted"],
+  "sad":["unhappy","miserable","sorrowful","gloomy","depressed","upset"],
+  "angry":["furious","mad","annoyed","irritated","enraged","upset"],
+  "afraid":["scared","frightened","fearful","terrified","anxious","nervous"],
+  "tired":["weary","exhausted","sleepy","fatigued","drained"],
+  "fast":["quick","rapid","swift","speedy","hasty"],
+  "slow":["unhurried","sluggish","gradual","leisurely","steady"],
+  "big":["large","huge","enormous","great","giant","massive"],
+  "small":["tiny","little","miniature","compact","petite","minor"],
+  "tall":["high","towering","lofty","elevated"],
+  "strong":["powerful","mighty","tough","sturdy","robust","solid"],
+  "weak":["feeble","frail","fragile","powerless","delicate"],
+  "beautiful":["gorgeous","lovely","attractive","pretty","stunning","handsome"],
+  "ugly":["unattractive","hideous","plain","unpleasant"],
+  "smart":["clever","intelligent","bright","sharp","wise","brilliant"],
+  "stupid":["foolish","dumb","ignorant","senseless","silly"],
+  "kind":["gentle","caring","generous","warm","compassionate","thoughtful"],
+  "cruel":["harsh","brutal","mean","heartless","unkind","ruthless"],
+  "brave":["courageous","bold","fearless","heroic","daring","valiant"],
+  "funny":["amusing","humorous","hilarious","comical","entertaining"],
+  "boring":["dull","tedious","monotonous","uninteresting","dreary"],
+  "interesting":["fascinating","engaging","captivating","compelling","intriguing"],
+  "important":["significant","essential","crucial","vital","major","key"],
+  "easy":["simple","straightforward","effortless","uncomplicated","basic"],
+  "difficult":["hard","tough","challenging","complex","demanding","tricky"],
+  "clean":["spotless","tidy","pure","neat","hygienic"],
+  "dirty":["filthy","messy","grimy","muddy","unclean"],
+  "new":["fresh","modern","recent","current","latest","novel"],
+  "old":["ancient","aged","antique","elderly","outdated","vintage"],
+  "rich":["wealthy","prosperous","affluent","well-off"],
+  "poor":["impoverished","needy","destitute","penniless","broke"],
+  "hot":["warm","scorching","boiling","burning","blazing"],
+  "cold":["cool","chilly","freezing","icy","frosty"],
+  "loud":["noisy","deafening","blaring","thunderous","booming"],
+  "quiet":["silent","peaceful","calm","still","hushed","soft"],
+  "happy":["joyful","cheerful","glad","pleased","content","elated"],
+  "friendly":["sociable","warm","welcoming","kind","pleasant"],
+  "polite":["courteous","respectful","well-mannered","civil","gracious"],
+  "rude":["impolite","disrespectful","discourteous","offensive","insolent"],
+  "healthy":["fit","well","strong","vigorous","robust"],
+  "sick":["ill","unwell","diseased","unhealthy","ailing"],
+  "safe":["secure","protected","sheltered","harmless","risk-free"],
+  "dangerous":["risky","hazardous","unsafe","perilous","threatening"],
+  "strange":["unusual","odd","weird","peculiar","bizarre","curious"],
+  "normal":["ordinary","regular","typical","standard","common","usual"],
+  "perfect":["ideal","flawless","excellent","outstanding","superb","faultless"],
+  "wrong":["incorrect","false","mistaken","inaccurate","erroneous"],
+  "right":["correct","accurate","proper","true","exact","precise"],
+  "open":["accessible","available","unlocked","unrestricted"],
+  "full":["packed","complete","crowded","overflowing","stuffed"],
+  "empty":["vacant","bare","blank","hollow","unfilled","void"],
+  "dark":["dim","shadowy","gloomy","murky","unlit"],
+  "bright":["brilliant","shining","radiant","vivid","glowing","luminous"],
+  "sharp":["keen","pointed","acute","precise","smart"],
+  "common":["widespread","ordinary","frequent","standard","typical","usual"],
+  "special":["unique","exceptional","extraordinary","remarkable","unusual"],
+  "real":["actual","genuine","authentic","true","existing"],
+  "false":["untrue","wrong","incorrect","misleading","fake","deceptive"],
+  "possible":["likely","achievable","feasible","attainable","doable"],
+  "necessary":["essential","required","needed","vital","important","mandatory"],
+  "free":["available","liberated","independent","unrestricted","complimentary"],
+  "careful":["cautious","attentive","thorough","meticulous","watchful"],
+  "careless":["negligent","reckless","inattentive","thoughtless","sloppy"],
+  "honest":["truthful","sincere","trustworthy","frank","genuine","candid"],
+  "lazy":["idle","inactive","sluggish","lethargic","slack"],
+  "clever":["intelligent","smart","bright","witty","quick","talented"],
+  "curious":["inquisitive","interested","nosy","eager","questioning"],
+  "creative":["inventive","imaginative","original","innovative","artistic"],
+  "patient":["calm","tolerant","understanding","persistent","steady"],
+  "confident":["assured","self-assured","bold","certain","secure"],
+  "shy":["timid","nervous","bashful","reserved","withdrawn"],
+  "generous":["giving","charitable","unselfish","kind","open-handed"],
+  "serious":["important","grave","solemn","stern","earnest"],
+  "wonderful":["amazing","fantastic","magnificent","marvelous","superb","great"],
+  "terrible":["awful","dreadful","horrible","appalling","dreadful","atrocious"],
+  "excellent":["outstanding","superb","exceptional","brilliant","magnificent"],
+  "simple":["easy","plain","basic","uncomplicated","straightforward"],
+  "complex":["complicated","difficult","intricate","elaborate","involved"],
+  "ancient":["old","historic","antique","prehistoric","primeval"],
+  "modern":["contemporary","current","new","up-to-date","recent"],
+  "natural":["normal","organic","wild","genuine","innate"],
+  "artificial":["fake","synthetic","man-made","unnatural","imitation"],
+  "complete":["whole","total","entire","full","finished"],
+  "obvious":["clear","evident","apparent","plain","visible"],
+  "similar":["like","alike","comparable","equivalent","matching"],
+  "different":["distinct","unlike","separate","diverse","varied","unique"],
+  "clear":["obvious","plain","evident","transparent","lucid"],
+  "famous":["well-known","celebrated","renowned","popular","notable","distinguished"],
+  "clever":["smart","intelligent","quick","sharp","bright"],
+  "powerful":["strong","mighty","influential","dominant","forceful"],
+  "terrible":["awful","horrible","dreadful","atrocious"],
+  "expensive":["costly","pricey","dear","high-priced"],
+  "cheap":["inexpensive","affordable","economical","low-cost","budget"],
+  "comfortable":["cozy","relaxing","pleasant","easy","snug"],
+  "pleasant":["enjoyable","nice","agreeable","delightful","lovely"],
+  "angry":["furious","irritated","annoyed","livid","enraged"],
+  "calm":["peaceful","quiet","relaxed","still","composed","serene"],
+  "quiet":["silent","still","peaceful","soft","hushed"],
+  "busy":["occupied","active","engaged","working","productive"],
+  "lonely":["alone","isolated","solitary","abandoned","friendless"],
+  "brave":["courageous","bold","heroic","daring","fearless"],
+  "gentle":["soft","kind","tender","mild","careful","delicate"],
+  "loud":["noisy","booming","deafening","thunderous"],
+  "tiny":["small","miniature","microscopic","little","petite"],
+  "huge":["enormous","massive","gigantic","vast","immense","colossal"],
+  "fast":["quick","rapid","swift","speedy"],
+  "beautiful":["pretty","lovely","gorgeous","attractive","stunning"],
+  // verbs
+  "help":["assist","support","aid","guide","contribute"],
+  "start":["begin","commence","initiate","launch","open"],
+  "finish":["complete","end","conclude","achieve","accomplish"],
+  "stop":["halt","cease","pause","quit","discontinue"],
+  "look":["observe","watch","examine","view","inspect","glance"],
+  "see":["view","observe","notice","spot","perceive","watch"],
+  "say":["tell","speak","state","declare","express","announce"],
+  "tell":["inform","explain","say","describe","notify","report"],
+  "speak":["talk","say","communicate","voice","express","converse"],
+  "think":["consider","believe","suppose","imagine","reflect"],
+  "know":["understand","recognize","realize","be aware of"],
+  "show":["display","demonstrate","reveal","present","exhibit"],
+  "find":["discover","locate","detect","uncover","identify"],
+  "build":["construct","create","make","assemble","establish"],
+  "create":["make","produce","design","develop","generate","invent"],
+  "destroy":["ruin","demolish","wreck","break","eliminate"],
+  "move":["travel","go","transfer","shift","relocate"],
+  "run":["sprint","race","dash","jog","hurry"],
+  "walk":["stroll","march","hike","wander","stride"],
+  "jump":["leap","spring","bound","hop","vault"],
+  "give":["provide","offer","donate","supply","grant"],
+  "take":["grab","seize","pick up","collect","obtain"],
+  "keep":["maintain","preserve","hold","retain","save"],
+  "change":["alter","modify","transform","adjust","vary"],
+  "increase":["grow","rise","expand","develop","add","boost"],
+  "decrease":["reduce","drop","fall","decline","lower","shrink"],
+  "improve":["enhance","better","develop","upgrade","boost","advance"],
+  "ask":["question","inquire","query","request","demand"],
+  "answer":["reply","respond","react"],
+  "choose":["select","pick","decide on","opt for","prefer"],
+  "want":["desire","wish","need","like","prefer"],
+  "need":["require","must have","demand","depend on"],
+  "understand":["comprehend","grasp","realize","follow","know"],
+  "explain":["describe","clarify","illustrate","elaborate","define"],
+  "agree":["accept","approve","consent","confirm","support"],
+  "disagree":["argue","oppose","object","challenge","dispute"],
+  "love":["adore","cherish","admire","treasure"],
+  "hate":["dislike","despise","loathe","detest","resent"],
+  "enjoy":["like","love","appreciate","relish","delight in"],
+  "suggest":["propose","recommend","advise","offer"],
+  "believe":["think","suppose","trust","assume","consider"],
+  "feel":["sense","experience","perceive","notice"],
+  "remember":["recall","recollect","retain","memorize"],
+  "forget":["overlook","miss","lose track of"],
+  "buy":["purchase","acquire","obtain","get","pay for"],
+  "sell":["trade","offer","market","exchange"],
+  "make":["create","produce","build","form","develop"],
+  "work":["labor","function","operate","perform"],
+  "try":["attempt","effort","endeavor","strive","aim"],
+  "win":["succeed","triumph","prevail","beat","achieve"],
+  "lose":["fail","miss","be defeated","drop","forfeit"],
+  "send":["transmit","deliver","forward","dispatch"],
+  "receive":["get","obtain","accept","take","gain"],
+  "travel":["journey","trip","go","move","tour","visit"],
+  "meet":["encounter","see","greet","gather","assemble"],
+  "carry":["hold","bear","bring","transport","move"],
+  "follow":["pursue","trace","obey","go after"],
+  "protect":["defend","guard","keep safe","shelter","shield"],
+  "allow":["permit","let","authorize","approve","enable"],
+  "prevent":["stop","avoid","block","hinder","protect against"],
+  "cause":["create","produce","lead to","result in","generate"],
+  "achieve":["accomplish","attain","reach","complete","succeed in"],
+  "develop":["grow","advance","improve","expand","progress"],
+  "learn":["study","discover","understand","master","pick up"],
+  "teach":["educate","instruct","train","guide","tutor"],
+  "play":["engage in","participate in","compete","take part"],
+  "perform":["do","act","carry out","execute","present"],
+  "produce":["make","create","generate","manufacture","develop"],
+  "cut":["slice","chop","trim","reduce","lower"],
+  "break":["smash","shatter","crack","fracture","damage"],
+  "open":["unlock","access","begin","launch","start"],
+  "close":["shut","end","seal","lock","finish"],
+  "write":["compose","create","record","draft","note down"],
+  "read":["study","look through","go over","review"],
+  "talk":["speak","discuss","converse","chat","communicate"],
+  "laugh":["chuckle","giggle","smile","grin"],
+  "cry":["weep","sob","tear up","mourn"],
+  "hurry":["rush","speed up","hasten","race","move fast"],
+  "wait":["stay","pause","remain","hold on","stop"],
+  "rest":["relax","take a break","unwind","recover","sleep"]
+};
+
+// Antonyms for "Word → Antonym" mode
+const ANTS = {
+  "happy":["sad","unhappy","miserable"],
+  "sad":["happy","joyful","cheerful"],
+  "angry":["calm","peaceful","happy"],
+  "afraid":["brave","confident","fearless"],
+  "tired":["energetic","awake","fresh"],
+  "fast":["slow","sluggish"],
+  "slow":["fast","quick","rapid"],
+  "big":["small","tiny","little"],
+  "small":["big","large","huge"],
+  "tall":["short","low"],
+  "short":["tall","long"],
+  "strong":["weak","frail","feeble"],
+  "weak":["strong","powerful","mighty"],
+  "hot":["cold","cool","freezing"],
+  "cold":["hot","warm","boiling"],
+  "hard":["soft","easy","gentle"],
+  "soft":["hard","firm","tough"],
+  "loud":["quiet","silent","soft"],
+  "quiet":["loud","noisy","boisterous"],
+  "clean":["dirty","messy","filthy"],
+  "dirty":["clean","spotless","neat"],
+  "beautiful":["ugly","unattractive","plain"],
+  "ugly":["beautiful","attractive","gorgeous"],
+  "young":["old","elderly","aged"],
+  "old":["young","new","modern"],
+  "new":["old","ancient","outdated"],
+  "rich":["poor","impoverished","broke"],
+  "poor":["rich","wealthy","prosperous"],
+  "easy":["difficult","hard","challenging"],
+  "difficult":["easy","simple","effortless"],
+  "interesting":["boring","dull","tedious"],
+  "boring":["interesting","exciting","fascinating"],
+  "brave":["cowardly","afraid","fearful"],
+  "kind":["cruel","mean","unkind"],
+  "cruel":["kind","gentle","caring"],
+  "honest":["dishonest","lying","deceptive"],
+  "lazy":["hardworking","active","energetic"],
+  "smart":["stupid","foolish","ignorant"],
+  "stupid":["smart","clever","intelligent"],
+  "polite":["rude","impolite","disrespectful"],
+  "rude":["polite","respectful","courteous"],
+  "healthy":["sick","unhealthy","ill"],
+  "sick":["healthy","well","fit"],
+  "safe":["dangerous","unsafe","risky"],
+  "dangerous":["safe","harmless","secure"],
+  "dark":["bright","light","luminous"],
+  "bright":["dark","dim","gloomy"],
+  "deep":["shallow","surface"],
+  "high":["low","short","ground-level"],
+  "low":["high","tall","elevated"],
+  "near":["far","distant","remote"],
+  "far":["near","close","nearby"],
+  "early":["late","delayed"],
+  "late":["early","on time"],
+  "empty":["full","packed","filled"],
+  "full":["empty","vacant","bare"],
+  "open":["closed","shut","locked"],
+  "closed":["open","accessible","unlocked"],
+  "true":["false","wrong","incorrect"],
+  "false":["true","correct","accurate"],
+  "right":["wrong","incorrect","false"],
+  "wrong":["right","correct","true"],
+  "real":["fake","artificial","imaginary"],
+  "possible":["impossible","unachievable"],
+  "impossible":["possible","achievable","doable"],
+  "free":["expensive","restricted","captive"],
+  "expensive":["cheap","inexpensive","affordable"],
+  "cheap":["expensive","costly","pricey"],
+  "common":["rare","unusual","uncommon"],
+  "rare":["common","frequent","ordinary"],
+  "strange":["normal","ordinary","usual"],
+  "normal":["strange","unusual","abnormal"],
+  "calm":["angry","nervous","agitated"],
+  "nervous":["calm","relaxed","confident"],
+  "confident":["nervous","shy","uncertain"],
+  "shy":["confident","bold","outgoing"],
+  "generous":["selfish","greedy","stingy"],
+  "selfish":["generous","unselfish","giving"],
+  "patient":["impatient","restless","anxious"],
+  "careful":["careless","reckless","negligent"],
+  "careless":["careful","attentive","thorough"],
+  "polite":["rude","impolite"],
+  "honest":["dishonest","deceptive"],
+  "popular":["unpopular","disliked","obscure"],
+  "single":["married","together"],
+  "light":["heavy","dark"],
+  "heavy":["light","featherweight"],
+  "natural":["artificial","fake","synthetic"],
+  "artificial":["natural","real","genuine"],
+  "complete":["incomplete","unfinished","partial"],
+  "perfect":["imperfect","flawed","faulty"],
+  "fresh":["stale","old","rotten"],
+  "stale":["fresh","new","crisp"],
+  "complex":["simple","easy","plain"],
+  "simple":["complex","complicated","difficult"],
+  "ancient":["modern","new","contemporary"],
+  "modern":["ancient","old","outdated"],
+  "public":["private","personal","secret"],
+  "private":["public","open","shared"],
+  "local":["international","global","foreign"],
+  "foreign":["local","domestic","national"],
+  "active":["inactive","passive","lazy"],
+  "inactive":["active","busy","productive"],
+  "alive":["dead","lifeless"],
+  "dead":["alive","living"],
+  "positive":["negative","pessimistic"],
+  "negative":["positive","optimistic","good"],
+  "agree":["disagree","oppose","argue"],
+  "disagree":["agree","accept","support"],
+  "start":["finish","end","stop"],
+  "finish":["start","begin","open"],
+  "increase":["decrease","reduce","lower"],
+  "decrease":["increase","grow","rise"],
+  "win":["lose","fail","be defeated"],
+  "lose":["win","succeed","triumph"],
+  "love":["hate","dislike","despise"],
+  "hate":["love","like","adore"],
+  "give":["take","receive","keep"],
+  "take":["give","return","offer"],
+  "buy":["sell","return","give back"],
+  "sell":["buy","purchase"],
+  "remember":["forget","overlook"],
+  "forget":["remember","recall"],
+  "enter":["exit","leave"],
+  "leave":["arrive","enter","stay"],
+  "arrive":["leave","depart"],
+  "depart":["arrive","come","return"],
+  "push":["pull","drag"],
+  "pull":["push","repel"],
+  "open":["close","shut"],
+  "close":["open","start","access"],
+  "accept":["refuse","reject","deny"],
+  "refuse":["accept","agree","allow"],
+  "allow":["forbid","prevent","ban"],
+  "prevent":["allow","enable","encourage"],
+  "appear":["disappear","vanish","hide"],
+  "disappear":["appear","show","emerge"],
+  "grow":["shrink","decrease","reduce"],
+  "shrink":["grow","expand","increase"],
+  "add":["remove","subtract","delete"],
+  "remove":["add","keep","place"],
+  "create":["destroy","delete","remove"],
+  "destroy":["create","build","make"]
+};
+
 let preferredVoice = null;
 function pickVoice() {
   if (!window.speechSynthesis) return null;
@@ -2841,6 +3688,10 @@ const tabAll         = document.getElementById("tab-all");
 const tabBad         = document.getElementById("tab-bad");
 const btnUaEn        = document.getElementById("btn-ua-en");
 const btnEnUa        = document.getElementById("btn-en-ua");
+const btnEnDef       = document.getElementById("btn-en-def");
+const btnEnSyn       = document.getElementById("btn-en-syn");
+const btnEnAnt       = document.getElementById("btn-en-ant");
+const btnEnCloze     = document.getElementById("btn-en-cloze");
 const correctionEl   = document.getElementById("correction");
 const corrAnswerEl   = document.getElementById("correction-answer");
 
@@ -2866,10 +3717,26 @@ let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
 let correctionTimer = null;
 
+const ALL_MODES = ["ua-en", "en-ua", "en-def", "en-syn", "en-ant", "en-cloze"];
+const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
+const MODE_HINTS = {
+  "ua-en":    "Перекладіть англійською:",
+  "en-ua":    "Перекладіть українською:",
+  "en-def":   "Напишіть слово за визначенням:",
+  "en-syn":   "Напишіть синонім слова:",
+  "en-ant":   "Напишіть антонім слова:",
+  "en-cloze": "Заповніть пропуск у реченні:"
+};
+
+// Build valid word pools for EN→EN modes
+function buildEnDefPool()   { return WORDS.map((_,i)=>i).filter(i=>DEFS[getEn(WORDS[i])[0]]); }
+function buildEnSynPool()   { return WORDS.map((_,i)=>i).filter(i=>{ const e=getEn(WORDS[i])[0]; return SYNS[e] && SYNS[e].length > 0; }); }
+function buildEnAntPool()   { return WORDS.map((_,i)=>i).filter(i=>{ const e=getEn(WORDS[i])[0]; return ANTS[e] && ANTS[e].length > 0; }); }
+function buildEnClozePool() { return WORDS.map((_,i)=>i).filter(i=>EXAMPLES[getEn(WORDS[i])[0]]); }
+
 function setMode(m) {
   mode = m;
-  btnUaEn.classList.toggle("active", m === "ua-en");
-  btnEnUa.classList.toggle("active", m === "en-ua");
+  Object.entries(MODE_BTNS).forEach(([k,btn]) => btn.classList.toggle("active", k === m));
 }
 
 function shuffle(arr) {
@@ -2892,15 +3759,51 @@ function nextWord() {
     currentWordIndex = pick;
   } else {
     if (shufflePos >= shuffledIndices.length) {
-      shuffledIndices = shuffle([...Array(WORDS.length).keys()]);
+      if (!shuffledIndices.length) { endGame(); return; }
+      shuffledIndices = shuffle([...shuffledIndices]);
       shufflePos = 0;
     }
     currentWordIndex = shuffledIndices[shufflePos++];
   }
   currentWord = WORDS[currentWordIndex];
-  const vals = mode === "ua-en" ? getUa(currentWord) : getEn(currentWord);
-  currentShown = vals[Math.floor(Math.random() * vals.length)];
-  wordDisplay.textContent = currentShown;
+  wordDisplay.classList.remove("multiline");
+
+  if (mode === "ua-en") {
+    const vals = getUa(currentWord);
+    currentShown = vals[Math.floor(Math.random() * vals.length)];
+    wordDisplay.textContent = currentShown;
+  } else if (mode === "en-ua") {
+    const vals = getEn(currentWord);
+    currentShown = vals[Math.floor(Math.random() * vals.length)];
+    wordDisplay.textContent = currentShown;
+  } else if (mode === "en-def") {
+    const enWord = getEn(currentWord)[0];
+    currentShown = enWord;
+    const def = DEFS[enWord] || "";
+    wordDisplay.classList.add("multiline");
+    wordDisplay.textContent = def;
+  } else if (mode === "en-syn") {
+    const enWord = getEn(currentWord)[0];
+    currentShown = enWord;
+    wordDisplay.textContent = enWord;
+  } else if (mode === "en-ant") {
+    const enWord = getEn(currentWord)[0];
+    currentShown = enWord;
+    wordDisplay.textContent = enWord;
+  } else if (mode === "en-cloze") {
+    const enWord = getEn(currentWord)[0];
+    const uaWord = getUa(currentWord)[0];
+    currentShown = enWord;
+    const sentence = lookupExample(EXAMPLES, enWord, uaWord) || "";
+    // Replace the word in the sentence with ____
+    const blank = "⁠____⁠";
+    const re = new RegExp("\\b" + enWord.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "(?:s|es|ed|ing|er|est|'s)?" + "\\b", "gi");
+    const clozeText = sentence.replace(re, blank);
+    wordDisplay.classList.add("multiline");
+    // Use innerHTML to style the blank
+    wordDisplay.innerHTML = esc(clozeText).replace(/⁠____⁠/g, '<span class="blank">____</span>');
+  }
+
   answerEl.value = "";
   answerEl.focus();
 }
@@ -2908,15 +3811,28 @@ function nextWord() {
 function isCorrect(input) {
   const inp = input.toLowerCase().trim();
   if (inp === "") return false;
-  const shownUa = getUa(currentWord);
+
   if (mode === "en-ua") {
-    return shownUa.some(u => u.toLowerCase() === inp);
-  } else {
+    return getUa(currentWord).some(u => u.toLowerCase() === inp);
+  } else if (mode === "ua-en") {
+    const shownUa = getUa(currentWord);
     return WORDS.some(w =>
       getUa(w).some(u => shownUa.includes(u)) &&
       getEn(w).some(e => e.toLowerCase() === inp)
     );
+  } else if (mode === "en-def" || mode === "en-cloze") {
+    // Answer is the English word itself
+    return getEn(currentWord).some(e => e.toLowerCase() === inp);
+  } else if (mode === "en-syn") {
+    const enWord = getEn(currentWord)[0];
+    const syns = SYNS[enWord] || [];
+    return syns.some(s => s.toLowerCase() === inp);
+  } else if (mode === "en-ant") {
+    const enWord = getEn(currentWord)[0];
+    const ants = ANTS[enWord] || [];
+    return ants.some(a => a.toLowerCase() === inp);
   }
+  return false;
 }
 
 function getCorrectAnswer() {
@@ -2927,24 +3843,55 @@ function getCorrectAnswer() {
       if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(e));
     });
     return [...ans].join(" / ");
-  } else {
+  } else if (mode === "en-ua") {
     return getUa(currentWord).join(" / ");
+  } else if (mode === "en-def" || mode === "en-cloze") {
+    return getEn(currentWord).join(" / ");
+  } else if (mode === "en-syn") {
+    const enWord = getEn(currentWord)[0];
+    return (SYNS[enWord] || []).join(" / ") || enWord;
+  } else if (mode === "en-ant") {
+    const enWord = getEn(currentWord)[0];
+    return (ANTS[enWord] || []).join(" / ") || enWord;
   }
+  return "";
 }
 
 function showCorrection(answer) {
   corrAnswerEl.textContent = answer;
-  const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
+  const enWord = (mode === "en-ua") ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
-  const exEl = document.getElementById("corr-example");
+  const exEl  = document.getElementById("corr-example");
   const exRow = document.getElementById("corr-example-row");
   const exSpeak = document.getElementById("corr-example-speak");
-  const ex = lookupExample(EXAMPLES, enWord, uaWord);
-  exEl.innerHTML = ex ? "«" + wrapSentence(ex) + "»" : "";
-  exRow.classList.toggle("hidden", !ex);
-  exSpeak.onclick = ex ? () => speak(ex) : null;
+
+  let exText = "";
+  if (mode === "en-syn") {
+    // Show the definition as context
+    exText = DEFS[enWord] ? "Meaning: " + DEFS[enWord] : "";
+  } else if (mode === "en-ant") {
+    exText = DEFS[enWord] ? "Meaning: " + DEFS[enWord] : "";
+  } else if (mode === "en-cloze") {
+    // Show full sentence with the word highlighted
+    const sentence = lookupExample(EXAMPLES, enWord, uaWord) || "";
+    exText = sentence ? sentence : "";
+  } else {
+    const ex = lookupExample(EXAMPLES, enWord, uaWord);
+    exText = ex || "";
+  }
+
+  if (exText) {
+    exEl.innerHTML = "«" + wrapSentence(exText) + "»";
+    exRow.classList.remove("hidden");
+    exSpeak.onclick = () => speak(exText);
+  } else {
+    exEl.innerHTML = "";
+    exRow.classList.add("hidden");
+    exSpeak.onclick = null;
+  }
+
   correctionEl.classList.remove("hidden");
   answerEl.classList.add("wrong");
   answerEl.disabled = true;
@@ -3063,13 +4010,24 @@ function startGame(pool) {
   scoreEl.textContent = "0";
   timerEl.textContent = DURATION;
   timerEl.classList.remove("low", "overtime");
-  const sourcePool = activePool || [...Array(WORDS.length).keys()];
+  let sourcePool;
+  if (activePool) {
+    sourcePool = activePool;
+  } else if (mode === "en-def") {
+    sourcePool = buildEnDefPool();
+  } else if (mode === "en-syn") {
+    sourcePool = buildEnSynPool();
+  } else if (mode === "en-ant") {
+    sourcePool = buildEnAntPool();
+  } else if (mode === "en-cloze") {
+    sourcePool = buildEnClozePool();
+  } else {
+    sourcePool = [...Array(WORDS.length).keys()];
+  }
   shuffledIndices = shuffle([...sourcePool]);
   shufflePos = 0;
 
-  modeHintEl.textContent = mode === "ua-en"
-    ? "Перекладіть англійською:"
-    : "Перекладіть українською:";
+  modeHintEl.textContent = MODE_HINTS[mode] || "";
 
   startScreen.classList.add("hidden");
   endScreen.classList.add("hidden");
@@ -3142,9 +4100,113 @@ const EN_TO_UA = (() => {
       uaList.forEach(ua => { if (!arr.includes(ua)) arr.push(ua); });
     });
   });
-  m.set("could", ["міг би"]);
-  m.set("would", ["би", "хотів би"]);
-  m.set("should", ["мав би", "повинен"]);
+  m.set("could",       ["міг би"]);
+  m.set("would",       ["би", "хотів би"]);
+  m.set("should",      ["мав би", "повинен"]);
+  // Common words not in WORDS but frequent in example sentences
+  m.set("great",       ["чудовий", "великий"]);
+  m.set("every",       ["кожен", "кожна", "кожне"]);
+  m.set("many",        ["багато"]);
+  m.set("more",        ["більше", "ще"]);
+  m.set("most",        ["найбільше", "більшість"]);
+  m.set("much",        ["багато", "дуже"]);
+  m.set("please",      ["будь ласка", "задовольняти"]);
+  m.set("today",       ["сьогодні"]);
+  m.set("tomorrow",    ["завтра"]);
+  m.set("yesterday",   ["вчора"]);
+  m.set("everyone",    ["всі", "кожен"]);
+  m.set("everything",  ["все"]);
+  m.set("something",   ["щось"]);
+  m.set("somewhere",   ["десь"]);
+  m.set("nothing",     ["ніщо", "нічого"]);
+  m.set("nobody",      ["ніхто"]);
+  m.set("someone",     ["хтось"]);
+  m.set("anyone",      ["будь-хто", "хтось"]);
+  m.set("anything",    ["що завгодно", "щось"]);
+  m.set("dinner",      ["вечеря"]);
+  m.set("lunch",       ["обід"]);
+  m.set("breakfast",   ["сніданок"]);
+  m.set("favourite",   ["улюблений"]);
+  m.set("birthday",    ["день народження"]);
+  m.set("movie",       ["фільм", "кіно"]);
+  m.set("sign",        ["знак", "підписувати"]);
+  m.set("lot",         ["багато", "ділянка"]);
+  m.set("allergy",     ["алергія"]);
+  m.set("game",        ["гра"]);
+  m.set("place",       ["місце"]);
+  m.set("street",      ["вулиця"]);
+  m.set("town",        ["місто", "містечко"]);
+  m.set("village",     ["село"]);
+  m.set("week",        ["тиждень"]);  // ensure
+  m.set("hour",        ["година"]);   // ensure
+  m.set("minute",      ["хвилина"]);  // ensure
+  m.set("during",      ["під час", "протягом"]);
+  m.set("while",       ["поки", "в той час як"]);
+  m.set("though",      ["хоча"]);
+  m.set("although",    ["хоча", "незважаючи на те що"]);
+  m.set("unless",      ["якщо не", "хіба що"]);
+  m.set("until",       ["поки", "до тих пір"]);
+  m.set("without",     ["без"]);
+  m.set("between",     ["між"]);
+  m.set("among",       ["серед"]);
+  m.set("behind",      ["за", "позаду"]);
+  m.set("beside",      ["поруч", "біля"]);
+  m.set("beyond",      ["за межами", "поза"]);
+  m.set("within",      ["всередині", "в межах"]);
+  m.set("throughout",  ["скрізь", "протягом"]);
+  m.set("despite",     ["незважаючи на"]);
+  m.set("except",      ["окрім", "крім"]);
+  m.set("both",        ["обидва", "обидві"]);
+  m.set("either",      ["або", "будь-який"]);
+  m.set("neither",     ["ні те ні інше", "жоден"]);
+  m.set("other",       ["інший"]);
+  m.set("another",     ["ще один", "інший"]);
+  m.set("such",        ["такий"]);
+  m.set("same",        ["той самий", "однаковий"]);
+  m.set("own",         ["власний"]);
+  m.set("few",         ["кілька", "небагато"]);
+  m.set("each",        ["кожен"]);
+  m.set("less",        ["менше", "менший"]);
+  m.set("little",      ["маленький", "небагато"]);
+  m.set("whole",       ["цілий", "весь"]);
+  m.set("every",       ["кожен"]);
+  m.set("dollar",      ["долар"]);
+  m.set("euro",        ["євро"]);
+  m.set("phone",       ["телефон"]);
+  m.set("computer",    ["комп'ютер"]);
+  m.set("table",       ["стіл", "таблиця"]);
+  m.set("chair",       ["стілець"]);
+  m.set("door",        ["двері"]);
+  m.set("window",      ["вікно"]);
+  m.set("floor",       ["підлога", "поверх"]);
+  m.set("wall",        ["стіна"]);
+  m.set("room",        ["кімната"]);
+  m.set("kitchen",     ["кухня"]);
+  m.set("bedroom",     ["спальня"]);
+  m.set("bathroom",    ["ванна кімната"]);
+  m.set("garden",      ["сад"]);
+  m.set("park",        ["парк"]);
+  m.set("beach",       ["пляж"]);
+  m.set("airport",     ["аеропорт"]);
+  m.set("station",     ["станція", "вокзал"]);
+  m.set("restaurant",  ["ресторан"]);
+  m.set("coffee",      ["кава"]);
+  m.set("tea",         ["чай"]);
+  m.set("milk",        ["молоко"]);
+  m.set("bread",       ["хліб"]);
+  m.set("cake",        ["торт", "пиріг"]);
+  m.set("soup",        ["суп"]);
+  m.set("rice",        ["рис"]);
+  m.set("meat",        ["м'ясо"]);
+  m.set("fish",        ["риба"]);
+  m.set("fruit",       ["фрукт", "фрукти"]);
+  m.set("vegetable",   ["овоч"]);
+  m.set("apple",       ["яблуко"]);
+  m.set("orange",      ["апельсин"]);
+  m.set("cat",         ["кіт", "кішка"]);
+  m.set("dog",         ["собака"]);
+  m.set("bird",        ["птах"]);
+  m.set("horse",       ["кінь"]);
   return m;
 })();
 const HW_SKIP = new Set([
@@ -3243,7 +4305,33 @@ const IRREGULAR = {
   blew:"blow",blown:"blow",
   burnt:"burn",burned:"burn",
   laid:"lay",
-  better:"good",best:"good",worse:"bad",worst:"bad"
+  better:"good",best:"good",worse:"bad",worst:"bad",
+  children:"child",
+  men:"man",women:"woman",
+  teeth:"tooth",feet:"foot",
+  mice:"mouse",geese:"goose",
+  oxen:"ox",
+  having:"have",
+  allergies:"allergy",medicines:"medicine",
+  stories:"story",countries:"country",cities:"city",families:"family",
+  babies:"baby",ladies:"lady",bodies:"body",
+  knives:"knife",leaves:"leaf",lives:"life",halves:"half",
+  shelves:"shelf",wolves:"wolf",
+  parties:"party",duties:"duty",
+  studies:"study",abilities:"ability",activities:"activity",
+  companies:"company",communities:"community",
+  difficulties:"difficulty",
+  injuries:"injury",injuries:"injury",
+  memories:"memory",centuries:"century",
+  varieties:"variety",injuries:"injury",
+  greater:"great",greatest:"great",
+  dollars:"dollar",euros:"euro",
+  phones:"phone",computers:"computer",
+  tables:"table",chairs:"chair",doors:"door",
+  windows:"window",rooms:"room",floors:"floor",walls:"wall",
+  restaurants:"restaurant",airports:"airport",
+  vegetables:"vegetable",fruits:"fruit",
+  allergies:"allergy"
 };
 function stemEn(word) {
   word = word.toLowerCase().replace(/[^a-z']/g, "");
@@ -3280,10 +4368,17 @@ function stemEn(word) {
 function wrapSentence(sentence) {
   return String(sentence).replace(/([A-Za-z']+)|([^A-Za-z']+)/g, (m, word, other) => {
     if (other !== undefined) return esc(other);
+    const lower = word.toLowerCase().replace(/[^a-z]/g, "");
     const stem = stemEn(word);
     if (stem) {
+      // Has translation
       const trans = EN_TO_UA.get(stem).join(", ");
       return '<span class="hw" data-trans="' + esc(trans) + '">' + esc(word) + '</span>';
+    }
+    // TTS-only: wrap real content words that have no translation in our dict
+    // (but skip HW_SKIP words, contractions, and very short words)
+    if (lower.length > 2 && !HW_SKIP.has(lower) && !lower.includes("'")) {
+      return '<span class="hw">' + esc(word) + '</span>';
     }
     return esc(word);
   });
@@ -3367,8 +4462,38 @@ document.getElementById("corr-example").addEventListener("click", e => {
   const hw = e.target.closest(".hw");
   if (hw) speak(hw.textContent);
 });
-btnUaEn.addEventListener("click", () => setMode("ua-en"));
-btnEnUa.addEventListener("click", () => setMode("en-ua"));
+
+// ── Viewport-safe hover tooltip for .hw spans ────────────────────────────────
+const hwTip = document.createElement("div");
+hwTip.id = "hw-tooltip";
+document.body.appendChild(hwTip);
+
+document.addEventListener("mouseover", e => {
+  const hw = e.target.closest(".hw");
+  if (!hw || !hw.dataset.trans) { hwTip.style.display = "none"; return; }
+  hwTip.textContent = hw.dataset.trans;
+  hwTip.style.display = "block";
+  // Position: above the word, centered, clamped to viewport
+  const r = hw.getBoundingClientRect();
+  const tw = hwTip.offsetWidth, th = hwTip.offsetHeight;
+  let left = r.left + r.width / 2 - tw / 2;
+  let top  = r.top - th - 6;
+  if (top < 6) top = r.bottom + 6;           // flip below if no room above
+  left = Math.max(6, Math.min(left, window.innerWidth  - tw - 6));
+  top  = Math.max(6, Math.min(top,  window.innerHeight - th - 6));
+  hwTip.style.left = left + "px";
+  hwTip.style.top  = top  + "px";
+});
+document.addEventListener("mouseover", e => {
+  if (!e.target.closest(".hw")) hwTip.style.display = "none";
+});
+
+btnUaEn.addEventListener("click",    () => setMode("ua-en"));
+btnEnUa.addEventListener("click",    () => setMode("en-ua"));
+btnEnDef.addEventListener("click",   () => setMode("en-def"));
+btnEnSyn.addEventListener("click",   () => setMode("en-syn"));
+btnEnAnt.addEventListener("click",   () => setMode("en-ant"));
+btnEnCloze.addEventListener("click", () => setMode("en-cloze"));
 
 let pendingShiftCode = null;
 document.addEventListener("keydown", e => {
@@ -3384,9 +4509,8 @@ document.addEventListener("keyup", e => {
   pendingShiftCode = null;
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
-  const modes = ["ua-en", "en-ua"];
-  const dir = code === "ShiftRight" ? 1 : modes.length - 1;
-  const next = modes[(modes.indexOf(mode) + dir) % modes.length];
+  const dir = code === "ShiftRight" ? 1 : ALL_MODES.length - 1;
+  const next = ALL_MODES[(ALL_MODES.indexOf(mode) + dir) % ALL_MODES.length];
   setMode(next);
 });
 
