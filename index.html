@@ -241,6 +241,22 @@
     opacity: 0.8;
     line-height: 1.55;
   }
+  #mastery-stats {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px 0 0;
+  }
+  #mastery-stats span {
+    font-size: 13px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+  }
+  .ms-known   { color: #7be07b; }
+  .ms-learning{ color: #87b4ff; }
+  .ms-new     { color: rgba(255,255,255,0.5); }
 
   /* result */
   .result { font-size: 20px; line-height: 1.6; }
@@ -355,6 +371,7 @@
   <!-- START SCREEN -->
   <div id="start-screen">
     <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
+    <div id="mastery-stats"></div>
     <div class="mode-select">
       <div class="mode-group">
         <div class="mode-group-label">Переклад</div>
@@ -6206,12 +6223,15 @@ function recordAnswer(userVal, status) {
           removeDayMistake(currentWordIndex);
         }
       }
+    } else {
+      updateMastery(currentWordIndex, true);
     }
   } else {
     addDayMistake(currentWordIndex);
     // In review: mark this word so even a later 3-correct won't remove it from
     // today's mistakes. User wants tainted words to stay for further review.
     if (reviewTaintedIndices) reviewTaintedIndices.add(currentWordIndex);
+    if (!reviewRemaining) updateMastery(currentWordIndex, false);
   }
 }
 
@@ -7296,6 +7316,7 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   startScreen.classList.remove("hidden");
   renderLeaderboard();
   updateReviewTodayBtn();
+  renderMasteryStats();
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
 document.getElementById("review-today-btn").addEventListener("click", () => {
@@ -7434,6 +7455,7 @@ document.addEventListener("keydown", e => {
     startScreen.classList.remove("hidden");
     renderLeaderboard();
     updateReviewTodayBtn();
+    renderMasteryStats();
   }
 });
 
@@ -7516,6 +7538,36 @@ function updateLatest(game) {
   localStorage.setItem(LB_LATEST_KEY, JSON.stringify(entry));
 }
 const LB_DAY_MISTAKES_KEY = "oxford_day_mistakes_v1";
+const MASTERY_KEY = "oxford_word_mastery_v1";
+
+function loadMastery() {
+  try { return JSON.parse(localStorage.getItem(MASTERY_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function saveMastery(m) { localStorage.setItem(MASTERY_KEY, JSON.stringify(m)); }
+
+function updateMastery(wordIndex, correct) {
+  const m = loadMastery();
+  if (correct) {
+    m[wordIndex] = Math.min((m[wordIndex] !== undefined ? m[wordIndex] : -1) + 1, 3);
+    // -1 → 0 on first correct would mean "вивчаю"; need first encounter to be 1
+    if (m[wordIndex] < 1) m[wordIndex] = 1;
+  } else {
+    m[wordIndex] = 0;
+  }
+  saveMastery(m);
+}
+
+function renderMasteryStats() {
+  const m = loadMastery();
+  let known = 0, learning = 0;
+  Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
+  const novel = WORDS.length - known - learning;
+  document.getElementById("mastery-stats").innerHTML =
+    '<span class="ms-known">✓ Знаю: ' + known + '</span>' +
+    '<span class="ms-learning">↗ Вивчаю: ' + learning + '</span>' +
+    '<span class="ms-new">◦ Нові: ' + novel + '</span>';
+}
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
   catch { return {}; }
@@ -7757,6 +7809,7 @@ document.getElementById("lb-reset").addEventListener("click", () => {
 
 renderLeaderboard();
 updateReviewTodayBtn();
+renderMasteryStats();
 </script>
 </body>
 </html>
