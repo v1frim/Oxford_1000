@@ -3712,6 +3712,7 @@ let activePool = null;
 let currentWordIndex = -1;
 let reviewRemaining = null;
 let reviewCorrectCounts = null;
+let reviewTaintedIndices = null;   // words that had any mistake/skip during current review
 const REVIEW_REQUIRED_CORRECT = 3;
 let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
@@ -3968,11 +3969,18 @@ function recordAnswer(userVal, status) {
       reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
       if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
         reviewRemaining.delete(currentWordIndex);
-        removeDayMistake(currentWordIndex);
+        // Only remove from today's mistakes if the word had no errors/skips this session.
+        // A "tainted" word (any mistake in current review) must stay for further review.
+        if (!reviewTaintedIndices.has(currentWordIndex)) {
+          removeDayMistake(currentWordIndex);
+        }
       }
     }
   } else {
     addDayMistake(currentWordIndex);
+    // In review: mark this word so even a later 3-correct won't remove it from
+    // today's mistakes. User wants tainted words to stay for further review.
+    if (reviewTaintedIndices) reviewTaintedIndices.add(currentWordIndex);
   }
 }
 
@@ -4008,9 +4016,11 @@ function startGame(pool) {
   if (activePool) {
     reviewRemaining = new Set(activePool);
     reviewCorrectCounts = {};
+    reviewTaintedIndices = new Set();
   } else {
     reviewRemaining = null;
     reviewCorrectCounts = null;
+    reviewTaintedIndices = null;
   }
   score = 0; timeLeft = DURATION; records = [];
   currentFilter = "all";
