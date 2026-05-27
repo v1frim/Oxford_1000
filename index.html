@@ -7399,7 +7399,7 @@ document.addEventListener("keydown", e => {
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
     return;
   }
-  if (e.key === "Control" && mode === "en-ua" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
+  if (e.key === "Shift" && mode === "en-ua" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
     e.preventDefault();
     speak(currentShown);
     return;
