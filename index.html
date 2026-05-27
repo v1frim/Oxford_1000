@@ -3868,13 +3868,13 @@ function showCorrection(answer) {
   const enWord = (mode === "en-ua") ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
   // For Def/Cloze: append UA translation so user sees both word and meaning.
-  // For Syn/Ant: wrap each EN word with hover/TTS spans so user can look them up.
+  // For Syn/Ant/ua-en: wrap each EN word with hover/TTS spans so user can click to hear & hover for translation.
   if ((mode === "en-def" || mode === "en-cloze") && uaWord) {
-    corrAnswerEl.textContent = answer + " — " + uaWord;
-  } else if (mode === "en-syn" || mode === "en-ant") {
+    corrAnswerEl.innerHTML = wrapSentence(answer) + " — " + esc(uaWord);
+  } else if (mode === "en-syn" || mode === "en-ant" || mode === "ua-en") {
     corrAnswerEl.innerHTML = wrapSentence(answer);
   } else {
-    corrAnswerEl.textContent = answer;
+    corrAnswerEl.textContent = answer; // en-ua: answer is UA text, no EN hover
   }
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
@@ -5018,12 +5018,16 @@ function renderList() {
 
   listEl.innerHTML = rows.map(r => {
     // For Def/Cloze: avoid showing "wake = wake" — display "wake — прокидатися" instead.
-    // For Syn/Ant: wrap each EN word in hover/TTS spans so user can look up the meaning.
+    // For Syn/Ant/ua-en/en-ua: wrap EN words with hover/TTS spans (click to hear, hover for translation).
     let pair;
     if ((r.mode === "en-def" || r.mode === "en-cloze") && r.enWord && r.uaWord) {
-      pair = esc(r.enWord) + " — " + esc(r.uaWord);
+      pair = wrapSentence(r.enWord) + " — " + esc(r.uaWord);
     } else if (r.mode === "en-syn" || r.mode === "en-ant") {
       pair = wrapSentence(r.shown) + " = " + wrapSentence(r.correct);
+    } else if (r.mode === "ua-en") {
+      pair = esc(r.shown) + " = " + wrapSentence(r.correct);
+    } else if (r.mode === "en-ua") {
+      pair = wrapSentence(r.shown) + " = " + esc(r.correct);
     } else {
       pair = esc(r.shown) + " = " + esc(r.correct);
     }
