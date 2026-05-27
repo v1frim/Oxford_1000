@@ -3882,6 +3882,9 @@ function showCorrection(answer) {
     // Show full sentence with the word highlighted
     const sentence = lookupExample(EXAMPLES, enWord, uaWord) || "";
     exText = sentence ? sentence : "";
+  } else if (mode === "en-def") {
+    // Show the definition itself — it's the prompt; hover on words gives translations
+    exText = DEFS[enWord] || "";
   } else {
     const ex = lookupExample(EXAMPLES, enWord, uaWord);
     exText = ex || "";
@@ -4680,8 +4683,11 @@ function renderList() {
       : esc(r.shown) + " = " + esc(r.correct);
     const enW = r.enWord || "";
     const uaW = r.uaWord || "";
-    const ex = lookupExample(EXAMPLES, enW, uaW);
-    const exUa = lookupExample(EXAMPLES_UA, enW, uaW);
+    // For Def mode: replace the unrelated EXAMPLES sentence with the actual definition
+    // (which is what the user was shown in the game). Hover on words still works via wrapSentence.
+    const ex   = (r.mode === "en-def") ? (DEFS[enW] || "") : lookupExample(EXAMPLES, enW, uaW);
+    // No DEFS_UA dictionary; suppress UA example row for Def mode
+    const exUa = (r.mode === "en-def") ? "" : lookupExample(EXAMPLES_UA, enW, uaW);
     const exSpk = ex ? '<button class="speak-btn speak-btn-sm" data-sentence="' + esc(ex) + '" title="Прослухати речення">🔊</button>' : "";
     const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + wrapSentence(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
