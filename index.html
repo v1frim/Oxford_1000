@@ -246,17 +246,28 @@
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 10px 0 0;
+    margin: 12px 0 0;
   }
   #mastery-stats span {
     font-size: 13px;
-    padding: 3px 12px;
+    font-weight: 600;
+    padding: 4px 13px;
     border-radius: 20px;
     background: rgba(255,255,255,0.1);
+    letter-spacing: 0.02em;
   }
   .ms-known   { color: #7be07b; }
   .ms-learning{ color: #87b4ff; }
-  .ms-new     { color: rgba(255,255,255,0.5); }
+  .ms-new     { color: #ffa94d; }
+  #mastery-bar {
+    display: flex;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 8px auto 0;
+    width: 75%;
+    max-width: 280px;
+  }
 
   /* result */
   .result { font-size: 20px; line-height: 1.6; }
@@ -372,6 +383,7 @@
   <div id="start-screen">
     <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
     <div id="mastery-stats"></div>
+    <div id="mastery-bar"></div>
     <div class="mode-select">
       <div class="mode-group">
         <div class="mode-group-label">Переклад</div>
@@ -7566,7 +7578,13 @@ function renderMasteryStats() {
   document.getElementById("mastery-stats").innerHTML =
     '<span class="ms-known">✓ Знаю: ' + known + '</span>' +
     '<span class="ms-learning">↗ Вивчаю: ' + learning + '</span>' +
-    '<span class="ms-new">◦ Нові: ' + novel + '</span>';
+    '<span class="ms-new">● Нові: ' + novel + '</span>';
+  const bar = document.getElementById("mastery-bar");
+  const total = WORDS.length;
+  bar.innerHTML =
+    '<div style="flex:' + known + ';background:#7be07b"></div>' +
+    '<div style="flex:' + learning + ';background:#87b4ff"></div>' +
+    '<div style="flex:' + novel + ';background:#ffa94d"></div>';
 }
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
