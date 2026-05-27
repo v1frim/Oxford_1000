@@ -280,6 +280,19 @@
     transition: color 0.15s, background 0.15s, border-color 0.15s;
   }
   #progress-btn:hover, #progress-btn.active { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.4); }
+  #backup-row { display: flex; gap: 8px; justify-content: center; margin-top: 6px; }
+  #backup-row button {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.45);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 3px 12px;
+    border-radius: 20px;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+  #backup-row button:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.35); }
+  #backup-btn.needs-backup { color: #ffa94d; border-color: rgba(255,169,77,0.5); }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
   .prog-date { opacity: 0.65; font-size: 13px; min-width: 52px; }
@@ -413,6 +426,10 @@
     <div id="mastery-stats"></div>
     <div id="mastery-bar"></div>
     <button id="progress-btn">📈 Прогрес по днях</button>
+    <div id="backup-row">
+      <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
+      <button id="import-btn">📂 Відновити</button>
+    </div>
     <div class="mode-select">
       <div class="mode-group">
         <div class="mode-group-label">Переклад</div>
@@ -7359,6 +7376,8 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   updateReviewTodayBtn();
   saveMasterySnapshot();
   renderMasteryStats();
+  updateBackupLabel();
+  autoBackup();
   if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
 });
 
@@ -7604,6 +7623,140 @@ function loadMastery() {
   catch(e) { return {}; }
 }
 function saveMastery(m) { localStorage.setItem(MASTERY_KEY, JSON.stringify(m)); }
+
+// ── BACKUP / RESTORE ──────────────────────────────────────────────────────
+const BACKUP_DATE_KEY = "oxford_backup_date_v1";
+const BACKUP_KEYS = [
+  "oxford_scores_v1","oxford_days_v1","oxford_today_best_v1",
+  "oxford_latest_v1","oxford_day_mistakes_v1",
+  "oxford_word_mastery_v1","oxford_mastery_history_v1"
+];
+const BACKUP_IDB = "oxford_backup";
+const BACKUP_IDB_STORE = "handles";
+
+async function idbGet(key) {
+  return new Promise(resolve => {
+    const req = indexedDB.open(BACKUP_IDB, 1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore(BACKUP_IDB_STORE);
+    req.onsuccess = e => {
+      const tx = e.target.result.transaction(BACKUP_IDB_STORE, "readonly");
+      const r = tx.objectStore(BACKUP_IDB_STORE).get(key);
+      r.onsuccess = () => resolve(r.result ?? null);
+      r.onerror = () => resolve(null);
+    };
+    req.onerror = () => resolve(null);
+  });
+}
+async function idbSet(key, val) {
+  return new Promise(resolve => {
+    const req = indexedDB.open(BACKUP_IDB, 1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore(BACKUP_IDB_STORE);
+    req.onsuccess = e => {
+      const tx = e.target.result.transaction(BACKUP_IDB_STORE, "readwrite");
+      tx.objectStore(BACKUP_IDB_STORE).put(val, key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => resolve();
+    };
+    req.onerror = () => resolve();
+  });
+}
+
+function getBackupData() {
+  const obj = {};
+  BACKUP_KEYS.forEach(k => { const v = localStorage.getItem(k); if (v !== null) obj[k] = v; });
+  return JSON.stringify(obj, null, 2);
+}
+
+async function writeToHandle(handle) {
+  const writable = await handle.createWritable();
+  await writable.write(getBackupData());
+  await writable.close();
+  localStorage.setItem(BACKUP_DATE_KEY, new Date().toISOString().slice(0, 10));
+  updateBackupLabel();
+}
+
+function updateBackupLabel() {
+  const dateStr = localStorage.getItem(BACKUP_DATE_KEY);
+  const label = document.getElementById("backup-label");
+  const btn = document.getElementById("backup-btn");
+  if (!dateStr) {
+    label.textContent = "Налаштувати копію";
+    btn.classList.add("needs-backup");
+    return;
+  }
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 86400000);
+  if (diff === 0) { label.textContent = "Копія сьогодні ✓"; btn.classList.remove("needs-backup"); }
+  else if (diff <= 3) { label.textContent = "Копія " + diff + "д тому"; btn.classList.remove("needs-backup"); }
+  else { label.textContent = "Копія " + diff + "д тому ⚠"; btn.classList.add("needs-backup"); }
+}
+
+const hasFSA = !!window.showSaveFilePicker;
+
+async function autoBackup() {
+  if (!hasFSA) return;
+  const today = new Date().toISOString().slice(0, 10);
+  if (localStorage.getItem(BACKUP_DATE_KEY) === today) return;
+  const handle = await idbGet("fileHandle");
+  if (!handle) return;
+  try {
+    if ((await handle.queryPermission({ writable: true })) !== "granted") return;
+    await writeToHandle(handle);
+  } catch(e) {}
+}
+
+async function handleBackupClick() {
+  if (!hasFSA) {
+    const blob = new Blob([getBackupData()], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "oxford_backup.json";
+    a.click();
+    localStorage.setItem(BACKUP_DATE_KEY, new Date().toISOString().slice(0, 10));
+    updateBackupLabel();
+    return;
+  }
+  let handle = await idbGet("fileHandle");
+  if (handle) {
+    try {
+      if ((await handle.requestPermission({ writable: true })) === "granted") {
+        await writeToHandle(handle);
+        return;
+      }
+    } catch(e) {}
+  }
+  try {
+    handle = await window.showSaveFilePicker({
+      suggestedName: "oxford_backup.json",
+      types: [{ description: "JSON backup", accept: { "application/json": [".json"] } }]
+    });
+    await idbSet("fileHandle", handle);
+    await writeToHandle(handle);
+  } catch(e) {}
+}
+
+function handleImportClick() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (!file) return;
+    try {
+      const obj = JSON.parse(await file.text());
+      Object.entries(obj).forEach(([k, v]) => localStorage.setItem(k, v));
+      renderLeaderboard();
+      updateReviewTodayBtn();
+      renderMasteryStats();
+      if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
+      updateBackupLabel();
+      const btn = document.getElementById("import-btn");
+      const orig = btn.textContent;
+      btn.textContent = "✓ Відновлено";
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    } catch(e) { alert("Помилка: не вдалося прочитати файл."); }
+  };
+  input.click();
+}
 
 function updateMastery(wordIndex, correct) {
   const m = loadMastery();
@@ -7925,10 +8078,15 @@ document.getElementById("lb-reset").addEventListener("click", () => {
   renderLeaderboard();
 });
 
+document.getElementById("backup-btn").addEventListener("click", handleBackupClick);
+document.getElementById("import-btn").addEventListener("click", handleImportClick);
+
 renderLeaderboard();
 updateReviewTodayBtn();
 saveMasterySnapshot();
 renderMasteryStats();
+updateBackupLabel();
+autoBackup();
 </script>
 </body>
 </html>
