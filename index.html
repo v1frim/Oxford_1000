@@ -41,7 +41,7 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     padding: 22px 20px;
-    width: 260px;
+    width: 285px;
     max-width: 94vw;
     min-height: 560px;
     color: #fff;
@@ -92,6 +92,7 @@
   .lb-list li:nth-child(3)::before { content: "🥉"; opacity: 1; font-size: 16px; }
   .lb-score { font-weight: 700; color: #ffd166; }
   .lb-detail { opacity: 0.7; font-size: 12px; }
+  .lb-pool { font-size: 10px; opacity: 0.65; }
   .lb-bad { color: #ff6b6b; font-weight: 600; }
   .lb-total { opacity: 0.6; }
   .lb-mode { margin-left: auto; font-size: 11px; opacity: 0.55; }
@@ -6088,6 +6089,10 @@ function tsToDayKey(ts) {
   const d = new Date(ts);
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 }
+function fmtPool(n) {
+  if (!n) return "";
+  return (Math.round(n / 100) / 10).toFixed(1) + "k";
+}
 function fmtDate(ts) {
   const d = new Date(ts);
   return String(d.getDate()).padStart(2, "0") + "." + String(d.getMonth() + 1).padStart(2, "0");
@@ -6137,9 +6142,10 @@ function renderTabGames() {
     const klass = (cls || "")
       + (isTodayGame ? " is-today-game" : "")
       + (isLatestGame ? " is-latest-game" : "");
+    const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
     return '<li class="' + klass + '">' +
       '<span class="lb-score">' + s.score + '</span>' +
-      '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)</span>' +
+      '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)' + poolStr + '</span>' +
       '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
     '</li>';
   };
