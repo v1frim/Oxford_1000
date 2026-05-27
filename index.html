@@ -4458,6 +4458,249 @@ const EN_TO_UA = (() => {
   m.set("somewhere",   ["десь"]);
   m.set("anywhere",    ["будь-де"]);
   m.set("nowhere",     ["ніде"]);
+  // Big batch — words found in EXAMPLES sentences but missing from WORDS
+  m.set("seat",        ["сидіння", "місце"]);
+  m.set("absent",      ["відсутній"]);
+  m.set("absolutely",  ["абсолютно"]);
+  m.set("achievement", ["досягнення"]);
+  m.set("advance",     ["просуватися", "прогрес"]);
+  m.set("advanced",    ["просунутий"]);
+  m.set("against",     ["проти"]);
+  m.set("album",       ["альбом"]);
+  m.set("alien",       ["прибулець", "чужий"]);
+  m.set("allergic",    ["алергічний"]);
+  m.set("ambulance",   ["швидка допомога"]);
+  m.set("america",     ["Америка"]);
+  m.set("applaud",     ["аплодувати"]);
+  m.set("architect",   ["архітектор"]);
+  m.set("basketball",  ["баскетбол"]);
+  m.set("beat",        ["бити", "ритм"]);
+  m.set("beholder",    ["спостерігач"]);
+  m.set("bicycle",     ["велосипед"]);
+  m.set("bilingual",   ["двомовний"]);
+  m.set("birth",       ["народження"]);
+  m.set("block",       ["блокувати", "блок"]);
+  m.set("bloom",       ["цвісти", "цвіт"]);
+  m.set("bonus",       ["бонус"]);
+  m.set("boredom",     ["нудьга"]);
+  m.set("bracelet",    ["браслет"]);
+  m.set("breath",      ["подих"]);
+  m.set("britain",     ["Британія"]);
+  m.set("cabin",       ["хатина", "каюта"]);
+  m.set("calculation", ["обчислення"]);
+  m.set("canada",      ["Канада"]);
+  m.set("candle",      ["свічка"]);
+  m.set("cannot",      ["не може"]);
+  m.set("cash",        ["готівка"]);
+  m.set("champion",    ["чемпіон"]);
+  m.set("chapter",     ["розділ"]);
+  m.set("charge",      ["заряджати", "звинувачувати"]);
+  m.set("chess",       ["шахи"]);
+  m.set("chop",        ["рубати", "нарізати"]);
+  m.set("christmas",   ["Різдво"]);
+  m.set("closest",     ["найближчий"]);
+  m.set("cloth",       ["тканина"]);
+  m.set("clothes",     ["одяг"]);
+  m.set("comment",     ["коментар", "коментувати"]);
+  m.set("community",   ["спільнота", "громада"]);
+  m.set("completion",  ["завершення"]);
+  m.set("connection",  ["з'єднання", "зв'язок"]);
+  m.set("consequence", ["наслідок"]);
+  m.set("cookie",      ["печиво"]);
+  m.set("cough",       ["кашляти"]);
+  m.set("crack",       ["тріщина", "тріскати"]);
+  m.set("crash",       ["аварія", "розбити"]);
+  m.set("creativity",  ["творчість"]);
+  m.set("crime",       ["злочин"]);
+  m.set("crown",       ["корона"]);
+  m.set("daily",       ["щоденний", "щодня"]);
+  m.set("delivery",    ["доставка"]);
+  m.set("depart",      ["відправлятися"]);
+  m.set("dessert",     ["десерт"]);
+  m.set("dew",         ["роса"]);
+  m.set("diamond",     ["діамант"]);
+  m.set("dictionary",  ["словник"]);
+  m.set("diet",        ["дієта"]);
+  m.set("dish",        ["страва", "посуд"]);
+  m.set("donate",      ["жертвувати", "донорствувати"]);
+  m.set("dough",       ["тісто"]);
+  m.set("email",       ["електронна пошта"]);
+  m.set("emotion",     ["емоція"]);
+  m.set("enroll",      ["записувати", "зараховувати"]);
+  m.set("erupt",       ["вивергатися"]);
+  m.set("fan",         ["фанат", "вентилятор"]);
+  m.set("fashion",     ["мода"]);
+  m.set("fee",         ["плата", "збір"]);
+  m.set("feeling",     ["почуття"]);
+  m.set("fence",       ["паркан"]);
+  m.set("fertile",     ["родючий"]);
+  m.set("final",       ["фінальний", "остаточний"]);
+  m.set("finance",     ["фінанси"]);
+  m.set("finding",     ["знахідка", "висновок"]);
+  m.set("flavour",     ["смак", "аромат"]);
+  m.set("flip",        ["перевертати"]);
+  m.set("football",    ["футбол"]);
+  m.set("french",      ["французький"]);
+  m.set("fridge",      ["холодильник"]);
+  m.set("furniture",   ["меблі"]);
+  m.set("gather",      ["збирати", "збиратися"]);
+  m.set("golden",      ["золотий"]);
+  m.set("goodbye",     ["прощавай", "до побачення"]);
+  m.set("goodnight",   ["добраніч"]);
+  m.set("gracefully",  ["граційно"]);
+  m.set("graduate",    ["закінчити навчання", "випускник"]);
+  m.set("grandfather", ["дідусь"]);
+  m.set("grandmother", ["бабуся"]);
+  m.set("graze",       ["пастися", "царапнути"]);
+  m.set("growth",      ["ріст"]);
+  m.set("hang",        ["вішати", "висіти"]);
+  m.set("happiness",   ["щастя"]);
+  m.set("harvest",     ["врожай"]);
+  m.set("heal",        ["лікувати", "загоюватися"]);
+  m.set("hello",       ["привіт"]);
+  m.set("helmet",      ["шолом"]);
+  m.set("herself",     ["сама", "себе"]);
+  m.set("himself",     ["сам", "себе"]);
+  m.set("itself",      ["себе", "сам"]);
+  m.set("myself",      ["себе", "я сам"]);
+  m.set("yourself",    ["сам", "ти сам"]);
+  m.set("hottest",     ["найгарячіший"]);
+  m.set("hunt",        ["полювати"]);
+  m.set("hurry",       ["поспішати"]);
+  m.set("infection",   ["інфекція"]);
+  m.set("install",     ["встановлювати"]);
+  m.set("instinct",    ["інстинкт"]);
+  m.set("interrupt",   ["переривати"]);
+  m.set("involve",     ["залучати", "стосуватися"]);
+  m.set("jail",        ["в'язниця"]);
+  m.set("japan",       ["Японія"]);
+  m.set("jazz",        ["джаз"]);
+  m.set("jogging",     ["біг підтюпцем"]);
+  m.set("joke",        ["жарт", "жартувати"]);
+  m.set("judge",       ["суддя", "судити"]);
+  m.set("juicy",       ["соковитий"]);
+  m.set("knit",        ["в'язати"]);
+  m.set("kyiv",        ["Київ"]);
+  m.set("layer",       ["шар"]);
+  m.set("lean",        ["спиратися", "нахилятися"]);
+  m.set("lid",         ["кришка"]);
+  m.set("list",        ["список"]);
+  m.set("liter",       ["літр"]);
+  m.set("log",         ["колода", "журнал"]);
+  m.set("logo",        ["логотип"]);
+  m.set("london",      ["Лондон"]);
+  m.set("machinery",   ["машинерія", "обладнання"]);
+  m.set("magician",    ["чарівник", "фокусник"]);
+  m.set("management",  ["управління"]);
+  m.set("mathematical",["математичний"]);
+  m.set("mattress",    ["матрац"]);
+  m.set("medieval",    ["середньовічний"]);
+  m.set("menu",        ["меню"]);
+  m.set("meter",       ["метр"]);
+  m.set("mild",        ["м'який", "помірний"]);
+  m.set("mood",        ["настрій"]);
+  m.set("muscle",      ["м'яз"]);
+  m.set("musician",    ["музикант"]);
+  m.set("nation",      ["нація"]);
+  m.set("nest",        ["гніздо"]);
+  m.set("noble",       ["благородний"]);
+  m.set("noise",       ["шум"]);
+  m.set("novel",       ["роман", "новий"]);
+  m.set("nutritious",  ["поживний"]);
+  m.set("orbit",       ["орбіта", "обертатися"]);
+  m.set("outline",     ["контур", "схема"]);
+  m.set("oven",        ["духовка"]);
+  m.set("pace",        ["темп", "крок"]);
+  m.set("pacific",     ["тихоокеанський"]);
+  m.set("package",     ["пакунок", "пакет"]);
+  m.set("page",        ["сторінка"]);
+  m.set("paris",       ["Париж"]);
+  m.set("peel",        ["шкірка", "чистити"]);
+  m.set("percent",     ["відсоток"]);
+  m.set("pick",        ["обирати", "збирати"]);
+  m.set("pie",         ["пиріг"]);
+  m.set("piece",       ["шматок"]);
+  m.set("pipe",        ["труба"]);
+  m.set("planet",      ["планета"]);
+  m.set("plenty",      ["багато", "достатньо"]);
+  m.set("plug",        ["вилка", "затичка"]);
+  m.set("postman",     ["листоноша"]);
+  m.set("pot",         ["горщик", "каструля"]);
+  m.set("puddle",      ["калюжа"]);
+  m.set("rainy",       ["дощовий"]);
+  m.set("reform",      ["реформа"]);
+  m.set("region",      ["регіон", "область"]);
+  m.set("relative",    ["родич", "відносний"]);
+  m.set("remain",      ["залишатися"]);
+  m.set("remote",      ["віддалений"]);
+  m.set("reply",       ["відповідь", "відповідати"]);
+  m.set("residential", ["житловий"]);
+  m.set("roar",        ["ревіти", "рев"]);
+  m.set("rose",        ["троянда"]);
+  m.set("row",         ["ряд", "веслувати"]);
+  m.set("runner",      ["бігун"]);
+  m.set("sauce",       ["соус"]);
+  m.set("scale",       ["масштаб", "ваги"]);
+  m.set("scenic",      ["мальовничий"]);
+  m.set("scramble",    ["метушитися", "збивати"]);
+  m.set("secure",      ["безпечний", "забезпечувати"]);
+  m.set("seem",        ["здаватися"]);
+  m.set("sew",         ["шити"]);
+  m.set("shade",       ["тінь", "відтінок"]);
+  m.set("shower",      ["душ", "злива"]);
+  m.set("skiing",      ["катання на лижах"]);
+  m.set("skip",        ["пропускати"]);
+  m.set("slip",        ["ковзати", "поскользнутися"]);
+  m.set("smell",       ["запах", "пахнути"]);
+  m.set("snack",       ["перекус", "закуска"]);
+  m.set("socket",      ["розетка"]);
+  m.set("song",        ["пісня"]);
+  m.set("sore",        ["болючий"]);
+  m.set("sound",       ["звук", "звучати"]);
+  m.set("spanish",     ["іспанський"]);
+  m.set("spot",        ["пляма", "місце"]);
+  m.set("square",      ["квадрат", "площа"]);
+  m.set("squeeze",     ["стискати", "вичавлювати"]);
+  m.set("stable",      ["стабільний"]);
+  m.set("staff",       ["персонал", "штат"]);
+  m.set("sticker",     ["наклейка"]);
+  m.set("stripe",      ["смуга"]);
+  m.set("strike",      ["вдаряти", "страйкувати"]);
+  m.set("stubborn",    ["впертий"]);
+  m.set("submit",      ["подавати", "підкорятися"]);
+  m.set("sunflower",   ["соняшник"]);
+  m.set("sure",        ["впевнений"]);
+  m.set("swallow",     ["ковтати", "ластівка"]);
+  m.set("sweater",     ["светр"]);
+  m.set("swimming",    ["плавання"]);
+  m.set("switzerland", ["Швейцарія"]);
+  m.set("technically", ["технічно"]);
+  m.set("temple",      ["храм", "скроня"]);
+  m.set("text",        ["текст"]);
+  m.set("tie",         ["краватка", "зв'язувати"]);
+  m.set("tire",        ["шина", "втомлювати"]);
+  m.set("toothache",   ["зубний біль"]);
+  m.set("tough",       ["жорсткий", "важкий"]);
+  m.set("tropical",    ["тропічний"]);
+  m.set("truly",       ["справді"]);
+  m.set("twist",       ["крутити", "поворот"]);
+  m.set("ukraine",     ["Україна"]);
+  m.set("unexpected",  ["несподіваний"]);
+  m.set("unique",      ["унікальний"]);
+  m.set("vacation",    ["відпустка", "канікули"]);
+  m.set("vase",        ["ваза"]);
+  m.set("vegetarian",  ["вегетаріанець"]);
+  m.set("victory",     ["перемога"]);
+  m.set("wage",        ["зарплата"]);
+  m.set("wallet",      ["гаманець"]);
+  m.set("wealth",      ["багатство"]);
+  m.set("web",         ["мережа", "павутина"]);
+  m.set("weekend",     ["вихідні"]);
+  m.set("whenever",    ["коли б не"]);
+  m.set("wipe",        ["витирати"]);
+  m.set("wish",        ["бажати", "бажання"]);
+  m.set("workspace",   ["робочий простір"]);
+  m.set("worth",       ["вартий"]);
   return m;
 })();
 const HW_SKIP = new Set([
@@ -4614,7 +4857,76 @@ const IRREGULAR = {
   shopping:"shop",shopped:"shop",
   // -er/-est for newly added adjectives
   scarier:"scary",scariest:"scary",
-  funnier:"funny",funniest:"funny"
+  funnier:"funny",funniest:"funny",
+  // Plurals & inflections for newly added words
+  seats:"seat",aliens:"alien",beats:"beat",beheld:"beholder",
+  applauded:"applaud",applauding:"applaud",
+  blocked:"block",blocking:"block",blocks:"block",
+  blooms:"bloom",blooming:"bloom",
+  charges:"charge",charged:"charge",charging:"charge",
+  chopped:"chop",chopping:"chop",chops:"chop",
+  clothing:"cloth",
+  comments:"comment",commented:"comment",
+  consequences:"consequence",cookies:"cookie",
+  coughed:"cough",coughing:"cough",coughs:"cough",
+  cracked:"crack",cracking:"crack",cracks:"crack",
+  crashed:"crash",crashing:"crash",crashes:"crash",
+  departs:"depart",departed:"depart",departing:"depart",
+  dishes:"dish",
+  donated:"donate",donating:"donate",donates:"donate",
+  emotions:"emotion",enrolled:"enroll",enrolling:"enroll",
+  erupted:"erupt",erupting:"erupt",erupts:"erupt",
+  fans:"fan",fees:"fee",feelings:"feeling",fences:"fence",
+  findings:"finding",
+  flipped:"flip",flipping:"flip",flips:"flip",
+  gathered:"gather",gathering:"gather",gathers:"gather",
+  graduated:"graduate",graduating:"graduate",graduates:"graduate",
+  grazed:"graze",grazing:"graze",grazes:"graze",
+  healed:"heal",healing:"heal",heals:"heal",
+  hangs:"hang",hanging:"hang",hung:"hang",
+  hurried:"hurry",hurrying:"hurry",hurries:"hurry",
+  infections:"infection",installed:"install",installing:"install",installs:"install",
+  instincts:"instinct",interrupts:"interrupt",interrupted:"interrupt",interrupting:"interrupt",
+  involves:"involve",involved:"involve",involving:"involve",
+  jokes:"joke",joked:"joke",joking:"joke",
+  judges:"judge",judged:"judge",judging:"judge",
+  knitted:"knit",knitting:"knit",knits:"knit",
+  leaned:"lean",leaning:"lean",leans:"lean",
+  liters:"liter",meters:"meter",muscles:"muscle",
+  orbits:"orbit",orbited:"orbit",orbiting:"orbit",
+  peels:"peel",peeled:"peel",peeling:"peel",
+  picks:"pick",picked:"pick",picking:"pick",
+  pieces:"piece",pipes:"pipe",
+  planned:"plan",planning:"plan",plans:"plan",
+  relatives:"relative",remained:"remain",remaining:"remain",remains:"remain",
+  replied:"reply",replying:"reply",replies:"reply",
+  roars:"roar",roared:"roar",roaring:"roar",
+  roses:"rose",rows:"row",rowed:"row",rowing:"row",
+  scrambled:"scramble",scrambling:"scramble",scrambles:"scramble",
+  secured:"secure",securing:"secure",secures:"secure",
+  seems:"seem",seemed:"seem",seeming:"seem",
+  sewed:"sew",sewing:"sew",sews:"sew",sewn:"sew",
+  showers:"shower",showered:"shower",showering:"shower",
+  skipped:"skip",skipping:"skip",skips:"skip",
+  slipped:"slip",slipping:"slip",slips:"slip",
+  smells:"smell",smelled:"smell",smelling:"smell",
+  sounds:"sound",sounded:"sound",sounding:"sound",
+  spots:"spot",spotted:"spot",spotting:"spot",
+  squeezed:"squeeze",squeezing:"squeeze",squeezes:"squeeze",
+  stickers:"sticker",stripes:"stripe",
+  struck:"strike",strikes:"strike",striking:"strike",
+  submitted:"submit",submitting:"submit",submits:"submit",
+  sunflowers:"sunflower",
+  swallowed:"swallow",swallowing:"swallow",swallows:"swallow",
+  texts:"text",texted:"text",texting:"text",
+  ties:"tie",tied:"tie",tying:"tie",
+  tires:"tire",tired:"tire",tiring:"tire",
+  twisted:"twist",twisting:"twist",twists:"twist",
+  wages:"wage",weekends:"weekend",
+  wiped:"wipe",wiping:"wipe",wipes:"wipe",
+  wished:"wish",wishing:"wish",wishes:"wish",
+  // Common forms missed by stemEn
+  getting:"get",sitting:"sit",running:"run",stopped:"stop",stopping:"stop"
 };
 function stemEn(word) {
   word = word.toLowerCase().replace(/[^a-z']/g, "");
@@ -5036,10 +5348,10 @@ function renderTabGames() {
     const LB_MODE_LABELS = {
       "ua-en":    "UA→US",
       "en-ua":    "US→UA",
-      "en-def":   "Def",
-      "en-syn":   "Syn",
-      "en-ant":   "Ant",
-      "en-cloze": "Cloze"
+      "en-def":   "Визначення",
+      "en-syn":   "Синоніми",
+      "en-ant":   "Антоніми",
+      "en-cloze": "Пропуск"
     };
     const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
