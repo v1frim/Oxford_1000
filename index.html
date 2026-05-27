@@ -5132,6 +5132,11 @@ document.addEventListener("keydown", e => {
     endGame(timeLeft > 0);
     return;
   }
+  if (e.key === "Escape" && !endScreen.classList.contains("hidden")) {
+    e.preventDefault();
+    document.getElementById("restart-btn").click();
+    return;
+  }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
     e.preventDefault();
     const tabs = ["games", "days", "streaks"];
