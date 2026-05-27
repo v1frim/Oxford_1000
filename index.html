@@ -3860,9 +3860,12 @@ function getCorrectAnswer() {
 function showCorrection(answer) {
   const enWord = (mode === "en-ua") ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
-  // For Def/Cloze: append UA translation so user sees both word and meaning
+  // For Def/Cloze: append UA translation so user sees both word and meaning.
+  // For Syn/Ant: wrap each EN word with hover/TTS spans so user can look them up.
   if ((mode === "en-def" || mode === "en-cloze") && uaWord) {
     corrAnswerEl.textContent = answer + " — " + uaWord;
+  } else if (mode === "en-syn" || mode === "en-ant") {
+    corrAnswerEl.innerHTML = wrapSentence(answer);
   } else {
     corrAnswerEl.textContent = answer;
   }
@@ -4677,10 +4680,16 @@ function renderList() {
   }
 
   listEl.innerHTML = rows.map(r => {
-    // For Def/Cloze: avoid showing "wake = wake" — display "wake — прокидатися" instead
-    const pair = (r.mode === "en-def" || r.mode === "en-cloze") && r.enWord && r.uaWord
-      ? esc(r.enWord) + " — " + esc(r.uaWord)
-      : esc(r.shown) + " = " + esc(r.correct);
+    // For Def/Cloze: avoid showing "wake = wake" — display "wake — прокидатися" instead.
+    // For Syn/Ant: wrap each EN word in hover/TTS spans so user can look up the meaning.
+    let pair;
+    if ((r.mode === "en-def" || r.mode === "en-cloze") && r.enWord && r.uaWord) {
+      pair = esc(r.enWord) + " — " + esc(r.uaWord);
+    } else if (r.mode === "en-syn" || r.mode === "en-ant") {
+      pair = wrapSentence(r.shown) + " = " + wrapSentence(r.correct);
+    } else {
+      pair = esc(r.shown) + " = " + esc(r.correct);
+    }
     const enW = r.enWord || "";
     const uaW = r.uaWord || "";
     // For Def mode: replace the unrelated EXAMPLES sentence with the actual definition
@@ -4745,6 +4754,10 @@ listEl.addEventListener("click", e => {
   if (hw) speak(hw.textContent);
 });
 document.getElementById("corr-example").addEventListener("click", e => {
+  const hw = e.target.closest(".hw");
+  if (hw) speak(hw.textContent);
+});
+corrAnswerEl.addEventListener("click", e => {
   const hw = e.target.closest(".hw");
   if (hw) speak(hw.textContent);
 });
@@ -5020,7 +5033,15 @@ function renderTabGames() {
   const latest = loadLatest();
   const today = todayKey();
   const renderGameRow = (s, cls) => {
-    const modeStr = s.mode === "ua-en" ? "UA→US" : "US→UA";
+    const LB_MODE_LABELS = {
+      "ua-en":    "UA→US",
+      "en-ua":    "US→UA",
+      "en-def":   "Def",
+      "en-syn":   "Syn",
+      "en-ant":   "Ant",
+      "en-cloze": "Cloze"
+    };
+    const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
     const isLatestGame = !cls && latest && s.ts === latest.ts;
     const klass = (cls || "")
