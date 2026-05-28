@@ -140,10 +140,18 @@
     font-size: 48px;
     font-weight: 700;
     letter-spacing: 1px;
-    margin: 4px 0 20px;
+    margin: 4px 0 4px;
     min-height: 64px;
     word-break: break-word;
     line-height: 1.15;
+  }
+  #word-trans {
+    font-size: 14px;
+    opacity: 0.45;
+    letter-spacing: 0.03em;
+    margin-bottom: 14px;
+    min-height: 18px;
+    font-style: italic;
   }
   #answer {
     width: 100%;
@@ -496,6 +504,7 @@
     </div>
     <div class="mode-hint" id="mode-hint">Перекладіть англійською:</div>
     <div class="word-display" id="word-display">—</div>
+    <div id="word-trans"></div>
     <input id="answer" type="text" placeholder="Переклад" autocomplete="off" autocorrect="off" spellcheck="false">
     <button id="skip-btn" class="skip">Пропустити</button>
     <button id="end-btn" class="skip end-btn">Закінчити</button>
@@ -6027,6 +6036,7 @@ const gameEl         = document.getElementById("game");
 const startScreen    = document.getElementById("start-screen");
 const endScreen      = document.getElementById("end-screen");
 const wordDisplay    = document.getElementById("word-display");
+const wordTrans      = document.getElementById("word-trans");
 const answerEl       = document.getElementById("answer");
 const timerEl        = document.getElementById("timer");
 const scoreEl        = document.getElementById("score");
@@ -6126,24 +6136,30 @@ function nextWord() {
     const vals = getUa(currentWord);
     currentShown = vals[Math.floor(Math.random() * vals.length)];
     wordDisplay.textContent = currentShown;
+    wordTrans.textContent = "";
   } else if (mode === "en-ua") {
     const vals = getEn(currentWord);
     currentShown = vals[Math.floor(Math.random() * vals.length)];
     wordDisplay.textContent = currentShown;
+    const bareWord = currentShown.startsWith("to ") ? currentShown.slice(3) : currentShown;
+    wordTrans.textContent = TRANS[bareWord] || TRANS[currentShown] || "";
   } else if (mode === "en-def") {
     const enWord = getEn(currentWord)[0];
     currentShown = enWord;
     const def = DEFS[enWord] || "";
     wordDisplay.classList.add("multiline");
     wordDisplay.textContent = def;
+    wordTrans.textContent = "";
   } else if (mode === "en-syn") {
     const enWord = getEn(currentWord)[0];
     currentShown = enWord;
     wordDisplay.textContent = enWord;
+    wordTrans.textContent = TRANS[enWord] || "";
   } else if (mode === "en-ant") {
     const enWord = getEn(currentWord)[0];
     currentShown = enWord;
     wordDisplay.textContent = enWord;
+    wordTrans.textContent = TRANS[enWord] || "";
   } else if (mode === "en-cloze") {
     const enWord = getEn(currentWord)[0];
     const uaWord = getUa(currentWord)[0];
