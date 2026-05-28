@@ -8424,7 +8424,7 @@ function renderTabStreaks() {
       if (days[k]) totalWords += (days[k].correct || 0) + (days[k].wrong || 0) + (days[k].skipped || 0);
     }
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    const wordsStr = totalWords > 0 ? '<span class="lb-games">· ' + totalWords + ' сл.</span>' : "";
+    const wordsStr = totalWords > 0 ? '<span class="lb-detail">(' + totalWords + ')</span>' : "";
     return '<li class="' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
       '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
