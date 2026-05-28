@@ -6684,7 +6684,8 @@ function endGame(endedEarly) {
     updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
     updateLatest({ score, wrong, skipped, mode, ts, wordCount });
   } else {
-    recordReviewStats(score);
+    const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
+    recordReviewStats(wordsReviewed);
   }
   renderLeaderboard(newEntryId, newDayKey);
   setFilter("all");
@@ -7710,7 +7711,13 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   renderMasteryStats();
   updateBackupLabel();
   autoBackup();
-  if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
+  // Restore progress panel if it was open before game started
+  if (localStorage.getItem("oxford_progress_open_v1") === "1") {
+    const panel = document.getElementById("progress-panel");
+    panel.classList.remove("hidden");
+    document.getElementById("progress-btn").classList.add("active");
+    renderProgressPanel();
+  }
 });
 
 document.getElementById("progress-btn").addEventListener("click", () => {
@@ -8380,7 +8387,7 @@ function renderTabDays() {
     return '<li class="' + cls + '">' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
-      gamesStr + revStr +
+      revStr + gamesStr +
       '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
     '</li>';
   };
