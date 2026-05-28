@@ -8417,16 +8417,18 @@ function renderTabStreaks() {
     const period = s.length === 1
       ? fmtDayKey(s.start)
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
-    let games = 0;
+    let games = 0, totalWords = 0;
     for (let d = new Date(s.start); d <= new Date(s.end); d.setDate(d.getDate() + 1)) {
       const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
       games += (days[k] && days[k].games) || 0;
+      if (days[k]) totalWords += (days[k].correct || 0) + (days[k].wrong || 0) + (days[k].skipped || 0);
     }
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
+    const wordsStr = totalWords > 0 ? '<span class="lb-games">· ' + fmtPool(totalWords) + ' сл.</span>' : "";
     return '<li class="' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
       '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
-      gamesStr +
+      gamesStr + wordsStr +
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
   };
