@@ -443,7 +443,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
   .row-example-ua { font-size: 12px; opacity: 0.58; font-style: italic; margin-top: 3px; color: #ffd166; }
-  .row-trans { font-size: 11px; opacity: 0.4; font-style: italic; display: block; margin-top: 1px; }
+  .tip-ipa { display: block; font-size: 10px; opacity: 0.65; font-style: italic; margin-top: 1px; color: #c8d8ff; }
   .row-left { flex: 1; min-width: 0; }
   .row-right { display: flex; align-items: flex-start; gap: 7px; flex-shrink: 0; max-width: 50%; }
   .row-right-text { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 2px; min-width: 0; }
@@ -2146,7 +2146,201 @@ const TRANS = {
   "strongly":"/ˈstrɔːŋli/","especially":"/ɪˈspɛʃəli/","mostly":"/ˈmoʊstli/",
   "however":"/haʊˈɛvər/","therefore":"/ˈðɛrˌfɔːr/","instead":"/ɪnˈstɛd/",
   "otherwise":"/ˈʌðərˌwaɪz/","yet":"/jɛt/","even":"/ˈiːvən/","only":"/ˈoʊnli/",
-  "forward":"/ˈfɔːrwərd/","backward":"/ˈbækwərd/","nearby":"/ˈnɪrbaɪ/","apart":"/əˈpɑːrt/"
+  "forward":"/ˈfɔːrwərd/","backward":"/ˈbækwərd/","nearby":"/ˈnɪrbaɪ/","apart":"/əˈpɑːrt/",
+  // Auto-generated: 1155 additional entries
+  "abandoned":"/əˈbændənd/","ability":"/əˈbɪləti/","able":"/ˈeɪbəl/","abnormal":"/æbˈnɔrməl/","abroad":"/əˈbrɔd/","absent":"/ˈæbsənt/",
+  "access":"/ˈæksɛs/","accessible":"/ækˈsɛsəbəl/","accomplish":"/əˈkɑmplɪʃ/","accurate":"/ˈækjɝət/","achievable":"/əˈtʃivəbəl/","acquire":"/əˈkwaɪɝ/",
+  "act":"/ˈækt/","active":"/ˈæktɪv/","activity":"/ækˈtɪvəti/","actual":"/ˈækʃəl/","acute":"/əkˈjut/","address":"/ˈædrɛs/",
+  "adjust":"/əˈdʒəst/","admire":"/ædˈmaɪr/","adore":"/əˈdɔr/","adult":"/ˈædəlt/","advance":"/ədˈvæns/","advice":"/ædˈvaɪs/",
+  "advise":"/ædˈvaɪz/","affect":"/əˈfɛkt/","affluent":"/ˈæfluənt/","afford":"/əˈfɔrd/","affordable":"/əˈfɔrdəbəl/","aged":"/ˈeɪdʒd/",
+  "agitated":"/ˈædʒəteɪtɪd/","agreeable":"/əˈɡriəbəl/","aid":"/ˈeɪd/","ailing":"/ˈeɪlɪŋ/","aim":"/ˈeɪm/","alarm":"/əˈlɑrm/",
+  "alike":"/əˈlaɪk/","alter":"/ˈɔltɝ/","amazing":"/əˈmeɪzɪŋ/","amusing":"/əmˈjuzɪŋ/","ankle":"/ˈæŋkəl/","announce":"/əˈnaʊns/",
+  "annoyed":"/əˈnɔɪd/","antique":"/ænˈtik/","anxious":"/ˈæŋkʃəs/","apartment":"/əˈpɑrtmənt/","apologize":"/əˈpɑlədʒaɪz/","app":"/ˈæp/",
+  "appalling":"/əˈpɔlɪŋ/","apparent":"/əˈpɛrənt/","appreciate":"/əˈpriʃieɪt/","appropriate":"/əˈproʊprieɪt/","approve":"/əˈpruv/","april":"/ˈeɪprəl/",
+  "architect":"/ˈɑrkətɛkt/","argue":"/ˈɑrɡju/","arm":"/ˈɑrm/","arrange":"/ɝˈeɪndʒ/","arrival":"/ɝˈaɪvəl/","arrive":"/ɝˈaɪv/",
+  "article":"/ˈɑrtəkəl/","artistic":"/ɑrˈtɪstɪk/","asleep":"/əˈslip/","assemble":"/əˈsɛmbəl/","assignment":"/əˈsaɪnmənt/","assist":"/əˈsɪst/",
+  "assume":"/əˈsum/","assured":"/əˈʃʊrd/","atmosphere":"/ˈætməsfɪr/","atrocious":"/əˈtroʊʃəs/","attain":"/əˈteɪn/","attainable":"/əˈteɪnəbəl/",
+  "attempt":"/əˈtɛmpt/","attention":"/əˈtɛnʃən/","attentive":"/əˈtɛntɪv/","attitude":"/ˈætətud/","attractive":"/əˈtræktɪv/","audience":"/ˈɑdiəns/",
+  "august":"/ˈɑɡəst/","authentic":"/əˈθɛnɪk/","authority":"/əˈθɔrəti/","authorize":"/ˈɔθɝaɪz/","available":"/əˈveɪləbəl/","average":"/ˈævɝɪdʒ/",
+  "awake":"/əˈweɪk/","award":"/əˈwɔrd/","aware":"/əˈwɛr/","awful":"/ˈɑfəl/","background":"/ˈbækɡraʊnd/","bake":"/ˈbeɪk/",
+  "balance":"/ˈbæləns/","ban":"/ˈbæn/","band":"/ˈbænd/","bare":"/ˈbɛr/","bashful":"/ˈbæʃfəl/","basketball":"/ˈbæskətbɔl/",
+  "battery":"/ˈbætɝi/","beat":"/ˈbit/","behavior":"/bɪˈheɪvjɝ/","better":"/ˈbɛtɝ/","bicycle":"/ˈbaɪsɪkəl/","bite":"/ˈbaɪt/",
+  "bizarre":"/bəˈzɑr/","black":"/ˈblæk/","blank":"/ˈblæŋk/","blaring":"/ˈblɛrɪŋ/","blazing":"/ˈbleɪzɪŋ/","block":"/ˈblɑk/",
+  "bloom":"/ˈblum/","blue":"/ˈblu/","board":"/ˈbɔrd/","boiling":"/ˈbɔɪlɪŋ/","boisterous":"/ˈbɔɪstɝəs/","bold":"/ˈboʊld/",
+  "bonus":"/ˈboʊnəs/","booming":"/ˈbumɪŋ/","boost":"/ˈbust/","border":"/ˈbɔrdɝ/","borrow":"/ˈbɑroʊ/","bound":"/ˈbaʊnd/",
+  "bowl":"/ˈboʊl/","bracelet":"/ˈbreɪslət/","breakfast":"/ˈbrɛkfəst/","breath":"/ˈbrɛθ/","brilliant":"/ˈbrɪljənt/","broad":"/ˈbrɔd/",
+  "broke":"/ˈbroʊk/","brown":"/ˈbraʊn/","brutal":"/ˈbrutəl/","budget":"/ˈbədʒɪt/","burning":"/ˈbɝnɪŋ/","cabin":"/ˈkæbən/",
+  "cable":"/ˈkeɪbəl/","candid":"/ˈkændəd/","candle":"/ˈkændəl/","capital":"/ˈkæpətəl/","captivating":"/ˈkæptɪveɪtɪŋ/","captive":"/ˈkæptɪv/",
+  "care":"/ˈkɛr/","careful":"/ˈkɛrfəl/","careless":"/ˈkɛrləs/","caring":"/ˈkɛrɪŋ/","cash":"/ˈkæʃ/","cause":"/ˈkɑz/",
+  "cautious":"/ˈkɔʃəs/","cease":"/ˈsis/","celebrated":"/ˈsɛləbreɪtɪd/","certain":"/ˈsɝtən/","certificate":"/sɝˈtɪfɪkət/","challenge":"/ˈtʃæləndʒ/",
+  "challenging":"/ˈtʃæləndʒɪŋ/","champion":"/ˈtʃæmpiən/","chapter":"/ˈtʃæptɝ/","character":"/ˈkɛrɪktɝ/","charitable":"/ˈtʃærətəbəl/","chat":"/ˈtʃæt/",
+  "cheerful":"/ˈtʃɪrfəl/","cherish":"/ˈtʃɛrɪʃ/","chess":"/ˈtʃɛs/","children":"/ˈtʃɪldrən/","chilly":"/ˈtʃɪli/","chop":"/ˈtʃɑp/",
+  "chuckle":"/ˈtʃəkəl/","circle":"/ˈsɝkəl/","citizen":"/ˈsɪtəzən/","civil":"/ˈsɪvəl/","clarify":"/ˈklɛrəfaɪ/","cliff":"/ˈklɪf/",
+  "climate":"/ˈklaɪmət/","clothes":"/ˈkloʊðz/","coast":"/ˈkoʊst/","colleague":"/ˈkɑliɡ/","collection":"/kəˈlɛkʃən/","colossal":"/kəˈlɑsəl/",
+  "comfortable":"/ˈkəmfɝtəbəl/","comical":"/ˈkɑmɪkəl/","commence":"/kəˈmɛns/","communicate":"/kəmˈjunəkeɪt/","community":"/kəmˈjunəti/","compact":"/ˈkɑmpækt/",
+  "comparable":"/ˈkɑmpɝəbəl/","compare":"/kəmˈpɛr/","compassionate":"/kəmˈpæʃənət/","compelling":"/kəmˈpɛlɪŋ/","compete":"/kəmˈpit/","competition":"/kɑmpəˈtɪʃən/",
+  "complain":"/kəmˈpleɪn/","complaint":"/kəmˈpleɪnt/","complex":"/ˈkɑmplɛks/","complicated":"/ˈkɑmpləkeɪtəd/","complimentary":"/kɑmpləˈmɛntɝi/","compose":"/kəmˈpoʊz/",
+  "composed":"/kəmˈpoʊzd/","comprehend":"/kɑmpriˈhɛnd/","concentrate":"/ˈkɑnsəntreɪt/","concept":"/ˈkɑnsɛpt/","concert":"/ˈkɑnsɝt/","conclude":"/kənˈklud/",
+  "conference":"/ˈkɑnfɝəns/","confirm":"/kənˈfɝm/","consent":"/kənˈsɛnt/","consider":"/kənˈsɪdɝ/","construct":"/ˈkɑnstrəkt/","contain":"/kənˈteɪn/",
+  "contemporary":"/kənˈtɛmpɝɛri/","content":"/ˈkɑntɛnt/","contribute":"/kənˈtrɪbjut/","conversation":"/kɑnvɝˈseɪʃən/","converse":"/ˈkɑnvɝs/","costly":"/ˈkɑstli/",
+  "courageous":"/kɝˈeɪdʒəs/","course":"/ˈkɔrs/","courteous":"/ˈkɝtiəs/","cousin":"/ˈkəzən/","cowardly":"/ˈkaʊɝdli/","cozy":"/ˈkoʊzi/",
+  "crack":"/ˈkræk/","crime":"/ˈkraɪm/","crisp":"/ˈkrɪsp/","crowd":"/ˈkraʊd/","crowded":"/ˈkraʊdəd/","crown":"/ˈkraʊn/",
+  "crucial":"/ˈkruʃəl/","curious":"/ˈkjʊriəs/","currency":"/ˈkɝənsi/","current":"/ˈkɑrənt/","curry":"/ˈkəri/","damage":"/ˈdæmədʒ/",
+  "danger":"/ˈdeɪndʒɝ/","daring":"/ˈdɛrɪŋ/","dash":"/ˈdæʃ/","data":"/ˈdætə/","date":"/ˈdeɪt/","deadline":"/ˈdɛdlaɪn/",
+  "deafening":"/ˈdɛfənɪŋ/","dear":"/ˈdɪr/","debate":"/dəˈbeɪt/","december":"/dɪˈsɛmbɝ/","deceptive":"/dɪˈsɛptɪv/","declare":"/dɪˈklɛr/",
+  "decline":"/dɪˈklaɪn/","decrease":"/ˈdikris/","defend":"/dɪˈfɛnd/","define":"/dɪˈfaɪn/","degree":"/dɪˈɡri/","delay":"/dɪˈleɪ/",
+  "delayed":"/dɪˈleɪd/","delete":"/dɪˈlit/","delicate":"/ˈdɛləkət/","delighted":"/dɪˈlaɪtəd/","delightful":"/dɪˈlaɪtfəl/","delivery":"/dɪˈlɪvɝi/",
+  "demand":"/dɪˈmænd/","demanding":"/dɪˈmændɪŋ/","demolish":"/dɪˈmɑlɪʃ/","demonstrate":"/ˈdɛmənstreɪt/","deny":"/dɪˈnaɪ/","depart":"/dɪˈpɑrt/",
+  "department":"/dɪˈpɑrtmənt/","departure":"/dɪˈpɑrtʃɝ/","depressed":"/dɪˈprɛst/","deserve":"/dɪˈzɝv/","desire":"/dɪˈzaɪɝ/","desk":"/ˈdɛsk/",
+  "despise":"/dɪˈspaɪz/","dessert":"/dɪˈzɝt/","destination":"/dɛstəˈneɪʃən/","destitute":"/ˈdɛstətut/","destroy":"/dɪˈstrɔɪ/","detail":"/ˈditeɪl/",
+  "detect":"/dɪˈtɛkt/","detest":"/diˈtɛst/","device":"/dɪˈvaɪs/","diamond":"/ˈdaɪmənd/","dictionary":"/ˈdɪkʃənɛri/","diet":"/ˈdaɪət/",
+  "dim":"/ˈdɪm/","dinner":"/ˈdɪnɝ/","disagree":"/dɪsəˈɡri/","disappear":"/dɪsəˈpir/","disappointed":"/dɪsəˈpɔɪnɪd/","discontinue":"/dɪskənˈtɪnju/",
+  "discourteous":"/dɪskˈɜːtiəs/","discuss":"/dɪˈskəs/","disease":"/dɪˈziz/","diseased":"/dɪˈzizd/","dish":"/ˈdɪʃ/","dishonest":"/dɪˈsɑnəst/",
+  "dislike":"/dɪˈslaɪk/","disliked":"/dɪˈslaɪkt/","dispatch":"/dɪˈspætʃ/","display":"/dɪsˈpleɪ/","dispute":"/dɪˈspjut/","disrespectful":"/dɪsrɪˈspɛktfəl/",
+  "distant":"/ˈdɪstənt/","distinct":"/dɪˈstɪŋkt/","distinguished":"/dɪˈstɪŋɡwɪʃt/","disturb":"/dɪˈstɝb/","diverse":"/daɪˈvɝs/","doable":"/ˈduəbəl/",
+  "document":"/ˈdɑkjəmɛnt/","domestic":"/dəˈmɛstɪk/","dominant":"/ˈdɑmənənt/","donate":"/ˈdoʊneɪt/","download":"/ˈdaʊnloʊd/","draft":"/ˈdræft/",
+  "drag":"/ˈdræɡ/","drained":"/ˈdreɪnd/","dreadful":"/ˈdrɛdfəl/","dreary":"/ˈdrɪri/","drought":"/ˈdraʊt/","dull":"/ˈdəl/",
+  "dumb":"/ˈdəm/","dust":"/ˈdəst/","duty":"/ˈdjuti/","eager":"/ˈiɡɝ/","earnest":"/ˈɝnɪst/","earthquake":"/ˈɝθkweɪk/",
+  "economical":"/ɛkəˈnɑmɪkəl/","educate":"/ˈɛdʒəkeɪt/","effect":"/ˈifɛkt/","effective":"/ˈifɛktɪv/","effortless":"/ˈɛfɝtləs/","eighteen":"/ˈeɪˈtin/",
+  "eighty":"/ˈeɪti/","elaborate":"/ɪˈlæbɝeɪt/","elated":"/ɪˈleɪtəd/","elderly":"/ˈɛldɝli/","elevated":"/ˈɛləveɪtɪd/","eliminate":"/ɪˈlɪməneɪt/",
+  "email":"/iˈmeɪl/","emerge":"/ˈimɝdʒ/","emergency":"/ˈimɝdʒənsi/","emotions":"/ˈimoʊʃənz/","enable":"/ɛˈneɪbəl/","encounter":"/ɪnˈkaʊnɝ/",
+  "encourage":"/ɛnˈkɝɪdʒ/","endeavor":"/ɪnˈdɛvɝ/","energetic":"/ɛnɝˈdʒɛtɪk/","engaged":"/ɛnˈɡeɪdʒd/","engaging":"/ɛnˈɡeɪdʒɪŋ/","enhance":"/ɛnˈhæns/",
+  "enjoyable":"/ɛnˈdʒɔɪəbəl/","enormous":"/iˈnɔrməs/","enraged":"/ɛnˈreɪdʒd/","entertaining":"/ɛnɝˈteɪnɪŋ/","entire":"/ɪnˈtaɪɝ/","environment":"/ɪnˈvaɪrənmənt/",
+  "equal":"/ˈikwəl/","equipment":"/ɪˈkwɪpmənt/","equivalent":"/ɪˈkwɪvələnt/","erroneous":"/ɛˈroʊniəs/","error":"/ˈɛrɝ/","essay":"/ˈɛseɪ/",
+  "essential":"/ɛˈsɛnʃəl/","establish":"/ɪˈstæblɪʃ/","evidence":"/ˈɛvədəns/","evident":"/ˈɛvədənt/","exact":"/ɪɡˈzækt/","examine":"/ɪɡˈzæmɪn/",
+  "exceptional":"/ɪkˈsɛpʃənəl/","exchange":"/ɪksˈtʃeɪndʒ/","exciting":"/ɪkˈsaɪtɪŋ/","execute":"/ˈɛksəkjut/","exercise":"/ˈɛksɝsaɪz/","exhausted":"/ɪɡˈzɔstɪd/",
+  "exhibit":"/ɪɡˈzɪbɪt/","existing":"/ɪɡˈzɪstɪŋ/","exit":"/ˈɛɡzɪt/","expand":"/ɪkˈspænd/","explore":"/ɪksˈplɔr/","extraordinary":"/ɛkstrəˈɔrdənɛri/",
+  "fair":"/ˈfɛr/","familiar":"/fəˈmɪljɝ/","fantastic":"/fænˈtæstɪk/","fascinating":"/ˈfæsəneɪtɪŋ/","fashion":"/ˈfæʃən/","fatigued":"/fəˈtiɡd/",
+  "faultless":"/fˈɒltləs/","faulty":"/ˈfɔlti/","fearful":"/ˈfɪrfəl/","fearless":"/ˈfɪrləs/","feasible":"/ˈfizəbəl/","featherweight":"/ˈfɛðɝweɪt/",
+  "feature":"/ˈfitʃɝ/","february":"/ˈfɛbjəwɛri/","feeble":"/ˈfibəl/","feedback":"/ˈfidbæk/","fever":"/ˈfivɝ/","fierce":"/ˈfɪrs/",
+  "fifteen":"/ˈfɪfˈtin/","fifty":"/ˈfɪfti/","file":"/ˈfaɪl/","filled":"/ˈfɪld/","film":"/ˈfɪlm/","filthy":"/ˈfɪlθi/",
+  "finance":"/ˈfaɪnæns/","fine":"/ˈfaɪn/","finished":"/ˈfɪnɪʃt/","firm":"/ˈfɝm/","fit":"/ˈfɪt/","flawed":"/ˈflɔd/",
+  "flawless":"/ˈflɔləs/","flexible":"/ˈflɛksəbəl/","flight":"/ˈflaɪt/","flood":"/ˈfləd/","focus":"/ˈfoʊkəs/","fold":"/ˈfoʊld/",
+  "foolish":"/ˈfulɪʃ/","football":"/ˈfʊtbɔl/","forbid":"/fɝˈbɪd/","force":"/ˈfɔrs/","forceful":"/ˈfɔrsfəl/","foreign":"/ˈfɑrən/",
+  "forfeit":"/ˈfɔrfɪt/","form":"/ˈfɔrm/","formal":"/ˈfɔrməl/","forty":"/ˈfɔrti/","fourteen":"/ˈfɔrˈtin/","fracture":"/ˈfrækʃɝ/",
+  "fragile":"/ˈfrædʒəl/","frail":"/ˈfreɪl/","frank":"/ˈfræŋk/","freezing":"/ˈfrizɪŋ/","frequent":"/ˈfrikwɛnt/","friday":"/ˈfraɪdeɪ/",
+  "fridge":"/ˈfrɪdʒ/","friendless":"/frˈɛndləs/","frightened":"/ˈfraɪtənd/","frosty":"/ˈfrɔsti/","function":"/ˈfəŋkʃən/","fund":"/ˈfənd/",
+  "furious":"/ˈfjʊriəs/","furniture":"/ˈfɝnɪtʃɝ/","gain":"/ˈɡeɪn/","gather":"/ˈɡæðɝ/","generate":"/ˈdʒɛnɝeɪt/","generous":"/ˈdʒɛnɝəs/",
+  "gentle":"/ˈdʒɛnəl/","genuine":"/ˈdʒɛnˈjuwaɪn/","giant":"/ˈdʒaɪənt/","gigantic":"/dʒaɪˈɡænɪk/","giggle":"/ˈɡɪɡəl/","giving":"/ˈɡɪvɪŋ/",
+  "glad":"/ˈɡlæd/","glance":"/ˈɡlæns/","global":"/ˈɡloʊbəl/","gloomy":"/ˈɡlumi/","glowing":"/ˈɡloʊɪŋ/","gorgeous":"/ˈɡɔrdʒəs/",
+  "grab":"/ˈɡræb/","gracious":"/ˈɡreɪʃəs/","gradual":"/ˈɡrædʒuəl/","grant":"/ˈɡrænt/","grasp":"/ˈɡræsp/","grateful":"/ˈɡreɪtfəl/",
+  "grave":"/ˈɡreɪv/","great":"/ˈɡreɪt/","greedy":"/ˈɡridi/","greet":"/ˈɡrit/","grey":"/ˈɡreɪ/","grimy":"/ˈɡraɪmi/",
+  "grin":"/ˈɡrɪn/","guarantee":"/ɡɛrənˈti/","guard":"/ˈɡɑrd/","guest":"/ˈɡɛst/","guide":"/ˈɡaɪd/","habit":"/ˈhæbət/",
+  "halt":"/ˈhɔlt/","handle":"/ˈhændəl/","handsome":"/ˈhænsəm/","happiness":"/ˈhæpinəs/","harmful":"/ˈhɑrmfəl/","harmless":"/ˈhɑrmləs/",
+  "harsh":"/ˈhɑrʃ/","harvest":"/ˈhɑrvəst/","hasten":"/ˈheɪsən/","hasty":"/ˈheɪsti/","hazardous":"/ˈhæzɝdəs/","heartless":"/ˈhɑrtləs/",
+  "heel":"/ˈhil/","helmet":"/ˈhɛlmət/","helpful":"/ˈhɛlpfəl/","heroic":"/hɪˈroʊɪk/","hide":"/ˈhaɪd/","hideous":"/ˈhɪdiəs/",
+  "high":"/ˈhaɪ/","hike":"/ˈhaɪk/","hilarious":"/hɪˈlɛriəs/","hinder":"/ˈhɪndɝ/","hip":"/ˈhɪp/","hire":"/ˈhaɪɝ/",
+  "historic":"/hɪˈstɔrɪk/","holiday":"/ˈhɑlədeɪ/","hollow":"/ˈhɑloʊ/","hop":"/ˈhɑp/","horrible":"/ˈhɔrəbəl/","huge":"/ˈhjudʒ/",
+  "humorous":"/ˈhjumɝəs/","hunt":"/ˈhənt/","hurry":"/ˈhɝi/","hushed":"/ˈhəʃt/","hygienic":"/haɪdʒˈiːnɪk/","icy":"/ˈaɪsi/",
+  "ideal":"/aɪˈdil/","identify":"/aɪˈdɛntəfaɪ/","idle":"/ˈaɪdəl/","ignorant":"/ˈɪɡnɝənt/","ill":"/ˈɪl/","illegal":"/ɪˈliɡəl/",
+  "illness":"/ˈɪlnəs/","illustrate":"/ˈɪləstreɪt/","imaginary":"/ɪˈmædʒənɛri/","imaginative":"/ɪˈmædʒənətɪv/","imitation":"/ɪməˈteɪʃən/","immense":"/ɪˈmɛns/",
+  "impact":"/ˈɪmpækt/","impatient":"/ɪmˈpeɪʃənt/","imperfect":"/ɪmˈpɝfɪkt/","impolite":"/ɪmpəˈlaɪt/","impoverished":"/ɪmˈpɑvrɪʃt/","inaccurate":"/ɪˈnækjɝət/",
+  "inactive":"/ɪˈnæktɪv/","inattentive":"/ɪnəˈtɛntɪv/","income":"/ˈɪnkəm/","incomplete":"/ɪnkəmˈplit/","incorrect":"/ɪnkɝˈɛkt/","independent":"/ɪndɪˈpɛndənt/",
+  "inexpensive":"/ɪnɪkˈspɛnsɪv/","influence":"/ˈɪnfluəns/","influential":"/ɪnfluˈɛnʃəl/","ingredient":"/ɪnˈɡridiənt/","initiate":"/ɪˈnɪʃieɪt/","injure":"/ˈɪndʒɝ/",
+  "injury":"/ˈɪndʒɝi/","innate":"/ɪˈneɪt/","innovative":"/ˈɪnəveɪtɪv/","inquire":"/ɪnˈkwaɪr/","inquisitive":"/ɪnˈkwɪzɪtɪv/","insolent":"/ˈɪnsələnt/",
+  "inspect":"/ɪnˈspɛkt/","instruct":"/ɪnˈstrəkt/","instruction":"/ɪnˈstrəkʃən/","intelligent":"/ɪnˈtɛlədʒənt/","interested":"/ˈɪntɝəstəd/","intricate":"/ˈɪntrəkət/",
+  "intriguing":"/ɪnˈtriɡɪŋ/","invent":"/ɪnˈvɛnt/","inventive":"/ɪnˈvɛntɪv/","involved":"/ɪnˈvɑlvd/","irritated":"/ˈɪrəteɪtəd/","isolated":"/ˈaɪsəleɪtəd/",
+  "issue":"/ˈɪʃu/","item":"/ˈaɪtəm/","jail":"/ˈdʒeɪl/","january":"/ˈdʒænjuɛri/","jazz":"/ˈdʒæz/","jealous":"/ˈdʒɛləs/",
+  "jog":"/ˈdʒɑɡ/","joke":"/ˈdʒoʊk/","joyful":"/ˈdʒɔɪfəl/","judge":"/ˈdʒədʒ/","july":"/dʒuˈlaɪ/","june":"/ˈdʒun/",
+  "jungle":"/ˈdʒəŋɡəl/","keen":"/ˈkin/","labor":"/ˈleɪbɝ/","landscape":"/ˈlænskeɪp/","large":"/ˈlɑrdʒ/","latest":"/ˈleɪtəst/",
+  "launch":"/ˈlɔntʃ/","layer":"/ˈleɪɝ/","lead":"/ˈlɛd/","leap":"/ˈlip/","lecture":"/ˈlɛktʃɝ/","leisurely":"/ˈlizɝli/",
+  "lend":"/ˈlɛnd/","lethargic":"/ləˈθɑrdʒɪk/","liberated":"/ˈlɪbɝeɪtɪd/","license":"/ˈlaɪsəns/","lifeless":"/ˈlaɪfləs/","lift":"/ˈlɪft/",
+  "like":"/ˈlaɪk/","likely":"/ˈlaɪkli/","limit":"/ˈlɪmət/","link":"/ˈlɪŋk/","listen":"/ˈlɪsən/","little":"/ˈlɪtəl/",
+  "livid":"/ˈlɪvɪd/","living":"/ˈlɪvɪŋ/","loathe":"/ˈloʊð/","locate":"/ˈloʊkeɪt/","locked":"/ˈlɑkt/","lofty":"/ˈlɔfti/",
+  "lonely":"/ˈloʊnli/","lovely":"/ˈləvli/","low":"/ˈloʊ/","lower":"/ˈloʊɝ/","lucid":"/ˈlusəd/","lucky":"/ˈləki/",
+  "luminous":"/ˈlumənəs/","lunch":"/ˈləntʃ/","lying":"/ˈlaɪɪŋ/","machinery":"/məˈʃinɝi/","mad":"/ˈmæd/","magazine":"/ˈmæɡəzin/",
+  "magician":"/məˈdʒɪʃən/","magnificent":"/mæɡˈnɪfəsənt/","maintain":"/meɪnˈteɪn/","major":"/ˈmeɪdʒɝ/","manage":"/ˈmænədʒ/","mandatory":"/ˈmændətɔri/",
+  "manufacture":"/mænjəˈfæktʃɝ/","march":"/ˈmɑrtʃ/","married":"/ˈmɛrid/","marvelous":"/ˈmɑrvələs/","massive":"/ˈmæsɪv/","master":"/ˈmæstɝ/",
+  "match":"/ˈmætʃ/","matching":"/ˈmætʃɪŋ/","mattress":"/ˈmætrəs/","may":"/ˈmeɪ/","meadow":"/ˈmɛdoʊ/","meal":"/ˈmil/",
+  "mean":"/ˈmin/","meaning":"/ˈminɪŋ/","measure":"/ˈmɛʒɝ/","medicine":"/ˈmɛdəsən/","medieval":"/miˈdivəl/","memorize":"/ˈmɛmɝaɪz/",
+  "mention":"/ˈmɛnʃən/","menu":"/ˈmɛnju/","message":"/ˈmɛsədʒ/","messy":"/ˈmɛsi/","meticulous":"/məˈtɪkjələs/","microscopic":"/maɪkrəˈskɑpɪk/",
+  "midnight":"/ˈmɪdnaɪt/","mighty":"/ˈmaɪti/","mild":"/ˈmaɪld/","miniature":"/ˈmɪniətʃʊr/","minor":"/ˈmaɪnɝ/","miserable":"/ˈmɪzɝəbəl/",
+  "misleading":"/mɪˈslidɪŋ/","mission":"/ˈmɪʃən/","mistaken":"/mɪˈsteɪkən/","mixture":"/ˈmɪkstʃɝ/","modify":"/ˈmɑdəfaɪ/","monday":"/ˈməndeɪ/",
+  "monotonous":"/məˈnɑtənəs/","mood":"/ˈmud/","motivated":"/ˈmoʊtəveɪtəd/","mourn":"/ˈmɔrn/","movie":"/ˈmuvi/","mud":"/ˈməd/",
+  "muddy":"/ˈmədi/","murky":"/ˈmɝki/","muscles":"/ˈməsəlz/","musician":"/mjuˈzɪʃən/","nation":"/ˈneɪʃən/","nature":"/ˈneɪtʃɝ/",
+  "neat":"/ˈnit/","needed":"/ˈnidəd/","needy":"/ˈnidi/","negative":"/ˈnɛɡətɪv/","negligent":"/ˈnɛɡlədʒənt/","nephew":"/ˈnɛfju/",
+  "nest":"/ˈnɛst/","network":"/ˈnɛtwɝk/","neutral":"/ˈnutrəl/","niece":"/ˈnis/","nineteen":"/ˈnaɪnˈtin/","ninety":"/ˈnaɪnti/",
+  "noble":"/ˈnoʊbəl/","noise":"/ˈnɔɪz/","noisy":"/ˈnɔɪzi/","noon":"/ˈnun/","nosy":"/ˈnoʊzi/","notable":"/ˈnoʊtəbəl/",
+  "notice":"/ˈnoʊtəs/","notify":"/ˈnoʊtəfaɪ/","novel":"/ˈnɑvəl/","november":"/noʊˈvɛmbɝ/","oak":"/ˈoʊk/","obey":"/oʊˈbeɪ/",
+  "object":"/ˈɑbdʒɛkt/","obscure":"/əbˈskjʊr/","observe":"/əbˈzɝv/","obtain":"/əbˈteɪn/","obvious":"/ˈɑbviəs/","occupied":"/ˈɑkjəpaɪd/",
+  "occur":"/əˈkɝ/","october":"/ɑkˈtoʊbɝ/","odd":"/ˈɑd/","offensive":"/əˈfɛnsɪv/","offer":"/ˈɔfɝ/","official":"/əˈfɪʃəl/",
+  "online":"/ˈɔnlaɪn/","operate":"/ˈɑpɝeɪt/","oppose":"/əˈpoʊz/","opposite":"/ˈɑpəzət/","optimistic":"/ɑptəˈmɪstɪk/","option":"/ˈɑpʃən/",
+  "ordinary":"/ˈɔrdənɛri/","organic":"/ɔrˈɡænɪk/","outdated":"/ˈaʊtdeɪtɪd/","outgoing":"/ˈaʊtɡoʊɪŋ/","outstanding":"/aʊtˈstændɪŋ/","oven":"/ˈəvən/",
+  "overflowing":"/ˈoʊvɝfloʊɪŋ/","overlook":"/ˈoʊvɝlʊk/","pace":"/ˈpeɪs/","pack":"/ˈpæk/","package":"/ˈpækədʒ/","packed":"/ˈpækt/",
+  "pain":"/ˈpeɪn/","paint":"/ˈpeɪnt/","pale":"/ˈpeɪl/","parents":"/ˈpɛrənts/","partial":"/ˈpɑrʃəl/","partner":"/ˈpɑrtnɝ/",
+  "party":"/ˈpɑrti/","passive":"/ˈpæsɪv/","passport":"/ˈpæspɔrt/","password":"/ˈpæswɝd/","path":"/ˈpæθ/","patient":"/ˈpeɪʃənt/",
+  "pattern":"/ˈpætɝn/","pause":"/ˈpɔz/","peaceful":"/ˈpisfəl/","peculiar":"/pəkˈjuljɝ/","penniless":"/ˈpɛniləs/","perceive":"/pɝˈsiv/",
+  "percent":"/pɝˈsɛnt/","perform":"/pɝˈfɔrm/","perilous":"/ˈpɛrələs/","permanent":"/ˈpɝmənənt/","permission":"/pɝˈmɪʃən/","permit":"/ˈpɝmɪt/",
+  "persistent":"/pɝˈsɪstənt/","personal":"/ˈpɝsɪnəl/","pessimistic":"/pɛsəˈmɪstɪk/","petite":"/pəˈtit/","phrase":"/ˈfreɪz/","pick":"/ˈpɪk/",
+  "picnic":"/ˈpɪknɪk/","picture":"/ˈpɪktʃɝ/","pie":"/ˈpaɪ/","piece":"/ˈpis/","pink":"/ˈpɪŋk/","place":"/ˈpleɪs/",
+  "plain":"/ˈpleɪn/","planet":"/ˈplænət/","platform":"/ˈplætfɔrm/","pleasant":"/ˈplɛzənt/","pleased":"/ˈplizd/","plenty":"/ˈplɛni/",
+  "pointed":"/ˈpɔɪnəd/","policy":"/ˈpɑləsi/","pollution":"/pəˈluʃən/","pond":"/ˈpɑnd/","position":"/pəˈzɪʃən/","positive":"/ˈpɑzətɪv/",
+  "posture":"/ˈpɑstʃɝ/","pour":"/ˈpɔr/","powerful":"/ˈpaʊɝfəl/","powerless":"/ˈpaʊɝləs/","practice":"/ˈpræktəs/","precise":"/priˈsaɪs/",
+  "predict":"/priˈdɪkt/","prehistoric":"/prihɪˈstɔrɪk/","present":"/ˈprɛzənt/","presentation":"/prɛzənˈteɪʃən/","preserve":"/prəˈzɝv/","press":"/ˈprɛs/",
+  "pressure":"/ˈprɛʃɝ/","pretend":"/priˈtɛnd/","pretty":"/ˈprɪti/","prevail":"/priˈveɪl/","pricey":"/ˈpraɪsi/","pride":"/ˈpraɪd/",
+  "primeval":"/praɪˈmivəl/","print":"/ˈprɪnt/","product":"/ˈprɑdəkt/","productive":"/pɝˈdəktɪv/","profession":"/prəˈfɛʃən/","professor":"/prəˈfɛsɝ/",
+  "program":"/ˈproʊɡræm/","promise":"/ˈprɑməs/","promotion":"/pɝˈmoʊʃən/","proper":"/ˈprɑpɝ/","property":"/ˈprɑpɝti/","propose":"/prəˈpoʊz/",
+  "prosperous":"/ˈprɑspɝəs/","protected":"/prəˈtɛktɪd/","proud":"/ˈpraʊd/","puddle":"/ˈpədəl/","puppy":"/ˈpəpi/","purchase":"/ˈpɝtʃəs/",
+  "pure":"/ˈpjʊr/","purple":"/ˈpɝpəl/","pursue":"/pɝˈsu/","puzzle":"/ˈpəzəl/","query":"/ˈkwiri/","questioning":"/ˈkwɛstʃənɪŋ/",
+  "quick":"/ˈkwɪk/","quit":"/ˈkwɪt/","race":"/ˈreɪs/","radiant":"/ˈreɪdiənt/","rainbow":"/ˈreɪnboʊ/","rapid":"/ˈræpəd/",
+  "react":"/riˈækt/","reaction":"/riˈækʃən/","realistic":"/riəˈlɪstɪk/","reasonable":"/ˈrizənəbəl/","recall":"/ˈrikɔl/","recent":"/ˈrisənt/",
+  "recipe":"/ˈrɛsəpi/","reckless":"/ˈrɛkləs/","recollect":"/rɛkəˈlɛkt/","recommend":"/rɛkəˈmɛnd/","recover":"/rɪˈkəvɝ/","red":"/ˈrɛd/",
+  "reflect":"/rɪˈflɛkt/","reform":"/rəˈfɔrm/","region":"/ˈridʒən/","reject":"/ˈridʒɛkt/","relatives":"/ˈrɛlətɪvz/","relax":"/riˈlæks/",
+  "relaxed":"/riˈlækst/","relaxing":"/riˈlæksɪŋ/","reliable":"/riˈlaɪəbəl/","relish":"/ˈrɛlɪʃ/","relocate":"/riˈloʊkeɪt/","rely":"/riˈlaɪ/",
+  "remain":"/riˈmeɪn/","remarkable":"/riˈmɑrkəbəl/","remote":"/riˈmoʊt/","renowned":"/rɪˈnaʊnd/","repair":"/rɪˈpɛr/","repel":"/rɪˈpɛl/",
+  "reply":"/riˈplaɪ/","request":"/riˈkwɛst/","required":"/riˈkwaɪɝd/","resent":"/riˈzɛnt/","reservation":"/rɛzɝˈveɪʃən/","reserved":"/riˈzɝvd/",
+  "resource":"/ˈrisɔrs/","respect":"/riˈspɛkt/","respectful":"/rɪˈspɛktfəl/","respond":"/riˈspɑnd/","responsibility":"/rispɑnsəˈbɪləti/","responsible":"/riˈspɑnsəbəl/",
+  "restless":"/ˈrɛstləs/","restricted":"/riˈstrɪktəd/","retain":"/riˈteɪn/","reveal":"/riˈvil/","review":"/rivˈju/","risky":"/ˈrɪski/",
+  "roar":"/ˈrɔr/","robust":"/roʊˈbəst/","role":"/ˈroʊl/","rotten":"/ˈrɑtən/","route":"/ˈraʊt/","routine":"/ruˈtin/",
+  "ruin":"/ˈruən/","rush":"/ˈrəʃ/","ruthless":"/ˈruθləs/","satisfied":"/ˈsætəsfaɪd/","saturday":"/ˈsætɪdeɪ/","sauce":"/ˈsɔs/",
+  "scale":"/ˈskeɪl/","scared":"/ˈskɛrd/","scene":"/ˈsin/","scenic":"/ˈsinɪk/","schedule":"/ˈskɛdʒul/","scholarship":"/ˈskɑlɝʃɪp/",
+  "scorching":"/skˈɔːtʃɪŋ/","score":"/skˈɔː/","seal":"/sˈiːl/","seat":"/sˈiːt/","section":"/sˈɛkʃən/","secure":"/sɪkjˈɔː/",
+  "seize":"/sˈiːz/","select":"/sɪlˈɛkt/","selfish":"/sˈɛlfɪʃ/","semester":"/səmˈɛstɐ/","sense":"/sˈɛns/","senseless":"/sˈɛnsləs/",
+  "sensitive":"/sˈɛnsɪtɪv/","separate":"/ˈsɛpərɪt/","september":"/sɛpˈtɛmbər/","serene":"/sərˈiːn/","service":"/sˈɜːvɪs/","seventeen":"/sɛvəntˈiːn/",
+  "seventy":"/sˈɛvənti/","shade":"/ʃˈeɪd/","shadowy":"/ʃˈædəʊi/","shake":"/ʃˈeɪk/","shallow":"/ʃˈæləʊ/","shared":"/ʃˈeəd/",
+  "shatter":"/ʃˈætɐ/","shelf":"/ʃˈɛlf/","shelter":"/ʃˈɛltɐ/","sheltered":"/ʃˈɛltəd/","shield":"/ʃˈiːld/","shift":"/ʃˈɪft/",
+  "shining":"/ʃˈaɪnɪŋ/","shrink":"/ʃrˈɪŋk/","shut":"/ʃˈʌt/","sight":"/sˈaɪt/","significant":"/sɪɡnˈɪfɪkənt/","silent":"/sˈaɪlənt/",
+  "simple":"/sˈɪmpəl/","sincere":"/sɪnsˈiə/","sixteen":"/sɪkstˈiːn/","sixty":"/sˈɪksti/","skiing":"/skˈiːɪŋ/","skill":"/skˈɪl/",
+  "skip":"/skˈɪp/","slack":"/slˈæk/","sleepy":"/slˈiːpi/","slice":"/slˈaɪs/","slight":"/slˈaɪt/","slip":"/slˈɪp/",
+  "sloppy":"/slˈɒpi/","sluggish":"/slˈʌɡɪʃ/","smash":"/smˈæʃ/","snack":"/snˈæk/","snug":"/snˈʌɡ/","sob":"/sˈɒb/",
+  "sociable":"/sˈəʊʃiəbəl/","software":"/sˈɒftweə/","soil":"/sˈɔɪl/","solemn":"/sˈɒləm/","solid":"/sˈɒlɪd/","solitary":"/sˈɒlɪtəri/",
+  "song":"/sˈɒŋ/","sorrowful":"/sˈɒrəʊfəl/","source":"/sˈɔːs/","souvenir":"/suːvənˈiə/","speech":"/spˈiːtʃ/","speedy":"/spˈiːdi/",
+  "spine":"/spˈaɪn/","spot":"/spˈɒt/","spotless":"/spˈɒtləs/","sprint":"/sprˈɪnt/","stable":"/stˈeɪbəl/","stage":"/stˈeɪdʒ/",
+  "stale":"/stˈeɪl/","standard":"/stˈændəd/","state":"/stˈeɪt/","statement":"/stˈeɪtmənt/","steady":"/stˈɛdi/","steal":"/stˈiːl/",
+  "stern":"/stˈɜːn/","stingy":"/ˈstɪndʒi/","stir":"/stˈɜː/","straightforward":"/streɪtfˈɔːwəd/","strategy":"/strˈætədʒi/","stream":"/strˈiːm/",
+  "stretch":"/strˈɛtʃ/","strict":"/strˈɪkt/","stride":"/strˈaɪd/","strive":"/strˈaɪv/","stroll":"/strˈəʊl/","structure":"/strˈʌktʃɐ/",
+  "stubborn":"/stˈʌbən/","study":"/stˈʌdi/","stuffed":"/stˈʌft/","stunning":"/stˈʌnɪŋ/","sturdy":"/stˈɜːdi/","style":"/stˈaɪl/",
+  "subtract":"/sʌbtrˈækt/","succeed":"/səksˈiːd/","suffer":"/sˈʌfɐ/","suitable":"/sˈuːtəbəl/","sunday":"/ˈsʌndeɪ/","sunrise":"/sˈʌnraɪz/",
+  "sunscreen":"/sˈʌnskriːn/","sunset":"/sˈʌnsɛt/","superb":"/suːpˈɜːb/","supply":"/səˈplaɪ/","suppose":"/sʌpˈəʊz/","surgery":"/sˈɜːdʒəri/",
+  "suspicious":"/səspˈɪʃəs/","swallow":"/swˈɒləʊ/","sweater":"/swˈɛtɐ/","swift":"/swˈɪft/","symptom":"/sˈɪmptəm/","synthetic":"/sɪnθˈɛtɪk/",
+  "talented":"/tˈæləntɪd/","taste":"/tˈeɪst/","tax":"/tˈæks/","tear":"/tɪr/","tedious":"/tˈiːdɪəs/","teeth":"/tˈiːθ/",
+  "temple":"/tˈɛmpəl/","temporary":"/tˈɛmprəri/","tender":"/tˈɛndɐ/","terrified":"/tˈɛrɪfaɪd/","text":"/tˈɛkst/","than":"/ðˈɐn/",
+  "thank":"/θˈæŋk/","their":"/ðˈeə/","thing":"/θˈɪŋ/","third":"/θˈɜːd/","thirteen":"/θɜːtˈiːn/","thirty":"/θˈɜːti/",
+  "thorough":"/θˈʌrɐ/","though":"/ðˈəʊ/","thought":"/θˈɔːt/","thoughtful":"/θˈɔːtfəl/","thoughtless":"/θˈɔːtləs/","thread":"/θrˈɛd/",
+  "threatening":"/θrˈɛtənɪŋ/","throat":"/θrˈəʊt/","through":"/θrˈuː/","thumb":"/θˈʌm/","thunderous":"/θˈʌndərəs/","thursday":"/ˈθɜːrzdeɪ/",
+  "tidy":"/tˈaɪdi/","timid":"/tˈɪmɪd/","tiny":"/tˈaɪni/","toast":"/tˈəʊst/","tolerant":"/tˈɒlərənt/","toothache":"/tˈuːθeɪk/",
+  "topic":"/tˈɒpɪk/","total":"/tˈəʊtəl/","touch":"/tˈʌtʃ/","tough":"/tˈʌf/","tour":"/tˈɔː/","toward":"/tʊwˈɔːd/",
+  "towering":"/tˈaʊərɪŋ/","trace":"/trˈeɪs/","trade":"/trˈeɪd/","traditional":"/trɐdˈɪʃənəl/","transfer":"/ˈtrænsˌfɜːr/","transform":"/trænsˈfɔːrm/",
+  "translate":"/trænslˈeɪt/","transmit":"/trænsmˈɪt/","transparent":"/trænspˈærənt/","transport":"/ˈtrænspɔːrt/","treasure":"/trˈɛʒɐ/","treat":"/trˈiːt/",
+  "tricky":"/trˈɪki/","trim":"/trˈɪm/","trip":"/trˈɪp/","triumph":"/trˈaɪʌmf/","tropical":"/trˈɒpɪkəl/","trouble":"/trˈʌbəl/",
+  "trustworthy":"/trˈʌstwɜːði/","truthful":"/trˈuːθfəl/","tuesday":"/ˈtuːzdeɪ/","tutor":"/tjˈuːtɐ/","twenty":"/twˈɛnti/","unachievable":"/ʌnɐtʃˈiːvəbəl/",
+  "unattractive":"/ʌnɐtrˈæktɪv/","uncertain":"/ʌnsˈɜːtən/","unclean":"/ʌnklˈiːn/","uncommon":"/ʌnkˈɒmən/","uncomplicated":"/ʌnkˈɒmplɪkeɪtɪd/","uncover":"/ʌnkˈʌvɐ/",
+  "understanding":"/ʌndəstˈændɪŋ/","unfilled":"/ʌnfˈɪld/","unfinished":"/ʌnfˈɪnɪʃt/","unhappy":"/ʌnhˈæpi/","unhealthy":"/ʌnhˈɛlθi/","unhurried":"/ʌnhˈʌrɪd/",
+  "uninteresting":"/ʌnˈɪntərəstɪŋ/","unique":"/juːnˈiːk/","unkind":"/ʌnkˈaɪnd/","unlike":"/ʌnlˈaɪk/","unlit":"/ʌnlˈɪt/","unlock":"/ʌnlˈɒk/",
+  "unlocked":"/ʌnlˈɒkt/","unnatural":"/ʌnnˈætʃərəl/","unpleasant":"/ʌnplˈɛzənt/","unpopular":"/ʌnpˈɒpjʊlɐ/","unrestricted":"/ʌnrɪstrˈɪktɪd/","unsafe":"/ʌnsˈeɪf/",
+  "unselfish":"/ʌnsˈɛlfɪʃ/","untrue":"/ʌntrˈuː/","unusual":"/ʌnjˈuːʒuːəl/","unwell":"/ʌnwˈɛl/","unwind":"/ʌnwˈaɪnd/","upgrade":"/ˈʌpˌɡreɪd/",
+  "upload":"/ˈʌpləʊd/","upset":"/ˈʌpsɛt/","urgent":"/ˈɜːdʒənt/","useful":"/jˈuːsfəl/","usual":"/jˈuːʒuːəl/","vacant":"/vˈeɪkənt/",
+  "vacation":"/veɪkˈeɪʃən/","vaccine":"/væksˈiːn/","valiant":"/vˈælɪənt/","valid":"/vˈælɪd/","valuable":"/vˈæljuːəbəl/","vanish":"/vˈænɪʃ/",
+  "varied":"/vˈeərid/","variety":"/vərˈaɪəti/","various":"/vˈeərɪəs/","vary":"/vˈeəri/","vase":"/vˈɑːz/","vast":"/vˈɑːst/",
+  "vault":"/vˈɒlt/","vegetarian":"/vɛdʒɪtˈeəriən/","version":"/vˈɜːʃən/","victim":"/vˈɪktɪm/","victory":"/vˈɪktəri/","view":"/vjˈuː/",
+  "vigorous":"/vˈɪɡərəs/","vintage":"/vˈɪntɪdʒ/","violence":"/vˈaɪələns/","violent":"/vˈaɪələnt/","virus":"/vˈaɪrəs/","visa":"/vˈiːzɐ/",
+  "visible":"/vˈɪzəbəl/","vital":"/vˈaɪtəl/","vivid":"/vˈɪvɪd/","voice":"/vˈɔɪs/","void":"/vˈɔɪd/","volcano":"/vɒlkˈeɪnəʊ/",
+  "vote":"/vˈəʊt/","vulnerable":"/vˈʌlnərəbəl/","wages":"/wˈeɪdʒɪz/","wallet":"/wˈɒlɪt/","wander":"/wˈɒndɐ/","waste":"/wˈeɪst/",
+  "watchful":"/wˈɒtʃfəl/","waterfall":"/wˈɔːtəfɔːl/","wealth":"/wˈɛlθ/","wealthy":"/wˈɛlθi/","wear":"/wɛr/","weary":"/wˈiəri/",
+  "website":"/wˈɛbsaɪt/","wedding":"/wˈɛdɪŋ/","wednesday":"/ˈwɛnzdeɪ/","weekend":"/wiːkˈɛnd/","weep":"/wˈiːp/","weird":"/wˈiəd/",
+  "welcoming":"/wˈɛlkʌmɪŋ/","white":"/wˈaɪt/","widespread":"/wˈaɪdsprɛd/","wild":"/wˈaɪld/","wish":"/wˈɪʃ/","withdrawn":"/wɪðdrˈɔːn/",
+  "witty":"/wˈɪti/","working":"/wˈɜːkɪŋ/","workspace":"/wˈɜːkspeɪs/","worth":"/wˈɜːθ/","worthy":"/wˈɜːði/","wound":"/wuːnd/",
+  "wreck":"/rˈɛk/","yellow":"/jˈɛləʊ/","zone":"/zˈəʊn/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -7438,6 +7632,16 @@ function wrapSentence(sentence) {
   });
 }
 
+function wrapEnWord(word, ipa) {
+  const bare = word.replace(/^to /, "");
+  const stem = stemEn(bare);
+  const trans = stem ? EN_TO_UA.get(stem).join(", ") : "";
+  let attrs = ' class="hw"';
+  if (trans) attrs += ' data-trans="' + esc(trans) + '"';
+  if (ipa)   attrs += ' data-ipa="'   + esc(ipa)   + '"';
+  return '<span' + attrs + '>' + esc(word) + '</span>';
+}
+
 function renderList() {
   const rows = records.filter(r =>
     currentFilter === "all" ? true : r.status !== "correct");
@@ -7451,43 +7655,38 @@ function renderList() {
   }
 
   listEl.innerHTML = rows.map(r => {
-    // For Def/Cloze: avoid showing "wake = wake" — display "wake — прокидатися" instead.
-    // For Syn/Ant/ua-en/en-ua: wrap EN words with hover/TTS spans (click to hear, hover for translation).
+    const enW = r.enWord || "";
+    const uaW = r.uaWord || "";
+    const transStr = (r.mode === "ua-en" || r.mode === "en-ua") && enW
+      ? (TRANS[enW] || TRANS[enW.replace(/^to /, "")] || "") : "";
     let pair;
     if ((r.mode === "en-def" || r.mode === "en-cloze") && r.enWord && r.uaWord) {
       pair = wrapSentence(r.enWord) + " — " + esc(r.uaWord);
     } else if (r.mode === "en-syn" || r.mode === "en-ant") {
       pair = wrapSentence(r.shown) + " = " + wrapSentence(r.correct);
     } else if (r.mode === "ua-en") {
-      pair = esc(r.shown) + " = " + wrapSentence(r.correct);
+      pair = esc(r.shown) + " = " + wrapEnWord(r.correct, transStr);
     } else if (r.mode === "en-ua") {
-      pair = wrapSentence(r.shown) + " = " + esc(r.correct);
+      pair = wrapEnWord(r.shown, transStr) + " = " + esc(r.correct);
     } else {
       pair = esc(r.shown) + " = " + esc(r.correct);
     }
-    const enW = r.enWord || "";
-    const uaW = r.uaWord || "";
-    // For Def mode: replace the unrelated EXAMPLES sentence with the actual definition
-    // (which is what the user was shown in the game). Hover on words still works via wrapSentence.
     const ex   = (r.mode === "en-def") ? (DEFS[enW] || "") : lookupExample(EXAMPLES, enW, uaW);
-    // No DEFS_UA dictionary; suppress UA example row for Def mode
     const exUa = (r.mode === "en-def") ? "" : lookupExample(EXAMPLES_UA, enW, uaW);
     const exSpk = ex ? '<button class="speak-btn speak-btn-sm" data-sentence="' + esc(ex) + '" title="Прослухати речення">🔊</button>' : "";
     const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + wrapSentence(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
     const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
-    const transStr = (r.mode === "ua-en" || r.mode === "en-ua") && enW ? (TRANS[enW] || "") : "";
-    const transHtml = transStr ? '<span class="row-trans">' + transStr + '</span>' : "";
     if (r.status === "correct") {
-      return '<div class="row correct"><span>' + pair + transHtml + '</span><span class="mark">✓</span></div>';
+      return '<div class="row correct"><span>' + pair + '</span><span class="mark">✓</span></div>';
     } else if (r.status === "wrong") {
       return '<div class="row wrong">' +
-             '<div class="row-left"><span>' + pair + transHtml + '</span>' + exHtml + '</div>' +
+             '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
              '<div class="row-right">' + spk + '<div class="row-right-text"><span class="mark">твоя: ' + esc(r.user) + ' ✗</span>' + exUaHtml + '</div></div>' +
              '</div>';
     } else {
       return '<div class="row skipped">' +
-             '<div class="row-left"><span>' + pair + transHtml + '</span>' + exHtml + '</div>' +
+             '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
              '<div class="row-right">' + spk + '<div class="row-right-text"><span class="mark">пропущено</span>' + exUaHtml + '</div></div>' +
              '</div>';
     }
@@ -7572,8 +7771,14 @@ document.body.appendChild(hwTip);
 
 document.addEventListener("mouseover", e => {
   const hw = e.target.closest(".hw");
-  if (!hw || !hw.dataset.trans) { hwTip.style.display = "none"; return; }
-  hwTip.textContent = hw.dataset.trans;
+  if (!hw || (!hw.dataset.trans && !hw.dataset.ipa)) { hwTip.style.display = "none"; return; }
+  const trans = hw.dataset.trans || "";
+  const ipa = hw.dataset.ipa || "";
+  if (ipa) {
+    hwTip.innerHTML = (trans ? esc(trans) + '<br>' : '') + '<span class="tip-ipa">' + esc(ipa) + '</span>';
+  } else {
+    hwTip.textContent = trans;
+  }
   hwTip.style.display = "block";
   // Position: above the word, centered, clamped to viewport
   const r = hw.getBoundingClientRect();
