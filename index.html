@@ -441,6 +441,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
   .row-example-ua { font-size: 12px; opacity: 0.58; font-style: italic; margin-top: 3px; color: #ffd166; }
+  .row-trans { font-size: 11px; opacity: 0.4; font-style: italic; display: block; margin-top: 1px; }
   .row-left { flex: 1; min-width: 0; }
   .row-right { display: flex; align-items: flex-start; gap: 7px; flex-shrink: 0; max-width: 50%; }
   .row-right-text { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 2px; min-width: 0; }
@@ -7421,16 +7422,18 @@ function renderList() {
     const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + wrapSentence(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
     const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
+    const transStr = (r.mode === "ua-en" && enW) ? (TRANS[enW] || "") : "";
+    const transHtml = transStr ? '<span class="row-trans">' + transStr + '</span>' : "";
     if (r.status === "correct") {
-      return '<div class="row correct"><span>' + pair + '</span><span class="mark">✓</span></div>';
+      return '<div class="row correct"><span>' + pair + transHtml + '</span><span class="mark">✓</span></div>';
     } else if (r.status === "wrong") {
       return '<div class="row wrong">' +
-             '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
+             '<div class="row-left"><span>' + pair + transHtml + '</span>' + exHtml + '</div>' +
              '<div class="row-right">' + spk + '<div class="row-right-text"><span class="mark">твоя: ' + esc(r.user) + ' ✗</span>' + exUaHtml + '</div></div>' +
              '</div>';
     } else {
       return '<div class="row skipped">' +
-             '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
+             '<div class="row-left"><span>' + pair + transHtml + '</span>' + exHtml + '</div>' +
              '<div class="row-right">' + spk + '<div class="row-right-text"><span class="mark">пропущено</span>' + exUaHtml + '</div></div>' +
              '</div>';
     }
