@@ -131,6 +131,7 @@
   .stats .label { opacity: 0.7; font-size: 13px; display: block; }
   #timer.low { color: #ff6b6b; }
   #timer.overtime { color: #ff6b6b; font-weight: 700; }
+  #review-wrong-badge { color: #ff6b6b; font-size: 14px; margin-left: 6px; opacity: 0.85; }
   .mode-hint {
     font-size: 13px;
     opacity: 0.65;
@@ -501,7 +502,8 @@
   <!-- GAME SCREEN -->
   <div id="game" class="hidden">
     <div class="stats">
-      <div><span class="label">Час</span><span id="timer">60</span></div>
+      <div><span class="label" id="timer-label">Час</span><span id="timer">60</span></div>
+      <div id="review-progress-stat" style="display:none"><span class="label">Слів</span><span id="review-progress">—</span></div>
       <div><span class="label">Правильних</span><span id="score">0</span></div>
     </div>
     <div class="mode-hint" id="mode-hint">Перекладіть англійською:</div>
@@ -6073,6 +6075,8 @@ let shufflePos = 0;
 let activePool = null;
 let currentWordIndex = -1;
 let reviewRemaining = null;
+let reviewElapsed = 0;
+let reviewTotalPool = 0;
 let reviewDir = "en-ua";
 let pendingReviewPool = null;
 let rmSelectedIdx = 0;
@@ -6367,18 +6371,30 @@ function lookupExample(table, enWord, uaWord) {
   return table[enWord] || "";
 }
 
+function fmtElapsed(s) {
+  return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+}
+function updateReviewProgress() {
+  if (!reviewRemaining) return;
+  const remaining = reviewRemaining.size;
+  const done = reviewTotalPool - remaining;
+  document.getElementById("review-progress").textContent = done + "/" + reviewTotalPool;
+  const wrong = records.filter(r => r.status !== "correct").length;
+  const scoreDiv = scoreEl.parentElement;
+  let badge = document.getElementById("review-wrong-badge");
+  if (wrong > 0) {
+    if (!badge) { badge = document.createElement("span"); badge.id = "review-wrong-badge"; scoreDiv.appendChild(badge); }
+    badge.textContent = "✗" + wrong;
+  } else if (badge) { badge.remove(); }
+}
 function tick() {
-  timeLeft--;
   if (reviewRemaining) {
-    if (timeLeft >= 0) {
-      timerEl.textContent = timeLeft;
-      if (timeLeft <= 10) timerEl.classList.add("low");
-    } else {
-      timerEl.textContent = "+" + (-timeLeft);
-      timerEl.classList.add("overtime");
-    }
+    reviewElapsed++;
+    timerEl.textContent = fmtElapsed(reviewElapsed);
+    updateReviewProgress();
     return;
   }
+  timeLeft--;
   timerEl.textContent = timeLeft;
   if (timeLeft <= 10) timerEl.classList.add("low");
   if (timeLeft <= 0) {
@@ -6393,12 +6409,22 @@ function startGame(pool) {
   activePool = pool || null;
   if (activePool) {
     reviewRemaining = new Set(activePool);
+    reviewTotalPool = activePool.length;
+    reviewElapsed = 0;
     reviewCorrectCounts = {};
     reviewTaintedIndices = new Set();
+    document.getElementById("timer-label").textContent = "Пройшло";
+    document.getElementById("review-progress-stat").style.display = "";
+    timerEl.classList.remove("low","overtime");
+    timerEl.textContent = "0:00";
+    const badge = document.getElementById("review-wrong-badge");
+    if (badge) badge.remove();
   } else {
     reviewRemaining = null;
     reviewCorrectCounts = null;
     reviewTaintedIndices = null;
+    document.getElementById("timer-label").textContent = "Час";
+    document.getElementById("review-progress-stat").style.display = "none";
   }
   score = 0; timeLeft = DURATION; records = [];
   currentFilter = "all";
