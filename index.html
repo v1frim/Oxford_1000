@@ -7910,6 +7910,7 @@ function renderProgressPanel() {
     return;
   }
   empty.classList.add("hidden");
+  const days = loadDays();
   list.innerHTML = recent.map(date => {
     const idx = allDates.indexOf(date);
     const cur = history[date];
@@ -7919,12 +7920,14 @@ function renderProgressPanel() {
     const curNew = (cur.t || WORDS.length) - cur.k - cur.l;
     const prevNew = (prev.t || WORDS.length) - prev.k - prev.l;
     const dn = curNew - prevNew;
+    const rev = (days[date] && days[date].reviewCorrect) || 0;
     let deltaHtml = "";
     if (dk > 0) deltaHtml += '<span class="prog-known">+' + dk + ' ✓</span>';
     if (dl > 0) deltaHtml += '<span class="prog-learning">+' + dl + ' ↗</span>';
     if (dn > 0) deltaHtml += '<span class="prog-new">+' + dn + ' ●</span>';
     if (dk < 0) deltaHtml += '<span class="prog-known">' + dk + ' ✓</span>';
     if (dl < 0) deltaHtml += '<span class="prog-learning">' + dl + ' ↗</span>';
+    if (rev > 0) deltaHtml += '<span class="lb-review">🔁 +' + rev + '</span>';
     if (!deltaHtml) deltaHtml = '<span class="prog-none">—</span>';
     return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + '</span><span class="prog-delta">' + deltaHtml + '</span></div>';
   }).join("");
