@@ -7494,6 +7494,7 @@ document.getElementById("progress-btn").addEventListener("click", () => {
   const opening = panel.classList.toggle("hidden");
   btn.classList.toggle("active", !opening);
   if (!opening) renderProgressPanel();
+  localStorage.setItem("oxford_progress_open_v1", opening ? "0" : "1");
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
 document.getElementById("review-today-btn").addEventListener("click", () => {
@@ -8234,6 +8235,11 @@ saveMasterySnapshot();
 renderMasteryStats();
 updateBackupLabel();
 autoBackup();
+if (localStorage.getItem("oxford_progress_open_v1") === "1") {
+  document.getElementById("progress-panel").classList.remove("hidden");
+  document.getElementById("progress-btn").classList.add("active");
+  renderProgressPanel();
+}
 </script>
 </body>
 </html>
