@@ -1877,7 +1877,7 @@ const TRANS = {
   "jump":"/dʒʌmp/","smile":"/smaɪl/","laugh":"/læf/","cry":"/kraɪ/",
   "fight":"/faɪt/","dance":"/dæns/","sing":"/sɪŋ/","cook":"/kʊk/",
   "clean":"/kliːn/","close":"/kloʊz/","choose":"/tʃuːz/","check":"/tʃɛk/",
-  "count":"/kaʊnt/","cover":"/ˈkʌvər/","climb":"/klaɪm/","collect":"/kəˈlɛkt/",
+  "count":"/kaʊnt/","cover":"/ˈkʌvər/","climb":"/klaɪm/","collect":"/kəˈlɛkt/","club":"/klʌb/",
   "complete":"/kəmˈpliːt/","connect":"/kəˈnɛkt/","control":"/kənˈtroʊl/",
   "copy":"/ˈkɑːpi/","cost":"/kɔːst/","cross":"/krɔːs/","depend":"/dɪˈpɛnd/",
   "describe":"/dɪˈskraɪb/","develop":"/dɪˈvɛləp/","draw":"/drɔː/","drop":"/drɑːp/",
@@ -6143,8 +6143,7 @@ function nextWord() {
     const vals = getEn(currentWord);
     currentShown = vals[Math.floor(Math.random() * vals.length)];
     wordDisplay.textContent = currentShown;
-    const bareWord = currentShown.startsWith("to ") ? currentShown.slice(3) : currentShown;
-    wordTrans.textContent = TRANS[bareWord] || TRANS[currentShown] || "";
+    wordTrans.textContent = "";
   } else if (mode === "en-def") {
     const enWord = getEn(currentWord)[0];
     currentShown = enWord;
@@ -6156,12 +6155,12 @@ function nextWord() {
     const enWord = getEn(currentWord)[0];
     currentShown = enWord;
     wordDisplay.textContent = enWord;
-    wordTrans.textContent = TRANS[enWord] || "";
+    wordTrans.textContent = "";
   } else if (mode === "en-ant") {
     const enWord = getEn(currentWord)[0];
     currentShown = enWord;
     wordDisplay.textContent = enWord;
-    wordTrans.textContent = TRANS[enWord] || "";
+    wordTrans.textContent = "";
   } else if (mode === "en-cloze") {
     const enWord = getEn(currentWord)[0];
     const uaWord = getUa(currentWord)[0];
@@ -6431,6 +6430,8 @@ function startGame(pool) {
   endScreen.classList.add("hidden");
   gameEl.classList.remove("hidden");
   hideLeaderboard();
+  document.getElementById("progress-panel").classList.add("hidden");
+  document.getElementById("progress-btn").classList.remove("active");
 
   nextWord();
   intervalId = setInterval(tick, 1000);
@@ -7012,6 +7013,7 @@ const EN_TO_UA = (() => {
   m.set("fuel",        ["пальне", "паливо"]);
   m.set("unprovoked",  ["невиправданий", "безпричинний"]);
   m.set("countryside", ["сільська місцевість", "село"]);
+  m.set("club",        ["клуб"]);
   m.set("noble",       ["благородний"]);
   m.set("noise",       ["шум"]);
   m.set("novel",       ["роман", "новий"]);
@@ -7426,7 +7428,7 @@ function renderList() {
     const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + wrapSentence(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
     const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
-    const transStr = (r.mode === "ua-en" && enW) ? (TRANS[enW] || "") : "";
+    const transStr = (r.mode === "ua-en" || r.mode === "en-ua") && enW ? (TRANS[enW] || "") : "";
     const transHtml = transStr ? '<span class="row-trans">' + transStr + '</span>' : "";
     if (r.status === "correct") {
       return '<div class="row correct"><span>' + pair + transHtml + '</span><span class="mark">✓</span></div>';
