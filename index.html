@@ -345,7 +345,7 @@
     color: rgba(255,255,255,0.4); cursor: pointer;
     padding: 4px;
   }
-  .rm-cancel:hover { color: rgba(255,255,255,0.7); }
+  .rm-btn.rm-selected { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.55); }
 
   /* result */
   .result { font-size: 20px; line-height: 1.6; }
@@ -6075,6 +6075,8 @@ let currentWordIndex = -1;
 let reviewRemaining = null;
 let reviewDir = "en-ua";
 let pendingReviewPool = null;
+let rmSelectedIdx = 0;
+const RM_DIRS = ["en-ua", "ua-en", "random"];
 let reviewCorrectCounts = null;
 let reviewTaintedIndices = null;   // words that had any mistake/skip during current review
 const REVIEW_REQUIRED_CORRECT = 3;
@@ -6469,9 +6471,24 @@ function endGame(endedEarly) {
   endScreen.classList.remove("hidden");
 }
 
+function updateRmSelection() {
+  document.querySelectorAll(".rm-btn").forEach((btn, i) => {
+    btn.classList.toggle("rm-selected", i === rmSelectedIdx);
+  });
+}
+function confirmRmSelection() {
+  const dir = RM_DIRS[rmSelectedIdx];
+  reviewDir = dir;
+  if (dir !== "random") setMode(dir); else setMode("en-ua");
+  document.getElementById("review-mode-modal").classList.add("hidden");
+  startGame(pendingReviewPool);
+  pendingReviewPool = null;
+}
 function showReviewModeModal(pool) {
   if (!pool || pool.length === 0) return;
   pendingReviewPool = pool;
+  rmSelectedIdx = 0;
+  updateRmSelection();
   document.getElementById("review-mode-modal").classList.remove("hidden");
 }
 
@@ -6479,7 +6496,12 @@ function startReview() {
   const failedIndices = [...new Set(
     records.filter(r => r.status !== "correct").map(r => r.wordIndex)
   )];
-  showReviewModeModal(failedIndices);
+  if (failedIndices.length === 0) return;
+  // Same direction as game, fallback to en-ua for non-translation modes
+  const dir = (mode === "ua-en" || mode === "en-ua") ? mode : "en-ua";
+  reviewDir = dir;
+  setMode(dir);
+  startGame(failedIndices);
 }
 
 function setFilter(f) {
@@ -7486,12 +7508,8 @@ document.getElementById("review-today-btn").addEventListener("click", () => {
 document.getElementById("review-mode-modal").addEventListener("click", e => {
   const btn = e.target.closest(".rm-btn");
   if (btn) {
-    reviewDir = btn.dataset.dir;
-    if (reviewDir !== "random") setMode(reviewDir);
-    else setMode("en-ua"); // initial; nextWord will randomize per-word
-    document.getElementById("review-mode-modal").classList.add("hidden");
-    startGame(pendingReviewPool);
-    pendingReviewPool = null;
+    rmSelectedIdx = RM_DIRS.indexOf(btn.dataset.dir);
+    confirmRmSelection();
     return;
   }
   if (e.target.id === "rm-cancel" || e.target === document.getElementById("review-mode-modal")) {
@@ -7572,6 +7590,22 @@ document.addEventListener("keyup", e => {
 });
 
 document.addEventListener("keydown", e => {
+  // Review mode modal intercepts Esc / Tab / Enter while open
+  if (!document.getElementById("review-mode-modal").classList.contains("hidden")) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      document.getElementById("review-mode-modal").classList.add("hidden");
+      pendingReviewPool = null;
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      rmSelectedIdx = (rmSelectedIdx + 1) % RM_DIRS.length;
+      updateRmSelection();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      confirmRmSelection();
+    }
+    return;
+  }
   if (e.key === "Escape" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
     awaitingAfterWrong = false;
