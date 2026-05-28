@@ -301,6 +301,42 @@
   .prog-learning{ color: #87b4ff; font-size: 13px; font-weight: 600; }
   .prog-new     { color: #ffa94d; font-size: 13px; font-weight: 600; }
   .prog-none    { opacity: 0.35; font-size: 13px; }
+  #review-mode-modal {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+  }
+  #review-mode-modal.hidden { display: none; }
+  .rm-card {
+    background: rgba(30,60,114,0.97);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+    padding: 28px 32px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .rm-title { font-size: 16px; font-weight: 600; margin-bottom: 18px; opacity: 0.9; }
+  .rm-btns { display: flex; flex-direction: column; gap: 10px; }
+  .rm-btn {
+    font-size: 15px; padding: 11px;
+    border-radius: 12px; cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    transition: background 0.15s;
+  }
+  .rm-btn:hover { background: rgba(255,255,255,0.2); }
+  .rm-cancel {
+    margin-top: 6px; font-size: 13px;
+    background: none; border: none;
+    color: rgba(255,255,255,0.4); cursor: pointer;
+    padding: 4px;
+  }
+  .rm-cancel:hover { color: rgba(255,255,255,0.7); }
 
   /* result */
   .result { font-size: 20px; line-height: 1.6; }
@@ -492,6 +528,17 @@
     <div class="results-list" id="results-list"></div>
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
     <button id="restart-btn">Спробувати ще раз</button>
+  </div>
+</div>
+<div id="review-mode-modal" class="hidden">
+  <div class="rm-card">
+    <div class="rm-title">Напрямок перекладу</div>
+    <div class="rm-btns">
+      <button class="rm-btn" data-dir="en-ua">🇺🇸 → 🇺🇦 &nbsp;Англ. → Укр.</button>
+      <button class="rm-btn" data-dir="ua-en">🇺🇦 → 🇺🇸 &nbsp;Укр. → Англ.</button>
+      <button class="rm-btn" data-dir="random">🔀 &nbsp;Випадковий</button>
+    </div>
+    <button class="rm-cancel" id="rm-cancel">Скасувати</button>
   </div>
 </div>
 <aside class="leaderboard hidden" id="leaderboard">
@@ -6014,6 +6061,8 @@ let shufflePos = 0;
 let activePool = null;
 let currentWordIndex = -1;
 let reviewRemaining = null;
+let reviewDir = "en-ua";
+let pendingReviewPool = null;
 let reviewCorrectCounts = null;
 let reviewTaintedIndices = null;   // words that had any mistake/skip during current review
 const REVIEW_REQUIRED_CORRECT = 3;
@@ -6061,6 +6110,7 @@ function nextWord() {
       pick = indices[(indices.indexOf(pick) + 1) % indices.length];
     }
     currentWordIndex = pick;
+    if (reviewDir === "random") mode = Math.random() < 0.5 ? "en-ua" : "ua-en";
   } else {
     if (shufflePos >= shuffledIndices.length) {
       if (!shuffledIndices.length) { endGame(); return; }
@@ -6398,12 +6448,17 @@ function endGame(endedEarly) {
   endScreen.classList.remove("hidden");
 }
 
+function showReviewModeModal(pool) {
+  if (!pool || pool.length === 0) return;
+  pendingReviewPool = pool;
+  document.getElementById("review-mode-modal").classList.remove("hidden");
+}
+
 function startReview() {
   const failedIndices = [...new Set(
     records.filter(r => r.status !== "correct").map(r => r.wordIndex)
   )];
-  if (failedIndices.length === 0) return;
-  startGame(failedIndices);
+  showReviewModeModal(failedIndices);
 }
 
 function setFilter(f) {
@@ -7400,7 +7455,23 @@ document.getElementById("review-today-btn").addEventListener("click", () => {
   const m = loadDayMistakes();
   const mistakes = m[day] || [];
   if (mistakes.length === 0) return;
-  startGame(mistakes);
+  showReviewModeModal(mistakes);
+});
+document.getElementById("review-mode-modal").addEventListener("click", e => {
+  const btn = e.target.closest(".rm-btn");
+  if (btn) {
+    reviewDir = btn.dataset.dir;
+    if (reviewDir !== "random") setMode(reviewDir);
+    else setMode("en-ua"); // initial; nextWord will randomize per-word
+    document.getElementById("review-mode-modal").classList.add("hidden");
+    startGame(pendingReviewPool);
+    pendingReviewPool = null;
+    return;
+  }
+  if (e.target.id === "rm-cancel" || e.target === document.getElementById("review-mode-modal")) {
+    document.getElementById("review-mode-modal").classList.add("hidden");
+    pendingReviewPool = null;
+  }
 });
 tabAll.addEventListener("click", () => setFilter("all"));
 tabBad.addEventListener("click", () => setFilter("bad"));
