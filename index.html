@@ -444,6 +444,34 @@
   }
   .row-example-ua { font-size: 12px; opacity: 0.58; font-style: italic; margin-top: 3px; color: #ffd166; }
   .tip-ipa { display: block; font-size: 12px; opacity: 0.85; font-style: normal; margin-top: 2px; color: #c8d8ff; letter-spacing: 0.03em; }
+  #milestone-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none; opacity: 0;
+  }
+  #milestone-overlay.show { animation: ms-pop 2.4s ease forwards; }
+  @keyframes ms-pop {
+    0%   { opacity: 0; transform: scale(0.75); }
+    12%  { opacity: 1; transform: scale(1.06); }
+    22%  { opacity: 1; transform: scale(1); }
+    70%  { opacity: 1; }
+    100% { opacity: 0; transform: scale(1); }
+  }
+  .ms-box {
+    background: rgba(20, 45, 95, 0.95);
+    border: 2px solid #ffd166;
+    border-radius: 22px; padding: 28px 48px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(255,209,102,0.35), 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .ms-box.cleared {
+    border-color: #7be07b;
+    box-shadow: 0 0 50px rgba(123,224,123,0.35), 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .ms-icon { font-size: 52px; display: block; margin-bottom: 10px; }
+  .ms-text { font-size: 22px; font-weight: 700; color: #ffd166; }
+  .ms-box.cleared .ms-text { color: #7be07b; }
+  .ms-sub  { font-size: 13px; opacity: 0.65; color: #fff; margin-top: 5px; }
   .row-left { flex: 1; min-width: 0; }
   .row-right { display: flex; align-items: flex-start; gap: 7px; flex-shrink: 0; max-width: 50%; }
   .row-right-text { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 2px; min-width: 0; }
@@ -6629,6 +6657,33 @@ function sfxEnd() {
   _beep(659, 0.14, 0.12, 0.16);
   _beep(523, 0.28, 0.22, 0.16);
 }
+function sfxMilestone() {
+  // Ascending arpeggio: C5 → E5 → G5 → C6
+  _beep(523,  0,    0.10, 0.18);
+  _beep(659,  0.12, 0.10, 0.18);
+  _beep(784,  0.24, 0.10, 0.18);
+  _beep(1047, 0.36, 0.25, 0.20);
+}
+function sfxCleared() {
+  // Satisfying 3-note resolve: E5 → A5 → E6
+  _beep(659,  0,    0.12, 0.16);
+  _beep(880,  0.15, 0.12, 0.18);
+  _beep(1319, 0.30, 0.40, 0.20);
+}
+let _msTimer = null;
+function showMilestone(icon, text, sub, type) {
+  const ov  = document.getElementById("milestone-overlay");
+  const box = ov.querySelector(".ms-box");
+  ov.querySelector(".ms-icon").textContent = icon;
+  ov.querySelector(".ms-text").textContent = text;
+  ov.querySelector(".ms-sub").textContent  = sub || "";
+  box.className = "ms-box" + (type === "cleared" ? " cleared" : "");
+  ov.classList.remove("show");
+  void ov.offsetWidth;
+  ov.classList.add("show");
+  if (_msTimer) clearTimeout(_msTimer);
+  _msTimer = setTimeout(() => ov.classList.remove("show"), 2500);
+}
 
 function startGame(pool) {
   activePool = pool || null;
@@ -6713,6 +6768,11 @@ function endGame(endedEarly) {
     newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
+      // 5-game milestone
+      const gamesCount = (loadDays()[newDayKey] || {}).games || 0;
+      if (gamesCount > 0 && gamesCount % 5 === 0) {
+        setTimeout(() => { sfxMilestone(); showMilestone("🎯", gamesCount + " ігор!", "Урок виконано!", "milestone"); }, 900);
+      }
     }
     updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
     updateLatest({ score, wrong, skipped, mode, ts, wordCount });
@@ -6723,6 +6783,11 @@ function endGame(endedEarly) {
       const secsPerWord = Math.round(reviewElapsed / wordsReviewed);
       summaryEl.textContent +=
         " · ~" + secsPerWord + " " + (secsPerWord === 1 ? "сек" : "сек") + "/слово";
+    }
+    // All today's mistakes cleared?
+    const todayMistakes = (loadDayMistakes()[todayKey()] || []);
+    if (todayMistakes.length === 0) {
+      setTimeout(() => { sfxCleared(); showMilestone("✨", "Усі помилки закриті!", "Так тримати!", "cleared"); }, 900);
     }
   }
   renderLeaderboard(newEntryId, newDayKey);
@@ -8534,5 +8599,12 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
   renderProgressPanel();
 }
 </script>
+<div id="milestone-overlay">
+  <div class="ms-box">
+    <span class="ms-icon"></span>
+    <div class="ms-text"></div>
+    <div class="ms-sub"></div>
+  </div>
+</div>
 </body>
 </html>
