@@ -8361,7 +8361,7 @@ function renderProgressPanel() {
     const prev = idx > 0 ? history[allDates[idx-1]] : {k:0,l:0,t:WORDS.length};
     const rev = (days[date] && days[date].reviewCorrect) || 0;
     const games = (days[date] && days[date].games) || 0;
-    const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' іг.</span>' : '';
+    const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev);
     return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
@@ -8378,7 +8378,7 @@ function renderProgressPanel() {
       const weeks = _progGroupBy(weekDates, _progMondayKey);
       html += Object.keys(weeks).sort().reverse().map(wk => {
         const {dk, dl, games, rev} = _progAggregate(weeks[wk], history, allDates, days);
-        const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' іг.</span>' : '';
+        const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
         return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtRange(weeks[wk]) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev) + '</span></div>';
       }).join("");
     }
@@ -8388,7 +8388,7 @@ function renderProgressPanel() {
       const months = _progGroupBy(monthDates, d => d.slice(0,7));
       html += Object.keys(months).sort().reverse().map(mk => {
         const {dk, dl, games, rev} = _progAggregate(months[mk], history, allDates, days);
-        const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' іг.</span>' : '';
+        const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
         return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtMonth(mk) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev) + '</span></div>';
       }).join("");
     }
