@@ -7676,14 +7676,21 @@ function wrapSentence(sentence) {
   });
 }
 
-function wrapEnWord(word, ipa) {
-  const bare = word.replace(/^to /, "");
-  const stem = stemEn(bare);
-  const trans = stem ? EN_TO_UA.get(stem).join(", ") : "";
-  let attrs = ' class="hw"';
-  if (trans) attrs += ' data-trans="' + esc(trans) + '"';
-  if (ipa)   attrs += ' data-ipa="'   + esc(ipa)   + '"';
-  return '<span' + attrs + '>' + esc(word) + '</span>';
+// Wraps one or more EN answer words (joined by " / ") so each is individually
+// clickable (TTS) and hoverable (translation + IPA). Looks up IPA per word.
+function wrapEnWord(words) {
+  return String(words).split(" / ").map(word => {
+    const w = word.trim();
+    if (!w) return esc(word);
+    const bare = w.replace(/^to /, "");
+    const stem = stemEn(bare);
+    const trans = stem ? EN_TO_UA.get(stem).join(", ") : "";
+    const ipa = TRANS[w] || TRANS[bare] || TRANS[bare.toLowerCase()] || "";
+    let attrs = ' class="hw"';
+    if (trans) attrs += ' data-trans="' + esc(trans) + '"';
+    if (ipa)   attrs += ' data-ipa="'   + esc(ipa)   + '"';
+    return '<span' + attrs + '>' + esc(w) + '</span>';
+  }).join(' / ');
 }
 
 function renderList() {
@@ -7701,17 +7708,15 @@ function renderList() {
   listEl.innerHTML = rows.map(r => {
     const enW = r.enWord || "";
     const uaW = r.uaWord || "";
-    const transStr = (r.mode === "ua-en" || r.mode === "en-ua") && enW
-      ? (TRANS[enW] || TRANS[enW.replace(/^to /, "")] || "") : "";
     let pair;
     if ((r.mode === "en-def" || r.mode === "en-cloze") && r.enWord && r.uaWord) {
       pair = wrapSentence(r.enWord) + " — " + esc(r.uaWord);
     } else if (r.mode === "en-syn" || r.mode === "en-ant") {
       pair = wrapSentence(r.shown) + " = " + wrapSentence(r.correct);
     } else if (r.mode === "ua-en") {
-      pair = esc(r.shown) + " = " + wrapEnWord(r.correct, transStr);
+      pair = esc(r.shown) + " = " + wrapEnWord(r.correct);
     } else if (r.mode === "en-ua") {
-      pair = wrapEnWord(r.shown, transStr) + " = " + esc(r.correct);
+      pair = wrapEnWord(r.shown) + " = " + esc(r.correct);
     } else {
       pair = esc(r.shown) + " = " + esc(r.correct);
     }
