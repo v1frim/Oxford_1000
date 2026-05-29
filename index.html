@@ -6599,6 +6599,37 @@ function tick() {
   }
 }
 
+// ── Sound effects (Web Audio API) ────────────────────────────────────────────
+let _audioCtx = null;
+function _ctx() {
+  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return _audioCtx;
+}
+function _beep(freq, startAt, duration, vol) {
+  const ctx = _ctx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(freq, ctx.currentTime + startAt);
+  gain.gain.setValueAtTime(0, ctx.currentTime + startAt);
+  gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + startAt + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startAt + duration);
+  osc.start(ctx.currentTime + startAt);
+  osc.stop(ctx.currentTime + startAt + duration);
+}
+function sfxStart() {
+  // Two ascending tones: E5 → G5
+  _beep(659, 0,    0.12, 0.18);
+  _beep(784, 0.13, 0.18, 0.18);
+}
+function sfxEnd() {
+  // Three descending tones: G5 → E5 → C5
+  _beep(784, 0,    0.12, 0.16);
+  _beep(659, 0.14, 0.12, 0.16);
+  _beep(523, 0.28, 0.22, 0.16);
+}
+
 function startGame(pool) {
   activePool = pool || null;
   if (activePool) {
@@ -6657,6 +6688,7 @@ function startGame(pool) {
 
   nextWord();
   intervalId = setInterval(tick, 1000);
+  sfxStart();
 }
 
 function endGame(endedEarly) {
@@ -6664,6 +6696,7 @@ function endGame(endedEarly) {
   correctionEl.classList.add("hidden");
   answerEl.disabled = false;
   if (intervalId) { clearInterval(intervalId); intervalId = null; }
+  sfxEnd();
   gameEl.classList.add("hidden");
   finalScoreEl.textContent = score;
   const wrong   = records.filter(r => r.status === "wrong").length;
