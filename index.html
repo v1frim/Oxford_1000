@@ -6719,6 +6719,11 @@ function endGame(endedEarly) {
   } else {
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
+    if (wordsReviewed > 0) {
+      const secsPerWord = Math.round(reviewElapsed / wordsReviewed);
+      summaryEl.textContent +=
+        " · ~" + secsPerWord + " " + (secsPerWord === 1 ? "сек" : "сек") + "/слово";
+    }
   }
   renderLeaderboard(newEntryId, newDayKey);
   setFilter("all");
