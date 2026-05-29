@@ -6774,7 +6774,7 @@ function endGame(endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
       // 5-game milestone
       const gamesCount = (loadDays()[newDayKey] || {}).games || 0;
-      if (gamesCount > 0 && gamesCount % 5 === 0) {
+      if (gamesCount > 0 && gamesCount % 4 === 0) {
         setTimeout(() => { sfxMilestone(); showMilestone("🎯", gamesCount + " ігор!", "Урок виконано!", "milestone"); }, 900);
       }
     }
