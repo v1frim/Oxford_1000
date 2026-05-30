@@ -660,7 +660,7 @@
     <div id="lh-header">
       <h2>📚 Уроки LingoHut</h2>
       <span id="lh-progress-text"></span>
-      <a id="lh-link" href="https://www.lingohut.com/uk/v758863/%D1%83%D1%80%D0%BE%D0%BA%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D0%BE%D1%97-%D0%BF%D0%B5%D1%80%D1%88%D0%B0-%D0%B7%D1%83%D1%81%D1%82%D1%80%D1%96%D1%87" target="_blank" rel="noopener">Відкрити LingoHut ↗</a>
+      <a id="lh-link" href="https://www.lingohut.com/uk/l1/%D0%B2%D1%87%D0%B8%D1%82%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D1%83" target="_blank" rel="noopener">Відкрити LingoHut ↗</a>
       <button id="lh-close" onclick="closeLhScreen()">✕</button>
     </div>
     <div id="lh-xp-info"></div>
@@ -8562,6 +8562,15 @@ function trackDayXp(delta) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(h));
   } catch(e) {}
 }
+function deductDayXp(delta) {
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    const h = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}");
+    h[today] = Math.max(0, (h[today] || 0) - delta);
+    if (h[today] === 0) delete h[today];
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(h));
+  } catch(e) {}
+}
 function getDayXpGain(date) {
   try { return JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}")[date] || 0; } catch(e) { return 0; }
 }
@@ -9053,20 +9062,29 @@ function loadLhDone() {
 function saveLhDone(set) { localStorage.setItem(LH_KEY, JSON.stringify([...set])); }
 
 function openLhScreen() {
+  hideLeaderboard();
   document.getElementById("lh-screen").classList.remove("hidden");
   renderLhGrid();
 }
 function closeLhScreen() {
   document.getElementById("lh-screen").classList.add("hidden");
+  renderLeaderboard();
   renderXpBar();
 }
 function toggleLhLesson(n) {
   const done = loadLhDone();
-  if (done.has(n)) { done.delete(n); addXp(-LH_XP_PER); }
-  else { done.add(n); addXp(LH_XP_PER); }
+  if (done.has(n)) {
+    done.delete(n);
+    addXp(-LH_XP_PER);
+    deductDayXp(LH_XP_PER);
+  } else {
+    done.add(n);
+    addXp(LH_XP_PER);
+  }
   saveLhDone(done);
   renderLhGrid();
   renderXpBar();
+  if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
 }
 function renderLhGrid() {
   const done = loadLhDone();
@@ -9081,7 +9099,9 @@ function renderLhGrid() {
     ).join("");
 }
 
-document.getElementById("lh-btn").addEventListener("click", openLhScreen);
+document.getElementById("lh-btn").addEventListener("click", () => {
+  document.getElementById("lh-screen").classList.contains("hidden") ? openLhScreen() : closeLhScreen();
+});
 
 renderLeaderboard();
 renderLbTotals();
