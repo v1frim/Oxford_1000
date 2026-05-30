@@ -273,13 +273,18 @@
   .ms-learning{ color: #87b4ff; }
   .ms-new     { color: #ffa94d; }
   #mastery-today {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
     font-size: 12px;
-    text-align: center;
     margin-top: 7px;
     color: rgba(255,255,255,0.45);
-    display: none;
+    padding: 0 2px;
   }
-  #mastery-today span { font-weight: 600; margin-left: 3px; }
+  .today-left { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+  .today-left span { font-weight: 600; }
+  .today-total { color: rgba(255,255,255,0.28); font-size: 11px; white-space: nowrap; padding-left: 8px; }
+  .lb-list li.lb-yesterday-date .lb-mode { font-weight: 700; color: #87b4ff; opacity: 1; }
   .prog-new { color: #ffa94d; }
   #mastery-bar {
     display: flex;
@@ -8457,19 +8462,24 @@ function renderMasteryStats() {
     const todayIdx = allDates.indexOf(todayStr);
     const todaySnap = history[todayStr];
     const prevSnap = todayIdx > 0 ? history[allDates[todayIdx - 1]] : null;
+    const rev = (loadDays()[todayStr] || {}).reviewCorrect || 0;
+    let leftHtml = '';
     if (todaySnap && prevSnap) {
       const dk = todaySnap.k - prevSnap.k;
       const dl = todaySnap.l - prevSnap.l;
       const dt = (todaySnap.t || WORDS.length) - (prevSnap.t || WORDS.length);
-      const parts = [];
-      if (dk !== 0) parts.push('<span class="ms-known">' + (dk > 0 ? '+' : '') + dk + ' ✓</span>');
-      if (dl !== 0) parts.push('<span class="ms-learning">' + (dl > 0 ? '+' : '') + dl + ' ↗</span>');
-      if (dt > 0)   parts.push('<span class="ms-new">+' + dt + ' ●</span>');
-      if (parts.length) { todayEl.innerHTML = 'сьогодні: ' + parts.join(''); todayEl.style.display = ''; }
-      else todayEl.style.display = 'none';
-    } else {
-      todayEl.style.display = 'none';
+      if (dk !== 0) leftHtml += '<span class="ms-known">' + (dk > 0 ? '+' : '') + dk + ' ✓</span>';
+      if (dl !== 0) leftHtml += '<span class="ms-learning">' + (dl > 0 ? '+' : '') + dl + ' ↗</span>';
+      if (rev > 0)  leftHtml += '<span class="lb-review">🔁 +' + rev + '</span>';
+      if (dt > 0)   leftHtml += '<span class="ms-new">+' + dt + ' ●</span>';
+    } else if (rev > 0) {
+      leftHtml += '<span class="lb-review">🔁 +' + rev + '</span>';
     }
+    const leftPart = leftHtml
+      ? '<span class="today-left">сьогодні: ' + leftHtml + '</span>'
+      : '<span></span>';
+    todayEl.innerHTML = leftPart + '<span class="today-total">' + WORDS.length + ' слів</span>';
+    todayEl.style.display = 'flex';
   }
 }
 function loadDayMistakes() {
@@ -8579,9 +8589,11 @@ function renderTabGames() {
     };
     const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
+    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
     const isLatestGame = !cls && latest && s.ts === latest.ts;
     const klass = (cls || "")
       + (isTodayGame ? " is-today-game" : "")
+      + (isYesterdayGame ? " lb-yesterday-date" : "")
       + (isLatestGame ? " is-latest-game" : "");
     const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
     return '<li class="' + klass + '">' +
