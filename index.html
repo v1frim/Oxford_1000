@@ -8527,6 +8527,7 @@ function renderTabGames() {
   const todayBest = loadTodayBest();
   const latest = loadLatest();
   const today = todayKey();
+  const latestYesterdayTs = scores.filter(s => isYesterdayKey(tsToDayKey(s.ts))).reduce((max, s) => s.ts > max ? s.ts : max, "");
   const renderGameRow = (s, cls) => {
     const LB_MODE_LABELS = {
       "ua-en":    "UA→US",
@@ -8538,7 +8539,7 @@ function renderTabGames() {
     };
     const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
-    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
+    const isYesterdayGame = !isTodayGame && latestYesterdayTs && s.ts === latestYesterdayTs;
     const isLatestGame = !cls && latest && s.ts === latest.ts;
     const klass = (cls || "")
       + (isTodayGame ? " is-today-game" : "")
