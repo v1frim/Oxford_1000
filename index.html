@@ -271,6 +271,15 @@
   .ms-known   { color: #7be07b; }
   .ms-learning{ color: #87b4ff; }
   .ms-new     { color: #ffa94d; }
+  #mastery-today {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 7px;
+    color: rgba(255,255,255,0.45);
+    display: none;
+  }
+  #mastery-today span { font-weight: 600; margin-left: 3px; }
+  .prog-new { color: #ffa94d; }
   #mastery-bar {
     display: flex;
     height: 4px;
@@ -506,6 +515,7 @@
     <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
     <div id="mastery-stats"></div>
     <div id="mastery-bar"></div>
+    <div id="mastery-today"></div>
     <button id="progress-btn">📈 Прогрес по днях</button>
     <div id="backup-row">
       <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
@@ -8329,13 +8339,14 @@ function _progGroupBy(dates, keyFn) {
   for (const d of dates) { const k = keyFn(d); if (!g[k]) g[k] = []; g[k].push(d); }
   return g;
 }
-function _progDeltaHtml(dk, dl, rev) {
+function _progDeltaHtml(dk, dl, rev, dt) {
   let h = "";
   if (dk > 0) h += '<span class="prog-known">+' + dk + ' ✓</span>';
   if (dl > 0) h += '<span class="prog-learning">+' + dl + ' ↗</span>';
   if (dk < 0) h += '<span class="prog-known">' + dk + ' ✓</span>';
   if (dl < 0) h += '<span class="prog-learning">' + dl + ' ↗</span>';
   if (rev > 0) h += '<span class="lb-review">🔁 +' + rev + '</span>';
+  if (dt > 0) h += '<span class="prog-new">+' + dt + ' ●</span>';
   return h || '<span class="prog-none">—</span>';
 }
 function _progAggregate(dates, history, allDates, days) {
@@ -8344,7 +8355,8 @@ function _progAggregate(dates, history, allDates, days) {
   const last = history[dates[dates.length-1]] || prev;
   let games = 0, rev = 0;
   for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } }
-  return { dk: last.k - prev.k, dl: last.l - prev.l, games, rev };
+  const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev };
 }
 function _progFmtRange(dates) {
   const months = ["січ","лют","бер","кві","тра","чер","лип","сер","вер","жов","лис","гру"];
@@ -8381,7 +8393,8 @@ function renderProgressPanel() {
     const rev = (days[date] && days[date].reviewCorrect) || 0;
     const games = (days[date] && days[date].games) || 0;
     const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
-    const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev);
+    const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
+    const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
@@ -8398,7 +8411,7 @@ function renderProgressPanel() {
       html += Object.keys(weeks).sort().reverse().map(wk => {
         const {dk, dl, games, rev} = _progAggregate(weeks[wk], history, allDates, days);
         const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
-        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtRange(weeks[wk]) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev) + '</span></div>';
+        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtRange(weeks[wk]) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
       }).join("");
     }
 
@@ -8408,7 +8421,7 @@ function renderProgressPanel() {
       html += Object.keys(months).sort().reverse().map(mk => {
         const {dk, dl, games, rev} = _progAggregate(months[mk], history, allDates, days);
         const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
-        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtMonth(mk) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev) + '</span></div>';
+        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtMonth(mk) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
       }).join("");
     }
   }
@@ -8425,11 +8438,32 @@ function renderMasteryStats() {
     '<span class="ms-learning">↗ Вивчаю: ' + learning + '</span>' +
     '<span class="ms-new">● Нові: ' + novel + '</span>';
   const bar = document.getElementById("mastery-bar");
-  const total = WORDS.length;
   bar.innerHTML =
     '<div style="flex:' + known + ';background:#7be07b"></div>' +
     '<div style="flex:' + learning + ';background:#87b4ff"></div>' +
     '<div style="flex:' + novel + ';background:#ffa94d"></div>';
+  const todayEl = document.getElementById("mastery-today");
+  if (todayEl) {
+    const history = loadMasteryHistory();
+    const allDates = Object.keys(history).sort();
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const todayIdx = allDates.indexOf(todayStr);
+    const todaySnap = history[todayStr];
+    const prevSnap = todayIdx > 0 ? history[allDates[todayIdx - 1]] : null;
+    if (todaySnap && prevSnap) {
+      const dk = todaySnap.k - prevSnap.k;
+      const dl = todaySnap.l - prevSnap.l;
+      const dt = (todaySnap.t || WORDS.length) - (prevSnap.t || WORDS.length);
+      const parts = [];
+      if (dk !== 0) parts.push('<span class="ms-known">' + (dk > 0 ? '+' : '') + dk + ' ✓</span>');
+      if (dl !== 0) parts.push('<span class="ms-learning">' + (dl > 0 ? '+' : '') + dl + ' ↗</span>');
+      if (dt > 0)   parts.push('<span class="ms-new">+' + dt + ' ●</span>');
+      if (parts.length) { todayEl.innerHTML = 'сьогодні: ' + parts.join(''); todayEl.style.display = ''; }
+      else todayEl.style.display = 'none';
+    } else {
+      todayEl.style.display = 'none';
+    }
+  }
 }
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
