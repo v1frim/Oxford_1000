@@ -84,6 +84,7 @@
   .lb-list li.is-new { box-shadow: inset 3px 0 0 #ffd166; }
   .lb-list li.is-latest-game { box-shadow: inset 3px 0 0 #87b4ff; }
   .lb-list li.is-new.is-latest-game { box-shadow: inset 3px 0 0 #ffd166, inset 0 -2px 0 #87b4ff; }
+  .lb-list li.lb-yesterday { box-shadow: inset 3px 0 0 #87b4ff; font-weight: 700; color: #87b4ff; }
   .lb-list li:nth-child(1) { background: rgba(255, 215, 0, 0.20); border-radius: 6px; }
   .lb-list li:nth-child(2) { background: rgba(192, 200, 215, 0.18); border-radius: 6px; }
   .lb-list li:nth-child(3) { background: rgba(205, 127, 50, 0.22); border-radius: 6px; }
@@ -8536,9 +8537,11 @@ function renderTabGames() {
     };
     const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
+    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
     const isLatestGame = !cls && latest && s.ts === latest.ts;
     const klass = (cls || "")
       + (isTodayGame ? " is-today-game" : "")
+      + (isYesterdayGame ? " lb-yesterday" : "")
       + (isLatestGame ? " is-latest-game" : "");
     const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
     return '<li class="' + klass + '">' +
@@ -8598,7 +8601,8 @@ function renderTabDays() {
   };
   let html = entries.map(e => {
     const isNew = (e.key === lbNewDayKey || e.key === today) ? " is-new" : "";
-    return renderEntry(e, isNew);
+    const isYesterday = !isNew && isYesterdayKey(e.key) ? " lb-yesterday" : "";
+    return renderEntry(e, isNew + isYesterday);
   }).join("");
   if (todayEntry && !entries.some(e => e.key === today)) {
     html += '<li class="lb-sep"></li>' + renderEntry(todayEntry, "lb-today");
@@ -8637,7 +8641,10 @@ function renderTabStreaks() {
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
   };
-  let html = top.map(s => renderStreak(s, s.ongoing ? "is-new" : "")).join("");
+  let html = top.map(s => {
+    const cls = s.ongoing ? "is-new" : (isYesterdayKey(s.end) ? "lb-yesterday" : "");
+    return renderStreak(s, cls);
+  }).join("");
   if (ongoing && !top.some(s => s.start === ongoing.start)) {
     html += '<li class="lb-sep"></li>' + renderStreak(ongoing, "lb-today");
   }
