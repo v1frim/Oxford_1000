@@ -114,6 +114,11 @@
   .lb-games { font-size: 11px; opacity: 0.7; }
   .lb-review { font-size: 11px; color: #87b4ff; opacity: 0.85; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
+  #lb-totals { margin-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
+  .lb-totals-title { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .lb-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; font-size: 13px; }
+  .lb-stat-label { opacity: 0.55; }
+  .lb-stat-val { font-weight: 600; color: #fff; }
   .lb-list li.lb-sep {
     background: transparent !important; box-shadow: none !important;
     border-top: 1px dashed rgba(255,255,255,0.25);
@@ -633,6 +638,7 @@
   <div class="lb-title" id="lb-title">Топ-10 ігор</div>
   <ol class="lb-list" id="lb-list"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
+  <div id="lb-totals"></div>
 </aside>
 </div>
 
@@ -8237,6 +8243,7 @@ document.addEventListener("keydown", e => {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
     renderLeaderboard();
+    renderLbTotals();
     updateReviewTodayBtn();
     saveMasterySnapshot();
     renderMasteryStats();
@@ -8953,6 +8960,32 @@ function renderLeaderboard(newGameId, newDayKey) {
   leaderboardEl.classList.remove("hidden");
 }
 function hideLeaderboard() { leaderboardEl.classList.add("hidden"); }
+function renderLbTotals() {
+  const days = loadDays();
+  let games = 0, correct = 0, wrong = 0, skipped = 0, review = 0;
+  Object.values(days).forEach(d => {
+    games   += d.games   || 0;
+    correct += d.correct || 0;
+    wrong   += d.wrong   || 0;
+    skipped += d.skipped || 0;
+    review  += d.reviewCorrect || 0;
+  });
+  const total = correct + wrong + skipped;
+  const xp = loadXp();
+  const fmt = n => n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,"") + "k" : String(n);
+  const row = (label, val, color) =>
+    '<div class="lb-stat-row"><span class="lb-stat-label">' + label + '</span>' +
+    '<span class="lb-stat-val"' + (color ? ' style="color:' + color + '"' : '') + '>' + fmt(val) + '</span></div>';
+  document.getElementById("lb-totals").innerHTML =
+    '<div class="lb-totals-title">Загальна статистика</div>' +
+    row("Ігор", games) +
+    row("Відповідей", total) +
+    row("Правильних", correct, "#7be07b") +
+    row("Неправильних", wrong, "#ff9d9d") +
+    row("Пропущених", skipped, "rgba(255,255,255,0.45)") +
+    row("Повторень", review, "#87b4ff") +
+    row("Досвід (XP)", xp, "#ffd166");
+}
 
 document.querySelectorAll(".lb-tab").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -8976,6 +9009,7 @@ document.getElementById("backup-btn").addEventListener("click", handleBackupClic
 document.getElementById("import-btn").addEventListener("click", handleImportClick);
 
 renderLeaderboard();
+renderLbTotals();
 updateReviewTodayBtn();
 saveMasterySnapshot();
 renderMasteryStats();
