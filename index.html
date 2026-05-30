@@ -8970,6 +8970,7 @@ function renderLbTotals() {
     skipped += d.skipped || 0;
     review  += d.reviewCorrect || 0;
   });
+  const activeDays = Object.values(days).filter(d => (d.games || 0) > 0).length;
   const total = correct + wrong + skipped;
   const xp = loadXp();
   const fmt = n => String(n);
@@ -8979,6 +8980,7 @@ function renderLbTotals() {
   document.getElementById("lb-totals").innerHTML =
     '<div class="lb-totals-title">Загальна статистика</div>' +
     row("Ігор", games) +
+    row("Днів гри", activeDays) +
     row("Відповідей", total) +
     row("Правильних", correct, "#7be07b") +
     row("Неправильних", wrong, "#ff9d9d") +
