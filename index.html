@@ -8979,8 +8979,8 @@ function renderLbTotals() {
     '<span class="lb-stat-val"' + (color ? ' style="color:' + color + '"' : '') + '>' + fmt(val) + '</span></div>';
   document.getElementById("lb-totals").innerHTML =
     '<div class="lb-totals-title">Загальна статистика</div>' +
-    row("Ігор", games) +
     row("Днів гри", activeDays) +
+    row("Ігор", games) +
     row("Відповідей", total) +
     row("Правильних", correct, "#7be07b") +
     row("Неправильних", wrong, "#ff9d9d") +
