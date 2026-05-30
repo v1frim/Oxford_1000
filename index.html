@@ -6596,14 +6596,15 @@ function nextWord() {
 }
 
 function isCorrect(input) {
-  const inp = input.toLowerCase().trim();
+  const normUa = s => s.toLowerCase().trim().replace(/г/g, "ґ");
+  const inp = normUa(input);
   if (inp === "") return false;
   // Normalize "to X" / "X" so user can type either form for verb entries
   const normEn = s => s.toLowerCase().replace(/^to\s+/, "").trim();
   const inpNorm = normEn(inp);
 
   if (mode === "en-ua") {
-    return getUa(currentWord).some(u => u.toLowerCase() === inp);
+    return getUa(currentWord).some(u => normUa(u) === inp);
   } else if (mode === "ua-en") {
     const shownUa = getUa(currentWord);
     return WORDS.some(w =>
