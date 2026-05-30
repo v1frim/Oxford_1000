@@ -347,47 +347,6 @@
   .prog-new     { color: #ffa94d; font-size: 13px; font-weight: 600; }
   .prog-none    { opacity: 0.35; font-size: 13px; }
   .prog-xp      { color: #ffd166; font-size: 11px; opacity: 0.8; margin-left: 4px; }
-  /* ── Picture mode ─────────────────────────────────────── */
-  .pic-overlay { position:fixed; inset:0; background:rgba(10,26,60,0.95); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); z-index:500; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; color:#fff; }
-  #picture-select h2 { font-size:24px; font-weight:700; margin:0 0 6px; }
-  #picture-select p { opacity:0.5; margin:0 0 24px; font-size:14px; }
-  #pic-grid { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:22px; }
-  .pic-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.18); border-radius:16px; padding:18px 26px; cursor:pointer; text-align:center; transition:background 0.15s,transform 0.15s; min-width:110px; }
-  .pic-card:hover { background:rgba(255,255,255,0.15); transform:translateY(-2px); }
-  .pic-card-emoji { font-size:34px; margin-bottom:8px; }
-  .pic-card-title { font-size:14px; font-weight:700; }
-  .pic-card-count { font-size:11px; opacity:0.45; margin-top:3px; }
-  .pic-back-btn { background:none; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.55); padding:5px 18px; border-radius:20px; cursor:pointer; font-size:13px; }
-  #picture-screen { justify-content:flex-start; padding:16px 28px; }
-  #pic-header { display:flex; align-items:center; gap:16px; width:100%; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); }
-  #pic-scene-title { font-weight:700; font-size:16px; flex:1; }
-  #pic-timer { font-size:22px; font-weight:700; color:#ffd166; min-width:52px; text-align:center; }
-  #pic-score { font-size:14px; color:#87b4ff; min-width:55px; text-align:center; }
-  #pic-finish-btn { background:none; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.5); padding:5px 14px; border-radius:20px; cursor:pointer; font-size:12px; }
-  #pic-body { display:flex; gap:18px; flex:1; width:100%; max-width:1100px; min-height:0; }
-  #pic-image-wrap { flex:1.6; border-radius:14px; overflow:hidden; max-height:calc(100vh - 160px); }
-  #pic-image { width:100%; height:100%; object-fit:cover; border-radius:14px; display:block; }
-  #pic-right { width:230px; display:flex; flex-direction:column; gap:10px; }
-  #pic-found-list { flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:5px; }
-  .pic-found-item { font-size:13px; color:#7be07b; background:rgba(123,224,123,0.1); border-radius:8px; padding:4px 10px; }
-  .pic-found-ua { opacity:0.5; font-weight:400; font-size:12px; }
-  #pic-input-wrap { display:flex; gap:6px; }
-  #pic-input { flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.22); border-radius:10px; color:#fff; padding:9px 12px; font-size:14px; outline:none; transition:border-color 0.15s; }
-  #pic-input:focus { border-color:rgba(255,255,255,0.5); }
-  #pic-input.pic-wrong { border-color:#ff6b6b !important; }
-  #pic-submit { background:#ffd166; border:none; border-radius:10px; padding:8px 14px; cursor:pointer; font-size:16px; color:#1e3c72; font-weight:700; }
-  #picture-end { overflow-y:auto; }
-  #pic-end-box { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:20px; padding:28px 36px; max-width:580px; width:100%; max-height:85vh; overflow-y:auto; }
-  #pic-end-title { margin:0 0 18px; font-size:22px; text-align:center; }
-  #pic-end-found { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
-  .pic-word-found { background:rgba(123,224,123,0.15); border:1px solid rgba(123,224,123,0.3); border-radius:20px; padding:3px 12px; color:#7be07b; font-size:13px; }
-  .pic-end-label { font-size:11px; opacity:0.4; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; }
-  .pic-missed-item { font-size:14px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.07); color:rgba(255,200,120,0.88); }
-  .pic-missed-item b { color:#fff; }
-  #pic-end-missed { margin-bottom:22px; }
-  #pic-end-btns { display:flex; gap:12px; justify-content:center; }
-  #pic-end-btns button { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 22px; border-radius:20px; cursor:pointer; font-size:13px; }
-  #pic-end-btns button:hover { background:rgba(255,255,255,0.18); }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
   .prog-row.prog-group .prog-date { font-size: 12px; }
   .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
@@ -602,12 +561,6 @@
           <button id="btn-en-cloze" class="mode-btn">📝 Cloze</button>
         </div>
       </div>
-      <div class="mode-group">
-        <div class="mode-group-label">Картинка</div>
-        <div class="mode-btns">
-          <button id="btn-picture" class="mode-btn" style="width:100%" onclick="openPictureSelect()">🖼 Описати фото</button>
-        </div>
-      </div>
     </div>
     <button id="start-btn">Почати</button>
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
@@ -682,45 +635,6 @@
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
 </aside>
 </div>
-<!-- Picture mode: scene selector -->
-<div id="picture-select" class="pic-overlay hidden">
-  <h2>🖼 Опиши картинку</h2>
-  <p>Обери сцену і перелічи англійські слова, які бачиш</p>
-  <div id="pic-grid"></div>
-  <button class="pic-back-btn" onclick="closePictureSelect()">← Назад</button>
-</div>
-<!-- Picture mode: game screen -->
-<div id="picture-screen" class="pic-overlay hidden">
-  <div id="pic-header">
-    <span id="pic-scene-title"></span>
-    <span id="pic-timer">1:30</span>
-    <span id="pic-score">0 / 0</span>
-    <button id="pic-finish-btn" onclick="endPictureGame()">Завершити</button>
-  </div>
-  <div id="pic-body">
-    <div id="pic-image-wrap"><img id="pic-image" src="" alt="scene"></div>
-    <div id="pic-right">
-      <div id="pic-found-list"></div>
-      <div id="pic-input-wrap">
-        <input id="pic-input" type="text" autocomplete="off" spellcheck="false" placeholder="Введи слово...">
-        <button id="pic-submit">→</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Picture mode: end screen -->
-<div id="picture-end" class="pic-overlay hidden">
-  <div id="pic-end-box">
-    <h2 id="pic-end-title"></h2>
-    <div id="pic-end-found"></div>
-    <div id="pic-end-missed"></div>
-    <div id="pic-end-btns">
-      <button onclick="restartPictureGame()">🔄 Ще раз</button>
-      <button onclick="closePictureEnd()">← Меню</button>
-    </div>
-  </div>
-</div>
-
 <div id="lb-totals"></div>
 <div id="bottom-left-btns">
   <button id="progress-btn">📈 Прогрес по днях</button>
@@ -9074,123 +8988,6 @@ function renderLbTotals() {
     row("Повторень", review, "#87b4ff") +
     row("Досвід (XP)", xp, "#ffd166");
 }
-
-// ── Picture mode ──────────────────────────────────────────────
-const PICTURE_SCENES = [
-  { title:"Їжа", emoji:"🍎",
-    url:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/800px-Good_Food_Display_-_NCI_Visuals_Online.jpg",
-    words:["apple","orange","bread","food","fruit","plate","bowl","glass","green","red","yellow","banana","salad","tomato","fresh","vegetable","healthy","grape","carrot","blue"] },
-  { title:"Пляж", emoji:"🏖",
-    url:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Maldivesfish2.jpg/800px-Maldivesfish2.jpg",
-    words:["sea","water","wave","sand","sky","sun","cloud","blue","boat","beach","light","clear","fish","white","island","swim","ocean","horizon","rock","shell"] },
-  { title:"Ліс", emoji:"🌲",
-    url:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-nature-natural-beauty.jpg/800px-24701-nature-natural-beauty.jpg",
-    words:["tree","leaf","grass","flower","light","path","green","branch","ground","forest","wood","sun","tall","root","trunk","nature","shade","wild","bird","moss"] },
-  { title:"Місто", emoji:"🏙",
-    url:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/NYC_wideangle_south_from_Top_of_the_Rock.jpg/800px-NYC_wideangle_south_from_Top_of_the_Rock.jpg",
-    words:["building","window","road","sky","city","car","street","tower","cloud","park","tree","glass","light","bridge","traffic","tall","modern","busy","grey","roof"] },
-  { title:"Вогнище", emoji:"🔥",
-    url:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Bonfire_01.jpg/800px-Bonfire_01.jpg",
-    words:["fire","flame","wood","branch","smoke","night","dark","light","sand","heat","red","orange","black","burn","warm","stick","ash","lake","water","sky"] },
-];
-
-let picScene = null, picFound = new Set(), picTimerInterval = null, picSeconds = 0;
-const PIC_DURATION = 90;
-
-function openPictureSelect() {
-  startScreen.classList.add("hidden");
-  const grid = document.getElementById("pic-grid");
-  grid.innerHTML = PICTURE_SCENES.map((s, i) =>
-    '<div class="pic-card" onclick="startPictureGame(' + i + ')">' +
-    '<div class="pic-card-emoji">' + s.emoji + '</div>' +
-    '<div class="pic-card-title">' + s.title + '</div>' +
-    '<div class="pic-card-count">' + s.words.length + ' слів</div></div>'
-  ).join("");
-  document.getElementById("picture-select").classList.remove("hidden");
-}
-function closePictureSelect() {
-  document.getElementById("picture-select").classList.add("hidden");
-  startScreen.classList.remove("hidden");
-}
-function startPictureGame(idx) {
-  picScene = PICTURE_SCENES[idx];
-  picFound = new Set();
-  picSeconds = PIC_DURATION;
-  document.getElementById("picture-select").classList.add("hidden");
-  document.getElementById("picture-screen").classList.remove("hidden");
-  document.getElementById("pic-image").src = picScene.url;
-  document.getElementById("pic-scene-title").textContent = picScene.emoji + " " + picScene.title;
-  const inp = document.getElementById("pic-input");
-  inp.value = ""; inp.className = "";
-  renderPicState();
-  clearInterval(picTimerInterval);
-  picTimerInterval = setInterval(() => {
-    picSeconds--;
-    renderPicState();
-    if (picSeconds <= 0) endPictureGame();
-  }, 1000);
-  setTimeout(() => inp.focus(), 50);
-}
-function renderPicState() {
-  document.getElementById("pic-timer").textContent =
-    Math.floor(picSeconds / 60) + ":" + String(picSeconds % 60).padStart(2, "0");
-  document.getElementById("pic-score").textContent = picFound.size + " / " + picScene.words.length;
-  document.getElementById("pic-found-list").innerHTML = [...picFound].map(w => {
-    const ua = picGetUa(w);
-    return '<div class="pic-found-item">✓ <b>' + w + '</b>' +
-      (ua ? ' <span class="pic-found-ua">= ' + ua + '</span>' : '') + '</div>';
-  }).join("");
-}
-function picGetUa(en) {
-  const hit = WORDS.find(w => (Array.isArray(w.en) ? w.en[0] : w.en).toLowerCase() === en.toLowerCase());
-  if (hit) return Array.isArray(hit.ua) ? hit.ua[0] : hit.ua;
-  const r = EN_TO_UA.get(en.toLowerCase());
-  return r ? (Array.isArray(r) ? r[0] : r) : "";
-}
-function handlePicInput() {
-  const inp = document.getElementById("pic-input");
-  const raw = inp.value.trim().toLowerCase().replace(/г/g, "ґ");
-  if (!raw) return;
-  const match = picScene.words.find(w => w.toLowerCase() === raw && !picFound.has(w));
-  if (match) {
-    picFound.add(match);
-    addXp(1);
-    inp.value = ""; inp.className = "";
-    renderPicState();
-    if (picFound.size === picScene.words.length) endPictureGame();
-  } else {
-    inp.classList.add("pic-wrong");
-    setTimeout(() => { inp.classList.remove("pic-wrong"); inp.select(); }, 500);
-  }
-}
-function endPictureGame() {
-  clearInterval(picTimerInterval); picTimerInterval = null;
-  const missed = picScene.words.filter(w => !picFound.has(w));
-  document.getElementById("picture-screen").classList.add("hidden");
-  document.getElementById("picture-end").classList.remove("hidden");
-  document.getElementById("pic-end-title").textContent =
-    picFound.size === picScene.words.length ? "🎉 Усі слова знайдено!" :
-    "Знайдено " + picFound.size + " / " + picScene.words.length + " слів";
-  document.getElementById("pic-end-found").innerHTML =
-    [...picFound].map(w => '<span class="pic-word-found">✓ ' + w + '</span>').join("");
-  document.getElementById("pic-end-missed").innerHTML = missed.length
-    ? '<div class="pic-end-label">Пропущені слова:</div>' +
-      missed.map(w => '<div class="pic-missed-item"><b>' + w + '</b>' +
-        (picGetUa(w) ? ' = ' + picGetUa(w) : '') + '</div>').join("")
-    : "";
-  renderXpBar();
-}
-function restartPictureGame() {
-  document.getElementById("picture-end").classList.add("hidden");
-  startPictureGame(PICTURE_SCENES.indexOf(picScene));
-}
-function closePictureEnd() {
-  document.getElementById("picture-end").classList.add("hidden");
-  startScreen.classList.remove("hidden");
-  renderXpBar();
-}
-document.getElementById("pic-input").addEventListener("keydown", e => { if (e.key === "Enter") handlePicInput(); });
-document.getElementById("pic-submit").addEventListener("click", handlePicInput);
 
 document.querySelectorAll(".lb-tab").forEach(btn => {
   btn.addEventListener("click", () => {
