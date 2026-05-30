@@ -84,7 +84,7 @@
   .lb-list li.is-new { box-shadow: inset 3px 0 0 #ffd166; font-weight: 700; color: #ffd166; }
   .lb-list li.is-latest-game { box-shadow: inset 3px 0 0 #87b4ff; }
   .lb-list li.is-new.is-latest-game { box-shadow: inset 3px 0 0 #ffd166, inset 0 -2px 0 #87b4ff; }
-  .lb-list li.lb-yesterday { box-shadow: inset 3px 0 0 #87b4ff; font-weight: 700; color: #87b4ff; }
+  .lb-list li.lb-yesterday { font-weight: 700; color: #87b4ff; }
   .lb-list li:nth-child(1) { background: rgba(255, 215, 0, 0.20); border-radius: 6px; }
   .lb-list li:nth-child(2) { background: rgba(192, 200, 215, 0.18); border-radius: 6px; }
   .lb-list li:nth-child(3) { background: rgba(205, 127, 50, 0.22); border-radius: 6px; }
@@ -261,7 +261,8 @@
     flex-wrap: wrap;
     margin: 12px 0 0;
   }
-  #mastery-stats span {
+  .ms-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .ms-badge {
     font-size: 13px;
     font-weight: 600;
     padding: 4px 13px;
@@ -269,21 +270,11 @@
     background: rgba(255,255,255,0.1);
     letter-spacing: 0.02em;
   }
+  .ms-delta { font-size: 11px; font-weight: 700; min-height: 14px; text-align: center; }
   .ms-known   { color: #7be07b; }
   .ms-learning{ color: #87b4ff; }
   .ms-new     { color: #ffa94d; }
-  #mastery-today {
-    display: none;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    margin-top: 7px;
-    color: rgba(255,255,255,0.45);
-    padding: 0 2px;
-  }
-  .today-left { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-  .today-left span { font-weight: 600; }
-  .today-total { color: rgba(255,255,255,0.28); font-size: 11px; white-space: nowrap; padding-left: 8px; }
+  .ms-total   { color: rgba(255,255,255,0.42); }
   .lb-list li.lb-yesterday-date .lb-mode { font-weight: 700; color: #87b4ff; opacity: 1; }
   .prog-new { color: #ffa94d; }
   #mastery-bar {
@@ -521,7 +512,6 @@
     <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
     <div id="mastery-stats"></div>
     <div id="mastery-bar"></div>
-    <div id="mastery-today"></div>
     <button id="progress-btn">📈 Прогрес по днях</button>
     <div id="backup-row">
       <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
@@ -8449,42 +8439,44 @@ function renderMasteryStats() {
   let known = 0, learning = 0;
   Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
   const novel = WORDS.length - known - learning;
+
+  const history = loadMasteryHistory();
+  const allDates = Object.keys(history).sort();
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayIdx = allDates.indexOf(todayStr);
+  const todaySnap = history[todayStr];
+  const prevSnap = todayIdx > 0 ? history[allDates[todayIdx - 1]] : null;
+  const rev = (loadDays()[todayStr] || {}).reviewCorrect || 0;
+
+  let dk = 0, dl = 0, dt = 0;
+  const hasDeltas = !!(todaySnap && prevSnap);
+  if (hasDeltas) {
+    dk = todaySnap.k - prevSnap.k;
+    dl = todaySnap.l - prevSnap.l;
+    dt = (todaySnap.t || WORDS.length) - (prevSnap.t || WORDS.length);
+  }
+  const showDeltas = hasDeltas || rev > 0;
+  const mkDelta = (cls, content) => showDeltas
+    ? '<span class="ms-delta ' + cls + '">' + content + '</span>' : '';
+
+  const deltaK = mkDelta('ms-known', dk !== 0 ? (dk > 0 ? '+' : '') + dk + ' ✓' : '');
+  const deltaLParts = [];
+  if (hasDeltas && dl !== 0) deltaLParts.push((dl > 0 ? '+' : '') + dl + ' ↗');
+  if (rev > 0) deltaLParts.push('🔁 +' + rev);
+  const deltaL = mkDelta('ms-learning', deltaLParts.join('  '));
+  const deltaN = mkDelta('ms-new', hasDeltas && dt > 0 ? '+' + dt + ' ●' : '');
+
   document.getElementById("mastery-stats").innerHTML =
-    '<span class="ms-known">✓ Знаю: ' + known + '</span>' +
-    '<span class="ms-learning">↗ Вивчаю: ' + learning + '</span>' +
-    '<span class="ms-new">● Нові: ' + novel + '</span>';
+    '<div class="ms-col"><span class="ms-badge ms-known">✓ Знаю: ' + known + '</span>' + deltaK + '</div>' +
+    '<div class="ms-col"><span class="ms-badge ms-learning">↗ Вивчаю: ' + learning + '</span>' + deltaL + '</div>' +
+    '<div class="ms-col"><span class="ms-badge ms-new">● Нові: ' + novel + '</span>' + deltaN + '</div>' +
+    '<div class="ms-col"><span class="ms-badge ms-total">' + WORDS.length + ' слів</span></div>';
+
   const bar = document.getElementById("mastery-bar");
   bar.innerHTML =
     '<div style="flex:' + known + ';background:#7be07b"></div>' +
     '<div style="flex:' + learning + ';background:#87b4ff"></div>' +
     '<div style="flex:' + novel + ';background:#ffa94d"></div>';
-  const todayEl = document.getElementById("mastery-today");
-  if (todayEl) {
-    const history = loadMasteryHistory();
-    const allDates = Object.keys(history).sort();
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const todayIdx = allDates.indexOf(todayStr);
-    const todaySnap = history[todayStr];
-    const prevSnap = todayIdx > 0 ? history[allDates[todayIdx - 1]] : null;
-    const rev = (loadDays()[todayStr] || {}).reviewCorrect || 0;
-    let leftHtml = '';
-    if (todaySnap && prevSnap) {
-      const dk = todaySnap.k - prevSnap.k;
-      const dl = todaySnap.l - prevSnap.l;
-      const dt = (todaySnap.t || WORDS.length) - (prevSnap.t || WORDS.length);
-      if (dk !== 0) leftHtml += '<span class="ms-known">' + (dk > 0 ? '+' : '') + dk + ' ✓</span>';
-      if (dl !== 0) leftHtml += '<span class="ms-learning">' + (dl > 0 ? '+' : '') + dl + ' ↗</span>';
-      if (rev > 0)  leftHtml += '<span class="lb-review">🔁 +' + rev + '</span>';
-      if (dt > 0)   leftHtml += '<span class="ms-new">+' + dt + ' ●</span>';
-    } else if (rev > 0) {
-      leftHtml += '<span class="lb-review">🔁 +' + rev + '</span>';
-    }
-    const leftPart = leftHtml
-      ? '<span class="today-left">сьогодні: ' + leftHtml + '</span>'
-      : '<span></span>';
-    todayEl.innerHTML = leftPart + '<span class="today-total">' + WORDS.length + ' слів</span>';
-    todayEl.style.display = 'flex';
-  }
 }
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
