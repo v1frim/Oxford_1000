@@ -9165,25 +9165,19 @@ function handlePicInput() {
 }
 function endPictureGame() {
   clearInterval(picTimerInterval); picTimerInterval = null;
-  if (!picScene) return;
   const missed = picScene.words.filter(w => !picFound.has(w));
-  const allFound = picFound.size === picScene.words.length;
-  // set content BEFORE showing screen so no partial-render on JS error
-  document.getElementById("pic-end-title").textContent =
-    allFound ? "🎉 Усі слова знайдено!" :
-    "Знайдено " + picFound.size + " / " + picScene.words.length + " слів";
-  document.getElementById("pic-end-found").innerHTML =
-    [...picFound].map(w => '<span class="pic-word-found">✓ ' + w + '</span>').join("") ||
-    '<span style="opacity:0.4;font-size:13px">Жодного слова не знайдено</span>';
-  document.getElementById("pic-end-missed").innerHTML = missed.length
-    ? '<div class="pic-end-label">Пропущені слова:</div>' +
-      missed.map(w => {
-        const ua = picGetUa(w);
-        return '<div class="pic-missed-item"><b>' + w + '</b>' + (ua ? ' = ' + ua : '') + '</div>';
-      }).join("")
-    : "";
   document.getElementById("picture-screen").classList.add("hidden");
   document.getElementById("picture-end").classList.remove("hidden");
+  document.getElementById("pic-end-title").textContent =
+    picFound.size === picScene.words.length ? "🎉 Усі слова знайдено!" :
+    "Знайдено " + picFound.size + " / " + picScene.words.length + " слів";
+  document.getElementById("pic-end-found").innerHTML =
+    [...picFound].map(w => '<span class="pic-word-found">✓ ' + w + '</span>').join("");
+  document.getElementById("pic-end-missed").innerHTML = missed.length
+    ? '<div class="pic-end-label">Пропущені слова:</div>' +
+      missed.map(w => '<div class="pic-missed-item"><b>' + w + '</b>' +
+        (picGetUa(w) ? ' = ' + picGetUa(w) : '') + '</div>').join("")
+    : "";
   renderXpBar();
 }
 function restartPictureGame() {
