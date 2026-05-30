@@ -305,18 +305,30 @@
     width: 75%;
     max-width: 280px;
   }
-  #progress-btn {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.2);
+  #bottom-left-btns {
+    position: fixed;
+    bottom: 18px;
+    left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 200;
+  }
+  #bottom-left-btns button, #progress-btn {
+    background: rgba(12,32,68,0.52);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.18);
     color: rgba(255,255,255,0.6);
     font-size: 12px;
     cursor: pointer;
-    padding: 3px 12px;
-    margin-top: 8px;
+    padding: 5px 14px;
     border-radius: 20px;
     transition: color 0.15s, background 0.15s, border-color 0.15s;
+    text-align: left;
   }
-  #progress-btn:hover, #progress-btn.active { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.4); }
+  #bottom-left-btns button:hover, #progress-btn:hover,
+  #progress-btn.active { color: #fff; background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); }
   #xp-section { margin: 14px auto 0; width: 88%; max-width: 360px; }
   #xp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
   #xp-badge { color: #ffd166; font-weight: 700; font-size: 13px; }
@@ -324,19 +336,7 @@
   #xp-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
   #xp-fill { height: 100%; background: linear-gradient(90deg,#ffd166,#ff9f43); border-radius: 3px; transition: width 0.6s ease; }
   #xp-nums { display: block; text-align: right; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 5px; }
-  #backup-row { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
-  #backup-row button {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.45);
-    font-size: 12px;
-    cursor: pointer;
-    padding: 3px 12px;
-    border-radius: 20px;
-    transition: color 0.15s, background 0.15s, border-color 0.15s;
-  }
-  #backup-row button:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.35); }
-  #backup-btn.needs-backup { color: #ffa94d; border-color: rgba(255,169,77,0.5); }
+  #backup-btn.needs-backup { color: #ffa94d !important; border-color: rgba(255,169,77,0.5) !important; }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
   .prog-date { opacity: 0.65; font-size: 13px; min-width: 52px; }
@@ -544,11 +544,6 @@
       <div id="xp-bar"><div id="xp-fill"></div></div>
       <span id="xp-nums"></span>
     </div>
-    <button id="progress-btn" style="margin-top:14px">📈 Прогрес по днях</button>
-    <div id="backup-row">
-      <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
-      <button id="import-btn">📂 Відновити</button>
-    </div>
     <div class="mode-select">
       <div class="mode-group">
         <div class="mode-group-label">Переклад</div>
@@ -641,6 +636,11 @@
 </aside>
 </div>
 <div id="lb-totals"></div>
+<div id="bottom-left-btns">
+  <button id="progress-btn">📈 Прогрес по днях</button>
+  <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
+  <button id="import-btn">📂 Відновити</button>
+</div>
 
 <script>
 const DURATION = 60;
