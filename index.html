@@ -122,7 +122,8 @@
   }
   .lb-list li.lb-latest::before { content: "ост"; opacity: 0.85; font-size: 10px; color: #87b4ff; }
   .lb-list li.is-today-game .lb-mode { font-weight: 600; opacity: 0.85; color: #ffe39e; }
-  .lb-list li.is-new .lb-detail { font-weight: 400; color: rgba(255,255,255,0.7); }
+  .lb-list li.is-new .lb-detail,
+  .lb-list li.lb-yesterday .lb-detail { font-weight: 400; color: rgba(255,255,255,0.7); }
   h1 { font-size: 24px; margin-bottom: 16px; font-weight: 600; }
   .stats {
     display: flex;
@@ -8561,7 +8562,6 @@ function renderTabGames() {
   const todayBest = loadTodayBest();
   const latest = loadLatest();
   const today = todayKey();
-  const latestYesterdayTs = scores.filter(s => isYesterdayKey(tsToDayKey(s.ts))).reduce((max, s) => s.ts > max ? s.ts : max, "");
   const renderGameRow = (s, cls) => {
     const LB_MODE_LABELS = {
       "ua-en":    "UA→US",
@@ -8573,11 +8573,9 @@ function renderTabGames() {
     };
     const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
-    const isYesterdayGame = !isTodayGame && latestYesterdayTs && s.ts === latestYesterdayTs;
     const isLatestGame = !cls && latest && s.ts === latest.ts;
     const klass = (cls || "")
       + (isTodayGame ? " is-today-game" : "")
-      + (isYesterdayGame ? " lb-yesterday" : "")
       + (isLatestGame ? " is-latest-game" : "");
     const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
     return '<li class="' + klass + '">' +
