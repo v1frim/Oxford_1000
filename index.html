@@ -519,6 +519,23 @@
     from { opacity: 0; transform: translateY(-5px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  /* ── LingoHut tracker ───────────────────────────────────────── */
+  #lh-box { background:rgba(12,32,68,0.82); border:1px solid rgba(255,255,255,0.18); border-radius:20px; padding:22px 24px; max-width:600px; width:100%; max-height:90vh; display:flex; flex-direction:column; gap:14px; }
+  #lh-header { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  #lh-header h2 { flex:1; font-size:18px; margin:0; }
+  #lh-progress-text { font-size:13px; color:#7be07b; font-weight:600; }
+  #lh-link { color:#87b4ff; font-size:12px; text-decoration:none; white-space:nowrap; }
+  #lh-link:hover { text-decoration:underline; }
+  #lh-close { background:none; border:none; color:rgba(255,255,255,0.5); font-size:20px; cursor:pointer; padding:0 4px; line-height:1; }
+  #lh-close:hover { color:#fff; }
+  #lh-xp-info { font-size:12px; color:#ffd166; text-align:center; min-height:16px; }
+  #lh-grid { display:grid; grid-template-columns:repeat(10,1fr); gap:5px; overflow-y:auto; }
+  .lh-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:7px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.6); user-select:none; transition:background 0.12s; }
+  .lh-cell:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .lh-cell.done { background:rgba(123,224,123,0.22); border-color:rgba(123,224,123,0.45); color:#7be07b; }
+  .lh-cell.done:hover { background:rgba(123,224,123,0.35); }
+  #lh-btn { margin-top:8px; padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
+  #lh-btn:hover { background:rgba(135,180,255,0.22); }
 </style>
 </head>
 <body>
@@ -564,6 +581,7 @@
     </div>
     <button id="start-btn">Почати</button>
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
+    <button id="lh-btn">📚 Уроки LingoHut</button>
   </div>
 
   <!-- GAME SCREEN -->
@@ -634,6 +652,18 @@
   <ol class="lb-list" id="lb-list"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
 </aside>
+</div>
+<div id="lh-screen" class="pic-overlay hidden">
+  <div id="lh-box">
+    <div id="lh-header">
+      <h2>📚 Уроки LingoHut</h2>
+      <span id="lh-progress-text"></span>
+      <a id="lh-link" href="https://www.lingohut.com/uk/v758863/%D1%83%D1%80%D0%BE%D0%BA%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D0%BE%D1%97-%D0%BF%D0%B5%D1%80%D1%88%D0%B0-%D0%B7%D1%83%D1%81%D1%82%D1%80%D1%96%D1%87" target="_blank" rel="noopener">Відкрити LingoHut ↗</a>
+      <button id="lh-close" onclick="closeLhScreen()">✕</button>
+    </div>
+    <div id="lh-xp-info"></div>
+    <div id="lh-grid"></div>
+  </div>
 </div>
 <div id="lb-totals"></div>
 <div id="bottom-left-btns">
@@ -9009,6 +9039,48 @@ document.getElementById("lb-reset").addEventListener("click", () => {
 
 document.getElementById("backup-btn").addEventListener("click", handleBackupClick);
 document.getElementById("import-btn").addEventListener("click", handleImportClick);
+
+// ── LINGOHUT LESSON TRACKER ───────────────────────────────────────────────────
+const LH_KEY = "oxford_lingohut_v1";
+const LH_TOTAL = 125;
+const LH_XP_PER = 200;
+
+function loadLhDone() {
+  try { return new Set(JSON.parse(localStorage.getItem(LH_KEY) || "[]")); } catch(e) { return new Set(); }
+}
+function saveLhDone(set) { localStorage.setItem(LH_KEY, JSON.stringify([...set])); }
+
+function openLhScreen() {
+  startScreen.classList.add("hidden");
+  document.getElementById("lh-screen").classList.remove("hidden");
+  renderLhGrid();
+}
+function closeLhScreen() {
+  document.getElementById("lh-screen").classList.add("hidden");
+  startScreen.classList.remove("hidden");
+}
+function toggleLhLesson(n) {
+  const done = loadLhDone();
+  if (done.has(n)) { done.delete(n); addXp(-LH_XP_PER); }
+  else { done.add(n); addXp(LH_XP_PER); }
+  saveLhDone(done);
+  renderLhGrid();
+  renderXpBar();
+}
+function renderLhGrid() {
+  const done = loadLhDone();
+  document.getElementById("lh-progress-text").textContent = done.size + " / " + LH_TOTAL;
+  document.getElementById("lh-xp-info").textContent =
+    done.size > 0 ? "⚡ " + (done.size * LH_XP_PER) + " XP отримано з уроків" : "";
+  document.getElementById("lh-grid").innerHTML =
+    Array.from({length: LH_TOTAL}, (_, i) => i + 1).map(n =>
+      '<div class="lh-cell' + (done.has(n) ? " done" : "") +
+      '" onclick="toggleLhLesson(' + n + ')" title="Урок ' + n + '">' +
+      (done.has(n) ? "✓" : n) + "</div>"
+    ).join("");
+}
+
+document.getElementById("lh-btn").addEventListener("click", openLhScreen);
 
 renderLeaderboard();
 renderLbTotals();
