@@ -530,8 +530,8 @@
   #lh-xp-info { font-size:12px; color:#ffd166; text-align:center; min-height:16px; }
   #lh-screen { display:flex; flex-direction:column; gap:10px; }
   #lh-screen.hidden { display:none; }
-  #lh-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; overflow-y:auto; max-height:360px; }
-  .lh-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:7px; font-size:12px; font-weight:600; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.6); user-select:none; transition:background 0.12s; }
+  #lh-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:4px; overflow-y:auto; max-height:460px; }
+  .lh-cell { height:28px; display:flex; align-items:center; justify-content:center; border-radius:5px; font-size:10px; font-weight:600; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.6); user-select:none; transition:background 0.12s; }
   .lh-cell:hover { background:rgba(255,255,255,0.15); color:#fff; }
   .lh-cell.done { background:rgba(123,224,123,0.22); border-color:rgba(123,224,123,0.45); color:#7be07b; }
   .lh-cell.done:hover { background:rgba(123,224,123,0.35); }
@@ -9059,16 +9059,17 @@ function loadLhDone() {
 function saveLhDone(set) { localStorage.setItem(LH_KEY, JSON.stringify([...set])); }
 
 const LH_HIDE_IDS = ["lb-title", "lb-list", "lb-empty"];
+const LH_LB_HEADER = () => document.querySelector("#leaderboard .lb-header");
 function openLhScreen() {
   LH_HIDE_IDS.forEach(id => document.getElementById(id).classList.add("hidden"));
-  document.querySelector(".lb-header").style.display = "none";
+  LH_LB_HEADER().style.display = "none";
   document.getElementById("lh-screen").classList.remove("hidden");
   renderLhGrid();
 }
 function closeLhScreen() {
   document.getElementById("lh-screen").classList.add("hidden");
   LH_HIDE_IDS.forEach(id => document.getElementById(id).classList.remove("hidden"));
-  document.querySelector(".lb-header").style.display = "";
+  LH_LB_HEADER().style.display = "";
   renderLeaderboard();
   renderXpBar();
 }
