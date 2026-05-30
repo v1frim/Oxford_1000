@@ -8972,7 +8972,7 @@ function renderLbTotals() {
   });
   const total = correct + wrong + skipped;
   const xp = loadXp();
-  const fmt = n => n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,"") + "k" : String(n);
+  const fmt = n => String(n);
   const row = (label, val, color) =>
     '<div class="lb-stat-row"><span class="lb-stat-label">' + label + '</span>' +
     '<span class="lb-stat-val"' + (color ? ' style="color:' + color + '"' : '') + '>' + fmt(val) + '</span></div>';
