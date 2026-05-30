@@ -8527,7 +8527,7 @@ const XP_LEVELS = [
 ];
 function loadXp() { return parseInt(localStorage.getItem(XP_KEY) || "0", 10) || 0; }
 function saveXp(n) { localStorage.setItem(XP_KEY, String(Math.max(0, n))); }
-function addXp(delta) { saveXp(loadXp() + delta); if (delta > 0) trackDayXp(delta); }
+function addXp(delta) { saveXp(loadXp() + delta); trackDayXp(delta); }
 function getLevelInfo(xp) {
   let lvl = 0;
   for (let i = XP_LEVELS.length - 1; i >= 0; i--) {
@@ -8551,20 +8551,12 @@ function computeRetroXp() {
 }
 const XP_DAY_KEY = "oxford_xp_day_v1";
 function trackDayXp(delta) {
-  if (delta <= 0) return;
+  if (!delta) return;
   const today = new Date().toISOString().slice(0, 10);
   try {
     const h = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}");
-    h[today] = (h[today] || 0) + delta;
-    localStorage.setItem(XP_DAY_KEY, JSON.stringify(h));
-  } catch(e) {}
-}
-function deductDayXp(delta) {
-  const today = new Date().toISOString().slice(0, 10);
-  try {
-    const h = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}");
-    h[today] = Math.max(0, (h[today] || 0) - delta);
-    if (h[today] === 0) delete h[today];
+    h[today] = Math.max(0, (h[today] || 0) + delta);
+    if (!h[today]) delete h[today];
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(h));
   } catch(e) {}
 }
@@ -9075,19 +9067,13 @@ function closeLhScreen() {
 }
 function toggleLhLesson(n) {
   const done = loadLhDone();
-  if (done.has(n)) {
-    done.delete(n);
-    addXp(-LH_XP_PER);
-    deductDayXp(LH_XP_PER);
-  } else {
-    done.add(n);
-    addXp(LH_XP_PER);
-  }
+  if (done.has(n)) { done.delete(n); addXp(-LH_XP_PER); }
+  else { done.add(n); addXp(LH_XP_PER); }
   saveLhDone(done);
   renderLhGrid();
   renderXpBar();
   renderLbTotals();
-  if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
+  renderProgressPanel();
 }
 function renderLhGrid() {
   const done = loadLhDone();
