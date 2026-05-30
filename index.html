@@ -114,11 +114,11 @@
   .lb-games { font-size: 11px; opacity: 0.7; }
   .lb-review { font-size: 11px; color: #87b4ff; opacity: 0.85; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
-  #lb-totals { margin-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
-  .lb-totals-title { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
-  .lb-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; font-size: 13px; }
-  .lb-stat-label { opacity: 0.55; }
-  .lb-stat-val { font-weight: 600; color: #fff; }
+  #lb-totals { position: fixed; bottom: 18px; right: 18px; background: rgba(12,32,68,0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 12px 16px; min-width: 190px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); z-index: 200; }
+  .lb-totals-title { font-size: 10px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; color: #fff; }
+  .lb-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; font-size: 12px; gap: 20px; }
+  .lb-stat-label { opacity: 0.5; color: #fff; }
+  .lb-stat-val { font-weight: 600; }
   .lb-list li.lb-sep {
     background: transparent !important; box-shadow: none !important;
     border-top: 1px dashed rgba(255,255,255,0.25);
@@ -638,7 +638,6 @@
   <div class="lb-title" id="lb-title">Топ-10 ігор</div>
   <ol class="lb-list" id="lb-list"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
-  <div id="lb-totals"></div>
 </aside>
 </div>
 
@@ -9031,5 +9030,6 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
     <div class="ms-sub"></div>
   </div>
 </div>
+<div id="lb-totals"></div>
 </body>
 </html>
