@@ -298,13 +298,14 @@
     transition: color 0.15s, background 0.15s, border-color 0.15s;
   }
   #progress-btn:hover, #progress-btn.active { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.4); }
-  #xp-bar-wrap { margin: 10px auto 0; width: 88%; max-width: 360px; }
-  #xp-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 12px; }
-  #xp-badge { color: #ffd166; font-weight: 700; }
-  #xp-nums { color: rgba(255,255,255,0.38); font-size: 11px; }
-  #xp-bar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+  #xp-section { margin: 14px auto 0; width: 88%; max-width: 360px; }
+  #xp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+  #xp-badge { color: #ffd166; font-weight: 700; font-size: 13px; }
+  #xp-today { background: rgba(6,214,160,0.16); color: #06d6a0; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+  #xp-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
   #xp-fill { height: 100%; background: linear-gradient(90deg,#ffd166,#ff9f43); border-radius: 3px; transition: width 0.6s ease; }
-  #backup-row { display: flex; gap: 8px; justify-content: center; margin-top: 6px; }
+  #xp-nums { display: block; text-align: right; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 5px; }
+  #backup-row { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
   #backup-row button {
     background: none;
     border: 1px solid rgba(255,255,255,0.15);
@@ -518,11 +519,12 @@
     <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.<br>Oxford 1000 — найважливіші слова англійської.</p>
     <div id="mastery-stats"></div>
     <div id="mastery-bar"></div>
-    <div id="xp-bar-wrap">
-      <div id="xp-info"><span id="xp-badge"></span><span id="xp-nums"></span></div>
+    <div id="xp-section">
+      <div id="xp-top"><span id="xp-badge"></span><span id="xp-today"></span></div>
       <div id="xp-bar"><div id="xp-fill"></div></div>
+      <span id="xp-nums"></span>
     </div>
-    <button id="progress-btn">📈 Прогрес по днях</button>
+    <button id="progress-btn" style="margin-top:14px">📈 Прогрес по днях</button>
     <div id="backup-row">
       <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
       <button id="import-btn">📂 Відновити</button>
@@ -8495,13 +8497,35 @@ function computeRetroXp() {
   Object.values(loadDays()).forEach(d => { xp += (d.reviewCorrect || 0); });
   return xp;
 }
+const XP_DAY_KEY = "oxford_xp_day_v1";
+function initDayXp() {
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    const stored = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "null");
+    if (!stored || stored.date !== today) {
+      localStorage.setItem(XP_DAY_KEY, JSON.stringify({ date: today, start: loadXp() }));
+    }
+  } catch(e) {}
+}
+function getTodayXpGain() {
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    const stored = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "null");
+    if (!stored || stored.date !== today) return 0;
+    return Math.max(0, loadXp() - stored.start);
+  } catch(e) { return 0; }
+}
 function renderXpBar() {
   const xp = loadXp();
   const info = getLevelInfo(xp);
   const pct = info.isMax ? 100 : Math.round((xp - info.cur) / (info.next - info.cur) * 100);
   document.getElementById("xp-badge").textContent = "⚡ Рівень " + info.level + " · " + info.name;
-  document.getElementById("xp-nums").textContent = info.isMax ? "MAX" : (xp - info.cur) + " / " + (info.next - info.cur) + " XP";
+  document.getElementById("xp-nums").textContent = info.isMax ? "Максимальний рівень" : "Ще " + (info.next - xp) + " XP до рівня " + (info.level + 1);
   document.getElementById("xp-fill").style.width = pct + "%";
+  const gain = getTodayXpGain();
+  const todayEl = document.getElementById("xp-today");
+  todayEl.textContent = gain > 0 ? "+" + gain + " XP сьогодні" : "";
+  todayEl.style.display = gain > 0 ? "" : "none";
 }
 
 function updateMastery(wordIndex, correct) {
@@ -8943,6 +8967,7 @@ saveMasterySnapshot();
 renderMasteryStats();
 // Retroactive XP: initialize on first run
 if (!localStorage.getItem(XP_KEY)) saveXp(computeRetroXp());
+initDayXp();
 renderXpBar();
 updateBackupLabel();
 autoBackup();
