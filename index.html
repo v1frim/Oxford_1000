@@ -327,6 +327,7 @@
   .prog-learning{ color: #87b4ff; font-size: 13px; font-weight: 600; }
   .prog-new     { color: #ffa94d; font-size: 13px; font-weight: 600; }
   .prog-none    { opacity: 0.35; font-size: 13px; }
+  .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.75; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
   .prog-row.prog-group .prog-date { font-size: 12px; }
   .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
@@ -8475,7 +8476,7 @@ const XP_LEVELS = [
 ];
 function loadXp() { return parseInt(localStorage.getItem(XP_KEY) || "0", 10) || 0; }
 function saveXp(n) { localStorage.setItem(XP_KEY, String(Math.max(0, n))); }
-function addXp(delta) { saveXp(loadXp() + delta); }
+function addXp(delta) { saveXp(loadXp() + delta); if (delta > 0) trackDayXp(delta); }
 function getLevelInfo(xp) {
   let lvl = 0;
   for (let i = XP_LEVELS.length - 1; i >= 0; i--) {
@@ -8498,33 +8499,29 @@ function computeRetroXp() {
   return xp;
 }
 const XP_DAY_KEY = "oxford_xp_day_v1";
-function initDayXp() {
+function trackDayXp(delta) {
+  if (delta <= 0) return;
   const today = new Date().toISOString().slice(0, 10);
   try {
-    const stored = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "null");
-    if (!stored || stored.date !== today) {
-      localStorage.setItem(XP_DAY_KEY, JSON.stringify({ date: today, start: loadXp() }));
-    }
+    const h = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}");
+    h[today] = (h[today] || 0) + delta;
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(h));
   } catch(e) {}
 }
-function getTodayXpGain() {
-  const today = new Date().toISOString().slice(0, 10);
-  try {
-    const stored = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "null");
-    if (!stored || stored.date !== today) return 0;
-    return Math.max(0, loadXp() - stored.start);
-  } catch(e) { return 0; }
+function getDayXpGain(date) {
+  try { return JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}")[date] || 0; } catch(e) { return 0; }
 }
+function getTodayXpGain() { return getDayXpGain(new Date().toISOString().slice(0, 10)); }
 function renderXpBar() {
   const xp = loadXp();
   const info = getLevelInfo(xp);
   const pct = info.isMax ? 100 : Math.round((xp - info.cur) / (info.next - info.cur) * 100);
   document.getElementById("xp-badge").textContent = "⚡ Рівень " + info.level + " · " + info.name;
-  document.getElementById("xp-nums").textContent = info.isMax ? "Максимальний рівень" : "Ще " + (info.next - xp) + " XP до рівня " + (info.level + 1);
+  document.getElementById("xp-nums").textContent = info.isMax ? "MAX" : (xp - info.cur) + " / " + (info.next - info.cur) + " XP";
   document.getElementById("xp-fill").style.width = pct + "%";
   const gain = getTodayXpGain();
   const todayEl = document.getElementById("xp-today");
-  todayEl.textContent = gain > 0 ? "+" + gain + " XP сьогодні" : "";
+  todayEl.textContent = gain > 0 ? "+" + gain + " XP" : "";
   todayEl.style.display = gain > 0 ? "" : "none";
 }
 
@@ -8633,7 +8630,9 @@ function renderProgressPanel() {
     const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
-    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
+    const xpGain = getDayXpGain(date);
+    const xpHtml = xpGain > 0 ? '<span class="prog-xp">⚡+' + xpGain + '</span>' : '';
+    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + '</span><span class="prog-delta">' + dh + xpHtml + '</span></div>';
   }).join("");
 
   // ── Older: group by week, then by month if > 8 weeks ago ──
@@ -8967,7 +8966,6 @@ saveMasterySnapshot();
 renderMasteryStats();
 // Retroactive XP: initialize on first run
 if (!localStorage.getItem(XP_KEY)) saveXp(computeRetroXp());
-initDayXp();
 renderXpBar();
 updateBackupLabel();
 autoBackup();
