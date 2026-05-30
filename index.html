@@ -327,7 +327,7 @@
   .prog-learning{ color: #87b4ff; font-size: 13px; font-weight: 600; }
   .prog-new     { color: #ffa94d; font-size: 13px; font-weight: 600; }
   .prog-none    { opacity: 0.35; font-size: 13px; }
-  .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.75; }
+  .prog-xp      { color: #ffd166; font-size: 11px; opacity: 0.8; margin-left: 4px; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
   .prog-row.prog-group .prog-date { font-size: 12px; }
   .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
@@ -8632,7 +8632,7 @@ function renderProgressPanel() {
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     const xpGain = getDayXpGain(date);
     const xpHtml = xpGain > 0 ? '<span class="prog-xp">⚡+' + xpGain + '</span>' : '';
-    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + '</span><span class="prog-delta">' + dh + xpHtml + '</span></div>';
+    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
   // ── Older: group by week, then by month if > 8 weeks ago ──
