@@ -7373,7 +7373,7 @@ function endGame(endedEarly) {
       const gamesCount = (loadDays()[newDayKey] || {}).games || 0;
       if (gamesCount > 0 && gamesCount % 4 === 0) {
         setTimeout(() => { sfxMilestone(); showMilestone("🎯", gamesCount + " ігор!", "Урок виконано!", "milestone"); }, 900);
-      } else if (gamesCount === 2) {
+      } else if (gamesCount % 4 === 2) {
         setTimeout(() => { sfxNudge(); showMilestone("💪", "Ще трішки!", "2 гри зіграно сьогодні", "nudge"); }, 900);
       }
     }
