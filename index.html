@@ -533,6 +533,10 @@
   #lh-grid { display:grid; grid-template-columns:repeat(10,1fr); gap:4px; overflow-y:auto; max-height:460px; }
   .lh-cell { height:28px; display:flex; align-items:center; justify-content:center; border-radius:5px; font-size:10px; font-weight:600; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.6); user-select:none; transition:background 0.12s; }
   .lh-cell:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .lh-cell.t2 { border-color:rgba(135,180,255,0.25); background:rgba(135,180,255,0.08); color:rgba(135,180,255,0.8); }
+  .lh-cell.t2:hover { background:rgba(135,180,255,0.18); color:#87b4ff; }
+  .lh-cell.t3 { border-color:rgba(255,180,80,0.28); background:rgba(255,180,80,0.09); color:rgba(255,180,80,0.8); }
+  .lh-cell.t3:hover { background:rgba(255,180,80,0.2); color:#ffb450; }
   .lh-cell.done { background:rgba(123,224,123,0.22); border-color:rgba(123,224,123,0.45); color:#7be07b; }
   .lh-cell.done:hover { background:rgba(123,224,123,0.35); }
   #lh-btn { margin-top:8px; padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
@@ -9391,7 +9395,8 @@ document.getElementById("import-btn").addEventListener("click", handleImportClic
 // ── LINGOHUT LESSON TRACKER ───────────────────────────────────────────────────
 const LH_KEY = "oxford_lingohut_v1";
 const LH_TOTAL = 125;
-const LH_XP_PER = 200;
+function getLhXp(n) { return n <= 35 ? 100 : n <= 70 ? 150 : 200; }
+function getLhTier(n) { return n <= 35 ? "" : n <= 70 ? "t2" : "t3"; }
 
 function loadLhDone() {
   try { return new Set(JSON.parse(localStorage.getItem(LH_KEY) || "[]")); } catch(e) { return new Set(); }
@@ -9415,8 +9420,8 @@ function closeLhScreen() {
 }
 function toggleLhLesson(n) {
   const done = loadLhDone();
-  if (done.has(n)) { done.delete(n); addXp(-LH_XP_PER); }
-  else { done.add(n); addXp(LH_XP_PER); }
+  if (done.has(n)) { done.delete(n); addXp(-getLhXp(n)); }
+  else { done.add(n); addXp(getLhXp(n)); }
   saveLhDone(done);
   renderLhGrid();
   renderXpBar();
@@ -9427,13 +9432,14 @@ function renderLhGrid() {
   const done = loadLhDone();
   document.getElementById("lh-progress-text").textContent = done.size + " / " + LH_TOTAL;
   document.getElementById("lh-xp-info").textContent =
-    done.size > 0 ? "⚡ " + (done.size * LH_XP_PER) + " XP отримано з уроків" : "";
+    done.size > 0 ? "⚡ " + [...done].reduce((s, n) => s + getLhXp(n), 0) + " XP отримано з уроків" : "";
   document.getElementById("lh-grid").innerHTML =
-    Array.from({length: LH_TOTAL}, (_, i) => i + 1).map(n =>
-      '<div class="lh-cell' + (done.has(n) ? " done" : "") +
-      '" onclick="toggleLhLesson(' + n + ')" title="Урок ' + n + '">' +
-      (done.has(n) ? "✓" : n) + "</div>"
-    ).join("");
+    Array.from({length: LH_TOTAL}, (_, i) => i + 1).map(n => {
+      const tier = getLhTier(n);
+      const cls = "lh-cell" + (done.has(n) ? " done" : (tier ? " " + tier : ""));
+      return '<div class="' + cls + '" onclick="toggleLhLesson(' + n + ')" title="Урок ' + n + ' (+' + getLhXp(n) + ' XP)">' +
+        (done.has(n) ? "✓" : n) + "</div>";
+    }).join("");
 }
 
 document.getElementById("lh-btn").addEventListener("click", () => {
