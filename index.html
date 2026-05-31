@@ -621,7 +621,7 @@
         <div class="corr-example" id="corr-example"></div>
         <button class="speak-btn speak-btn-sm" id="corr-example-speak" title="Прослухати речення">🔊</button>
       </div>
-      <div class="corr-hint">Enter — далі · Пробіл — озвучити слово</div>
+      <div class="corr-hint">Enter — далі · Shift — озвучити слово</div>
     </div>
   </div>
 
@@ -8617,7 +8617,7 @@ document.addEventListener("keydown", e => {
     speak(currentShown);
     return;
   }
-  if (e.key === " " && awaitingAfterWrong) {
+  if (e.key === "Shift" && awaitingAfterWrong) {
     e.preventDefault();
     const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
     speak(enWord);
