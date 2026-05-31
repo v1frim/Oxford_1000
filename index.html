@@ -507,8 +507,15 @@
     border-color: #7be07b;
     box-shadow: 0 0 50px rgba(123,224,123,0.35), 0 10px 30px rgba(0,0,0,0.5);
   }
+  .ms-box.nudge {
+    border-color: #87b4ff;
+    box-shadow: 0 0 30px rgba(135,180,255,0.25), 0 8px 22px rgba(0,0,0,0.45);
+    padding: 18px 36px;
+  }
   .ms-icon { font-size: 52px; display: block; margin-bottom: 10px; }
+  .ms-box.nudge .ms-icon { font-size: 34px; margin-bottom: 6px; }
   .ms-text { font-size: 22px; font-weight: 700; color: #ffd166; }
+  .ms-box.nudge .ms-text { font-size: 16px; color: #87b4ff; }
   .ms-box.cleared .ms-text { color: #7be07b; }
   .ms-sub  { font-size: 13px; opacity: 0.65; color: #fff; margin-top: 5px; }
   .row-left { flex: 1; min-width: 0; }
@@ -7259,6 +7266,11 @@ function sfxCleared() {
   _beep(880,  0.15, 0.12, 0.18);
   _beep(1319, 0.30, 0.40, 0.20);
 }
+function sfxNudge() {
+  // Gentle 2-note chime: E5 → G5
+  _beep(659, 0,    0.08, 0.14);
+  _beep(784, 0.12, 0.14, 0.14);
+}
 let _msTimer = null;
 function showMilestone(icon, text, sub, type) {
   const ov  = document.getElementById("milestone-overlay");
@@ -7266,7 +7278,7 @@ function showMilestone(icon, text, sub, type) {
   ov.querySelector(".ms-icon").textContent = icon;
   ov.querySelector(".ms-text").textContent = text;
   ov.querySelector(".ms-sub").textContent  = sub || "";
-  box.className = "ms-box" + (type === "cleared" ? " cleared" : "");
+  box.className = "ms-box" + (type === "cleared" ? " cleared" : type === "nudge" ? " nudge" : "");
   ov.classList.remove("show");
   void ov.offsetWidth;
   ov.classList.add("show");
@@ -7357,10 +7369,12 @@ function endGame(endedEarly) {
     newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
-      // 5-game milestone
+      // game milestones
       const gamesCount = (loadDays()[newDayKey] || {}).games || 0;
       if (gamesCount > 0 && gamesCount % 4 === 0) {
         setTimeout(() => { sfxMilestone(); showMilestone("🎯", gamesCount + " ігор!", "Урок виконано!", "milestone"); }, 900);
+      } else if (gamesCount === 2) {
+        setTimeout(() => { sfxNudge(); showMilestone("💪", "Ще трішки!", "2 гри зіграно сьогодні", "nudge"); }, 900);
       }
     }
     updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
@@ -8590,6 +8604,11 @@ document.addEventListener("keydown", e => {
   if (e.key === "Alt" && startScreen && !startScreen.classList.contains("hidden")) {
     e.preventDefault();
     document.getElementById("progress-btn").click();
+    return;
+  }
+  if (e.key === "Control" && startScreen && !startScreen.classList.contains("hidden")) {
+    e.preventDefault();
+    document.getElementById("lh-btn").click();
     return;
   }
   if (e.key === "Shift" && mode === "en-ua" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
