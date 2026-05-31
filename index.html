@@ -8072,6 +8072,14 @@ document.getElementById("end-btn").addEventListener("click", () => {
   endGame(timeLeft > 0);
 });
 document.getElementById("start-btn").addEventListener("click", () => startGame());
+function restoreProgressPanel() {
+  if (localStorage.getItem("oxford_progress_open_v1") === "1") {
+    const panel = document.getElementById("progress-panel");
+    panel.classList.remove("hidden");
+    document.getElementById("progress-btn").classList.add("active");
+    renderProgressPanel();
+  }
+}
 document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
   startScreen.classList.remove("hidden");
@@ -8081,13 +8089,7 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   renderMasteryStats();
   updateBackupLabel();
   autoBackup();
-  // Restore progress panel if it was open before game started
-  if (localStorage.getItem("oxford_progress_open_v1") === "1") {
-    const panel = document.getElementById("progress-panel");
-    panel.classList.remove("hidden");
-    document.getElementById("progress-btn").classList.add("active");
-    renderProgressPanel();
-  }
+  restoreProgressPanel();
 });
 
 document.getElementById("progress-btn").addEventListener("click", () => {
@@ -8278,7 +8280,7 @@ document.addEventListener("keydown", e => {
     saveMasterySnapshot();
     renderMasteryStats();
     renderXpBar();
-    if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
+    restoreProgressPanel();
   }
 });
 
