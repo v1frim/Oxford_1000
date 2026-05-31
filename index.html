@@ -539,6 +539,8 @@
   .lh-cell.t3:hover { background:rgba(255,180,80,0.2); color:#ffb450; }
   .lh-cell.done { background:rgba(123,224,123,0.22); border-color:rgba(123,224,123,0.45); color:#7be07b; }
   .lh-cell.done:hover { background:rgba(123,224,123,0.35); }
+  .lh-cell.locked { background:rgba(123,224,123,0.08); border-color:rgba(123,224,123,0.2); color:rgba(123,224,123,0.4); cursor:default; opacity:0.6; }
+  .lh-cell.locked:hover { background:rgba(123,224,123,0.08); color:rgba(123,224,123,0.4); }
   #lh-btn { margin-top:8px; padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #lh-btn:hover { background:rgba(135,180,255,0.22); }
 </style>
@@ -9399,9 +9401,19 @@ function getLhXp(n) { return n <= 35 ? 100 : n <= 70 ? 150 : 200; }
 function getLhTier(n) { return n <= 35 ? "" : n <= 70 ? "t2" : "t3"; }
 
 function loadLhDone() {
-  try { return new Set(JSON.parse(localStorage.getItem(LH_KEY) || "[]")); } catch(e) { return new Set(); }
+  try {
+    const raw = JSON.parse(localStorage.getItem(LH_KEY) || "{}");
+    if (Array.isArray(raw)) {
+      // migrate old format (Set→array) to {lessonNum: date}
+      const obj = {};
+      raw.forEach(n => { obj[n] = "2000-01-01"; });
+      return obj;
+    }
+    return raw;
+  } catch(e) { return {}; }
 }
-function saveLhDone(set) { localStorage.setItem(LH_KEY, JSON.stringify([...set])); }
+function saveLhDone(obj) { localStorage.setItem(LH_KEY, JSON.stringify(obj)); }
+function lhToday() { return new Date().toISOString().slice(0, 10); }
 
 const LH_HIDE_IDS = ["lb-title", "lb-list", "lb-empty"];
 const LH_LB_HEADER = () => document.querySelector("#leaderboard .lb-header");
@@ -9420,8 +9432,15 @@ function closeLhScreen() {
 }
 function toggleLhLesson(n) {
   const done = loadLhDone();
-  if (done.has(n)) { done.delete(n); addXp(-getLhXp(n)); }
-  else { done.add(n); addXp(getLhXp(n)); }
+  const today = lhToday();
+  if (done[n]) {
+    if (done[n] !== today) return; // locked — минулий день
+    delete done[n];
+    addXp(-getLhXp(n));
+  } else {
+    done[n] = today;
+    addXp(getLhXp(n));
+  }
   saveLhDone(done);
   renderLhGrid();
   renderXpBar();
@@ -9430,15 +9449,25 @@ function toggleLhLesson(n) {
 }
 function renderLhGrid() {
   const done = loadLhDone();
-  document.getElementById("lh-progress-text").textContent = done.size + " / " + LH_TOTAL;
+  const today = lhToday();
+  const count = Object.keys(done).length;
+  document.getElementById("lh-progress-text").textContent = count + " / " + LH_TOTAL;
   document.getElementById("lh-xp-info").textContent =
-    done.size > 0 ? "⚡ " + [...done].reduce((s, n) => s + getLhXp(n), 0) + " XP отримано з уроків" : "";
+    count > 0 ? "⚡ " + Object.keys(done).reduce((s, k) => s + getLhXp(+k), 0) + " XP отримано з уроків" : "";
   document.getElementById("lh-grid").innerHTML =
     Array.from({length: LH_TOTAL}, (_, i) => i + 1).map(n => {
+      const isDone = !!done[n];
+      const isLocked = isDone && done[n] !== today;
       const tier = getLhTier(n);
-      const cls = "lh-cell" + (done.has(n) ? " done" : (tier ? " " + tier : ""));
-      return '<div class="' + cls + '" onclick="toggleLhLesson(' + n + ')" title="Урок ' + n + ' (+' + getLhXp(n) + ' XP)">' +
-        (done.has(n) ? "✓" : n) + "</div>";
+      let cls = "lh-cell";
+      if (isLocked) cls += " locked";
+      else if (isDone) cls += " done";
+      else if (tier) cls += " " + tier;
+      const title = isLocked
+        ? "Урок " + n + " — зафіксовано " + done[n]
+        : "Урок " + n + " (+" + getLhXp(n) + " XP)";
+      return '<div class="' + cls + '" onclick="toggleLhLesson(' + n + ')" title="' + title + '">' +
+        (isDone ? "✓" : n) + "</div>";
     }).join("");
 }
 
