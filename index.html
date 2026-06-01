@@ -742,7 +742,7 @@ const WORDS = [
   {en:"save",ua:["зберігати","рятувати"]},{en:"share",ua:"ділитися"},{en:"solve",ua:"вирішувати"},
   {en:"spend",ua:"витрачати"},{en:"support",ua:["підтримувати","підтримка"]},{en:"teach",ua:"навчати"},
   {en:"throw",ua:"кидати"},{en:"travel",ua:"подорожувати"},{en:"visit",ua:"відвідувати"},
-  {en:"accept",ua:"приймати"},{en:"achieve",ua:"досягти"},{en:"add",ua:"додавати"},
+  {en:"accept",ua:"приймати"},{en:"account",ua:["рахунок","обліковий запис"]},{en:"achieve",ua:"досягти"},{en:"add",ua:"додавати"},
   {en:"agree",ua:"погоджуватися"},{en:"allow",ua:"дозволяти"},{en:"to answer",ua:"відповідати"},
   {en:"appear",ua:"з'являтися"},{en:"apply",ua:"застосовувати"},{en:"attack",ua:"атакувати"},
   {en:"avoid",ua:"уникати"},{en:"breathe",ua:"дихати"},{en:"catch",ua:"ловити"},
@@ -1151,7 +1151,7 @@ const WORDS = [
   {en:"trouble",ua:"проблема"},{en:"variety",ua:"різноманітність"},{en:"version",ua:"версія"},
   {en:"victim",ua:"жертва"},{en:"view",ua:"вигляд"},{en:"violence",ua:"насилля"},
   {en:"waste",ua:"відходи"},{en:"zone",ua:"зона"},{en:"meal",ua:"їжа"},
-  {en:"disease",ua:"хвороба"},{en:"fever",ua:"температура"},{en:"medicine",ua:"ліки"},
+  {en:"disease",ua:"хвороба"},{en:"fever",ua:"температура"},{en:"medicine",ua:"ліки"},{en:"pill",ua:["таблетка","пігулка"]},
   {en:"surgery",ua:"операція"},{en:"symptom",ua:"симптом"},{en:"vaccine",ua:"вакцина"},
   {en:"virus",ua:"вірус"},{en:"wound",ua:"рана"},{en:"colleague",ua:"колега"},
   {en:"conference",ua:"конференція"},{en:"deadline",ua:"дедлайн"},{en:"department",ua:"відділ"},
@@ -1237,7 +1237,7 @@ const WORDS = [
   {en:"adjust",ua:"налаштовувати"},
   {en:"admire",ua:"захоплюватися"},
   {en:"adore",ua:"обожнювати"},
-  {en:"advance",ua:"просуватися"},
+  {en:"admit",ua:["визнавати","допускати"]},{en:"advance",ua:"просуватися"},
   {en:"advice",ua:"порада"},
   {en:"advise",ua:"радити"},
   {en:"affluent",ua:"заможний"},
@@ -1334,7 +1334,7 @@ const WORDS = [
   {en:"clarify",ua:"уточнювати"},
   {en:"clothes",ua:"одяг"},
   {en:"colossal",ua:"колосальний"},
-  {en:"comical",ua:"комічний"},{en:"comedian",ua:"комік"},
+  {en:"comical",ua:"комічний"},{en:"comedian",ua:"комік"},{en:"comedy",ua:"комедія"},
   {en:"commence",ua:"починати"},
   {en:"communicate",ua:"спілкуватися"},
   {en:"community",ua:"спільнота"},
@@ -2019,7 +2019,7 @@ const WORDS = [
   {en:"cosy",ua:"затишний"},
   {en:"downtown",ua:"центр міста"},
   {en:"explorer",ua:"дослідник"},
-  {en:"action",ua:"дія"},
+  {en:"action",ua:"дія"},{en:"ambition",ua:["амбіція","прагнення"]},
   {en:"stress",ua:"стрес"},
   {en:"supportive",ua:"підтримуючий"},
   {en:"fur",ua:["хутро","шерсть"]},
@@ -2652,7 +2652,8 @@ const TRANS = {
   "submit":"/səbˈmɪt/","sunflower":"/ˈsʌnflaʊər/","supportive":"/səˈpɔːrtɪv/","swimming":"/ˈswɪmɪŋ/","tie":"/taɪ/",
   "tire":"/ˈtaɪər/","traffic":"/ˈtræfɪk/","twice":"/twaɪs/","twist":"/twɪst/","unexpected":"/ˌʌnɪkˈspɛktɪd/",
   "upstairs":"/ˌʌpˈstɛrz/","wage":"/weɪdʒ/","web":"/wɛb/","wept":"/wɛpt/","west":"/wɛst/",
-  "wipe":"/waɪp/","worry":"/ˈwɜːri/"
+  "wipe":"/waɪp/","worry":"/ˈwɜːri/",
+  "admit":"/ədˈmɪt/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -4315,7 +4316,12 @@ const EXAMPLES = {
   "wept":"She wept when she heard the news.",
   "west":"The sun sets in the west.",
   "wipe":"Wipe your hands with the towel.",
-  "worry":"Don't worry about small things."
+  "worry":"Don't worry about small things.",
+  "admit":"He finally admitted that he was wrong.",
+  "comedy":"The comedy film made everyone in the room laugh.",
+  "pill":"Take this pill twice a day after meals.",
+  "ambition":"Her ambition is to become a doctor.",
+  "account":"Please log in to your account to continue."
 };
 
 const EXAMPLES_UA = {
@@ -5977,7 +5983,12 @@ const EXAMPLES_UA = {
   "wept":"Вона плакала, коли почула цю новину.",
   "west":"Сонце заходить на заході.",
   "wipe":"Витри руки рушником.",
-  "worry":"Не хвилюйся через дрібниці."
+  "worry":"Не хвилюйся через дрібниці.",
+  "admit":"Він нарешті визнав, що помилявся.",
+  "comedy":"Комедійний фільм змусив усіх у кімнаті сміятися.",
+  "pill":"Приймайте цю таблетку двічі на день після їжі.",
+  "ambition":"Її прагнення — стати лікарем.",
+  "account":"Будь ласка, увійдіть у свій обліковий запис, щоб продовжити."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -7519,6 +7530,8 @@ const EN_TO_UA = (() => {
   m.set("between",     ["між"]);
   m.set("among",       ["серед"]);
   m.set("ambition",    ["амбіція", "прагнення"]);
+  m.set("doctor",      ["лікар"]);
+  m.set("meal",        ["їжа", "прийом їжі"]);
   m.set("ambitions",   ["амбіції", "прагнення"]);
   m.set("account",     ["рахунок", "обліковий запис", "звіт"]);
   m.set("behind",      ["за", "позаду"]);
