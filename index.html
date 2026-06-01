@@ -898,7 +898,7 @@ const WORDS = [
   {en:"map",ua:"карта"},{en:"flag",ua:"прапор"},{en:"gift",ua:"подарунок"},
   {en:"toy",ua:"іграшка"},{en:"ball",ua:"м'яч"},{en:"photo",ua:"фото"},
   {en:"tool",ua:"інструмент"},{en:"engine",ua:"двигун"},{en:"wheel",ua:"колесо"},
-  {en:"button",ua:"кнопка"},{en:"machine",ua:"механізм"},{en:"ladder",ua:"драбина"},
+  {en:"button",ua:"кнопка"},{en:"machine",ua:["механізм","машина","пристрій"]},{en:"ladder",ua:"драбина"},
   {en:"rope",ua:"мотузка"},{en:"chain",ua:"ланцюг"},
 
   // ── NOUNS – Abstract ───────────────────────────────────────────────────
@@ -1702,6 +1702,7 @@ const WORDS = [
   {en:"permit",ua:"дозволяти"},
   {en:"persistent",ua:"наполегливий"},
   {en:"personal",ua:"особистий"},
+  {en:"personality",ua:["особистість","характер"]},
   {en:"pessimistic",ua:"песимістичний"},
   {en:"petite",ua:"стрункий"},
   {en:"pick",ua:"вибирати"},
@@ -2550,7 +2551,7 @@ const TRANS = {
   "party":"/ˈpɑrti/","passive":"/ˈpæsɪv/","passport":"/ˈpæspɔrt/","password":"/ˈpæswɝd/","path":"/ˈpæθ/","patient":"/ˈpeɪʃənt/",
   "pattern":"/ˈpætɝn/","pause":"/ˈpɔz/","peaceful":"/ˈpisfəl/","peculiar":"/pəkˈjuljɝ/","penniless":"/ˈpɛniləs/","perceive":"/pɝˈsiv/",
   "percent":"/pɝˈsɛnt/","perform":"/pɝˈfɔrm/","perilous":"/ˈpɛrələs/","permanent":"/ˈpɝmənənt/","permission":"/pɝˈmɪʃən/","permit":"/ˈpɝmɪt/",
-  "persistent":"/pɝˈsɪstənt/","personal":"/ˈpɝsɪnəl/","pessimistic":"/pɛsəˈmɪstɪk/","petite":"/pəˈtit/","phrase":"/ˈfreɪz/","pick":"/ˈpɪk/",
+  "persistent":"/pɝˈsɪstənt/","personal":"/ˈpɝsɪnəl/","personality":"/ˌpɜːrsəˈnælɪti/","pessimistic":"/pɛsəˈmɪstɪk/","petite":"/pəˈtit/","phrase":"/ˈfreɪz/","pick":"/ˈpɪk/",
   "picnic":"/ˈpɪknɪk/","picture":"/ˈpɪktʃɝ/","pie":"/ˈpaɪ/","piece":"/ˈpis/","pink":"/ˈpɪŋk/","place":"/ˈpleɪs/",
   "plain":"/ˈpleɪn/","planet":"/ˈplænət/","platform":"/ˈplætfɔrm/","pleasant":"/ˈplɛzənt/","pleased":"/ˈplizd/","plenty":"/ˈplɛni/",
   "pointed":"/ˈpɔɪnəd/","policy":"/ˈpɑləsi/","pollution":"/pəˈluʃən/","pond":"/ˈpɑnd/","position":"/pəˈzɪʃən/","positive":"/ˈpɑzətɪv/",
@@ -3893,6 +3894,7 @@ const EXAMPLES = {
   "permit":"You need a permit to park in this area.",
   "persistent":"Her persistent efforts finally paid off.",
   "personal":"This is a very personal matter for our family.",
+  "personality":"She has a warm and friendly personality.",
   "pessimistic":"He was pessimistic about the chances of success.",
   "petite":"She was petite but full of energy.",
   "pick":"You can pick any color you like.",
@@ -5554,6 +5556,7 @@ const EXAMPLES_UA = {
   "permit":"Для паркування в цьому районі потрібен дозвіл.",
   "persistent":"Її наполегливі зусилля зрештою окупилися.",
   "personal":"Це дуже особиста справа нашої родини.",
+  "personality":"Вона має теплу та привітну особистість.",
   "pessimistic":"Він песимістично ставився до шансів на успіх.",
   "petite":"Вона була маленькою, але сповненою енергії.",
   "pick":"Ви можете обрати будь-який колір.",
@@ -7552,6 +7555,7 @@ const EN_TO_UA = (() => {
   m.set("bathroom",    ["ванна кімната"]);
   m.set("garden",      ["сад"]);
   m.set("park",        ["парк"]);
+  m.set("personality", ["особистість", "характер"]);
   m.set("beach",       ["пляж"]);
   m.set("airport",     ["аеропорт"]);
   m.set("station",     ["станція", "вокзал"]);
@@ -7720,6 +7724,7 @@ const EN_TO_UA = (() => {
   m.set("knock",       ["стукати"]);
   m.set("lift",        ["піднімати"]);
   m.set("link",        ["зв'язувати", "посилання"]);
+  m.set("machine",     ["механізм", "машина", "пристрій"]);
   m.set("manage",      ["керувати", "впоратися"]);
   m.set("mention",     ["згадувати"]);
   m.set("miss",        ["сумувати", "пропускати"]);
