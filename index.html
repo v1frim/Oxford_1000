@@ -1336,6 +1336,7 @@ const WORDS = [
   {en:"colossal",ua:"колосальний"},
   {en:"comical",ua:"комічний"},{en:"comedian",ua:"комік"},{en:"comedy",ua:"комедія"},
   {en:"commence",ua:"починати"},
+  {en:"committee",ua:["комітет","комісія"]},
   {en:"communicate",ua:"спілкуватися"},
   {en:"community",ua:"спільнота"},
   {en:"compact",ua:"компактний"},
@@ -2653,7 +2654,7 @@ const TRANS = {
   "tire":"/ˈtaɪər/","traffic":"/ˈtræfɪk/","twice":"/twaɪs/","twist":"/twɪst/","unexpected":"/ˌʌnɪkˈspɛktɪd/",
   "upstairs":"/ˌʌpˈstɛrz/","wage":"/weɪdʒ/","web":"/wɛb/","wept":"/wɛpt/","west":"/wɛst/",
   "wipe":"/waɪp/","worry":"/ˈwɜːri/",
-  "admit":"/ədˈmɪt/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/"
+  "admit":"/ədˈmɪt/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/","committee":"/kəˈmɪti/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -4321,7 +4322,8 @@ const EXAMPLES = {
   "comedy":"The comedy film made everyone in the room laugh.",
   "pill":"Take this pill twice a day after meals.",
   "ambition":"Her ambition is to become a doctor.",
-  "account":"Please log in to your account to continue."
+  "account":"Please log in to your account to continue.",
+  "committee":"The committee decided to approve the new project."
 };
 
 const EXAMPLES_UA = {
@@ -5988,7 +5990,8 @@ const EXAMPLES_UA = {
   "comedy":"Комедійний фільм змусив усіх у кімнаті сміятися.",
   "pill":"Приймайте цю таблетку двічі на день після їжі.",
   "ambition":"Її прагнення — стати лікарем.",
-  "account":"Будь ласка, увійдіть у свій обліковий запис, щоб продовжити."
+  "account":"Будь ласка, увійдіть у свій обліковий запис, щоб продовжити.",
+  "committee":"Комітет вирішив схвалити новий проект."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -7888,6 +7891,7 @@ const EN_TO_UA = (() => {
   m.set("clothes",     ["одяг"]);
   m.set("comedian",    ["комік"]);
   m.set("comment",     ["коментар", "коментувати"]);
+  m.set("committee",   ["комітет", "комісія"]);
   m.set("community",   ["спільнота", "громада"]);
   m.set("completion",  ["завершення"]);
   m.set("connection",  ["з'єднання", "зв'язок"]);
