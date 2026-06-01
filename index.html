@@ -1045,7 +1045,7 @@ const WORDS = [
   {en:"maybe",ua:"можливо"},{en:"certainly",ua:"звичайно"},{en:"here",ua:"тут"},
   {en:"there",ua:"там"},{en:"everywhere",ua:"скрізь"},{en:"nowhere",ua:"ніде"},
   {en:"somewhere",ua:"десь"},{en:"outside",ua:"зовні"},{en:"inside",ua:"всередині"},
-  {en:"above",ua:"вгорі"},{en:"below",ua:"внизу"},{en:"now",ua:"зараз"},
+  {en:"above",ua:"вгорі"},{en:"below",ua:"внизу"},{en:"over",ua:["над","через","понад"]},{en:"now",ua:"зараз"},
   {en:"then",ua:"тоді"},{en:"quickly",ua:"швидко"},{en:"slowly",ua:"повільно"},
   {en:"carefully",ua:"обережно"},{en:"easily",ua:"легко"},{en:"well",ua:"добре"},
   {en:"badly",ua:"погано"},{en:"loudly",ua:"голосно"},{en:"quietly",ua:"тихо"},
@@ -2654,7 +2654,8 @@ const TRANS = {
   "tire":"/ˈtaɪər/","traffic":"/ˈtræfɪk/","twice":"/twaɪs/","twist":"/twɪst/","unexpected":"/ˌʌnɪkˈspɛktɪd/",
   "upstairs":"/ˌʌpˈstɛrz/","wage":"/weɪdʒ/","web":"/wɛb/","wept":"/wɛpt/","west":"/wɛst/",
   "wipe":"/waɪp/","worry":"/ˈwɜːri/",
-  "admit":"/ədˈmɪt/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/","committee":"/kəˈmɪti/"
+  "admit":"/ədˈmɪt/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/","committee":"/kəˈmɪti/",
+  "over":"/ˈoʊvər/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -4323,7 +4324,8 @@ const EXAMPLES = {
   "pill":"Take this pill twice a day after meals.",
   "ambition":"Her ambition is to become a doctor.",
   "account":"Please log in to your account to continue.",
-  "committee":"The committee decided to approve the new project."
+  "committee":"The committee decided to approve the new project.",
+  "over":"The plane flew over the mountains."
 };
 
 const EXAMPLES_UA = {
@@ -5991,7 +5993,8 @@ const EXAMPLES_UA = {
   "pill":"Приймайте цю таблетку двічі на день після їжі.",
   "ambition":"Її прагнення — стати лікарем.",
   "account":"Будь ласка, увійдіть у свій обліковий запис, щоб продовжити.",
-  "committee":"Комітет вирішив схвалити новий проект."
+  "committee":"Комітет вирішив схвалити новий проект.",
+  "over":"Літак летів над горами."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -7709,6 +7712,8 @@ const EN_TO_UA = (() => {
   m.set("cloud",       ["хмара"]);
   m.set("sea",         ["море"]);
   m.set("ocean",       ["океан"]);
+  m.set("mountain",    ["гора"]);
+  m.set("fly",         ["летіти", "муха"]);
   m.set("lake",        ["озеро"]);
   m.set("ice",         ["лід"]);
   m.set("fire",        ["вогонь"]);
@@ -8020,6 +8025,7 @@ const EN_TO_UA = (() => {
   m.set("piece",       ["шматок"]);
   m.set("pipe",        ["труба"]);
   m.set("planet",      ["планета"]);
+  m.set("plane",       ["літак"]);
   m.set("plenty",      ["багато", "достатньо"]);
   m.set("plug",        ["вилка", "затичка"]);
   m.set("postman",     ["листоноша"]);
