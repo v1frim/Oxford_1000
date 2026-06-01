@@ -95,9 +95,9 @@
     text-align: center;
     display: inline-block;
   }
-  .lb-list li.is-new { box-shadow: inset 3px 0 0 #ffd166; font-weight: 700; color: #ffd166; }
-  .lb-list li.is-latest-game { box-shadow: inset 3px 0 0 #87b4ff; }
-  .lb-list li.is-new.is-latest-game { box-shadow: inset 3px 0 0 #ffd166, inset 0 -2px 0 #87b4ff; }
+  .lb-list li.is-new { box-shadow: inset 3px 0 0 #ffd166; font-weight: 700; color: #ffd166; border-radius: 6px; }
+  .lb-list li.is-latest-game { box-shadow: inset 3px 0 0 #87b4ff; border-radius: 6px; }
+  .lb-list li.is-new.is-latest-game { box-shadow: inset 3px 0 0 #ffd166, inset 0 -2px 0 #87b4ff; border-radius: 6px; }
   .lb-list li.lb-yesterday { font-weight: 700; color: #87b4ff; }
   .lb-list li:nth-child(1) { background: rgba(255, 215, 0, 0.20); border-radius: 6px; }
   .lb-list li:nth-child(2) { background: rgba(192, 200, 215, 0.18); border-radius: 6px; }
@@ -141,6 +141,7 @@
   }
   .lb-list li.lb-latest::before { content: "ост"; opacity: 0.85; font-size: 10px; color: #87b4ff; }
   .lb-list li.lb-today .lb-mode,
+  .lb-list li.is-new .lb-mode,
   .lb-list li.is-today-game .lb-mode { font-weight: 600; opacity: 0.85; color: #ffe39e; }
   .lb-list li.is-new .lb-detail,
   .lb-list li.lb-yesterday .lb-detail { font-weight: 400; color: rgba(255,255,255,0.7); }
