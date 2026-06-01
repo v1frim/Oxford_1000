@@ -1308,7 +1308,7 @@ const WORDS = [
   {en:"broke",ua:"без грошей"},
   {en:"brutal",ua:"жорстокий"},
   {en:"burning",ua:"палаючий"},
-  {en:"cabin",ua:"хатина"},
+  {en:"cabin",ua:"хатина"},{en:"camp",ua:["табір","кемпінг"]},
   {en:"candid",ua:"відвертий"},
   {en:"candle",ua:"свічка"},
   {en:"captivating",ua:"захопливий"},
@@ -2655,7 +2655,7 @@ const TRANS = {
   "upstairs":"/ˌʌpˈstɛrz/","wage":"/weɪdʒ/","web":"/wɛb/","wept":"/wɛpt/","west":"/wɛst/",
   "wipe":"/waɪp/","worry":"/ˈwɜːri/",
   "admit":"/ədˈmɪt/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/","committee":"/kəˈmɪti/",
-  "over":"/ˈoʊvər/"
+  "over":"/ˈoʊvər/","camp":"/kæmp/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -4325,7 +4325,8 @@ const EXAMPLES = {
   "ambition":"Her ambition is to become a doctor.",
   "account":"Please log in to your account to continue.",
   "committee":"The committee decided to approve the new project.",
-  "over":"The plane flew over the mountains."
+  "over":"The plane flew over the mountains.",
+  "camp":"We set up camp near the river."
 };
 
 const EXAMPLES_UA = {
@@ -5994,7 +5995,8 @@ const EXAMPLES_UA = {
   "ambition":"Її прагнення — стати лікарем.",
   "account":"Будь ласка, увійдіть у свій обліковий запис, щоб продовжити.",
   "committee":"Комітет вирішив схвалити новий проект.",
-  "over":"Літак летів над горами."
+  "over":"Літак летів над горами.",
+  "camp":"Ми розбили табір біля річки."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -7884,7 +7886,10 @@ const EN_TO_UA = (() => {
   m.set("calculation", ["обчислення"]);
   m.set("canada",      ["Канада"]);
   m.set("candle",      ["свічка"]);
+  m.set("camp",        ["табір", "кемпінг"]);
   m.set("captive",     ["бранець", "полонений", "в'язень"]);
+  m.set("river",       ["річка"]);
+  m.set("near",        ["близько", "поряд", "біля"]);
   m.set("cannot",      ["не може"]);
   m.set("cash",        ["готівка"]);
   m.set("champion",    ["чемпіон"]);
