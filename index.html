@@ -1003,7 +1003,7 @@ const WORDS = [
   {en:"thirsty",ua:"спраглий"},{en:"rich",ua:"багатий"},{en:"poor",ua:"бідний"},
   {en:"expensive",ua:"дорогий"},{en:"cheap",ua:"дешевий"},{en:"free",ua:"вільний"},
   {en:"busy",ua:"зайнятий"},{en:"ready",ua:"готовий"},{en:"same",ua:"однаковий"},
-  {en:"different",ua:"різний"},{en:"similar",ua:"схожий"},{en:"special",ua:"особливий"},
+  {en:"different",ua:["різний","інший"]},{en:"similar",ua:"схожий"},{en:"special",ua:"особливий"},
   {en:"common",ua:"звичайний"},{en:"rare",ua:"рідкісний"},{en:"popular",ua:"популярний"},
   {en:"famous",ua:"відомий"},{en:"secret",ua:"секретний"},{en:"public",ua:"публічний"},
   {en:"private",ua:"приватний"},{en:"local",ua:"місцевий"},{en:"national",ua:"національний"},
@@ -1885,7 +1885,7 @@ const WORDS = [
   {en:"toward",ua:"до"},
   {en:"towering",ua:"велетенський"},
   {en:"trace",ua:"слід"},
-  {en:"transfer",ua:"передавати"},
+  {en:"transfer",ua:["передавати","переказ","перевести"]},
   {en:"transform",ua:"перетворювати"},
   {en:"transmit",ua:"надсилати"},
   {en:"transparent",ua:"прозорий"},
@@ -7725,6 +7725,7 @@ const EN_TO_UA = (() => {
   m.set("cover",       ["накривати", "обкладинка"]);
   m.set("deliver",     ["доставляти"]);
   m.set("design",      ["дизайн", "проектувати"]);
+  m.set("different",   ["різний", "інший"]);
   m.set("discover",    ["відкривати", "виявляти"]);
   m.set("draw",        ["малювати", "тягнути"]);
   m.set("escape",      ["втекти", "уникнути"]);
@@ -7778,6 +7779,7 @@ const EN_TO_UA = (() => {
   m.set("surprise",    ["здивувати", "сюрприз"]);
   m.set("teach",       ["навчати"]);
   m.set("touch",       ["торкатися"]);
+  m.set("transfer",    ["передавати", "переказ", "перевести"]);
   m.set("translate",   ["перекладати"]);
   m.set("trust",       ["довіра", "довіряти"]);
   m.set("type",        ["друкувати", "тип"]);
