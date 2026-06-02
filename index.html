@@ -9038,7 +9038,7 @@ function loadMasteryHistory() {
 function saveMasterySnapshot() {
   const m = loadMastery();
   let known = 0, learning = 0;
-  Object.values(m).forEach(s => { if (s >= 3) known++; else if (s >= 1) learning++; });
+  Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
   const today = new Date().toISOString().slice(0, 10);
   const history = loadMasteryHistory();
   history[today] = { k: known, l: learning, t: WORDS.length };
@@ -9156,7 +9156,7 @@ function renderProgressPanel() {
 function renderMasteryStats() {
   const m = loadMastery();
   let known = 0, learning = 0;
-  Object.values(m).forEach(s => { if (s >= 3) known++; else if (s >= 1) learning++; });
+  Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
   const novel = WORDS.length - known - learning;
 
   const history = loadMasteryHistory();
