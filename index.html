@@ -859,7 +859,7 @@ const WORDS = [
   {en:"pineapple",ua:"ананас"},{en:"mango",ua:"манго"},
 
   // ── NOUNS – Places ─────────────────────────────────────────────────────
-  {en:"home",ua:"дім"},{en:"house",ua:"будинок"},{en:"room",ua:"кімната"},
+  {en:"home",ua:"дім"},{en:"house",ua:"будинок"},{en:"household",ua:"домогосподарство; побутовий"},{en:"room",ua:"кімната"},
   {en:"kitchen",ua:"кухня"},{en:"bedroom",ua:"спальня"},{en:"bathroom",ua:"ванна"},
   {en:"garden",ua:"сад"},{en:"city",ua:"місто"},{en:"town",ua:"містечко"},
   {en:"village",ua:"село"},{en:"country",ua:"країна"},{en:"world",ua:"світ"},
@@ -964,7 +964,7 @@ const WORDS = [
   // ── NOUNS – Education ──────────────────────────────────────────────────
   {en:"class",ua:"клас"},{en:"lesson",ua:"урок"},{en:"subject",ua:"предмет"},
   {en:"math",ua:"математика"},{en:"geography",ua:"географія"},{en:"literature",ua:"література"},
-  {en:"physics",ua:"фізика"},{en:"chemistry",ua:"хімія"},{en:"biology",ua:"біологія"},
+  {en:"physics",ua:"фізика"},{en:"chemistry",ua:"хімія"},{en:"chemical",ua:"хімічний; хімічна речовина"},{en:"chemicals",ua:"хімікати"},{en:"biology",ua:"біологія"},
   {en:"exam",ua:"іспит"},{en:"grade",ua:"оцінка"},{en:"diploma",ua:"диплом"},
   {en:"homework",ua:"домашнє завдання"},{en:"experiment",ua:"експеримент"},
   {en:"theory",ua:"теорія"},{en:"research",ua:"дослідження"},
@@ -2269,7 +2269,7 @@ const TRANS = {
   "flour":"/flaʊər/","pasta":"/ˈpɑːstə/","sandwich":"/ˈsændwɪtʃ/",
   "pineapple":"/ˈpaɪnæpəl/","mango":"/ˈmæŋɡoʊ/",
   // Places
-  "home":"/hoʊm/","house":"/haʊs/","room":"/ruːm/","kitchen":"/ˈkɪtʃɪn/",
+  "home":"/hoʊm/","house":"/haʊs/","household":"/ˈhaʊshoʊld/","room":"/ruːm/","kitchen":"/ˈkɪtʃɪn/",
   "bedroom":"/ˈbɛdruːm/","bathroom":"/ˈbæθruːm/","garden":"/ˈɡɑːrdən/",
   "city":"/ˈsɪti/","town":"/taʊn/","village":"/ˈvɪlɪdʒ/","country":"/ˈkʌntri/",
   "world":"/wɜːrld/","school":"/skuːl/","university":"/ˌjuːnɪˈvɜːrsɪti/",
@@ -2356,7 +2356,7 @@ const TRANS = {
   // Education
   "class":"/klæs/","lesson":"/ˈlɛsən/","subject":"/ˈsʌbdʒɪkt/",
   "math":"/mæθ/","geography":"/dʒiˈɑːɡrəfi/","literature":"/ˈlɪtərətʃər/",
-  "physics":"/ˈfɪzɪks/","chemistry":"/ˈkɛmɪstri/","biology":"/baɪˈɑːlədʒi/",
+  "physics":"/ˈfɪzɪks/","chemistry":"/ˈkɛmɪstri/","chemical":"/ˈkɛmɪkəl/","chemicals":"/ˈkɛmɪkəlz/","biology":"/baɪˈɑːlədʒi/",
   "exam":"/ɪɡˈzæm/","grade":"/ɡreɪd/","diploma":"/dɪˈploʊmə/",
   "homework":"/ˈhoʊmwɜːrk/","experiment":"/ɪkˈspɛrɪmənt/",
   "theory":"/ˈθɪəri/","research":"/ˈriːsɜːrtʃ/",
@@ -2891,7 +2891,7 @@ const EXAMPLES = {
   "sandwich":"He made a chicken sandwich for lunch.","pineapple":"Pineapple on pizza — yes or no?",
   "mango":"Mango is my favourite tropical fruit.",
   // Places
-  "home":"There's no place like home.","house":"They built a new house.",
+  "home":"There's no place like home.","house":"They built a new house.","household":"Every household needs basic cleaning supplies.",
   "room":"My room is small but cosy.","kitchen":"We cook together in the kitchen.",
   "bedroom":"The bedroom has a nice view.","bathroom":"The bathroom is on the second floor.",
   "garden":"She grows roses in her garden.","city":"London is a huge city.",
@@ -3037,7 +3037,7 @@ const EXAMPLES = {
   "class":"There are thirty students in the class.","lesson":"Today's lesson is about history.",
   "subject":"Math is my favourite subject.","math":"Math can be fun if taught well.",
   "geography":"Geography helped me understand the world.","literature":"She studies English literature.",
-  "physics":"Physics explains how things move.","chemistry":"Chemistry is my hardest subject.",
+  "physics":"Physics explains how things move.","chemistry":"Chemistry is my hardest subject.","chemical":"Bleach is a chemical used for cleaning.","chemicals":"Store chemicals away from children.",
   "biology":"Biology teaches us about living things.","exam":"She studied hard for the exam.",
   "grade":"He got a top grade.","diploma":"She received her diploma in June.",
   "homework":"Do your homework before watching TV.","experiment":"The experiment proved the theory.",
@@ -4561,7 +4561,7 @@ const EXAMPLES_UA = {
   "sandwich":"Він зробив сендвіч з куркою на обід.","pineapple":"Ананас на піці — так чи ні?",
   "mango":"Манго — мій улюблений тропічний фрукт.",
   // Places
-  "home":"У гостях добре, а вдома краще.","house":"Вони побудували новий будинок.",
+  "home":"У гостях добре, а вдома краще.","house":"Вони побудували новий будинок.","household":"Кожному домогосподарству потрібні базові засоби для прибирання.",
   "room":"Моя кімната маленька, але затишна.","kitchen":"Ми готуємо разом на кухні.",
   "bedroom":"З спальні гарний вид.","bathroom":"Ванна кімната на другому поверсі.",
   "garden":"Вона вирощує троянди в саду.","city":"Лондон — величезне місто.",
@@ -4707,7 +4707,7 @@ const EXAMPLES_UA = {
   "class":"У класі тридцять учнів.","lesson":"Сьогоднішній урок про історію.",
   "subject":"Математика — мій улюблений предмет.","math":"Математика може бути цікавою, якщо її добре викладати.",
   "geography":"Географія допомогла мені зрозуміти світ.","literature":"Вона вивчає англійську літературу.",
-  "physics":"Фізика пояснює, як рухаються речі.","chemistry":"Хімія — мій найскладніший предмет.",
+  "physics":"Фізика пояснює, як рухаються речі.","chemistry":"Хімія — мій найскладніший предмет.","chemical":"Відбілювач — це хімічна речовина, яку використовують для прибирання.","chemicals":"Зберігайте хімікати подалі від дітей.",
   "biology":"Біологія вчить нас про живі організми.","exam":"Вона старанно готувалася до іспиту.",
   "grade":"Він отримав найвищу оцінку.","diploma":"Вона отримала диплом у червні.",
   "homework":"Зроби домашню роботу перш ніж дивитися телевізор.","experiment":"Експеримент довів теорію.",
