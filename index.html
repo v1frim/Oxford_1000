@@ -9563,6 +9563,12 @@ function loadDuoSessions() {
 }
 function saveDuoSessions(obj) { localStorage.setItem(DUO_KEY, JSON.stringify(obj)); }
 function duoToday() { return new Date().toISOString().slice(0, 10); }
+function getTotalDuoSessions() {
+  return Object.values(loadDuoSessions()).reduce((s, n) => s + n, 0);
+}
+function getTodayDuoSessions() {
+  return loadDuoSessions()[duoToday()] || 0;
+}
 function renderDuoBtn() {
   const sessions = loadDuoSessions();
   const today = duoToday();
