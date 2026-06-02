@@ -7376,6 +7376,7 @@ function startGame(pool) {
   hideLeaderboard();
   document.getElementById("progress-panel").classList.add("hidden");
   document.getElementById("progress-btn").classList.remove("active");
+  document.getElementById("bottom-left-btns").classList.add("hidden");
 
   nextWord();
   intervalId = setInterval(tick, 1000);
@@ -8513,6 +8514,7 @@ function restoreProgressPanel() {
 document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
   startScreen.classList.remove("hidden");
+  document.getElementById("bottom-left-btns").classList.remove("hidden");
   renderLeaderboard();
   updateReviewTodayBtn();
   saveMasterySnapshot();
@@ -8704,6 +8706,7 @@ document.addEventListener("keydown", e => {
   if (!endScreen.classList.contains("hidden")) {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
+    document.getElementById("bottom-left-btns").classList.remove("hidden");
     renderLeaderboard();
     renderLbTotals();
     updateReviewTodayBtn();
