@@ -783,7 +783,7 @@ const WORDS = [
   {en:"minute",ua:"хвилина"},{en:"second",ua:"секунда"},{en:"morning",ua:"ранок"},
   {en:"afternoon",ua:"полудень"},{en:"evening",ua:"вечір"},{en:"night",ua:"ніч"},
   {en:"season",ua:"сезон"},{en:"spring",ua:"весна"},{en:"summer",ua:"літо"},
-  {en:["fall","autumn"],ua:"осінь"},{en:"winter",ua:"зима"},{en:"century",ua:"сторіччя"},
+  {en:["fall","autumn"],ua:"осінь"},{en:"winter",ua:"зима"},{en:"century",ua:["сторіччя","століття"]},
   {en:"decade",ua:"десятиліття"},{en:"moment",ua:"момент"},{en:"period",ua:"період"},
   {en:"past",ua:"минуле"},{en:"future",ua:"майбутнє"},
 
@@ -7910,6 +7910,7 @@ const EN_TO_UA = (() => {
   m.set("cash",        ["готівка"]);
   m.set("champion",    ["чемпіон"]);
   m.set("chapter",     ["розділ"]);
+  m.set("century",     ["сторіччя", "століття"]);
   m.set("charge",      ["заряджати", "звинувачувати"]);
   m.set("chess",       ["шахи"]);
   m.set("chop",        ["рубати", "нарізати"]);
