@@ -917,7 +917,7 @@ const WORDS = [
   {en:"idea",ua:"ідея"},{en:"plan",ua:"план"},{en:"problem",ua:"проблема"},
   {en:"answer",ua:"відповідь"},{en:"question",ua:"питання"},{en:"reason",ua:"причина"},
   {en:"result",ua:"результат"},{en:"example",ua:"приклад"},{en:"information",ua:"інформація"},
-  {en:"news",ua:"новини"},{en:"story",ua:"розповідь"},{en:"truth",ua:"правда"},
+  {en:"news",ua:"новини"},{en:"story",ua:"розповідь"},{en:"truth",ua:["правда","істина"]},
   {en:"lie",ua:"брехня"},{en:"dream",ua:"мрія"},{en:"hope",ua:"надія"},
   {en:"fear",ua:"страх"},{en:"love",ua:"кохання"},{en:"hate",ua:["ненависть","ненавидіти"]},
   {en:"joy",ua:"радість"},{en:"sadness",ua:"сум"},{en:"anger",ua:"злість"},
@@ -7805,6 +7805,8 @@ const EN_TO_UA = (() => {
   m.set("transfer",    ["передавати", "переказ", "перевести"]);
   m.set("translate",   ["перекладати"]);
   m.set("trust",       ["довіра", "довіряти"]);
+  m.set("truth",       ["правда", "істина"]);
+  m.set("true",        ["правдивий", "справжній", "вірний"]);
   m.set("type",        ["друкувати", "тип"]);
   m.set("visit",       ["відвідувати"]);
   m.set("worry",       ["хвилюватися"]);
