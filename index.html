@@ -55,7 +55,7 @@
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 20px;
     padding: 22px 20px;
-    width: 320px;
+    width: 380px;
     max-width: 94vw;
     min-height: 560px;
     color: #fff;
@@ -350,6 +350,8 @@
   .prog-row:last-child { border-bottom: none; }
   .prog-date { opacity: 0.65; font-size: 13px; min-width: 52px; }
   .prog-games { font-size: 11px; opacity: 0.5; margin-left: 4px; }
+  .prog-lh { font-size: 11px; color: #87b4ff; opacity: 0.8; margin-left: 4px; }
+  .prog-duo { font-size: 11px; color: #7fdd40; opacity: 0.85; margin-left: 4px; }
   .prog-delta { display: flex; gap: 8px; justify-content: flex-end; align-items: baseline; flex-wrap: nowrap; }
   .prog-known   { color: #7be07b; font-size: 13px; font-weight: 600; }
   .prog-learning{ color: #87b4ff; font-size: 13px; font-weight: 600; }
@@ -9076,10 +9078,20 @@ function _progAggregate(dates, history, allDates, days) {
   const firstIdx = allDates.indexOf(dates[0]);
   const prev = firstIdx > 0 ? history[allDates[firstIdx-1]] : {k:0,l:0,t:WORDS.length};
   const last = history[dates[dates.length-1]] || prev;
-  let games = 0, rev = 0;
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } }
+  let games = 0, rev = 0, duo = 0;
+  const duoSessions = loadDuoSessions();
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; }
+  const dateSet = new Set(dates);
+  const lh = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
-  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev };
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh };
+}
+function _progMetaHtml(games, lh, duo) {
+  let h = "";
+  if (games > 0) h += '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>';
+  if (lh > 0)    h += '<span class="prog-lh">· 📚' + lh + '</span>';
+  if (duo > 0)   h += '<span class="prog-duo">· 🦉' + duo + '</span>';
+  return h;
 }
 function _progFmtRange(dates) {
   const months = ["січ","лют","бер","кві","тра","чер","лип","сер","вер","жов","лис","гру"];
@@ -9103,6 +9115,8 @@ function renderProgressPanel() {
   if (allDates.length === 0) { list.innerHTML = ""; empty.classList.remove("hidden"); return; }
   empty.classList.add("hidden");
   const days = loadDays();
+  const duoSessions = loadDuoSessions();
+  const lhDone = loadLhDone();
   const recentCount = 14;
   const recentDates = [...allDates].reverse().slice(0, recentCount);
   const recentSet = new Set(recentDates);
@@ -9115,12 +9129,14 @@ function renderProgressPanel() {
     const prev = idx > 0 ? history[allDates[idx-1]] : {k:0,l:0,t:WORDS.length};
     const rev = (days[date] && days[date].reviewCorrect) || 0;
     const games = (days[date] && days[date].games) || 0;
-    const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
+    const duo = duoSessions[date] || 0;
+    const lh = Object.values(lhDone).filter(v => v === date).length;
+    const metaHtml = _progMetaHtml(games, lh, duo);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     const xpGain = getDayXpGain(date);
     const xpHtml = xpGain > 0 ? '<span class="prog-xp">⚡+' + xpGain + '</span>' : '';
-    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + gamesHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
+    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + metaHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
   // ── Older: group by week, then by month if > 8 weeks ago ──
@@ -9134,9 +9150,9 @@ function renderProgressPanel() {
       html += '<div class="prog-section">Тижні</div>';
       const weeks = _progGroupBy(weekDates, _progMondayKey);
       html += Object.keys(weeks).sort().reverse().map(wk => {
-        const {dk, dl, games, rev} = _progAggregate(weeks[wk], history, allDates, days);
-        const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
-        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtRange(weeks[wk]) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
+        const {dk, dl, games, rev, duo, lh, dt} = _progAggregate(weeks[wk], history, allDates, days);
+        const metaHtml = _progMetaHtml(games, lh, duo);
+        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtRange(weeks[wk]) + metaHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
       }).join("");
     }
 
@@ -9144,9 +9160,9 @@ function renderProgressPanel() {
       html += '<div class="prog-section">Місяці</div>';
       const months = _progGroupBy(monthDates, d => d.slice(0,7));
       html += Object.keys(months).sort().reverse().map(mk => {
-        const {dk, dl, games, rev} = _progAggregate(months[mk], history, allDates, days);
-        const gamesHtml = games > 0 ? '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>' : '';
-        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtMonth(mk) + gamesHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
+        const {dk, dl, games, rev, duo, lh, dt} = _progAggregate(months[mk], history, allDates, days);
+        const metaHtml = _progMetaHtml(games, lh, duo);
+        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtMonth(mk) + metaHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
       }).join("");
     }
   }
