@@ -692,7 +692,7 @@
   <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
   <button id="import-btn">📂 Відновити</button>
   <div id="duo-wrap">
-    <button id="duo-btn">🦉 Duolingo<span id="duo-count" class="hidden"></span></button>
+    <button id="duo-btn">🦉 Duolingo<span id="duo-count" style="display:none"></span></button>
     <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
   </div>
 </div>
@@ -9567,12 +9567,8 @@ function renderDuoBtn() {
   const today = duoToday();
   const count = sessions[today] || 0;
   const countEl = document.getElementById("duo-count");
-  if (count > 0) {
-    countEl.textContent = count;
-    countEl.classList.remove("hidden");
-  } else {
-    countEl.classList.add("hidden");
-  }
+  countEl.textContent = count || "";
+  countEl.style.display = count > 0 ? "inline-block" : "none";
   document.getElementById("duo-minus").style.display = count > 0 ? "" : "none";
 }
 
