@@ -9479,7 +9479,7 @@ document.getElementById("import-btn").addEventListener("click", handleImportClic
 // ── LINGOHUT LESSON TRACKER ───────────────────────────────────────────────────
 const LH_KEY = "oxford_lingohut_v1";
 const LH_TOTAL = 125;
-function getLhXp(n) { return n <= 35 ? 100 : n <= 70 ? 150 : 200; }
+function getLhXp(n) { return n <= 35 ? 80 : n <= 70 ? 120 : 160; }
 function getLhTier(n) { return n <= 35 ? "" : n <= 70 ? "t2" : "t3"; }
 
 function loadLhDone() {
@@ -9618,6 +9618,12 @@ saveMasterySnapshot();
 renderMasteryStats();
 // Retroactive XP: initialize on first run
 if (!localStorage.getItem(XP_KEY)) saveXp(computeRetroXp());
+// One-time correction: LingoHut lesson 1 was 100 XP, now 80 XP → subtract 20
+if (!localStorage.getItem("oxford_lh_adj_v1")) {
+  const lhDone = loadLhDone();
+  if (lhDone[1]) addXp(-20);
+  localStorage.setItem("oxford_lh_adj_v1", "1");
+}
 renderXpBar();
 updateBackupLabel();
 autoBackup();
