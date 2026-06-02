@@ -340,6 +340,12 @@
   #xp-fill { height: 100%; background: linear-gradient(90deg,#ffd166,#ff9f43); border-radius: 3px; transition: width 0.6s ease; }
   #xp-nums { display: block; text-align: right; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 5px; }
   #backup-btn.needs-backup { color: #ffa94d !important; border-color: rgba(255,169,77,0.5) !important; }
+  #duo-wrap { display: flex; gap: 4px; }
+  #duo-btn { background: rgba(88,204,2,0.12) !important; border-color: rgba(88,204,2,0.35) !important; color: #7fdd40 !important; }
+  #duo-btn:hover { background: rgba(88,204,2,0.24) !important; color: #a5f060 !important; border-color: rgba(88,204,2,0.6) !important; }
+  #duo-count { display:inline-block; background:rgba(88,204,2,0.22); color:#7fdd40; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
+  #duo-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
+  #duo-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
   .prog-date { opacity: 0.65; font-size: 13px; min-width: 52px; }
@@ -685,6 +691,10 @@
   <button id="progress-btn">📈 Прогрес по днях</button>
   <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
   <button id="import-btn">📂 Відновити</button>
+  <div id="duo-wrap">
+    <button id="duo-btn">🦉 Duolingo<span id="duo-count" class="hidden"></span></button>
+    <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
+  </div>
 </div>
 
 <script>
@@ -9538,6 +9548,58 @@ function renderLhGrid() {
 document.getElementById("lh-btn").addEventListener("click", () => {
   document.getElementById("lh-screen").classList.contains("hidden") ? openLhScreen() : closeLhScreen();
 });
+
+// ── DUOLINGO SESSION TRACKER ─────────────────────────────────────────────────
+const DUO_KEY = "oxford_duolingo_v1";
+const DUO_XP = 40;
+
+function loadDuoSessions() {
+  try { return JSON.parse(localStorage.getItem(DUO_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveDuoSessions(obj) { localStorage.setItem(DUO_KEY, JSON.stringify(obj)); }
+function duoToday() { return new Date().toISOString().slice(0, 10); }
+function renderDuoBtn() {
+  const sessions = loadDuoSessions();
+  const today = duoToday();
+  const count = sessions[today] || 0;
+  const countEl = document.getElementById("duo-count");
+  if (count > 0) {
+    countEl.textContent = count;
+    countEl.classList.remove("hidden");
+  } else {
+    countEl.classList.add("hidden");
+  }
+  document.getElementById("duo-minus").style.display = count > 0 ? "" : "none";
+}
+
+document.getElementById("duo-btn").addEventListener("click", () => {
+  window.open("https://www.duolingo.com/learn", "_blank", "noopener");
+  const sessions = loadDuoSessions();
+  const today = duoToday();
+  sessions[today] = (sessions[today] || 0) + 1;
+  saveDuoSessions(sessions);
+  addXp(DUO_XP);
+  renderDuoBtn();
+  renderXpBar();
+  renderLbTotals();
+  renderProgressPanel();
+});
+
+document.getElementById("duo-minus").addEventListener("click", () => {
+  const sessions = loadDuoSessions();
+  const today = duoToday();
+  if (!sessions[today]) return;
+  sessions[today]--;
+  if (!sessions[today]) delete sessions[today];
+  saveDuoSessions(sessions);
+  addXp(-DUO_XP);
+  renderDuoBtn();
+  renderXpBar();
+  renderLbTotals();
+  renderProgressPanel();
+});
+
+renderDuoBtn();
 
 renderLeaderboard();
 renderLbTotals();
