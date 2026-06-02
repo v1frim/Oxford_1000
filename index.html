@@ -8656,11 +8656,6 @@ document.addEventListener("keydown", e => {
     document.getElementById("progress-btn").click();
     return;
   }
-  if (e.key === "Control" && startScreen && !startScreen.classList.contains("hidden")) {
-    e.preventDefault();
-    document.getElementById("lh-btn").click();
-    return;
-  }
   if (e.key === "Shift" && mode === "en-ua" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
     e.preventDefault();
     speak(currentShown);
