@@ -9640,6 +9640,35 @@ if (!localStorage.getItem("oxford_lh_adj_v1")) {
   if (lhDone[1]) addXp(-20);
   localStorage.setItem("oxford_lh_adj_v1", "1");
 }
+// One-time retro fill: populate per-day XP for 27-30 May (were missing or wrong)
+if (!localStorage.getItem("oxford_xp_day_retro_v1")) {
+  try {
+    const _days = loadDays();
+    const _hist = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _xpd = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}");
+    ["2026-05-27","2026-05-28","2026-05-29","2026-05-30"].forEach(date => {
+      const d = _days[date]; if (!d) return;
+      const correct = d.correct || 0;
+      const rev = d.reviewCorrect || 0;
+      const idx = _hdates.indexOf(date);
+      let dk = 0, dl = 0;
+      if (idx >= 0) {
+        const cur = _hist[date] || {k:0,l:0};
+        const prev = idx > 0 ? _hist[_hdates[idx-1]] || {k:0,l:0} : {k:0,l:0};
+        dk = (cur.k||0) - (prev.k||0);
+        dl = (cur.l||0) - (prev.l||0);
+      }
+      const newToLearn = Math.max(0, dl + Math.max(0, dk));
+      const learnToKnow = Math.max(0, dk);
+      const regression = Math.max(0, -dk);
+      const xp = correct + rev + newToLearn * 3 + learnToKnow * 5 - regression * 3;
+      if (xp > 0) _xpd[date] = xp; else delete _xpd[date];
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+  } catch(e) {}
+  localStorage.setItem("oxford_xp_day_retro_v1", "1");
+}
 renderXpBar();
 updateBackupLabel();
 autoBackup();
