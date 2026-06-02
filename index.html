@@ -9555,7 +9555,7 @@ document.getElementById("lh-btn").addEventListener("click", () => {
 
 // ── DUOLINGO SESSION TRACKER ─────────────────────────────────────────────────
 const DUO_KEY = "oxford_duolingo_v1";
-const DUO_XP = 40;
+const DUO_XP = 30;
 
 function loadDuoSessions() {
   try { return JSON.parse(localStorage.getItem(DUO_KEY) || "{}"); } catch(e) { return {}; }
