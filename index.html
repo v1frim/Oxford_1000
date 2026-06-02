@@ -8975,9 +8975,9 @@ function computeRetroXp() {
   const m = loadMastery();
   let xp = 0;
   Object.values(m).forEach(s => {
-    if (s >= 1) { xp += 3; xp += 1; }  // new→learn + 1 correct
+    if (s >= 1) { xp += 2; xp += 1; }  // new→learn bonus + 1 correct
     if (s >= 2)   xp += 1;              // 2nd correct
-    if (s >= 3) { xp += 5; xp += 1; }  // learn→know + 3rd correct
+    if (s >= 3) { xp += 4; xp += 1; }  // learn→know bonus + 3rd correct
   });
   Object.values(loadDays()).forEach(d => { xp += (d.reviewCorrect || 0); });
   return xp;
@@ -9016,9 +9016,9 @@ function updateMastery(wordIndex, correct) {
   if (correct) {
     m[wordIndex] = Math.min((prev !== undefined ? prev : 0) + 1, 3);
     // Transition: Нові → Вивчаю
-    if ((prev === undefined || prev === 0) && m[wordIndex] === 1) addXp(3);
+    if ((prev === undefined || prev === 0) && m[wordIndex] === 1) addXp(2);
     // Transition: Вивчаю → Знаю
-    else if ((prev === 1 || prev === 2) && m[wordIndex] === 3)    addXp(5);
+    else if ((prev === 1 || prev === 2) && m[wordIndex] === 3)    addXp(4);
   } else {
     m[wordIndex] = 0;
     // Regression: Знаю → Вивчаю
