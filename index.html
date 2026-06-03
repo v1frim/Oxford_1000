@@ -9739,8 +9739,9 @@ if (!localStorage.getItem("oxford_lh_adj_v1")) {
 // displayed daily stats. Clears historical over-counting (review answers were
 // counted ×3 per word; Нові→Вивчаю bonus was re-awarded on every streak-0→1) and
 // back-fills early days that predate XP tracking. After this, fixed event logic
-// keeps total and per-day in lockstep going forward.
-if (!localStorage.getItem("oxford_xp_formula_v1")) {
+// keeps total and per-day in lockstep going forward. Idempotent (reads stats only).
+// Flag is set ONLY on success, so a thrown migration retries on the next load.
+if (!localStorage.getItem("oxford_xp_formula_v2")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -9759,8 +9760,8 @@ if (!localStorage.getItem("oxford_xp_formula_v1")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v2", "1");
   } catch(e) {}
-  localStorage.setItem("oxford_xp_formula_v1", "1");
 }
 renderXpBar();
 updateBackupLabel();
