@@ -751,7 +751,7 @@ const WORDS = [
   {en:"include",ua:"включати"},{en:"increase",ua:"збільшувати"},{en:"join",ua:"приєднуватися"},
   {en:"kill",ua:"вбивати"},{en:"pull",ua:"тягнути"},{en:"push",ua:"штовхати"},
   {en:"raise",ua:["піднімати","виховувати","збільшувати"]},{en:"receive",ua:"отримати"},{en:"reduce",ua:"зменшувати"},
-  {en:"remove",ua:"видаляти"},{en:"repeat",ua:"повторювати"},{en:"replace",ua:"замінювати"},
+  {en:"remove",ua:"видаляти"},{en:"remark",ua:"зауваження"},{en:"repeat",ua:"повторювати"},{en:"replace",ua:"замінювати"},
   {en:"rest",ua:["відпочивати","відпочинок"]},{en:"return",ua:"повертатися"},{en:"rise",ua:"зростати"},
   {en:"save",ua:["зберігати","рятувати"]},{en:"share",ua:"ділитися"},{en:"solve",ua:"вирішувати"},
   {en:"spend",ua:"витрачати"},{en:"support",ua:["підтримувати","підтримка"]},{en:"teach",ua:["навчати","вчити","викладати"]},
@@ -940,7 +940,7 @@ const WORDS = [
   {en:"method",ua:"метод"},{en:"system",ua:"система"},{en:"process",ua:"процес"},
   {en:"situation",ua:"ситуація"},{en:"condition",ua:"умова"},{en:"rule",ua:"правило"},
   {en:"law",ua:"закон"},{en:"right",ua:["право","правий","правильний"]},{en:"relationship",ua:"стосунки"},
-  {en:"goal",ua:"мета"},{en:"task",ua:"завдання"},{en:"purpose",ua:"ціль"},
+  {en:"goal",ua:"мета"},{en:"task",ua:"завдання"},{en:"target",ua:["ціль","мішень"]},{en:"purpose",ua:"ціль"},
   {en:"advantage",ua:"перевага"},{en:"opinion",ua:"думка"},{en:"belief",ua:"переконання"},
   {en:"agreement",ua:"угода"},{en:"argument",ua:"суперечка"},{en:"decision",ua:"рішення"},
   {en:"mistake",ua:"помилка"},{en:"accident",ua:"випадок"},{en:"event",ua:"подія"},
@@ -1115,7 +1115,7 @@ const WORDS = [
   {en:"influence",ua:"впливати"},{en:"injure",ua:"травмувати"},{en:"lend",ua:"позичати"},
   {en:"lift",ua:"підіймати"},{en:"listen",ua:"слухати"},{en:"maintain",ua:"підтримувати"},
   {en:"manage",ua:"керувати"},{en:"measure",ua:"вимірювати"},{en:"mention",ua:"згадувати"},
-  {en:"notice",ua:"помічати"},{en:"occur",ua:"відбуватися"},{en:"offer",ua:"пропонувати"},
+  {en:"notice",ua:"помічати"},{en:"notebook",ua:"зошит"},{en:"occur",ua:"відбуватися"},{en:"offer",ua:"пропонувати"},
   {en:"operate",ua:"керувати"},{en:"pack",ua:"пакувати"},{en:"paint",ua:"малювати"},
   {en:"perform",ua:"виконувати"},{en:"pour",ua:"наливати"},{en:"predict",ua:"передбачати"},
   {en:"press",ua:"натискати"},{en:"pretend",ua:"вдавати"},{en:"print",ua:"друкувати"},
@@ -2183,7 +2183,7 @@ const TRANS = {
   "finish":"/ˈfɪnɪʃ/","fix":"/fɪks/","happen":"/ˈhæpən/","imagine":"/ɪˈmædʒɪn/",
   "improve":"/ɪmˈpruːv/","include":"/ɪnˈkluːd/","increase":"/ɪnˈkriːs/",
   "join":"/dʒɔɪn/","kill":"/kɪl/","pull":"/pʊl/","push":"/pʊʃ/","raise":"/reɪz/",
-  "receive":"/rɪˈsiːv/","reduce":"/rɪˈduːs/","remove":"/rɪˈmuːv/","repeat":"/rɪˈpiːt/",
+  "receive":"/rɪˈsiːv/","reduce":"/rɪˈduːs/","remark":"/rɪˈmɑːrk/","remove":"/rɪˈmuːv/","repeat":"/rɪˈpiːt/",
   "replace":"/rɪˈpleɪs/","rest":"/rɛst/","return":"/rɪˈtɜːrn/","rise":"/raɪz/",
   "save":"/seɪv/","share":"/ʃɛr/","solve":"/sɑːlv/","spend":"/spɛnd/",
   "support":"/səˈpɔːrt/","teach":"/tiːtʃ/","throw":"/θroʊ/","travel":"/ˈtrævəl/",
@@ -2333,7 +2333,7 @@ const TRANS = {
   "level":"/ˈlɛvəl/","step":"/stɛp/","way":"/weɪ/","method":"/ˈmɛθəd/",
   "system":"/ˈsɪstəm/","process":"/ˈprɑːsɛs/","situation":"/ˌsɪtʃuˈeɪʃən/",
   "condition":"/kənˈdɪʃən/","rule":"/ruːl/","law":"/lɔː/","right":"/raɪt/",
-  "relationship":"/rɪˈleɪʃənʃɪp/","goal":"/ɡoʊl/","task":"/tæsk/",
+  "relationship":"/rɪˈleɪʃənʃɪp/","goal":"/ɡoʊl/","target":"/ˈtɑːrɡɪt/","task":"/tæsk/",
   "purpose":"/ˈpɜːrpəs/","advantage":"/ədˈvæntɪdʒ/","opinion":"/əˈpɪnjən/",
   "belief":"/bɪˈliːf/","agreement":"/əˈɡriːmənt/","argument":"/ˈɑːrɡjumənt/",
   "decision":"/dɪˈsɪʒən/","mistake":"/mɪˈsteɪk/","accident":"/ˈæksɪdənt/",
@@ -2556,7 +2556,7 @@ const TRANS = {
   "neat":"/ˈnit/","needed":"/ˈnidəd/","needy":"/ˈnidi/","negative":"/ˈnɛɡətɪv/","negligent":"/ˈnɛɡlədʒənt/","nephew":"/ˈnɛfju/",
   "nest":"/ˈnɛst/","network":"/ˈnɛtwɝk/","neutral":"/ˈnutrəl/","niece":"/ˈnis/","nineteen":"/ˈnaɪnˈtin/","ninety":"/ˈnaɪnti/",
   "noble":"/ˈnoʊbəl/","noise":"/ˈnɔɪz/","noisy":"/ˈnɔɪzi/","noon":"/ˈnun/","nosy":"/ˈnoʊzi/","notable":"/ˈnoʊtəbəl/",
-  "notice":"/ˈnoʊtəs/","notify":"/ˈnoʊtəfaɪ/","novel":"/ˈnɑvəl/","november":"/noʊˈvɛmbɝ/","oak":"/ˈoʊk/","obey":"/oʊˈbeɪ/",
+  "notebook":"/ˈnoʊtbʊk/","notice":"/ˈnoʊtəs/","notify":"/ˈnoʊtəfaɪ/","novel":"/ˈnɑvəl/","november":"/noʊˈvɛmbɝ/","oak":"/ˈoʊk/","obey":"/oʊˈbeɪ/",
   "object":"/ˈɑbdʒɛkt/","obscure":"/əbˈskjʊr/","observe":"/əbˈzɝv/","obtain":"/əbˈteɪn/","obvious":"/ˈɑbviəs/","occupied":"/ˈɑkjəpaɪd/",
   "occur":"/əˈkɝ/","october":"/ɑkˈtoʊbɝ/","odd":"/ˈɑd/","offensive":"/əˈfɛnsɪv/","offer":"/ˈɔfɝ/","official":"/əˈfɪʃəl/",
   "online":"/ˈɔnlaɪn/","operate":"/ˈɑpɝeɪt/","oppose":"/əˈpoʊz/","opposite":"/ˈɑpəzət/","optimistic":"/ɑptəˈmɪstɪk/","option":"/ˈɑpʃən/",
@@ -2741,7 +2741,7 @@ const EXAMPLES = {
   "kill":"Boredom can kill creativity.","pull":"Pull the door to open it.",
   "push":"Push the button to start.","raise":"Raise your hand if you know.",
   "receive":"I received a letter today.","reduce":"We need to reduce waste.",
-  "remove":"Remove the sticker carefully.","repeat":"Please repeat after me.",
+  "remove":"Remove the sticker carefully.","remark":"His remark surprised everyone in the room.","repeat":"Please repeat after me.",
   "replace":"Replace the old battery.","rest":"Rest for a few minutes.",
   "return":"Return the book to the library.","rise":"Prices are rising quickly.",
   "save":"Save your work before closing.","share":"Share your food with others.",
@@ -3005,7 +3005,7 @@ const EXAMPLES = {
   "situation":"The situation is under control.","condition":"The patient is in stable condition.",
   "rule":"Follow the rules of the game.","law":"Breaking the law has consequences.",
   "right":"Everyone has the right to speak.","relationship":"They have a strong relationship.",
-  "goal":"Set a goal and work toward it.","task":"Complete each task before moving on.",
+  "goal":"Set a goal and work toward it.","target":"She set a clear target and worked hard to reach it.","task":"Complete each task before moving on.",
   "purpose":"What is the purpose of this meeting?","advantage":"Being bilingual is a great advantage.",
   "opinion":"In my opinion, this is wrong.","belief":"Respect everyone's beliefs.",
   "agreement":"We reached an agreement.","argument":"They had a big argument.",
@@ -3242,7 +3242,7 @@ const EXAMPLES = {
   "lend":"Can you lend me some money?","lift":"He lifted the heavy box easily.",
   "listen":"Please listen carefully to the instructions.","maintain":"It is hard to maintain a healthy diet.",
   "manage":"She manages a team of ten people.","measure":"Measure the room before buying furniture.",
-  "mention":"Did he mention what time he arrives?","notice":"I noticed a mistake in the report.",
+  "mention":"Did he mention what time he arrives?","notebook":"She always keeps a small notebook in her bag.","notice":"I noticed a mistake in the report.",
   "occur":"This type of error rarely occurs.","offer":"She offered to help us move.",
   "operate":"He operates heavy machinery.","pack":"Don't forget to pack your passport.",
   "paint":"They painted the kitchen yellow.","perform":"The band performed for two hours.",
@@ -4411,7 +4411,7 @@ const EXAMPLES_UA = {
   "kill":"Нудьга може вбити креативність.","pull":"Потягни двері, щоб відчинити.",
   "push":"Натисни кнопку, щоб запустити.","raise":"Підніми руку, якщо знаєш.",
   "receive":"Я отримав листа сьогодні.","reduce":"Нам треба зменшити відходи.",
-  "remove":"Обережно зніми наклейку.","repeat":"Будь ласка, повтори за мною.",
+  "remove":"Обережно зніми наклейку.","remark":"Його зауваження здивувало всіх у кімнаті.","repeat":"Будь ласка, повтори за мною.",
   "replace":"Заміни стару батарейку.","rest":"Відпочинь кілька хвилин.",
   "return":"Поверни книгу до бібліотеки.","rise":"Ціни швидко зростають.",
   "save":"Збережи роботу перед закриттям.","share":"Ділися їжею з іншими.",
@@ -4675,7 +4675,7 @@ const EXAMPLES_UA = {
   "situation":"Ситуація під контролем.","condition":"Пацієнт у стабільному стані.",
   "rule":"Дотримуйся правил гри.","law":"Порушення закону має наслідки.",
   "right":"Кожен має право говорити.","relationship":"У них міцні стосунки.",
-  "goal":"Постав ціль і працюй до неї.","task":"Виконуй кожне завдання перш ніж рухатися далі.",
+  "goal":"Постав ціль і працюй до неї.","target":"Вона поставила чітку ціль і наполегливо працювала, щоб досягти її.","task":"Виконуй кожне завдання перш ніж рухатися далі.",
   "purpose":"Яка мета цієї зустрічі?","advantage":"Бути двомовним — велика перевага.",
   "opinion":"На мою думку, це неправильно.","belief":"Поважай переконання кожного.",
   "agreement":"Ми досягли згоди.","argument":"У них була велика суперечка.",
@@ -4912,7 +4912,7 @@ const EXAMPLES_UA = {
   "lend":"Можеш позичити мені трохи грошей?","lift":"Він легко підняв важку коробку.",
   "listen":"Будь ласка, уважно слухайте інструкції.","maintain":"Важко дотримуватися здорового харчування.",
   "manage":"Вона керує командою з десяти людей.","measure":"Виміряй кімнату перед купівлею меблів.",
-  "mention":"Він згадав, о котрій прибуде?","notice":"Я помітив помилку у звіті.",
+  "mention":"Він згадав, о котрій прибуде?","notebook":"Вона завжди тримає маленький зошит у своїй сумці.","notice":"Я помітив помилку у звіті.",
   "occur":"Такий вид помилки трапляється рідко.","offer":"Вона запропонувала допомогти нам переїхати.",
   "operate":"Він керує важкою технікою.","pack":"Не забудь упакувати паспорт.",
   "paint":"Вони пофарбували кухню в жовтий колір.","perform":"Гурт виступав дві години.",
@@ -7631,6 +7631,7 @@ const EN_TO_UA = (() => {
   m.set("before",      ["до", "перед", "раніше"]);
   m.set("after",       ["після", "потім"]);
   m.set("all",         ["всі", "весь", "уся"]);
+  m.set("always",      ["завжди"]);
   m.set("some",        ["деякі", "трохи", "якісь"]);
   m.set("any",         ["будь-який", "якийсь"]);
   m.set("once",        ["один раз", "колись"]);
@@ -7701,9 +7702,11 @@ const EN_TO_UA = (() => {
   m.set("bag",         ["сумка", "пакет"]);
   m.set("box",         ["коробка"]);
   m.set("key",         ["ключ"]);
+  m.set("keep",        ["тримати", "зберігати"]);
   m.set("lock",        ["замок"]);
   m.set("clock",       ["годинник"]);
   m.set("clever",      ["кмітливий", "розумний", "хитрий"]);
+  m.set("clear",       ["чіткий", "ясний", "зрозумілий"]);
   m.set("watch",       ["годинник", "дивитися"]);
   m.set("paper",       ["папір"]);
   m.set("pen",         ["ручка"]);
@@ -7714,6 +7717,7 @@ const EN_TO_UA = (() => {
   m.set("dress",       ["сукня", "одягати"]);
   m.set("coat",        ["пальто"]);
   m.set("hat",         ["капелюх", "шапка"]);
+  m.set("hard",        ["важкий", "складний", "наполегливо"]);
   m.set("glove",       ["рукавичка"]);
   m.set("ring",        ["каблучка", "дзвеніти"]);
   m.set("flower",      ["квітка"]);
@@ -7789,6 +7793,7 @@ const EN_TO_UA = (() => {
   m.set("promise",     ["обіцянка", "обіцяти"]);
   m.set("realize",     ["усвідомлювати"]);
   m.set("recommend",   ["рекомендувати"]);
+  m.set("reach",       ["досягати", "дістатися"]);
   m.set("relax",       ["розслаблятися"]);
   m.set("repair",      ["ремонтувати"]);
   m.set("repeat",      ["повторювати"]);
@@ -7815,6 +7820,8 @@ const EN_TO_UA = (() => {
   m.set("type",        ["друкувати", "тип"]);
   m.set("visit",       ["відвідувати"]);
   m.set("worry",       ["хвилюватися"]);
+  m.set("work",        ["працювати", "робота"]);
+  m.set("write",       ["писати"]);
   // More common words from sentences
   m.set("green",       ["зелений"]);
   m.set("red",         ["червоний"]);
@@ -7874,6 +7881,8 @@ const EN_TO_UA = (() => {
   m.set("nowhere",     ["ніде"]);
   // Big batch — words found in EXAMPLES sentences but missing from WORDS
   m.set("seat",        ["сидіння", "місце"]);
+  m.set("set",         ["встановлювати", "ставити"]);
+  m.set("small",       ["маленький", "невеликий"]);
   m.set("absent",      ["відсутній"]);
   m.set("absolutely",  ["абсолютно"]);
   m.set("achievement", ["досягнення"]);
