@@ -9082,6 +9082,7 @@ function computeXpFromStats() {
   allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone); });
   return xp;
 }
+const XP_DAY_KEY = "oxford_xp_day_v1";  // per-day XP gain {date: xp}; do NOT remove (used by trackDayXp/getDayXpGain/migration)
 function trackDayXp(delta) {
   if (!delta) return;
   const today = new Date().toISOString().slice(0, 10);
