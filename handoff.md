@@ -382,9 +382,14 @@ const PICTURE_SCENES = [
   - Додано слова у WORDS + TRANS + EXAMPLES + EXAMPLES_UA: notebook, remark, target
   - Додано EN_TO_UA hover: notebook, remark, target, targets, led, always, keep, small, set, work, write, clear, hard, reach
   - Зафіксовано правило додавання нових слів (чеклист у handoff)
-- Зміни сесії 8 (виправлення перенарахування XP):
+- Зміни сесії 8 (виправлення перенарахування XP) — ЗАВЕРШЕНО, total = 2677:
   - Баг №1: +3 за Нові→Вивчаю давався повторно на streak 0→1 → тепер лише `prev===undefined`
   - Баг №2: review нараховував +1 за кожну з 3 відповідей → тепер +1 лише за закрите слово
-  - Міграція `oxford_xp_formula_v1`: перерахунок total + per-day XP з чистої статистики
-    (`computeDayStatsXp`), back-fill ранніх днів; замінено ретро-блок 27–30 травня
+  - Міграція `oxford_xp_formula_v2`: перерахунок total + per-day XP з чистої статистики
+    (`computeDayStatsXp`), back-fill ранніх днів; замінено ретро-блок 27–30 травня.
+    Прапор ставиться лише при успіху (throw → повтор), ідемпотентна.
+  - 🔴 КРИТИЧНО: у `eec07b4` випадково видалено `const XP_DAY_KEY = "oxford_xp_day_v1"`,
+    що ламало і міграцію (total застрягав), і per-day `⚡` (getDayXpGain/trackDayXp).
+    Повернуто в `bc33233` (рядок ~9085). НЕ видаляти цю константу.
   - Прибрано тимчасову діагностичну панель XP
+  - Підсумок: total 2677, per-day `⚡` показується, рівень 3 (Учень). Усе перевірено в продакшені.
