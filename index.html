@@ -9048,7 +9048,39 @@ function computeRetroXp() {
   Object.values(loadDays()).forEach(d => { xp += (d.reviewCorrect || 0); });
   return xp;
 }
-const XP_DAY_KEY = "oxford_xp_day_v1";
+// Deterministic XP straight from the displayed daily stats (no event accumulation).
+// Per day: correct×1 + reviewCorrect×1 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×30 + LingoHut.
+function computeDayStatsXp(date, history, hdates, days, duo, lhDone) {
+  let xp = 0;
+  const d = days[date] || {};
+  xp += (d.correct || 0);          // correct answers in regular games
+  xp += (d.reviewCorrect || 0);    // each closed review word = 1 repetition = 1 XP
+  const idx = hdates.indexOf(date);
+  if (idx >= 0) {
+    const cur  = history[date];
+    const prev = idx > 0 ? history[hdates[idx - 1]] : { k: 0, l: 0, t: WORDS.length };
+    const learnDelta = (cur.l || 0) - (prev.l || 0);
+    const knownDelta = (cur.k || 0) - (prev.k || 0);
+    xp += 3 * Math.max(0, learnDelta);                      // нові → вивчаю
+    xp += knownDelta >= 0 ? 5 * knownDelta : 3 * knownDelta; // вивчаю→знаю (+5) / знаю→вивчаю (−3)
+  }
+  xp += (duo[date] || 0) * DUO_XP;                          // Duolingo
+  Object.entries(lhDone).forEach(([lesson, dt]) => { if (dt === date) xp += getLhXp(Number(lesson)); });
+  return xp;
+}
+function computeXpFromStats() {
+  const days    = loadDays();
+  const history = loadMasteryHistory();
+  const hdates  = Object.keys(history).sort();
+  const duo     = loadDuoSessions();
+  const lhDone  = loadLhDone();
+  const allDates = new Set([
+    ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone)
+  ]);
+  let xp = 0;
+  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone); });
+  return xp;
+}
 function trackDayXp(delta) {
   if (!delta) return;
   const today = new Date().toISOString().slice(0, 10);
@@ -9738,6 +9770,27 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
   document.getElementById("progress-btn").classList.add("active");
   renderProgressPanel();
 }
+// ── ТИМЧАСОВА ДІАГНОСТИКА XP (видалити після рішення) ───────────────────────
+(function() {
+  try {
+    const oldXp = loadXp();
+    const newXp = computeXpFromStats();
+    const diff  = newXp - oldXp;
+    console.log("[XP] старий:", oldXp, "· формула:", newXp, "· різниця:", diff);
+    const box = document.createElement("div");
+    box.style.cssText = "position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:99999;" +
+      "background:rgba(20,45,95,0.96);border:2px solid #ffd166;border-radius:14px;padding:12px 20px;" +
+      "color:#fff;font-size:14px;text-align:center;box-shadow:0 8px 28px rgba(0,0,0,0.5);max-width:90vw;";
+    box.innerHTML =
+      "<b style='color:#ffd166'>Діагностика XP</b><br>" +
+      "Старий (поточний): <b>" + oldXp + "</b><br>" +
+      "Нова формула: <b style='color:#06d6a0'>" + newXp + "</b><br>" +
+      "Різниця: <b style='color:" + (diff < 0 ? "#ff6b6b" : "#7be07b") + "'>" + (diff > 0 ? "+" : "") + diff + "</b>" +
+      "<br><span style='opacity:0.6;font-size:12px'>(нічого не змінено · клік щоб закрити)</span>";
+    box.onclick = () => box.remove();
+    document.body.appendChild(box);
+  } catch(e) { console.error("XP diag error", e); }
+})();
 </script>
 <div id="milestone-overlay">
   <div class="ms-box">
