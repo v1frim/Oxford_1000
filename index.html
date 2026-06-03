@@ -523,6 +523,17 @@
     box-shadow: 0 0 30px rgba(135,180,255,0.25), 0 8px 22px rgba(0,0,0,0.45);
     padding: 18px 36px;
   }
+  .ms-box.rank {
+    border-color: #c89bff;
+    box-shadow: 0 0 55px rgba(200,155,255,0.45), 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .ms-box.rank .ms-text { color: #d9b8ff; }
+  .ms-box.rank .ms-icon { animation: ms-trophy 0.55s ease 0.25s 2; transform-origin: 50% 80%; }
+  @keyframes ms-trophy {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    30%      { transform: translateY(-9px) rotate(-9deg); }
+    65%      { transform: translateY(-5px) rotate(9deg); }
+  }
   .ms-icon { font-size: 52px; display: block; margin-bottom: 10px; }
   .ms-box.nudge .ms-icon { font-size: 34px; margin-bottom: 6px; }
   .ms-text { font-size: 22px; font-weight: 700; color: #ffd166; }
@@ -7308,6 +7319,14 @@ function sfxNudge() {
   _beep(659, 0,    0.08, 0.14);
   _beep(784, 0.12, 0.14, 0.14);
 }
+function sfxRank() {
+  // Triumphant fanfare: G5 → C6 → E6 → G6, with a sparkle tail
+  _beep(784,  0,    0.09, 0.17);
+  _beep(1047, 0.11, 0.09, 0.17);
+  _beep(1319, 0.22, 0.09, 0.17);
+  _beep(1568, 0.33, 0.28, 0.20);
+  _beep(2093, 0.50, 0.30, 0.10); // high sparkle
+}
 let _msTimer = null;
 function showMilestone(icon, text, sub, type) {
   const ov  = document.getElementById("milestone-overlay");
@@ -7321,6 +7340,20 @@ function showMilestone(icon, text, sub, type) {
   ov.classList.add("show");
   if (_msTimer) clearTimeout(_msTimer);
   _msTimer = setTimeout(() => ov.classList.remove("show"), 2500);
+}
+// Queue so multiple milestones play one after another instead of overwriting
+let _msQueue = [];
+let _msRunning = false;
+function enqueueMilestone(item) {
+  _msQueue.push(item);
+  if (!_msRunning) { _msRunning = true; setTimeout(_drainMilestones, 900); }
+}
+function _drainMilestones() {
+  const item = _msQueue.shift();
+  if (!item) { _msRunning = false; return; }
+  if (item.sfx) item.sfx();
+  showMilestone(item.icon, item.text, item.sub, item.type);
+  setTimeout(_drainMilestones, 2700);
 }
 
 function startGame(pool) {
@@ -7404,15 +7437,25 @@ function endGame(endedEarly) {
   if (!activePool) {
     const ts = Date.now();
     const wordCount = WORDS.length;
+    const scoresWereFull = loadScores().length >= LB_LIMIT;
     newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
-      // game milestones
+      // game milestones (daily games played)
       const gamesCount = (loadDays()[newDayKey] || {}).games || 0;
       if (gamesCount > 0 && gamesCount % 4 === 0) {
-        setTimeout(() => { sfxMilestone(); showMilestone("🎯", gamesCount + " ігор!", "Урок виконано!", "milestone"); }, 900);
+        enqueueMilestone({ icon: "🎯", text: gamesCount + " ігор!", sub: "Урок виконано!", type: "milestone", sfx: sfxMilestone });
       } else if (gamesCount % 4 === 2) {
-        setTimeout(() => { sfxNudge(); showMilestone("💪", "Ще трішки!", "2 гри зіграно сьогодні", "nudge"); }, 900);
+        enqueueMilestone({ icon: "💪", text: "Ще трішки!", sub: "2 гри зіграно сьогодні", type: "nudge", sfx: sfxNudge });
+      }
+    }
+    // leaderboard rank milestone (only once the board was already full — a real bump)
+    const rank = newEntryId ? getScoreRank(newEntryId) : null;
+    if (rank && scoresWereFull) {
+      if (rank === 1) {
+        enqueueMilestone({ icon: "🥇", text: "Новий рекорд!", sub: "Найкраща гра за весь час", type: "rank", sfx: sfxRank });
+      } else {
+        enqueueMilestone({ icon: "🏆", text: rank + " місце!", sub: rank <= 3 ? "У топ-3 найкращих ігор!" : "У топ-10 найкращих ігор!", type: "rank", sfx: sfxRank });
       }
     }
     updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
@@ -7428,7 +7471,7 @@ function endGame(endedEarly) {
     // All today's mistakes cleared?
     const todayMistakes = (loadDayMistakes()[todayKey()] || []);
     if (todayMistakes.length === 0) {
-      setTimeout(() => { sfxCleared(); showMilestone("✨", "Усі помилки закриті!", "Так тримати!", "cleared"); }, 900);
+      enqueueMilestone({ icon: "✨", text: "Усі помилки закриті!", sub: "Так тримати!", type: "cleared", sfx: sfxCleared });
     }
   }
   renderLeaderboard(newEntryId, newDayKey);
@@ -8760,6 +8803,10 @@ function saveScore(entry) {
   const trimmed = all.slice(0, LB_LIMIT);
   localStorage.setItem(LB_KEY, JSON.stringify(trimmed));
   return trimmed.some(e => e.id === id) ? id : null;
+}
+function getScoreRank(id) {
+  const idx = loadScores().findIndex(e => e.id === id);
+  return idx >= 0 ? idx + 1 : null;
 }
 function loadDays() {
   try { return JSON.parse(localStorage.getItem(LB_DAYS_KEY)) || {}; }

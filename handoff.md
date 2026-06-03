@@ -38,6 +38,17 @@
 - TTS через Web Speech API (preferred female US English voice)
 - Звукові ефекти: Web Audio API — E5→G5 старт, G5→E5→C5 фініш
 
+### Milestone-вітання (overlay `#milestone-overlay`)
+Функція `showMilestone(icon, text, sub, type)` + **черга** `enqueueMilestone({icon,text,sub,type,sfx})`.
+Черга показує вітання послідовно (2.7с кожне), щоб вони не перезаписували одне одного.
+4 типи (кожен свій колір + звук):
+- **milestone** (🎯 жовтий, `sfxMilestone`) — серія ігор за день кратна 4
+- **nudge** (💪 синій, `sfxNudge`) — 2-га гра дня (gamesCount % 4 === 2)
+- **cleared** (✨ зелений, `sfxCleared`) — усі помилки дня закриті (review)
+- **rank** (🏆/🥇 фіолетовий `#c89bff`, `sfxRank` фанфара) — гра потрапила в топ-10 leaderboard.
+  Показується ТІЛЬКИ якщо список був уже повний (`scoresWereFull`, ≥10 ігор) — щоб не спамити на старті.
+  rank===1 → 🥇 "Новий рекорд!"; rank 2-3 → "топ-3"; 4-10 → "топ-10". Анімація іконки `ms-trophy`.
+
 ### Review-режим
 - 3 правильні підряд = освоєно
 - **TAINTED-логіка:** бодай 1 помилка/пропуск → слово НЕ видаляється з "помилок дня" навіть після 3 правильних
