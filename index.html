@@ -1068,7 +1068,7 @@ const WORDS = [
   {en:"soon",ua:"скоро"},{en:"again",ua:"знову"},{en:"also",ua:"також"},
   {en:"too",ua:"теж"},{en:"enough",ua:"достатньо"},{en:"probably",ua:"мабуть"},
   {en:"maybe",ua:"можливо"},{en:"certainly",ua:"звичайно"},{en:"here",ua:"тут"},
-  {en:"there",ua:"там"},{en:"everywhere",ua:"скрізь"},{en:"nowhere",ua:"ніде"},
+  {en:"there",ua:"там"},{en:"everywhere",ua:["скрізь","всюди","повсюди"]},{en:"nowhere",ua:"ніде"},
   {en:"somewhere",ua:"десь"},{en:"outside",ua:"зовні"},{en:"inside",ua:"всередині"},
   {en:"above",ua:"вгорі"},{en:"below",ua:"внизу"},{en:"over",ua:["над","через","понад"]},{en:"now",ua:"зараз"},
   {en:"then",ua:"тоді"},{en:"quickly",ua:"швидко"},{en:"slowly",ua:"повільно"},
@@ -7922,7 +7922,7 @@ const EN_TO_UA = (() => {
   m.set("along",       ["вздовж"]);
   m.set("upstairs",    ["нагорі", "наверх"]);
   m.set("downstairs",  ["внизу", "вниз"]);
-  m.set("everywhere",  ["скрізь"]);
+  m.set("everywhere",  ["скрізь", "всюди", "повсюди"]);
   m.set("somewhere",   ["десь"]);
   m.set("anywhere",    ["будь-де"]);
   m.set("nowhere",     ["ніде"]);
