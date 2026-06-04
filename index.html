@@ -1083,7 +1083,7 @@ const WORDS = [
   {en:"only",ua:"тільки"},{en:"forward",ua:"вперед"},{en:"backward",ua:"назад"},
   {en:"nearby",ua:"поруч"},{en:"apart",ua:"окремо"},
   // ── TH- WORDS ──
-  {en:"through",ua:"через"},{en:"though",ua:"хоча"},{en:"thought",ua:"думка"},
+  {en:"through",ua:"через"},{en:"though",ua:"хоча"},{en:"thought",ua:"думка"},{en:"those",ua:"ті"},
   {en:"thorough",ua:"ретельний"},{en:"throat",ua:"горло"},{en:"thread",ua:"нитка"},
   {en:"thirteen",ua:"тринадцять"},{en:"third",ua:"третій"},{en:"thumb",ua:"великий палець"},
   {en:"thing",ua:"річ"},{en:"thank",ua:"дякувати"},{en:"than",ua:"ніж"},{en:"their",ua:"їхній"},
@@ -2622,7 +2622,7 @@ const TRANS = {
   "talented":"/tˈæləntɪd/","taste":"/tˈeɪst/","tax":"/tˈæks/","tear":"/tɪr/","tedious":"/tˈiːdɪəs/","teeth":"/tˈiːθ/",
   "temple":"/tˈɛmpəl/","temporary":"/tˈɛmprəri/","tender":"/tˈɛndɐ/","terrified":"/tˈɛrɪfaɪd/","text":"/tˈɛkst/","than":"/ðˈɐn/",
   "thank":"/θˈæŋk/","their":"/ðˈeə/","thing":"/θˈɪŋ/","third":"/θˈɜːd/","thirteen":"/θɜːtˈiːn/","thirty":"/θˈɜːti/",
-  "thorough":"/θˈʌrɐ/","though":"/ðˈəʊ/","thought":"/θˈɔːt/","thoughtful":"/θˈɔːtfəl/","thoughtless":"/θˈɔːtləs/","thread":"/θrˈɛd/",
+  "thorough":"/θˈʌrɐ/","those":"/ðˈəʊz/","though":"/ðˈəʊ/","thought":"/θˈɔːt/","thoughtful":"/θˈɔːtfəl/","thoughtless":"/θˈɔːtləs/","thread":"/θrˈɛd/",
   "threatening":"/θrˈɛtənɪŋ/","throat":"/θrˈəʊt/","through":"/θrˈuː/","thumb":"/θˈʌm/","thunderous":"/θˈʌndərəs/","thursday":"/ˈθɜːrzdeɪ/",
   "tidy":"/tˈaɪdi/","timid":"/tˈɪmɪd/","tiny":"/tˈaɪni/","toast":"/tˈəʊst/","tolerant":"/tˈɒlərənt/","toothache":"/tˈuːθeɪk/",
   "topic":"/tˈɒpɪk/","total":"/tˈəʊtəl/","touch":"/tˈʌtʃ/","tough":"/tˈʌf/","tour":"/tˈɔː/","toward":"/tʊwˈɔːd/",
@@ -3197,7 +3197,7 @@ const EXAMPLES = {
   "even":"Even a child could do this.","only":"I only need five minutes.",
   "forward":"Move forward and don't look back.","backward":"Take one step backward.",
   "nearby":"There is a café nearby.","apart":"They live far apart.",
-  "through":"She walked through the park.","though":"I like her though she can be stubborn.",
+  "through":"She walked through the park.","those":"Those books are very interesting.","though":"I like her though she can be stubborn.",
   "thought":"He had a brilliant thought.","thorough":"She did a thorough job.",
   "throat":"My throat hurts when I swallow.","thread":"She sewed with a red thread.",
   "thirteen":"There are thirteen students in the class.","third":"She finished in third place.",
@@ -4867,7 +4867,7 @@ const EXAMPLES_UA = {
   "even":"Навіть дитина могла б це зробити.","only":"Мені потрібно лише п'ять хвилин.",
   "forward":"Рухайся вперед і не озирайся.","backward":"Зроби один крок назад.",
   "nearby":"Поруч є кафе.","apart":"Вони живуть далеко один від одного.",
-  "through":"Вона пройшла через парк.","though":"Мені подобається вона, хоча вона буває впертою.",
+  "through":"Вона пройшла через парк.","those":"Ті книги дуже цікаві.","though":"Мені подобається вона, хоча вона буває впертою.",
   "thought":"У нього виникла геніальна думка.","thorough":"Вона виконала роботу ретельно.",
   "throat":"Мені боляче ковтати.","thread":"Вона шила червоною ниткою.",
   "thirteen":"У класі тринадцять учнів.","third":"Вона посіла третє місце.",
@@ -7589,6 +7589,7 @@ const EN_TO_UA = (() => {
   m.set("minute",      ["хвилина"]);  // ensure
   m.set("during",      ["під час", "протягом"]);
   m.set("while",       ["поки", "в той час як"]);
+  m.set("those",       ["ті"]);
   m.set("though",      ["хоча"]);
   m.set("although",    ["хоча", "незважаючи на те що"]);
   m.set("unless",      ["якщо не", "хіба що"]);
