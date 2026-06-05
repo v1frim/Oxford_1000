@@ -390,16 +390,14 @@
   #xp-section.tier-2 #xp-fill, #xp-section.tier-3 #xp-fill, #xp-section.tier-4 #xp-fill {
     background: linear-gradient(90deg, var(--tier), var(--tier2), var(--tier));
     background-size: 200% 100%; animation: xp-shimmer 2.6s linear infinite; }
-  /* Королівство — шеврони ">" (верхня "\" + нижня "/" половини) */
-  #xp-section.tier-4 #xp-seg {
-    display: block;
-    background-image:
-      repeating-linear-gradient(135deg, transparent 0 9px, rgba(0,0,0,0.42) 9px 11px),
-      repeating-linear-gradient(45deg,  transparent 0 9px, rgba(0,0,0,0.42) 9px 11px);
-    background-size: 100% 50%;
-    background-position: 0 0, 0 100%;
-    background-repeat: repeat-x; }
-  #xp-section.tier-4 #xp-seg i { display: none; }
+  /* Королівство — шеврони ">" замість прямих поділок (9 шт = 10 частин) */
+  #xp-section.tier-4 #xp-seg i { border-right: none; position: relative; }
+  #xp-section.tier-4 #xp-seg i:not(:last-child)::after {
+    content: ""; position: absolute; right: -3px; top: 50%;
+    width: 5px; height: 5px;
+    border-top: 2px solid rgba(0,0,0,0.45);
+    border-right: 2px solid rgba(0,0,0,0.45);
+    transform: translateY(-50%) rotate(45deg); }
   @keyframes xp-shimmer { from { background-position: 0 0; } to { background-position: -200% 0; } }
   /* level-up flash */
   #xp-section.xp-levelup #xp-hex { animation: xp-levelup-hex 0.9s ease; }
@@ -9270,11 +9268,17 @@ function renderXpPreview() {
       ? "background:linear-gradient(90deg,"+t.c+","+t.c2+","+t.c+");background-size:200% 100%;animation:xp-shimmer 2.6s linear infinite;"
       : "background:linear-gradient(90deg,"+t.c+","+t.c2+");";
     const hexStyle = t.hexAnim ? "animation:"+t.hexAnim+";" : "";
-    const seg = ti === 4
-      ? '<div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(135deg,transparent 0 9px,rgba(0,0,0,0.42) 9px 11px),repeating-linear-gradient(45deg,transparent 0 9px,rgba(0,0,0,0.42) 9px 11px);background-size:100% 50%;background-position:0 0,0 100%;background-repeat:repeat-x"></div>'
-      : '<div style="position:absolute;inset:0;pointer-events:none;display:flex">' +
-          Array(10).fill('<i style="flex:1;border-right:1px solid rgba(8,18,38,0.22)"></i>').join("") +
+    let seg;
+    if (ti === 4) {
+      let chevs = "";
+      for (let k = 1; k <= 9; k++)
+        chevs += '<span style="position:absolute;left:'+(k*10)+'%;top:50%;width:5px;height:5px;border-top:2px solid rgba(0,0,0,0.45);border-right:2px solid rgba(0,0,0,0.45);transform:translate(-50%,-50%) rotate(45deg)"></span>';
+      seg = '<div style="position:absolute;inset:0;pointer-events:none">'+chevs+'</div>';
+    } else {
+      seg = '<div style="position:absolute;inset:0;pointer-events:none;display:flex">' +
+        Array(10).fill('<i style="flex:1;border-right:1px solid rgba(8,18,38,0.22)"></i>').join("") +
         '</div>';
+    }
     const hex =
       '<div style="position:relative;width:46px;height:50px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'+hexStyle+'">' +
         '<div style="position:absolute;inset:0;background:linear-gradient(155deg,'+t.c2+','+t.c+');clip-path:'+t.clip+'"></div>' +
