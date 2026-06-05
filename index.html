@@ -9130,8 +9130,13 @@ function updateMastery(wordIndex, correct) {
     else if ((prev === 1 || prev === 2) && m[wordIndex] === 3)    addXp(5);
   } else {
     m[wordIndex] = 0;
+    // Transition: Нові → Вивчаю through a wrong/skipped first encounter.
+    // The word still entered "Вивчаю" for the first time. User counts this as progress
+    // (they then spend time studying the new word), so award the same +3 as a correct
+    // first encounter. prev===undefined fires exactly once per word, so no double-count.
+    if (prev === undefined) addXp(3);
     // Regression: Знаю → Вивчаю
-    if (prev >= 3) addXp(-3);
+    else if (prev >= 3) addXp(-3);
   }
   saveMastery(m);
 }
