@@ -352,7 +352,7 @@
   #xp-hex-num { position: absolute; inset: 0; z-index: 1; display: flex;
     align-items: center; justify-content: center; font-weight: 800; font-size: 19px;
     color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); line-height: 1;
-    transform: translate(-1px, -1px); }
+    transform: translate(-1px, -2px); }
   /* Diamond — кругла форма з фіолетовим свінням */
   #xp-section.tier-3 #xp-hex::before,
   #xp-section.tier-3 #xp-hex::after { clip-path: circle(46%); }
@@ -9304,7 +9304,7 @@ function renderXpPreview() {
       '<div style="position:relative;width:46px;height:50px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'+hexStyle+'">' +
         '<div style="position:absolute;inset:0;background:linear-gradient(155deg,'+t.c2+','+t.c+');clip-path:'+t.clip+'"></div>' +
         '<div style="position:absolute;inset:3px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,0.18),rgba(0,0,0,0.45));clip-path:'+t.clip+'"></div>' +
-        '<span style="position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1;transform:translate(-1px,-1px)">'+lvl+'</span>' +
+        '<span style="position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1;transform:translate(-1px,-2px)">'+lvl+'</span>' +
       '</div>';
     const bar =
       '<div style="position:relative;height:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.10);border-radius:5px;overflow:hidden">' +
@@ -9964,11 +9964,11 @@ document.getElementById("duo-minus").addEventListener("click", () => {
 // сповіщень — поточна ліга в панелі завжди рахується наживо з фактичних значень.
 const ACH_KEY = "oxford_achievements_v1";        // {achId: highestNotifiedLevel 0-5}
 const ACH_LEAGUES = [
-  { name: "Бронза",      color: "#cd7f32", color2: "#f0b070" },
-  { name: "Срібло",      color: "#c0c0c0", color2: "#e8eef7" },
-  { name: "Золото",      color: "#ffd700", color2: "#ffe680" },
-  { name: "Діамант",     color: "#7dd6f5", color2: "#bfeeff" },
-  { name: "Королівство", color: "#c89bff", color2: "#e0c8ff" },
+  { name: "Бронза",      label: "Бронзова",      color: "#cd7f32", color2: "#f0b070" },
+  { name: "Срібло",      label: "Срібна",         color: "#c0c0c0", color2: "#e8eef7" },
+  { name: "Золото",      label: "Золота",          color: "#ffd700", color2: "#ffe680" },
+  { name: "Діамант",     label: "Діамантова",     color: "#7c3aed", color2: "#c4b5fd" },
+  { name: "Королівство", label: "Королівська",    color: "#c0392b", color2: "#ff6040" },
 ];
 const ACH_NOLEAGUE = { color: "#6b7a99", color2: "#9aa8c4" }; // ще не здобуто жодної ліги
 const ACHIEVEMENTS = [
@@ -10052,8 +10052,7 @@ function renderAchVariantA() {
     const pct = Math.min(100, Math.max(0, Math.round((v - base) / (goal - base) * 100)));
     const count = next ? fmtAchNum(v) + ' / ' + fmtAchNum(goal) : '👑 ' + fmtAchNum(v);
     const desc = lvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
-      : (next ? 'Ліга «' + cur.name + '» · далі «' + next.name + '»'
-              : 'Найвища ліга «' + cur.name + '» 👑');
+      : (lvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
     return achCardHtml({ icon:a.icon, title:a.name, lvl, pct, count, desc,
       c:cur.color, c2:cur.color2, glow:cur.color });
   }).join("") + '</div>';
@@ -10062,12 +10061,12 @@ function renderAchVariantA() {
 // ── TEMP: achievement card design preview (remove after sign-off) ──
 function renderAchPreview() {
   const samples = [
-    { icon:"✅", title:"Без ліги",       lg:ACH_NOLEAGUE,    desc:"Старт · до «Бронза»" },
-    { icon:"🎮", title:"Бронзова ліга",  lg:ACH_LEAGUES[0],  desc:"Ліга «Бронза» · далі «Срібло»" },
-    { icon:"🔁", title:"Срібна ліга",    lg:ACH_LEAGUES[1],  desc:"Ліга «Срібло» · далі «Золото»" },
-    { icon:"🔥", title:"Золота ліга",    lg:ACH_LEAGUES[2],  desc:"Ліга «Золото» · далі «Діамант»" },
-    { icon:"⚡", title:"Діамантова ліга", lg:ACH_LEAGUES[3], desc:"Ліга «Діамант» · далі «Королівство»" },
-    { icon:"👑", title:"Королівська ліга", lg:ACH_LEAGUES[4], desc:"Найвища ліга «Королівство» 👑" },
+    { icon:"✅", title:"Без ліги",        lg:ACH_NOLEAGUE,    desc:'До ліги «Бронза»' },
+    { icon:"🎮", title:"Бронзова ліга",   lg:ACH_LEAGUES[0],  desc:"Бронзова ліга" },
+    { icon:"🔁", title:"Срібна ліга",     lg:ACH_LEAGUES[1],  desc:"Срібна ліга" },
+    { icon:"🔥", title:"Золота ліга",     lg:ACH_LEAGUES[2],  desc:"Золота ліга" },
+    { icon:"⚡", title:"Діамантова ліга", lg:ACH_LEAGUES[3],  desc:"Діамантова ліга" },
+    { icon:"👑", title:"Королівська ліга",lg:ACH_LEAGUES[4],  desc:"Найвища ліга — Королівська 👑" },
     { icon:"🎵", title:"Заблоковано",    lg:{color:"#5b6b85",color2:"#8090aa"}, desc:"🔒 в розробці", locked:true },
   ];
   const html = samples.map((s, i) => achCardHtml({
