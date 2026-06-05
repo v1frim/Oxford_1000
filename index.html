@@ -466,6 +466,52 @@
   }
   .rm-btn.rm-selected { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.55); }
 
+  /* category words modal */
+  .ms-badge[data-cat] { cursor: pointer; transition: background 0.15s; }
+  .ms-badge[data-cat]:hover { background: rgba(255,255,255,0.2); }
+  #cat-modal {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+  }
+  #cat-modal.hidden { display: none; }
+  .cat-card {
+    background: rgba(30,60,114,0.97);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+    padding: 20px 22px 18px;
+    width: 400px; max-width: 92vw; max-height: 84vh;
+    display: flex; flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .cat-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cat-title { font-size: 17px; font-weight: 700; }
+  .cat-title .cat-cnt { font-weight: 500; opacity: 0.55; font-size: 14px; margin-left: 7px; }
+  .cat-close {
+    background: none; border: none; color: rgba(255,255,255,0.5);
+    font-size: 18px; cursor: pointer; line-height: 1; padding: 2px 6px;
+  }
+  .cat-close:hover { color: #fff; }
+  .cat-list { overflow-y: auto; flex: 1; margin: 0 -6px; padding: 0 6px 2px; min-height: 60px; }
+  .cat-row {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 7px 9px; border-radius: 8px; cursor: pointer; font-size: 14px;
+  }
+  .cat-row:hover { background: rgba(255,255,255,0.09); }
+  .cat-en { font-weight: 600; white-space: nowrap; }
+  .cat-ua { opacity: 0.6; text-align: right; }
+  .cat-empty { text-align: center; opacity: 0.5; padding: 34px 0; font-size: 14px; }
+  .cat-play {
+    margin-top: 14px; padding: 12px; border-radius: 12px; cursor: pointer;
+    font-size: 15px; font-weight: 700; border: none; color: #14213d;
+    transition: filter 0.15s;
+  }
+  .cat-play:hover { filter: brightness(1.07); }
+  .cat-play:disabled { opacity: 0.4; cursor: default; filter: none; }
+
   /* result */
   .result { font-size: 20px; line-height: 1.6; }
   .result .big { font-size: 52px; font-weight: 700; color: #ffd166; }
@@ -787,6 +833,16 @@
       <button class="rm-btn" data-dir="random">🔀 &nbsp;Випадковий</button>
     </div>
     <button class="rm-cancel" id="rm-cancel">Скасувати</button>
+  </div>
+</div>
+<div id="cat-modal" class="hidden">
+  <div class="cat-card">
+    <div class="cat-head">
+      <div class="cat-title" id="cat-title"></div>
+      <button class="cat-close" id="cat-close" title="Esc">✕</button>
+    </div>
+    <div class="cat-list" id="cat-list"></div>
+    <button class="cat-play" id="cat-play"></button>
   </div>
 </div>
 <aside class="leaderboard hidden" id="leaderboard">
@@ -7492,8 +7548,10 @@ function _drainMilestones() {
   setTimeout(_drainMilestones, 2700);
 }
 
-function startGame(pool) {
-  activePool = pool || null;
+function startGame(pool, opts) {
+  opts = opts || {};
+  const timedPool = (pool && opts.timed) ? pool : null;  // timed game over a custom pool (mastery updates)
+  activePool = (pool && !opts.timed) ? pool : null;        // review-style pool (3× correct to clear)
   if (activePool) {
     reviewRemaining = new Set(activePool);
     reviewTotalPool = activePool.length;
@@ -7523,7 +7581,9 @@ function startGame(pool) {
   timerEl.textContent = DURATION;
   timerEl.classList.remove("low", "overtime");
   let sourcePool;
-  if (activePool) {
+  if (timedPool) {
+    sourcePool = timedPool;
+  } else if (activePool) {
     sourcePool = activePool;
   } else if (mode === "en-def") {
     sourcePool = buildEnDefPool();
@@ -8842,6 +8902,12 @@ document.addEventListener("keyup", e => {
 });
 
 document.addEventListener("keydown", e => {
+  // Category words modal intercepts Esc (close) / Enter (play) while open
+  if (!document.getElementById("cat-modal").classList.contains("hidden")) {
+    if (e.key === "Escape") { e.preventDefault(); closeCategoryModal(); }
+    else if (e.key === "Enter") { e.preventDefault(); startCategoryGame(); }
+    return;
+  }
   // Review mode modal intercepts Esc / Tab / Enter while open
   if (!document.getElementById("review-mode-modal").classList.contains("hidden")) {
     if (e.key === "Escape") {
@@ -9468,9 +9534,9 @@ function renderMasteryStats() {
   const deltaN = mkDelta('ms-new', hasDeltas && dt > 0 ? '+' + dt + ' ●' : '');
 
   document.getElementById("mastery-stats").innerHTML =
-    '<div class="ms-col"><span class="ms-badge ms-known">✓ Знаю: ' + known + '</span>' + deltaK + '</div>' +
-    '<div class="ms-col"><span class="ms-badge ms-learning">↗ Вивчаю: ' + learning + '</span>' + deltaL + '</div>' +
-    '<div class="ms-col"><span class="ms-badge ms-new">● Нові: ' + novel + '</span>' + deltaN + '</div>' +
+    '<div class="ms-col"><span class="ms-badge ms-known" data-cat="known" title="Показати слова">✓ Знаю: ' + known + '</span>' + deltaK + '</div>' +
+    '<div class="ms-col"><span class="ms-badge ms-learning" data-cat="learning" title="Показати слова">↗ Вивчаю: ' + learning + '</span>' + deltaL + '</div>' +
+    '<div class="ms-col"><span class="ms-badge ms-new" data-cat="new" title="Показати слова">● Нові: ' + novel + '</span>' + deltaN + '</div>' +
     '<div class="ms-col"><span class="ms-badge ms-total">' + WORDS.length + ' слів</span></div>';
 
   const bar = document.getElementById("mastery-bar");
@@ -9479,6 +9545,90 @@ function renderMasteryStats() {
     '<div style="flex:' + learning + ';background:#87b4ff"></div>' +
     '<div style="flex:' + novel + ';background:#ffa94d"></div>';
 }
+
+// ── Category words modal (click Знаю / Вивчаю / Нові badge → list + play) ──────
+const CAT_META = {
+  known:    { label: "Знаю",   icon: "✓", color: "#7be07b" },
+  learning: { label: "Вивчаю", icon: "↗", color: "#87b4ff" },
+  new:      { label: "Нові",   icon: "●", color: "#ffa94d" },
+};
+// indices of words in a mastery category (same rule as renderMasteryStats)
+function categoryIndices(cat) {
+  const m = loadMastery();
+  const out = [];
+  for (let i = 0; i < WORDS.length; i++) {
+    const s = m[i];
+    const inCat = cat === "known"    ? s >= 3
+                : cat === "learning" ? (s !== undefined && s < 3)
+                : /* new */            s === undefined;
+    if (inCat) out.push(i);
+  }
+  return out;
+}
+// valid word indices for the currently selected game mode
+function modeValidPool() {
+  if (mode === "en-def")   return buildEnDefPool();
+  if (mode === "en-syn")   return buildEnSynPool();
+  if (mode === "en-ant")   return buildEnAntPool();
+  if (mode === "en-cloze") return buildEnClozePool();
+  return [...Array(WORDS.length).keys()];
+}
+let catModalCat = null;
+function openCategoryModal(cat) {
+  const meta = CAT_META[cat];
+  if (!meta) return;
+  catModalCat = cat;
+  const idxs = categoryIndices(cat);
+  const sorted = idxs.slice().sort((a, b) =>
+    getEn(WORDS[a])[0].localeCompare(getEn(WORDS[b])[0]));
+  document.getElementById("cat-title").innerHTML =
+    '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + '</span>' +
+    '<span class="cat-cnt">' + idxs.length + ' слів</span>';
+  const listEl = document.getElementById("cat-list");
+  listEl.innerHTML = sorted.length
+    ? sorted.map(i =>
+        '<div class="cat-row" data-i="' + i + '">' +
+          '<span class="cat-en">' + esc(getEn(WORDS[i]).join(" / ")) + '</span>' +
+          '<span class="cat-ua">' + esc(getUa(WORDS[i]).join(", ")) + '</span>' +
+        '</div>').join("")
+    : '<div class="cat-empty">Тут поки порожньо</div>';
+  listEl.scrollTop = 0;
+  const valid = new Set(modeValidPool());
+  const playable = idxs.filter(i => valid.has(i)).length;
+  const playBtn = document.getElementById("cat-play");
+  playBtn.disabled = playable === 0;
+  playBtn.textContent = playable
+    ? "▶ Грати ці слова (" + playable + ")"
+    : "Немає слів для цього режиму";
+  playBtn.style.background = meta.color;
+  document.getElementById("cat-modal").classList.remove("hidden");
+}
+function closeCategoryModal() {
+  document.getElementById("cat-modal").classList.add("hidden");
+  catModalCat = null;
+}
+function startCategoryGame() {
+  if (!catModalCat) return;
+  const valid = new Set(modeValidPool());
+  const pool = categoryIndices(catModalCat).filter(i => valid.has(i));
+  if (!pool.length) return;
+  closeCategoryModal();
+  startGame(pool, { timed: true });
+}
+document.getElementById("mastery-stats").addEventListener("click", e => {
+  const badge = e.target.closest(".ms-badge[data-cat]");
+  if (badge) openCategoryModal(badge.dataset.cat);
+});
+document.getElementById("cat-close").addEventListener("click", closeCategoryModal);
+document.getElementById("cat-play").addEventListener("click", startCategoryGame);
+document.getElementById("cat-modal").addEventListener("click", e => {
+  if (e.target.id === "cat-modal") closeCategoryModal();   // click backdrop closes
+});
+document.getElementById("cat-list").addEventListener("click", e => {
+  const row = e.target.closest(".cat-row");
+  if (row) speak(getEn(WORDS[+row.dataset.i])[0]);          // click word → TTS
+});
+
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
   catch { return {}; }
