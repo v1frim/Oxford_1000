@@ -333,7 +333,7 @@
   #bottom-left-btns button:hover, #progress-btn:hover,
   #progress-btn.active { color: #fff; background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); }
   /* ── XP level bar (tiered, game-style) ──────────────────────── */
-  #xp-section { margin: 16px auto 0; width: 90%; max-width: 380px;
+  #xp-section { margin: 18px 0 0; width: 100%;
     --tier:#cd7f32; --tier2:#f0b070; }
   #xp-section.tier-0 { --tier:#cd7f32; --tier2:#f0b070; }  /* Бронза */
   #xp-section.tier-1 { --tier:#9aa3b2; --tier2:#e8eef7; }  /* Срібло */
@@ -353,13 +353,14 @@
   #xp-hex-num { position: relative; z-index: 1; font-weight: 800; font-size: 19px;
     color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); }
   #xp-bar-wrap { flex: 1; min-width: 0; }
-  #xp-labels { display: flex; justify-content: space-between; align-items: baseline;
+  #xp-labels { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline;
     gap: 8px; margin-bottom: 6px; }
-  #xp-name { font-size: 13px; font-weight: 700; color: var(--tier2);
-    text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap;
-    overflow: hidden; text-overflow: ellipsis; }
-  #xp-nums-wrap { display: flex; align-items: baseline; gap: 8px; flex-shrink: 0; }
-  #xp-nums { font-size: 12px; font-weight: 700; color: var(--tier2); white-space: nowrap; }
+  #xp-name { grid-column: 1; justify-self: start; font-size: 13px; font-weight: 700;
+    color: var(--tier2); text-transform: uppercase; letter-spacing: 0.6px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #xp-nums { grid-column: 2; justify-self: center; font-size: 11px; font-weight: 700;
+    color: var(--tier2); white-space: nowrap; }
+  #xp-today { grid-column: 3; justify-self: end; }
   #xp-today { background: rgba(6,214,160,0.16); color: #06d6a0; font-size: 11px;
     font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
   #xp-bar { position: relative; height: 10px; background: rgba(255,255,255,0.08);
@@ -367,11 +368,10 @@
   #xp-fill { height: 100%; border-radius: 5px;
     background: linear-gradient(90deg, var(--tier), var(--tier2));
     box-shadow: 0 0 8px var(--tier); transition: width 0.6s ease; }
-  /* segment dividers — gaming look (above the fill) */
-  #xp-seg { position: absolute; inset: 0; pointer-events: none;
-    background-image: repeating-linear-gradient(90deg,
-      transparent 0, transparent calc(10% - 1.5px),
-      rgba(8,18,38,0.55) calc(10% - 1.5px), rgba(8,18,38,0.55) 10%); }
+  /* segment dividers — gaming look (above the fill); flex = perfectly even widths */
+  #xp-seg { position: absolute; inset: 0; pointer-events: none; display: flex; }
+  #xp-seg i { flex: 1; border-right: 2px solid rgba(8,18,38,0.55); }
+  #xp-seg i:last-child { border-right: none; }
   /* higher tiers (gold+) get an animated shimmer on the fill */
   #xp-section.tier-2 #xp-fill, #xp-section.tier-3 #xp-fill, #xp-section.tier-4 #xp-fill {
     background: linear-gradient(90deg, var(--tier), var(--tier2), var(--tier));
@@ -659,9 +659,10 @@
         <div id="xp-bar-wrap">
           <div id="xp-labels">
             <span id="xp-name"></span>
-            <span id="xp-nums-wrap"><span id="xp-nums"></span><span id="xp-today"></span></span>
+            <span id="xp-nums"></span>
+            <span id="xp-today"></span>
           </div>
-          <div id="xp-bar"><div id="xp-fill"></div><div id="xp-seg"></div></div>
+          <div id="xp-bar"><div id="xp-fill"></div><div id="xp-seg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
         </div>
       </div>
     </div>
