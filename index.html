@@ -57,7 +57,7 @@
     padding: 22px 20px;
     width: 420px;
     max-width: 94vw;
-    min-height: 560px;
+    height: 560px;
     color: #fff;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,0.12);
   }
@@ -549,7 +549,7 @@
     to   { opacity: 1; transform: translateY(0); }
   }
   /* ── Achievements ───────────────────────────────────────────── */
-  #ach-screen { max-height:520px; overflow-y:auto; overflow-x:hidden; }
+  #ach-screen { height:440px; overflow-y:auto; overflow-x:hidden; }
   /* Variant A — рядки з прогрес-барами */
   .ach-list-a { display:flex; flex-direction:column; gap:9px; }
   .ach-row-a { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:10px; padding:8px 11px; }
@@ -9580,12 +9580,11 @@ function renderLeaderboard(newGameId, newDayKey) {
   if (newGameId !== undefined) lbNewGameId = newGameId;
   if (newDayKey !== undefined) lbNewDayKey = newDayKey;
   const achActive = lbActiveTab === "ach";
-  // Achievements tab swaps the list view for its own screen (like the LingoHut sub-screen).
-  document.getElementById("lb-title").classList.toggle("hidden", achActive);
+  document.getElementById("lb-title").classList.remove("hidden");
   document.getElementById("lb-list").classList.toggle("hidden", achActive);
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
   document.getElementById("lb-reset").style.visibility = achActive ? "hidden" : "";
-  if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); renderAchievements(); }
+  if (achActive) { lbTitleEl.textContent = "Досягнення"; document.getElementById("lb-empty").classList.add("hidden"); renderAchievements(); }
   else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "days") renderTabDays();
   else renderTabStreaks();
