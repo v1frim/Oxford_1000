@@ -1047,7 +1047,7 @@ const WORDS = [
   {en:"wise",ua:"мудрий"},{en:"honest",ua:"чесний"},{en:"polite",ua:"ввічливий"},
   {en:"rude",ua:"грубий"},{en:"friendly",ua:"привітний"},{en:"shy",ua:"сором'язливий"},
   {en:"confident",ua:"впевнений"},{en:"nervous",ua:"нервовий"},{en:"calm",ua:"спокійний"},
-  {en:"serious",ua:"серйозний"},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий"},
+  {en:"serious",ua:"серйозний"},{en:"to serve",ua:["служити","подавати"]},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий"},
   {en:"hardworking",ua:"працьовитий"},{en:"creative",ua:"творчий"},{en:"logical",ua:"логічний"},
   {en:"romantic",ua:"романтичний"},{en:"practical",ua:"практичний"},{en:"political",ua:"політичний"},
   {en:"economic",ua:"економічний"},{en:"social",ua:"соціальний"},{en:"cultural",ua:"культурний"},
@@ -2424,7 +2424,7 @@ const TRANS = {
   "stupid":"/ˈstuːpɪd/","clever":"/ˈklɛvər/","wise":"/waɪz/","honest":"/ˈɑːnɪst/",
   "polite":"/pəˈlaɪt/","rude":"/ruːd/","friendly":"/ˈfrɛndli/","shy":"/ʃaɪ/",
   "confident":"/ˈkɑːnfɪdənt/","nervous":"/ˈnɜːrvəs/","calm":"/kɑːm/",
-  "serious":"/ˈsɪriəs/","silly":"/ˈsɪli/","lazy":"/ˈleɪzi/",
+  "serious":"/ˈsɪriəs/","to serve":"/sˈɜːv/","silly":"/ˈsɪli/","lazy":"/ˈleɪzi/",
   "hardworking":"/ˈhɑːrdˌwɜːrkɪŋ/","creative":"/kriˈeɪtɪv/","logical":"/ˈlɑːdʒɪkəl/",
   "romantic":"/roʊˈmæntɪk/","practical":"/ˈpræktɪkəl/","political":"/pəˈlɪtɪkəl/",
   "economic":"/ˌɛkəˈnɑːmɪk/","social":"/ˈsoʊʃəl/","cultural":"/ˈkʌltʃərəl/",
@@ -3148,7 +3148,7 @@ const EXAMPLES = {
   "polite":"Be polite to everyone you meet.","rude":"It's rude to interrupt others.",
   "friendly":"The staff were very friendly.","shy":"She's shy but very kind.",
   "confident":"Walk in feeling confident.","nervous":"He was nervous before the speech.",
-  "calm":"Stay calm and think clearly.","serious":"This is a serious situation.",
+  "calm":"Stay calm and think clearly.","to serve":"She serves customers with a smile.","serious":"This is a serious situation.",
   "silly":"Stop being silly and focus.","lazy":"Don't be lazy — start now!",
   "hardworking":"She is the most hardworking person I know.",
   "creative":"She has a very creative mind.","logical":"His arguments are clear and logical.",
@@ -4818,7 +4818,7 @@ const EXAMPLES_UA = {
   "polite":"Будь ввічливим з усіма, кого зустрічаєш.","rude":"Грубо перебивати інших.",
   "friendly":"Персонал був дуже дружній.","shy":"Вона сором'язлива, але дуже добра.",
   "confident":"Заходь з впевненістю.","nervous":"Він нервував перед промовою.",
-  "calm":"Зберігай спокій і думай ясно.","serious":"Це серйозна ситуація.",
+  "calm":"Зберігай спокій і думай ясно.","to serve":"Вона обслуговує клієнтів з усмішкою.","serious":"Це серйозна ситуація.",
   "silly":"Перестань дуркувати і зосередься.","lazy":"Не лінуйся — починай зараз!",
   "hardworking":"Вона найбільш працьовита людина, яку я знаю.",
   "creative":"У неї дуже творчий розум.","logical":"Його аргументи ясні й логічні.",
@@ -7929,6 +7929,8 @@ const EN_TO_UA = (() => {
   // Big batch — words found in EXAMPLES sentences but missing from WORDS
   m.set("seat",        ["сидіння", "місце"]);
   m.set("set",         ["встановлювати", "ставити"]);
+  m.set("serve",       ["служити", "подавати"]);
+  m.set("serves",      ["служить", "подає"]);
   m.set("small",       ["маленький", "невеликий"]);
   m.set("absent",      ["відсутній"]);
   m.set("absolutely",  ["абсолютно"]);
