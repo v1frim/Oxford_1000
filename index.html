@@ -351,7 +351,8 @@
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
   #xp-hex-num { position: absolute; inset: 0; z-index: 1; display: flex;
     align-items: center; justify-content: center; font-weight: 800; font-size: 19px;
-    color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); line-height: 1; }
+    color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); line-height: 1;
+    transform: translate(-1px, -1px); }
   /* Diamond — кругла форма з фіолетовим свінням */
   #xp-section.tier-3 #xp-hex::before,
   #xp-section.tier-3 #xp-hex::after { clip-path: circle(46%); }
@@ -9283,7 +9284,7 @@ function renderXpPreview() {
       '<div style="position:relative;width:46px;height:50px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'+hexStyle+'">' +
         '<div style="position:absolute;inset:0;background:linear-gradient(155deg,'+t.c2+','+t.c+');clip-path:'+t.clip+'"></div>' +
         '<div style="position:absolute;inset:3px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,0.18),rgba(0,0,0,0.45));clip-path:'+t.clip+'"></div>' +
-        '<span style="position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1">'+lvl+'</span>' +
+        '<span style="position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1;transform:translate(-1px,-1px)">'+lvl+'</span>' +
       '</div>';
     const bar =
       '<div style="position:relative;height:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.10);border-radius:5px;overflow:hidden">' +
