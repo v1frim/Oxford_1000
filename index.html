@@ -349,7 +349,8 @@
   #xp-hex::after { content: ""; position: absolute; inset: 3px;
     background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.18), rgba(0,0,0,0.45));
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-  #xp-hex-num { position: relative; z-index: 1; font-weight: 800; font-size: 19px;
+  #xp-hex-num { position: absolute; inset: 0; z-index: 1; display: flex;
+    align-items: center; justify-content: center; font-weight: 800; font-size: 19px;
     color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); line-height: 1; }
   /* Diamond — кругла форма з фіолетовим свінням */
   #xp-section.tier-3 #xp-hex::before,
@@ -389,12 +390,15 @@
   #xp-section.tier-2 #xp-fill, #xp-section.tier-3 #xp-fill, #xp-section.tier-4 #xp-fill {
     background: linear-gradient(90deg, var(--tier), var(--tier2), var(--tier));
     background-size: 200% 100%; animation: xp-shimmer 2.6s linear infinite; }
-  /* Королівство — шеврони ">" замість прямих поділок */
+  /* Королівство — шеврони ">" (верхня "\" + нижня "/" половини) */
   #xp-section.tier-4 #xp-seg {
-    background: repeating-linear-gradient(
-      -68deg, transparent 0, transparent 11px,
-      rgba(0,0,0,0.42) 11px, rgba(0,0,0,0.42) 13px);
-    display: block; }
+    display: block;
+    background-image:
+      repeating-linear-gradient(135deg, transparent 0 9px, rgba(0,0,0,0.42) 9px 11px),
+      repeating-linear-gradient(45deg,  transparent 0 9px, rgba(0,0,0,0.42) 9px 11px);
+    background-size: 100% 50%;
+    background-position: 0 0, 0 100%;
+    background-repeat: repeat-x; }
   #xp-section.tier-4 #xp-seg i { display: none; }
   @keyframes xp-shimmer { from { background-position: 0 0; } to { background-position: -200% 0; } }
   /* level-up flash */
@@ -9243,15 +9247,15 @@ function renderXpBar() {
 // ── TEMP: XP league design preview (remove after design sign-off) ──
 function renderXpPreview() {
   const TIERS = [
-    { lvl:2,  range:"1–4",   league:"Бронза",      c:"#cd7f32", c2:"#f0b070",
+    { lvl:2,  range:"1–4",   league:"Бронзова",    c:"#cd7f32", c2:"#f0b070",
       clip:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", hexAnim:"" },
-    { lvl:6,  range:"5–8",   league:"Срібло",      c:"#9aa3b2", c2:"#e8eef7",
+    { lvl:6,  range:"5–8",   league:"Срібна",      c:"#9aa3b2", c2:"#e8eef7",
       clip:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", hexAnim:"" },
-    { lvl:10, range:"9–12",  league:"Золото",      c:"#e6b800", c2:"#ffe680",
+    { lvl:10, range:"9–12",  league:"Золота",      c:"#e6b800", c2:"#ffe680",
       clip:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", hexAnim:"" },
-    { lvl:14, range:"13–16", league:"Діамант",     c:"#7c3aed", c2:"#c4b5fd",
+    { lvl:14, range:"13–16", league:"Діамантова",  c:"#7c3aed", c2:"#c4b5fd",
       clip:"circle(46%)", hexAnim:"xp-hex-pulse-d 3s ease-in-out infinite" },
-    { lvl:18, range:"17–20", league:"Королівство", c:"#c0392b", c2:"#ff6040",
+    { lvl:18, range:"17–20", league:"Королівська", c:"#c0392b", c2:"#ff6040",
       clip:"polygon(50% 2%,98% 50%,50% 98%,2% 50%)", hexAnim:"xp-hex-pulse-r 2s ease-in-out infinite" },
   ];
   const html = TIERS.map((t, ti) => {
@@ -9267,7 +9271,7 @@ function renderXpPreview() {
       : "background:linear-gradient(90deg,"+t.c+","+t.c2+");";
     const hexStyle = t.hexAnim ? "animation:"+t.hexAnim+";" : "";
     const seg = ti === 4
-      ? '<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(-68deg,transparent 0,transparent 11px,rgba(0,0,0,0.42) 11px,rgba(0,0,0,0.42) 13px)"></div>'
+      ? '<div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(135deg,transparent 0 9px,rgba(0,0,0,0.42) 9px 11px),repeating-linear-gradient(45deg,transparent 0 9px,rgba(0,0,0,0.42) 9px 11px);background-size:100% 50%;background-position:0 0,0 100%;background-repeat:repeat-x"></div>'
       : '<div style="position:absolute;inset:0;pointer-events:none;display:flex">' +
           Array(10).fill('<i style="flex:1;border-right:1px solid rgba(8,18,38,0.22)"></i>').join("") +
         '</div>';
@@ -9275,7 +9279,7 @@ function renderXpPreview() {
       '<div style="position:relative;width:46px;height:50px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'+hexStyle+'">' +
         '<div style="position:absolute;inset:0;background:linear-gradient(155deg,'+t.c2+','+t.c+');clip-path:'+t.clip+'"></div>' +
         '<div style="position:absolute;inset:3px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,0.18),rgba(0,0,0,0.45));clip-path:'+t.clip+'"></div>' +
-        '<span style="position:relative;z-index:1;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1">'+lvl+'</span>' +
+        '<span style="position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1">'+lvl+'</span>' +
       '</div>';
     const bar =
       '<div style="position:relative;height:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.10);border-radius:5px;overflow:hidden">' +
