@@ -793,8 +793,6 @@
       <button class="lb-tab" data-tab="days" title="Найкращі дні">📅</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
-      <button class="lb-tab" data-tab="xppreview" title="Прев'ю ліг XP (тимчасово)">🎨</button>
-      <button class="lb-tab" data-tab="achpreview" title="Прев'ю досягнень (тимчасово)">🖼️</button>
     </div>
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
   </div>
@@ -802,8 +800,6 @@
   <ol class="lb-list" id="lb-list"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
   <div id="ach-screen" class="hidden"></div>
-  <div id="xp-preview-screen" class="hidden"></div><!-- TEMP: lige design preview, remove after sign-off -->
-  <div id="ach-preview-screen" class="hidden"></div><!-- TEMP: achievement design preview, remove after sign-off -->
   <div id="lh-screen" class="hidden">
     <div id="lh-header">
       <h2>📚 Уроки LingoHut</h2>
@@ -8864,7 +8860,7 @@ document.addEventListener("keydown", e => {
   }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
     e.preventDefault();
-    const tabs = ["games", "days", "streaks", "ach", "xppreview", "achpreview"];
+    const tabs = ["games", "days", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -9265,69 +9261,6 @@ function renderXpBar() {
     setTimeout(() => sec.classList.remove("xp-levelup"), 1000);
   }
   _xpPrevLevel = info.level;
-}
-
-// ── TEMP: XP league design preview (remove after design sign-off) ──
-function renderXpPreview() {
-  const TIERS = [
-    { lvl:2,  range:"1–4",   league:"Бронзова",    c:"#cd7f32", c2:"#f0b070",
-      clip:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", hexAnim:"" },
-    { lvl:6,  range:"5–8",   league:"Срібна",      c:"#9aa3b2", c2:"#e8eef7",
-      clip:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", hexAnim:"" },
-    { lvl:10, range:"9–12",  league:"Золота",      c:"#e6b800", c2:"#ffe680",
-      clip:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", hexAnim:"" },
-    { lvl:14, range:"13–16", league:"Діамантова",  c:"#7c3aed", c2:"#c4b5fd",
-      clip:"circle(46%)", hexAnim:"xp-hex-pulse-d 3s ease-in-out infinite" },
-    { lvl:18, range:"17–20", league:"Королівська", c:"#c0392b", c2:"#ff6040",
-      clip:"polygon(50% 2%,98% 50%,50% 98%,2% 50%)", hexAnim:"xp-hex-pulse-r 2s ease-in-out infinite" },
-  ];
-  const html = TIERS.map((t, ti) => {
-    const lvl  = t.lvl;
-    const name = XP_LEVELS[lvl-1][1];
-    const cur  = XP_LEVELS[lvl-1][0];
-    const next = XP_LEVELS[lvl][0];
-    const span = next - cur;
-    const half = Math.round(span / 2);
-    const hi = ti >= 2;
-    const fillBg = hi
-      ? "background:linear-gradient(90deg,"+t.c+","+t.c2+","+t.c+");background-size:200% 100%;animation:xp-shimmer 2.6s linear infinite;"
-      : "background:linear-gradient(90deg,"+t.c+","+t.c2+");";
-    const hexStyle = t.hexAnim ? "animation:"+t.hexAnim+";" : "";
-    let seg;
-    if (ti === 4) {
-      let chevs = "";
-      for (let k = 1; k <= 9; k++)
-        chevs += '<span style="position:absolute;left:'+(k*10)+'%;top:50%;width:4px;height:4px;border-top:1px solid rgba(0,0,0,0.30);border-right:1px solid rgba(0,0,0,0.30);transform:translate(-50%,-50%) rotate(45deg)"></span>';
-      seg = '<div style="position:absolute;inset:0;pointer-events:none">'+chevs+'</div>';
-    } else {
-      seg = '<div style="position:absolute;inset:0;pointer-events:none;display:flex">' +
-        Array(10).fill('<i style="flex:1;border-right:1px solid rgba(8,18,38,0.22)"></i>').join("") +
-        '</div>';
-    }
-    const hex =
-      '<div style="position:relative;width:46px;height:50px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'+hexStyle+'">' +
-        '<div style="position:absolute;inset:0;background:linear-gradient(155deg,'+t.c2+','+t.c+');clip-path:'+t.clip+'"></div>' +
-        '<div style="position:absolute;inset:3px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,0.18),rgba(0,0,0,0.45));clip-path:'+t.clip+'"></div>' +
-        '<span style="position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65);line-height:1;transform:translate(-1px,-2px)">'+lvl+'</span>' +
-      '</div>';
-    const bar =
-      '<div style="position:relative;height:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.10);border-radius:5px;overflow:hidden">' +
-        '<div style="height:100%;width:50%;border-radius:5px;box-shadow:0 0 8px '+t.c+';'+fillBg+'"></div>' + seg +
-      '</div>';
-    return '<div style="margin-bottom:16px">' +
-      '<div style="font-size:10px;letter-spacing:.5px;text-transform:uppercase;opacity:.55;margin-bottom:6px">'+t.league+' · рівні '+t.range+'</div>' +
-      '<div style="display:flex;align-items:center;gap:12px">' + hex +
-        '<div style="flex:1;min-width:0">' +
-          '<div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;gap:8px;margin-bottom:6px">' +
-            '<span style="justify-self:start;font-size:13px;font-weight:700;color:'+t.c2+';text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+name+'</span>' +
-            '<span style="justify-self:center;font-size:11px;font-weight:700;color:'+t.c2+';white-space:nowrap">'+half+' / '+span+' XP</span>' +
-            '<span></span>' +
-          '</div>' + bar +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }).join("");
-  document.getElementById("xp-preview-screen").innerHTML = html;
 }
 
 function updateMastery(wordIndex, correct) {
@@ -9758,19 +9691,11 @@ function renderLeaderboard(newGameId, newDayKey) {
   if (newGameId !== undefined) lbNewGameId = newGameId;
   if (newDayKey !== undefined) lbNewDayKey = newDayKey;
   const achActive = lbActiveTab === "ach";
-  const previewActive = lbActiveTab === "xppreview"; // TEMP
-  const achPrevActive = lbActiveTab === "achpreview"; // TEMP
-  const specialActive = achActive || previewActive || achPrevActive;
   document.getElementById("lb-title").classList.remove("hidden");
-  document.getElementById("lb-list").classList.toggle("hidden", specialActive);
+  document.getElementById("lb-list").classList.toggle("hidden", achActive);
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
-  document.getElementById("xp-preview-screen").classList.toggle("hidden", !previewActive); // TEMP
-  document.getElementById("ach-preview-screen").classList.toggle("hidden", !achPrevActive); // TEMP
-  document.getElementById("lb-reset").style.visibility = specialActive ? "hidden" : "";
-  if (specialActive) document.getElementById("lb-empty").classList.add("hidden");
-  if (achActive) { lbTitleEl.textContent = "Досягнення"; renderAchievements(); }
-  else if (previewActive) { lbTitleEl.textContent = "Прев'ю ліг XP"; renderXpPreview(); } // TEMP
-  else if (achPrevActive) { lbTitleEl.textContent = "Прев'ю досягнень"; renderAchPreview(); } // TEMP
+  document.getElementById("lb-reset").style.visibility = achActive ? "hidden" : "";
+  if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); lbTitleEl.textContent = "Досягнення"; renderAchievements(); }
   else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "days") renderTabDays();
   else renderTabStreaks();
@@ -10060,27 +9985,6 @@ function renderAchVariantA() {
     return achCardHtml({ icon:a.icon, title:a.name, lvl, pct, count, desc,
       c:cur.color, c2:cur.color2, glow:cur.color, shimmer: lvl >= 3 });
   }).join("") + '</div>';
-}
-
-// ── TEMP: achievement card design preview (remove after sign-off) ──
-function renderAchPreview() {
-  const samples = [
-    { icon:"✅", title:"Без ліги",        lg:ACH_NOLEAGUE,    desc:'До ліги «Бронза»' },
-    { icon:"🎮", title:"Бронзова ліга",   lg:ACH_LEAGUES[0],  desc:"Бронзова ліга" },
-    { icon:"🔁", title:"Срібна ліга",     lg:ACH_LEAGUES[1],  desc:"Срібна ліга" },
-    { icon:"🔥", title:"Золота ліга",     lg:ACH_LEAGUES[2],  desc:"Золота ліга" },
-    { icon:"⚡", title:"Діамантова ліга", lg:ACH_LEAGUES[3],  desc:"Діамантова ліга" },
-    { icon:"👑", title:"Королівська ліга",lg:ACH_LEAGUES[4],  desc:"Найвища ліга — Королівська 👑" },
-    { icon:"🎵", title:"Заблоковано",    lg:{color:"#5b6b85",color2:"#8090aa"}, desc:"🔒 в розробці", locked:true },
-  ];
-  const html = samples.map((s, i) => achCardHtml({
-    icon:s.icon, title:s.title, lvl:i, pct: s.locked ? 0 : 50,
-    count: s.locked ? "скоро" : (i === 6 ? "👑" : "5 / 10"),
-    desc:s.desc, c:s.lg.color, c2:s.lg.color2,
-    glow: s.locked ? "transparent" : s.lg.color, locked: !!s.locked,
-    shimmer: i >= 3 && i <= 5,
-  })).join("");
-  document.getElementById("ach-preview-screen").innerHTML = '<div class="ach-list-a">' + html + '</div>';
 }
 
 renderDuoBtn();
