@@ -9725,8 +9725,7 @@ function renderLbTotals() {
     row("Ігор", games) +
     row("Відповідей", total) +
     row("Правильних", correct, "#7be07b") +
-    row("Неправильних", wrong, "#ff9d9d") +
-    row("Пропущених", skipped, "rgba(255,255,255,0.45)") +
+    row("Неправильних", wrong + skipped, "#ff9d9d") +
     row("Повторень", review, "#87b4ff") +
     row("Duolingo", getTotalDuoSessions(), "#7fdd40") +
     row("Досвід (XP)", xp, "#ffd166");
