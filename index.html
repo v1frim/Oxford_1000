@@ -1432,7 +1432,7 @@ const WORDS = [
   {en:"diseased",ua:"хворий"},
   {en:"dish",ua:"страва"},
   {en:"dishonest",ua:"нечесний"},
-  {en:"dislike",ua:"не любити"},
+  {en:"dislike",ua:["не любити","не подобатися"]},
   {en:"disliked",ua:"непопулярний"},
   {en:"dispatch",ua:"відправляти"},
   {en:"display",ua:"показувати"},
@@ -3432,7 +3432,7 @@ const EXAMPLES = {
   "fine:штраф":"He had to pay a parking fine.",
   "match":"The football match starts at seven.",
   "match:сірник":"I need a match to light the candle.",
-  "mean":"What does this word mean?",
+  "to mean":"What does this word mean?","mean":"It was mean of him to say that.",
   "mean:підлий":"Don't be mean to your sister.",
   "like":"Do you like coffee in the morning?",
   "like:подібний":"She looks like her mother.",
@@ -5102,7 +5102,7 @@ const EXAMPLES_UA = {
   "fine:штраф":"Йому довелося заплатити штраф за паркування.",
   "match":"Футбольний матч починається о сьомій.",
   "match:сірник":"Мені потрібен сірник, щоб запалити свічку.",
-  "mean":"Що означає це слово?",
+  "to mean":"Що означає це слово?","mean":"Було підло з його боку таке казати.",
   "mean:підлий":"Не будь підлим до сестри.",
   "like":"Ти любиш каву вранці?",
   "like:подібний":"Вона подібна до своєї матері.",
@@ -7794,6 +7794,9 @@ const EN_TO_UA = (() => {
   m.set("avoid",       ["уникати"]);
   m.set("borrow",      ["позичати"]);
   m.set("burn",        ["горіти", "пекти"]);
+  m.set("pan",         ["сковорода"]);
+  m.set("photograph",  ["фотографія"]);
+  m.set("childhood",   ["дитинство"]);
   m.set("celebrate",   ["святкувати"]);
   m.set("check",       ["перевіряти"]);
   m.set("collect",     ["збирати", "колекціонувати"]);
