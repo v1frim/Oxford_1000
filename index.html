@@ -31,7 +31,7 @@
   }
   .layout {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 24px;
     flex-wrap: wrap;
     justify-content: center;
@@ -550,7 +550,6 @@
   }
   /* ── Achievements ───────────────────────────────────────────── */
   #ach-screen { max-height:520px; overflow-y:auto; overflow-x:hidden; }
-  .ach-section-label { font-size:10px; letter-spacing:.6px; text-transform:uppercase; opacity:.5; text-align:center; margin-bottom:8px; }
   /* Variant A — рядки з прогрес-барами */
   .ach-list-a { display:flex; flex-direction:column; gap:9px; }
   .ach-row-a { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:10px; padding:8px 11px; }
@@ -563,14 +562,6 @@
   .ach-bar-fill { height:100%; border-radius:4px; transition:width .4s ease; }
   .ach-row-a-foot { display:flex; justify-content:space-between; margin-top:4px; font-size:10px; color:rgba(255,255,255,0.55); }
   .ach-next { opacity:0.75; }
-  /* Variant B — сітка значків */
-  .ach-grid-b { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
-  .ach-cell-b { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:11px 6px; text-align:center; }
-  .ach-cell-b.ach-locked { opacity:0.5; }
-  .ach-hex { width:46px; height:46px; margin:0 auto 6px; display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid rgba(255,255,255,0.2); border-radius:14px; background:rgba(255,255,255,0.04); }
-  .ach-cell-name { font-size:10px; color:#fff; line-height:1.2; min-height:24px; display:flex; align-items:center; justify-content:center; }
-  .ach-cell-sub { font-size:10px; font-weight:600; margin-top:3px; }
-  .ach-cell-val { font-size:11px; color:rgba(255,255,255,0.6); margin-top:1px; }
   .ms-box.achievement .ms-icon { animation: ms-trophy 0.55s ease 0.25s 2; transform-origin: 50% 80%; }
   /* ── LingoHut tracker ───────────────────────────────────────── */
   #lh-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
@@ -9791,7 +9782,6 @@ document.getElementById("duo-minus").addEventListener("click", () => {
 // 10 досягнень × 5 ліг. Зберігаємо лише найвищу "оголошену" лігу для дедуплікації
 // сповіщень — поточна ліга в панелі завжди рахується наживо з фактичних значень.
 const ACH_KEY = "oxford_achievements_v1";        // {achId: highestNotifiedLevel 0-5}
-const ACH_VARIANT_KEY = "oxford_ach_variant_v1"; // "A" | "B" — який макет показувати
 const ACH_LEAGUES = [
   { name: "Бронза",      color: "#cd7f32" },
   { name: "Срібло",      color: "#c0c0c0" },
@@ -9848,12 +9838,7 @@ function enqueueAchievement(a, level) {
 }
 
 function renderAchievements() {
-  const wrap = document.getElementById("ach-screen");
-  wrap.innerHTML =
-    '<div class="ach-section-label">Варіант A — рядки</div>' +
-    renderAchVariantA() +
-    '<div class="ach-section-label" style="margin-top:16px">Варіант Б — значки</div>' +
-    renderAchVariantB();
+  document.getElementById("ach-screen").innerHTML = renderAchVariantA();
 }
 function renderAchVariantA() {
   return '<div class="ach-list-a">' + ACHIEVEMENTS.map(a => {
@@ -9877,21 +9862,6 @@ function renderAchVariantA() {
       '<div class="ach-row-a-top"><span class="ach-ic">'+a.icon+'</span><span class="ach-name">'+a.name+'</span>'+badge+'</div>' +
       '<div class="ach-bar"><div class="ach-bar-fill" style="width:'+pct+'%;background:'+barColor+'"></div></div>' +
       '<div class="ach-row-a-foot">'+foot+'</div>' +
-    '</div>';
-  }).join("") + '</div>';
-}
-function renderAchVariantB() {
-  return '<div class="ach-grid-b">' + ACHIEVEMENTS.map(a => {
-    const lvl = a.locked ? 0 : achLevelFor(a);
-    const cur = lvl > 0 ? ACH_LEAGUES[lvl-1] : null;
-    const color = a.locked ? "rgba(255,255,255,0.18)" : (cur ? cur.color : "rgba(255,255,255,0.22)");
-    const v = a.locked ? 0 : a.value();
-    const sub = a.locked ? "скоро" : (cur ? cur.name : "—");
-    return '<div class="ach-cell-b'+(a.locked?' ach-locked':'')+'">' +
-      '<div class="ach-hex" style="color:'+color+';border-color:'+color+'">'+(a.locked?'🔒':a.icon)+'</div>' +
-      '<div class="ach-cell-name">'+a.name+'</div>' +
-      '<div class="ach-cell-sub" style="color:'+color+'">'+sub+(a.locked?'':' · '+lvl+'/5')+'</div>' +
-      '<div class="ach-cell-val">'+(a.locked?'':fmtAchNum(v))+'</div>' +
     '</div>';
   }).join("") + '</div>';
 }
