@@ -645,6 +645,8 @@
     border:1px solid rgba(255,255,255,0.08); border-radius:4px; overflow:hidden; }
   .ach-bar2-fill { height:100%; border-radius:4px; background:linear-gradient(90deg, var(--c), var(--c2));
     box-shadow:0 0 6px var(--glow); transition:width .4s ease; }
+  .ach-card.ach-shimmer .ach-bar2-fill { background:linear-gradient(90deg, var(--c), var(--c2), var(--c));
+    background-size:200% 100%; animation:xp-shimmer 2.6s linear infinite; }
   .ach-bar2-seg { position:absolute; inset:0; pointer-events:none; display:flex; }
   .ach-bar2-seg i { flex:1; border-right:1px solid rgba(8,18,38,0.30); }
   .ach-bar2-seg i:last-child { border-right:none; }
@@ -10028,7 +10030,7 @@ function renderAchievements() {
 function achCardHtml(cfg) {
   const seg = '<div class="ach-bar2-seg">' + Array(10).fill('<i></i>').join("") + '</div>';
   const vars = '--c:'+cfg.c+';--c2:'+cfg.c2+';--glow:'+cfg.glow+';';
-  return '<div class="ach-card'+(cfg.locked?' ach-locked':'')+'" style="'+vars+'">' +
+  return '<div class="ach-card'+(cfg.locked?' ach-locked':'')+(cfg.shimmer?' ach-shimmer':'')+'" style="'+vars+'">' +
     '<div class="ach-card-inner">' +
       '<div class="ach-top">' +
         '<div class="ach-ic2"><span>'+cfg.icon+'</span></div>' +
@@ -10056,7 +10058,7 @@ function renderAchVariantA() {
     const desc = lvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
       : (lvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
     return achCardHtml({ icon:a.icon, title:a.name, lvl, pct, count, desc,
-      c:cur.color, c2:cur.color2, glow:cur.color });
+      c:cur.color, c2:cur.color2, glow:cur.color, shimmer: lvl >= 3 });
   }).join("") + '</div>';
 }
 
@@ -10076,6 +10078,7 @@ function renderAchPreview() {
     count: s.locked ? "скоро" : (i === 6 ? "👑" : "5 / 10"),
     desc:s.desc, c:s.lg.color, c2:s.lg.color2,
     glow: s.locked ? "transparent" : s.lg.color, locked: !!s.locked,
+    shimmer: i >= 3 && i <= 5,
   })).join("");
   document.getElementById("ach-preview-screen").innerHTML = '<div class="ach-list-a">' + html + '</div>';
 }
