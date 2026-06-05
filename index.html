@@ -394,10 +394,10 @@
   /* Королівство — шеврони ">" замість прямих поділок (9 шт = 10 частин) */
   #xp-section.tier-4 #xp-seg i { border-right: none; position: relative; }
   #xp-section.tier-4 #xp-seg i:not(:last-child)::after {
-    content: ""; position: absolute; right: -3px; top: 50%;
-    width: 5px; height: 5px;
-    border-top: 2px solid rgba(0,0,0,0.45);
-    border-right: 2px solid rgba(0,0,0,0.45);
+    content: ""; position: absolute; right: -2px; top: 50%;
+    width: 4px; height: 4px;
+    border-top: 1px solid rgba(0,0,0,0.30);
+    border-right: 1px solid rgba(0,0,0,0.30);
     transform: translateY(-50%) rotate(45deg); }
   @keyframes xp-shimmer { from { background-position: 0 0; } to { background-position: -200% 0; } }
   /* level-up flash */
@@ -9273,7 +9273,7 @@ function renderXpPreview() {
     if (ti === 4) {
       let chevs = "";
       for (let k = 1; k <= 9; k++)
-        chevs += '<span style="position:absolute;left:'+(k*10)+'%;top:50%;width:5px;height:5px;border-top:2px solid rgba(0,0,0,0.45);border-right:2px solid rgba(0,0,0,0.45);transform:translate(-50%,-50%) rotate(45deg)"></span>';
+        chevs += '<span style="position:absolute;left:'+(k*10)+'%;top:50%;width:4px;height:4px;border-top:1px solid rgba(0,0,0,0.30);border-right:1px solid rgba(0,0,0,0.30);transform:translate(-50%,-50%) rotate(45deg)"></span>';
       seg = '<div style="position:absolute;inset:0;pointer-events:none">'+chevs+'</div>';
     } else {
       seg = '<div style="position:absolute;inset:0;pointer-events:none;display:flex">' +
