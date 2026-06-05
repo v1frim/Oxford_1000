@@ -387,6 +387,8 @@
   #xp-seg { position: absolute; inset: 0; pointer-events: none; display: flex; }
   #xp-seg i { flex: 1; border-right: 1px solid rgba(8,18,38,0.22); }
   #xp-seg i:last-child { border-right: none; }
+  #xp-league { margin-top: 6px; text-align: right; font-size: 11px; font-weight: 800;
+    color: var(--tier2); text-transform: uppercase; letter-spacing: 0.5px; }
   /* Gold+ shimmer на fill */
   #xp-section.tier-2 #xp-fill, #xp-section.tier-3 #xp-fill, #xp-section.tier-4 #xp-fill {
     background: linear-gradient(90deg, var(--tier), var(--tier2), var(--tier));
@@ -705,6 +707,7 @@
             <span id="xp-today"></span>
           </div>
           <div id="xp-bar"><div id="xp-fill"></div><div id="xp-seg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div id="xp-league"></div>
         </div>
       </div>
     </div>
@@ -9250,6 +9253,7 @@ function renderXpBar() {
   document.getElementById("xp-name").textContent = info.name;
   document.getElementById("xp-nums").textContent = info.isMax ? "MAX" : (xp - info.cur) + " / " + (info.next - info.cur) + " XP";
   document.getElementById("xp-fill").style.width = pct + "%";
+  document.getElementById("xp-league").textContent = ACH_LEAGUES[tier].label + " ліга";
   const gain = getTodayXpGain();
   const todayEl = document.getElementById("xp-today");
   todayEl.textContent = gain > 0 ? "+" + gain + " XP" : "";
