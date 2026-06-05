@@ -616,18 +616,36 @@
   }
   /* ── Achievements ───────────────────────────────────────────── */
   #ach-screen { height:440px; overflow-y:auto; overflow-x:hidden; }
-  /* Variant A — рядки з прогрес-барами */
-  .ach-list-a { display:flex; flex-direction:column; gap:9px; }
-  .ach-row-a { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:10px; padding:8px 11px; }
-  .ach-row-a.ach-locked { opacity:0.5; }
-  .ach-row-a-top { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-  .ach-ic { font-size:16px; }
-  .ach-name { flex:1; font-size:13px; font-weight:600; color:#fff; }
-  .ach-badge { font-size:10px; padding:2px 8px; border-radius:20px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08); white-space:nowrap; }
-  .ach-bar { height:7px; background:rgba(255,255,255,0.10); border-radius:4px; overflow:hidden; }
-  .ach-bar-fill { height:100%; border-radius:4px; transition:width .4s ease; }
-  .ach-row-a-foot { display:flex; justify-content:space-between; margin-top:4px; font-size:10px; color:rgba(255,255,255,0.55); }
-  .ach-next { opacity:0.75; }
+  /* Premium colour-framed cards (frame tinted by current league) */
+  .ach-list-a { display:flex; flex-direction:column; gap:11px; }
+  .ach-card, .ach-card-inner { clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px); }
+  .ach-card { position:relative; padding:1.5px;
+    background: linear-gradient(135deg, var(--c2), var(--c));
+    filter: drop-shadow(0 0 5px var(--glow)); }
+  .ach-card.ach-locked { filter:none; opacity:0.55; --c:#5b6b85; --c2:#8090aa; --glow:transparent; }
+  .ach-card-inner { padding:10px 13px;
+    background: linear-gradient(135deg, rgba(14,22,42,0.97), rgba(8,13,26,0.99)); }
+  .ach-top { display:flex; align-items:center; gap:11px; }
+  .ach-ic2 { position:relative; flex-shrink:0; width:42px; height:46px;
+    display:flex; align-items:center; justify-content:center;
+    filter: drop-shadow(0 0 4px var(--glow)); }
+  .ach-ic2::before { content:""; position:absolute; inset:0; background:linear-gradient(155deg, var(--c2), var(--c));
+    clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); }
+  .ach-ic2::after { content:""; position:absolute; inset:2px; background:linear-gradient(155deg, rgba(22,30,52,0.95), rgba(10,16,30,0.98));
+    clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); }
+  .ach-ic2 > span { position:relative; z-index:1; font-size:19px; line-height:1; }
+  .ach-info { flex:1; min-width:0; }
+  .ach-head { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .ach-title { font-size:14px; font-weight:700; color:var(--c2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ach-count { font-size:13px; font-weight:700; color:var(--c2); white-space:nowrap; flex-shrink:0; }
+  .ach-desc { font-size:11px; color:rgba(255,255,255,0.55); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ach-bar2 { position:relative; height:8px; margin-top:9px; background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.08); border-radius:4px; overflow:hidden; }
+  .ach-bar2-fill { height:100%; border-radius:4px; background:linear-gradient(90deg, var(--c), var(--c2));
+    box-shadow:0 0 6px var(--glow); transition:width .4s ease; }
+  .ach-bar2-seg { position:absolute; inset:0; pointer-events:none; display:flex; }
+  .ach-bar2-seg i { flex:1; border-right:1px solid rgba(8,18,38,0.30); }
+  .ach-bar2-seg i:last-child { border-right:none; }
   .ms-box.achievement .ms-icon { animation: ms-trophy 0.55s ease 0.25s 2; transform-origin: 50% 80%; }
   /* ── LingoHut tracker ───────────────────────────────────────── */
   #lh-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
@@ -772,6 +790,7 @@
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
       <button class="lb-tab" data-tab="xppreview" title="Прев'ю ліг XP (тимчасово)">🎨</button>
+      <button class="lb-tab" data-tab="achpreview" title="Прев'ю досягнень (тимчасово)">🖼️</button>
     </div>
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
   </div>
@@ -780,6 +799,7 @@
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
   <div id="ach-screen" class="hidden"></div>
   <div id="xp-preview-screen" class="hidden"></div><!-- TEMP: lige design preview, remove after sign-off -->
+  <div id="ach-preview-screen" class="hidden"></div><!-- TEMP: achievement design preview, remove after sign-off -->
   <div id="lh-screen" class="hidden">
     <div id="lh-header">
       <h2>📚 Уроки LingoHut</h2>
@@ -8840,7 +8860,7 @@ document.addEventListener("keydown", e => {
   }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
     e.preventDefault();
-    const tabs = ["games", "days", "streaks", "ach", "xppreview"];
+    const tabs = ["games", "days", "streaks", "ach", "xppreview", "achpreview"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -9735,15 +9755,18 @@ function renderLeaderboard(newGameId, newDayKey) {
   if (newDayKey !== undefined) lbNewDayKey = newDayKey;
   const achActive = lbActiveTab === "ach";
   const previewActive = lbActiveTab === "xppreview"; // TEMP
-  const specialActive = achActive || previewActive;
+  const achPrevActive = lbActiveTab === "achpreview"; // TEMP
+  const specialActive = achActive || previewActive || achPrevActive;
   document.getElementById("lb-title").classList.remove("hidden");
   document.getElementById("lb-list").classList.toggle("hidden", specialActive);
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
   document.getElementById("xp-preview-screen").classList.toggle("hidden", !previewActive); // TEMP
+  document.getElementById("ach-preview-screen").classList.toggle("hidden", !achPrevActive); // TEMP
   document.getElementById("lb-reset").style.visibility = specialActive ? "hidden" : "";
   if (specialActive) document.getElementById("lb-empty").classList.add("hidden");
   if (achActive) { lbTitleEl.textContent = "Досягнення"; renderAchievements(); }
   else if (previewActive) { lbTitleEl.textContent = "Прев'ю ліг XP"; renderXpPreview(); } // TEMP
+  else if (achPrevActive) { lbTitleEl.textContent = "Прев'ю досягнень"; renderAchPreview(); } // TEMP
   else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "days") renderTabDays();
   else renderTabStreaks();
@@ -9941,12 +9964,13 @@ document.getElementById("duo-minus").addEventListener("click", () => {
 // сповіщень — поточна ліга в панелі завжди рахується наживо з фактичних значень.
 const ACH_KEY = "oxford_achievements_v1";        // {achId: highestNotifiedLevel 0-5}
 const ACH_LEAGUES = [
-  { name: "Бронза",      color: "#cd7f32" },
-  { name: "Срібло",      color: "#c0c0c0" },
-  { name: "Золото",      color: "#ffd700" },
-  { name: "Діамант",     color: "#7dd6f5" },
-  { name: "Королівство", color: "#c89bff" },
+  { name: "Бронза",      color: "#cd7f32", color2: "#f0b070" },
+  { name: "Срібло",      color: "#c0c0c0", color2: "#e8eef7" },
+  { name: "Золото",      color: "#ffd700", color2: "#ffe680" },
+  { name: "Діамант",     color: "#7dd6f5", color2: "#bfeeff" },
+  { name: "Королівство", color: "#c89bff", color2: "#e0c8ff" },
 ];
+const ACH_NOLEAGUE = { color: "#6b7a99", color2: "#9aa8c4" }; // ще не здобуто жодної ліги
 const ACHIEVEMENTS = [
   { id:"correct",   icon:"✅", name:"Правильних відповідей", thresholds:[4000,10000,20000,30000,40000],     value:()=>sumDayField("correct") },
   { id:"games",     icon:"🎮", name:"Ігор зіграно",          thresholds:[150,600,1500,2500,4000],            value:()=>sumDayField("games") },
@@ -9998,30 +10022,61 @@ function enqueueAchievement(a, level) {
 function renderAchievements() {
   document.getElementById("ach-screen").innerHTML = renderAchVariantA();
 }
+// Single premium card. cfg: {icon, title, lvl(0-5), pct, count, desc, c, c2, glow, locked}
+function achCardHtml(cfg) {
+  const seg = '<div class="ach-bar2-seg">' + Array(10).fill('<i></i>').join("") + '</div>';
+  const vars = '--c:'+cfg.c+';--c2:'+cfg.c2+';--glow:'+cfg.glow+';';
+  return '<div class="ach-card'+(cfg.locked?' ach-locked':'')+'" style="'+vars+'">' +
+    '<div class="ach-card-inner">' +
+      '<div class="ach-top">' +
+        '<div class="ach-ic2"><span>'+cfg.icon+'</span></div>' +
+        '<div class="ach-info">' +
+          '<div class="ach-head"><span class="ach-title">'+cfg.title+'</span><span class="ach-count">'+cfg.count+'</span></div>' +
+          '<div class="ach-desc">'+cfg.desc+'</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ach-bar2"><div class="ach-bar2-fill" style="width:'+cfg.pct+'%"></div>'+seg+'</div>' +
+    '</div>' +
+  '</div>';
+}
 function renderAchVariantA() {
   return '<div class="ach-list-a">' + ACHIEVEMENTS.map(a => {
-    const v = a.locked ? 0 : a.value();
-    const lvl = a.locked ? 0 : achLevelFor(a);
-    const cur = lvl > 0 ? ACH_LEAGUES[lvl-1] : null;
+    if (a.locked) return achCardHtml({ icon:"🔒", title:a.name, lvl:0, pct:0,
+      count:"скоро", desc:"🔒 в розробці", c:"#5b6b85", c2:"#8090aa", glow:"transparent", locked:true });
+    const v = a.value();
+    const lvl = achLevelFor(a);
+    const cur = lvl > 0 ? ACH_LEAGUES[lvl-1] : ACH_NOLEAGUE;
     const next = lvl < 5 ? ACH_LEAGUES[lvl] : null;
     const base = lvl > 0 ? a.thresholds[lvl-1] : 0;
     const goal = lvl < 5 ? a.thresholds[lvl] : a.thresholds[4];
-    const pct = a.locked ? 0 : Math.min(100, Math.max(0, Math.round((v - base) / (goal - base) * 100)));
-    const barColor = cur ? cur.color : "rgba(255,255,255,0.25)";
-    const badge = a.locked
-      ? '<span class="ach-badge">скоро</span>'
-      : (cur
-          ? '<span class="ach-badge" style="background:'+cur.color+'22;color:'+cur.color+';border-color:'+cur.color+'66">'+cur.name+'</span>'
-          : '<span class="ach-badge" style="opacity:.5">—</span>');
-    const foot = a.locked ? '<span>🔒 в розробці</span>'
-      : (next ? '<span>'+fmtAchNum(v)+' / '+fmtAchNum(goal)+'</span><span class="ach-next">далі: '+next.name+'</span>'
-              : '<span>👑 '+fmtAchNum(v)+'</span><span class="ach-next" style="color:'+ACH_LEAGUES[4].color+'">МАКСИМУМ</span>');
-    return '<div class="ach-row-a'+(a.locked?' ach-locked':'')+'">' +
-      '<div class="ach-row-a-top"><span class="ach-ic">'+a.icon+'</span><span class="ach-name">'+a.name+'</span>'+badge+'</div>' +
-      '<div class="ach-bar"><div class="ach-bar-fill" style="width:'+pct+'%;background:'+barColor+'"></div></div>' +
-      '<div class="ach-row-a-foot">'+foot+'</div>' +
-    '</div>';
+    const pct = Math.min(100, Math.max(0, Math.round((v - base) / (goal - base) * 100)));
+    const count = next ? fmtAchNum(v) + ' / ' + fmtAchNum(goal) : '👑 ' + fmtAchNum(v);
+    const desc = lvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
+      : (next ? 'Ліга «' + cur.name + '» · далі «' + next.name + '»'
+              : 'Найвища ліга «' + cur.name + '» 👑');
+    return achCardHtml({ icon:a.icon, title:a.name, lvl, pct, count, desc,
+      c:cur.color, c2:cur.color2, glow:cur.color });
   }).join("") + '</div>';
+}
+
+// ── TEMP: achievement card design preview (remove after sign-off) ──
+function renderAchPreview() {
+  const samples = [
+    { icon:"✅", title:"Без ліги",       lg:ACH_NOLEAGUE,    desc:"Старт · до «Бронза»" },
+    { icon:"🎮", title:"Бронзова ліга",  lg:ACH_LEAGUES[0],  desc:"Ліга «Бронза» · далі «Срібло»" },
+    { icon:"🔁", title:"Срібна ліга",    lg:ACH_LEAGUES[1],  desc:"Ліга «Срібло» · далі «Золото»" },
+    { icon:"🔥", title:"Золота ліга",    lg:ACH_LEAGUES[2],  desc:"Ліга «Золото» · далі «Діамант»" },
+    { icon:"⚡", title:"Діамантова ліга", lg:ACH_LEAGUES[3], desc:"Ліга «Діамант» · далі «Королівство»" },
+    { icon:"👑", title:"Королівська ліга", lg:ACH_LEAGUES[4], desc:"Найвища ліга «Королівство» 👑" },
+    { icon:"🎵", title:"Заблоковано",    lg:{color:"#5b6b85",color2:"#8090aa"}, desc:"🔒 в розробці", locked:true },
+  ];
+  const html = samples.map((s, i) => achCardHtml({
+    icon:s.icon, title:s.title, lvl:i, pct: s.locked ? 0 : 50,
+    count: s.locked ? "скоро" : (i === 6 ? "👑" : "5 / 10"),
+    desc:s.desc, c:s.lg.color, c2:s.lg.color2,
+    glow: s.locked ? "transparent" : s.lg.color, locked: !!s.locked,
+  })).join("");
+  document.getElementById("ach-preview-screen").innerHTML = '<div class="ach-list-a">' + html + '</div>';
 }
 
 renderDuoBtn();
