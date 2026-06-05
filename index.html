@@ -332,13 +332,59 @@
   }
   #bottom-left-btns button:hover, #progress-btn:hover,
   #progress-btn.active { color: #fff; background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); }
-  #xp-section { margin: 14px auto 0; width: 88%; max-width: 360px; }
-  #xp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
-  #xp-badge { color: #ffd166; font-weight: 700; font-size: 13px; }
-  #xp-today { background: rgba(6,214,160,0.16); color: #06d6a0; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
-  #xp-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
-  #xp-fill { height: 100%; background: linear-gradient(90deg,#ffd166,#ff9f43); border-radius: 3px; transition: width 0.6s ease; }
-  #xp-nums { display: block; text-align: right; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 5px; }
+  /* ── XP level bar (tiered, game-style) ──────────────────────── */
+  #xp-section { margin: 16px auto 0; width: 90%; max-width: 380px;
+    --tier:#cd7f32; --tier2:#f0b070; }
+  #xp-section.tier-0 { --tier:#cd7f32; --tier2:#f0b070; }  /* Бронза */
+  #xp-section.tier-1 { --tier:#9aa3b2; --tier2:#e8eef7; }  /* Срібло */
+  #xp-section.tier-2 { --tier:#e6b800; --tier2:#ffe680; }  /* Золото */
+  #xp-section.tier-3 { --tier:#3bb6e0; --tier2:#b4ecff; }  /* Діамант */
+  #xp-section.tier-4 { --tier:#9b5de5; --tier2:#d8b4ff; }  /* Королівство */
+  #xp-row { display: flex; align-items: center; gap: 12px; }
+  #xp-hex { position: relative; flex-shrink: 0; width: 46px; height: 50px;
+    display: flex; align-items: center; justify-content: center; }
+  #xp-hex::before { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(155deg, var(--tier2), var(--tier));
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    box-shadow: 0 0 10px var(--tier); }
+  #xp-hex::after { content: ""; position: absolute; inset: 3px;
+    background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.18), rgba(0,0,0,0.45));
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  #xp-hex-num { position: relative; z-index: 1; font-weight: 800; font-size: 19px;
+    color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); }
+  #xp-bar-wrap { flex: 1; min-width: 0; }
+  #xp-labels { display: flex; justify-content: space-between; align-items: baseline;
+    gap: 8px; margin-bottom: 6px; }
+  #xp-name { font-size: 13px; font-weight: 700; color: var(--tier2);
+    text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; }
+  #xp-nums-wrap { display: flex; align-items: baseline; gap: 8px; flex-shrink: 0; }
+  #xp-nums { font-size: 12px; font-weight: 700; color: var(--tier2); white-space: nowrap; }
+  #xp-today { background: rgba(6,214,160,0.16); color: #06d6a0; font-size: 11px;
+    font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  #xp-bar { position: relative; height: 10px; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.10); border-radius: 5px; overflow: hidden; }
+  #xp-fill { height: 100%; border-radius: 5px;
+    background: linear-gradient(90deg, var(--tier), var(--tier2));
+    box-shadow: 0 0 8px var(--tier); transition: width 0.6s ease; }
+  /* segment dividers — gaming look (above the fill) */
+  #xp-seg { position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(90deg,
+      transparent 0, transparent calc(10% - 1.5px),
+      rgba(8,18,38,0.55) calc(10% - 1.5px), rgba(8,18,38,0.55) 10%); }
+  /* higher tiers (gold+) get an animated shimmer on the fill */
+  #xp-section.tier-2 #xp-fill, #xp-section.tier-3 #xp-fill, #xp-section.tier-4 #xp-fill {
+    background: linear-gradient(90deg, var(--tier), var(--tier2), var(--tier));
+    background-size: 200% 100%; animation: xp-shimmer 2.6s linear infinite; }
+  #xp-section.tier-4 #xp-hex::before { animation: xp-hex-pulse 2.2s ease-in-out infinite; }
+  @keyframes xp-shimmer { from { background-position: 0 0; } to { background-position: -200% 0; } }
+  @keyframes xp-hex-pulse { 0%,100% { box-shadow: 0 0 8px var(--tier); }
+    50% { box-shadow: 0 0 18px var(--tier), 0 0 28px var(--tier2); } }
+  /* level-up flash when crossing into a new level */
+  #xp-section.xp-levelup #xp-hex { animation: xp-levelup-hex 0.9s ease; }
+  #xp-section.xp-levelup #xp-fill { animation: xp-levelup-fill 0.9s ease; }
+  @keyframes xp-levelup-hex { 0% { transform: scale(1); } 35% { transform: scale(1.35) rotate(-6deg); } 100% { transform: scale(1); } }
+  @keyframes xp-levelup-fill { 0%,100% { filter: brightness(1); } 40% { filter: brightness(1.9); } }
   #backup-btn.needs-backup { color: #ffa94d !important; border-color: rgba(255,169,77,0.5) !important; }
   #duo-wrap { display: flex; gap: 4px; }
   #duo-btn { background: rgba(88,204,2,0.12) !important; border-color: rgba(88,204,2,0.35) !important; color: #7fdd40 !important; }
@@ -608,9 +654,16 @@
     <div id="mastery-stats"></div>
     <div id="mastery-bar"></div>
     <div id="xp-section">
-      <div id="xp-top"><span id="xp-badge"></span><span id="xp-today"></span></div>
-      <div id="xp-bar"><div id="xp-fill"></div></div>
-      <span id="xp-nums"></span>
+      <div id="xp-row">
+        <div id="xp-hex"><span id="xp-hex-num"></span></div>
+        <div id="xp-bar-wrap">
+          <div id="xp-labels">
+            <span id="xp-name"></span>
+            <span id="xp-nums-wrap"><span id="xp-nums"></span><span id="xp-today"></span></span>
+          </div>
+          <div id="xp-bar"><div id="xp-fill"></div><div id="xp-seg"></div></div>
+        </div>
+      </div>
     </div>
     <div class="mode-select">
       <div class="mode-group">
@@ -9139,17 +9192,32 @@ function getDayXpGain(date) {
   try { return JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}")[date] || 0; } catch(e) { return 0; }
 }
 function getTodayXpGain() { return getDayXpGain(new Date().toISOString().slice(0, 10)); }
+// 20 levels grouped into 5 colour tiers (4 levels each) — Бронза→Королівство
+function xpTierForLevel(level) { return Math.min(4, Math.floor((level - 1) / 4)); }
+let _xpPrevLevel = null;
 function renderXpBar() {
   const xp = loadXp();
   const info = getLevelInfo(xp);
   const pct = info.isMax ? 100 : Math.round((xp - info.cur) / (info.next - info.cur) * 100);
-  document.getElementById("xp-badge").textContent = "⚡ Рівень " + info.level + " · " + info.name;
+  const tier = xpTierForLevel(info.level);
+  const sec = document.getElementById("xp-section");
+  sec.classList.remove("tier-0","tier-1","tier-2","tier-3","tier-4");
+  sec.classList.add("tier-" + tier);
+  document.getElementById("xp-hex-num").textContent = info.level;
+  document.getElementById("xp-name").textContent = info.name;
   document.getElementById("xp-nums").textContent = info.isMax ? "MAX" : (xp - info.cur) + " / " + (info.next - info.cur) + " XP";
   document.getElementById("xp-fill").style.width = pct + "%";
   const gain = getTodayXpGain();
   const todayEl = document.getElementById("xp-today");
   todayEl.textContent = gain > 0 ? "+" + gain + " XP" : "";
   todayEl.style.display = gain > 0 ? "" : "none";
+  // level-up flash (only on a genuine increase within a session, not first paint)
+  if (_xpPrevLevel !== null && info.level > _xpPrevLevel) {
+    sec.classList.remove("xp-levelup"); void sec.offsetWidth; // restart animation
+    sec.classList.add("xp-levelup");
+    setTimeout(() => sec.classList.remove("xp-levelup"), 1000);
+  }
+  _xpPrevLevel = info.level;
 }
 
 function updateMastery(wordIndex, correct) {
