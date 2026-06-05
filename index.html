@@ -548,6 +548,33 @@
     from { opacity: 0; transform: translateY(-5px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  /* ── Achievements ───────────────────────────────────────────── */
+  #ach-screen { max-height:520px; overflow-y:auto; overflow-x:hidden; }
+  .ach-variant-toggle { display:flex; gap:6px; justify-content:center; margin-bottom:12px; }
+  .ach-vbtn { background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.16); color:#fff; cursor:pointer; padding:5px 14px; border-radius:8px; font-size:13px; transition:background .15s; }
+  .ach-vbtn:hover { background:rgba(255,255,255,0.20); }
+  .ach-vbtn.active { background:#ffd166; color:#1e3c72; border-color:#ffd166; font-weight:600; }
+  /* Variant A — рядки з прогрес-барами */
+  .ach-list-a { display:flex; flex-direction:column; gap:9px; }
+  .ach-row-a { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:10px; padding:8px 11px; }
+  .ach-row-a.ach-locked { opacity:0.5; }
+  .ach-row-a-top { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .ach-ic { font-size:16px; }
+  .ach-name { flex:1; font-size:13px; font-weight:600; color:#fff; }
+  .ach-badge { font-size:10px; padding:2px 8px; border-radius:20px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08); white-space:nowrap; }
+  .ach-bar { height:7px; background:rgba(255,255,255,0.10); border-radius:4px; overflow:hidden; }
+  .ach-bar-fill { height:100%; border-radius:4px; transition:width .4s ease; }
+  .ach-row-a-foot { display:flex; justify-content:space-between; margin-top:4px; font-size:10px; color:rgba(255,255,255,0.55); }
+  .ach-next { opacity:0.75; }
+  /* Variant B — сітка значків */
+  .ach-grid-b { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  .ach-cell-b { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:11px 6px; text-align:center; }
+  .ach-cell-b.ach-locked { opacity:0.5; }
+  .ach-hex { width:46px; height:46px; margin:0 auto 6px; display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid rgba(255,255,255,0.2); border-radius:14px; background:rgba(255,255,255,0.04); }
+  .ach-cell-name { font-size:10px; color:#fff; line-height:1.2; min-height:24px; display:flex; align-items:center; justify-content:center; }
+  .ach-cell-sub { font-size:10px; font-weight:600; margin-top:3px; }
+  .ach-cell-val { font-size:11px; color:rgba(255,255,255,0.6); margin-top:1px; }
+  .ms-box.achievement .ms-icon { animation: ms-trophy 0.55s ease 0.25s 2; transform-origin: 50% 80%; }
   /* ── LingoHut tracker ───────────────────────────────────────── */
   #lh-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
   #lh-header h2 { flex:1; font-size:15px; margin:0; }
@@ -681,12 +708,14 @@
       <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="days" title="Найкращі дні">📅</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
+      <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
     </div>
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
   </div>
   <div class="lb-title" id="lb-title">Топ-10 ігор</div>
   <ol class="lb-list" id="lb-list"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
+  <div id="ach-screen" class="hidden"></div>
   <div id="lh-screen" class="hidden">
     <div id="lh-header">
       <h2>📚 Уроки LingoHut</h2>
@@ -7330,13 +7359,23 @@ function sfxRank() {
   _beep(2093, 0.50, 0.30, 0.10); // high sparkle
 }
 let _msTimer = null;
-function showMilestone(icon, text, sub, type) {
+function showMilestone(icon, text, sub, type, color) {
   const ov  = document.getElementById("milestone-overlay");
   const box = ov.querySelector(".ms-box");
-  ov.querySelector(".ms-icon").textContent = icon;
-  ov.querySelector(".ms-text").textContent = text;
+  const icEl = ov.querySelector(".ms-icon"), txtEl = ov.querySelector(".ms-text");
+  icEl.textContent = icon;
+  txtEl.textContent = text;
   ov.querySelector(".ms-sub").textContent  = sub || "";
-  box.className = "ms-box" + (type === "cleared" ? " cleared" : type === "nudge" ? " nudge" : "");
+  box.className = "ms-box" + (type === "cleared" ? " cleared" : type === "nudge" ? " nudge" : type === "achievement" ? " achievement" : "");
+  // Achievement milestones carry the league color (bronze→king) applied inline.
+  if (type === "achievement" && color) {
+    box.style.borderColor = color;
+    box.style.boxShadow = "0 0 52px " + color + "66, 0 10px 30px rgba(0,0,0,0.5)";
+    txtEl.style.color = color; icEl.style.color = color;
+  } else {
+    box.style.borderColor = ""; box.style.boxShadow = "";
+    txtEl.style.color = ""; icEl.style.color = "";
+  }
   ov.classList.remove("show");
   void ov.offsetWidth;
   ov.classList.add("show");
@@ -7354,7 +7393,7 @@ function _drainMilestones() {
   const item = _msQueue.shift();
   if (!item) { _msRunning = false; return; }
   if (item.sfx) item.sfx();
-  showMilestone(item.icon, item.text, item.sub, item.type);
+  showMilestone(item.icon, item.text, item.sub, item.type, item.color);
   setTimeout(_drainMilestones, 2700);
 }
 
@@ -7476,6 +7515,7 @@ function endGame(endedEarly) {
       enqueueMilestone({ icon: "✨", text: "Усі помилки закриті!", sub: "Так тримати!", type: "cleared", sfx: sfxCleared });
     }
   }
+  checkAchievements(true);
   renderLeaderboard(newEntryId, newDayKey);
   setFilter("all");
   endScreen.classList.remove("hidden");
@@ -8736,7 +8776,7 @@ document.addEventListener("keydown", e => {
   }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
     e.preventDefault();
-    const tabs = ["games", "days", "streaks"];
+    const tabs = ["games", "days", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -9551,7 +9591,14 @@ function renderTabStreaks() {
 function renderLeaderboard(newGameId, newDayKey) {
   if (newGameId !== undefined) lbNewGameId = newGameId;
   if (newDayKey !== undefined) lbNewDayKey = newDayKey;
-  if (lbActiveTab === "games") renderTabGames();
+  const achActive = lbActiveTab === "ach";
+  // Achievements tab swaps the list view for its own screen (like the LingoHut sub-screen).
+  document.getElementById("lb-title").classList.toggle("hidden", achActive);
+  document.getElementById("lb-list").classList.toggle("hidden", achActive);
+  document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
+  document.getElementById("lb-reset").style.visibility = achActive ? "hidden" : "";
+  if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); renderAchievements(); }
+  else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "days") renderTabDays();
   else renderTabStreaks();
   leaderboardEl.classList.remove("hidden");
@@ -9660,6 +9707,7 @@ function toggleLhLesson(n) {
   renderXpBar();
   renderLbTotals();
   renderProgressPanel();
+  checkAchievements(true);
 }
 function renderLhGrid() {
   const done = loadLhDone();
@@ -9725,6 +9773,7 @@ document.getElementById("duo-btn").addEventListener("click", () => {
   renderXpBar();
   renderLbTotals();
   renderProgressPanel();
+  checkAchievements(true);
 });
 
 document.getElementById("duo-minus").addEventListener("click", () => {
@@ -9741,10 +9790,123 @@ document.getElementById("duo-minus").addEventListener("click", () => {
   renderProgressPanel();
 });
 
+// ── ACHIEVEMENTS ──────────────────────────────────────────────────────────────
+// 10 досягнень × 5 ліг. Зберігаємо лише найвищу "оголошену" лігу для дедуплікації
+// сповіщень — поточна ліга в панелі завжди рахується наживо з фактичних значень.
+const ACH_KEY = "oxford_achievements_v1";        // {achId: highestNotifiedLevel 0-5}
+const ACH_VARIANT_KEY = "oxford_ach_variant_v1"; // "A" | "B" — який макет показувати
+const ACH_LEAGUES = [
+  { name: "Бронза",      color: "#cd7f32" },
+  { name: "Срібло",      color: "#c0c0c0" },
+  { name: "Золото",      color: "#ffd700" },
+  { name: "Діамант",     color: "#7dd6f5" },
+  { name: "Королівство", color: "#c89bff" },
+];
+const ACHIEVEMENTS = [
+  { id:"correct",   icon:"✅", name:"Правильних відповідей", thresholds:[4000,10000,20000,30000,40000],     value:()=>sumDayField("correct") },
+  { id:"games",     icon:"🎮", name:"Ігор зіграно",          thresholds:[150,600,1500,2500,4000],            value:()=>sumDayField("games") },
+  { id:"known",     icon:"✓",  name:"Слів у «Знаю»",          thresholds:[1000,2500,5000,7500,10000],         value:()=>countKnownWords() },
+  { id:"review",    icon:"🔁", name:"Повторень",              thresholds:[2000,5000,10000,15000,20000],       value:()=>sumDayField("reviewCorrect") },
+  { id:"duo",       icon:"🦉", name:"Duolingo сесій",         thresholds:[50,150,400,700,1000],               value:()=>getTotalDuoSessions() },
+  { id:"lingohut",  icon:"📚", name:"Уроків LingoHut",        thresholds:[10,35,70,100,125],                  value:()=>Object.keys(loadLhDone()).length },
+  { id:"streak",    icon:"🔥", name:"Днів поспіль",           thresholds:[7,14,30,60,90],                     value:()=>bestStreakLength() },
+  { id:"totaldays", icon:"📅", name:"Днів гри загалом",       thresholds:[30,90,180,365,730],                 value:()=>activeDaysCount() },
+  { id:"xp",        icon:"⚡", name:"Накопичено XP",           thresholds:[15000,45000,90000,150000,250000],   value:()=>loadXp() },
+  { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[1,5,15,30,50], locked:true,         value:()=>0 },
+];
+function loadAch() { try { return JSON.parse(localStorage.getItem(ACH_KEY) || "{}"); } catch(e) { return {}; } }
+function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
+function sumDayField(f) { return Object.values(loadDays()).reduce((s,d)=>s+(d[f]||0),0); }
+function countKnownWords() { return Object.values(loadMastery()).filter(s=>s>=3).length; }
+function activeDaysCount() { return Object.values(loadDays()).filter(d=>(d.games||0)>0).length; }
+function bestStreakLength() { const s = computeStreaks(loadDays()); return s.length ? s[0].length : 0; }
+function achLevelFor(a) { const v = a.value(); let lvl=0; for (let i=0;i<5;i++) if (v >= a.thresholds[i]) lvl=i+1; return lvl; }
+function fmtAchNum(n) { if (n < 1000) return String(n); const k = Math.floor(n/100)/10; return (k % 1 === 0 ? k.toFixed(0) : k.toFixed(1)) + "k"; }
+
+function checkAchievements(notify) {
+  const claimed = loadAch();
+  let changed = false;
+  ACHIEVEMENTS.forEach(a => {
+    if (a.locked) return;
+    const lvl = achLevelFor(a);
+    const prev = claimed[a.id] || 0;
+    if (lvl > prev) {
+      if (notify) for (let L = prev+1; L <= lvl; L++) enqueueAchievement(a, L);
+      claimed[a.id] = lvl;
+      changed = true;
+    }
+  });
+  if (changed) saveAch(claimed);
+}
+function enqueueAchievement(a, level) {
+  const lg = ACH_LEAGUES[level-1];
+  enqueueMilestone({
+    icon: a.icon,
+    text: lg.name + " ліга!",
+    sub: a.name + " — " + fmtAchNum(a.thresholds[level-1]),
+    type: "achievement",
+    color: lg.color,
+    sfx: level === 5 ? sfxRank : sfxMilestone,
+  });
+}
+
+let achVariant = localStorage.getItem(ACH_VARIANT_KEY) || "A";
+function setAchVariant(v) { achVariant = v; localStorage.setItem(ACH_VARIANT_KEY, v); renderAchievements(); }
+function renderAchievements() {
+  const wrap = document.getElementById("ach-screen");
+  const toggle =
+    '<div class="ach-variant-toggle">' +
+      '<button class="ach-vbtn' + (achVariant==="A"?" active":"") + '" onclick="setAchVariant(\'A\')">Варіант A</button>' +
+      '<button class="ach-vbtn' + (achVariant==="B"?" active":"") + '" onclick="setAchVariant(\'B\')">Варіант Б</button>' +
+    '</div>';
+  wrap.innerHTML = toggle + (achVariant === "A" ? renderAchVariantA() : renderAchVariantB());
+}
+function renderAchVariantA() {
+  return '<div class="ach-list-a">' + ACHIEVEMENTS.map(a => {
+    const v = a.locked ? 0 : a.value();
+    const lvl = a.locked ? 0 : achLevelFor(a);
+    const cur = lvl > 0 ? ACH_LEAGUES[lvl-1] : null;
+    const next = lvl < 5 ? ACH_LEAGUES[lvl] : null;
+    const base = lvl > 0 ? a.thresholds[lvl-1] : 0;
+    const goal = lvl < 5 ? a.thresholds[lvl] : a.thresholds[4];
+    const pct = a.locked ? 0 : Math.min(100, Math.max(0, Math.round((v - base) / (goal - base) * 100)));
+    const barColor = cur ? cur.color : "rgba(255,255,255,0.25)";
+    const badge = a.locked
+      ? '<span class="ach-badge">скоро</span>'
+      : (cur
+          ? '<span class="ach-badge" style="background:'+cur.color+'22;color:'+cur.color+';border-color:'+cur.color+'66">'+cur.name+'</span>'
+          : '<span class="ach-badge" style="opacity:.5">—</span>');
+    const foot = a.locked ? '<span>🔒 в розробці</span>'
+      : (next ? '<span>'+fmtAchNum(v)+' / '+fmtAchNum(goal)+'</span><span class="ach-next">далі: '+next.name+'</span>'
+              : '<span>👑 '+fmtAchNum(v)+'</span><span class="ach-next" style="color:'+ACH_LEAGUES[4].color+'">МАКСИМУМ</span>');
+    return '<div class="ach-row-a'+(a.locked?' ach-locked':'')+'">' +
+      '<div class="ach-row-a-top"><span class="ach-ic">'+a.icon+'</span><span class="ach-name">'+a.name+'</span>'+badge+'</div>' +
+      '<div class="ach-bar"><div class="ach-bar-fill" style="width:'+pct+'%;background:'+barColor+'"></div></div>' +
+      '<div class="ach-row-a-foot">'+foot+'</div>' +
+    '</div>';
+  }).join("") + '</div>';
+}
+function renderAchVariantB() {
+  return '<div class="ach-grid-b">' + ACHIEVEMENTS.map(a => {
+    const lvl = a.locked ? 0 : achLevelFor(a);
+    const cur = lvl > 0 ? ACH_LEAGUES[lvl-1] : null;
+    const color = a.locked ? "rgba(255,255,255,0.18)" : (cur ? cur.color : "rgba(255,255,255,0.22)");
+    const v = a.locked ? 0 : a.value();
+    const sub = a.locked ? "скоро" : (cur ? cur.name : "—");
+    return '<div class="ach-cell-b'+(a.locked?' ach-locked':'')+'">' +
+      '<div class="ach-hex" style="color:'+color+';border-color:'+color+'">'+(a.locked?'🔒':a.icon)+'</div>' +
+      '<div class="ach-cell-name">'+a.name+'</div>' +
+      '<div class="ach-cell-sub" style="color:'+color+'">'+sub+(a.locked?'':' · '+lvl+'/5')+'</div>' +
+      '<div class="ach-cell-val">'+(a.locked?'':fmtAchNum(v))+'</div>' +
+    '</div>';
+  }).join("") + '</div>';
+}
+
 renderDuoBtn();
 
 renderLeaderboard();
 renderLbTotals();
+checkAchievements(false);
 updateReviewTodayBtn();
 saveMasterySnapshot();
 renderMasteryStats();
