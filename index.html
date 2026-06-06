@@ -816,7 +816,7 @@
         <div class="corr-example" id="corr-example"></div>
         <button class="speak-btn speak-btn-sm" id="corr-example-speak" title="Прослухати речення">🔊</button>
       </div>
-      <div class="corr-hint">Enter — далі · Shift — озвучити слово</div>
+      <div class="corr-hint">Enter — далі · Tab — озвучити слово</div>
     </div>
   </div>
 
@@ -8972,12 +8972,12 @@ document.addEventListener("keydown", e => {
     document.getElementById("progress-btn").click();
     return;
   }
-  if (e.key === "Shift" && mode === "en-ua" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
+  if (e.key === "Tab" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
     e.preventDefault();
     speak(currentShown);
     return;
   }
-  if (e.key === "Shift" && awaitingAfterWrong) {
+  if (e.key === "Tab" && awaitingAfterWrong) {
     e.preventDefault();
     const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
     speak(enWord);
