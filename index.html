@@ -36,6 +36,11 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+  /* Коли видно лише картку + leaderboard (панель прогресу схована),
+     зсуваємо групу праворуч, щоб центральна картка лишалась по центру екрана. */
+  @media (min-width: 1500px) {
+    .layout.shift-right { margin-left: 222px; }
+  }
   .card {
     background: rgba(12, 32, 68, 0.58);
     backdrop-filter: blur(22px) saturate(1.3);
@@ -525,6 +530,14 @@
     color: #fff;
   }
   .tab.active { background: #ffd166; color: #1e3c72; }
+  .gt-link {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+    text-decoration: none; background: rgba(255,255,255,0.14); color: #fff;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+    padding: 5px 12px; font-size: 14px; white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .gt-link:hover { background: rgba(255,255,255,0.24); }
   .results-list {
     max-height: 260px;
     overflow-y: auto;
@@ -818,6 +831,7 @@
     <div class="filter-tabs">
       <button id="tab-all" class="tab active">Усі</button>
       <button id="tab-bad" class="tab">Помилки і пропуски</button>
+      <a id="gt-link" class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate" target="_blank" rel="noopener" title="Відкрити Google Перекладач у новій вкладці">🌐 Перекладач</a>
     </div>
     <div class="results-list" id="results-list"></div>
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
@@ -8800,6 +8814,7 @@ document.getElementById("progress-btn").addEventListener("click", () => {
   btn.classList.toggle("active", !opening);
   if (!opening) renderProgressPanel();
   localStorage.setItem("oxford_progress_open_v1", opening ? "0" : "1");
+  updateLayoutAlign();
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
 document.getElementById("review-today-btn").addEventListener("click", () => {
@@ -9862,8 +9877,16 @@ function renderLeaderboard(newGameId, newDayKey) {
   else if (lbActiveTab === "days") renderTabDays();
   else renderTabStreaks();
   leaderboardEl.classList.remove("hidden");
+  updateLayoutAlign();
 }
-function hideLeaderboard() { leaderboardEl.classList.add("hidden"); }
+function hideLeaderboard() { leaderboardEl.classList.add("hidden"); updateLayoutAlign(); }
+// Зсув групи праворуч лише коли видно картку + leaderboard без панелі прогресу,
+// щоб центральна картка не з'їжджала вліво від центру екрана.
+function updateLayoutAlign() {
+  const lbVisible = !leaderboardEl.classList.contains("hidden");
+  const progHidden = document.getElementById("progress-panel").classList.contains("hidden");
+  document.querySelector(".layout").classList.toggle("shift-right", lbVisible && progHidden);
+}
 function renderLbTotals() {
   const days = loadDays();
   let games = 0, correct = 0, wrong = 0, skipped = 0, review = 0;
@@ -10200,6 +10223,7 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
   document.getElementById("progress-btn").classList.add("active");
   renderProgressPanel();
 }
+updateLayoutAlign();
 </script>
 <div id="milestone-overlay">
   <div class="ms-box">
