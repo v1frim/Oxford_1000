@@ -1351,7 +1351,7 @@ const WORDS = [
   {en:"network",ua:"мережа"},{en:"object",ua:"об'єкт"},{en:"option",ua:"варіант"},
   {en:"pain",ua:"біль"},{en:"partner",ua:"партнер"},{en:"pattern",ua:"шаблон"},
   {en:"permission",ua:"дозвіл"},{en:"phrase",ua:"фраза"},{en:"policy",ua:"політика"},
-  {en:"position",ua:"позиція"},{en:"practice",ua:"практика"},{en:"pressure",ua:"тиск"},
+  {en:"position",ua:"позиція"},{en:"practice",ua:"практика"},{en:"preparation",ua:"підготовка"},{en:"pressure",ua:"тиск"},
   {en:"pride",ua:"гордість"},{en:"product",ua:"продукт"},{en:"program",ua:"програма"},
   {en:"property",ua:"власність"},{en:"reaction",ua:"реакція"},{en:"resource",ua:"ресурс"},
   {en:"responsibility",ua:"відповідальність"},{en:"review",ua:"огляд"},{en:"role",ua:"роль"},
@@ -2775,7 +2775,7 @@ const TRANS = {
   "plain":"/ˈpleɪn/","planet":"/ˈplænət/","platform":"/ˈplætfɔrm/","pleasant":"/ˈplɛzənt/","pleased":"/ˈplizd/","plenty":"/ˈplɛni/",
   "pointed":"/ˈpɔɪnəd/","policy":"/ˈpɑləsi/","pollution":"/pəˈluʃən/","pond":"/ˈpɑnd/","position":"/pəˈzɪʃən/","positive":"/ˈpɑzətɪv/",
   "posture":"/ˈpɑstʃɝ/","pour":"/ˈpɔr/","powerful":"/ˈpaʊɝfəl/","powerless":"/ˈpaʊɝləs/","practice":"/ˈpræktəs/","precise":"/priˈsaɪs/",
-  "predict":"/priˈdɪkt/","prehistoric":"/prihɪˈstɔrɪk/","present":"/ˈprɛzənt/","presentation":"/prɛzənˈteɪʃən/","preserve":"/prəˈzɝv/","press":"/ˈprɛs/",
+  "predict":"/priˈdɪkt/","prehistoric":"/prihɪˈstɔrɪk/","preparation":"/ˌprɛpəˈreɪʃən/","present":"/ˈprɛzənt/","presentation":"/prɛzənˈteɪʃən/","preserve":"/prəˈzɝv/","press":"/ˈprɛs/",
   "pressure":"/ˈprɛʃɝ/","pretend":"/priˈtɛnd/","pretty":"/ˈprɪti/","prevail":"/priˈveɪl/","pricey":"/ˈpraɪsi/","pride":"/ˈpraɪd/",
   "primeval":"/praɪˈmivəl/","print":"/ˈprɪnt/","product":"/ˈprɑdəkt/","productive":"/pɝˈdəktɪv/","profession":"/prəˈfɛʃən/","professor":"/prəˈfɛsɝ/",
   "program":"/ˈproʊɡræm/","promise":"/ˈprɑməs/","promotion":"/pɝˈmoʊʃən/","proper":"/ˈprɑpɝ/","property":"/ˈprɑpɝti/","propose":"/prəˈpoʊz/",
@@ -3541,7 +3541,7 @@ const EXAMPLES = {
   "waterfall":"The waterfall is one hundred meters high.",
   "assignment":"Submit your assignment by Monday.","certificate":"She received a certificate of completion.",
   "essay":"Write a five-hundred-word essay on the topic.","lecture":"The lecture starts at nine.",
-  "presentation":"His presentation lasted thirty minutes.","professor":"The professor explained the theory clearly.",
+  "preparation":"Good preparation is the key to success.","presentation":"His presentation lasted thirty minutes.","professor":"The professor explained the theory clearly.",
   "scholarship":"She won a full scholarship to university.","semester":"We have exams at the end of the semester.",
   "abroad":"He studied abroad for one year.","arrival":"The arrival of the train was delayed.",
   "currency":"What currency do they use in Japan?","departure":"The departure is at seven in the morning.",
@@ -5214,7 +5214,7 @@ const EXAMPLES_UA = {
   "waterfall":"Водоспад висотою сто метрів.",
   "assignment":"Здай завдання до понеділка.","certificate":"Вона отримала сертифікат про проходження курсу.",
   "essay":"Напиши есе на п'ятсот слів на задану тему.","lecture":"Лекція починається о дев'ятій.",
-  "presentation":"Його презентація тривала тридцять хвилин.","professor":"Професор чітко пояснив теорію.",
+  "preparation":"Хороша підготовка — ключ до успіху.","presentation":"Його презентація тривала тридцять хвилин.","professor":"Професор чітко пояснив теорію.",
   "scholarship":"Вона виграла повну стипендію до університету.","semester":"Наприкінці семестру — іспити.",
   "abroad":"Він навчався за кордоном рік.","arrival":"Прибуття поїзда затрималось.",
   "currency":"Яка валюта в Японії?","departure":"Відправлення о сьомій ранку.",
@@ -8057,6 +8057,7 @@ const EN_TO_UA = (() => {
   m.set("plant",       ["рослина", "садити"]);
   m.set("pour",        ["наливати"]);
   m.set("prepare",     ["готувати", "підготовляти"]);
+  m.set("preparation", ["підготовка"]);
   m.set("present",     ["представляти", "подарунок"]);
   m.set("print",       ["друкувати"]);
   m.set("promise",     ["обіцянка", "обіцяти"]);
