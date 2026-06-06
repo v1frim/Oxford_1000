@@ -1406,6 +1406,7 @@ const WORDS = [
   {en:"positive",ua:"позитивний"},{en:"proud",ua:"гордий"},{en:"rapid",ua:"швидкий"},
   {en:"reasonable",ua:"розумний"},{en:"reliable",ua:"надійний"},{en:"responsible",ua:"відповідальний"},
   {en:"satisfied",ua:"задоволений"},{en:"sensitive",ua:"чутливий"},{en:"significant",ua:"значний"},
+  {en:"slender",ua:"стрункий"},{en:"slim",ua:["стрункий","худорлявий"]},
   {en:"slight",ua:"незначний"},{en:"strict",ua:"суворий"},{en:"suitable",ua:"підходящий"},
   {en:"suspicious",ua:"підозрілий"},{en:"tidy",ua:"охайний"},{en:"traditional",ua:"традиційний"},
   {en:["unusual","uncommon"],ua:"незвичайний"},{en:"useful",ua:"корисний"},{en:"various",ua:"різноманітний"},
@@ -1921,7 +1922,7 @@ const WORDS = [
   {en:"personal",ua:"особистий"},
   {en:"personality",ua:["особистість","характер"]},
   {en:"pessimistic",ua:"песимістичний"},
-  {en:"petite",ua:"стрункий"},
+  {en:"petite",ua:["невисока","дрібна","маленька"]},
   {en:"pick",ua:"вибирати"},
   {en:"picnic",ua:"пікнік"},
   {en:"picture",ua:"малюнок"},
@@ -2799,7 +2800,7 @@ const TRANS = {
   "shatter":"/ʃˈætɐ/","shelf":"/ʃˈɛlf/","shelter":"/ʃˈɛltɐ/","sheltered":"/ʃˈɛltəd/","shield":"/ʃˈiːld/","shift":"/ʃˈɪft/",
   "shining":"/ʃˈaɪnɪŋ/","shrink":"/ʃrˈɪŋk/","shut":"/ʃˈʌt/","sight":"/sˈaɪt/","significant":"/sɪɡnˈɪfɪkənt/","silent":"/sˈaɪlənt/",
   "simple":"/sˈɪmpəl/","sincere":"/sɪnsˈiə/","sixteen":"/sɪkstˈiːn/","sixty":"/sˈɪksti/","skiing":"/skˈiːɪŋ/","skill":"/skˈɪl/",
-  "skip":"/skˈɪp/","slack":"/slˈæk/","sleepy":"/slˈiːpi/","slice":"/slˈaɪs/","slight":"/slˈaɪt/","slip":"/slˈɪp/",
+  "skip":"/skˈɪp/","slack":"/slˈæk/","sleepy":"/slˈiːpi/","slender":"/ˈslɛndər/","slice":"/slˈaɪs/","slight":"/slˈaɪt/","slim":"/slɪm/","slip":"/slˈɪp/",
   "sloppy":"/slˈɒpi/","sluggish":"/slˈʌɡɪʃ/","smash":"/smˈæʃ/","snack":"/snˈæk/","snug":"/snˈʌɡ/","sob":"/sˈɒb/",
   "sociable":"/sˈəʊʃiəbəl/","software":"/sˈɒftweə/","soil":"/sˈɔɪl/","solemn":"/sˈɒləm/","solid":"/sˈɒlɪd/","solitary":"/sˈɒlɪtəri/",
   "song":"/sˈɒŋ/","sorrowful":"/sˈɒrəʊfəl/","source":"/sˈɔːs/","souvenir":"/suːvənˈiə/","speech":"/spˈiːtʃ/","speedy":"/spˈiːdi/",
@@ -3581,7 +3582,7 @@ const EXAMPLES = {
   "rapid":"Technology is developing at a rapid pace.","reasonable":"The price seems reasonable.",
   "reliable":"Is this a reliable source of information?","responsible":"You are responsible for your own actions.",
   "satisfied":"I am satisfied with the result.","sensitive":"She is sensitive to cold temperatures.",
-  "significant":"This is a significant step forward.","slight":"There is a slight chance of rain.",
+  "significant":"This is a significant step forward.","slender":"She had a slender figure and moved gracefully.","slight":"There is a slight chance of rain.","slim":"He worked out every day to stay slim.",
   "strict":"The teacher is strict but fair.","suitable":"Is this film suitable for children?",
   "suspicious":"The behavior seemed suspicious.","tidy":"Keep your room tidy.",
   "traditional":"They had a traditional Christmas dinner.","unusual":"It is unusual to see snow here in April.",
@@ -5254,7 +5255,7 @@ const EXAMPLES_UA = {
   "rapid":"Технології розвиваються стрімкими темпами.","reasonable":"Ціна здається розумною.",
   "reliable":"Це надійне джерело інформації?","responsible":"Ти відповідаєш за свої вчинки.",
   "satisfied":"Я задоволений результатом.","sensitive":"Вона чутлива до холоду.",
-  "significant":"Це значний крок уперед.","slight":"Є невеликий шанс на дощ.",
+  "significant":"Це значний крок уперед.","slender":"Вона мала струнку фігуру і рухалась граційно.","slight":"Є невеликий шанс на дощ.","slim":"Він займався щодня, щоб лишатися стрункий.",
   "strict":"Вчитель суворий, але справедливий.","suitable":"Цей фільм підходить для дітей?",
   "suspicious":"Поведінка виглядала підозрілою.","tidy":"Тримай кімнату в порядку.",
   "traditional":"У них була традиційна різдвяна вечеря.","unusual":"Незвично бачити сніг тут у квітні.",
@@ -8121,6 +8122,9 @@ const EN_TO_UA = (() => {
   m.set("sunset",      ["захід сонця"]);
   m.set("breathtaking",["захопливий", "приголомшливий", "що захоплює дух"]);
   m.set("sunrise",     ["схід сонця"]);
+  m.set("breathtaking",["захопливий", "приголомшливий", "що захоплює дух"]);
+  m.set("slender",     ["стрункий"]);
+  m.set("slim",        ["стрункий", "худорлявий"]);
   m.set("curry",       ["каррі"]);
   m.set("mind",        ["розум", "не заперечувати"]);
   m.set("attention",   ["увага"]);
