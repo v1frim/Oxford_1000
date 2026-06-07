@@ -524,6 +524,119 @@ const SONGS = [
       { en: "feel high",             ua: "бути окриленим / під кайфом",  note: "тут радше емоційний підйом, ейфорія" }
     ]
   }
+  ,
+  {
+    id: "neffex-all-these-thoughts",
+    artist: "NEFFEX",
+    title: "All These Thoughts",
+    ytId: "uemkb0PpW3c",
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "Yo, all these thoughts keep me up at night, yeah",            ua: "Йо, усі ці думки не дають мені спати ночами, так" },
+        { en: "What am I doin', did I do it right? Yeah",                    ua: "Що я роблю, чи правильно я вчинив? Так" },
+        { en: "All these thoughts keep me up at night, yeah",               ua: "Усі ці думки не дають мені спати ночами, так" },
+        { en: "I can't think straight, need the light, yo (Yo)",            ua: "Я не можу мислити ясно, мені потрібне світло, йо (Йо)" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I need to breathe, get me up and out of these sheets",       ua: "Мені треба дихати, підняти себе й вибратися з-під ковдри" },
+        { en: "Onto my feet, another cup of coffee in me",                  ua: "Стати на ноги, ще одна чашка кави в мене всередині" },
+        { en: "That's what I need, my eyes puffy, I can't see",             ua: "Ось що мені треба, очі набряклі, я нічого не бачу" },
+        { en: "I'm too tired to function, but too lost to sleep, ay",       ua: "Надто втомлений, щоб функціонувати, та надто розгублений, щоб спати, ей" },
+        { en: "I think I need to be on somethin', medication",              ua: "Думаю, мені треба щось приймати, якісь ліки" },
+        { en: "I think I need to figure out this segregation",              ua: "Думаю, мені треба розібратися в цьому розладі всередині" },
+        { en: "I think I needed just a better education",                   ua: "Думаю, мені просто бракувало кращої освіти" },
+        { en: "To understand a world that's so complicated",               ua: "Щоб зрозуміти світ, який такий заплутаний" },
+        { en: "Intoxicated, every night, faded, just so I can sleep",       ua: "Сп'янілий щоночі, у відключці — лише щоб заснути" },
+        { en: "Thinkin' that it's aidin', I feel hated, I feel hatred",     ua: "Думаю, що це помагає; я почуваюся знедоленим, у мені сама ненависть" },
+        { en: "I'm lost, deep in my mind that I've created",               ua: "Я загубився глибоко в розумі, який сам собі створив" },
+        { en: "I have dreams where my life is devastated",                 ua: "Мені сняться сни, де моє життя зруйноване" },
+        { en: "Feels so real that I wake up shaken",                       ua: "Це таке справжнє, що я прокидаюся приголомшений" },
+        { en: "Need thicker skin 'cause this life is no haven",            ua: "Треба грубшу шкіру, бо це життя — не тихий прихисток" },
+        { en: "Nod your head if you get what I'm sayin'",                  ua: "Кивни головою, якщо розумієш, про що я" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yo, all these thoughts keep me up at night, yeah (Keep me up at night)", ua: "Йо, усі ці думки не дають мені спати ночами, так (Не дають спати)" },
+        { en: "What am I doin', did I do it right? Yeah (Did I do it right?)",          ua: "Що я роблю, чи правильно я вчинив? Так (Чи правильно вчинив?)" },
+        { en: "All these thoughts keep me up at night, yeah (Keep me up at night)",     ua: "Усі ці думки не дають мені спати ночами, так (Не дають спати)" },
+        { en: "I can't think straight, need the light (Need the light)",               ua: "Я не можу мислити ясно, мені потрібне світло (Потрібне світло)" },
+        { en: "Yo, all these thoughts keep me up at night, yeah (Keep me up at night)", ua: "Йо, усі ці думки не дають мені спати ночами, так (Не дають спати)" },
+        { en: "What am I doin', did I do it right? Yeah (Did I do it right?)",          ua: "Що я роблю, чи правильно я вчинив? Так (Чи правильно вчинив?)" },
+        { en: "All these thoughts keep me up at night, yeah (Keep me up at night)",     ua: "Усі ці думки не дають мені спати ночами, так (Не дають спати)" },
+        { en: "I can't think straight, need the light (Need the light)",               ua: "Я не можу мислити ясно, мені потрібне світло (Потрібне світло)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I don't really think I understand this world, no",          ua: "Я, чесно, не думаю, що розумію цей світ, ні" },
+        { en: "Got my head spinnin' 'round in a circle",                   ua: "Голова йде обертом, по колу" },
+        { en: "Everybody lacks what they need internal",                  ua: "Усім бракує того, що потрібно всередині" },
+        { en: "So, they compensate with everythin' external",            ua: "Тож вони компенсують це всім зовнішнім" },
+        { en: "Not tryna throw shade, hah, no way",                       ua: "Не хочу нікого принижувати, ха, ні-ні" },
+        { en: "I'm just tryin' to find the meanin' of life, hey",         ua: "Я просто намагаюся знайти сенс життя, гей" },
+        { en: "There's happiness if you try to live the right way",       ua: "Щастя є, якщо намагаєшся жити правильно" },
+        { en: "Forget about what others have and live your life, hey",    ua: "Забудь про те, що мають інші, і живи своїм життям, гей" },
+        { en: "Be aware of who you are, what you're good at",             ua: "Усвідом, хто ти є, у чому ти сильний" },
+        { en: "Take a step forward, see where your foot's at",            ua: "Зроби крок уперед, поглянь, куди ступає твоя нога" },
+        { en: "Stand tall, stand proud, talk loud",                       ua: "Тримайся гідно, тримайся гордо, говори голосно" },
+        { en: "Every word out your mouth has purpose now",               ua: "Кожне слово з твоїх вуст тепер має сенс" },
+        { en: "You just gotta get rid of the bad thoughts",              ua: "Тобі лиш треба позбутися поганих думок" },
+        { en: "Hatin' others 'cause you know that they got a lot",        ua: "Тих, де ненавидиш інших за те, що в них багато" },
+        { en: "Forget that though, you got plenty",                       ua: "Та забудь про це — у тебе й так удосталь" },
+        { en: "You're alive in this life, you got time, go get it, oh",   ua: "Ти живий у цьому житті, у тебе є час — іди й бери своє, о" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yo, all these thoughts keep me up at night, yeah (Yeah)",   ua: "Йо, усі ці думки не дають мені спати ночами, так (Так)" },
+        { en: "What am I doin', did I do it right? Yeah (Yeah)",           ua: "Що я роблю, чи правильно я вчинив? Так (Так)" },
+        { en: "All these thoughts keep me up at night, yeah (Yeah)",      ua: "Усі ці думки не дають мені спати ночами, так (Так)" },
+        { en: "I can't think straight, need the light, oh (Oh)",          ua: "Я не можу мислити ясно, мені потрібне світло, о (О)" },
+        { en: "Yo, all these thoughts keep me up at night, yeah (Yeah)",   ua: "Йо, усі ці думки не дають мені спати ночами, так (Так)" },
+        { en: "What am I doin', did I do it right? Yeah (Yeah)",           ua: "Що я роблю, чи правильно я вчинив? Так (Так)" },
+        { en: "All these thoughts keep me up at night, yeah (Yeah)",      ua: "Усі ці думки не дають мені спати ночами, так (Так)" },
+        { en: "I can't think straight, need the light, oh (Oh)",          ua: "Я не можу мислити ясно, мені потрібне світло, о (О)" }
+      ]}
+    ],
+    glossary: {
+      "yo": "йо (вигук)", "thoughts": "думки", "keep": "тримати; keep me up — не дає спати",
+      "doin'": "роблю", "straight": "прямо; think straight — мислити ясно",
+      "light": "світло", "breathe": "дихати", "sheets": "простирадла, постіль",
+      "onto": "на; onto my feet — стати на ноги", "feet": "ноги (ступні)",
+      "cup": "чашка", "coffee": "кава", "puffy": "набряклий, опухлий",
+      "tired": "втомлений", "function": "функціонувати, діяти", "lost": "загублений, розгублений",
+      "somethin'": "щось", "medication": "ліки, медикаменти",
+      "figure": "збагнути (figure out — розібратися)", "segregation": "розділення; тут: внутрішній розлад",
+      "education": "освіта", "understand": "розуміти", "complicated": "складний, заплутаний",
+      "intoxicated": "сп'янілий, одурманений", "faded": "у відключці (під кайфом/п'яний)",
+      "aidin'": "помагає (aid — допомагати)", "hated": "зненавиджений, знедолений",
+      "hatred": "ненависть", "deep": "глибоко", "mind": "розум, свідомість",
+      "created": "створив", "dreams": "сни, мрії", "devastated": "зруйноване, спустошене",
+      "real": "справжній, реальний", "wake": "прокидатися", "shaken": "приголомшений, потрясений",
+      "thicker": "грубший, товщий", "skin": "шкіра; thick skin — стійкість до критики",
+      "haven": "прихисток, гавань", "nod": "кивати", "sayin'": "кажу",
+      "spinnin'": "крутиться, обертається", "circle": "коло",
+      "everybody": "усі, кожен", "lacks": "бракує, не вистачає", "internal": "внутрішній",
+      "compensate": "компенсувати, відшкодовувати", "external": "зовнішній",
+      "tryna": "намагаюся (trying to)", "shade": "тінь; throw shade — принижувати, кпити",
+      "meanin'": "сенс, значення", "happiness": "щастя", "forget": "забувати",
+      "others": "інші", "aware": "обізнаний; be aware — усвідомлювати",
+      "step": "крок", "forward": "вперед", "foot": "нога (ступня)",
+      "tall": "високий; stand tall — триматися гідно", "proud": "гордий",
+      "loud": "голосно", "mouth": "рот, вуста", "purpose": "мета, сенс",
+      "gotta": "мусиш (got to)", "rid": "позбутися (get rid of)",
+      "hatin'": "ненавидіти", "plenty": "удосталь, багато", "alive": "живий",
+      "'cause": "бо (because)", "though": "втім, проте"
+    },
+    slang: [
+      { en: "keep me up at night", ua: "не дає спати ночами",         note: "тривожні думки, через які не заснути" },
+      { en: "think straight",      ua: "мислити ясно",                note: "тверезо, чітко розмірковувати" },
+      { en: "on something",        ua: "щось приймати (ліки/наркотики)", note: "«be on medication» — сидіти на ліках" },
+      { en: "faded",               ua: "у відключці",                 note: "сильно п'яний або під кайфом" },
+      { en: "intoxicated",         ua: "сп'янілий, одурманений",      note: "під дією алкоголю чи речовин" },
+      { en: "thick skin",          ua: "товста шкіра",                note: "стійкість до критики й образ, незворушність" },
+      { en: "throw shade",         ua: "принижувати, кпити",          note: "тонко знущатися, виявляти зневагу" },
+      { en: "head spinning",       ua: "голова йде обертом",          note: "від перевантаження думками/розгубленості" },
+      { en: "stand tall",          ua: "триматися гідно",             note: "не пасувати, поводитись упевнено й гордо" },
+      { en: "get rid of",          ua: "позбутися",                   note: "звільнитися від чогось небажаного" },
+      { en: "go get it",           ua: "іди й бери своє",             note: "заклик діяти, домагатися мети" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
