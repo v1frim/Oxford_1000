@@ -21,7 +21,7 @@ const SONGS = [
   {
     id: "neffex-baller",
     artist: "NEFFEX",
-    title: "Baller",
+    title: "Baller 🍾",
     ytId: "42JyRjrLzjY",
     sections: [
       { label: "КУПЛЕТ 1", lines: [
@@ -161,6 +161,112 @@ const SONGS = [
       { en: "sippin' white",   ua: "попиває біле (вино)",    note: "ймовірно біле вино; можливий подвійний сенс" },
       { en: "coup",            ua: "купе",                   note: "від «coupe» — двомісне авто" },
       { en: "booze",           ua: "випивка",                note: "алкоголь (розм.)" }
+    ]
+  }
+  ,
+  {
+    id: "neffex-lit",
+    artist: "NEFFEX",
+    title: "Lit 🔥",
+    ytId: "AHhiRc0Lnq4",
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I'm just fuckin' lit, man, I'm just fuckin' lit",              ua: "Я просто до біса запалений, чуваку, просто запалений" },
+        { en: "Drank a bottle of this shit, man, bottle of this shit",         ua: "Ковтнув пляшку цього добра, чуваку, пляшку" },
+        { en: "I'm about to write a hit, man, about to write a hit",           ua: "Зараз напишу хіт, чуваку, напишу хіт" },
+        { en: "No, I'm never gonna quit, man, never gonna quit",               ua: "Ні, я ніколи не здамся, чуваку, ніколи" },
+        { en: "I just took another hit, man, took another hit",                ua: "Щойно ще разок затягнувся, чуваку, ще разок" },
+        { en: "I'm about to lose my shit, man, about to lose my shit",         ua: "Зараз зірвусь, чуваку, зірвусь" },
+        { en: "Does she have a fuckin' wristband? Yeah, she needs that shit",  ua: "У неї є браслет? Так, їй він потрібен" },
+        { en: "Better get her out real quick, man, get her out real quick (Quick)", ua: "Краще виводь її звідси швидко, чуваку, швидко (Швидко)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Are you the present or the future? (Present or the future)",    ua: "Ти теперішнє чи майбутнє? (Теперішнє чи майбутнє)" },
+        { en: "Are you a drinker or a boozer? (Drinker or a boozer)",          ua: "Ти п'єш по-людськи чи бухаєш? (П'єш чи бухаєш)" },
+        { en: "Are you a giver or a user? (Giver or a user)",                  ua: "Ти даєш чи тільки береш? (Даєш чи береш)" },
+        { en: "Are you a winner or a loser? (Winner or a loser)",              ua: "Ти переможець чи невдаха? (Переможець чи невдаха)" },
+        { en: "Yeah, and I said that I would never back down",                 ua: "Так, і я казав, що ніколи не здамся" },
+        { en: "And I said that I would never back down",                       ua: "І казав, що ніколи не здамся" },
+        { en: "And I said that I would never back down",                       ua: "І казав, що ніколи не здамся" },
+        { en: "I swore that I would never fuckin' back down",                  ua: "Клявся, що ніколи до біса не здамся" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Pass the bottle and the fifth, man, bottle and the fifth",      ua: "Передай пляшку і п'ятак, чуваку, пляшку і п'ятак" },
+        { en: "'Cause I'm feeling like the shit, man, feeling like the shit",  ua: "Бо я відчуваю себе вершиною, чуваку, вершиною" },
+        { en: "Yeah, her body's like a gift, man, body's like a gift",         ua: "Так, її тіло — наче подарунок, чуваку, подарунок" },
+        { en: "'Cause she's looking hella fit, man, looking hella fit",        ua: "Бо вона до біса у формі, чуваку, у формі" },
+        { en: "And I can't always commit, man, can't always commit",           ua: "І я не завжди можу зобов'язуватись, чуваку" },
+        { en: "Pull a trigger on this shit, man, trigger on this shit",        ua: "Вирішуюсь на це, чуваку, вирішуюсь" },
+        { en: "'Cause I feel I haven't lived, man, feel I haven't lived",      ua: "Бо відчуваю, що не жив по-справжньому, чуваку" },
+        { en: "'Til I got nothing to miss, man, got nothing to miss (Miss)",   ua: "Поки мені нема чого більше втрачати, чуваку (Втрачати)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Are you the present or the future? (Present or the future)",    ua: "Ти теперішнє чи майбутнє? (Теперішнє чи майбутнє)" },
+        { en: "Are you a drinker or a boozer? (Drinker or a boozer)",          ua: "Ти п'єш по-людськи чи бухаєш? (П'єш чи бухаєш)" },
+        { en: "Are you a giver or a user? (Giver or a user)",                  ua: "Ти даєш чи тільки береш? (Даєш чи береш)" },
+        { en: "Are you a winner or a loser? (Winner or a loser)",              ua: "Ти переможець чи невдаха? (Переможець чи невдаха)" },
+        { en: "Yeah, and I said that I would never back down",                 ua: "Так, і я казав, що ніколи не здамся" },
+        { en: "And I said that I would never back down",                       ua: "І казав, що ніколи не здамся" },
+        { en: "And I said that I would never back down",                       ua: "І казав, що ніколи не здамся" },
+        { en: "I swore that I would never fuckin' back down",                  ua: "Клявся, що ніколи до біса не здамся" }
+      ]}
+    ],
+    glossary: {
+      "lit":       "запалений, кайфовий (п'яний/під кайфом)",
+      "fuckin'":   "до біса (підсилення, груб.)",
+      "man":       "чуваку (звернення)",
+      "drank":     "випив (від drink)",
+      "gonna":     "збираюся (going to)",
+      "never":     "ніколи",
+      "quit":      "здаватися, кидати",
+      "took":      "взяв (від take)",
+      "hit":       "хіт (пісня); тут: затягнутися",
+      "lose":      "втрачати, зривати",
+      "shit":      "лайно; тут: «добро», підсилення (груб.)",
+      "wristband": "браслет (клубний — допуск на вечірку)",
+      "real":      "справжній; real quick = дуже швидко",
+      "quick":     "швидкий, швидко",
+      "future":    "майбутнє",
+      "drinker":   "той, хто п'є (помірно)",
+      "boozer":    "п'яниця, бухар",
+      "giver":     "той, хто дає",
+      "user":      "той, хто бере/використовує (тут: споживач)",
+      "winner":    "переможець",
+      "loser":     "невдаха",
+      "back":      "назад; back down — відступати",
+      "down":      "вниз; back down — здаватися",
+      "swore":     "клявся (від swear)",
+      "swear":     "клястися",
+      "'til":      "поки не (until)",
+      "'cause":    "бо, тому що (because)",
+      "pass":      "передати, подати",
+      "fifth":     "п'ятак (750 мл пляшка — п'ята частина галона)",
+      "feeling":   "відчуваю, відчуття",
+      "body":      "тіло",
+      "hella":     "дуже, до біса (каліфорнійський сленг)",
+      "fit":       "у формі, підтягнутий/а",
+      "gift":      "подарунок",
+      "commit":    "зобов'язуватися (у стосунках)",
+      "pull":      "тягнути; pull a trigger — натиснути на гашок",
+      "trigger":   "курок, гашок; тут: вирішитися",
+      "lived":     "жив (від live)",
+      "nothing":   "нічого"
+    },
+    slang: [
+      { en: "lit",                   ua: "кайфовий, запалений",       note: "п'яний/під кайфом; або просто «класний, у вогні»" },
+      { en: "take a hit",            ua: "затягнутися",               note: "зробити затяжку (наркотичний натяк)" },
+      { en: "lose my shit",          ua: "зірватися, збожеволіти",    note: "втратити контроль, вийти з себе" },
+      { en: "wristband",             ua: "клубний браслет",           note: "браслет допуску на вечірку; без нього — виходь" },
+      { en: "feeling like the shit", ua: "відчуваю себе вершиною",    note: "«the shit» (з артиклем) = найкращий, бог; без артикля — образа" },
+      { en: "hella",                 ua: "дуже, до біса",             note: "каліфорнійський сленг-підсилювач (hella fit = неймовірно у формі)" },
+      { en: "the fifth",             ua: "п'ятак (750 мл)",           note: "п'ята частина галона — стандартна пляшка міцного (США)" },
+      { en: "commit",                ua: "зобов'язуватися",           note: "тут: у стосунках — «бути серйозним»" },
+      { en: "pull a trigger",        ua: "натиснути на гашок",        note: "тут метафора: вирішитися на щось, зробити крок" },
+      { en: "back down",             ua: "відступати, здаватися",     note: "back down = відмовлятися від позиції під тиском" },
+      { en: "nothing to miss",       ua: "нема чого втрачати",        note: "коли вже все пережив — нема чого боятися" },
+      { en: "boozer",                ua: "п'яниця, бухар",            note: "гірше ніж drinker: важкий алкоголік" },
+      { en: "drinker vs boozer",     ua: "п'єш чи бухаєш",           note: "приспів ставить риторичні пари: даєш/береш, перемагаєш/програєш" },
+      { en: "giver vs user",         ua: "даєш чи тільки береш",      note: "класичне протиставлення: той хто вкладає vs хто лише отримує" }
     ]
   }
 ];
