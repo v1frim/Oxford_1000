@@ -835,11 +835,11 @@
   }
   .song-line .sl-en { font-size: 15px; line-height: 1.5; }
   .song-line .sl-ua { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.62); font-style: italic; }
-  .song-line .sl-speak {
+  .sl-speak {
     background: none; border: none; color: rgba(255,255,255,0.35);
     cursor: pointer; font-size: 13px; padding: 0 4px; vertical-align: middle;
   }
-  .song-line .sl-speak:hover { color: #c89bff; }
+  .sl-speak:hover { color: #c89bff; }
 
   .song-slang {
     margin-top: 26px; padding: 16px 18px; border-radius: 14px;
@@ -8940,6 +8940,7 @@ function restoreProgressPanel() {
     document.getElementById("progress-btn").classList.add("active");
     renderProgressPanel();
   }
+  updateLayoutAlign();   // перерахувати зсув ПІСЛЯ фінального стану панелі прогресу
 }
 document.getElementById("restart-btn").addEventListener("click", () => {
   endScreen.classList.add("hidden");
