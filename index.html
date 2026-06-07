@@ -734,9 +734,10 @@
   .lh-cell.done:hover { background:rgba(123,224,123,0.35); }
   .lh-cell.locked { background:rgba(123,224,123,0.08); border-color:rgba(123,224,123,0.2); color:rgba(123,224,123,0.4); cursor:default; opacity:0.6; }
   .lh-cell.locked:hover { background:rgba(123,224,123,0.08); color:rgba(123,224,123,0.4); }
-  #lh-btn { margin-top:8px; padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
+  #extra-btns { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  #lh-btn { padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #lh-btn:hover { background:rgba(135,180,255,0.22); }
-  #songs-btn { margin-top:8px; padding:7px 20px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
+  #songs-btn { padding:7px 20px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #songs-btn:hover { background:rgba(200,155,255,0.22); }
 
   /* ── Розділ «Пісні» — повноекранний overlay ───────────────────────────── */
@@ -909,8 +910,10 @@
     </div>
     <button id="start-btn">Почати</button>
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
-    <button id="lh-btn">📚 Уроки LingoHut</button>
-    <button id="songs-btn">🎵 Пісні англійською</button>
+    <div id="extra-btns">
+      <button id="lh-btn">📚 Уроки LingoHut</button>
+      <button id="songs-btn">🎵 Пісні англійською</button>
+    </div>
   </div>
 
   <!-- GAME SCREEN -->
