@@ -1522,6 +1522,144 @@ const SONGS = [
       { en: "can't be controlled", ua: "нас не приборкати",        note: "вільні, некеровані, ніхто не вкаже, як жити" }
     ]
   }
+  ,
+  {
+    id: "neffex-rumors",
+    artist: "NEFFEX",
+    title: "Rumors 💋",
+    ytId: "kXptPzKNMq4",
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "There's a rumor that's about her",                          ua: "Про неї ходить чутка" },
+        { en: "There's a rumor around, be sure",                           ua: "Чутка гуляє довкола, будь певен" },
+        { en: "They're gonna just aware of her",                           ua: "Усі тільки й знають про неї" },
+        { en: "There's a rumor 'bout of her",                              ua: "Про неї ходить чутка" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, she's got some nice long hair",                       ua: "Так, у неї гарне довге волосся" },
+        { en: "And you know that she's a bad chick",                       ua: "І ти знаєш, що вона відчайдушна дівка" },
+        { en: "All the boys stare, can't help it, it's a habit",           ua: "Усі хлопці витріщаються, не можуть стриматись — це вже звичка" },
+        { en: "Clothes that she wears, short skirt and a jacket",          ua: "Одяг, що вона носить: коротка спідниця й жакет" },
+        { en: "I just wanna get her all alone on a mattress",              ua: "Я просто хочу лишитися з нею наодинці в ліжку" },
+        { en: "I just wanna have it, I just gotta have it",                ua: "Я просто хочу цього, я просто мушу це отримати" },
+        { en: "Rumors all around say, \"Her body is fantastic\"",          ua: "Чутки навколо кажуть: «Її тіло — неймовірне»" },
+        { en: "All natural, not a piece of her is plastic",               ua: "Усе натуральне, жодного шматочка пластику (силікону)" },
+        { en: "Head to her toes, yeah, they say that she's elastic",       ua: "Від голови до п'ят, так, кажуть, вона гнучка" },
+        { en: "Yeah, the whispers all around say she has a reputation",     ua: "Так, шепіт навколо каже, що в неї та ще репутація" },
+        { en: "Don't believe it 'til I see it, so, I want a demonstration", ua: "Не повірю, поки не побачу — тож хочу наочної демонстрації" },
+        { en: "And I've always learned it better with a hands-on education", ua: "А я завжди краще вчився на практиці, власноруч" },
+        { en: "So, I need a private session if you get what I am sayin'",   ua: "Тож мені потрібен приватний сеанс, якщо розумієш, про що я" },
+        { en: "And they say that she's not easy, no, she's really complicated", ua: "І кажуть, що вона не з простих, ні, вона справді складна" },
+        { en: "But that only makes it better and it's got me so fixated",   ua: "Але це лише розпалює інтерес — і я аж зациклився на ній" },
+        { en: "And I'm not the type to wait around, I've never hesitated",  ua: "І я не з тих, хто чекає й зволікає, я ніколи не вагався" },
+        { en: "But she's got me captivated, so, the game, I'm gonna play it, yeah (Yeah)", ua: "Та вона мене зачарувала — тож у цю гру я таки зіграю, так (Так)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "She's got a body like a Coke fiend (Coke fiend)",           ua: "У неї струнке тіло, як у того, хто на коксі (На коксі)" },
+        { en: "She likes to keep the party goin' (Goin')",                ua: "Вона любить, щоб вечірка не вщухала (Не вщухала)" },
+        { en: "These rumors got me feelin' lonely (Lonely)",              ua: "Через ці чутки мені аж самотньо (Самотньо)" },
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" },
+        { en: "She's got a body like a Coke fiend",                       ua: "У неї струнке тіло, як у того, хто на коксі" },
+        { en: "She likes to keep the party goin'",                        ua: "Вона любить, щоб вечірка не вщухала" },
+        { en: "These rumors got me feelin' lonely",                       ua: "Через ці чутки мені аж самотньо" },
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, I heard you look good in a sundress (Sundress)",      ua: "Так, я чув, ти гарно виглядаєш у літньому сарафані (Сарафані)" },
+        { en: "I heard you look good when you're undressed (Undressed)",   ua: "Я чув, ти гарно виглядаєш і коли роздягнена (Роздягнена)" },
+        { en: "I heard you like to get away (Get away)",                  ua: "Я чув, ти любиш вислизати кудись (Вислизати)" },
+        { en: "I heard you like to stay out late (Out late)",             ua: "Я чув, ти любиш гуляти допізна (Допізна)" },
+        { en: "I heard you had a couple boyfriends (Boyfriends)",         ua: "Я чув, у тебе було кілька хлопців (Хлопців)" },
+        { en: "I heard they didn't treat you right (You right)",          ua: "Я чув, вони ставилися до тебе погано (До тебе)" },
+        { en: "I heard you're hated by your girlfriends (Girlfriends)",    ua: "Я чув, тебе ненавидять твої подруги (Подруги)" },
+        { en: "'Cause all the guys want you tonight, yeah (Tonight)",      ua: "Бо всі хлопці хочуть тебе сьогодні, так (Сьогодні)" },
+        { en: "They say she's too hot, they say she's too cold",          ua: "Кажуть, вона надто гаряча, кажуть, надто холодна" },
+        { en: "Where she came from, nobody really knows",                 ua: "Звідки вона взялася — насправді ніхто не знає" },
+        { en: "They say she, \"Looks young,\" but say she, \"Acts old\"",  ua: "Кажуть, вона «виглядає юною», та «поводиться як доросла»" },
+        { en: "From everything I've heard, she gets out of control",       ua: "З усього, що я чув, вона втрачає контроль" },
+        { en: "And all the boys say, \"She was sent from the Heavens\"",   ua: "І всі хлопці кажуть: «Вона послана з небес»" },
+        { en: "But I'm not too sure that this girl is a blessin'",         ua: "Але я не надто певен, що ця дівчина — благословення" },
+        { en: "She's got the Devil's eyes and they'll cut you like a weapon", ua: "У неї очі диявола, і вони ріжуть, наче зброя" },
+        { en: "She's stuck in my mind like a bad obsession",              ua: "Вона засіла в моїй голові, наче нав'язлива одержимість" },
+        { en: "Got bad intentions (Intentions)",                         ua: "З поганими намірами (Намірами)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "She's got a body like a Coke fiend (Coke fiend)",           ua: "У неї струнке тіло, як у того, хто на коксі (На коксі)" },
+        { en: "She likes to keep the party goin' (Goin')",                ua: "Вона любить, щоб вечірка не вщухала (Не вщухала)" },
+        { en: "These rumors got me feelin' lonely (Lonely)",              ua: "Через ці чутки мені аж самотньо (Самотньо)" },
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" },
+        { en: "She's got a body like a Coke fiend",                       ua: "У неї струнке тіло, як у того, хто на коксі" },
+        { en: "She likes to keep the party goin'",                        ua: "Вона любить, щоб вечірка не вщухала" },
+        { en: "These rumors got me feelin' lonely",                       ua: "Через ці чутки мені аж самотньо" },
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "She's got a body like a Coke fiend",                       ua: "У неї струнке тіло, як у того, хто на коксі" },
+        { en: "She likes to keep the party goin'",                        ua: "Вона любить, щоб вечірка не вщухала" },
+        { en: "These rumors got me feelin' lonely",                       ua: "Через ці чутки мені аж самотньо" },
+        { en: "I want that body, baby, show me",                          ua: "Я хочу те тіло, крихітко, покажи мені" }
+      ]}
+    ],
+    glossary: {
+      "rumor": "чутка, поголос", "rumors": "чутки", "about": "про, щодо",
+      "around": "навколо, довкола", "be sure": "будь певен", "gonna": "збираються (going to)",
+      "aware": "обізнаний; be aware of — знати про", "'bout": "про (about)",
+      "hair": "волосся", "bad chick": "відчайдушна/крута дівка (bad тут схвально)",
+      "boys": "хлопці", "stare": "витріщатися, пильно дивитися", "can't help it": "не можуть стриматись",
+      "habit": "звичка", "clothes": "одяг", "wears": "носить (wear)", "skirt": "спідниця",
+      "jacket": "жакет, куртка", "alone": "наодинці", "mattress": "матрац; тут: ліжко",
+      "have it": "отримати це", "gotta": "мусиш (got to)", "body": "тіло",
+      "fantastic": "неймовірний, фантастичний", "natural": "натуральний, природний",
+      "piece": "шматок, частина", "plastic": "пластик; тут: пластична хірургія/силікон",
+      "toes": "пальці ніг; head to toes — з голови до п'ят", "elastic": "гнучкий, пружний",
+      "whispers": "шепіт, перешіптування", "reputation": "репутація",
+      "believe": "вірити", "'til": "поки не (until)", "demonstration": "демонстрація, показ",
+      "learned": "вчився, засвоїв", "hands-on": "практичний, власноруч (hands-on education — навчання на практиці)",
+      "education": "освіта, навчання", "private": "приватний, особистий", "session": "сеанс, заняття",
+      "easy": "тут: легкодоступна (про дівчину)", "complicated": "складна, заплутана",
+      "fixated": "зациклений, зафіксований (на чомусь)", "type": "тип; not the type to — не з тих, хто",
+      "wait around": "вичікувати, тинятися в очікуванні", "hesitated": "вагався, зволікав",
+      "captivated": "зачарований, полонений", "game": "гра", "play it": "зіграти (у гру)",
+      "coke fiend": "кокаїновий наркоман (струнке/виснажене тіло)", "fiend": "наркоман; одержимий чимось",
+      "keep goin'": "не вщухати, тривати далі", "party": "вечірка", "lonely": "самотній",
+      "show me": "покажи мені", "heard": "чув (від hear)", "look good": "гарно виглядати",
+      "sundress": "літній сарафан", "undressed": "роздягнений (гра слів із sundress)",
+      "get away": "вислизати, вириватися (кудись)", "stay out late": "гуляти допізна",
+      "couple": "пара, кілька", "boyfriends": "хлопці (партнери)", "treat right": "ставитися добре",
+      "hated": "зненавиджена", "girlfriends": "подруги", "guys": "хлопці, чуваки", "tonight": "сьогодні ввечері",
+      "hot": "гаряча (приваблива)", "cold": "холодна (відсторонена)", "came from": "звідки взялася",
+      "nobody": "ніхто", "looks young": "виглядає юною", "acts old": "поводиться як доросла",
+      "out of control": "втрачає контроль, некерована", "sent": "посланий, надісланий",
+      "heavens": "небеса", "sure": "певен, упевнений", "blessin'": "благословення, дар",
+      "devil": "диявол, чорт", "eyes": "очі", "cut": "різати", "weapon": "зброя",
+      "stuck": "застрягла (stick — застрягати)", "mind": "розум, голова",
+      "obsession": "одержимість, нав'язлива ідея", "intentions": "наміри"
+    },
+    slang: [
+      { en: "rumor / whispers",   ua: "чутки, поголос, шепіт",     note: "наскрізна тема: плітки навколо дівчини" },
+      { en: "bad chick",          ua: "відчайдушна/крута дівка",   note: "«bad» тут схвально: ефектна, зухвала (як у Badass)" },
+      { en: "can't help it",      ua: "не можу стриматись",        note: "роблю мимоволі, не в силах опиратися" },
+      { en: "not a piece is plastic", ua: "ні краплі силікону",    note: "«plastic» = пластична хірургія; «all natural» — усе своє" },
+      { en: "hands-on education", ua: "навчання на практиці",      note: "вчитися власноруч; тут — двозначний натяк" },
+      { en: "private session",    ua: "приватний сеанс",           note: "евфемізм інтиму («наодинці»)" },
+      { en: "she's not easy",     ua: "вона не легкодоступна",     note: "«easy» про дівчину = доступна; тут — навпаки, неприступна" },
+      { en: "fixated / captivated", ua: "зациклений / зачарований", note: "повністю захоплений нею, не може думати ні про що інше" },
+      { en: "body like a Coke fiend", ua: "струнке тіло, як у наркомана", note: "coke fiend — кокаїнозалежний (зазвичай дуже худий); сумнівний «комплімент»" },
+      { en: "keep the party going", ua: "не давати вечірці вщухнути", note: "підтримувати веселощі, душа компанії" },
+      { en: "get away",           ua: "вислизати, вириватися",     note: "втікати від буденності/контролю" },
+      { en: "treat you right",    ua: "ставитися добре",           note: "поводитися як належить (а її колишні — ні)" },
+      { en: "out of control",     ua: "некерована, без гальм",     note: "поводиться нестримно, не знає міри" },
+      { en: "Devil's eyes",       ua: "очі диявола",               note: "звабливі, але небезпечні — «вона не янгол»" },
+      { en: "stuck in my mind",   ua: "засіла в голові",           note: "не йде з думок, нав'язливий образ" },
+      { en: "bad intentions",     ua: "погані наміри",             note: "недобрі/корисливі задуми" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
