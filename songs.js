@@ -637,6 +637,114 @@ const SONGS = [
       { en: "go get it",           ua: "іди й бери своє",             note: "заклик діяти, домагатися мети" }
     ]
   }
+  ,
+  {
+    id: "neffex-flirt",
+    artist: "NEFFEX",
+    title: "Flirt 💋",
+    ytId: "eIeWkOZKidM",
+    sections: [
+      { label: "ПРИСПІВ", lines: [
+        { en: "She just wants to flirt, so, I flirt right back (Right back)", ua: "Вона просто хоче фліртувати — тож і я фліртую у відповідь (У відповідь)" },
+        { en: "I just put in work, yeah, I work like that",                  ua: "Я просто викладаюся, так, я працюю саме так" },
+        { en: "Got me fallin', man, it hurts, yeah, it hurts so bad (Bad)",  ua: "Я закохуюся, чуваку, і це болить, так, болить до нестями (До нестями)" },
+        { en: "All-in and it's worth everything I have (I have)",            ua: "Іду ва-банк, і це варте всього, що в мене є (Що маю)" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I could feel the butterflies multiply",                      ua: "Я відчував, як метелики в животі розмножуються" },
+        { en: "Every time I meet your eyes, amplified",                     ua: "Щоразу, як зустрічаю твій погляд, — усе сильніше" },
+        { en: "Deep inside, once I feel your skin on mine",                 ua: "Десь глибоко, щойно відчую твою шкіру на своїй" },
+        { en: "Though I try, I can't hide all the ways I feel inside",      ua: "Хоч і намагаюсь, не можу приховати всього, що відчуваю всередині" },
+        { en: "You're everything I want in life (Life)",                    ua: "Ти — усе, чого я хочу в житті (Житті)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "She just wants to flirt, so, I flirt right back (Right back)", ua: "Вона просто хоче фліртувати — тож і я фліртую у відповідь (У відповідь)" },
+        { en: "I just put in work, yeah, I work like that",                  ua: "Я просто викладаюся, так, я працюю саме так" },
+        { en: "Got me fallin', man, it hurts, yeah, it hurts so bad (Bad)",  ua: "Я закохуюся, чуваку, і це болить, так, болить до нестями (До нестями)" },
+        { en: "All-in and it's worth everything I have (I have)",            ua: "Іду ва-банк, і це варте всього, що в мене є (Що маю)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Got a body and she naughty, never want her off me",          ua: "Тіло — вогонь, і вона пустунка, не хочу відпускати її від себе" },
+        { en: "Hot like wasabi, hot like some coffee",                      ua: "Гаряча, як васабі, гаряча, як кава" },
+        { en: "We drink like a hobby, like to get sloppy",                  ua: "Ми п'ємо, як на хобі, любимо набратися до чортиків" },
+        { en: "We ain't never stoppin', yeah (Yeah)",                       ua: "Ми ніколи не зупиняємось, так (Так)" },
+        { en: "I just wanna drink with this girl all day (All day)",        ua: "Я просто хочу пити з цією дівчиною цілий день (Цілий день)" },
+        { en: "I don't wanna think, I just want to play",                   ua: "Не хочу думати, просто хочу гратися" },
+        { en: "Keep me underneath the sheets while we sleep all day (All day)", ua: "Тримай мене під ковдрою, поки ми спимо цілий день (Цілий день)" },
+        { en: "I just wanna feed everything I crave (I crave)",             ua: "Я просто хочу втамувати все, чого так прагну (Прагну)" },
+        { en: "I recall the first day that I met you",                      ua: "Я згадую той перший день, коли зустрів тебе" },
+        { en: "How could I forget you? No, I don't regret you",            ua: "Як я міг би тебе забути? Ні, я не шкодую про тебе" },
+        { en: "Hope I don't upset you, I miss layin' in bed, too",         ua: "Сподіваюсь, не засмучую тебе; я теж сумую за тим, як ми лежали в ліжку" },
+        { en: "Your head up on my chest, you we're never second best, boo (Boo)", ua: "Твоя голова в мене на грудях — ти ніколи не була другосортною, кохана (Кохана)" },
+        { en: "Sippin' on some liquor, we remember all the good times",     ua: "Потягуючи міцне, ми згадуємо всі хороші часи" },
+        { en: "Live a little quicker, thinkin' bigger, wish we could climb", ua: "Жити трохи швидше, мислити масштабніше, шкода, що не можемо злетіти вище" },
+        { en: "Look up in the mirror, seein' clearer for our first time",   ua: "Дивлюсь у дзеркало й уперше бачу все чіткіше" },
+        { en: "Just a couple sinners, man, I wish I could reverse time (Reverse time)", ua: "Просто двоє грішників, чуваку, шкода, що не можу повернути час назад (Назад)" },
+        { en: "Yeah, we fake it 'til we make it or we break it off and hate it", ua: "Так, ми вдаємо, поки не вийде по-справжньому, або рвемо все й ненавидимо це" },
+        { en: "Gettin' faded, gettin' naked, every time I feel impatient",  ua: "Напиваємось, роздягаємось щоразу, коли мене беруть нетерплячка" },
+        { en: "And sometimes, I can't escape it, I just want to feel your shape and (Yeah)", ua: "І часом я не можу від цього втекти — просто хочу відчувати твої форми, і (Так)" },
+        { en: "Like my dreams, I can't sit back, I have to chase 'em (Chase 'em)", ua: "Як і свої мрії, я не можу сидіти склавши руки — мушу гнатися за ними (Гнатися)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "She just wants to flirt, so, I flirt right back (Right back)", ua: "Вона просто хоче фліртувати — тож і я фліртую у відповідь (У відповідь)" },
+        { en: "I just put in work, yeah, I work like that",                  ua: "Я просто викладаюся, так, я працюю саме так" },
+        { en: "Got me fallin', man, it hurts, yeah, it hurts so bad (Bad)",  ua: "Я закохуюся, чуваку, і це болить, так, болить до нестями (До нестями)" },
+        { en: "All-in and it's worth everything I have (I have)",            ua: "Іду ва-банк, і це варте всього, що в мене є (Що маю)" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "She just wants to flirt, so, I flirt right back (Right back)", ua: "Вона просто хоче фліртувати — тож і я фліртую у відповідь (У відповідь)" },
+        { en: "I just put in work, yeah, I work like that",                  ua: "Я просто викладаюся, так, я працюю саме так" },
+        { en: "Got me fallin', man, it hurts, yeah, it hurts so bad (Bad)",  ua: "Я закохуюся, чуваку, і це болить, так, болить до нестями (До нестями)" },
+        { en: "All-in and it's worth everything I have (I have)",            ua: "Іду ва-банк, і це варте всього, що в мене є (Що маю)" }
+      ]}
+    ],
+    glossary: {
+      "flirt": "фліртувати, загравати", "right": "тут: у відповідь (right back)",
+      "back": "назад; right back — у відповідь", "put": "вкладати; put in work — викладатися",
+      "work": "робота; працювати, старатися", "fallin'": "падаю; тут: закохуюся (fall for)",
+      "man": "чуваку (звернення)", "hurts": "болить", "bad": "тут: «до нестями», сильно",
+      "all-in": "ва-банк, поставити все (з покеру)", "worth": "вартий, варте",
+      "butterflies": "метелики (в животі — хвилювання від закоханості)", "multiply": "розмножуватися, множитися",
+      "amplified": "підсилений, гучніший", "deep": "глибоко", "inside": "всередині",
+      "once": "щойно, як тільки", "skin": "шкіра", "mine": "моя/моє",
+      "though": "хоч, попри", "hide": "приховувати", "ways": "способи; тут: усе, що відчуваю",
+      "body": "тіло", "naughty": "пустотлива, грайливо-неслухняна", "off": "геть; off me — від мене",
+      "hot": "гаряча; тут: сексуальна", "wasabi": "васабі (гострий зелений хрін)", "coffee": "кава",
+      "hobby": "хобі, захоплення", "sloppy": "неохайний; get sloppy — набратися, перебрати",
+      "stoppin'": "зупиняємось", "wanna": "хочу (want to)", "play": "гратися, бавитися",
+      "underneath": "під, попід", "sheets": "простирадла, постіль", "feed": "годувати; тут: вдовольняти",
+      "crave": "жадати, прагнути", "recall": "згадувати, пригадувати", "forget": "забути",
+      "regret": "шкодувати", "hope": "сподіватися", "upset": "засмучувати",
+      "miss": "сумувати за", "layin'": "лежати (lying)", "bed": "ліжко",
+      "head": "голова", "chest": "груди", "second best": "другосортний, гірший вибір",
+      "boo": "кохана/коханий (лагідне звертання)", "sippin'": "потягую (пити дрібними ковтками)",
+      "liquor": "міцний алкоголь", "remember": "пам'ятати", "quicker": "швидше",
+      "thinkin'": "думаючи; think bigger — мислити масштабніше", "bigger": "більше, масштабніше",
+      "wish": "бажати, шкодувати (що не…)", "climb": "лізти вгору, підійматися",
+      "mirror": "дзеркало", "clearer": "чіткіше, ясніше", "couple": "пара, двоє",
+      "sinners": "грішники", "reverse": "повертати назад, обертати", "fake": "вдавати, підробляти",
+      "make it": "досягти успіху", "break": "ламати; break it off — порвати стосунки",
+      "hate": "ненавидіти", "faded": "напідпитку, у відключці", "naked": "голий",
+      "impatient": "нетерплячий", "sometimes": "інколи, часом", "escape": "втекти, уникнути",
+      "shape": "форма (тіла), обриси", "dreams": "мрії, сни", "chase": "гнатися, переслідувати",
+      "'em": "їх (them)", "ain't": "не / немає (розм.)"
+    },
+    slang: [
+      { en: "flirt right back",   ua: "фліртувати у відповідь",      note: "відповідати на загравання тим самим" },
+      { en: "put in work",        ua: "викладатися, старатися",      note: "докладати зусиль (у стосунках/справі)" },
+      { en: "fall for someone",   ua: "закохатися",                  note: "«got me fallin'» — я в неї закохуюся" },
+      { en: "all-in",             ua: "ва-банк",                     note: "поставити все, віддатися повністю (з покеру)" },
+      { en: "butterflies",        ua: "метелики в животі",           note: "приємне хвилювання від закоханості" },
+      { en: "get sloppy",         ua: "набратися, перебрати",        note: "напитися до втрати координації" },
+      { en: "boo",                ua: "кохана/коханий",              note: "ніжне звертання до партнера" },
+      { en: "second best",        ua: "другосортний",                note: "гірший варіант, «запаска»; тут — «ти ніколи нею не була»" },
+      { en: "fake it 'til you make it", ua: "вдавай, поки не вийде", note: "удавай упевненість/успіх, поки він не стане справжнім" },
+      { en: "break it off",       ua: "порвати стосунки",            note: "розійтися, припинити стосунки" },
+      { en: "faded",              ua: "напідпитку, у відключці",     note: "сильно п'яний або під кайфом" },
+      { en: "chase your dreams",  ua: "гнатися за мрією",            note: "наполегливо домагатися своїх цілей" },
+      { en: "hot",                ua: "сексуальна, приваблива",      note: "тут не «гаряча» буквально, а про привабливість" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
