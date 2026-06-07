@@ -41,7 +41,7 @@ const SONGS = [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yo, yeah",                                            ua: "Йо, так" },
         { en: "I just wanna be on a tour bus",                       ua: "Я просто хочу бути в турне" },
-        { en: "Sitting in the back with a cold one",                 ua: "Сидіти позаду з холодним пивком" },
+        { en: "Sitting in the back with a cold one",                 ua: "Сидіти позаду з пивком" },
         { en: "We all got dreams, know you got some",                ua: "У всіх є мрії, знаю і в тебе теж" },
         { en: "Yeah, we all got dreams, know you got some",          ua: "Так, у всіх є мрії, знаю і в тебе є" }
       ]},
@@ -74,7 +74,7 @@ const SONGS = [
     slang: [
       { en: "'em",         ua: "них",            note: "скорочення від «them»" },
       { en: "make it",     ua: "досягти успіху", note: "фраза: пробитися, домогтися свого" },
-      { en: "cold one",    ua: "холодне пиво",   note: "розмовне: банка холодного пива" },
+      { en: "cold one",    ua: "пиво",           note: "розмовне: (холодна) банка пива; саме «cold one» = пиво" },
       { en: "bruh",        ua: "братан",         note: "сленгове звертання, від «bro/brother»" },
       { en: "the come up", ua: "шлях до успіху", note: "сленг: період пробивання нагору, становлення" },
       { en: "give up",     ua: "здаватися",      note: "фразове дієслово: припиняти, опускати руки" },
