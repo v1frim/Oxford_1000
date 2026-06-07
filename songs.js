@@ -1408,6 +1408,120 @@ const SONGS = [
       { en: "go take it / make it", ua: "іди й візьми / зроби",    note: "ключове гасло пісні: хочеш — дій, а не нарікай" }
     ]
   }
+  ,
+  {
+    id: "neffex-careless",
+    artist: "NEFFEX",
+    title: "Careless 💔",
+    ytId: "Z6L4u2i97Rw",
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "But it's too late now, I remember you and me",               ua: "Але тепер уже запізно — я згадую тебе й себе" },
+        { en: "And how careless we could be",                              ua: "І якими безтурботними ми вміли бути" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, all day and all night, we'd stay up, it felt so right", ua: "Так, день і ніч ми не спали — і це здавалося таким правильним" },
+        { en: "We were so young, we were so dumb",                         ua: "Ми були такі юні, такі дурненькі" },
+        { en: "We would get drunk and then hook up",                       ua: "Ми напивались, а потім сходились" },
+        { en: "We were okay, we were alright, staying awake 'til the sunrise", ua: "Нам було добре, було нормально — не спали аж до світанку" },
+        { en: "We were in love, couldn't stop us",                         ua: "Ми були закохані — нас було не спинити" },
+        { en: "Like a good drug, never enough (Yeah)",                     ua: "Наче хороший дурман — усе було замало (Так)" },
+        { en: "We'd hook up in my car, drive it so far",                   ua: "Ми сходились у моїй машині, заїжджали так далеко" },
+        { en: "Play you guitar, you'd show me your art",                   ua: "Я грав тобі на гітарі, ти показувала мені своє мистецтво" },
+        { en: "Let down our guards, think with our hearts",               ua: "Ми опускали захист, думали серцем" },
+        { en: "Stare at the stars, we were never apart",                  ua: "Вдивлялися в зорі, ми були нерозлучні" },
+        { en: "Drinking too young, way too much fun",                     ua: "Пили зарано, веселощів було аж занадто" },
+        { en: "Out in the sun or in when it's gone",                      ua: "На сонці, а коли воно сідало — вдома" },
+        { en: "Took you to Prom, danced to our song",                     ua: "Повів тебе на випускний, ми танцювали під нашу пісню" },
+        { en: "Dance all night long 'til the lights come on (On, on)",    ua: "Танцювали всю ніч, аж поки не вмикали світло (Світло, світло)" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "It's too late now, I remember everything",                 ua: "Тепер уже запізно — я пам'ятаю все" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" },
+        { en: "But it's too late now, I remember you and me (Me, me, me)", ua: "Але тепер уже запізно — я згадую тебе й себе (Себе, себе)" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "It's too late now, I remember everything",                 ua: "Тепер уже запізно — я пам'ятаю все" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Late nights, long fights, it felt right, we were alive",    ua: "Пізні ночі, довгі сварки — це відчувалось правильним, ми були живими" },
+        { en: "We would go out, we were so loud",                         ua: "Ми тусили, ми були такими гучними" },
+        { en: "We were so proud, we had no doubts",                       ua: "Ми були такі горді, без жодних сумнівів" },
+        { en: "Weekends and week days, we'd spend our own way",           ua: "Вихідні й будні ми проводили по-своєму" },
+        { en: "We were careless, we were fearless",                       ua: "Ми були безтурботні, ми були безстрашні" },
+        { en: "We were reckless, time was precious",                      ua: "Ми були безрозсудні, час був дорогоцінним" },
+        { en: "We loved to waste time, whiskey and wine",                 ua: "Ми любили гаяти час, віскі й вино" },
+        { en: "Drinking all night, asleep by your side",                  ua: "Пили всю ніч, засинали поруч одне з одним" },
+        { en: "Finally alive, we would just drive",                       ua: "Нарешті живі, ми просто їхали кудись" },
+        { en: "Never arrive, our journey was life",                       ua: "Ніколи не прибуваючи — наша подорож і була життям" },
+        { en: "Staying out late, testing our faith",                      ua: "Гуляли допізна, випробовуючи свою віру" },
+        { en: "Running away, we lived for today",                         ua: "Тікали геть, жили сьогоднішнім днем" },
+        { en: "Young and so bold, never get old",                         ua: "Юні й такі сміливі — наче ніколи не постаріємо" },
+        { en: "Screw what we're told, we can't be controlled",            ua: "Начхати на те, що нам кажуть — нас не приборкати" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "It's too late now, I remember everything",                 ua: "Тепер уже запізно — я пам'ятаю все" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" },
+        { en: "But it's too late now, I remember you and me (Me, me, me)", ua: "Але тепер уже запізно — я згадую тебе й себе (Себе, себе)" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "It's too late now, I remember everything",                 ua: "Тепер уже запізно — я пам'ятаю все" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "It's too late now, I remember you and me",                 ua: "Тепер уже запізно — я згадую тебе й себе" },
+        { en: "And how careless we could be",                             ua: "І якими безтурботними ми вміли бути" }
+      ]}
+    ],
+    glossary: {
+      "too late": "запізно", "remember": "пам'ятати, згадувати",
+      "careless": "безтурботний; недбалий, безпечний", "could be": "вміли/могли бути",
+      "stay up": "не спати, засиджуватися", "felt": "відчувалося (від feel)",
+      "young": "юний, молодий", "dumb": "дурний, нерозумний", "get drunk": "напиватися",
+      "hook up": "сходитися, зближуватися (часто з інтимним натяком)",
+      "awake": "не спати, неспати; staying awake — пильнувати", "'til": "поки не (until)",
+      "sunrise": "схід сонця, світанок", "in love": "закоханий", "couldn't": "не міг (could not)",
+      "drug": "наркотик, дурман", "enough": "досить; never enough — усе мало", "far": "далеко",
+      "guitar": "гітара", "art": "мистецтво", "let down": "опускати; let down our guards — відкриватися",
+      "guards": "захист, оборона (тут: емоційні бар'єри)", "hearts": "серця",
+      "stare": "пильно вдивлятися", "stars": "зорі", "apart": "нарізно; never apart — нерозлучні",
+      "way too": "аж занадто", "fun": "веселощі, забава", "gone": "зник, пішов (про сонце — сіло)",
+      "prom": "випускний бал (шкільний)", "danced": "танцювали", "song": "пісня",
+      "all night long": "цілісіньку ніч", "lights": "світло; lights come on — вмикають світло (кінець вечірки)",
+      "everything": "усе", "fights": "сварки, бійки", "alive": "живий",
+      "go out": "тусити, виходити в люди", "loud": "гучний", "proud": "гордий",
+      "doubts": "сумніви", "weekends": "вихідні", "week days": "будні", "spend": "проводити (час)",
+      "own way": "по-своєму", "fearless": "безстрашний", "reckless": "безрозсудний, відчайдушний",
+      "precious": "дорогоцінний, цінний", "waste": "гаяти, марнувати", "whiskey": "віскі", "wine": "вино",
+      "asleep": "сплячий; fall asleep — засинати", "side": "бік; by your side — поруч із тобою",
+      "finally": "нарешті", "arrive": "прибувати, діставатися", "journey": "подорож, мандрівка",
+      "testing": "випробовуючи", "faith": "віра", "running away": "тікаючи геть",
+      "lived for today": "жили сьогоднішнім днем", "bold": "сміливий, зухвалий",
+      "get old": "старіти; never get old — не старіти/не набридати", "screw": "начхати; screw it — до біса це",
+      "told": "сказане (що нам кажуть)", "controlled": "контрольований; can't be controlled — не приборкати"
+    },
+    slang: [
+      { en: "careless",          ua: "безтурботний, безпечний",    note: "тут радше «безжурний, вільний», а не недбалий — про юність без тривог" },
+      { en: "it's too late now", ua: "тепер уже запізно",          note: "наскрізний рефрен жалю: повернути минуле неможливо" },
+      { en: "stay up",           ua: "не спати допізна",           note: "засиджуватися, не лягати спати" },
+      { en: "hook up",           ua: "зійтися, зблизитися",        note: "почати щось разом; часто з інтимним натяком" },
+      { en: "let down your guard", ua: "опустити захист",          note: "перестати оборонятися, відкритися емоційно" },
+      { en: "think with our hearts", ua: "думати серцем",          note: "діяти за почуттями, а не розумом" },
+      { en: "Prom",              ua: "випускний бал",              note: "урочистий шкільний випускний у США" },
+      { en: "lights come on",    ua: "вмикають світло",            note: "сигнал кінця вечірки/клубу — «все, розходимось»" },
+      { en: "live for today",    ua: "жити сьогоднішнім днем",     note: "не думати про завтра, ловити мить" },
+      { en: "never get old",     ua: "не старіти / не набридати",  note: "подвійний сенс: і «вічно юні», і «це не приїдається»" },
+      { en: "screw what we're told", ua: "начхати, що нам кажуть", note: "бунт проти правил і чужих очікувань" },
+      { en: "can't be controlled", ua: "нас не приборкати",        note: "вільні, некеровані, ніхто не вкаже, як жити" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
