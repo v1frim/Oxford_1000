@@ -171,7 +171,7 @@ const SONGS = [
     ytId: "AHhiRc0Lnq4",
     sections: [
       { label: "КУПЛЕТ 1", lines: [
-        { en: "I'm just fuckin' lit, man, I'm just fuckin' lit",              ua: "Я просто до біса запалений, чуваку, просто запалений" },
+        { en: "I'm just fuckin' lit, man, I'm just fuckin' lit",              ua: "Я просто до біса бухий, чуваку, просто бухий" },
         { en: "Drank a bottle of this shit, man, bottle of this shit",         ua: "Ковтнув пляшку цього добра, чуваку, пляшку" },
         { en: "I'm about to write a hit, man, about to write a hit",           ua: "Зараз напишу хіт, чуваку, напишу хіт" },
         { en: "No, I'm never gonna quit, man, never gonna quit",               ua: "Ні, я ніколи не здамся, чуваку, ніколи" },
@@ -212,7 +212,7 @@ const SONGS = [
       ]}
     ],
     glossary: {
-      "lit":       "запалений, кайфовий (п'яний/під кайфом)",
+      "lit":       "бухий, п'яний (під кайфом)",
       "fuckin'":   "до біса (підсилення, груб.)",
       "man":       "чуваку (звернення)",
       "drank":     "випив (від drink)",
@@ -253,7 +253,7 @@ const SONGS = [
       "nothing":   "нічого"
     },
     slang: [
-      { en: "lit",                   ua: "кайфовий, запалений",       note: "п'яний/під кайфом; або просто «класний, у вогні»" },
+      { en: "lit",                   ua: "бухий, п'яний",             note: "тут: п'яний/під кайфом (від алкоголю); ширше сленгове значення — «класний, у вогні»" },
       { en: "take a hit",            ua: "затягнутися",               note: "зробити затяжку (наркотичний натяк)" },
       { en: "lose my shit",          ua: "зірватися, збожеволіти",    note: "втратити контроль, вийти з себе" },
       { en: "wristband",             ua: "клубний браслет",           note: "браслет допуску на вечірку; без нього — виходь" },
