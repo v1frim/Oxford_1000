@@ -269,6 +269,141 @@ const SONGS = [
       { en: "giver vs user",         ua: "даєш чи тільки береш",      note: "класичне протиставлення: той хто вкладає vs хто лише отримує" }
     ]
   }
+  ,
+  {
+    id: "neffex-badass",
+    artist: "NEFFEX",
+    title: "Badass 💋",
+    ytId: "rzElZuhGTpU",
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "The wind is blowin' through her hair (Blowin' through her hair)", ua: "Вітер розвіває її волосся (Розвіває волосся)" },
+        { en: "We like to head out on the road (Head out on the road)",          ua: "Ми любимо вирушати в дорогу (Вирушати в дорогу)" },
+        { en: "And you know we don't really care (We don't really care)",        ua: "І знаєш, нам, по суті, байдуже (Нам байдуже)" },
+        { en: "'Cause we're just doin' what we want (We're just doin' what we want)", ua: "Бо ми просто робимо, що хочемо (Робимо, що хочемо)" },
+        { en: "She likes it when I treat her good (She likes it when I treat her good)", ua: "Їй подобається, коли я ставлюся до неї добре (коли ставлюся добре)" },
+        { en: "She likes it when I treat her bad (She likes it when I treat her bad)",  ua: "Їй подобається, коли я ставлюся до неї погано (коли ставлюся погано)" },
+        { en: "She likes to travel all around (That's right)",                   ua: "Вона любить мандрувати всюди (Саме так)" },
+        { en: "I take her everywhere and back (Let's go, yeah)",                 ua: "Я вожу її скрізь і назад (Погнали, так)" },
+        { en: "Oh, you fuckin' with the man, girl",                             ua: "О, ти зв'язалася зі справжнім мужиком, дівчино" },
+        { en: "You throw it right back, know I like that, I'ma bite back",       ua: "Ти даєш відсіч, знаєш, мені таке до вподоби, і я кусну у відповідь" },
+        { en: "You know, I've become a fan girl, the way you throwback",         ua: "Знаєш, я став твоїм фанатом — те, як ти все повертаєш у ретро-стилі" },
+        { en: "Like a Kodak, girl, you own that",                               ua: "Наче кадр Kodak, дівчино, тобі це личить" },
+        { en: "Cruise around with out a plan, girl",                            ua: "Катаємось без жодного плану, дівчино" },
+        { en: "We'll never go back, girl, you know that you are so bad",         ua: "Ми ніколи не повернемось, дівчино, ти ж знаєш, яка ти відчайдушна" },
+        { en: "Let's just spend a couple grand, girl",                          ua: "Давай просто спустимо пару тисяч, дівчино" },
+        { en: "You know fuckin' with the man, girl (Man, girl, man, girl)",      ua: "Знаєш, ти зв'язалася зі справжнім мужиком, дівчино (Мужиком, дівчино)" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Yeah, oh, you could've been a good girl (Good girl)",             ua: "Так, о, ти могла б бути хорошою дівчинкою (Хорошою)" },
+        { en: "But instead, you chose the real world (Real world)",              ua: "Але натомість ти обрала справжнє життя (Справжнє життя)" },
+        { en: "Yeah, you've always been a savage (Savage)",                      ua: "Так, ти завжди була відчайдушною (Відчайдушна)" },
+        { en: "Oh, you've always been a bad chick (Bad chick)",                  ua: "О, ти завжди була крутою дівкою (Крута дівка)" },
+        { en: "I don't care if you got issues, daddy left, but I'm with you",    ua: "Мені байдуже, що в тебе проблеми, тато пішов — але я з тобою" },
+        { en: "So, come with me never look back, we're livin' life like a badass", ua: "Тож ходи зі мною, не озирайся — ми живемо як справжні бунтарі" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yeah, oh, you could've been a good girl (Good girl)",             ua: "Так, о, ти могла б бути хорошою дівчинкою (Хорошою)" },
+        { en: "But instead, you chose the real world (Real world)",              ua: "Але натомість ти обрала справжнє життя (Справжнє життя)" },
+        { en: "Yeah, you've always been a savage (Savage)",                      ua: "Так, ти завжди була відчайдушною (Відчайдушна)" },
+        { en: "Oh, you've always been a bad chick (Bad chick)",                  ua: "О, ти завжди була крутою дівкою (Крута дівка)" },
+        { en: "I don't care if you got issues, daddy left, but I'm with you",    ua: "Мені байдуже, що в тебе проблеми, тато пішов — але я з тобою" },
+        { en: "So, come with me never look back, we're livin' life like a badass", ua: "Тож ходи зі мною, не озирайся — ми живемо як справжні бунтарі" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, cruisin' PCH with the top down",                           ua: "Так, мчимо по Тихоокеанському шосе з опущеним дахом" },
+        { en: "Drop down, headed no where fast never stop now, not now",        ua: "Газу — і мчимо в нікуди, не зупиняємось, тільки не зараз" },
+        { en: "We ain't slowin' down, never knowin' now",                       ua: "Ми не сповільнюємось, наперед нічого не знаємо" },
+        { en: "We're just headin' south what it's all about",                   ua: "Просто прямуємо на південь — ось у чому вся суть" },
+        { en: "Never had a doubt, yeah, she be sittin' shotgun",                ua: "Жодного сумніву, так, вона сидить поруч на передньому" },
+        { en: "She a hot one, in the hot sun, crop top on, I'ma hop on",        ua: "Вона гаряча штучка, під палючим сонцем, у топику — я застрибую" },
+        { en: "Every single day, head a different way",                         ua: "Щодня прямуємо в новий бік" },
+        { en: "Never stay in place, don't care what they say",                  ua: "Ніколи не сидимо на місці, начхати, що кажуть" },
+        { en: "We gon' do it anyway, always by my side",                        ua: "Ми все одно це зробимо, ти завжди поруч" },
+        { en: "Oh, we're livin' life right, every night we just drive by",      ua: "О, ми живемо правильно, щоночі просто мчимо повз" },
+        { en: "Cruisin' high life, we're alive, not just gettin' by",           ua: "Купаємось у розкошах, ми живі, а не просто животіємо" },
+        { en: "Not just lettin' life pass right underneath our sight",          ua: "Не просто дивимось, як життя спливає в нас перед очима" },
+        { en: "Grab it real tight, okay, every day is a new day",               ua: "Хапай його міцно, гаразд, кожен день — новий день" },
+        { en: "In a new place, rent a new space, see a new face",               ua: "У новому місці, орендуємо нову хату, бачимо нове обличчя" },
+        { en: "In a few days, move a new way to a new state",                   ua: "За кілька днів рушаємо по-новому в новий штат" },
+        { en: "That's great, rent an estate for our next date, haha",           ua: "Це круто — орендуємо маєток для наступного побачення, ха-ха" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Yeah, oh, you could've been a good girl (Good girl)",             ua: "Так, о, ти могла б бути хорошою дівчинкою (Хорошою)" },
+        { en: "But instead, you chose the real world (Real world)",              ua: "Але натомість ти обрала справжнє життя (Справжнє життя)" },
+        { en: "Yeah, you've always been a savage (Savage)",                      ua: "Так, ти завжди була відчайдушною (Відчайдушна)" },
+        { en: "Oh, you've always been a bad chick (Bad chick)",                  ua: "О, ти завжди була крутою дівкою (Крута дівка)" },
+        { en: "I don't care if you got issues, daddy left, but I'm with you",    ua: "Мені байдуже, що в тебе проблеми, тато пішов — але я з тобою" },
+        { en: "So, come with me never look back, we're livin' life like a badass", ua: "Тож ходи зі мною, не озирайся — ми живемо як справжні бунтарі" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yeah, oh, you could've been a good girl (Good girl)",             ua: "Так, о, ти могла б бути хорошою дівчинкою (Хорошою)" },
+        { en: "But instead, you chose the real world (Real world)",              ua: "Але натомість ти обрала справжнє життя (Справжнє життя)" },
+        { en: "Yeah, you've always been a savage (Savage)",                      ua: "Так, ти завжди була відчайдушною (Відчайдушна)" },
+        { en: "Oh, you've always been a bad chick (Bad chick)",                  ua: "О, ти завжди була крутою дівкою (Крута дівка)" },
+        { en: "I don't care if you got issues, daddy left, but I'm with you",    ua: "Мені байдуже, що в тебе проблеми, тато пішов — але я з тобою" },
+        { en: "So, come with me never look back, we're livin' life like a badass", ua: "Тож ходи зі мною, не озирайся — ми живемо як справжні бунтарі" }
+      ]}
+    ],
+    glossary: {
+      "wind": "вітер", "blowin'": "дме, розвіває", "hair": "волосся",
+      "head": "прямувати, рушати (head out — вирушати)", "road": "дорога",
+      "really": "справді, по-справжньому", "care": "перейматися; don't care — байдуже",
+      "doin'": "робимо", "treat": "ставитися (до когось)", "travel": "подорожувати, мандрувати",
+      "everywhere": "скрізь, всюди", "fuckin'": "(груб. підсилення); fuckin' with — зв'язатися з",
+      "man": "тут: справжній мужик, крутий", "throw": "кидати; throw it back — давати відсіч",
+      "bite": "кусати; bite back — кусати/огризатися у відповідь",
+      "fan": "фанат", "throwback": "ретро, повернення в минуле",
+      "kodak": "Kodak (фотобренд; «кадр як на фото»)", "own": "володіти; you own that — тобі це личить",
+      "cruise": "кататися, їхати без поспіху", "plan": "план",
+      "couple": "пара, декілька", "grand": "тисяча доларів (сленг)",
+      "could've": "міг/могла б (could have)", "instead": "натомість, замість",
+      "chose": "обрав/обрала (від choose)", "real": "справжній, реальний",
+      "world": "світ", "savage": "відчайдух; дикий, безбашений",
+      "chick": "дівка, чувіха (розм.)", "issues": "проблеми (тут: внутрішні/у житті)",
+      "daddy": "тато, татко", "left": "пішов, покинув (від leave)",
+      "badass": "крутий бунтар, відчайдух", "cruisin'": "катаємось",
+      "pch": "Тихоокеанське шосе (Pacific Coast Highway, Каліфорнія)",
+      "top": "тут: дах авто (top down — з опущеним дахом)", "drop": "опускати; drop down — газонути/просісти",
+      "headed": "прямую(ємо)", "nowhere": "нікуди", "stop": "зупинятися",
+      "ain't": "не / немає (розм.)", "slowin'": "сповільнюємось", "knowin'": "знаючи",
+      "headin'": "прямуємо", "south": "південь", "doubt": "сумнів",
+      "shotgun": "переднє пасажирське сидіння (ride shotgun)", "hot": "гарячий; тут: сексуальна",
+      "sun": "сонце", "crop": "укорочений (crop top — короткий топ)",
+      "hop": "стрибати; hop on — застрибнути", "single": "кожен; every single day — буквально щодня",
+      "different": "інший, різний", "place": "місце", "side": "бік; by my side — поруч зі мною",
+      "right": "правильно; тут: як слід", "night": "ніч", "drive": "їхати; drive by — проїжджати повз",
+      "high": "високий; high life — розкішне життя", "alive": "живий",
+      "gettin'": "тут: gettin' by — ледь зводити кінці", "lettin'": "дозволяючи",
+      "pass": "минати, спливати", "underneath": "під, попід", "sight": "погляд, поле зору",
+      "grab": "хапати", "tight": "міцно, туго", "rent": "орендувати",
+      "space": "простір; тут: житло, хата", "face": "обличчя", "state": "штат",
+      "great": "чудово, круто", "estate": "маєток, садиба", "date": "побачення",
+      "gon'": "збираємось (gonna / going to)", "anyway": "все одно, попри все"
+    },
+    slang: [
+      { en: "badass",            ua: "крутий бунтар, відчайдух",   note: "сильна, безстрашна людина, що живе по-своєму (часто схвально)" },
+      { en: "fuckin' with",      ua: "зв'язатися, мати справу",    note: "тут: «ти зв'язалася зі справжнім мужиком» (груб.-розм.)" },
+      { en: "the man",           ua: "крутий мужик / головний",    note: "впевнений, авторитетний чоловік («він тут головний»)" },
+      { en: "throw it back",     ua: "давати відсіч",              note: "відповідати тим самим, не пасувати" },
+      { en: "bite back",         ua: "огризатися у відповідь",     note: "відповідати на випад так само різко" },
+      { en: "you own that",      ua: "тобі це личить / це твоє",   note: "«own» тут = робити щось упевнено, на всі сто" },
+      { en: "Kodak",             ua: "кадр як на фото",            note: "«Kodak moment» — ідеальна мить, варта знімка" },
+      { en: "a couple grand",    ua: "пара тисяч (доларів)",       note: "grand = $1000 (сленг)" },
+      { en: "savage",            ua: "відчайдух, безбашений",      note: "хтось зухвалий і безстрашний (схвально в сленгу)" },
+      { en: "bad chick",         ua: "крута/відчайдушна дівка",    note: "тут «bad» = позитивне: ефектна, зухвала" },
+      { en: "got issues",        ua: "мати проблеми",              note: "психологічні травми чи складнощі в житті" },
+      { en: "the real world",    ua: "справжнє життя",             note: "життя без прикрас, на противагу «правильному»/тепличному" },
+      { en: "ride shotgun",      ua: "сидіти на передньому",       note: "shotgun — переднє пасажирське сидіння поряд з водієм" },
+      { en: "top down",          ua: "з опущеним дахом",           note: "про кабріолет — їхати з відкритим верхом" },
+      { en: "PCH",               ua: "Тихоокеанське шосе",         note: "Pacific Coast Highway — мальовнича траса вздовж узбережжя Каліфорнії" },
+      { en: "crop top",          ua: "укорочений топ",             note: "коротка майка, що відкриває живіт" },
+      { en: "hop on",            ua: "застрибнути",                note: "швидко приєднатися/сісти" },
+      { en: "high life",         ua: "розкішне життя",             note: "життя на широку ногу, в розкошах" },
+      { en: "gettin' by",        ua: "ледь зводити кінці",         note: "виживати, абияк перебиватися (тут — те, чого вони НЕ роблять)" },
+      { en: "hella",             ua: "дуже, до біса",              note: "(якщо трапиться) каліфорнійський сленг-підсилювач" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
