@@ -984,6 +984,118 @@ const SONGS = [
       { en: "blow up your phone", ua: "телефон розривається",       note: "безперервні дзвінки/повідомлення" }
     ]
   }
+  ,
+  {
+    id: "neffex-first-time",
+    artist: "NEFFEX",
+    title: "First Time 🔥",
+    ytId: "E_UOkyJ87Fc",
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, like J. Cole, it's my first time, God damn, man, she's so fine", ua: "Так, як у J. Cole, це мій перший раз, чорт забирай, чуваку, вона така гарна" },
+        { en: "She got a body and a sharp mind, not a nine, she a straight dime", ua: "У неї і тіло, і гострий розум — не дев'ятка, а чиста десятка" },
+        { en: "Short skirt and some high socks, she finish off with a crop top", ua: "Коротка спідниця й високі гольфи, а зверху — укорочений топ" },
+        { en: "She likes Hip-Hop and hard Rock, she likes heavy drops, that's hot", ua: "Їй до вподоби хіп-хоп і важкий рок, любить потужні біти — це заводить" },
+        { en: "I said, \"I'm in it to win it 'cause if I want it I get it\"", ua: "Я сказав: «Я граю, щоб перемогти, бо як чогось хочу — те й отримую»" },
+        { en: "Just give me time, we'll be sinnin', hah",                   ua: "Лиш дай мені час — і ми грішитимемо, ха" },
+        { en: "Just give me time, I'll be swimmin', up in a dime, man, I'm winnin'", ua: "Лиш дай мені час — я купатимусь у розкоші з красунею, чуваку, я переможець" },
+        { en: "Pinnin' her down, man, I'm in it, yeah",                     ua: "Притискаю її, чуваку, я в ділі, так" },
+        { en: "Oh, man, my thoughts are explicit, I like to test out my limits", ua: "О, чуваку, мої думки відверті, я люблю перевіряти свої межі" },
+        { en: "Already got me addicted, yeah, just to the thought of her, vivid", ua: "Вона мене вже підсадила, так, навіть сама думка про неї — яскрава" },
+        { en: "Tell all my friends I'm gon' get it at the next party, I'll hit it, yeah", ua: "Кажу всім друзям, що своє візьму — на наступній вечірці я це зроблю, так" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Long time I've been waitin', like, \"No, I'll be fine\"",     ua: "Я довго чекав, типу: «Ні, зі мною все буде гаразд»" },
+        { en: "A long time I've been waitin', like, \"No, I'll be fine\"",   ua: "Я довго чекав, типу: «Ні, зі мною все буде гаразд»" },
+        { en: "A long time I've been waitin'",                              ua: "Я довго чекав" },
+        { en: "Yeah, a long time I've been waitin' up (Like, \"No, I'll be fine\")", ua: "Так, я довго не спав у чеканні (Типу: «Ні, все буде гаразд»)" },
+        { en: "A long time I've been waitin' (Yeah, let's go, like, \"No, I'll be fine\")", ua: "Я довго чекав (Так, погнали, типу: «Ні, все буде гаразд»)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "A couple shots of that whiskey, a couple more and we're tipsy", ua: "Пара шотів того віскі, ще пара — і ми напідпитку" },
+        { en: "My heart is beatin' so quickly, I think I like bein' risky", ua: "Серце калатає так швидко — здається, мені до смаку ризикувати" },
+        { en: "Oh, God, her bra's so tricky, and fuck, I'm way too dizzy",  ua: "О Боже, її ліфчик такий хитромудрий, і чорт, мені аж голова обертом" },
+        { en: "I think those shots just hit me, that's when she said, \"Get in me\"", ua: "Здається, ті шоти щойно вдарили в голову — і тут вона сказала: «Увійди в мене»" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, so, I roll up to the party, dude, I look around, man, nothin' new", ua: "Так, тож я підкочую на вечірку, чувак, роззираюсь — нічого нового" },
+        { en: "I see my girl sippin' on a brew, that's when I knew what I wanna do", ua: "Бачу свою дівчину, що потягує пиво — і тут я зрозумів, чого хочу" },
+        { en: "My heart's fast, so, I talk slow (Talk slow)",               ua: "Серце калатає, тож я говорю повільно (Говорю повільно)" },
+        { en: "And what I'm saying, man, I don't know (Don't know)",        ua: "А що саме кажу, чуваку, я й сам не знаю (Не знаю)" },
+        { en: "I just hope I look like a pro (Like a pro)",                 ua: "Просто сподіваюсь, що виглядаю як профі (Як профі)" },
+        { en: "'Cause all I wanna do is take her home, yeah (Yeah)",        ua: "Бо все, чого хочу — забрати її додому, так (Так)" },
+        { en: "Body like a spinner, we're sipping on liquor, catalyst for a sinner, oh", ua: "Тіло мініатюрне, ми потягуємо міцне — каталізатор для грішника, о" },
+        { en: "I feel my blood run thinner, straight to my liver",         ua: "Відчуваю, як кров рідшає, прямо до печінки" },
+        { en: "Now, I wanna pull the trigger, woah",                       ua: "Тепер я хочу зважитись і діяти, воа" },
+        { en: "I wanna move a little quicker, skippin' on the dinner, feelin' on your figure", ua: "Хочу рухатись трохи швидше, пропускаю вечерю, торкаюся твоїх форм" },
+        { en: "Turn the lights down, dimmer, think I picked a winner",      ua: "Приглушую світло — здається, я зробив виграшний вибір" },
+        { en: "Doesn't know I'm a beginner, so, I hope I can deliver",      ua: "Вона не знає, що я новачок, тож сподіваюсь, що не підведу" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Long time I've been waitin', like, \"No, I'll be fine\"",     ua: "Я довго чекав, типу: «Ні, зі мною все буде гаразд»" },
+        { en: "A long time I've been waitin', like, \"No, I'll be fine\"",   ua: "Я довго чекав, типу: «Ні, зі мною все буде гаразд»" },
+        { en: "A long time I've been waitin'",                              ua: "Я довго чекав" },
+        { en: "Yeah, a long time I've been waitin' up (Like, \"No, I'll be fine\")", ua: "Так, я довго не спав у чеканні (Типу: «Ні, все буде гаразд»)" },
+        { en: "A long time I've been waitin' (Yeah, let's go, like, \"No, I'll be fine\")", ua: "Я довго чекав (Так, погнали, типу: «Ні, все буде гаразд»)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "A couple shots of that whiskey, a couple more and we're tipsy", ua: "Пара шотів того віскі, ще пара — і ми напідпитку" },
+        { en: "My heart is beatin' so quickly, I think I like bein' risky", ua: "Серце калатає так швидко — здається, мені до смаку ризикувати" },
+        { en: "Oh, God, her bra's so tricky, and fuck, I'm way too dizzy",  ua: "О Боже, її ліфчик такий хитромудрий, і чорт, мені аж голова обертом" },
+        { en: "I think those shots just hit me, that's when she said, \"Get in me\"", ua: "Здається, ті шоти щойно вдарили в голову — і тут вона сказала: «Увійди в мене»" }
+      ]}
+    ],
+    glossary: {
+      "j. cole": "J. Cole (репер; натяк на його пісню «Wet Dreamz» про перший раз)",
+      "god damn": "чорт забирай (вигук)", "man": "чуваку (звернення)",
+      "fine": "тут: гарна, приваблива", "body": "тіло", "sharp": "гострий (sharp mind — гострий розум)",
+      "mind": "розум", "nine": "дев'ятка (оцінка 9 з 10)", "straight": "чистий, справжній; straight dime",
+      "dime": "красуня на всі сто (десятка з 10)", "skirt": "спідниця", "socks": "шкарпетки, гольфи",
+      "finish off": "завершувати, добивати образ", "crop top": "укорочений топ",
+      "hip-hop": "хіп-хоп", "hard rock": "хард-рок", "heavy": "важкий, потужний",
+      "drops": "біт-дропи (вибухи басу в треку)", "hot": "тут: «це заводить, круто»",
+      "in it to win it": "граю, щоб перемогти (рішучість іти до кінця)", "'cause": "бо (because)",
+      "sinnin'": "грішимо (sin — грішити)", "swimmin'": "купатимусь (тут: у розкоші)",
+      "up in a dime": "з красунею", "winnin'": "перемагаю", "pinnin'": "притискаю (pin down)",
+      "thoughts": "думки", "explicit": "відвертий, недвозначний", "test out": "перевіряти, випробовувати",
+      "limits": "межі, ліміти", "addicted": "залежний, підсаджений", "vivid": "яскравий, живий",
+      "gon'": "збираюся (gonna / going to)", "hit it": "переспати (груб.-розм. натяк)",
+      "waitin'": "чекаю", "fine.": "гаразд, нормально", "couple": "пара, декілька",
+      "shots": "шоти (порції міцного)", "whiskey": "віскі", "tipsy": "напідпитку, підхмелілий",
+      "heart": "серце", "beatin'": "б'ється, калатає", "quickly": "швидко",
+      "risky": "ризикований", "bra": "ліфчик, бюстгальтер", "tricky": "хитромудрий, складний",
+      "dizzy": "запаморочений; голова обертом", "get in me": "увійди в мене (відвертий натяк)",
+      "roll up": "під'їжджати, підкочувати", "dude": "чувак", "around": "навколо",
+      "brew": "пиво (розм.)", "knew": "знав (від know)", "slow": "повільно",
+      "pro": "профі, майстер", "spinner": "мініатюрна дівчина (сленг)", "sipping": "потягуємо",
+      "liquor": "міцний алкоголь", "catalyst": "каталізатор, поштовх", "sinner": "грішник",
+      "blood": "кров", "run thinner": "рідшає (про кров від алкоголю)", "liver": "печінка",
+      "pull the trigger": "наважитись діяти (натиснути на гашок)", "quicker": "швидше",
+      "skippin'": "пропускаю (skip — пропускати)", "dinner": "вечеря", "feelin'": "торкаюсь, відчуваю",
+      "figure": "фігура, форми тіла", "dimmer": "тьмяніше (dim — приглушувати світло)",
+      "picked": "обрав (pick — обирати)", "winner": "переможець; тут: виграшний вибір",
+      "beginner": "новачок, початківець", "deliver": "впоратися, не підвести (виправдати очікування)"
+    },
+    slang: [
+      { en: "J. Cole reference",  ua: "відсилання до J. Cole",      note: "репер; його «Wet Dreamz» — теж про перший сексуальний досвід" },
+      { en: "dime",               ua: "красуня на всі сто",         note: "«десятка» (10/10); «not a nine, a straight dime» — не дев'ятка, а ідеал" },
+      { en: "heavy drops",        ua: "потужні біт-дропи",          note: "drop — момент вибуху басу/ритму в треку" },
+      { en: "in it to win it",    ua: "граю, щоб перемогти",        note: "ідіома: повна рішучість досягти мети" },
+      { en: "hit it",             ua: "переспати",                  note: "груб.-розм. натяк на секс" },
+      { en: "test my limits",     ua: "перевіряти свої межі",       note: "ризикувати, пробувати щось на грані" },
+      { en: "tipsy",              ua: "напідпитку",                 note: "трохи п'яний, навеселі" },
+      { en: "shots hit me",       ua: "шоти вдарили в голову",      note: "алкоголь раптом подіяв" },
+      { en: "roll up",            ua: "під'їхати, підкотити",       note: "прибути (зазвичай на авто, ефектно)" },
+      { en: "brew",               ua: "пиво",                       note: "розмовна назва пива" },
+      { en: "look like a pro",    ua: "виглядати як профі",         note: "вдавати досвідченого (хоч він новачок)" },
+      { en: "spinner",            ua: "мініатюрна дівчина",         note: "сленг про невисоку струнку дівчину (груб. конотація)" },
+      { en: "blood run thinner",  ua: "кров рідшає",                note: "образ сп'яніння — алкоголь «розріджує» кров" },
+      { en: "pull the trigger",   ua: "наважитись діяти",           note: "зробити вирішальний крок (як у Lit)" },
+      { en: "picked a winner",    ua: "зробити виграшний вибір",    note: "обрати найкраще («не прогадав»)" },
+      { en: "can I deliver",      ua: "чи впораюсь, чи не підведу", note: "deliver — виправдати очікування, не осоромитись" },
+      { en: "beginner",           ua: "новачок",                    note: "тут зізнання, що це його перший раз" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
