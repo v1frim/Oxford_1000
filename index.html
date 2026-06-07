@@ -1755,7 +1755,7 @@ const WORDS = [
   {en:"dispute",ua:"суперечка"},
   {en:"disrespectful",ua:"неповажний"},
   {en:"distant",ua:"далекий"},
-  {en:"distinct",ua:"виразний"},
+  {en:"distinct",ua:["виразний","чіткий","окремий"]},
   {en:"distinguished",ua:"видатний"},
   {en:"diverse",ua:"різноманітний"},
   {en:"doable",ua:"здійсненний"},
@@ -2057,6 +2057,7 @@ const WORDS = [
   {en:"piece",ua:"шматок"},
   {en:"place",ua:"місце"},
   {en:"plain",ua:"простий"},
+  {en:"plot",ua:["сюжет","ділянка","змова"]},
   {en:"planet",ua:"планета"},
   {en:"pleased",ua:"задоволений"},
   {en:"plenty",ua:"достаток"},
@@ -2900,7 +2901,7 @@ const TRANS = {
   "percent":"/pɝˈsɛnt/","perform":"/pɝˈfɔrm/","perilous":"/ˈpɛrələs/","permanent":"/ˈpɝmənənt/","permission":"/pɝˈmɪʃən/","permit":"/ˈpɝmɪt/",
   "persistent":"/pɝˈsɪstənt/","personal":"/ˈpɝsɪnəl/","personality":"/ˌpɜːrsəˈnælɪti/","pessimistic":"/pɛsəˈmɪstɪk/","petite":"/pəˈtit/","phrase":"/ˈfreɪz/","pick":"/ˈpɪk/",
   "picnic":"/ˈpɪknɪk/","picture":"/ˈpɪktʃɝ/","pie":"/ˈpaɪ/","piece":"/ˈpis/","pink":"/ˈpɪŋk/","place":"/ˈpleɪs/",
-  "plain":"/ˈpleɪn/","planet":"/ˈplænət/","platform":"/ˈplætfɔrm/","pleasant":"/ˈplɛzənt/","pleased":"/ˈplizd/","plenty":"/ˈplɛni/",
+  "plain":"/ˈpleɪn/","planet":"/ˈplænət/","platform":"/ˈplætfɔrm/","pleasant":"/ˈplɛzənt/","pleased":"/ˈplizd/","plenty":"/ˈplɛni/","plot":"/plɑːt/",
   "pointed":"/ˈpɔɪnəd/","policy":"/ˈpɑləsi/","pollution":"/pəˈluʃən/","pond":"/ˈpɑnd/","position":"/pəˈzɪʃən/","positive":"/ˈpɑzətɪv/",
   "posture":"/ˈpɑstʃɝ/","pour":"/ˈpɔr/","powerful":"/ˈpaʊɝfəl/","powerless":"/ˈpaʊɝləs/","practice":"/ˈpræktəs/","precise":"/priˈsaɪs/",
   "predict":"/priˈdɪkt/","prehistoric":"/prihɪˈstɔrɪk/","preparation":"/ˌprɛpəˈreɪʃən/","present":"/ˈprɛzənt/","presentation":"/prɛzənˈteɪʃən/","preserve":"/prəˈzɝv/","press":"/ˈprɛs/",
@@ -4259,6 +4260,7 @@ const EXAMPLES = {
   "planet":"Scientists are searching for life on other planets.",
   "pleased":"I am very pleased with the results.",
   "plenty":"There is plenty of time before the train leaves.",
+  "plot":"The plot of the film was full of surprises.",
   "pointed":"She made several pointed comments during the meeting.",
   "posture":"Good posture is important for your back health.",
   "powerful":"He was a powerful and influential leader.",
@@ -5933,6 +5935,7 @@ const EXAMPLES_UA = {
   "planet":"Вчені шукають ознаки життя на інших планетах.",
   "pleased":"Я дуже задоволений результатами.",
   "plenty":"До відправлення поїзда ще вдосталь часу.",
+  "plot":"Сюжет фільму був повний несподіванок.",
   "pointed":"Під час зустрічі вона зробила кілька гострих коментарів.",
   "posture":"Правильна постава важлива для здоров'я спини.",
   "powerful":"Він був могутнім і впливовим лідером.",
@@ -8474,6 +8477,7 @@ const EN_TO_UA = (() => {
   m.set("planet",      ["планета"]);
   m.set("plane",       ["літак"]);
   m.set("plenty",      ["багато", "достатньо"]);
+  m.set("plot",        ["сюжет", "ділянка", "змова"]);
   m.set("plug",        ["вилка", "затичка"]);
   m.set("postman",     ["листоноша"]);
   m.set("pot",         ["горщик", "каструля"]);
@@ -9106,15 +9110,11 @@ document.addEventListener("keydown", e => {
     document.getElementById("progress-btn").click();
     return;
   }
-  if (e.key === "Tab" && !gameEl.classList.contains("hidden") && !awaitingAfterWrong) {
+  if (e.key === "Tab" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
-    speak(currentShown);
-    return;
-  }
-  if (e.key === "Tab" && awaitingAfterWrong) {
-    e.preventDefault();
-    const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
-    speak(enWord);
+    // Озвучуємо ЛИШЕ англійське слово: у en-ua показане слово вже англійське,
+    // в усіх інших режимах (ua-en/def/syn/ant/cloze) беремо англійський відповідник.
+    speak(mode === "en-ua" ? currentShown : getEn(currentWord)[0]);
     return;
   }
   if (e.key === " " && !endScreen.classList.contains("hidden")) {
