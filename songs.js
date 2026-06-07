@@ -1819,6 +1819,138 @@ const SONGS = [
       { en: "figure it out",      ua: "розібратися, второпати",     note: "зрозуміти, як усе працює; знайти рішення" }
     ]
   }
+  ,
+  {
+    id: "neffex-legendary",
+    artist: "NEFFEX",
+    title: "Legendary 💎",
+    ytId: "ExQ-XgsmL5Y",
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Hands wrapped, knuckles taped black",                       ua: "Руки забинтовані, кісточки обмотані чорним" },
+        { en: "Pick my gloves up off the mat, fighting's all I ever had",  ua: "Підіймаю рукавиці з мату — бій це все, що я мав" },
+        { en: "Wasn't born with tons of gifts, had to work hard as a kid",  ua: "Я не народився з купою талантів, мусив гарувати ще дитиною" },
+        { en: "Know that everything I did was to catch the other kids",     ua: "Знаю: усе, що я робив, було, щоб наздогнати інших дітей" },
+        { en: "Slowly built that self-esteem, turned myself to a machine",  ua: "Поволі будував самооцінку, перетворив себе на машину" },
+        { en: "I'd compete so I'd be seen, I would lose and I'd succeed",    ua: "Я змагався, щоб мене помітили, я програвав і я перемагав" },
+        { en: "But you'd never see me quit, I'd always get after it",       ua: "Та ти ніколи не бачив, щоб я здавався — я завжди гнув своє" },
+        { en: "Knew I had a different gift, I'd outwork any other kid",      ua: "Я знав, що маю особливий дар — перепрацюю будь-яку іншу дитину" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Deep within our souls, we can feel there's something empty",  ua: "Глибоко в душі ми відчуваємо якусь порожнечу" },
+        { en: "We need something more, I feel destiny, she tempts me",       ua: "Нам треба чогось більшого; я відчуваю долю, вона спокушає мене" },
+        { en: "Tells me there's two paths, they both have a different ending", ua: "Каже, що є два шляхи, й у кожного — інший кінець" },
+        { en: "Choose wise and you'll find that pain leads to ascending",     ua: "Обери мудро — і побачиш, що біль веде до сходження вгору" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "'Til I'm dead and buried, deep within a cemetery",            ua: "Аж поки не помру й мене не поховають глибоко на цвинтарі" },
+        { en: "I will fight, never wary, I wanna be legendary",              ua: "Я битимусь, без остраху — я хочу стати легендарним" },
+        { en: "'Til I'm dead and buried, deep within a cemetery",            ua: "Аж поки не помру й мене не поховають глибоко на цвинтарі" },
+        { en: "I will fight, never wary, I wanna be legendary",              ua: "Я битимусь, без остраху — я хочу стати легендарним" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(I-I-I wanna be legendary)",                                  ua: "(Я-я-я хочу стати легендарним)" },
+        { en: "(I-I-I wanna be legendary)",                                  ua: "(Я-я-я хочу стати легендарним)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "(Let's go, round two)",                                       ua: "(Погнали, раунд другий)" },
+        { en: "Comin' outta the gate, I'll be last place, that's alright",   ua: "На самому старті я буду останнім — це нормально" },
+        { en: "I don't work at a fast pace, I'm the steady horse",           ua: "Я працюю не в шаленому темпі — я кінь, що йде рівно й упевнено" },
+        { en: "Creepin' up, straight passin' and once I pass you",           ua: "Поволі підкрадаюсь, обходжу — і щойно я тебе обійду" },
+        { en: "No-one's gettin' past me",                                    ua: "Уже ніхто мене не обжене" },
+        { en: "I've seen people hit walls and they stop there",              ua: "Я бачив, як люди впираються в стіну й там спиняються" },
+        { en: "I don't get that mind, man, it sounds scared",               ua: "Я не розумію такого мислення, чуваку, воно звучить боягузливо" },
+        { en: "Good things take time, better prepare",                       ua: "Хороше потребує часу — краще готуйся" },
+        { en: "'Cause anything great takes pain and some fear, uh",          ua: "Бо все велике вимагає болю й крихти страху, ага" },
+        { en: "Take it from me 'cause I got to this place",                  ua: "Повір мені, бо я дійшов до цього місця" },
+        { en: "Where no-one can tell me to do anything",                     ua: "Де ніхто не може вказувати мені, що робити" },
+        { en: "I call my own shots, I call my own plays",                    ua: "Я сам приймаю рішення, сам визначаю свою гру" },
+        { en: "I enjoy my life almost every day",                            ua: "Я насолоджуюся життям майже щодня" },
+        { en: "And I could teach you if you listen to me",                   ua: "І я міг би навчити тебе, якщо ти слухатимеш мене" },
+        { en: "You follow some rules, don't need gifts to be paid",          ua: "Дотримуйся кількох правил — не потрібен талант, щоб тобі платили" },
+        { en: "Persistence is better than brains any day",                   ua: "Наполегливість будь-коли краща за розум" },
+        { en: "Just listen to me and I'll show you the way",                 ua: "Просто послухай мене — і я покажу тобі шлях" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Deep within our souls, we can feel there's something empty",  ua: "Глибоко в душі ми відчуваємо якусь порожнечу" },
+        { en: "We need something more, I feel destiny, she tempts me",       ua: "Нам треба чогось більшого; я відчуваю долю, вона спокушає мене" },
+        { en: "Tells me there's two paths, they both have a different ending", ua: "Каже, що є два шляхи, й у кожного — інший кінець" },
+        { en: "Choose wise and you'll find that, pain leads to ascending",    ua: "Обери мудро — і побачиш, що біль веде до сходження вгору" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "'Til I'm dead and buried, deep within a cemetery",            ua: "Аж поки не помру й мене не поховають глибоко на цвинтарі" },
+        { en: "I will fight, never wary, I wanna be legendary",              ua: "Я битимусь, без остраху — я хочу стати легендарним" },
+        { en: "'Til I'm dead and buried, deep within a cemetery",            ua: "Аж поки не помру й мене не поховають глибоко на цвинтарі" },
+        { en: "I will fight, never wary, I wanna be legendary",              ua: "Я битимусь, без остраху — я хочу стати легендарним" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(I-I-I wanna be legendary)",                                  ua: "(Я-я-я хочу стати легендарним)" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "'Til I'm dead and buried, deep within a cemetery",            ua: "Аж поки не помру й мене не поховають глибоко на цвинтарі" },
+        { en: "I will fight, never wary, I wanna be legendary",              ua: "Я битимусь, без остраху — я хочу стати легендарним" },
+        { en: "'Til I'm dead and buried, deep within a cemetery",            ua: "Аж поки не помру й мене не поховають глибоко на цвинтарі" },
+        { en: "I will fight, never wary, I wanna be legendary",              ua: "Я битимусь, без остраху — я хочу стати легендарним" },
+        { en: "(I-I-I wanna be legendary)",                                  ua: "(Я-я-я хочу стати легендарним)" },
+        { en: "(I-I-I wanna be legendary)",                                  ua: "(Я-я-я хочу стати легендарним)" }
+      ]}
+    ],
+    glossary: {
+      "hands": "руки", "wrapped": "забинтовані, обмотані (wrap — обмотувати)",
+      "knuckles": "кісточки пальців, кулаки", "taped": "обмотані стрічкою (tape)",
+      "pick up": "підіймати, піднімати", "gloves": "рукавиці (боксерські)",
+      "mat": "мат, килимок (на рингу)", "fighting": "бій, бійка; fighting's all — бій це все",
+      "ever": "коли-небудь; all I ever had — усе, що я мав", "born": "народжений",
+      "tons of": "купа, безліч", "gifts": "таланти, дари", "work hard": "тяжко працювати, гарувати",
+      "kid": "дитина, малий", "catch": "наздогнати, доганяти", "slowly": "поволі, повільно",
+      "built": "будував (від build)", "self-esteem": "самооцінка, почуття власної гідності",
+      "machine": "машина (тут: невпинна, безвідмовна)", "compete": "змагатися",
+      "seen": "поміченим (be seen — щоб тебе помітили)", "lose": "програвати", "succeed": "досягати успіху",
+      "quit": "здаватися, кидати", "get after it": "братися завзято, гнути своє",
+      "different": "інакший, особливий", "gift": "дар, талант", "outwork": "перепрацювати, обійти працею",
+      "deep": "глибоко", "within": "усередині", "souls": "душі", "empty": "порожній; something empty — порожнеча",
+      "more": "більше", "destiny": "доля, призначення", "tempts": "спокушає, вабить",
+      "paths": "шляхи, стежки", "both": "обидва", "ending": "кінець, завершення",
+      "choose": "обирати", "wise": "мудро, розважливо", "pain": "біль",
+      "leads to": "веде до", "ascending": "сходження вгору, піднесення",
+      "'til": "поки не (until)", "dead": "мертвий", "buried": "похований (bury — ховати)",
+      "cemetery": "цвинтар, кладовище", "fight": "битися, боротися", "wary": "насторожений, обачний; never wary — без остраху",
+      "wanna": "хочу (want to)", "legendary": "легендарний", "round": "раунд",
+      "comin'": "виходжу (come out)", "outta": "з (out of)", "gate": "ворота; out the gate — з самого старту",
+      "last place": "останнє місце", "alright": "гаразд, нормально", "fast pace": "швидкий темп",
+      "steady": "рівний, стабільний; steady horse — кінь, що йде впевнено", "horse": "кінь",
+      "creepin' up": "підкрадаюсь, поволі наближаюсь", "straight": "прямо, одразу", "passin'": "обходжу, обганяю",
+      "once": "щойно, як тільки", "pass": "обганяти, проходити повз", "get past": "обійти, обігнати",
+      "hit walls": "впиратися в стіну (заходити в глухий кут)", "stop": "спинятися",
+      "mind": "мислення, спосіб думати", "sounds": "звучить", "scared": "наляканий, боягузливий",
+      "take time": "потребувати часу", "prepare": "готуватися", "great": "велике, видатне",
+      "fear": "страх", "take it from me": "повір мені (на власному досвіді)", "place": "місце",
+      "no-one": "ніхто", "tell": "вказувати, наказувати", "call the shots": "приймати рішення, командувати",
+      "plays": "ходи, комбінації (call my own plays — сам визначаю гру)", "enjoy": "насолоджуватися",
+      "almost": "майже", "teach": "навчати", "listen": "слухати", "follow": "дотримуватися",
+      "rules": "правила", "paid": "оплачений; to be paid — щоб тобі платили",
+      "persistence": "наполегливість, упертість", "brains": "розум, мізки", "any day": "будь-коли, завжди",
+      "show the way": "показати шлях"
+    },
+    slang: [
+      { en: "fighting's all I ever had", ua: "бій — це все, що я мав",   note: "образ боксера: боротьба як єдиний шлях із низів" },
+      { en: "turned myself to a machine", ua: "перетворив себе на машину", note: "довів себе до невпинної, безвідмовної дисципліни" },
+      { en: "get after it",       ua: "братися завзято, гнути своє",  note: "діяти рішуче, не відступати" },
+      { en: "outwork",            ua: "перепрацювати, обійти працею", note: "перемогти не талантом, а більшою працею" },
+      { en: "destiny tempts me",  ua: "доля спокушає мене",           note: "доля як жінка, що вабить до великого шляху" },
+      { en: "pain leads to ascending", ua: "біль веде вгору",         note: "через страждання — до піднесення/успіху" },
+      { en: "never wary",         ua: "без остраху",                  note: "wary = насторожений; тут — безстрашно йти вперед" },
+      { en: "out the gate",       ua: "з самого старту",              note: "від першої миті (як кінь зі стартових воріт)" },
+      { en: "steady horse",       ua: "впевнений кінь",               note: "не спринтер, а той, хто бере витривалістю (як у байці про черепаху)" },
+      { en: "hit a wall",         ua: "впертися в стіну",             note: "зайти в глухий кут, вичерпати сили" },
+      { en: "good things take time", ua: "хороше потребує часу",      note: "результат не приходить миттєво" },
+      { en: "take it from me",    ua: "повір мені",                   note: "кажу з власного досвіду" },
+      { en: "call your own shots", ua: "самому приймати рішення",     note: "бути собі господарем (як у Self Made)" },
+      { en: "call my own plays",  ua: "сам визначаю свою гру",        note: "спортивний образ: сам обираю стратегію життя" },
+      { en: "persistence over brains", ua: "наполегливість > розум",  note: "ключова думка: упертість важливіша за вроджений талант" },
+      { en: "show you the way",   ua: "показати шлях",                note: "повести за собою, навчити" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
