@@ -1096,6 +1096,75 @@ const SONGS = [
       { en: "beginner",           ua: "новачок",                    note: "тут зізнання, що це його перший раз" }
     ]
   }
+  ,
+  {
+    id: "neffex-dangerous-woman",
+    artist: "NEFFEX",
+    title: "Dangerous Woman",
+    ytId: "n3j3sS-ZKXg",
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I breathe in 'cause I'm nervous",          ua: "Я вдихаю, бо нервуюся" },
+        { en: "Breathe out like a first kiss",            ua: "Видихаю, наче перший поцілунок" },
+        { en: "Breathe in with a purpose, yeah",          ua: "Вдихаю з певною метою, так" },
+        { en: "Breathe in like a new love",               ua: "Вдихаю, наче нове кохання" },
+        { en: "Breathe out like a new drug",              ua: "Видихаю, наче новий дурман" },
+        { en: "Breathe in when it gets rough, yeah",      ua: "Вдихаю, коли стає важко, так" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "And if it's too late for me",              ua: "І якщо для мене вже запізно" },
+        { en: "Then it's too late for you",               ua: "То й для тебе вже запізно" },
+        { en: "Can you promise me now",                   ua: "Чи можеш пообіцяти мені зараз" },
+        { en: "That we will make it through",             ua: "Що ми це переживемо" },
+        { en: "If I know what I want",                    ua: "Якщо я знаю, чого хочу" },
+        { en: "And I know what I need",                   ua: "І знаю, чого потребую" },
+        { en: "Should I fight for it now",                ua: "Чи варто мені боротися за це зараз" },
+        { en: "Or forget everything",                     ua: "Чи забути все" },
+        { en: "I can feel my heart pound",                ua: "Я відчуваю, як гупає серце" },
+        { en: "Yeah, I can feel my heart beat",           ua: "Так, я відчуваю, як б'ється серце" },
+        { en: "Going faster right now",                   ua: "Б'ється все швидше просто зараз" },
+        { en: "Like the first time you cheat",            ua: "Наче коли вперше зраджуєш" },
+        { en: "God, I have to calm down",                 ua: "Боже, мені треба заспокоїтися" },
+        { en: "And I have to believe",                    ua: "І мені треба повірити" },
+        { en: "I can do this right now",                  ua: "Що я зможу це зараз" },
+        { en: "Yeah, I just have to breathe",             ua: "Так, мені просто треба дихати" },
+        { en: "Breathe in, breathe out",                  ua: "Вдих, видих" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Breathe in nice and slowly",               ua: "Вдихаю гарно й повільно" },
+        { en: "Breathe out, keep on going",               ua: "Видихаю — і рухаюся далі" },
+        { en: "Breathe in, never knowing, yeah",          ua: "Вдихаю, так і не знаючи наперед, так" },
+        { en: "Breathe in as you still climb",            ua: "Вдихаю, поки ти все ще дерешся вгору" },
+        { en: "Breathe out as you lose time",             ua: "Видихаю, поки спливає час" },
+        { en: "Breathe in, we'll be just fine, yeah",     ua: "Вдихаю — у нас усе буде добре, так" }
+      ]}
+    ],
+    glossary: {
+      "breathe": "дихати; breathe in — вдихати, breathe out — видихати",
+      "'cause": "бо (because)", "nervous": "знервований, тривожний",
+      "out": "назовні; breathe out — видихати", "first": "перший", "kiss": "поцілунок",
+      "purpose": "мета, призначення; with a purpose — цілеспрямовано", "love": "кохання, любов",
+      "drug": "наркотик, дурман", "rough": "грубий; тут: важкий, складний (період)",
+      "late": "пізно; too late — запізно", "promise": "обіцяти",
+      "make it through": "пережити, витримати, дотягнути",
+      "fight": "боротися, битися", "forget": "забувати", "everything": "усе",
+      "heart": "серце", "pound": "гупати, калатати (про серце)", "beat": "битися; удар (серця)",
+      "faster": "швидше", "cheat": "зраджувати; шахраювати", "calm": "спокій; calm down — заспокоїтися",
+      "believe": "вірити", "slowly": "повільно", "keep on": "продовжувати (keep on going — рухатися далі)",
+      "going": "йду, рухаюсь", "knowing": "знаючи", "still": "досі, усе ще",
+      "climb": "дертися вгору, підійматися", "lose": "втрачати; lose time — гаяти/втрачати час",
+      "fine": "гаразд, добре; we'll be fine — у нас усе буде добре"
+    },
+    slang: [
+      { en: "breathe in / out",  ua: "вдихати / видихати",      note: "наскрізний образ пісні — дихання як спосіб опанувати тривогу" },
+      { en: "make it through",   ua: "пережити, витримати",     note: "успішно пройти крізь складний період" },
+      { en: "too late",          ua: "запізно",                 note: "момент, коли вже нічого не змінити" },
+      { en: "heart pound",       ua: "серце гупає",             note: "сильне серцебиття від хвилювання" },
+      { en: "calm down",         ua: "заспокоїтися",            note: "опанувати себе, вгамувати нерви" },
+      { en: "keep on going",     ua: "рухатися далі",           note: "не зупинятися попри труднощі" },
+      { en: "we'll be just fine", ua: "у нас усе буде добре",   note: "запевнення, що все владнається" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
