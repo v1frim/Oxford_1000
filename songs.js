@@ -1317,6 +1317,97 @@ const SONGS = [
       { en: "drive by / fly by",  ua: "проїжджати / пролітати повз", note: "тут буквально — ефектно промчати (не про стрілянину)" }
     ]
   }
+  ,
+  {
+    id: "neffex-fight",
+    artist: "NEFFEX",
+    title: "Fight 👊",
+    ytId: "1acVMrTZJoQ",
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "Some lowkey like the molo-g-g-g-g",                          ua: "Щось тихцем, наче «моло»-г-г-г (вокальний приспів-семпл)" },
+        { en: "Some lowkey like the molo-g-g-g-g-g-g-g-g",                  ua: "Щось тихцем, наче «моло»-г-г-г-г (вокальний семпл)" },
+        { en: "Some lowkey like the molo",                                 ua: "Щось тихцем, наче «моло»" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I will not sit up in the nose bleeds",                      ua: "Я не сидітиму десь на гальорці" },
+        { en: "I will not stop until they know me",                        ua: "Я не спинюся, поки мене не знатимуть усі" },
+        { en: "I want you all to listen closely",                          ua: "Хочу, щоб ви всі уважно слухали" },
+        { en: "Before I motherfuckin' proceed",                            ua: "Перш ніж я, у біса, продовжу" },
+        { en: "Yeah, when you're grindin' on the lowkey",                  ua: "Так, коли ти гаруєш тихцем, не на показ" },
+        { en: "And they're complacent with their low needs",              ua: "А вони вдоволені собою зі своїми дрібними запитами" },
+        { en: "Don't ever stall, just keep on going",                     ua: "Ніколи не гальмуй, просто рухайся далі" },
+        { en: "You keep on working, keep on growing, yeah",               ua: "Продовжуй працювати, продовжуй рости, так" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I've never felt so alive",                                 ua: "Я ніколи не почувався таким живим" },
+        { en: "Keep workin' until I die",                                 ua: "Працюватиму, аж поки не помру" },
+        { en: "I know what I want in life",                               ua: "Я знаю, чого хочу в житті" },
+        { en: "And I'm gonna fight, I'll fight",                          ua: "І я боротимусь, я битимусь" },
+        { en: "I've never felt so alive",                                 ua: "Я ніколи не почувався таким живим" },
+        { en: "Keep workin' until I die",                                 ua: "Працюватиму, аж поки не помру" },
+        { en: "I know what I want in life",                               ua: "Я знаю, чого хочу в житті" },
+        { en: "And we gonna fight, yeah",                                 ua: "І ми боротимемось, так" }
+      ]},
+      { label: "БРИДЖ", lines: [
+        { en: "Some lowkey like the molo-g-g-g-g",                         ua: "Щось тихцем, наче «моло»-г-г-г (вокальний семпл)" },
+        { en: "Some lowkey like the molo-g-g-g-g-g-g-g-g",                 ua: "Щось тихцем, наче «моло»-г-г-г-г (вокальний семпл)" },
+        { en: "Some lowkey like the molo",                                ua: "Щось тихцем, наче «моло»" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Oh, no, I never feel complacent",                          ua: "О ні, я ніколи не буваю самовдоволеним" },
+        { en: "Only got so much time, don't waste it",                    ua: "Часу так мало — не марнуй його" },
+        { en: "And know that you cannot contain this",                    ua: "І знай, що ти не зможеш мене стримати" },
+        { en: "'Cause if I want it then I'll gain it",                    ua: "Бо якщо я цього хочу — я цього доб'юся" },
+        { en: "No, I don't wanna hear complaints, bitch",                 ua: "Ні, я не хочу чути скарг, чуєш" },
+        { en: "I'm sick of hearin' all the same shit",                    ua: "Мене нудить слухати все те саме лайно" },
+        { en: "You really want it then go take it",                       ua: "Якщо справді цього хочеш — іди й бери" },
+        { en: "You really want it then go make it, yeah",                 ua: "Якщо справді цього хочеш — іди й зроби це, так" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I've never felt so alive",                                 ua: "Я ніколи не почувався таким живим" },
+        { en: "Keep workin' until I die",                                 ua: "Працюватиму, аж поки не помру" },
+        { en: "I know what I want in life",                               ua: "Я знаю, чого хочу в житті" },
+        { en: "And I'm gonna fight, I'll fight",                          ua: "І я боротимусь, я битимусь" },
+        { en: "I've never felt so alive",                                 ua: "Я ніколи не почувався таким живим" },
+        { en: "Keep workin' until I die",                                 ua: "Працюватиму, аж поки не помру" },
+        { en: "I know what I want in life",                               ua: "Я знаю, чого хочу в житті" },
+        { en: "And we gonna fight, yeah",                                 ua: "І ми боротимемось, так" }
+      ]}
+    ],
+    glossary: {
+      "some": "якийсь, щось", "lowkey": "тихцем, непомітно, без галасу (on the low-key)",
+      "molo": "моло (вокальний семпл/тег продюсера — не несе прямого змісту)",
+      "sit up": "сидіти", "nose bleeds": "гальорка (найвищі, найдешевші місця на трибуні)",
+      "stop": "зупинятися", "until": "поки не", "listen": "слухати", "closely": "уважно, пильно",
+      "before": "перш ніж, до того як", "motherfuckin'": "до біса, клятий (груб. підсилення)",
+      "proceed": "продовжувати, вести далі", "grindin'": "гарую (grind — тяжко працювати без упину)",
+      "complacent": "самовдоволений, безтурботно-лінивий", "low needs": "дрібні запити, низькі амбіції",
+      "ever": "коли-небудь; don't ever — ніколи не", "stall": "глухнути, гальмувати, тупцювати на місці",
+      "keep on": "продовжувати (keep on going — рухатися далі)", "going": "йти, рухатись",
+      "working": "працюю", "growing": "росту, розвиваюсь", "alive": "живий",
+      "felt": "почувався (від feel)", "workin'": "працюю", "die": "померти",
+      "gonna": "збираюся (going to)", "fight": "боротися, битися",
+      "complacent.": "самовдоволений", "waste": "марнувати, гаяти", "cannot": "не можеш, не можна",
+      "contain": "стримувати, утримувати в межах", "'cause": "бо (because)",
+      "gain": "здобувати, досягати", "wanna": "хочу (want to)", "hear": "чути",
+      "complaints": "скарги, нарікання", "bitch": "(груб. звертання; тут радше зневажливе «чуєш»)",
+      "sick of": "ситий по горло, нудить від (be sick of — набридло)", "hearin'": "чути",
+      "same": "той самий", "shit": "лайно (груб.; тут: «одне й те саме»)",
+      "really": "справді, по-справжньому", "take": "брати", "make": "робити, створювати"
+    },
+    slang: [
+      { en: "lowkey",            ua: "тихцем, без галасу",         note: "робити щось непомітно, не привертаючи уваги; протилежне — highkey" },
+      { en: "nose bleeds",       ua: "гальорка",                   note: "«nosebleed seats» — найвищі, найдешевші місця; метафора «лишатися внизу»" },
+      { en: "grind / grindin'",  ua: "гарувати",                   note: "невпинно й тяжко працювати заради мети" },
+      { en: "complacent",        ua: "самовдоволений",             note: "хто заспокоївся й перестав прагнути більшого" },
+      { en: "stall",             ua: "гальмувати, тупцювати",      note: "застрягти, не рухатися вперед (як двигун, що глухне)" },
+      { en: "keep on going",     ua: "рухатися далі",              note: "не зупинятися попри все" },
+      { en: "you can't contain this", ua: "мене не стримати",      note: "ніщо не зупинить мій порив/амбіції" },
+      { en: "sick of",           ua: "ситий по горло",             note: "be sick of — коли щось страшенно набридло" },
+      { en: "go take it / make it", ua: "іди й візьми / зроби",    note: "ключове гасло пісні: хочеш — дій, а не нарікай" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
