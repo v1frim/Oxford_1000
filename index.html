@@ -1116,7 +1116,7 @@ const WORDS = [
   {en:"idea",ua:"ідея"},{en:"plan",ua:"план"},{en:"problem",ua:"проблема"},
   {en:"answer",ua:"відповідь"},{en:"question",ua:"питання"},{en:"reason",ua:"причина"},
   {en:"result",ua:"результат"},{en:"example",ua:"приклад"},{en:"information",ua:"інформація"},
-  {en:"news",ua:"новини"},{en:"story",ua:"розповідь"},{en:"truth",ua:["правда","істина"]},
+  {en:"news",ua:"новини"},{en:"newspaper",ua:"газета"},{en:"story",ua:"розповідь"},{en:"truth",ua:["правда","істина"]},
   {en:"lie",ua:"брехня"},{en:"dream",ua:"мрія"},{en:"hope",ua:"надія"},
   {en:"fear",ua:"страх"},{en:"love",ua:"кохання"},{en:"hate",ua:["ненависть","ненавидіти"]},
   {en:"joy",ua:"радість"},{en:"sadness",ua:"сум"},{en:"anger",ua:"злість"},
@@ -2760,7 +2760,7 @@ const TRANS = {
   "neat":"/ˈnit/","needed":"/ˈnidəd/","needy":"/ˈnidi/","negative":"/ˈnɛɡətɪv/","negligent":"/ˈnɛɡlədʒənt/","nephew":"/ˈnɛfju/",
   "nest":"/ˈnɛst/","network":"/ˈnɛtwɝk/","neutral":"/ˈnutrəl/","niece":"/ˈnis/","nineteen":"/ˈnaɪnˈtin/","ninety":"/ˈnaɪnti/",
   "noble":"/ˈnoʊbəl/","noise":"/ˈnɔɪz/","noisy":"/ˈnɔɪzi/","noon":"/ˈnun/","nosy":"/ˈnoʊzi/","notable":"/ˈnoʊtəbəl/",
-  "notebook":"/ˈnoʊtbʊk/","notice":"/ˈnoʊtəs/","notify":"/ˈnoʊtəfaɪ/","novel":"/ˈnɑvəl/","november":"/noʊˈvɛmbɝ/","oak":"/ˈoʊk/","obey":"/oʊˈbeɪ/",
+  "newspaper":"/ˈnjuːzˌpeɪpər/","notebook":"/ˈnoʊtbʊk/","notice":"/ˈnoʊtəs/","notify":"/ˈnoʊtəfaɪ/","novel":"/ˈnɑvəl/","november":"/noʊˈvɛmbɝ/","oak":"/ˈoʊk/","obey":"/oʊˈbeɪ/",
   "object":"/ˈɑbdʒɛkt/","obscure":"/əbˈskjʊr/","observe":"/əbˈzɝv/","obtain":"/əbˈteɪn/","obvious":"/ˈɑbviəs/","occupied":"/ˈɑkjəpaɪd/",
   "occur":"/əˈkɝ/","october":"/ɑkˈtoʊbɝ/","odd":"/ˈɑd/","offensive":"/əˈfɛnsɪv/","offer":"/ˈɔfɝ/","official":"/əˈfɪʃəl/",
   "online":"/ˈɔnlaɪn/","operate":"/ˈɑpɝeɪt/","oppose":"/əˈpoʊz/","opposite":"/ˈɑpəzət/","optimistic":"/ɑptəˈmɪstɪk/","option":"/ˈɑpʃən/",
@@ -3446,7 +3446,7 @@ const EXAMPLES = {
   "lend":"Can you lend me some money?","lift":"He lifted the heavy box easily.",
   "listen":"Please listen carefully to the instructions.","maintain":"It is hard to maintain a healthy diet.",
   "manage":"She manages a team of ten people.","measure":"Measure the room before buying furniture.",
-  "mention":"Did he mention what time he arrives?","notebook":"She always keeps a small notebook in her bag.","notice":"I noticed a mistake in the report.",
+  "mention":"Did he mention what time he arrives?","newspaper":"He reads the newspaper every morning with his coffee.","notebook":"She always keeps a small notebook in her bag.","notice":"I noticed a mistake in the report.",
   "occur":"This type of error rarely occurs.","offer":"She offered to help us move.",
   "operate":"He operates heavy machinery.","pack":"Don't forget to pack your passport.",
   "paint":"They painted the kitchen yellow.","perform":"The band performed for two hours.",
@@ -5119,7 +5119,7 @@ const EXAMPLES_UA = {
   "lend":"Можеш позичити мені трохи грошей?","lift":"Він легко підняв важку коробку.",
   "listen":"Будь ласка, уважно слухайте інструкції.","maintain":"Важко дотримуватися здорового харчування.",
   "manage":"Вона керує командою з десяти людей.","measure":"Виміряй кімнату перед купівлею меблів.",
-  "mention":"Він згадав, о котрій прибуде?","notebook":"Вона завжди тримає маленький зошит у своїй сумці.","notice":"Я помітив помилку у звіті.",
+  "mention":"Він згадав, о котрій прибуде?","newspaper":"Він читає газету щоранку з кавою.","notebook":"Вона завжди тримає маленький зошит у своїй сумці.","notice":"Я помітив помилку у звіті.",
   "occur":"Такий вид помилки трапляється рідко.","offer":"Вона запропонувала допомогти нам переїхати.",
   "operate":"Він керує важкою технікою.","pack":"Не забудь упакувати паспорт.",
   "paint":"Вони пофарбували кухню в жовтий колір.","perform":"Гурт виступав дві години.",
@@ -8321,6 +8321,7 @@ const EN_TO_UA = (() => {
   m.set("club",        ["клуб"]);
   m.set("noble",       ["благородний"]);
   m.set("noise",       ["шум"]);
+  m.set("newspaper",  ["газета"]);
   m.set("notebook",   ["зошит", "ноутбук"]);
   m.set("novel",       ["роман", "новий"]);
   m.set("nutritious",  ["поживний"]);
