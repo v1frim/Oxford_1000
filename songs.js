@@ -745,6 +745,122 @@ const SONGS = [
       { en: "hot",                ua: "сексуальна, приваблива",      note: "тут не «гаряча» буквально, а про привабливість" }
     ]
   }
+  ,
+  {
+    id: "neffex-pro",
+    artist: "NEFFEX",
+    title: "Pro 👠",
+    ytId: "FKcDtEtT3wU",
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "I wanna say some', yeah, let's go (I wanna say some', yeah, let's go)", ua: "Хочу дещо сказати, так, погнали (Хочу дещо сказати, так, погнали)" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, I don't know where she came from (Where she came from)", ua: "Так, я не знаю, звідки вона взялася (Звідки вона взялася)" },
+        { en: "But, God damn, I wanna say some' (I wanna say some')",         ua: "Але, чорт забирай, хочу дещо сказати (Хочу дещо сказати)" },
+        { en: "She a dime, wanna make her mine (Make her mine)",             ua: "Вона — справжня красуня, хочу, щоб була моєю (Була моєю)" },
+        { en: "Heard through the Grapevine, she a great time (Great time)",  ua: "Чув по чутках, що з нею весело (Весело)" },
+        { en: "Yeah, it should be a God damn crime (Damn crime)",            ua: "Так, це мало б бути справжнім злочином (Злочином)" },
+        { en: "To look that damn fine (Damn fine)",                          ua: "Виглядати так до біса гарно (До біса гарно)" },
+        { en: "Gotta lock her up and throw away the key (Throw away the key)", ua: "Треба замкнути її й викинути ключ (Викинути ключ)" },
+        { en: "Or you could lock her up and give the key to me (Give the key to me)", ua: "Або замкни її й віддай ключа мені (Віддай ключа мені)" },
+        { en: "She likes to take it down low, down low",                     ua: "Вона любить опускатися низько, зовсім низько" },
+        { en: "Drop it down to the ground floor, the ground floor",          ua: "Аж до самої підлоги, до самого низу" },
+        { en: "I just wanna go and explore and explore",                     ua: "Я просто хочу досліджувати й досліджувати" },
+        { en: "Oh, baby, I just want more, I want more",                     ua: "О, крихітко, я просто хочу більше, хочу більше" },
+        { en: "Got a body like a rockstar, a rockstar",                      ua: "Тіло — як у рок-зірки, рок-зірки" },
+        { en: "Yeah, that shit is lookin' rock hard, yeah, rock hard",       ua: "Так, виглядає міцно, аж твердо, так, твердо" },
+        { en: "I would put her on the roster, the roster",                   ua: "Я б узяв її до складу, до своєї команди" },
+        { en: "'Cause she keeps on gettin' hotter and hotter",               ua: "Бо вона стає все гарячішою й гарячішою" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Ooh, baby, let's go, she doesn't take it slow (Yeah, it slow)", ua: "У-у, крихітко, погнали, вона не зволікає (Так, повільно)" },
+        { en: "She's puttin' on a show, she's actin' like a pro (A show, a slow)", ua: "Вона влаштовує справжнє шоу, поводиться як профі (Шоу, повільно)" },
+        { en: "Ooh, baby, let's go, she doesn't take it slow (Yeah, it slow)", ua: "У-у, крихітко, погнали, вона не зволікає (Так, повільно)" },
+        { en: "She's puttin' on a show, she's actin' like a pro (A show, a slow)", ua: "Вона влаштовує справжнє шоу, поводиться як профі (Шоу, повільно)" },
+        { en: "Ooh, baby, let's go",                                         ua: "У-у, крихітко, погнали" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "Ooh, baby, let's go",                                         ua: "У-у, крихітко, погнали" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Ooh, she lookin' straight from the city (From the city)",     ua: "У-у, вона наче просто з великого міста (З міста)" },
+        { en: "Oh, man, she lookin' so pretty (So pretty)",                  ua: "О, чуваку, вона така гарна (Така гарна)" },
+        { en: "God damn, I'd like to get busy, yeah (Get busy)",             ua: "Чорт забирай, я б не проти зайнятися ділом, так (Зайнятися)" },
+        { en: "So, baby girl, come with me (Come with me)",                  ua: "Тож, крихітко, ходи зі мною (Ходи зі мною)" },
+        { en: "Yeah, we take it outside, oh (Outside, oh)",                  ua: "Так, виходимо назовні, о (Назовні, о)" },
+        { en: "Yeah, wanna stay up all night, oh (All night, oh)",           ua: "Так, хочу не спати всю ніч, о (Усю ніч, о)" },
+        { en: "Yeah, wanna get it all right, oh (All right, oh)",            ua: "Так, хочу, щоб усе вийшло як слід, о (Як слід, о)" },
+        { en: "Yeah, now, she wanna slip and slide, oh",                     ua: "Так, тепер вона хоче ковзати й звиватися, о" },
+        { en: "She got a fine-ass body with her head on straight",          ua: "У неї збіса гарне тіло й голова на плечах" },
+        { en: "And she look a little naughty, but that's A-okay",            ua: "І вона трохи пустотлива, але це цілком окей" },
+        { en: "Now, I wanna get a drink, just you and me",                   ua: "Тепер хочу випити, тільки ти і я" },
+        { en: "I don't really wanna think, I just wanna be",                 ua: "Не дуже хочу думати, просто хочу бути" },
+        { en: "She givin' third degree burns, man, I think I need a doctor", ua: "Вона пече так, що третій ступінь опіку, чуваку, мабуть, мені потрібен лікар" },
+        { en: "Got me concerned 'cause she got me hot and bothered",         ua: "Я аж занепокоївся, бо вона мене розпалила й завела" },
+        { en: "Everything she earned, didn't get it from her father",        ua: "Усе, що в неї є, вона здобула сама, не від батька" },
+        { en: "Man, you think I'd learn, but she turns me to a monster",     ua: "Чуваку, думаєш, я навчуся, та вона перетворює мене на монстра" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Ooh, baby, let's go, she doesn't take it slow (Yeah, it slow)", ua: "У-у, крихітко, погнали, вона не зволікає (Так, повільно)" },
+        { en: "She's puttin' on a show, she's actin' like a pro (A show, a slow)", ua: "Вона влаштовує справжнє шоу, поводиться як профі (Шоу, повільно)" },
+        { en: "Ooh, baby, let's go, she doesn't take it slow (Yeah, it slow)", ua: "У-у, крихітко, погнали, вона не зволікає (Так, повільно)" },
+        { en: "She's puttin' on a show, she's actin' like a pro (A show, a slow)", ua: "Вона влаштовує справжнє шоу, поводиться як профі (Шоу, повільно)" },
+        { en: "Ooh, baby, let's go",                                         ua: "У-у, крихітко, погнали" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "Ooh, baby, let's go",                                         ua: "У-у, крихітко, погнали" }
+      ]}
+    ],
+    glossary: {
+      "wanna": "хочу (want to)", "some'": "дещо (something)", "came": "прийшла (від come)",
+      "god damn": "чорт забирай (вигук подиву/захоплення)", "damn": "до біса, клятий (підсилення)",
+      "dime": "красуня на всі сто (dime — «десятка», ідеал)", "mine": "моя/моє",
+      "heard": "чув (від hear)", "grapevine": "чутки (heard through the grapevine — дізнатися з чуток)",
+      "crime": "злочин", "fine": "тут: гарний, привабливий", "gotta": "мусиш (got to)",
+      "lock": "замкнути; lock up — замкнути, посадити", "throw": "кидати; throw away — викинути",
+      "key": "ключ", "low": "низько", "drop": "опускати, скидати",
+      "ground": "земля; ground floor — перший поверх, самий низ", "floor": "підлога; поверх",
+      "explore": "досліджувати, вивчати", "more": "більше",
+      "body": "тіло", "rockstar": "рок-зірка", "shit": "тут: «це все» (груб. підсилення)",
+      "rock hard": "твердий як камінь", "roster": "склад команди, список гравців",
+      "hotter": "гарячіша", "slow": "повільно; take it slow — не поспішати",
+      "puttin'": "влаштовує (put on a show — влаштувати шоу)", "show": "шоу, видовище",
+      "actin'": "поводиться, грає", "pro": "профі, професіонал (тут: майстриня своєї справи)",
+      "straight": "прямо; straight from — прямісінько з; head on straight — з головою на плечах",
+      "city": "місто (велике)", "pretty": "гарна, симпатична",
+      "busy": "зайнятий; get busy — зайнятися ділом (тут: інтимний натяк)",
+      "outside": "назовні, надворі", "stay up": "не спати, засидітися",
+      "all right": "як слід, гаразд", "slip": "ковзати, прослизати", "slide": "ковзати, сповзати",
+      "fine-ass": "збіса гарний (груб. підсилення)", "naughty": "пустотлива, грайливо-неслухняна",
+      "a-okay": "цілком окей, повний порядок", "drink": "випивка; випити",
+      "givin'": "дає; тут: «пече»", "third degree": "третій ступінь (найтяжчий опік)",
+      "burns": "опіки", "doctor": "лікар", "concerned": "занепокоєний, стурбований",
+      "hot and bothered": "розпалений і збуджений", "earned": "заробила, здобула",
+      "father": "батько", "learn": "вчитися, навчатися", "turns": "перетворює (turn into)",
+      "monster": "монстр, чудовисько", "outside,": "назовні"
+    },
+    slang: [
+      { en: "say something",        ua: "сказати дещо (захоплено)",   note: "тут: «не можу мовчати, мушу висловитись» — від захвату" },
+      { en: "dime",                 ua: "красуня на всі сто",         note: "«dime» = десятка з десяти; ідеальна дівчина" },
+      { en: "heard through the grapevine", ua: "дізнатися з чуток",   note: "ідіома: почути неофіційно, пліткою" },
+      { en: "lock her up, throw away the key", ua: "замкнути й викинути ключ", note: "гіпербола: «така, що хочеться нікому не віддавати»" },
+      { en: "take it down low",     ua: "опускатися низько",          note: "про танець (присідати); з натяком" },
+      { en: "rock hard",            ua: "твердий як камінь",          note: "про підтягнуте тіло; гра слів з rockstar" },
+      { en: "put on the roster",    ua: "взяти до складу команди",    note: "спортивна метафора: «обрати її собі»" },
+      { en: "take it slow",         ua: "не поспішати",               note: "тут навпаки — «вона НЕ зволікає»" },
+      { en: "put on a show",        ua: "влаштувати шоу",             note: "ефектно показати себе, справити враження" },
+      { en: "act like a pro",       ua: "поводитись як профі",        note: "«pro» = майстриня; з двозначним підтекстом (натяк)" },
+      { en: "get busy",             ua: "зайнятися ділом",            note: "евфемізм інтиму (груб.-розм.)" },
+      { en: "head on straight",     ua: "голова на плечах",           note: "розважлива, тямуща (have your head on straight)" },
+      { en: "slip and slide",       ua: "ковзати й звиватися",        note: "натяк (від назви водної гірки)" },
+      { en: "fine-ass",             ua: "збіса гарний",               note: "груба, але схвальна оцінка зовнішності" },
+      { en: "A-okay",               ua: "повний порядок",             note: "усе чудово, жодних проблем" },
+      { en: "third degree burns",   ua: "опіки третього ступеня",     note: "гіпербола: «вона така гаряча, що я обпікся»" },
+      { en: "hot and bothered",     ua: "розпалений і збуджений",     note: "ідіома: схвильований і сексуально заведений" },
+      { en: "turn into a monster",  ua: "перетворити на монстра",     note: "«вона пробуджує в мені звіра» — втрата контролю від пристрасті" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
