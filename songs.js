@@ -861,6 +861,129 @@ const SONGS = [
       { en: "turn into a monster",  ua: "перетворити на монстра",     note: "«вона пробуджує в мені звіра» — втрата контролю від пристрасті" }
     ]
   }
+  ,
+  {
+    id: "neffex-self-made",
+    artist: "NEFFEX",
+    title: "Self Made 👔",
+    ytId: "5fSYGKYDK5E",
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Growin' up in Cali, yeah, you know I love the weather",       ua: "Виростав у Каліфорнії, так, ти знаєш — я люблю тутешню погоду" },
+        { en: "Limelight, hit 'em and you know I handle pressure",           ua: "У світлі софітів б'ю влучно — і ти знаєш, я витримую тиск" },
+        { en: "I do what I want, so, I'm never sayin', \"Never\"",           ua: "Я роблю, що хочу, тож ніколи не кажу «ніколи»" },
+        { en: "I get what I want, so, they call me, \"Go-getter,\" yeah",    ua: "Я отримую, що хочу, тож мене звуть «пробивним», так" },
+        { en: "I know he does it good, but you know I do it better",         ua: "Я знаю, він робить добре, але ти знаєш — я роблю краще" },
+        { en: "So misunderstood, if she want it, then I let her",            ua: "Такий незрозумілий для всіх; якщо вона хоче — я дозволяю" },
+        { en: "Everybody knows if I want her, then I get her",               ua: "Усі знають: якщо я захочу її — я її отримаю" },
+        { en: "She gave me that look, yeah, she know she thinks I'm clever (Yeah)", ua: "Вона глянула на мене тим поглядом, так, вона знає, що вважає мене розумником (Так)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I don't think I do it good, no, I think I do it great (Hoo)", ua: "Я не думаю, що роблю це добре — ні, я думаю, що роблю це чудово (Гу)" },
+        { en: "They would do it if they could, they can't do it, so, they hate", ua: "Вони б зробили, якби могли; не можуть — тому ненавидять" },
+        { en: "Everybody wanna look, but nobody wanna play (Hoo)",           ua: "Усі хочуть дивитися, та ніхто не хоче грати (Гу)" },
+        { en: "Stealing eyes like a crook, while I put it in display",       ua: "Краду погляди, наче злодій, поки я виставляю все напоказ" },
+        { en: "I don't do it by the book, no, I do my own thing (Hoo)",      ua: "Я роблю це не за правилами — ні, я роблю по-своєму (Гу)" },
+        { en: "That's why every single hook got 'em singin' like me",        ua: "Ось чому кожен мій приспів змушує їх співати, як я" },
+        { en: "And I ain't in any rush 'cause I'm finally gettin' paid (Hoo)", ua: "І я нікуди не поспішаю, бо нарешті почав заробляти (Гу)" },
+        { en: "Don't believe in any luck, I believe I'm self made, yeah",    ua: "Не вірю в жодну удачу — вірю, що я зробив себе сам, так" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(Hoo, woah, woah, woah)",                                     ua: "(Гу, воа, воа, воа)" },
+        { en: "Don't believe in any luck (Hoo)",                            ua: "Не вірю в жодну удачу (Гу)" },
+        { en: "I believe I'm self made, yeah (Woah, woah)",                 ua: "Вірю, що я зробив себе сам, так (Воа, воа)" },
+        { en: "Yeah, let's go (Hoo, woah, woah)",                           ua: "Так, погнали (Гу, воа, воа)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Catch me at the top, sippin' shots of Patrón",               ua: "Застанеш мене на вершині, потягуючи шоти Patrón" },
+        { en: "I will never stop 'til the road is my home",                 ua: "Я ніколи не спинюсь, поки дорога не стане моїм домом" },
+        { en: "I'm about to pop, everybody's gonna know",                   ua: "Я ось-ось вистрелю, і всі про це дізнаються" },
+        { en: "When the beat drops, they be yelling, \"B-Ho\"",             ua: "Коли вривається біт, вони кричать «B-Ho»" },
+        { en: "Girls in crop-tops, drop tops at our shows",                 ua: "Дівчата в коротких топах, кабріолети з відкритим дахом на наших шоу" },
+        { en: "Miniskirts rock, got us all like, \"Woah\"",                 ua: "Міні-спідниці — це вогонь, від них ми всі такі: «Воа»" },
+        { en: "All the pretty ladies lined up, front row",                  ua: "Усі красуні вишикувались у першому ряду" },
+        { en: "Driving me crazy, I just wanna take 'em home",               ua: "Зводять мене з розуму, я просто хочу забрати їх додому" },
+        { en: "Got it on lock, yeah, you could call me, \"Pro\"",           ua: "Усе під контролем, так, можеш звати мене «профі»" },
+        { en: "Parties on the block, make sure the girls know",             ua: "Вечірки на районі — подбай, щоб дівчата були в курсі" },
+        { en: "Now, it's gettin' hot up in here, oh, no",                   ua: "Тепер тут стає гаряче, о, ні" },
+        { en: "Think Nelly had it right, better take off all your clothes", ua: "Гадаю, Неллі мав рацію — краще скинь увесь одяг" },
+        { en: "Future's lookin' bright, now, I'm finally in the zone",       ua: "Майбутнє світле, тепер я нарешті в ударі" },
+        { en: "Three years of my life, I committed to the growth",          ua: "Три роки життя я присвятив зростанню" },
+        { en: "Soldier Boy tell 'em, number one ringtone",                 ua: "Як Soulja Boy казав — рінгтон номер один" },
+        { en: "I'm the reason people texting",                             ua: "Це через мене люди пишуть повідомлення" },
+        { en: "'Cause they blowin' up your phone (Yeah, yeah)",            ua: "Бо твій телефон розривається від дзвінків (Так, так)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I don't think I do it good, no, I think I do it great (Hoo)", ua: "Я не думаю, що роблю це добре — ні, я думаю, що роблю це чудово (Гу)" },
+        { en: "They would do it if they could, they can't do it, so, they hate", ua: "Вони б зробили, якби могли; не можуть — тому ненавидять" },
+        { en: "Everybody wanna look, but nobody wanna play (Hoo)",           ua: "Усі хочуть дивитися, та ніхто не хоче грати (Гу)" },
+        { en: "Stealing eyes like a crook, while I put it in display",       ua: "Краду погляди, наче злодій, поки я виставляю все напоказ" },
+        { en: "I don't do it by the book, no, I do my own thing (Hoo)",      ua: "Я роблю це не за правилами — ні, я роблю по-своєму (Гу)" },
+        { en: "That's why every single hook got 'em singin' like me",        ua: "Ось чому кожен мій приспів змушує їх співати, як я" },
+        { en: "And I ain't in any rush 'cause I'm finally gettin' paid (Hoo)", ua: "І я нікуди не поспішаю, бо нарешті почав заробляти (Гу)" },
+        { en: "Don't believe in any luck, I believe I'm self made, yeah",    ua: "Не вірю в жодну удачу — вірю, що я зробив себе сам, так" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(Hoo, woah, woah, woah)",                                     ua: "(Гу, воа, воа, воа)" },
+        { en: "Don't believe in any luck (Hoo)",                            ua: "Не вірю в жодну удачу (Гу)" },
+        { en: "I believe I'm self made, yeah (Woah, woah)",                 ua: "Вірю, що я зробив себе сам, так (Воа, воа)" }
+      ]}
+    ],
+    glossary: {
+      "growin'": "виростаю (grow up — рости, дорослішати)", "cali": "Каліфорнія (розм. Cali)",
+      "weather": "погода", "limelight": "світло рампи, центр уваги, слава",
+      "hit": "вдарити; hit 'em — влучати, вражати", "'em": "їх / їм (them)",
+      "handle": "давати раду, справлятися", "pressure": "тиск, напруга",
+      "go-getter": "пробивна людина, хват", "misunderstood": "незрозумілий (для інших)",
+      "let": "дозволяти", "look": "погляд", "clever": "розумний, кмітливий",
+      "great": "чудовий, прекрасний", "could": "міг би", "hate": "ненавидіти",
+      "nobody": "ніхто", "play": "грати, бавитися", "stealing": "краду (steal — красти)",
+      "eyes": "очі; steal eyes — притягувати погляди", "crook": "шахрай, злодій",
+      "display": "показ; put on display — виставляти напоказ", "book": "книга; by the book — за правилами",
+      "own thing": "своя справа; do my own thing — робити по-своєму",
+      "single": "кожен; every single — геть кожен", "hook": "приспів, чіпкий мотив пісні",
+      "singin'": "співають", "rush": "поспіх; in a rush — поспішати", "finally": "нарешті",
+      "paid": "оплачений; gettin' paid — заробляти", "believe": "вірити",
+      "luck": "удача, везіння", "self made": "той, хто всього досяг сам",
+      "woah": "воа (вигук подиву)", "catch": "застати, спіймати", "top": "вершина, верхівка",
+      "sippin'": "потягую (пити дрібними ковтками)", "shots": "шоти (порції міцного)",
+      "patrón": "Patrón (марка преміум-текіли)", "'til": "поки не (until)",
+      "road": "дорога", "home": "дім", "pop": "вистрелити, «бахнути» (стати популярним)",
+      "gonna": "збираюся (going to)", "beat": "біт, ритм", "drops": "вривається (beat drop — вибух біту)",
+      "yelling": "кричать", "crop-tops": "короткі топи (відкривають живіт)",
+      "drop tops": "кабріолети (авто з відкидним дахом)", "shows": "концерти, шоу",
+      "miniskirts": "міні-спідниці", "rock": "тут: «це вогонь, круто»", "pretty": "гарні, симпатичні",
+      "ladies": "леді, дівчата", "lined up": "вишикувались (line up — ставати в чергу)",
+      "front row": "перший ряд", "crazy": "божевільний; drive crazy — зводити з розуму",
+      "lock": "замок; on lock — під повним контролем", "pro": "профі, майстер",
+      "parties": "вечірки", "block": "квартал, район", "make sure": "подбати, переконатися",
+      "hot": "гаряче", "nelly": "Nelly (репер; хіт «Hot in Herre»)", "clothes": "одяг",
+      "future": "майбутнє", "bright": "світлий, яскравий", "zone": "in the zone — у потоці, в ударі",
+      "committed": "присвятив, віддався (commit — зобов'язатися)", "growth": "зростання, розвиток",
+      "ringtone": "рінгтон, мелодія дзвінка", "reason": "причина", "texting": "пишуть повідомлення",
+      "blowin' up": "розривається (про телефон — безперервні дзвінки/повідомлення)", "phone": "телефон"
+    },
+    slang: [
+      { en: "self made",          ua: "зробив себе сам",            note: "досяг усього власними силами, без чужої допомоги" },
+      { en: "limelight",          ua: "центр уваги, слава",         note: "буквально «світло рампи» — бути на видноті" },
+      { en: "go-getter",          ua: "пробивний, хват",            note: "цілеспрямована, наполеглива людина" },
+      { en: "do it by the book",  ua: "робити за правилами",        note: "діяти строго за інструкцією; тут — навпаки" },
+      { en: "do my own thing",    ua: "робити по-своєму",           note: "жити/творити за власними правилами" },
+      { en: "hook",               ua: "приспів, чіпкий мотив",      note: "найзапам'ятовуваніша частина пісні" },
+      { en: "gettin' paid",       ua: "заробляти",                  note: "нарешті отримувати гроші за свою справу" },
+      { en: "steal eyes",         ua: "притягувати погляди",        note: "бути в центрі уваги, привертати очі" },
+      { en: "shots of Patrón",    ua: "шоти текіли Patrón",         note: "Patrón — преміум-марка текіли; shot — порція міцного" },
+      { en: "about to pop",       ua: "ось-ось вистрелю",           note: "от-от стану популярним, «вибухну»" },
+      { en: "beat drops",         ua: "вривається біт",             note: "момент вибуху ритму в треку, кульмінація" },
+      { en: "drop tops",          ua: "кабріолети",                 note: "авто з відкидним дахом (drop-top)" },
+      { en: "rock",               ua: "це вогонь, круто",           note: "«miniskirts rock» — міні-спідниці неперевершені" },
+      { en: "on lock",            ua: "під контролем",              note: "повністю схоплено, «все в руках»" },
+      { en: "Nelly reference",    ua: "відсилання до Nelly",        note: "хіт «Hot in Herre»: «it's getting hot… take off all your clothes»" },
+      { en: "in the zone",        ua: "у потоці, в ударі",          note: "стан максимальної зосередженості й продуктивності" },
+      { en: "Soulja Boy",         ua: "Soulja Boy (репер)",         note: "«Soldier Boy» — натяк на репера; «Crank That» довго був хіт-рінгтоном" },
+      { en: "blow up your phone", ua: "телефон розривається",       note: "безперервні дзвінки/повідомлення" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
