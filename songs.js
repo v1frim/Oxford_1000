@@ -1104,7 +1104,7 @@ const SONGS = [
     ytId: "n3j3sS-ZKXg",
     sections: [
       { label: "КУПЛЕТ 1", lines: [
-        { en: "I breathe in 'cause I'm nervous",          ua: "Я вдихаю, бо нервуюся" },
+        { en: "I breathe in cuz I'm nervous",             ua: "Я вдихаю, бо нервуюся" },
         { en: "Breathe out like a first kiss",            ua: "Видихаю, наче перший поцілунок" },
         { en: "Breathe in with a purpose, yeah",          ua: "Вдихаю з певною метою, так" },
         { en: "Breathe in like a new love",               ua: "Вдихаю, наче нове кохання" },
@@ -1141,7 +1141,7 @@ const SONGS = [
     ],
     glossary: {
       "breathe": "дихати; breathe in — вдихати, breathe out — видихати",
-      "'cause": "бо (because)", "nervous": "знервований, тривожний",
+      "cuz": "бо (розм. написання because)", "nervous": "знервований, тривожний",
       "out": "назовні; breathe out — видихати", "first": "перший", "kiss": "поцілунок",
       "purpose": "мета, призначення; with a purpose — цілеспрямовано", "love": "кохання, любов",
       "drug": "наркотик, дурман", "rough": "грубий; тут: важкий, складний (період)",
