@@ -9296,7 +9296,7 @@ function computeRetroXp() {
   return xp;
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
-// Per day: correct×1 + reviewCorrect×1 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×30 + LingoHut.
+// Per day: correct×1 + reviewCorrect×1 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(70/100/130).
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone) {
   let xp = 0;
   const d = days[date] || {};
@@ -9956,7 +9956,7 @@ document.getElementById("import-btn").addEventListener("click", handleImportClic
 // ── LINGOHUT LESSON TRACKER ───────────────────────────────────────────────────
 const LH_KEY = "oxford_lingohut_v1";
 const LH_TOTAL = 125;
-function getLhXp(n) { return n <= 35 ? 80 : n <= 70 ? 120 : 160; }
+function getLhXp(n) { return n <= 35 ? 70 : n <= 70 ? 100 : 130; }
 function getLhTier(n) { return n <= 35 ? "" : n <= 70 ? "t2" : "t3"; }
 
 function loadLhDone() {
@@ -10037,7 +10037,7 @@ document.getElementById("lh-btn").addEventListener("click", () => {
 
 // ── DUOLINGO SESSION TRACKER ─────────────────────────────────────────────────
 const DUO_KEY = "oxford_duolingo_v1";
-const DUO_XP = 30;
+const DUO_XP = 25;
 
 function loadDuoSessions() {
   try { return JSON.parse(localStorage.getItem(DUO_KEY) || "{}"); } catch(e) { return {}; }
@@ -10203,13 +10203,19 @@ if (!localStorage.getItem("oxford_lh_adj_v1")) {
   if (lhDone[1]) addXp(-20);
   localStorage.setItem("oxford_lh_adj_v1", "1");
 }
+// One-time correction: LingoHut lesson 1 XP reduced 80→70, subtract 10 more.
+if (!localStorage.getItem("oxford_lh_adj_v2")) {
+  const lhDone = loadLhDone();
+  if (lhDone[1]) addXp(-10);
+  localStorage.setItem("oxford_lh_adj_v2", "1");
+}
 // One-time XP migration: rebuild total + per-day XP deterministically from the
 // displayed daily stats. Clears historical over-counting (review answers were
 // counted ×3 per word; Нові→Вивчаю bonus was re-awarded on every streak-0→1) and
 // back-fills early days that predate XP tracking. After this, fixed event logic
 // keeps total and per-day in lockstep going forward. Idempotent (reads stats only).
 // Flag is set ONLY on success, so a thrown migration retries on the next load.
-if (!localStorage.getItem("oxford_xp_formula_v2")) {
+if (!localStorage.getItem("oxford_xp_formula_v3")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -10228,7 +10234,7 @@ if (!localStorage.getItem("oxford_xp_formula_v2")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
-    localStorage.setItem("oxford_xp_formula_v2", "1");
+    localStorage.setItem("oxford_xp_formula_v3", "1");
   } catch(e) {}
 }
 renderXpBar();
