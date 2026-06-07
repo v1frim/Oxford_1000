@@ -736,6 +736,125 @@
   .lh-cell.locked:hover { background:rgba(123,224,123,0.08); color:rgba(123,224,123,0.4); }
   #lh-btn { margin-top:8px; padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #lh-btn:hover { background:rgba(135,180,255,0.22); }
+  #songs-btn { margin-top:8px; padding:7px 20px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
+  #songs-btn:hover { background:rgba(200,155,255,0.22); }
+
+  /* ── Розділ «Пісні» — повноекранний overlay ───────────────────────────── */
+  #songs-overlay {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(8,22,48,0.72); backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  #songs-overlay.hidden { display: none; }
+  .songs-panel {
+    background: rgba(20,42,84,0.97);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    width: 920px; max-width: 96vw; height: 88vh;
+    display: flex; flex-direction: column;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    color: #fff; overflow: hidden;
+  }
+  .songs-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 22px; border-bottom: 1px solid rgba(255,255,255,0.12);
+    flex-shrink: 0;
+  }
+  .songs-head h2 { font-size: 19px; margin: 0; font-weight: 700; }
+  .songs-head .sh-sub { font-size: 13px; opacity: 0.6; }
+  .songs-back {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
+    color: #fff; cursor: pointer; padding: 6px 14px; border-radius: 10px;
+    font-size: 14px; transition: background 0.15s;
+  }
+  .songs-back:hover { background: rgba(255,255,255,0.22); }
+  .songs-close {
+    margin-left: auto; background: none; border: none;
+    color: rgba(255,255,255,0.5); font-size: 22px; cursor: pointer;
+    line-height: 1; padding: 2px 6px;
+  }
+  .songs-close:hover { color: #fff; }
+  .songs-body { flex: 1; overflow-y: auto; padding: 18px 22px 24px; }
+
+  /* — Список пісень — */
+  .song-card {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 14px 18px; margin-bottom: 10px;
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+  }
+  .song-card:hover { background: rgba(255,255,255,0.13); }
+  .song-card:active { transform: scale(0.99); }
+  .song-card .sc-main { flex: 1; min-width: 0; }
+  .song-card .sc-title { font-size: 17px; font-weight: 700; }
+  .song-card .sc-artist { font-size: 13px; opacity: 0.6; margin-top: 2px; }
+  .song-status {
+    font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px;
+    white-space: nowrap; border: 1px solid transparent;
+  }
+  .song-status.queue    { background: rgba(135,180,255,0.14); color: #87b4ff; border-color: rgba(135,180,255,0.3); }
+  .song-status.learning { background: rgba(255,169,77,0.14);  color: #ffa94d; border-color: rgba(255,169,77,0.3); }
+  .song-status.learned  { background: rgba(123,224,123,0.16); color: #7be07b; border-color: rgba(123,224,123,0.35); }
+
+  /* — Деталь пісні — */
+  .song-yt { margin-bottom: 16px; }
+  .song-yt-frame { position: relative; width: 100%; max-width: 640px; aspect-ratio: 16/9; margin: 0 auto 10px; border-radius: 14px; overflow: hidden; background: #000; }
+  .song-yt-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .song-yt-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .song-yt-btns button, .song-yt-btns a {
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; border-radius: 10px; padding: 8px 16px; font-size: 14px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .song-yt-btns button:hover, .song-yt-btns a:hover { background: rgba(255,255,255,0.22); }
+  .song-yt-btns a.yt-ext { background: rgba(255,80,80,0.16); border-color: rgba(255,80,80,0.35); color: #ff8a8a; }
+  .song-yt-btns a.yt-ext:hover { background: rgba(255,80,80,0.28); }
+
+  .song-status-set { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+  .ss-btn {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.7); border-radius: 10px; padding: 7px 16px;
+    font-size: 14px; cursor: pointer; transition: all 0.15s;
+  }
+  .ss-btn:hover { background: rgba(255,255,255,0.16); }
+  .ss-btn.active.queue    { background: rgba(135,180,255,0.22); color: #87b4ff; border-color: #87b4ff; }
+  .ss-btn.active.learning { background: rgba(255,169,77,0.22);  color: #ffa94d; border-color: #ffa94d; }
+  .ss-btn.active.learned  { background: rgba(123,224,123,0.24); color: #7be07b; border-color: #7be07b; }
+
+  .song-section-label {
+    font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    color: #c89bff; opacity: 0.85; margin: 18px 0 8px; padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .song-line {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    align-items: start;
+  }
+  .song-line .sl-en { font-size: 15px; line-height: 1.5; }
+  .song-line .sl-ua { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.62); font-style: italic; }
+  .song-line .sl-speak {
+    background: none; border: none; color: rgba(255,255,255,0.35);
+    cursor: pointer; font-size: 13px; padding: 0 4px; vertical-align: middle;
+  }
+  .song-line .sl-speak:hover { color: #c89bff; }
+
+  .song-slang {
+    margin-top: 26px; padding: 16px 18px; border-radius: 14px;
+    background: rgba(200,155,255,0.07); border: 1px solid rgba(200,155,255,0.22);
+  }
+  .song-slang h3 { font-size: 14px; margin: 0 0 10px; color: #c89bff; font-weight: 700; }
+  .slang-row { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 14px; }
+  .slang-row:last-child { border-bottom: none; }
+  .slang-row .slr-en { font-weight: 700; color: #fff; }
+  .slang-row .slr-ua { color: #c89bff; margin-left: 6px; }
+  .slang-row .slr-note { display: block; font-size: 12px; opacity: 0.55; margin-top: 2px; }
+  @media (max-width: 620px) {
+    .song-line { grid-template-columns: 1fr; gap: 2px; }
+    .song-line .sl-ua { padding-left: 10px; }
+  }
 </style>
 </head>
 <body>
@@ -791,6 +910,7 @@
     <button id="start-btn">Почати</button>
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
     <button id="lh-btn">📚 Уроки LingoHut</button>
+    <button id="songs-btn">🎵 Пісні англійською</button>
   </div>
 
   <!-- GAME SCREEN -->
@@ -896,6 +1016,7 @@
   </div>
 </div>
 
+<script src="songs.js"></script>
 <script>
 const DURATION = 60;
 
@@ -9128,7 +9249,8 @@ const BACKUP_DATE_KEY = "oxford_backup_date_v1";
 const BACKUP_KEYS = [
   "oxford_scores_v1","oxford_days_v1","oxford_today_best_v1",
   "oxford_latest_v1","oxford_day_mistakes_v1",
-  "oxford_word_mastery_v1","oxford_mastery_history_v1"
+  "oxford_word_mastery_v1","oxford_mastery_history_v1",
+  "oxford_songs_status_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -10246,12 +10368,137 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
   renderProgressPanel();
 }
 updateLayoutAlign();
+
+// ── Розділ «Пісні» ───────────────────────────────────────────────────────
+const SONGS_STATUS_KEY = "oxford_songs_status_v1";
+const SONG_STATUS_META = {
+  queue:    { label: "📋 На черзі", cls: "queue" },
+  learning: { label: "📖 Вчу",      cls: "learning" },
+  learned:  { label: "✅ Вивчено",  cls: "learned" }
+};
+const SONG_STATUS_ORDER = ["queue", "learning", "learned"];
+function escAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
+function loadSongStatus() {
+  try { return JSON.parse(localStorage.getItem(SONGS_STATUS_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveSongStatus(obj) { localStorage.setItem(SONGS_STATUS_KEY, JSON.stringify(obj)); }
+function getSongStatus(id) { return loadSongStatus()[id] || "queue"; }
+function setSongStatus(id, status) { const o = loadSongStatus(); o[id] = status; saveSongStatus(o); }
+
+const songsOverlay = document.getElementById("songs-overlay");
+const songsHead = document.getElementById("songs-head");
+const songsBody = document.getElementById("songs-body");
+const ALL_SONGS = (typeof SONGS !== "undefined") ? SONGS : [];
+
+function openSongs() { songsOverlay.classList.remove("hidden"); renderSongsList(); }
+function closeSongs() {
+  songsOverlay.classList.add("hidden");
+  songsHead.innerHTML = ""; songsBody.innerHTML = "";   // прибрати iframe щоб зупинити відео
+}
+function renderSongsList() {
+  songsHead.innerHTML =
+    '<h2>🎵 Пісні англійською</h2>' +
+    '<span class="sh-sub">' + ALL_SONGS.length + ' ' + plural(ALL_SONGS.length, "пісня", "пісні", "пісень") + '</span>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+  if (!ALL_SONGS.length) {
+    songsBody.innerHTML = '<p style="opacity:0.6;text-align:center;margin-top:40px">Пісень ще немає.</p>';
+    return;
+  }
+  songsBody.innerHTML = ALL_SONGS.map(s => {
+    const m = SONG_STATUS_META[getSongStatus(s.id)];
+    return '<div class="song-card" data-act="open" data-song="' + escAttr(s.id) + '">' +
+      '<div class="sc-main"><div class="sc-title">' + esc(s.title) + '</div>' +
+      '<div class="sc-artist">' + esc(s.artist) + '</div></div>' +
+      '<span class="song-status ' + m.cls + '">' + m.label + '</span>' +
+    '</div>';
+  }).join("");
+}
+function renderSongDetail(id) {
+  const s = ALL_SONGS.find(x => x.id === id);
+  if (!s) { renderSongsList(); return; }
+  const st = getSongStatus(s.id);
+  songsHead.innerHTML =
+    '<button class="songs-back" data-act="list">← Усі пісні</button>' +
+    '<div><h2>' + esc(s.title) + '</h2> <span class="sh-sub">' + esc(s.artist) + '</span></div>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+  let html = '<div class="song-yt"><div class="song-yt-frame hidden" id="song-yt-frame"></div><div class="song-yt-btns">';
+  if (s.ytId) {
+    html += '<button data-act="yt-toggle" data-yt="' + escAttr(s.ytId) + '">▶ Показати відео</button>' +
+      '<a class="yt-ext" href="https://www.youtube.com/watch?v=' + encodeURIComponent(s.ytId) + '" target="_blank" rel="noopener">Відкрити на YouTube ↗</a>';
+  } else {
+    html += '<span style="opacity:0.55;font-size:13px">▶ Відео: посилання ще не додано</span>';
+  }
+  html += '</div></div><div class="song-status-set">';
+  SONG_STATUS_ORDER.forEach(k => {
+    html += '<button class="ss-btn ' + k + (st === k ? ' active' : '') + '" data-act="status" data-song="' + escAttr(s.id) + '" data-status="' + k + '">' + SONG_STATUS_META[k].label + '</button>';
+  });
+  html += '</div>';
+  s.sections.forEach(sec => {
+    html += '<div class="song-section-label">' + esc(sec.label) + '</div>';
+    sec.lines.forEach(ln => {
+      html += '<div class="song-line"><div class="sl-en">' + wrapSentence(ln.en) +
+        ' <button class="sl-speak" data-act="speak-line" data-line="' + escAttr(ln.en) + '" title="Прослухати рядок">🔊</button></div>' +
+        '<div class="sl-ua">' + esc(ln.ua) + '</div></div>';
+    });
+  });
+  if (s.slang && s.slang.length) {
+    html += '<div class="song-slang"><h3>🗣️ Сленг і вирази з пісні</h3>';
+    s.slang.forEach(sl => {
+      html += '<div class="slang-row"><span class="slr-en">' + esc(sl.en) + '</span>' +
+        '<span class="slr-ua">— ' + esc(sl.ua) + '</span>' +
+        (sl.note ? '<span class="slr-note">' + esc(sl.note) + '</span>' : '') + '</div>';
+    });
+    html += '</div>';
+  }
+  songsBody.innerHTML = html;
+  songsBody.scrollTop = 0;
+}
+// Делегований клік на overlay
+songsOverlay.addEventListener("click", e => {
+  if (e.target === songsOverlay) { closeSongs(); return; }   // клік по фону
+  const hw = e.target.closest(".hw");
+  if (hw) { speak(hw.textContent); return; }
+  const el = e.target.closest("[data-act]");
+  if (!el) return;
+  const act = el.dataset.act;
+  if (act === "close") closeSongs();
+  else if (act === "list") renderSongsList();
+  else if (act === "open") renderSongDetail(el.dataset.song);
+  else if (act === "speak-line") speak(el.dataset.line);
+  else if (act === "status") {
+    setSongStatus(el.dataset.song, el.dataset.status);
+    el.parentNode.querySelectorAll(".ss-btn").forEach(b => b.classList.toggle("active", b.dataset.status === el.dataset.status));
+  } else if (act === "yt-toggle") {
+    const frame = document.getElementById("song-yt-frame");
+    if (frame.classList.contains("hidden")) {
+      frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(el.dataset.yt) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      frame.classList.remove("hidden");
+      el.textContent = "▮▮ Сховати відео";
+    } else {
+      frame.innerHTML = ""; frame.classList.add("hidden");
+      el.textContent = "▶ Показати відео";
+    }
+  }
+});
+document.getElementById("songs-btn").addEventListener("click", openSongs);
+// Esc закриває розділ пісень (capture, щоб не чіпати ігрові обробники)
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !songsOverlay.classList.contains("hidden")) {
+    e.preventDefault(); e.stopPropagation(); closeSongs();
+  }
+}, true);
 </script>
 <div id="milestone-overlay">
   <div class="ms-box">
     <span class="ms-icon"></span>
     <div class="ms-text"></div>
     <div class="ms-sub"></div>
+  </div>
+</div>
+<div id="songs-overlay" class="hidden">
+  <div class="songs-panel">
+    <div class="songs-head" id="songs-head"></div>
+    <div class="songs-body" id="songs-body"></div>
   </div>
 </div>
 </body>

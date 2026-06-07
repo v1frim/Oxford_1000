@@ -9,7 +9,7 @@
 
 Українсько-англійський словниковий тренажер на основі одного HTML-файлу.
 
-- **Файл:** `/home/user/Oxford_1000/index.html` (~350 КБ)
+- **Файл:** `/home/user/Oxford_1000/index.html` (~350 КБ) + `songs.js` (дані пісень, див. розділ «Пісні»)
 - **Розгортання:** GitHub Pages → https://v1frim.github.io/Oxford_1000/
 - **Git репо:** v1frim/Oxford_1000 (публічний)
 - **Технології:** Single-file HTML/CSS/JS, без фреймворків, без build-step
@@ -282,6 +282,7 @@ border: 1px solid rgba(255,255,255,0.22);
 - `oxford_duolingo_v1` — `{"YYYY-MM-DD": count}` Duolingo сесії
 - `oxford_lingohut_v1` — `{lessonNum: "YYYY-MM-DD"}` LingoHut уроки
 - `oxford_lh_adj_v1` — прапор одноразового коригування LingoHut XP (вже застосовано)
+- `oxford_songs_status_v1` — `{songId: "queue"|"learning"|"learned"}` статус вивчення пісень
 
 ### Хелпери
 - `getEn(w)`, `getUa(w)` — string|array → array
@@ -302,6 +303,39 @@ border: 1px solid rgba(255,255,255,0.22);
 - `#ffa94d` — оранжевий (Нові)
 - `#06d6a0` — зелений (daily XP gain pill)
 - `#7fdd40` — зелений (Duolingo у прогресі)
+
+---
+
+## Розділ «Пісні» (сесія 11 — пілот)
+
+Окремий розділ для вивчення текстів пісень (NEFFEX тощо): паралельний текст
+оригінал‖переклад (рядок-у-рядок), YouTube, статус вивчення, hover-переклади, сленг.
+
+- **Дані:** окремий файл **`songs.js`** (підключений `<script src="songs.js">` ПЕРЕД
+  основним скриптом). `SONGS = [{id, artist, title, ytId, sections:[{label,
+  lines:[{en,ua}]}], slang:[{en,ua,note}]}]`.
+- **⚠️ Сленг тримається ОКРЕМО** від `WORDS` (поле `slang` у пісні) — під майбутній
+  **окремий тренажер сленгу**. НЕ змішувати з основним словником гри.
+- **UI:** повноекранний overlay `#songs-overlay` (потрібна ширина для 2 колонок, тому
+  НЕ вузька права панель). Вхід — кнопка `#songs-btn` 🎵 на стартовому екрані (фіолетова
+  `#c89bff`). Список → деталь (back). Делегований клік по `#songs-overlay` через
+  `data-act`. Esc закриває (capture-phase listener, щоб не чіпати ігрові обробники).
+- **Статус:** localStorage `oxford_songs_status_v1` = `{songId:
+  "queue"|"learning"|"learned"}` (на черзі/вчу/вивчено), дефолт `queue`. Додано в
+  `BACKUP_KEYS`.
+- **Hover:** EN-рядки рендеряться через наявну `wrapSentence()` → словникові слова дають
+  тултіп (глобальний mouseover). Клік по слову або 🔊 поряд = TTS рядка/слова.
+- **YouTube:** реалізовано ОБИДВА варіанти (користувач обере) — вбудований iframe
+  (`youtube-nocookie`, lazy, toggle «Показати/Сховати відео») + кнопка-посилання
+  «Відкрити на YouTube ↗».
+- **Контент:** користувач дає оригінал → Claude робить адаптивний укр. переклад
+  рядок-у-рядок. ⚠️ Зараз 1 пісня-пілот «NEFFEX — Dreams», `ytId="42JyRjrLzjY"`
+  **ТИМЧАСОВИЙ** (перший лінк) — треба підтвердити назву + правильний лінк + повний текст.
+- Функції: `loadSongStatus/saveSongStatus/getSongStatus/setSongStatus`,
+  `openSongs/closeSongs`, `renderSongsList/renderSongDetail`, `escAttr`. Константи
+  `SONG_STATUS_META`, `SONG_STATUS_ORDER`, `SONGS_STATUS_KEY`.
+- Перевірено мок-DOM тестом (17 кейсів): рендер списку/деталі, статус round-trip +
+  persist, сленг-блок, YT-кнопки. Браузерного тесту не було (немає playwright у cloud).
 
 ---
 
