@@ -10384,6 +10384,22 @@ const SONG_STATUS_META = {
 };
 const SONG_STATUS_ORDER = ["queue", "learning", "learned"];
 function escAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
+// Обгортає рядок пісні в .hw-спани: спершу glossary пісні, далі основний EN_TO_UA,
+// інакше — TTS-only слово. Дає майже повне покриття hover-перекладів у тексті.
+function wrapSongLine(text, glossary) {
+  glossary = glossary || {};
+  return String(text).replace(/([A-Za-z']+)|([^A-Za-z']+)/g, (m, word, other) => {
+    if (other !== undefined) return esc(other);
+    const key = word.toLowerCase().replace(/[^a-z']/g, "");
+    const keyNoApos = key.replace(/'/g, "");
+    const gloss = glossary[key] || glossary[keyNoApos];
+    if (gloss) return '<span class="hw" data-trans="' + escAttr(gloss) + '">' + esc(word) + '</span>';
+    const stem = stemEn(word);
+    if (stem) return '<span class="hw" data-trans="' + escAttr(EN_TO_UA.get(stem).join(", ")) + '">' + esc(word) + '</span>';
+    if (keyNoApos.length > 2 && !HW_SKIP.has(keyNoApos) && !word.includes("'")) return '<span class="hw">' + esc(word) + '</span>';
+    return esc(word);
+  });
+}
 function loadSongStatus() {
   try { return JSON.parse(localStorage.getItem(SONGS_STATUS_KEY) || "{}"); } catch(e) { return {}; }
 }
@@ -10442,7 +10458,7 @@ function renderSongDetail(id) {
   s.sections.forEach(sec => {
     html += '<div class="song-section-label">' + esc(sec.label) + '</div>';
     sec.lines.forEach(ln => {
-      html += '<div class="song-line"><div class="sl-en">' + wrapSentence(ln.en) +
+      html += '<div class="song-line"><div class="sl-en">' + wrapSongLine(ln.en, s.glossary) +
         ' <button class="sl-speak" data-act="speak-line" data-line="' + escAttr(ln.en) + '" title="Прослухати рядок">🔊</button></div>' +
         '<div class="sl-ua">' + esc(ln.ua) + '</div></div>';
     });
@@ -10452,6 +10468,7 @@ function renderSongDetail(id) {
     s.slang.forEach(sl => {
       html += '<div class="slang-row"><span class="slr-en">' + esc(sl.en) + '</span>' +
         '<span class="slr-ua">— ' + esc(sl.ua) + '</span>' +
+        ' <button class="sl-speak" data-act="speak-line" data-line="' + escAttr(sl.en) + '" title="Прослухати">🔊</button>' +
         (sl.note ? '<span class="slr-note">' + esc(sl.note) + '</span>' : '') + '</div>';
     });
     html += '</div>';

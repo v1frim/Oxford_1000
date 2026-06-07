@@ -323,14 +323,19 @@ border: 1px solid rgba(255,255,255,0.22);
 - **Статус:** localStorage `oxford_songs_status_v1` = `{songId:
   "queue"|"learning"|"learned"}` (на черзі/вчу/вивчено), дефолт `queue`. Додано в
   `BACKUP_KEYS`.
-- **Hover:** EN-рядки рендеряться через наявну `wrapSentence()` → словникові слова дають
-  тултіп (глобальний mouseover). Клік по слову або 🔊 поряд = TTS рядка/слова.
+- **Hover:** EN-рядки рендеряться через `wrapSongLine(text, glossary)` — спершу
+  `glossary` пісні (поле в songs.js, для слів яких немає в EN_TO_UA), далі fallback на
+  основний `EN_TO_UA`, інакше TTS-only. Дає майже повне покриття перекладів у тексті.
+  Клік по слову або 🔊 поряд = TTS. Сленг-рядки теж мають 🔊 (озвучка).
+- **Термінологія секцій:** ВСТУП · КУПЛЕТ 1/2/3 · ПРИСПІВ · ПРЕД-ПРИСПІВ · БРИДЖ ·
+  ПРОГРАШ · КІНЦІВКА (НЕ «ХОР»).
 - **YouTube:** реалізовано ОБИДВА варіанти (користувач обере) — вбудований iframe
   (`youtube-nocookie`, lazy, toggle «Показати/Сховати відео») + кнопка-посилання
   «Відкрити на YouTube ↗».
 - **Контент:** користувач дає оригінал → Claude робить адаптивний укр. переклад
-  рядок-у-рядок. ⚠️ Зараз 1 пісня-пілот «NEFFEX — Dreams», `ytId="42JyRjrLzjY"`
-  **ТИМЧАСОВИЙ** (перший лінк) — треба підтвердити назву + правильний лінк + повний текст.
+  рядок-у-рядок + заповнює `glossary` (слова поза EN_TO_UA) + витягує сленг/вирази.
+  Зараз 1 пісня-пілот «NEFFEX — Baller» (`ytId="42JyRjrLzjY"`), текст ЧАСТКОВИЙ
+  (приспів + 2 куплети зі скріну) — чекаємо повний текст від користувача.
 - Функції: `loadSongStatus/saveSongStatus/getSongStatus/setSongStatus`,
   `openSongs/closeSongs`, `renderSongsList/renderSongDetail`, `escAttr`. Константи
   `SONG_STATUS_META`, `SONG_STATUS_ORDER`, `SONGS_STATUS_KEY`.
