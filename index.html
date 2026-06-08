@@ -10157,7 +10157,7 @@ function renderThermo() {
   const pts   = getThermoPointsToday();
   const best  = getBestDayPoints();
   const plans = Math.floor(pts / 4);
-  const maxPts = Math.max(16, Math.ceil(best / 4) * 4);
+  const maxPts = Math.max(16, Math.floor(best / 4) * 4);
   const fillPct = Math.min(100, (pts / maxPts) * 100);
 
   document.getElementById("thermo-fill").style.height = fillPct + "%";
