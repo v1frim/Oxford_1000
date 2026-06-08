@@ -3143,7 +3143,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Crown 👑",
     ytId: "_MTbjHKtobY",
-    xp: 850,
+    xp: 1050,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yeah, it's our time to shine, yo, that's the kind of state of mind",    ua: "Настав наш час сяяти — і саме такий настрій треба мати" },
