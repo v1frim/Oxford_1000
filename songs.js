@@ -2273,6 +2273,121 @@ const SONGS = [
       { en: "drunk dine",             ua: "п'яні вечері",               note: "вечеряти напідпитку" }
     ]
   }
+  ,
+  {
+    id: "neffex-till-i-let-go",
+    artist: "NEFFEX",
+    title: "Till I Let Go 🌙",
+    ytId: "8bblUQGhPjw",
+    xp: 350,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Swear I won't forget this, why do I regret this?",               ua: "Клянуся, не забуду цього — але чому мені так жаль?" },
+        { en: "In my mind, reckless, thoughts are feeling endless",             ua: "У голові — безрозсудство, думки здаються нескінченними" },
+        { en: "Sitting up, I'm breathless, anxiety's infectious",               ua: "Не сплю, задиханий, тривога — заразна річ" },
+        { en: "I feel so defenseless, betrayed and embarrassed",                ua: "Відчуваю себе таким беззахисним, зрадженим і засоромленим" },
+        { en: "I hate being open, I hate being broken",                         ua: "Ненавиджу відкриватися, ненавиджу бути зламаним" },
+        { en: "I feel like an ocean filled up with emotion",                    ua: "Відчуваю себе океаном, переповненим емоціями" },
+        { en: "Anger ain't a potion, rub it on like lotion",                    ua: "Злість — не зілля, хоч і намащуєш її як лосьйон" },
+        { en: "I can feel it soak in, reopen, the scars have awoken",           ua: "Відчуваю, як вона просочується всередину, рубці розкрились знову" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I can't move on 'til I let go, I feel so lost, never at home",   ua: "Не можу рухатись далі, поки не відпущу — я загублений, ніколи не вдома" },
+        { en: "Need to be strong, every breath, hope",                          ua: "Треба бути сильним, кожен подих — це надія" },
+        { en: "'Cause I can't move on 'til I let go",                           ua: "Бо не можу рухатись далі, поки не відпущу" },
+        { en: "I can't move on 'til I let go, I feel so lost, never at home",   ua: "Не можу рухатись далі, поки не відпущу — я загублений, ніколи не вдома" },
+        { en: "Need to be strong, every breath, hope",                          ua: "Треба бути сильним, кожен подих — це надія" },
+        { en: "'Cause I can't move on 'til I let go",                           ua: "Бо не можу рухатись далі, поки не відпущу" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Let's go",                                                       ua: "Вперед" },
+        { en: "I need time to deal, the pain makes it real",                    ua: "Потрібен час упоратися — біль робить це реальним" },
+        { en: "I don't wanna feel, I just wanna kill",                          ua: "Не хочу відчувати, просто хочу вбити" },
+        { en: "The bad thoughts and steal, a good thought and meal",            ua: "Погані думки й вкрасти — хорошу думку і їжу для душі" },
+        { en: "I'm just lost, I feel, I'm just lost, I feel",                   ua: "Я просто загублений, відчуваю — загублений, відчуваю" },
+        { en: "I need time to heal, I can't steer the wheel",                   ua: "Потрібен час, щоб зцілитися, не можу тримати кермо" },
+        { en: "'Cause this drive, it kills and it's gives me the chills",       ua: "Бо ця дорога вбиває, і холод пробирає до кісток" },
+        { en: "An ice road, it feels, I slip off and peel",                     ua: "Крижана дорога — відчуваю, як зісковзую й здираюсь" },
+        { en: "And crash all the steel, will I ever heal?",                     ua: "І розбиваю все до металу — чи я взагалі коли-небудь зціляюся?" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I can't move on 'til I let go, I feel so lost, never at home",   ua: "Не можу рухатись далі, поки не відпущу — я загублений, ніколи не вдома" },
+        { en: "Need to be strong, every breath, hope",                          ua: "Треба бути сильним, кожен подих — це надія" },
+        { en: "'Cause I can't move on 'til I let go",                           ua: "Бо не можу рухатись далі, поки не відпущу" },
+        { en: "I can't move on 'til I let go, I feel so lost, never at home",   ua: "Не можу рухатись далі, поки не відпущу — я загублений, ніколи не вдома" },
+        { en: "Need to be strong, every breath, hope",                          ua: "Треба бути сильним, кожен подих — це надія" },
+        { en: "'Cause I can't move on 'til I let go",                           ua: "Бо не можу рухатись далі, поки не відпущу" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "I can't move on 'til I let go, I feel so lost, never at home",   ua: "Не можу рухатись далі, поки не відпущу — я загублений, ніколи не вдома" },
+        { en: "Need to be strong, every breath, hope",                          ua: "Треба бути сильним, кожен подих — це надія" },
+        { en: "'Cause I can't move on 'til I let go",                           ua: "Бо не можу рухатись далі, поки не відпущу" },
+        { en: "I can't move on 'til I let go, I feel so lost, never at home",   ua: "Не можу рухатись далі, поки не відпущу — я загублений, ніколи не вдома" },
+        { en: "Need to be strong, every breath, hope",                          ua: "Треба бути сильним, кожен подих — це надія" },
+        { en: "'Cause I can't move on 'til I let go",                           ua: "Бо не можу рухатись далі, поки не відпущу" }
+      ]}
+    ],
+    glossary: {
+      "swear": "клянуся, обіцяю",
+      "regret": "шкодувати, жалкувати",
+      "reckless": "безрозсудний, необачний",
+      "endless": "нескінченний",
+      "sitting up": "не сплю, сиджу (вночі)",
+      "breathless": "задиханий, без дихання",
+      "anxiety": "тривога, занепокоєння",
+      "infectious": "заразний",
+      "defenseless": "беззахисний, вразливий",
+      "betrayed": "зраджений",
+      "embarrassed": "засоромлений, спантеличений",
+      "broken": "зламаний (емоційно)",
+      "ocean": "океан",
+      "emotion": "емоція, почуття",
+      "anger": "злість, гнів",
+      "ain't": "не є / не має (розм.)",
+      "potion": "зілля, напій (чарівний)",
+      "lotion": "лосьйон",
+      "soak in": "просочуватися, вбиратися",
+      "reopen": "відкритися знову",
+      "scars": "рубці, шрами",
+      "awoken": "прокинулись (awake → awoke → awoken)",
+      "move on": "рухатись далі, пережити",
+      "lost": "загублений",
+      "breath": "подих",
+      "deal": "впоратися; мати справу",
+      "heal": "зцілятися, загоюватися",
+      "steal": "красти",
+      "steer": "кермувати, спрямовувати",
+      "wheel": "кермо; колесо",
+      "drive": "їзда; прагнення",
+      "chills": "холод (мороз по шкірі)",
+      "slip off": "зісковзнути",
+      "peel": "здертися; лупитися",
+      "crash": "розбитися, зазнати аварії",
+      "steel": "сталь, метал"
+    },
+    slang: [
+      { en: "reckless",                     ua: "безрозсудний",            note: "нерозважливий, без оглядки на наслідки" },
+      { en: "anxiety's infectious",         ua: "тривога заразна",         note: "тривожний стан передається і поглиблюється сам собою" },
+      { en: "defenseless",                  ua: "беззахисний",             note: "без жодного захисту, повністю вразливий" },
+      { en: "being broken",                 ua: "бути зламаним",           note: "емоційно зламатися, не справлятися" },
+      { en: "filled up with emotion",       ua: "переповнений емоціями",   note: "метафора: як океан — без берегів, всі почуття разом" },
+      { en: "anger ain't a potion",         ua: "злість — не зілля",       note: "злість не лікує, але стає звичкою" },
+      { en: "rub it on like lotion",        ua: "намащуєш як лосьйон",     note: "використовуєш злість механічно, не замислюючись" },
+      { en: "soak in",                      ua: "просочується",            note: "повільно проникає всередину (біль, злість)" },
+      { en: "scars have awoken",            ua: "рубці прокинулись",       note: "старі рани знову відкрились — в переносному сенсі" },
+      { en: "move on",                      ua: "рухатись далі",           note: "пережити, відпустити минуле і йти вперед" },
+      { en: "let go",                       ua: "відпустити",              note: "перестати триматися за те, що завдає болю" },
+      { en: "never at home",                ua: "ніколи не вдома",         note: "без відчуття приналежності, нікуди повернутися" },
+      { en: "time to deal",                 ua: "час упоратися",           note: "розібратися з проблемою, прийняти її" },
+      { en: "wanna kill the bad thoughts",  ua: "вбити погані думки",      note: "позбутися нав'язливих негативних думок" },
+      { en: "steal a good thought",         ua: "вкрасти хорошу думку",    note: "спробувати знайти хоч щось позитивне посеред болю" },
+      { en: "steer the wheel",              ua: "тримати кермо",           note: "контролювати ситуацію; метафора про втрату контролю" },
+      { en: "gives me the chills",          ua: "мороз по шкірі",          note: "лякає, викликає тривожний холод" },
+      { en: "ice road",                     ua: "крижана дорога",          note: "небезпечна ситуація без зчеплення з реальністю" },
+      { en: "slip off and peel",            ua: "зісковзнути й здертися",  note: "втратити контроль і постраждати" },
+      { en: "crash all the steel",          ua: "розбити все до металу",   note: "повний крах — і фізичний (авто), і внутрішній" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }

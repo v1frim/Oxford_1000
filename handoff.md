@@ -343,8 +343,8 @@ border: 1px solid rgba(255,255,255,0.22);
 Окремий розділ для вивчення текстів пісень (NEFFEX тощо): паралельний текст
 оригінал‖переклад (рядок-у-рядок), YouTube, статус вивчення, hover-переклади, сленг.
 
-**⚠️ СТАН: 18 пісень NEFFEX** (не пілот). Усі з повним текстом, перекладом,
-glossary та сленгом. Остання додана — «Hungover 🍻» (`ytId="SJ5eW0xRgOA"`).
+**⚠️ СТАН: 19 пісень NEFFEX** (не пілот). Усі з повним текстом, перекладом,
+glossary та сленгом. Остання додана — «Till I Let Go 🌙» (`ytId="8bblUQGhPjw"`).
 
 - **Дані:** окремий файл **`songs.js`** (підключений `<script src="songs.js">` ПЕРЕД
   основним скриптом). `SONGS = [{id, artist, title, ytId, xp, sections:[{label,
@@ -360,10 +360,10 @@ glossary та сленгом. Остання додана — «Hungover 🍻» 
   - 500: Badass
   - 450: Pro, Self Made, Rumors, Hungover
   - 400: New Beginnings, First Time, Legendary
-  - 350: All These Thoughts, Flirt, Careless
+  - 350: All These Thoughts, Flirt, Careless, Till I Let Go
   - 300: Lit, Fight
   - 200: Dangerous Woman
-  - **Разом: 7650 XP** по всіх 18 піснях.
+  - **Разом: 8000 XP** по всіх 19 піснях.
   **Для нових пісень:** рахуй `score = lines + words/10 + slang×2` (через `node`-скрипт
   по тексту), знайди найближчий ранг серед існуючих і постав відповідне XP з шкали вище.
   Орієнтири score: Soldier≈181, Baller≈167, Summer≈172, Forget'em≈173, Hungover≈134,
