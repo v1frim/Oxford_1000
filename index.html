@@ -9104,6 +9104,12 @@ document.addEventListener("keydown", e => {
   }
   if (e.key === "Tab" && !leaderboardEl.classList.contains("hidden")) {
     e.preventDefault();
+    // Якщо поверх лідерборду відкрите меню LingoHut — Tab спершу закриває його,
+    // інакше воно лишалося б висіти й "стрибало" при перемальовці лідерборду.
+    if (!document.getElementById("lh-screen").classList.contains("hidden")) {
+      closeLhScreen();
+      return;
+    }
     const tabs = ["games", "days", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
@@ -9429,7 +9435,7 @@ function computeRetroXp() {
   return xp;
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
-// Per day: correct×1 + reviewCorrect×1 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(70/100/130).
+// Per day: correct×1 + reviewCorrect×1 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100).
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone) {
   let xp = 0;
   const d = days[date] || {};
@@ -10089,7 +10095,7 @@ document.getElementById("import-btn").addEventListener("click", handleImportClic
 // ── LINGOHUT LESSON TRACKER ───────────────────────────────────────────────────
 const LH_KEY = "oxford_lingohut_v1";
 const LH_TOTAL = 125;
-function getLhXp(n) { return n <= 35 ? 70 : n <= 70 ? 100 : 130; }
+function getLhXp(n) { return n <= 35 ? 50 : n <= 70 ? 75 : 100; }
 function getLhTier(n) { return n <= 35 ? "" : n <= 70 ? "t2" : "t3"; }
 
 function loadLhDone() {
@@ -10368,6 +10374,31 @@ if (!localStorage.getItem("oxford_xp_formula_v3")) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
     localStorage.setItem("oxford_xp_formula_v3", "1");
+  } catch(e) {}
+}
+// One-time XP migration v4: LingoHut XP rates lowered (1–35: 70→50, 36–70: 100→75,
+// 71–125: 130→100). Rebuild total + per-day from stats with the new getLhXp so the
+// stored total stays in lockstep with what's displayed. Idempotent (reads stats only).
+if (!localStorage.getItem("oxford_xp_formula_v4")) {
+  try {
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v4", "1");
   } catch(e) {}
 }
 renderXpBar();
