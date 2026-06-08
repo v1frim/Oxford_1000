@@ -3973,6 +3973,93 @@ const SONGS = [
       { en: "on the rise",  ua: "на підйомі",                note: "ідіома: набирати популярність/силу" }
     ]
   }
+  ,
+  {
+    id: "neffex-hope",
+    artist: "NEFFEX",
+    title: "Hope 🕊️",
+    ytId: "TXcg25C56xM",
+    xp: 1050,
+    sections: [
+      { label: "ПРИСПІВ", lines: [
+        { en: "And when you feel like you're nothin'",                                  ua: "І коли ти почуваєшся нікчемою" },
+        { en: "But you wanna be something, yeah (Be something, yeah)",                  ua: "Та хочеш чогось досягти, так (досягти, так)" },
+        { en: "Well, all you really need is hope",                                      ua: "Що ж, усе, що тобі справді потрібно — це надія" },
+        { en: "I just want you to trust me if you wanna be something (Something)",      ua: "Я лише хочу, щоб ти повірив мені, якщо прагнеш чогось досягти (чогось)" },
+        { en: "Yeah, well, all you really need is hope",                               ua: "Так, що ж, усе, що тобі справді потрібно — це надія" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "When you're feelin' down and you're out, like you got nothin'",          ua: "Коли тобі зле і ти на дні, наче в тебе нічого немає" },
+        { en: "But doubt, you're alone in the crowd, just tryin' to figure it out (Oh, yeah)", ua: "Крім сумнівів — ти сам-один у натовпі, просто намагаєшся розібратися (о, так)" },
+        { en: "All of this clout and this money got you feelin' left out, listen up to me now", ua: "Уся ця слава й гроші змушують тебе почуватися зайвим — а тепер послухай мене" },
+        { en: "Every word that's out of my mouth, wake up, it's me (Let's go)",         ua: "Кожне слово, що зривається з моїх вуст — прокинься, це я (погнали)" },
+        { en: "You gonna follow your dreams or are you just gonna be another cog",       ua: "Ти підеш за своєю мрією, чи станеш просто черговим гвинтиком" },
+        { en: "In the scene? You feel the hope in this beat? (Yeah, yeah, that's right, nah)", ua: "У цій тусовці? Ти відчуваєш надію в цьому біті? (так, так, саме так, нє)" },
+        { en: "Yeah, the hope that you need? To proceed and be exactly (Let's go)",      ua: "Так, ту надію, що тобі потрібна? Щоб рухатись далі й бути саме (погнали)" },
+        { en: "Exactly what you wanted to be (Okay, okay)",                             ua: "Саме тим, ким ти хотів стати (окей, окей)" },
+        { en: "I feel right and I'm proud, hype and I'm loud (Yeah, yeah)",             ua: "Я почуваюся правим і гордим, наелектризованим і гучним (так, так)" },
+        { en: "I'ma shout all about how I feel in the now (That's right)",              ua: "Я кричатиму про все, що відчуваю просто зараз (саме так)" },
+        { en: "Ain't nobody ever gonna try to change me 'til I'm dead",                ua: "Ніхто й ніколи не намагатиметься змінити мене, аж поки я не помру" },
+        { en: "Pushin' up daisies, I'm alone in a crowd, I won't feel down",           ua: "Лежатиму в могилі — я сам у натовпі, та не занепадатиму духом" },
+        { en: "I got hope right now and I know I'll be found (That's right)",           ua: "У мене є надія просто зараз — і я знаю, що мене помітять (саме так)" },
+        { en: "I don't really care just what all of the haters gotta say",             ua: "Мені байдуже, що там кажуть усі ненависники" },
+        { en: "I know everything I do is gonna make 'em fade away, yeah (Fade away)",   ua: "Я знаю: усе, що я роблю, змусить їх розчинитися, так (розчинитися)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Take a look in the mirror, are you seein' some fear?",                   ua: "Поглянь у дзеркало — чи бачиш там страх?" },
+        { en: "You hear the voice in your ear? Can you start to see clear?",            ua: "Чуєш голос у себе у вусі? Чи можеш почати бачити ясно?" },
+        { en: "Are the bad thoughts near or can you be where your feet are?",           ua: "Погані думки поруч — чи ти можеш бути там, де твої ноги?" },
+        { en: "Yeah, when you stand right here and say, \"No, I'm never gonna give up\"", ua: "Так, коли ти стоїш отут і кажеш: «Ні, я ніколи не здамся»" },
+        { en: "I'm never gonna slow, the one who doesn't give up, never loses",         ua: "Я ніколи не сповільнюсь — той, хто не здається, ніколи не програє" },
+        { en: "To a foe,\" I'm the one that can show, to myself (Nah, that's right)",    ua: "Ворогу», — я той, хто може довести це собі (нє, саме так)" },
+        { en: "I can go all the way to the top, can't stop me, no",                     ua: "Я можу дійти аж до вершини — мене не спинити, ні" },
+        { en: "I'm a soldier, always closer 'til it's over, older",                     ua: "Я солдат — щораз ближче, доки все не скінчиться, дорослішаю" },
+        { en: "But I'm bolder, movin' forward, motor, never slower",                    ua: "Та я сміливіший, рухаюсь уперед, мов мотор, ніколи не повільніше" },
+        { en: "Good to know ya, don't go make me drop my shoulder (Yeah, yeah)",        ua: "Приємно було знати тебе — тільки не змушуй мене опускати плече (так, так)" },
+        { en: "You need to believe you can achieve everything that you dream (That's right)", ua: "Ти маєш повірити, що можеш досягти всього, про що мрієш (саме так)" },
+        { en: "Everything that you need is in the air that you breathe (Yeah, yeah)",   ua: "Усе, що тобі потрібно — у повітрі, яким ти дихаєш (так, так)" },
+        { en: "Is in the mind that you feed, is in the time that you bleed (Yeah, yeah)", ua: "У розумі, який ти живиш, у часі, який ти проливаєш кров'ю (так, так)" },
+        { en: "Every second alive is another blessin' to me, yeah (That's right, that's right)", ua: "Кожна прожита секунда — ще одне благословення для мене, так (саме так, саме так)" }
+      ]},
+      { label: "КУПЛЕТ 3", lines: [
+        { en: "It's what you need when you're down, need when you're out (Alright)",     ua: "Це те, що тобі потрібно, коли ти на дні, коли вибитий з колії (гаразд)" },
+        { en: "What you need when you're sad and when you feel left out (Yo)",          ua: "Те, що потрібно, коли тобі сумно і ти почуваєшся зайвим (йо)" },
+        { en: "You feel an energy drought and in creeps doubt",                         ua: "Ти відчуваєш брак сил — і всередину закрадається сумнів" },
+        { en: "But with a little bit of hope you can figure it out (Yo, yo, let's go)", ua: "Та з краплею надії ти можеш усе подолати (йо, йо, погнали)" },
+        { en: "Keep your head high, even when your down inside",                        ua: "Тримай голову високо, навіть коли всередині тобі зле" },
+        { en: "Through the pain you fight and through the painful nights",              ua: "Крізь біль ти борешся, крізь болісні ночі" },
+        { en: "You keep strivin', keep tryin', keep drivin', risin', keep thrivin'",    ua: "Ти прагнеш далі, пробуєш далі, женеш далі, підіймаєшся, процвітаєш" },
+        { en: "Survivin', nothing's in your way, but yourself (Let's go)",              ua: "Виживаєш — ніщо тобі не на заваді, окрім тебе самого (погнали)" },
+        { en: "Don't need nobody's help, you can make it through this hell (Yeah, yeah)", ua: "Не потрібна нічия допомога — ти пройдеш крізь це пекло (так, так)" },
+        { en: "Take it one step at a time, one step as you climb",                      ua: "Крок за кроком, по одному кроку, доки дереш угору" },
+        { en: "If you fail, you'll be fine, get back up to the grind",                  ua: "Якщо схибиш — усе буде гаразд, піднімайся й знову до праці" },
+        { en: "And never lose sight of your mission, be driven (Nah)",                  ua: "І ніколи не випускай з очей свою мету — будь цілеспрямованим (нє)" },
+        { en: "This live is a prison if you don't have vision (Yo, yo)",                ua: "Це життя — в'язниця, якщо в тебе немає бачення (йо, йо)" },
+        { en: "You're in it to win it, so, get it, don't miss it (Yo, yo)",             ua: "Ти тут, щоб перемогти — тож хапай це, не проґав (йо, йо)" },
+        { en: "Your chance is now, so, be something, somehow",                          ua: "Твій шанс — зараз, тож стань кимось, хоч якось" },
+        { en: "Don't let yourself down (Down, down, down)",                            ua: "Не підведи самого себе (вниз, вниз, вниз)" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "That's right, sometimes, all we really need is hope", ua: "Саме так — іноді все, що нам справді потрібно, це надія" }
+      ]}
+    ],
+    glossary: {
+      "hope": "надія", "doubt": "сумнів", "cog": "гвинтик (шестерня); незначна людина в системі",
+      "foe": "ворог, недруг", "achieve": "досягати", "mission": "місія, мета",
+      "vision": "бачення, далекоглядність", "drought": "посуха; брак, нестача",
+      "thrive": "процвітати, буяти", "prison": "в'язниця"
+    },
+    slang: [
+      { en: "down and out",        ua: "на дні, без нічого",  note: "ідіома: у скруті, зневірений і без грошей" },
+      { en: "left out",            ua: "зайвий, знехтуваний", note: "почуватися виключеним з гурту" },
+      { en: "pushing up daisies",  ua: "лежати в могилі",     note: "ідіома (евфемізм): бути мертвим" },
+      { en: "hype",                ua: "наелектризований",    note: "сленг: збуджений, у піднесенні" },
+      { en: "be where your feet are", ua: "бути в моменті",   note: "ідіома: повна присутність тут і зараз" },
+      { en: "in it to win it",     ua: "тут, щоб перемогти",  note: "ідіома: повна налаштованість на успіх" },
+      { en: "one step at a time",  ua: "крок за кроком",      note: "ідіома: поступово, не поспішаючи" },
+      { en: "back to the grind",   ua: "знову до праці",      note: "повернутися до рутинної важкої роботи" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
