@@ -9124,10 +9124,16 @@ document.addEventListener("keydown", e => {
   }
   if (e.key === "Tab" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
-    // Озвучуємо ЛИШЕ ПОКАЗАНЕ англійське слово (en-ua/syn/ant — там видно англ слово).
-    // У режимах, де англійське слово — прихована ВІДПОВІДЬ (ua-en/def/cloze), Tab
-    // мовчить, щоб не підказувати відповідь голосом. currentShown = показане слово.
-    if (mode === "en-ua" || mode === "en-syn" || mode === "en-ant") speak(currentShown);
+    if (awaitingAfterWrong) {
+      // Correction-панель відкрита → правильна відповідь УЖЕ на екрані, тож Tab
+      // озвучує англійське слово (це не чит). Та сама логіка, що й кнопка 🔊:
+      // en-ua → показане англ слово; решта → правильне англ слово getEn()[0].
+      speak((mode === "en-ua") ? currentShown : getEn(currentWord)[0]);
+    } else if (mode === "en-ua" || mode === "en-syn" || mode === "en-ant") {
+      // Питання активне: озвучуємо ЛИШЕ ПОКАЗАНЕ англ слово (en-ua/syn/ant).
+      // У ua-en/def/cloze англ слово — прихована ВІДПОВІДЬ, Tab мовчить.
+      speak(currentShown);
+    }
     return;
   }
   if (e.key === " " && !endScreen.classList.contains("hidden")) {
