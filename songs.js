@@ -3138,6 +3138,152 @@ const SONGS = [
       { en: "throw every inning",        ua: "відіграю кожну подачу", note: "бейсбол: throw an inning = подати / провести подачу; тут: впоратися з кожним раундом" }
     ]
   }
+  ,
+  {
+      id: "neffex-things-are-gonna-get-better",
+      artist: "NEFFEX",
+      title: "Things Are Gonna Get Better 👊",
+      ytId: "FHW7rIRQl38",
+      xp: 1100,
+      sections: [
+        { label: "КУПЛЕТ 1", lines: [
+          { en: "Growing up, parents got me a guitar",                                ua: "Коли я ріс, батьки купили мені гітару" },
+          { en: "Said, \"You can do anything, kid, you can go far",                   ua: "Казали: «Ти можеш усе, малий, ти зможеш досягти багато" },
+          { en: "You could be the President, fireman, race cars",                     ua: "Можеш стати президентом, пожежником, гонщиком" },
+          { en: "The sky's the limit, kid, so, shoot for the stars\"",                ua: "Немає меж, малий, тож цілься в зорі»" },
+          { en: "So, I strummed that guitar every day",                               ua: "Тож я бренькав на тій гітарі щодня" },
+          { en: "Found a passion for music, never went away",                         ua: "Знайшов пристрасть до музики, що так і не згасла" },
+          { en: "I joined a couple bands and played a few shows",                     ua: "Приєднався до кількох гуртів, зіграв кілька концертів" },
+          { en: "Tried to impress the girl in the front row",                         ua: "Намагався вразити дівчину в першому ряду" },
+          { en: "But soon enough, everything starts to change",                       ua: "Та доволі швидко все починає мінятися" },
+          { en: "As you grow up, nobody treats you the same",                         ua: "Коли дорослішаєш, ніхто вже не ставиться до тебе так само" },
+          { en: "They try take your future and make it real safe",                    ua: "Вони хочуть забрати твоє майбутнє й зробити його геть безпечним" },
+          { en: "You could be a doctor, accountant or something sane",                ua: "Міг би стати лікарем, бухгалтером чи кимось «розважливим»" },
+          { en: "But yo, what ever happened to \"The sky was the limit?\"",           ua: "Та гей, що сталося з тим «немає меж»?" },
+          { en: "I fell in love with music, never thought it was a gimmick",          ua: "Я закохався в музику, ніколи не вважав це примхою" },
+          { en: "I worked so hard on every tune and every single lyric",              ua: "Я так тяжко працював над кожною мелодією і кожним рядком" },
+          { en: "My whole identity dependent on being artistic",                      ua: "Уся моя особистість залежить від того, що я митець" },
+          { en: "Now, you want to strip that away, so, you feel okay?",               ua: "А тепер ти хочеш це відібрати, щоб тобі стало спокійніше?" },
+          { en: "'Cause if I make it to the top, what does that really say?",         ua: "Бо якщо я проб'юся нагору — що це насправді означатиме?" },
+          { en: "That you shouldn't have given up, that you made the mistake",        ua: "Що ти не мав здаватися, що ти зробив помилку" },
+          { en: "But if I fail you feel much better 'bout picking your lane, right?", ua: "А якщо я провалюся — тобі спокійніше за свій безпечний вибір, так?" }
+        ]},
+        { label: "ПРИСПІВ", lines: [
+          { en: "(Things are gonna get betta, betta)",          ua: "(Усе налагодиться, налагодиться)" },
+          { en: "Yeah, things are gonna get better real soon",  ua: "Так, усе скоро налагодиться" },
+          { en: "(Things are gonna get betta, betta)",          ua: "(Усе налагодиться, налагодиться)" },
+          { en: "Yeah, I'ma just do me, you just do you",       ua: "Так, я буду собою, а ти будь собою" },
+          { en: "(Things are gonna get betta, betta)",          ua: "(Усе налагодиться, налагодиться)" },
+          { en: "I swear, it's gonna get better real soon",     ua: "Клянусь, скоро стане краще" },
+          { en: "(Things are gonna get betta, betta)",          ua: "(Усе налагодиться, налагодиться)" },
+          { en: "Don't let anyone tell you what you should do", ua: "Не дай нікому вказувати, що тобі робити" }
+        ]},
+        { label: "ПОСТ-ПРИСПІВ", lines: [
+          { en: "I got a clear view (Things are gonna get betta)",          ua: "У мене ясне бачення (Усе налагодиться)" },
+          { en: "We're gonna make it soon (Things are gonna get betta)",    ua: "Ми скоро досягнемо свого (Усе налагодиться)" },
+          { en: "Just keep pushing through (Things are gonna get betta)",   ua: "Просто продовжуй пробиватися (Усе налагодиться)" },
+          { en: "Yeah, what you got to lose? (Things are gonna get betta)", ua: "Так, що тобі втрачати? (Усе налагодиться)" },
+          { en: "Just keep pushing through 'cause what you got to lose?",   ua: "Просто продовжуй пробиватися — бо що тобі втрачати?" }
+        ]},
+        { label: "ПРОГРАШ", lines: [
+          { en: "Got to lose, got to lose, got to lose, got to lose", ua: "Що втрачати, що втрачати, що втрачати, що втрачати" },
+          { en: "Go-go-got to lose, got to lose, got to lose, got",   ua: "Що-що-що втрачати, що втрачати, що втрачати, що" }
+        ]},
+        { label: "РЕФРЕН", lines: [
+          { en: "I won't give up, I won't back down",                 ua: "Я не здамся, я не відступлю" },
+          { en: "'Til I'm lying six-feet underneath the deep ground", ua: "Доки не ляжу на два метри під землю" },
+          { en: "I won't give up, I won't back down",                 ua: "Я не здамся, я не відступлю" },
+          { en: "'Cause nobody's stopping me except for me, now",     ua: "Бо ніхто мене не спинить, окрім мене самого" }
+        ]},
+        { label: "КУПЛЕТ 2", lines: [
+          { en: "And let's be honest, life's a competition",              ua: "І будьмо чесні — життя це змагання" },
+          { en: "So, if I'm going to play, then I'm gon' play to win it", ua: "Тож якщо вже грати, то грати на перемогу" },
+          { en: "I refuse to sit and rot at a desk all day",              ua: "Я відмовляюсь сидіти й гнити за столом цілий день" },
+          { en: "Unless I have a passion I'm working towards, okay?",     ua: "Хіба що я маю пристрасть, до якої прагну, ясно?" },
+          { en: "I'd rather be dead on the outside than inside",          ua: "Краще бути мертвим зовні, ніж усередині" },
+          { en: "A bullet to the head than twenty-five to life",          ua: "Краще куля в голову, ніж 25 років за ґратами" },
+          { en: "In a cubicle, alone, just trying to get by",             ua: "В офісній клітці, на самоті, ледь зводячи кінці" },
+          { en: "Building someone else's dream instead of building mine", ua: "Будуючи чужу мрію замість власної" },
+          { en: "If you're hearing me, this is meant to inspire",         ua: "Якщо ти мене чуєш — це має тебе надихнути" },
+          { en: "If you have a dream or if you have desires",             ua: "Якщо в тебе є мрія чи прагнення" },
+          { en: "A girl in your life that's making you feel that fire",   ua: "Дівчина в житті, що розпалює в тобі той вогонь" },
+          { en: "Go fight for her, man, go die for her, man",             ua: "Борись за неї, чувак, помри за неї" },
+          { en: "'Cause you only have one life, one chance to do it",     ua: "Бо в тебе лиш одне життя, один шанс це зробити" },
+          { en: "One chance to prove it to yourself, so, don't lose it",  ua: "Один шанс довести це собі — тож не втрать його" },
+          { en: "You got this, fam, just keep pushing on through it",     ua: "Ти впораєшся, бро, просто продовжуй пробиватися" },
+          { en: "One day you'll look back so glad you pursued it",        ua: "Колись озирнешся — і будеш радий, що йшов до цього" }
+        ]},
+        { label: "БРИДЖ", lines: [
+          { en: "Yo, you ain't gon' stop me now because I got this, now", ua: "Гей, ти мене тепер не спиниш, бо я тримаю все під контролем" },
+          { en: "I got the formula and I'm about to drop it loud",        ua: "У мене є формула, і я зараз гучно її видам" },
+          { en: "So, what we talking 'bout? There is no talking, now",    ua: "Тож про що мова? Часу на балачки нема" },
+          { en: "We take action with passion, we're rockin', now",        ua: "Ми діємо з пристрастю, ми відриваємось" },
+          { en: "It's tick-tockin' now, the clock's tockin', down",       ua: "Цок-цок, годинник цокає, час спливає" },
+          { en: "And all I hear is haters try so hard to talk me down",   ua: "І все, що я чую — це хейтери, що щосили силкуються мене принизити" },
+          { en: "But they can't stop the sound, already on the ground",   ua: "Та їм не спинити цей звук — він уже скрізь" },
+          { en: "Everything is growing faster than I can count",          ua: "Усе росте швидше, ніж я встигаю рахувати" }
+        ]},
+        { label: "КІНЦІВКА", lines: [
+          { en: "I, I, I-I-I-I, I, I, I-I-I-I",                             ua: "Я, я, я-я-я-я, я, я, я-я-я-я" },
+          { en: "I, I, I-I-I-I, 'thing is growing faster than I can count", ua: "Я, я... усе росте швидше, ніж я встигаю рахувати" }
+        ]}
+      ],
+      glossary: {
+        "growing up": "дорослішання; коли я ріс", "go far": "далеко піти, досягти багато",
+        "fireman": "пожежник", "race cars": "гоночні авто; гонщик",
+        "sky's the limit": "немає меж (можливості безмежні)",
+        "shoot for the stars": "цілься високо, прагни великого",
+        "strummed": "бренькав (strum — грати по струнах)", "passion": "пристрасть, захоплення",
+        "bands": "гурти, бенди", "shows": "концерти, виступи", "impress": "вразити",
+        "front row": "перший ряд", "treats": "ставиться (treat — поводитися з кимось)",
+        "safe": "безпечний", "accountant": "бухгалтер",
+        "sane": "розважливий, при здоровому глузді", "gimmick": "трюк, примха, дешевий прийом",
+        "tune": "мелодія, наспів", "lyric": "текст пісні, рядок",
+        "identity": "особистість, самоідентичність", "artistic": "творчий, мистецький",
+        "strip that away": "зірвати, відібрати це",
+        "make it to the top": "пробитися нагору, досягти вершини",
+        "picking your lane": "вибір своєї смуги/шляху (безпечного)",
+        "betta": "better (сленгове написання) — краще", "do me": "бути собою, робити своє",
+        "do you": "будь собою, роби своє", "clear view": "ясне бачення, чіткий погляд",
+        "pushing through": "пробиватися, продиратися вперед",
+        "got to lose": "що втрачати (what you got to lose — тобі нема чого втрачати)",
+        "give up": "здаватися", "back down": "відступати, давати задню",
+        "six-feet underneath": "шість футів під землею (у могилі)",
+        "competition": "змагання, конкуренція", "play to win": "грати на перемогу", "rot": "гнити",
+        "desk": "робочий стіл", "bullet": "куля",
+        "twenty-five to life": "вирок 25 років (до довічного)", "cubicle": "офісна кабінка/клітка",
+        "get by": "зводити кінці, ледь виживати", "desires": "прагнення, бажання",
+        "fam": "бро, свій (від family)",
+        "pursued": "прагнув, домагався (pursue — переслідувати мету)", "formula": "формула",
+        "drop it loud": "гучно видати (drop — випустити трек)",
+        "take action": "діяти, братися до справи", "rockin'": "відриваємось, запалюємо",
+        "tick-tockin'": "цок-цок (годинник цокає)", "haters": "хейтери, недоброзичливці",
+        "talk me down": "принижувати, відмовляти, знецінювати"
+      },
+      slang: [
+        { en: "the sky's the limit",      ua: "немає меж",             note: "можливості безмежні, досягти можна будь-чого" },
+        { en: "shoot for the stars",      ua: "цілься в зорі",         note: "прагни найбільшого, став високі цілі" },
+        { en: "go far",                   ua: "далеко піти",           note: "досягти великого успіху" },
+        { en: "make it to the top",       ua: "пробитися нагору",      note: "досягти вершини успіху" },
+        { en: "pick your lane",           ua: "вибрати свою смугу",    note: "обрати визначений, безпечний шлях у житті" },
+        { en: "do me, you do you",        ua: "бути собою",            note: "кожен займається своїм, не оглядаючись на інших" },
+        { en: "keep pushing through",     ua: "продовжуй пробиватися", note: "не здавайся, продирайся далі попри труднощі" },
+        { en: "what you got to lose",     ua: "що тобі втрачати",      note: "ризикуй — втрачати нема чого" },
+        { en: "back down",                ua: "відступити",            note: "дати задню, спасувати перед труднощами" },
+        { en: "six feet under",           ua: "два метри під землею",  note: "у могилі, мертвий" },
+        { en: "play to win",              ua: "грати на перемогу",     note: "викладатися на повну заради результату" },
+        { en: "rot at a desk",            ua: "гнити за столом",       note: "нудна офісна робота без сенсу й розвитку" },
+        { en: "twenty-five to life",      ua: "25 років довічного",    note: "суворий тюремний вирок (25 років або довічне)" },
+        { en: "get by",                   ua: "зводити кінці",         note: "ледь виживати, абияк давати раду" },
+        { en: "fam",                      ua: "бро",                   note: "близький друг, свій (скорочення від family)" },
+        { en: "drop it loud",             ua: "видати гучно",          note: "випустити трек/заяву на повну, голосно заявити про себе" },
+        { en: "take action with passion", ua: "діяти з пристрастю",    note: "братися до справи з вогнем, повністю віддаватись" },
+        { en: "tick-tockin'",             ua: "цок-цок",               note: "час спливає (звук годинника); відчуття, що час іде" },
+        { en: "haters",                   ua: "хейтери",               note: "заздрісники, недоброзичливці, що тебе критикують" },
+        { en: "talk me down",             ua: "принизити / відмовити", note: "знецінювати, переконувати облишити справу" },
+        { en: "I got this",               ua: "я впораюсь",            note: "у мене все під контролем, я з цим розберусь" }
+      ]
+    }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
