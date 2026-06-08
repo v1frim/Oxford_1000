@@ -3898,6 +3898,81 @@ const SONGS = [
       { en: "a bish ain't one", ua: "тьолка не проблема",         note: "відсилка до Jay-Z «99 Problems»; bish = пом'якшене bitch" }
     ]
   }
+  ,
+  {
+    id: "neffex-blow-up",
+    artist: "NEFFEX",
+    title: "Blow Up 💣",
+    ytId: "dC1s0tSsTjo",
+    xp: 700,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I'ma make a couple stacks, do exactly what I want to (That's right)",  ua: "Я зароблю кілька пачок грошей — робитиму саме те, що хочу (саме так)" },
+        { en: "Mix a couple tracks, get a lady that I'm drawn to (Yeah)",             ua: "Зведу кілька треків, знайду дівчину, до якої мене тягне (так)" },
+        { en: "Turn up to the max (Hoo), getting faded 'til I'm gone, dude",          ua: "Відриваюсь на повну (ху), бухаю, доки не відключусь, чувак" },
+        { en: "I do what I want, couldn't stop me if you wanted to (Let's go)",       ua: "Роблю що хочу — не зупинив би мене, навіть якби захотів (погнали)" },
+        { en: "I just work hard, yeah, harder than the rest (Hoo)",                   ua: "Я просто тяжко працюю — так, важче за решту (ху)" },
+        { en: "Some people say I'm lucky, others sayin' that I'm blessed (Okay)",     ua: "Хтось каже, що я везунчик, інші — що я благословенний (окей)" },
+        { en: "But I keep my head down 'cause I crave progress (Hoo, woo)",           ua: "Та я не висовуюсь, бо прагну прогресу (ху, ву)" },
+        { en: "You ain't ever gonna stop me 'cause it's my conquest",                ua: "Ти ніколи мене не зупиниш — бо це моє завоювання" },
+        { en: "And I'm never gonna rest",                                            ua: "І я ніколи не відпочиватиму" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yeah, and y'all don't know that I'm a soldier (Soldier)", ua: "Так, і ви всі не знаєте, що я солдат (солдат)" },
+        { en: "I always felt like I'm a loner (Loner)",                  ua: "Я завжди почувався одинаком (одинак)" },
+        { en: "When everybody thinks they know ya (Know ya)",            ua: "Коли всі думають, що знають тебе (знають тебе)" },
+        { en: "And y'all don't even know I own ya (Own ya)",             ua: "А ви навіть не знаєте, що я вас підкорив (підкорив)" },
+        { en: "And now I'm ready, taking over (Over)",                   ua: "І тепер я готовий — захоплюю все (захоплюю)" },
+        { en: "'Cause every day I'm getting closer (Closer)",            ua: "Бо щодня я все ближче (ближче)" },
+        { en: "Just look at everything, I'll show ya (Show ya)",         ua: "Просто поглянь на все — я тобі покажу (покажу)" },
+        { en: "Yeah, now I'm ready, I'ma blow up (Yeah)",                ua: "Так, тепер я готовий — я ось-ось вистрелю (так)" }
+      ]},
+      { label: "БРИДЖ", lines: [
+        { en: "Yeah, I'm impatient, I don't ever slow up (Slow up)",       ua: "Так, я нетерплячий — ніколи не збавляю темп (не збавляю)" },
+        { en: "I stay young, no, I never grow up (Grow up)",               ua: "Я лишаюсь молодим — ні, ніколи не дорослішаю (не дорослішаю)" },
+        { en: "I keep working 'til to the point I throw up (Throw up)",    ua: "Працюю до того, що аж вивертає (вивертає)" },
+        { en: "And if you cross me, it was good to know ya (Know ya)",     ua: "А якщо зрадиш мене — приємно було знати тебе (знати тебе)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, oh, yeah, yeah, I'm not the type to take \"No\" for an answer (Yeah)", ua: "Так, о, я не з тих, хто приймає «ні» за відповідь (так)" },
+        { en: "I don't deal with people that are like a cancer (Nah)",                      ua: "Я не маю справ з людьми, що наче ракова пухлина (нє)" },
+        { en: "No, instead, I hang with the people that enhance ya (Hoo, that's right)",    ua: "Натомість я тусуюсь із тими, хто робить тебе кращим (ху, саме так)" },
+        { en: "And I'm not the type to give out second chances (Let's go)",                ua: "І я не з тих, хто роздає другі шанси (погнали)" },
+        { en: "I just wanna work on my own for myself (Hoo, yeah)",                         ua: "Я просто хочу працювати сам на себе (ху, так)" },
+        { en: "I don't need no help, not anybody else (Woo)",                              ua: "Мені не потрібна допомога — нічия (ву)" },
+        { en: "Nah, man, I got it dealt, I'm working on my wealth (Hoo)",                   ua: "Ні, чувак, я все владнав — працюю над своїм статком (ху)" },
+        { en: "And I'm working on my health, keep on working to excel",                     ua: "І працюю над здоров'ям — невпинно працюю, щоб досягти вершин" },
+        { en: "'Cause I'm working on myself (That's right)",                               ua: "Бо я працюю над собою (саме так)" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "Man, I promise that I'm gonna make it somewhere",                ua: "Чувак, обіцяю — я кудись таки доб'юся" },
+        { en: "As long as I'm conscious, I'll be working hard to get there",    ua: "Доки я при тямі — тяжко працюватиму, щоб дійти туди" },
+        { en: "I am not a novice I'm gon' be the best, so prepare",             ua: "Я не новачок — я стану найкращим, тож готуйся" },
+        { en: "'Cause you know I'm honest and I'm coming for you, be scared",   ua: "Бо ти знаєш, що я чесний — і я йду по тебе, бійся" },
+        { en: "Y'all already know",                                            ua: "Ви всі вже знаєте" },
+        { en: "Yeah, that's right",                                            ua: "Так, саме так" },
+        { en: "Y'all better watch out",                                        ua: "Вам краще стерегтися" },
+        { en: "NEFFEX is on the rise, yeah",                                   ua: "NEFFEX на підйомі, так" }
+      ]}
+    ],
+    glossary: {
+      "conquest": "завоювання, підкорення", "loner": "одинак, відлюдник",
+      "impatient": "нетерплячий", "cancer": "рак (хвороба); тут: щось згубне",
+      "enhance": "покращувати, посилювати", "wealth": "багатство, статок",
+      "excel": "перевершувати, досягати успіху", "conscious": "свідомий, при тямі",
+      "novice": "новачок, початківець", "honest": "чесний"
+    },
+    slang: [
+      { en: "make stacks",  ua: "заробляти пачки грошей",    note: "stack (сленг) = пачка купюр ($1000+)" },
+      { en: "turn up",      ua: "відриватися",               note: "сленг: бурхливо веселитися, гуляти" },
+      { en: "faded",        ua: "під кайфом / напідпитку",   note: "сленг: сп'янілий від алкоголю чи трави" },
+      { en: "blow up",      ua: "вистрелити, стати відомим", note: "сленг: стрімко набути популярності" },
+      { en: "take over",    ua: "захоплювати владу",         note: "брати все під контроль, домінувати" },
+      { en: "cross me",     ua: "зрадити, перейти дорогу",   note: "сленг: підставити, обманути" },
+      { en: "got it dealt", ua: "все владнав",               note: "сленг: розібрався, тримаю під контролем" },
+      { en: "on the rise",  ua: "на підйомі",                note: "ідіома: набирати популярність/силу" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
