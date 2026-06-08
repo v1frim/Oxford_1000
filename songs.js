@@ -1967,6 +1967,157 @@ const SONGS = [
       { en: "show you the way",   ua: "показати шлях",                note: "повести за собою, навчити" }
     ]
   }
+  ,
+  {
+    id: "neffex-forget-em",
+    artist: "NEFFEX",
+    title: "Forget 'em 🚌",
+    ytId: "EJYFz25as1w",
+    xp: 200,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yo, yeah, I just wanna be on a tour bus (Yo, yeah)",  ua: "Йо, так, я просто хочу опинитися в гастрольному автобусі (Йо, так)" },
+        { en: "Sitting in the back with a cold one (Yeah)",          ua: "Сидіти ззаду з холодним пивком (Так)" },
+        { en: "We all got dreams, know you got some (Yeah)",         ua: "У нас усіх є мрії, знаю — і в тебе вони є (Так)" },
+        { en: "Yeah, we all got dreams, know you got some (Yeah)",   ua: "Так, у нас усіх є мрії, знаю — і в тебе вони є (Так)" },
+        { en: "I remember sitting in the backseat",                  ua: "Пам'ятаю, як сидів на задньому сидінні" },
+        { en: "Tapping my feet to the beat, man, that was blasting", ua: "Відбивав ногами ритм, чувак, музика гриміла" },
+        { en: "Had this dream, man, it seemed like a passion",       ua: "Була в мене мрія, чувак, вона здавалася справжньою пристрастю" },
+        { en: "I'ma make it happen, I'ma take action, yeah",         ua: "Я втілю її, я почну діяти, так" },
+        { en: "Ain't nobody gonna tell me different, nah",           ua: "Ніхто не переконає мене в іншому, не-а" },
+        { en: "Since day one, I've been winning, yeah",              ua: "Із першого ж дня я перемагаю, так" },
+        { en: "Focused on myself from the beginnin'",                ua: "Зосереджений на собі від самого початку" },
+        { en: "Didn't need nobody else's opinions, yeah",            ua: "Не потребував чужих думок, так" },
+        { en: "I strapped up young, did my research",                ua: "Я взявся за справу молодим, усе як слід вивчив" },
+        { en: "Man, I worked so hard 'til my feet hurt",             ua: "Чувак, я гарував так, що ноги боліли" },
+        { en: "Man, I worked so hard writing each word",             ua: "Чувак, я тяжко працював над кожним словом" },
+        { en: "'Cause I wanna go far, I'm a dreamer, yeah",          ua: "Бо я хочу досягти багато чого, я мрійник, так" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "We got only one life, only one life, yeah (Yeah, we only got one life)",               ua: "У нас лише одне життя, тільки одне, так (Так, у нас лише одне життя)" },
+        { en: "So, do it just right, do it just right, yeah (So, we gotta do it right, yeah)",        ua: "Тож проживи його правильно, саме так, так (Тож ми маємо все зробити як слід, так)" },
+        { en: "Keep your head high, keep your head high, yeah (Yeah, you gotta keep your head high)", ua: "Тримай голову високо, не вішай носа, так (Так, ти маєш тримати голову високо)" },
+        { en: "Don't let it go by, let it go by, yeah (And you gotta go harder)",                     ua: "Не дай йому промайнути дарма, так (І ти маєш гнути ще сильніше)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yeah, when everybody's thinking that you won't make it, forget 'em, yeah", ua: "Так, коли всі думають, що в тебе не вийде — забий на них, так" },
+        { en: "When everybody's thinking that you're just faking, forget 'em, yeah",      ua: "Коли всі думають, що ти лише прикидаєшся — забий на них, так" },
+        { en: "When everybody's thinking that you're just chasing, forget 'em, yeah",     ua: "Коли всі думають, що ти женешся за марним — забий на них, так" },
+        { en: "When everybody out here is just hating, forget 'em",                       ua: "Коли всі довкола просто заздрять і ллють бруд — забий на них" }
+      ]},
+      { label: "ПОСТ-ПРИСПІВ", lines: [
+        { en: "I want my own tour bus, so, I can be on tour, bruh",               ua: "Хочу власний гастрольний автобус, щоб роз'їжджати в турне, бро" },
+        { en: "With everyone who loves us, been with us on the come up",          ua: "З усіма, хто нас любить, хто був із нами на шляху вгору" },
+        { en: "I will never give up, I would not forgive us",                     ua: "Я ніколи не здамся, я б нам цього не пробачив" },
+        { en: "So, we gon' make it big, bruh, yeah, we gon' make it quick, yeah", ua: "Тож ми досягнемо великого, бро, так, і зробимо це швидко, так" },
+        { en: "I just wanna live it up, I just wanna get it, bruh",               ua: "Я просто хочу жити на повну, хочу взяти своє, бро" },
+        { en: "I can never get enough, no, I can never get enough",               ua: "Мені все мало, ні, мені ніколи не досить" },
+        { en: "I'm ready for the come up, I'm ready for the love, yeah",          ua: "Я готовий до злету, готовий до любові, так" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah and all I know and all I know, yeah",               ua: "Так, і все, що я знаю, усе, що знаю, так" },
+        { en: "Is where to go, is where to go, yeah",                   ua: "Це — куди йти, куди прямувати, так" },
+        { en: "Us to the top, us to the top, yeah",                     ua: "Ми — на вершину, ми — нагору, так" },
+        { en: "And I won't stop and I won't stop, yeah",                ua: "І я не спинюся, не зупинюся, так" },
+        { en: "If you know me, you won't see me slowing",               ua: "Якщо ти знаєш мене — не побачиш, щоб я збавляв темп" },
+        { en: "I'll be growing and owning' the whole thing",            ua: "Я ростиму й заволодію всім" },
+        { en: "I'll be closing and toasting, you know me",              ua: "Закриватиму угоди й піднiматиму тост, ти ж мене знаєш" },
+        { en: "Never give up, the motto I'm coaching, yeah",            ua: "Ніколи не здавайся — ось девіз, якого я навчаю, так" },
+        { en: "You gotta stay focused, you know this and show them",    ua: "Маєш лишатися зосередженим, ти це знаєш — покажи їм" },
+        { en: "Exactly what you're made of, keep going, you're chosen", ua: "Точно з чого ти зроблений, не зупиняйся, ти обраний" },
+        { en: "To be someone better in motion, not coasting",           ua: "Щоб стати кращим у русі, а не пливти за течією" },
+        { en: "Man, you know it, don't blow it, yeah",                  ua: "Чувак, ти знаєш це — не профукай шанс, так" },
+        { en: "Live with no regrets and no debts to the life",          ua: "Живи без жалю й без боргів перед життям" },
+        { en: "'Cause you only get the one time",                       ua: "Бо в тебе є лише один раз" },
+        { en: "Better live your life, better live it right",            ua: "Краще проживи своє життя, проживи його правильно" },
+        { en: "Better live your life, better live it right",            ua: "Краще проживи своє життя, проживи його правильно" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "We got only one life, only one life, yeah (Yeah, we only got one life)",               ua: "У нас лише одне життя, тільки одне, так (Так, у нас лише одне життя)" },
+        { en: "So, do it just right, do it just right, yeah (So, we gotta do it right, yeah)",        ua: "Тож проживи його правильно, саме так, так (Тож ми маємо все зробити як слід, так)" },
+        { en: "Keep your head high, keep your head high, yeah (Yeah, you gotta keep your head high)", ua: "Тримай голову високо, не вішай носа, так (Так, ти маєш тримати голову високо)" },
+        { en: "Don't let it go by, let it go by, yeah (And you gotta go harder)",                     ua: "Не дай йому промайнути дарма, так (І ти маєш гнути ще сильніше)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yeah, when everybody's thinking that you won't make it, forget 'em, yeah", ua: "Так, коли всі думають, що в тебе не вийде — забий на них, так" },
+        { en: "When everybody's thinking that you're just faking, forget 'em, yeah",      ua: "Коли всі думають, що ти лише прикидаєшся — забий на них, так" },
+        { en: "When everybody's thinkin' that you're just chasing, forget 'em, yeah",     ua: "Коли всі думають, що ти женешся за марним — забий на них, так" },
+        { en: "When everybody out here is just hating, forget 'em",                       ua: "Коли всі довкола просто заздрять і ллють бруд — забий на них" }
+      ]},
+      { label: "ПОСТ-ПРИСПІВ", lines: [
+        { en: "I want my own tour bus, so, I can be on tour, bruh",               ua: "Хочу власний гастрольний автобус, щоб роз'їжджати в турне, бро" },
+        { en: "With everyone who loves us, been with us on the come up",          ua: "З усіма, хто нас любить, хто був із нами на шляху вгору" },
+        { en: "I will never give up, I would not forgive us",                     ua: "Я ніколи не здамся, я б нам цього не пробачив" },
+        { en: "So, we gon' make it big, bruh, yeah, we gon' make it quick, yeah", ua: "Тож ми досягнемо великого, бро, так, і зробимо це швидко, так" },
+        { en: "I just wanna live it up, I just wanna get it, bruh",               ua: "Я просто хочу жити на повну, хочу взяти своє, бро" },
+        { en: "I can never get enough, no, I can never get enough",               ua: "Мені все мало, ні, мені ніколи не досить" },
+        { en: "I'm ready for the come up, I'm ready for the love, yeah",          ua: "Я готовий до злету, готовий до любові, так" },
+        { en: "I will never give up, no, I will never give up (Give up)",         ua: "Я ніколи не здамся, ні, я ніколи не здамся (Не здамся)" }
+      ]}
+    ],
+    glossary: {
+      "tour bus": "гастрольний автобус (на якому артисти їздять у турне)", "cold one": "холодне пивко/напій (розмовне «холодненьке»)",
+      "backseat": "заднє сидіння", "tapping": "відбивати, постукувати (ногою в такт)",
+      "beat": "ритм, біт", "blasting": "гриміла, гучно грала (музика)",
+      "seemed": "здавалося (seem — здаватися)", "passion": "пристрасть, велике захоплення",
+      "make it happen": "втілити, домогтися, щоб сталося", "take action": "почати діяти, перейти до дій",
+      "different": "інакше, по-іншому; tell me different — переконати в іншому", "since day one": "із самого першого дня, від початку",
+      "winning": "перемагаю, на коні (win)", "focused": "зосереджений",
+      "beginnin'": "початок (beginning)", "opinions": "думки, погляди",
+      "strapped up": "приготувався, серйозно взявся за справу", "research": "дослідження, ретельне вивчення",
+      "worked so hard": "тяжко працював, гарував", "feet": "ноги (ступні)",
+      "hurt": "боліли, нили", "each": "кожен, кожне",
+      "go far": "далеко піти, досягти багато чого", "dreamer": "мрійник",
+      "one life": "одне (єдине) життя", "do it right": "зробити правильно, як слід",
+      "head high": "голову високо; keep your head high — не занепадай духом", "go by": "промайнути, минути",
+      "go harder": "гнути сильніше, викладатися ще більше", "won't make it": "не впораєшся, не досягнеш успіху (make it)",
+      "faking": "прикидаєшся, вдаєш (fake)", "chasing": "женешся (за чимось недосяжним)",
+      "hating": "заздрять, ллють бруд, критикують (hate)", "forget 'em": "забудь про них, забий (forget them)",
+      "tour": "тур, гастролі", "bruh": "бро, чувак (brother)",
+      "come up": "шлях угору, підйом до успіху", "give up": "здаватися, опускати руки",
+      "forgive": "пробачати", "make it big": "досягти великого успіху, вибитися в люди",
+      "make it quick": "зробити швидко", "live it up": "жити на повну, відриватися",
+      "get it": "узяти своє, домогтися", "get enough": "наїстися; can't get enough — усе мало",
+      "ready": "готовий", "where to go": "куди йти, куди прямувати",
+      "to the top": "на вершину, нагору", "won't stop": "не зупинюся",
+      "slowing": "збавляю темп, сповільнююсь (slow down)", "growing": "росту, розвиваюся",
+      "owning": "володіти, панувати, контролювати", "whole thing": "усе це, уся справа",
+      "closing": "закривати (угоди, справи)", "toasting": "піднімати тост",
+      "motto": "девіз, гасло", "coaching": "навчаю, тренує (coach)",
+      "stay focused": "лишатися зосередженим", "show them": "показати їм",
+      "made of": "з чого зроблений; what you're made of — чого ти вартий", "keep going": "не зупиняйся, рухайся далі",
+      "chosen": "обраний", "in motion": "у русі, у дії",
+      "coasting": "пливти за течією, не докладати зусиль", "blow it": "профукати, втратити шанс, усе зіпсувати",
+      "regrets": "жаль, каяття", "debts": "борги",
+      "one time": "один раз", "live it right": "прожити правильно",
+      "gon'": "збираємося, будемо (gonna / going to)", "gotta": "мусиш, треба (got to)",
+      "wanna": "хочу (want to)", "I'ma": "я зараз, я збираюся (I'm going to)"
+    },
+    slang: [
+      { en: "cold one",                 ua: "холодне пивко",          note: "розмовна назва пива/напою — «холодненьке»" },
+      { en: "make it happen",           ua: "втілити в життя",        note: "домогтися, щоб задумане сталося" },
+      { en: "take action",              ua: "перейти до дій",         note: "почати діяти, не зволікати" },
+      { en: "since day one",            ua: "із першого дня",         note: "від самого початку шляху" },
+      { en: "strapped up",              ua: "узявся за справу",       note: "серйозно приготувався, налаштувався на роботу" },
+      { en: "worked 'til my feet hurt", ua: "гарував до знемоги",     note: "працював, аж ноги боліли" },
+      { en: "go far",                   ua: "далеко піти",            note: "досягти великого успіху в житті" },
+      { en: "keep your head high",      ua: "тримай голову високо",   note: "не занепадай духом, гордо тримайся попри все" },
+      { en: "go harder",                ua: "гнути сильніше",         note: "викладатися ще більше, не збавляти" },
+      { en: "forget 'em",               ua: "забий на них",           note: "forget them — не зважай на хейтерів і скептиків" },
+      { en: "the come up",              ua: "шлях нагору",            note: "підйом від нуля до успіху, становлення" },
+      { en: "make it big",              ua: "вибитися в люди",        note: "досягти великого успіху, прославитися" },
+      { en: "live it up",               ua: "жити на повну",          note: "відриватися, насолоджуватися життям сповна" },
+      { en: "can't get enough",         ua: "усе мало",               note: "ненаситне бажання більшого" },
+      { en: "us to the top",            ua: "ми — на вершину",        note: "мета: дійти до самого верху разом" },
+      { en: "won't see me slowing",     ua: "не збавлю темп",         note: "не сповільнюся, не здам назад" },
+      { en: "the motto I'm coaching",   ua: "девіз, якого навчаю",    note: "життєве гасло, яке передаю іншим" },
+      { en: "what you're made of",      ua: "чого ти вартий",         note: "з якого ти тіста, на що насправді здатен" },
+      { en: "in motion, not coasting",  ua: "у русі, а не за течією", note: "активно діяти, а не пасивно пливти" },
+      { en: "don't blow it",            ua: "не профукай",            note: "не зіпсуй, не змарнуй свій шанс" },
+      { en: "no regrets, no debts",     ua: "без жалю й боргів",      note: "жити чесно й сповна, нікому й нічого не винним" },
+      { en: "you only get one time",    ua: "життя одне",             note: "другого шансу не буде — проживи його правильно" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
