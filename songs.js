@@ -2969,6 +2969,87 @@ const SONGS = [
       { en: "never give up",           ua: "не здаватися",                   note: "не опускати рук попри все" }
     ]
   }
+  ,
+  {
+    id: "neffex-inspired",
+    artist: "NEFFEX",
+    title: "Inspired 🚀",
+    ytId: "cjny7ykmcUE",
+    xp: 250,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "And I don't really know what comes next",                     ua: "І я й сам до пуття не знаю, що буде далі" },
+        { en: "I'm just doin' my best, even though I'm so stressed out",     ua: "Просто роблю все, що можу, хай навіть весь на нервах" },
+        { en: "Everything just feels like a test that I fail, so depressed", ua: "Усе наче іспит, який я провалюю, — така депресія" },
+        { en: "When I can't seem to get out",                                ua: "Коли ніяк не вдається вибратися" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "But somethin' deep inside won't let me quit", ua: "Та щось глибоко всередині не дає мені здатися" },
+        { en: "I swear that I'm inspired by all this shit",  ua: "Клянусь, мене надихає вся ця хрінь" },
+        { en: "Tell me that I can't and I won't",            ua: "Скажи мені «ти не зможеш» — і я не відступлю" },
+        { en: "That's what guides me the most",              ua: "Саме це веде мене найдужче" },
+        { en: "Fuck your lies, I'll do what I want",         ua: "До біса твою брехню — робитиму, що захочу" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "Gas, hit the gas, hit the pain, never slack",            ua: "Газ, тисни газ, дави біль, ніколи не слабни" },
+        { en: "Neverless, she so bad, on the chair, fade to black, uh", ua: "Неверлес, вона неперевершена, на стільці, кадр гасне в чорне, у-у" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I'm inspired by thirst, I'm inspired by worth",                       ua: "Мене надихає жага, надихає власна цінність" },
+        { en: "I desire your worst, so, you can just hide while I work",             ua: "Я прагну твого найгіршого — тож ховайся, поки я працюю" },
+        { en: "I ain't tired, you first, I'll write a second, third verse",          ua: "Я не втомився — ти здасися першим; напишу і другий, і третій куплет" },
+        { en: "About the lies you go disperse, you never did shit, I know it hurts", ua: "Про брехню, яку ти розпускаєш; ти ні хріна не зробив — знаю, це болить" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Somethin' deep inside won't let me quit",    ua: "Щось глибоко всередині не дає мені здатися" },
+        { en: "I swear that I'm inspired by all this shit", ua: "Клянусь, мене надихає вся ця хрінь" },
+        { en: "Tell me that I can't and I won't",           ua: "Скажи мені «ти не зможеш» — і я не відступлю" },
+        { en: "That's what guides me the most",             ua: "Саме це веде мене найдужче" },
+        { en: "Fuck your lies, I'll do what I want",        ua: "До біса твою брехню — робитиму, що захочу" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "Gas, hit the gas, hit the pain, never slack",            ua: "Газ, тисни газ, дави біль, ніколи не слабни" },
+        { en: "Neverless, she so bad, on the chair, fade to black, uh", ua: "Неверлес, вона неперевершена, на стільці, кадр гасне в чорне, у-у" }
+      ]}
+    ],
+    glossary: {
+      "comes": "настає, приходить (від come)", "next": "далі, наступне",
+      "doin'": "роблю (doing)", "even though": "хоча, навіть попри те що",
+      "stressed out": "виснажений стресом, на нервах", "test": "іспит, випробування",
+      "fail": "провалювати, не складати", "depressed": "пригнічений, у депресії",
+      "seem": "здаватися; can't seem to — ніяк не вдається", "get out": "вибратися, вийти",
+      "somethin'": "щось (something)", "deep": "глибоко", "inside": "всередині",
+      "quit": "здаватися, кидати", "swear": "клястися, присягатися",
+      "inspired": "натхненний; надихати",
+      "shit": "лайно (тут: «вся ця фігня», без буквального сенсу)",
+      "guides": "веде, спрямовує (від guide)", "the most": "найбільше, найдужче",
+      "lies": "брехня (мн.); також бреше", "gas": "газ; hit the gas — тиснути на газ",
+      "hit": "вдарити; тут: тиснути, бити", "pain": "біль", "never": "ніколи",
+      "slack": "слабина; never slack — не давати слабину, не лінуватися",
+      "neverless": "вигадане слово NEFFEX (гра never + nevertheless), фірмовий ад-ліб",
+      "bad": "тут (сленг): крута, неперевершена", "chair": "стілець",
+      "fade": "згасати, тьмяніти; fade to black — затемнення (кінотермін)",
+      "black": "чорний, чорне", "uh": "у-у (ад-ліб, вигук)",
+      "thirst": "жага, спрага (тут: жага до успіху)", "worth": "цінність, вартість",
+      "desire": "прагнути, бажати", "worst": "найгірше", "hide": "ховатися",
+      "while": "поки, доки", "ain't": "не / не є (розм., am not)", "tired": "втомлений",
+      "verse": "куплет (пісні); вірш", "disperse": "розсіювати, розпускати (чутки)",
+      "hurts": "болить (від hurt)"
+    },
+    slang: [
+      { en: "stressed out",       ua: "на нервах, вимотаний",  note: "у стані сильного стресу, «вигорілий»" },
+      { en: "all this shit",      ua: "вся ця хрінь",          note: "shit тут = «все це», емоційне підсилення без буквального значення" },
+      { en: "hit the gas",        ua: "тиснути на газ",        note: "газувати; перен. — вкладатися на повну" },
+      { en: "never slack",        ua: "не давати слабину",     note: "не розслаблятися, не лінуватися" },
+      { en: "neverless",          ua: "неверлес",              note: "вигадане NEFFEX-слово (never + nevertheless), ад-ліб без точного значення" },
+      { en: "she so bad",         ua: "вона неперевершена",    note: "bad у сленгу = крута, приваблива (протилежне до буквального)" },
+      { en: "fade to black",      ua: "затемнення",            note: "кінотермін: кадр гасне в чорне; перен. — кінець, відключка" },
+      { en: "I ain't tired",      ua: "я не втомився",         note: "ain't = am not (розмовне скорочення)" },
+      { en: "you never did shit", ua: "ти ні хріна не зробив", note: "груб.: нічого не досяг" },
+      { en: "fuck your lies",     ua: "до біса твою брехню",   note: "груб. зневага до чужої брехні" },
+      { en: "do what I want",     ua: "робити що хочу",        note: "по-своєму, начхати на чужу думку" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
