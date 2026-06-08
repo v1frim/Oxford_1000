@@ -10164,17 +10164,15 @@ function renderThermo() {
   document.getElementById("thermo-pts").textContent = pts + " п.";
   document.getElementById("thermo-plans").innerHTML = 'план <b>' + plans + '</b>';
 
-  // Мітки: кожні 4 пункти = 1 план; поточний наступний — жовтий
+  // Мітка на кожні 4 пункти (4, 8, 12...) = межа плану; наступна — жовта
   let html = '';
-  const maxPlans = Math.ceil(maxPts / 4);
-  for (let p = 1; p <= maxPlans; p++) {
-    const ptsAtPlan = p * 4;
-    if (ptsAtPlan > maxPts) break;
-    const bot = (ptsAtPlan / maxPts) * 100;
-    const isCur = p === plans + 1;
-    const isDone = p <= plans;
+  const nextMark = (plans + 1) * 4;
+  for (let pAt = 4; pAt <= maxPts; pAt += 4) {
+    const bot = (pAt / maxPts) * 100;
+    const isCur  = pAt === nextMark;
+    const isDone = pAt <= pts;
     html += '<div class="tm' + (isCur ? ' now' : isDone ? ' done' : '') + '" style="bottom:' + bot.toFixed(1) + '%">'
-          + '<span class="tm-n">п' + p + '</span>'
+          + '<span class="tm-n">' + pAt + '</span>'
           + '<div class="tm-line"></div></div>';
   }
   document.getElementById("thermo-marks").innerHTML = html;
