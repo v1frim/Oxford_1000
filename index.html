@@ -9123,9 +9123,10 @@ document.addEventListener("keydown", e => {
   }
   if (e.key === "Tab" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
-    // Озвучуємо ЛИШЕ англійське слово: у en-ua показане слово вже англійське,
-    // в усіх інших режимах (ua-en/def/syn/ant/cloze) беремо англійський відповідник.
-    speak(mode === "en-ua" ? currentShown : getEn(currentWord)[0]);
+    // Озвучуємо ЛИШЕ ПОКАЗАНЕ англійське слово (en-ua/syn/ant — там видно англ слово).
+    // У режимах, де англійське слово — прихована ВІДПОВІДЬ (ua-en/def/cloze), Tab
+    // мовчить, щоб не підказувати відповідь голосом. currentShown = показане слово.
+    if (mode === "en-ua" || mode === "en-syn" || mode === "en-ant") speak(currentShown);
     return;
   }
   if (e.key === " " && !endScreen.classList.contains("hidden")) {
