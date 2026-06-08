@@ -3609,6 +3609,84 @@ const SONGS = [
         { en: "don't give up on your dream", ua: "не зрікайся мрії",         note: "не опускай руки, тримайся своєї цілі" }
       ]
     }
+  ,
+  {
+    id: "neffex-chance",
+    artist: "NEFFEX",
+    title: "Chance 🎯",
+    ytId: "HMbZi5W88mI",
+    xp: 800,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Oh, we gonna play now, ready for the show",                 ua: "О, зараз ми зіграємо — готові до шоу" },
+        { en: "I'm about to take down, you already know",                  ua: "Я ось-ось здобуду перемогу — ти вже знаєш" },
+        { en: "Get the fuck outta my face now, yeah, you gotta go",        ua: "Геть з-перед очей моїх — так, тобі час іти" },
+        { en: "Man, I'm on the chase now, leave me on my own",             ua: "Чувак, я в погоні зараз — залиш мене самого" },
+        { en: "I got a chance to break now, here I fuckin' go",            ua: "У мене є шанс прорватися — ну все, погнали" },
+        { en: "Take control of fate now, I control my flow",               ua: "Беру долю під контроль — я керую своїм потоком" },
+        { en: "And I know that I'll be great, how? Puttin' on a show",     ua: "І я знаю, що буду великим — як? Влаштую шоу" },
+        { en: "I know that I'ma stay loud, drownin' out the no's",         ua: "Знаю, що залишусь гучним — заглушу всі «ні»" },
+        { en: "The haters always thinkin' that they can fuckin' break me", ua: "Ненависники все думають, що зможуть мене зламати" },
+        { en: "They're better off eatin' their own words like pastries",   ua: "Краще б вони ковтали свої слова, наче тістечка" },
+        { en: "Hate me and you better find some fuckin' safety",           ua: "Ненавидиш мене — то краще знайди собі сховок" },
+        { en: "I'm comin' in hot like a bad bitch in pasties",             ua: "Я вриваюсь розпеченим, наче зухвала краля в пестіс" },
+        { en: "Ay, can't save me, no, I ain't lazy, no",                   ua: "Ей, мене не врятувати — ні, я не ледар, ні" },
+        { en: "But society has me goin' so crazy, oh",                     ua: "Та суспільство зводить мене з розуму, о" },
+        { en: "Don't blame me, no, my mind's hazy, oh",                    ua: "Не звинувачуй мене — ні, мій розум затуманений, о" },
+        { en: "And I'm sick of me feelin' this way daily, oh",             ua: "І я втомився почуватися так щодня, о" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "And I will always live my life 'til it's over ('Til it's over)", ua: "І я завжди житиму своїм життям, доки воно не скінчиться (доки не скінчиться)" },
+        { en: "And I will not forgive those who hold me down (Hold me down)",   ua: "І я не пробачу тих, хто тягне мене вниз (тягне вниз)" },
+        { en: "And I will never give up, I'm movin' forward (Movin' forward)",  ua: "І я ніколи не здамся — рухаюсь уперед (рухаюсь уперед)" },
+        { en: "And I will never miss my chance, take it now (Take it now)",     ua: "І я ніколи не проґавлю свій шанс — хапаю його зараз (хапай зараз)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "And I will always live my life 'til it's over", ua: "І я завжди житиму своїм життям, доки воно не скінчиться" },
+        { en: "And I will not forgive those who hold me down", ua: "І я не пробачу тих, хто тягне мене вниз" },
+        { en: "And I will never give up, I'm movin' forward",  ua: "І я ніколи не здамся — рухаюсь уперед" },
+        { en: "And I will never miss my chance, take it now",  ua: "І я ніколи не проґавлю свій шанс — хапаю його зараз" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "You got one life, so, live it right",                                         ua: "У тебе одне життя — тож проживи його правильно" },
+        { en: "Keep your friends tight and your family in sight",                            ua: "Тримай друзів близько, а сім'ю — на видноті" },
+        { en: "Never cease to fight for the things you think are right",                     ua: "Ніколи не припиняй боротися за те, що вважаєш правильним" },
+        { en: "'Cause you just might find you control your own mind, hey",                   ua: "Бо раптом виявиш, що сам керуєш своїм розумом, гей" },
+        { en: "You'll be fine, hey, just take your time, hey",                               ua: "Все буде добре, гей — просто не поспішай, гей" },
+        { en: "Enjoy the climb, hey, enjoy the grind, hey",                                  ua: "Насолоджуйся сходженням, гей — насолоджуйся щоденною працею, гей" },
+        { en: "You never really know what's on the other side",                              ua: "Ти ніколи насправді не знаєш, що там, по той бік" },
+        { en: "'Til you give that shit a try, know the limit is the sky, ay",                ua: "Доки не спробуєш — знай, межа лише небо, ей" },
+        { en: "Make 'em take it back, what they said about you",                             ua: "Змусь їх забрати слова назад — те, що казали про тебе" },
+        { en: "Every time they doubt you, make that shit about you",                         ua: "Щоразу, як сумніваються в тобі — зроби це приводом для себе" },
+        { en: "Forget about the clout, yo, fuck the word of mouth, yo",                      ua: "Забудь про вплив, йо — забий на чутки, йо" },
+        { en: "Keep your head down, yo, work until you're found, yo",                        ua: "Не висовуйся, йо — працюй, доки тебе не помітять, йо" },
+        { en: "Fight until you make it, yo, don't think it, no, just take it",               ua: "Борись, доки не досягнеш, йо — не думай, ні, просто бери" },
+        { en: "Don't wait for someone to break it, take control and don't just fake it, ay", ua: "Не чекай, поки хтось прорве це — бери контроль і не прикидайся, ей" },
+        { en: "You can make it happen, you just gotta take some action",                     ua: "Ти можеш це здійснити — лише треба почати діяти" },
+        { en: "Take the ship and be the captain, head on out and don't look back, yeah",     ua: "Стань біля штурвала і будь капітаном — вирушай і не озирайся, так" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "And I will never give up, I'm movin' forward", ua: "І я ніколи не здамся — рухаюсь уперед" },
+        { en: "And I will never miss my chance, take it now", ua: "І я ніколи не проґавлю свій шанс — хапаю його зараз" }
+      ]}
+    ],
+    glossary: {
+      "fate": "доля", "forgive": "пробачати", "hazy": "затуманений, неясний",
+      "cease": "припиняти", "clout": "вплив, авторитет (сленг)",
+      "grind": "виснажлива щоденна праця", "pasties": "накладки на соски (стрип-атрибут)",
+      "pastries": "тістечка, випічка"
+    },
+    slang: [
+      { en: "take down",            ua: "перемогти, повалити", note: "збити/повалити суперника" },
+      { en: "eat your words",       ua: "брати слова назад",   note: "ідіома: визнати помилку, забрати сказане" },
+      { en: "coming in hot",        ua: "вриватися різко",     note: "сленг: з'являтися агресивно/потужно" },
+      { en: "bad bitch",            ua: "зухвала краля",       note: "сленг (схвально): впевнена, незалежна жінка" },
+      { en: "the limit is the sky", ua: "межа лише небо",      note: "інверсія «sky is the limit» — безмежні можливості" },
+      { en: "word of mouth",        ua: "чутки, поголос",      note: "усна передача інформації, репутація" },
+      { en: "keep your head down",  ua: "не висовуйся",        note: "працювати тихо, не привертати уваги" },
+      { en: "take action",          ua: "почати діяти",        note: "вжити заходів, перейти до дій" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
