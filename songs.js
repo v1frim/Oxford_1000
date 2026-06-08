@@ -3284,6 +3284,103 @@ const SONGS = [
         { en: "I got this",               ua: "я впораюсь",            note: "у мене все під контролем, я з цим розберусь" }
       ]
     }
+  ,
+  {
+      id: "neffex-dangerous",
+      artist: "NEFFEX",
+      title: "Dangerous 😈",
+      ytId: "aKfO9o2IPJ0",
+      xp: 900,
+      sections: [
+        { label: "КУПЛЕТ 1", lines: [
+          { en: "I said, \"You better watch what you're doin'\" (Doin')",          ua: "Я сказав: «Краще пильнуй, що ти робиш» (Робиш)" },
+          { en: "'Cause I ain't gonna stop when I'm movin' (Movin')",              ua: "Бо я не спинюся, коли вже в русі (В русі)" },
+          { en: "I'm headed to the top, I'ma do it, I'm headed to the top",        ua: "Я прямую на вершину, я це зроблю, прямую на вершину" },
+          { en: "I'ma prove it and, baby girl, I like what you're doin' (Doin')",  ua: "Я це доведу; крихітко, мені до вподоби, що ти робиш (Робиш)" },
+          { en: "Your body's outta sight when you're movin' (Movin')",             ua: "Твоє тіло — неймовірне, коли ти рухаєшся (Рухаєшся)" },
+          { en: "You look just like my type, so, let's do it",                     ua: "Ти точно мій типаж, тож нумо до справи" },
+          { en: "You know, I'll treat you right, let me prove it",                 ua: "Знаєш, я ставитимусь до тебе як слід, дай доведу" },
+          { en: "And I could go all night, I'm sick of bein' nothin'",             ua: "І я можу хоч цілу ніч; мене нудить бути ніким" },
+          { en: "All right, I'm gonna be somethin', I'll fight with every breath", ua: "Гаразд, я стану кимось, битимусь до останнього подиху" },
+          { en: "Trust me, I'ma be the one at the top, you can't touch me",        ua: "Повір, я буду тим, хто на вершині, мене не дістати" },
+          { en: "I need to find somebody like me, who wants to be somethin'",      ua: "Мені треба знайти когось як я, хто хоче кимось стати" },
+          { en: "I bleed with every word comin', I would rather die",              ua: "Я стікаю кров'ю з кожним словом; краще вмерти" },
+          { en: "Than be someone who's nothin'",                                   ua: "Ніж бути тим, хто ніхто" }
+        ]},
+        { label: "ПРИСПІВ", lines: [
+          { en: "I'm the type of dude who will not remain nameless",              ua: "Я з тих, хто не лишиться безіменним" },
+          { en: "I'm the type of dude who is headed for greatness",               ua: "Я з тих, хто прямує до величі" },
+          { en: "I'm the type of dude who can really make changes",               ua: "Я з тих, хто справді може щось змінити" },
+          { en: "'Cause I'm the type of dude that's becomin' contagious",         ua: "Бо я з тих, хто стає заразливим" },
+          { en: "I'm the type of dude that will always be ageless",               ua: "Я з тих, хто завжди буде поза віком" },
+          { en: "I'm the type of dude that will always feel shameless",           ua: "Я з тих, хто завжди без сорому" },
+          { en: "I'm the type of dude that they say is fuckin' heinous",          ua: "Я з тих, кого називають до біса мерзенним" },
+          { en: "'Cause I'm the type of dude that you know is fuckin' dangerous", ua: "Бо я з тих, хто, ти знаєш, до біса небезпечний" }
+        ]},
+        { label: "КУПЛЕТ 2", lines: [
+          { en: "I'ma take it, now, no, you're never gonna break me",   ua: "Я візьму своє, ні, тобі мене не зломити" },
+          { en: "I'ma stay loud in the face of the hate, see?",         ua: "Я буду гучним перед лицем ненависті, бачиш?" },
+          { en: "I'ma speak out, take the muzzle off my face, breathe", ua: "Я говоритиму вголос, зніму намордник, дихатиму" },
+          { en: "Out of my mouth, every word that will make me",        ua: "З моїх вуст — кожне слово, що зробить мене мною" },
+          { en: "Never had a doubt of the life that I'm making",        ua: "Жодного разу не сумнівався в житті, яке будую" },
+          { en: "Never had a doubt of the fight I'll be facing",        ua: "Жодного сумніву в боротьбі, що на мене чекає" },
+          { en: "Never had a doubt of the nights I'll be aching",       ua: "Жодного сумніву в ночах, коли болітиме" },
+          { en: "Life is all about havin' dreams that you're chasing",  ua: "Усе життя — про мрії, за якими женешся" },
+          { en: "You don't wanna fuck with me, now",                    ua: "Тобі краще зі мною не зв'язуватись" },
+          { en: "I'll leave your ass in the street, now",               ua: "Я кину тебе валятись на вулиці" },
+          { en: "I'll put your ass underneath ground",                  ua: "Я запхну тебе під землю" },
+          { en: "I'll bury you six feet deep, now",                     ua: "Поховаю на два метри вглиб" },
+          { en: "And you better stay down",                             ua: "І краще лежи й не рипайся" },
+          { en: "Get the hell out of my way, now",                      ua: "Геть з мого шляху, негайно" },
+          { en: "It doesn't matter what you say, now",                  ua: "Уже байдуже, що ти кажеш" },
+          { en: "I'm gonna take hold of fate, now (Now)",               ua: "Я схоплю долю за горло (Зараз)" }
+        ]}
+      ],
+      glossary: {
+        "watch": "стережися, пильнуй (watch what you're doing)", "doin'": "робиш (doing)",
+        "ain't": "не / не є (розм.)", "gonna": "збираюся (going to)", "movin'": "рухаюся (moving)",
+        "headed": "прямую (head to — прямувати)", "top": "вершина, верх",
+        "i'ma": "я зараз / я буду (I'm gonna)", "prove": "доводити",
+        "outta sight": "неймовірний, шикарний (сленг: «поза зором»)", "type": "тип, типаж",
+        "treat": "ставитися, поводитися з кимось", "sick of": "ситий по горло, набридло",
+        "nothin'": "ніщо, ніхто", "somethin'": "щось; кимось стати (be something)",
+        "breath": "подих, дихання", "trust": "довіряти", "touch": "торкатися; дістати",
+        "bleed": "стікати кров'ю, кровоточити", "rather": "радше; would rather die — краще вмерти",
+        "dude": "чувак, тип, хлоп", "remain": "лишатися", "nameless": "безіменний, невідомий",
+        "greatness": "велич", "changes": "зміни", "contagious": "заразний, заразливий",
+        "ageless": "безвічний, що не старіє", "shameless": "безсоромний, без сорому",
+        "heinous": "мерзенний, огидний", "dangerous": "небезпечний", "break": "зламати, зломити",
+        "loud": "гучний", "hate": "ненависть", "speak out": "говорити відверто, висловлюватись",
+        "muzzle": "намордник", "breathe": "дихати", "doubt": "сумнів",
+        "facing": "стикатися (face — зустрічати лицем до лиця)", "aching": "болить (ache — нити)",
+        "chasing": "гнатися, переслідувати (chase)", "ass": "дупа (груб.)",
+        "bury": "ховати, закопувати", "six feet deep": "на два метри вглиб (у могилу)",
+        "stay down": "лежати, не підніматись", "get the hell out": "забирайся геть (груб.)",
+        "fate": "доля", "take hold of": "схопити, взяти під контроль"
+      },
+      slang: [
+        { en: "watch what you're doin'",      ua: "пильнуй, що робиш",           note: "попередження: будь обережний" },
+        { en: "outta sight",                  ua: "неймовірний",                 note: "сленг: вражаючий, шикарний («поза зором»)" },
+        { en: "my type",                      ua: "мій типаж",                   note: "людина в моєму смаку" },
+        { en: "treat you right",              ua: "ставитись як слід",           note: "поводитись добре, з повагою" },
+        { en: "sick of being nothin'",        ua: "набридло бути ніким",         note: "втома від посередності, невдач" },
+        { en: "be somethin'",                 ua: "кимось стати",                note: "досягти чогось, бути значущим" },
+        { en: "fight with every breath",      ua: "битися до останнього подиху", note: "викладатись повністю" },
+        { en: "you can't touch me",           ua: "мене не дістати",             note: "я недосяжний, недоторканний" },
+        { en: "would rather die than",        ua: "краще вмерти, ніж",           note: "категорична відмова від чогось" },
+        { en: "the type of dude",             ua: "з тих, хто",                  note: "людина певного складу/характеру" },
+        { en: "headed for greatness",         ua: "прямую до величі",            note: "на шляху до великого успіху" },
+        { en: "becomin' contagious",          ua: "стаю заразливим",             note: "мій вплив/енергія поширюється на інших" },
+        { en: "stay loud",                    ua: "бути гучним",                 note: "не мовчати, голосно заявляти про себе" },
+        { en: "take the muzzle off",          ua: "зняти намордник",             note: "звільнитись від обмежень, говорити вільно" },
+        { en: "don't wanna fuck with me",     ua: "краще не зв'язуйся",          note: "груб. попередження не чіпати мене" },
+        { en: "leave your ass in the street", ua: "кину тебе на вулиці",         note: "груб. погроза, зневага" },
+        { en: "six feet deep",                ua: "на два метри вглиб",          note: "у могилі (поховати глибоко)" },
+        { en: "stay down",                    ua: "лежи й не рипайся",           note: "здавайся, не вставай після поразки" },
+        { en: "get the hell out of my way",   ua: "геть з дороги",               note: "груб.: забирайся, не заважай" },
+        { en: "take hold of fate",            ua: "взяти долю в свої руки",      note: "контролювати власну долю" }
+      ]
+    }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
