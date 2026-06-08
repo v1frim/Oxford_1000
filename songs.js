@@ -3828,6 +3828,76 @@ const SONGS = [
       { en: "get after it",      ua: "братися за справу",      note: "енергійно почати діяти" }
     ]
   }
+  ,
+  {
+    id: "neffex-bros-b4-hoes",
+    artist: "NEFFEX",
+    title: "Bros B4 Hoes 🔥",
+    ytId: "4e3u78_0gbw",
+    xp: 550,
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "I put my bros before hoes (Hoes, hoes, hoes)", ua: "Я ставлю корешів вище за тьолок (тьолок, тьолок)" },
+        { en: "Br-Br-Br-Bros before hoes (Hoes, hoes)",       ua: "Ко-ко-кореші вище за тьолок (тьолок, тьолок)" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, I ain't got no need for contraception (Oh)",                      ua: "Так, мені не потрібна контрацепція (о)" },
+        { en: "Put my bros before my hoes, that's no misconception (Oh)",              ua: "Ставлю корешів вище за тьолок — і це не хибна думка (о)" },
+        { en: "Have more money I can blow, so, I'm gonna spend it (Oh)",               ua: "Маю більше грошей, які можу спустити — тож витрачатиму (о)" },
+        { en: "New PlayStation and a whole new porn collection (Oh)",                  ua: "Нова PlayStation і ціла нова колекція порно (о)" },
+        { en: "That-That-That's what I'm reppin', I got no girl, it's a miracle (Oh)", ua: "Ось що я репрезентую — у мене немає дівчини, це диво (о)" },
+        { en: "Now, I'm runnin' up the game like a clinic, oh (Oh)",                   ua: "Тепер я набиваю рахунок у грі, наче профі, о (о)" },
+        { en: "I can focus on myself, egotistical (Oh)",                               ua: "Можу зосередитись на собі — егоїстично (о)" },
+        { en: "Don't need anybody else, unconditional (Oh)",                           ua: "Не потребую більше нікого — беззастережно (о)" },
+        { en: "Un-unconditional",                                                      ua: "Бе-беззастережно" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "I-I-I-I put my bros before hoes, you already know (Oh)",                ua: "Я ставлю корешів вище за тьолок — ти й сам знаєш (о)" },
+        { en: "Got no chick to spend my shit, more money I can blow (Oh)",             ua: "Немає тьолки, на яку тринькати — більше грошей можу спустити (о)" },
+        { en: "I put my bros before hoes, you already know (Oh)",                      ua: "Ставлю корешів вище за тьолок — ти й сам знаєш (о)" },
+        { en: "I got a million problems, but a bish ain't one no more (Oh; let's go)", ua: "У мене мільйон проблем, але тьолка вже не одна з них (о, погнали)" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "And all I fuckin' know is, I got my bros and (Oh)", ua: "І все, що я знаю — у мене є мої кореші (о)" },
+        { en: "Wherever we're going, you know we own it (Oh)",     ua: "Хоч куди йдемо — ти знаєш, ми там королі (о)" },
+        { en: "All I fuckin' know is, I got my bros and (Oh)",     ua: "Все, що я знаю — у мене є мої кореші (о)" },
+        { en: "Wherever we're going, I put my bros before (Uh)",   ua: "Хоч куди йдемо — я ставлю корешів понад усе (ах)" }
+      ]},
+      { label: "БРИДЖ", lines: [
+        { en: "Nah, I ain't fucking lonely, I got my homies",      ua: "Ні, мені анітрохи не самотньо — у мене є кореші" },
+        { en: "Listen to me closely, I got my broskies",           ua: "Слухай мене уважно — у мене є мої братани" },
+        { en: "I put my bros before hoes, oh-oh-oh, oh-oh, oh-oh", ua: "Ставлю корешів вище за тьолок, о-о-о" },
+        { en: "Br-Br-Br-Bros before hoe, oh-oh-oh, oh-oh",         ua: "Ко-ко-кореші вище за тьолок, о-о-о" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, so, we roll up to the club at seven (Oh)",              ua: "Так, ми під'їжджаємо до клубу о сьомій (о)" },
+        { en: "Six dicks, no chicks, so, we straight flexing (Oh)",          ua: "Шестеро хлопців, жодної тьолки — тож просто красуємось (о)" },
+        { en: "Bouncer is a piece of shit, says, \"We need a seventh\"",     ua: "Вишибала — повний козел, каже: «Потрібен сьомий»" },
+        { en: "Told us that we need a seventh and she must be present (Oh)", ua: "Сказав, що потрібен сьомий — і це має бути дівчина (о)" },
+        { en: "Fu-Fu-Fu-Fu-Fu-Fuck that, man, we learned our lesson (Oh)",   ua: "Та к-к-к-к біса це, чувак, ми засвоїли урок (о)" },
+        { en: "Got no worries such as gettin' hella females pregnant (Oh)",  ua: "Жодних турбот на кшталт «зробити купу дівчат вагітними» (о)" },
+        { en: "So, we cross the street, get Slushiee's at 7-Eleven (Oh)",    ua: "Тож переходимо вулицю, беремо Slushie в 7-Eleven (о)" },
+        { en: "Back home to play a couple games of League of Legends (Oh)",  ua: "І додому — зіграти пару каточок у League of Legends (о)" }
+      ]}
+    ],
+    glossary: {
+      "contraception": "контрацепція, запобігання вагітності",
+      "misconception": "хибне уявлення, помилкова думка",
+      "egotistical": "егоїстичний, самозакоханий", "unconditional": "беззастережний, безумовний",
+      "bouncer": "вишибала, охоронець клубу", "lonely": "самотній", "present": "присутній",
+      "pregnant": "вагітна"
+    },
+    slang: [
+      { en: "bros before hoes", ua: "кореші важливіші за дівчат", note: "вислів: дружба понад романтичні стосунки" },
+      { en: "blow money",       ua: "спускати гроші",             note: "сленг: тринькати, витрачати багато" },
+      { en: "reppin'",          ua: "представляти (repping)",     note: "сленг (від represent): гордо демонструвати належність" },
+      { en: "chick",            ua: "тьолка, дівчина",            note: "сленг (неформ.): дівчина" },
+      { en: "homies",           ua: "кореші, свої",               note: "сленг: близькі друзі (від homeboys)" },
+      { en: "flexing",          ua: "красуватися, понтуватися",   note: "сленг: демонструвати статус/крутість" },
+      { en: "hella",            ua: "дуже, купа",                 note: "сленг (Каліфорнія): дуже багато, надзвичайно" },
+      { en: "a bish ain't one", ua: "тьолка не проблема",         note: "відсилка до Jay-Z «99 Problems»; bish = пом'якшене bitch" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
