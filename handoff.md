@@ -365,8 +365,8 @@ border: 1px solid rgba(255,255,255,0.22);
 Окремий розділ для вивчення текстів пісень (NEFFEX тощо): паралельний текст
 оригінал‖переклад (рядок-у-рядок), YouTube, статус вивчення, hover-переклади, сленг.
 
-**⚠️ СТАН: 27 пісень NEFFEX** (не пілот). Усі з повним текстом, перекладом,
-glossary та сленгом. Остання додана — «Dangerous 😈» (`ytId="aKfO9o2IPJ0"`).
+**⚠️ СТАН: 28 пісень NEFFEX** (не пілот). Усі з повним текстом, перекладом,
+glossary та сленгом. Остання додана — «Failure 🔥» (`ytId="YKqDiNJJPXk"`).
 
 - **Дані:** окремий файл **`songs.js`** (підключений `<script src="songs.js">` ПЕРЕД
   основним скриптом). `SONGS = [{id, artist, title, ytId, xp, sections:[{label,
@@ -384,7 +384,7 @@ glossary та сленгом. Остання додана — «Dangerous 😈»
   - 1550: Best of Me
   - 1500: Summer, Forget 'em
   - 1450: Baller, Things Are Gonna Get Better
-  - 1300: Badass
+  - 1300: Badass, Failure
   - 1250: Rumors
   - 1200: Grateful
   - 1150: Hungover
@@ -397,13 +397,15 @@ glossary та сленгом. Остання додана — «Dangerous 😈»
   - 600: Fight
   - 450: Inspired
   - 400: Dangerous Woman
-  - **Разом: 28800 XP** по всіх 27 піснях.
+  - **Разом: 30100 XP** по всіх 28 піснях.
   **Міграція `oxford_xp_formula_v7`** (сесія 15): перераховує stats XP + додає нові
   значення XP для вже зарахованих пісень (`oxford_songs_xp_v1`). Ідемпотентна.
   **Для нових пісень:** `node build-song.js` → калібрувальна таблиця score→xp по всіх
   піснях + відформатований блок для вставки. `node build-song.js <файл>` → рекомендований
-  xp за 3 найближчими сусідами за score. ⚠️ На межі мода 3 сусідів може завищувати —
-  звіряй із формулою шкали вище (вона — джерело істини). Прапор актуальний: `oxford_xp_formula_v7`.
+  xp за 3 найближчими сусідами за score. ⚠️ На межі мода 3 сусідів буває неточна (у
+  сесії 15 для Failure score 148.3 давала 1200 замість 1300 — баг tie-breaking
+  виправлено: тепер при нічиєї бере xp найближчого сусіда). **Завжди звіряй із формулою
+  шкали вище — вона джерело істини.** Прапор актуальний: `oxford_xp_formula_v7`.
   Якщо змінювати шкалу знову — додавай `formula_v8` (нова формула + songs XP перерахунок).
   Орієнтири score: Soldier≈181, Best of Me≈178, Forget'em≈173, Summer≈172, Baller≈167,
   Grateful≈141, Hungover≈134, Self Made≈130, Numb≈123, Cold≈115, Till I Let Go≈108, Inspired≈64, Dangerous Woman≈60.

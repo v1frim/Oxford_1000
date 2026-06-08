@@ -83,12 +83,14 @@ function recommendXp(score, calib) {
   const nearest = [...calib]
     .sort((a, b) => Math.abs(a.score - score) - Math.abs(b.score - score))
     .slice(0, 3);
-  // мода xp серед сусідів; за нічиєї — xp найближчого
+  // мода xp серед сусідів; за нічиєї — xp НАЙБЛИЖЧОГО (ітеруємо nearest за близькістю,
+  // стартуємо з nearest[0], тож при рівних count лишається найближчий, а не найменший xp).
+  // ⚠️ Це лише орієнтир — на межі звіряй із формулою шкали (див. handoff, розділ «Пісні»).
   const counts = {};
   for (const n of nearest) counts[n.xp] = (counts[n.xp] || 0) + 1;
-  let xp = nearest[0].xp, bestC = 0;
-  for (const [v, c] of Object.entries(counts)) {
-    if (c > bestC) { bestC = c; xp = +v; }
+  let xp = nearest[0].xp, bestC = counts[nearest[0].xp];
+  for (const n of nearest) {
+    if (counts[n.xp] > bestC) { bestC = counts[n.xp]; xp = n.xp; }
   }
   return { xp, neighbors: nearest };
 }
