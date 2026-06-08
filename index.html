@@ -10572,6 +10572,40 @@ if (!localStorage.getItem("oxford_xp_formula_v6")) {
     localStorage.setItem("oxford_xp_formula_v6", "1");
   } catch(e) {}
 }
+// Formula v7: song XP scale widened to 400–1600 (range 4×, ceiling raised from
+// 1200). Same rebuild as v6 — recompute stats XP + add current SONGS[].xp for
+// each learned song so already-learned songs pick up the new values. Idempotent.
+if (!localStorage.getItem("oxford_xp_formula_v7")) {
+  try {
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _awarded = loadSongsXpAwarded();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
+      ...Object.values(_awarded)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    Object.entries(_awarded).forEach(([id, date]) => {
+      const song = SONGS.find(s => s.id === id);
+      if (song && song.xp) {
+        _xpd[date] = (_xpd[date] || 0) + song.xp;
+        _total += song.xp;
+      }
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v7", "1");
+  } catch(e) {}
+}
 renderXpBar();
 updateBackupLabel();
 autoBackup();

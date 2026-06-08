@@ -174,7 +174,7 @@ function getLhXp(n) { return n <= 35 ? 50 : n <= 70 ? 75 : 100; }
 - `oxford_lh_adj_v1` — урок 1: 100→80, -20 XP.
 - `oxford_lh_adj_v2` — урок 1: 80→70, -10 XP.
 
-**Перерахунок XP з формули (актуальний прапор `oxford_xp_formula_v6`):** одноразово
+**Перерахунок XP з формули (актуальний прапор `oxford_xp_formula_v7`):** одноразово
 перебудовує `oxford_xp_v1` (total) і `oxford_xp_day_v1` (per-day) детерміновано зі
 статистики через `computeDayStatsXp()`: за день = `correct×1 + reviewCorrect×2 +
 max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100)`. Прибрало
@@ -182,12 +182,13 @@ max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHu
 **ідемпотентна** (читає лише статистику), прапор ставиться ЛИШЕ при успіху (throw →
 повтор на наступному завантаженні). Далі total і per-day тримаються в синхроні через
 `addXp` (saveXp + trackDayXp).
-- ⚠️ **Прапори формули v2→v3→v4→v5→v6** — кожна нова версія = повний перерахунок з нуля.
+- ⚠️ **Прапори формули v2→v3→v4→v5→v6→v7** — кожна нова версія = повний перерахунок з нуля.
   `formula_v4` (сесія 12) застосував ставки LingoHut 50/75/100; `formula_v5` (сесія 13)
   застосував review×2 і до історичного XP; `formula_v6` (сесія 15) подвоїв XP пісень
-  (400–1200, пропорційно за score) + вперше включив songs XP у розрахунок total.
-  Щоб змінити будь-яку ставку ще раз — зміни її в `computeDayStatsXp` + додай `formula_v7`
-  (для пісень: також перерахуй songs XP у блоці, як formula_v6). НЕ забудь синхронно
+  (400–1200) + вперше включив songs XP у розрахунок total; `formula_v7` (сесія 15)
+  розширив шкалу пісень до 400–1600 (розмах 4×).
+  Щоб змінити будь-яку ставку ще раз — зміни її в `computeDayStatsXp` + додай `formula_v8`
+  (для пісень: також перерахуй songs XP у блоці, як formula_v7). НЕ забудь синхронно
   оновити live-логіку (`addXp` у recordAnswer/updateMastery) і `computeRetroXp`.
 - ⚠️ `v1` → `v2`: справжня причина, чому v1 встановився, а XP лишився старий —
   у коміті `eec07b4` випадково **видалено `const XP_DAY_KEY = "oxford_xp_day_v1"`**.
@@ -333,7 +334,7 @@ border: 1px solid rgba(255,255,255,0.22);
 - `oxford_duolingo_v1` — `{"YYYY-MM-DD": count}` Duolingo сесії
 - `oxford_lingohut_v1` — `{lessonNum: "YYYY-MM-DD"}` LingoHut уроки
 - `oxford_lh_adj_v1`, `oxford_lh_adj_v2` — прапори одноразових коригувань LingoHut XP (застосовано)
-- `oxford_xp_formula_v6` — актуальний прапор повного перерахунку XP (v2/v3/v4/v5 — старі)
+- `oxford_xp_formula_v7` — актуальний прапор повного перерахунку XP (v2/v3/v4/v5/v6 — старі)
 - `oxford_songs_status_v1` — `{songId: "queue"|"learning"|"learned"}` статус вивчення пісень
 - `oxford_songs_xp_v1` — `{songId: "YYYY-MM-DD"}` дати нарахування XP за пісні (одноразово при →"learned")
 
@@ -373,33 +374,37 @@ glossary та сленгом. Остання додана — «Things Are Gonna
 - **XP за пісню (поле `xp`):** нараховується **реально** у загальний XP при першому
   переключенні статусу на «✅ Вивчено» (одноразово). Зберігається в
   `oxford_songs_xp_v1 = {songId: "YYYY-MM-DD"}`. Картка показує `⚡ NNN XP` (`.sc-xp`).
-  **⚠️ Шкалу подвоєно двічі: сесія 13 (100→200..600), сесія 15 (200→400..1200,
-  пропорційно за score).** Вивчення пісні = декілька годин. Поточний діапазон **400–1200 XP**,
-  крок 50. Значення розподілені пропорційно до `score = lines + words/10 + slang×2`:
-  формула `xp = round50(400 + (score − 59.6) / 121.4 × 800)`, мін score = 59.6
-  (Dangerous Woman), макс = 181.0 (Soldier). Фактичні значення в songs.js:
-  - 1200: Soldier, Best of Me
-  - 1150: Summer, Forget 'em
-  - 1100: Baller, Things Are Gonna Get Better
-  - 1000: Badass
-  - 950: Grateful, Rumors
-  - 900: Hungover
-  - 850: Legendary, Pro, Self Made
-  - 800: All These Thoughts, First Time, Numb
-  - 750: Cold, Flirt, New Beginnings
-  - 700: Careless, Till I Let Go
-  - 700: Hype
-  - 600: Lit
-  - 550: Fight
+  **⚠️ Шкалу масштабовано тричі: сесія 13 (100→200..600), сесія 15 (200→400..1200),
+  сесія 15 (розмах розширено до 400..1600, розмах 4×).** Вивчення складної пісні =
+  декілька годин; розмах 4× відображає НЕлінійне зростання зусиль. Поточний діапазон
+  **400–1600 XP**, крок 50. Значення пропорційні до `score = lines + words/10 + slang×2`:
+  формула `xp = round50(400 + (score − 59.6) / 121.4 × 1200)`, мін score = 59.6
+  (Dangerous Woman = підлога 400), макс = 181.0 (Soldier = стеля 1600). Значення в songs.js:
+  - 1600: Soldier
+  - 1550: Best of Me
+  - 1500: Summer, Forget 'em
+  - 1450: Baller, Things Are Gonna Get Better
+  - 1300: Badass
+  - 1250: Rumors
+  - 1200: Grateful
+  - 1150: Hungover
+  - 1100: Self Made
+  - 1050: All These Thoughts, First Time, Numb, Legendary, Pro
+  - 950: Cold, New Beginnings
+  - 900: Careless, Flirt, Till I Let Go
+  - 800: Hype
+  - 750: Lit
+  - 600: Fight
   - 450: Inspired
   - 400: Dangerous Woman
-  - **Разом: 22000 XP** по всіх 26 піснях.
-  **Міграція `oxford_xp_formula_v6`** (сесія 15): перераховує stats XP + додає нові
+  - **Разом: 27900 XP** по всіх 26 піснях.
+  **Міграція `oxford_xp_formula_v7`** (сесія 15): перераховує stats XP + додає нові
   значення XP для вже зарахованих пісень (`oxford_songs_xp_v1`). Ідемпотентна.
   **Для нових пісень:** `node build-song.js` → калібрувальна таблиця score→xp по всіх
   піснях + відформатований блок для вставки. `node build-song.js <файл>` → рекомендований
-  xp за 3 найближчими сусідами за score. Прапор актуальний: `oxford_xp_formula_v6`.
-  Якщо змінювати шкалу знову — додавай `formula_v7` (нова формула + songs XP перерахунок).
+  xp за 3 найближчими сусідами за score. ⚠️ На межі мода 3 сусідів може завищувати —
+  звіряй із формулою шкали вище (вона — джерело істини). Прапор актуальний: `oxford_xp_formula_v7`.
+  Якщо змінювати шкалу знову — додавай `formula_v8` (нова формула + songs XP перерахунок).
   Орієнтири score: Soldier≈181, Best of Me≈178, Forget'em≈173, Summer≈172, Baller≈167,
   Grateful≈141, Hungover≈134, Self Made≈130, Numb≈123, Cold≈115, Till I Let Go≈108, Inspired≈64, Dangerous Woman≈60.
 - **Сортування списку за статусом (сесія 12):** `renderSongsList` сортує через
@@ -553,6 +558,15 @@ const PICTURE_SCENES = [
     перерахувала total + per-day stats + songs XP для вже зарахованих пісень. [Drop]
     позначено як ПРОГРАШ; 4× повтор drop НЕ дублюється (показано 2 унікальні рядки на
     секцію — для вивчення це той самий текст, а не новий обсяг).
+  - **+2 пісні:** «Hype 🔥» (`DcfVqJV8-YM`, score 100.9) і «Things Are Gonna Get Better 👊»
+    (`FHW7rIRQl38`, score 167.8, найдовша — 65 рядків, 8 секцій). Things: нова мітка
+    секції **РЕФРЕН** (хук «I won't give up», не приспів). → 26 пісень.
+  - **Шкалу XP пісень розширено вдруге: 400–1200 → 400–1600 (розмах 4×)** (за запитом,
+    після аналізу таблиці score/lines/words/slang). Підлога DW=400 — якір. Аргумент:
+    зусилля на складних піснях ростуть нелінійно. Перерахунок лінійний
+    `xp = round50(400 + (score−59.6)/121.4×1200)`, крок 50. Soldier 1600, Best of Me 1550,
+    Things/Baller 1450, DW 400. Тепер **27900 XP** по 26 піснях. Міграція
+    `oxford_xp_formula_v7` (копія v6 з новими songs XP). Деталі шкали — розділ «Пісні».
 - Зміни сесії 14:
   - **Термометр «Плани» (`#thermo`)** — новий фіксований віджет зліва: щоденний лічильник
     зусиль (гра/Duolingo/LingoHut → пункти), план = кожні 4 пункти, висота калібрується
