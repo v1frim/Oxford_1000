@@ -428,25 +428,23 @@
   .prog-song { font-size: 11px; color: #c89bff; opacity: 0.85; margin-left: 4px; }
 
   /* ── Термометр планів ── */
-  #thermo { position: fixed; left: 22px; top: 50%; transform: translateY(-50%); z-index: 150; display: flex; flex-direction: column; align-items: center; gap: 5px; user-select: none; pointer-events: none; }
+  #thermo { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 150; display: flex; flex-direction: column; align-items: center; gap: 6px; user-select: none; pointer-events: none; background: rgba(12,32,68,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.16); border-radius: 16px; padding: 12px 12px 14px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
   #thermo.hidden { display: none; }
-  .th-title { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: .1em; }
-  .th-pts   { font-size: 11px; color: #ffd166; font-weight: 700; }
-  .th-body  { position: relative; display: flex; flex-direction: row; gap: 3px; height: 300px; align-items: stretch; }
-  .th-marks-col { position: relative; width: 28px; }
+  .th-title { font-size: 9px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: .12em; }
+  .th-pts   { font-size: 12px; color: #ffd166; font-weight: 700; }
+  .th-body  { position: relative; display: flex; flex-direction: row; gap: 4px; height: 300px; align-items: stretch; }
+  .th-marks-col { position: relative; width: 30px; }
   .th-tube-col  { position: relative; width: 14px; }
-  .th-tube { width: 100%; height: 100%; border-radius: 7px; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.14); overflow: hidden; position: relative; }
-  #thermo-fill { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, #ff6b6b, #ffa94d 55%, #ffd166); border-radius: 0 0 7px 7px; transition: height .6s cubic-bezier(.34,1.2,.64,1); }
-  .tm { position: absolute; right: 0; display: flex; align-items: center; gap: 2px; transform: translateY(50%); }
-  .tm-line { width: 7px; height: 1px; background: rgba(255,255,255,0.18); flex-shrink: 0; }
-  .tm.plan > .tm-line { width: 13px; background: rgba(255,255,255,0.45); }
-  .tm.now  > .tm-line { width: 15px; background: #ffd166; }
-  .tm-n { font-size: 8px; color: rgba(255,255,255,0.28); line-height: 1; }
-  .tm.plan > .tm-n { color: rgba(255,255,255,0.58); }
-  .tm.now  > .tm-n { color: #ffd166; font-weight: 700; font-size: 9px; }
-  .th-bulb { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg,#ff6b6b,#ffa94d); border: 1px solid rgba(255,255,255,0.18); margin-top: -4px; box-shadow: 0 2px 10px rgba(255,107,107,.4); }
-  .th-plans { font-size: 10px; color: rgba(255,255,255,0.45); text-align: center; line-height: 1.35; }
-  .th-plans b { color: #ffd166; font-size: 12px; }
+  .th-tube { width: 100%; height: 100%; border-radius: 7px; background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.16); overflow: hidden; position: relative; }
+  #thermo-fill { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, #ffd166, #ffa94d 50%, #ff6b6b); background-size: 100% 300px; background-position: left bottom; background-repeat: no-repeat; border-radius: 0 0 7px 7px; transition: height .6s cubic-bezier(.34,1.2,.64,1); }
+  .tm { position: absolute; right: 0; display: flex; align-items: center; gap: 3px; transform: translateY(50%); }
+  .tm-line { width: 6px; height: 1px; background: rgba(255,255,255,0.28); flex-shrink: 0; }
+  .tm.now  .tm-line { width: 16px; height: 2px; background: #ffd166; }
+  .tm-n { font-size: 9px; color: rgba(255,255,255,0.6); line-height: 1; font-weight: 600; }
+  .tm.now  .tm-n { color: #ffd166; font-weight: 800; font-size: 10px; }
+  .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
+  .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
+  .th-plans b { color: #ffd166; font-size: 13px; }
   .prog-delta { display: flex; gap: 8px; justify-content: flex-end; align-items: baseline; flex-wrap: nowrap; }
   .prog-known   { color: #7be07b; font-size: 13px; font-weight: 600; }
   .prog-learning{ color: #87b4ff; font-size: 13px; font-weight: 600; }
@@ -10158,13 +10156,15 @@ function renderThermo() {
   document.getElementById("thermo-plans").innerHTML =
     'урок <b>' + plans + '</b>' + (todayStr ? '<br><span style="font-size:9px;color:rgba(255,255,255,0.4)">' + todayStr + '</span>' : '');
 
-  // Мітки: кожен план — одна мітка; поточний (наступний до завершення) — жовтий
+  // Мітки: лінія на кожен план; цифра лише кратні 5 + поточний; поточний — жовтий
   let html = '';
   for (let p = 1; p <= maxPl; p++) {
     const bot = (p / maxPl) * 100;
     const isCur = p === plans + 1;
-    html += '<div class="tm plan' + (isCur ? ' now' : '') + '" style="bottom:' + bot + '%">'
-          + '<div class="tm-line"></div><span class="tm-n">' + p + '</span></div>';
+    const showNum = isCur || p % 5 === 0;
+    html += '<div class="tm' + (isCur ? ' now' : '') + '" style="bottom:' + bot + '%">'
+          + (showNum ? '<span class="tm-n">' + p + '</span>' : '')
+          + '<div class="tm-line"></div></div>';
   }
   document.getElementById("thermo-marks").innerHTML = html;
 }
