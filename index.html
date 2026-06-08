@@ -10157,7 +10157,8 @@ function renderThermo() {
   const pts   = getThermoPointsToday();
   const best  = getBestDayPoints();
   const plans = Math.floor(pts / 4);
-  const maxPts = Math.max(16, Math.floor(best / 4) * 4);
+  const topMark = Math.max(16, Math.floor(best / 4) * 4); // верхня мітка = найбільший повний план
+  const maxPts  = topMark + 2;                             // +2 пункти простору над міткою
   const fillPct = Math.min(100, (pts / maxPts) * 100);
 
   document.getElementById("thermo-fill").style.height = fillPct + "%";
@@ -10167,7 +10168,7 @@ function renderThermo() {
   // Мітка на кожні 4 пункти (4, 8, 12...) = межа плану; наступна — жовта
   let html = '';
   const nextMark = (plans + 1) * 4;
-  for (let pAt = 4; pAt <= maxPts; pAt += 4) {
+  for (let pAt = 4; pAt <= topMark; pAt += 4) {
     const bot = (pAt / maxPts) * 100;
     const isCur  = pAt === nextMark;
     const isDone = pAt <= pts;
