@@ -7549,7 +7549,7 @@ function recordAnswer(userVal, status) {
     if (reviewRemaining) {
       reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
       if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
-        addXp(1);  // 1 XP per closed review word (= 1 repetition), NOT per answer
+        addXp(2);  // 2 XP per closed review word (= 1 repetition), NOT per answer
         reviewRemaining.delete(currentWordIndex);
         // Only remove from today's mistakes if the word had no errors/skips this session.
         // A "tainted" word (any mistake in current review) must stay for further review.
@@ -9439,16 +9439,16 @@ function computeRetroXp() {
     if (s >= 2)   xp += 1;              // 2nd correct
     if (s >= 3) { xp += 5; xp += 1; }  // learn→know bonus + 3rd correct
   });
-  Object.values(loadDays()).forEach(d => { xp += (d.reviewCorrect || 0); });
+  Object.values(loadDays()).forEach(d => { xp += 2 * (d.reviewCorrect || 0); });
   return xp;
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
-// Per day: correct×1 + reviewCorrect×1 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100).
+// Per day: correct×1 + reviewCorrect×2 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100).
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone) {
   let xp = 0;
   const d = days[date] || {};
   xp += (d.correct || 0);          // correct answers in regular games
-  xp += (d.reviewCorrect || 0);    // each closed review word = 1 repetition = 1 XP
+  xp += 2 * (d.reviewCorrect || 0); // each closed review word = 1 repetition = 2 XP
   const idx = hdates.indexOf(date);
   if (idx >= 0) {
     const cur  = history[date];
@@ -10415,6 +10415,32 @@ if (!localStorage.getItem("oxford_xp_formula_v4")) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
     localStorage.setItem("oxford_xp_formula_v4", "1");
+  } catch(e) {}
+}
+
+// Formula v5: review XP raised 1→2 per closed word (more time spent re-learning
+// mistakes). Rebuild total + per-day from stats with reviewCorrect×2 so the stored
+// total stays in lockstep with what's displayed. Idempotent (reads stats only).
+if (!localStorage.getItem("oxford_xp_formula_v5")) {
+  try {
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v5", "1");
   } catch(e) {}
 }
 renderXpBar();
