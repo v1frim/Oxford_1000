@@ -2842,6 +2842,133 @@ const SONGS = [
       { en: "shooter's gonna shoot",  ua: "стрілець стрілятиме",     note: "хто діє — той не спиняється (метафора рішучості)" }
     ]
   }
+  ,
+  {
+    id: "neffex-cold",
+    artist: "NEFFEX",
+    title: "Cold ❄️",
+    ytId: "WzQBAc8i73E",
+    xp: 400,
+    sections: [
+      { label: "ВСТУП", lines: [
+        { en: "(It's so cold outside, I'm alone, I'm all right)",                              ua: "(Надворі так холодно — я сам, і мені нормально)" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, everybody knows that I'm breaking down",                                  ua: "Так, усі знають, що я зриваюся" },
+        { en: "Everybody knows I ain't fakin' now",                                            ua: "Усі знають, що я зараз не прикидаюсь" },
+        { en: "Everybody knows my heart's vacant now",                                         ua: "Усі знають, що моє серце тепер порожнє" },
+        { en: "Yeah, she hates me now, I made mistakes, but now",                              ua: "Так, вона тепер ненавидить мене, я помилявся, але тепер..." },
+        { en: "I don't ever wanna be alone, I don't really ever feel at home",                 ua: "Я ніколи не хочу бути сам, та й удома себе так і не почуваю" },
+        { en: "On my own, in the zone, that's the only way I know",                            ua: "Сам по собі, у своєму потоці — це єдине, що я знаю" },
+        { en: "Feelin' low, 'bout to blow back up, here I go",                                 ua: "Пригнічений, от-от знову вибухну — і понеслося" },
+        { en: "I will never let the doubt creep in, gotta pop a couple more Aspirin",          ua: "Ніколи не дам сумніву підкрастися — треба закинутися ще парою таблеток аспірину" },
+        { en: "I don't think I'll ever let you in, easier to break it off as friends",         ua: "Навряд чи колись впущу тебе в душу — простіше розійтися друзями" },
+        { en: "I don't really understand myself, I don't really understand, need help",        ua: "Я й сам себе не розумію, справді не розумію — потрібна допомога" },
+        { en: "I don't wanna be left on the shelf, couldn't even hear me if I yelled, yeah",   ua: "Не хочу лишитися непотрібним — мене б не почули, навіть якби я кричав, так" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "It's so cold outside (It's so cold outside)",                                   ua: "Надворі так холодно (Надворі так холодно)" },
+        { en: "I'm alone, I'm all right (I'm alone, I'm all right)",                           ua: "Я сам, і мені нормально (Я сам, і мені нормально)" },
+        { en: "It's so cold outside (It's so cold outside)",                                   ua: "Надворі так холодно (Надворі так холодно)" },
+        { en: "I'm alone, I'm all right (I'm alone, I'm all right)",                           ua: "Я сам, і мені нормально (Я сам, і мені нормально)" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(It's so cold outside, I'm alone, I'm all right)",                              ua: "(Надворі так холодно — я сам, і мені нормально)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I don't wanna break down, always feel like I could break, now",                 ua: "Не хочу зламатися, хоч завжди відчуваю, що можу, ось зараз" },
+        { en: "But I never let it take me to that place, now",                                 ua: "Та я ніколи не дозволяю цьому довести мене до того стану" },
+        { en: "I won't ever let my thoughts get away, now",                                    ua: "Не дам своїм думкам вийти з-під контролю" },
+        { en: "I got better things to do, picking fate, now",                                  ua: "Маю важливіші справи — сам обираю свою долю" },
+        { en: "I just wanna be the best, call me, \"Great,\" now",                             ua: "Я просто хочу бути найкращим — зви мене «Великим»" },
+        { en: "I don't know if I'm okay or insane, now",                                       ua: "Не знаю, чи я в нормі, чи божевільний" },
+        { en: "I remember better days on the playground",                                      ua: "Пам'ятаю кращі дні на дитячому майданчику" },
+        { en: "Hopin' I can find my way to a better place, now",                               ua: "Сподіваюсь знайти дорогу до кращого місця" },
+        { en: "Even when I'm feelin' down, I fight",                                           ua: "Навіть коли пригнічений, я борюся" },
+        { en: "Even when I don't know what is right",                                          ua: "Навіть коли не знаю, що правильно" },
+        { en: "I'ma pick a side and I'ma take pride",                                          ua: "Я оберу свій бік і пишатимусь цим" },
+        { en: "I will decide my fate and I will never let them tell me who I am",              ua: "Я сам вирішу свою долю й ніколи не дам їм вказувати, хто я" },
+        { en: "If you try to shape me, I'll be damned",                                        ua: "Якщо спробуєш зліпити мене по-своєму — дзуськи" },
+        { en: "Planted on the ground is where I stand",                                        ua: "Я стою міцно, мов укорінений у землю" },
+        { en: "Never give up, that was always the plan, yeah",                                 ua: "Ніколи не здаватися — таким завжди був план, так" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "It's so cold outside (It's so cold outside)",                                   ua: "Надворі так холодно (Надворі так холодно)" },
+        { en: "I'm alone, I'm all right (I'm alone, I'm all right)",                           ua: "Я сам, і мені нормально (Я сам, і мені нормально)" },
+        { en: "It's so cold outside (It's so cold outside)",                                   ua: "Надворі так холодно (Надворі так холодно)" },
+        { en: "I'm alone, I'm all right (I'm alone, I'm all right)",                           ua: "Я сам, і мені нормально (Я сам, і мені нормально)" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(It's so cold outside, I'm alone, I'm all right)",                              ua: "(Надворі так холодно — я сам, і мені нормально)" }
+      ]}
+    ],
+    glossary: {
+      "breaking down": "зриватися, ламатися (емоційно)",
+      "ain't fakin'": "не прикидаюсь (ain't = am not, fake — вдавати)",
+      "vacant": "порожній, незайнятий",
+      "made mistakes": "наробив помилок",
+      "feel at home": "почуватися як удома, комфортно",
+      "on my own": "сам, самостійно",
+      "in the zone": "у потоці, повністю зосереджений",
+      "feelin' low": "пригнічений, у поганому настрої",
+      "'bout to": "от-от, збираюся (about to)",
+      "blow back up": "знову вибухнути; знову «вистрілити»/прославитися",
+      "here I go": "ну понеслося, я почав",
+      "doubt": "сумнів",
+      "creep in": "підкрадатися, прокрадатися",
+      "gotta": "мушу, треба (got to)",
+      "pop": "закинутися (таблеткою), проковтнути",
+      "aspirin": "аспірин (знеболювальне)",
+      "let you in": "впустити тебе (в душу, до себе)",
+      "break it off": "розірвати стосунки",
+      "as friends": "лишитися друзями",
+      "need help": "потрібна допомога",
+      "left on the shelf": "лишитися незатребуваним, відкинутим (як товар на полиці)",
+      "yelled": "кричав (yell — кричати)",
+      "all right": "нормально, в порядку",
+      "break down": "зламатися, не витримати",
+      "take me to that place": "довести мене до того (поганого) стану",
+      "get away": "вислизнути, вийти з-під контролю",
+      "picking fate": "сам обираю свою долю",
+      "fate": "доля, фатум",
+      "insane": "божевільний",
+      "playground": "дитячий майданчик",
+      "find my way": "знайти свій шлях/дорогу",
+      "feelin' down": "у пригніченому стані, сумно",
+      "pick a side": "обрати бік/позицію",
+      "take pride": "пишатися",
+      "decide my fate": "вирішувати свою долю",
+      "shape me": "ліпити/формувати мене під себе",
+      "I'll be damned": "та нізащо; хай мене грім поб'є (вигук спротиву)",
+      "planted on the ground": "твердо стою, мов укорінений",
+      "where I stand": "де я стою; моя позиція",
+      "give up": "здаватися",
+      "the plan": "план, задум"
+    },
+    slang: [
+      { en: "breaking down",           ua: "зриватися",                      note: "емоційно ламатися, не витримувати" },
+      { en: "ain't fakin'",            ua: "не прикидаюсь",                  note: "усе по-справжньому, без вдавання" },
+      { en: "heart's vacant",          ua: "серце порожнє",                  note: "усередині пустка, нема почуттів" },
+      { en: "feel at home",            ua: "почуватися як удома",            note: "відчувати спокій і приналежність" },
+      { en: "in the zone",             ua: "у потоці",                       note: "стан повної зосередженості й драйву" },
+      { en: "feelin' low",             ua: "пригнічений",                    note: "у поганому, сумному настрої" },
+      { en: "blow back up",            ua: "знову вистрілити",               note: "знову прославитися/вибухнути успіхом" },
+      { en: "let the doubt creep in",  ua: "дати сумніву підкрастися",       note: "піддатися невпевненості" },
+      { en: "pop a couple Aspirin",    ua: "закинутися таблетками",          note: "приглушити біль/стрес знеболювальним" },
+      { en: "let you in",              ua: "впустити в душу",                note: "довіритися, підпустити близько" },
+      { en: "break it off",            ua: "розірвати стосунки",             note: "припинити стосунки" },
+      { en: "left on the shelf",       ua: "лишитися непотрібним",           note: "бути відкинутим, забутим (як товар на полиці)" },
+      { en: "take me to that place",   ua: "довести до того стану",          note: "штовхнути в темний/поганий настрій" },
+      { en: "thoughts get away",       ua: "думки виходять з-під контролю",  note: "втрачати контроль над думками" },
+      { en: "picking fate",            ua: "сам обираю долю",                note: "брати своє життя у власні руки" },
+      { en: "okay or insane",          ua: "в нормі чи божевільний",         note: "сумнів у власному психічному стані" },
+      { en: "pick a side",             ua: "обрати бік",                     note: "визначитися з позицією" },
+      { en: "take pride",              ua: "пишатися",                       note: "відчувати гідність за свій вибір" },
+      { en: "I'll be damned",          ua: "дзуськи / та нізащо",            note: "рішучий спротив: «нізащо цього не дозволю»" },
+      { en: "planted on the ground",   ua: "твердо стою",                    note: "непохитна позиція, мов укорінений у землю" },
+      { en: "never give up",           ua: "не здаватися",                   note: "не опускати рук попри все" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }

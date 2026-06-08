@@ -363,8 +363,8 @@ border: 1px solid rgba(255,255,255,0.22);
 Окремий розділ для вивчення текстів пісень (NEFFEX тощо): паралельний текст
 оригінал‖переклад (рядок-у-рядок), YouTube, статус вивчення, hover-переклади, сленг.
 
-**⚠️ СТАН: 22 пісні NEFFEX** (не пілот). Усі з повним текстом, перекладом,
-glossary та сленгом. Остання додана — «Grateful 🙏» (`ytId="83RUhxsfLWs"`).
+**⚠️ СТАН: 23 пісні NEFFEX** (не пілот). Усі з повним текстом, перекладом,
+glossary та сленгом. Остання додана — «Cold ❄️» (`ytId="WzQBAc8i73E"`).
 
 - **Дані:** окремий файл **`songs.js`** (підключений `<script src="songs.js">` ПЕРЕД
   основним скриптом). `SONGS = [{id, artist, title, ytId, xp, sections:[{label,
@@ -379,15 +379,15 @@ glossary та сленгом. Остання додана — «Grateful 🙏» 
   - 550: Summer, Forget 'em
   - 500: Badass
   - 450: Pro, Self Made, Rumors, Hungover, Grateful
-  - 400: New Beginnings, First Time, Legendary, Numb
+  - 400: New Beginnings, First Time, Legendary, Numb, Cold
   - 350: All These Thoughts, Flirt, Careless, Till I Let Go
   - 300: Lit, Fight
   - 200: Dangerous Woman
-  - **Разом: 9450 XP** по всіх 22 піснях.
+  - **Разом: 9850 XP** по всіх 23 піснях.
   **Для нових пісень:** рахуй `score = lines + words/10 + slang×2` (через `node`-скрипт
   по тексту), знайди найближчий ранг серед існуючих і постав відповідне XP з шкали вище.
   Орієнтири score: Soldier≈181, Best of Me≈178, Forget'em≈173, Summer≈172, Baller≈167,
-  Grateful≈141, Hungover≈134, Self Made≈130, Numb≈123, Till I Let Go≈108, Dangerous Woman≈60. (Готовий `node`-скрипт калібрування score для всіх
+  Grateful≈141, Hungover≈134, Self Made≈130, Numb≈123, Cold≈115, Till I Let Go≈108, Dangerous Woman≈60. (Готовий `node`-скрипт калібрування score для всіх
   пісень — у транскрипті сесії 14; рахує lines+words+slang з songs.js і друкує мапу score→xp.)
 - **Сортування списку за статусом (сесія 12):** `renderSongsList` сортує через
   `STATUS_SORT_ORDER = {learning:0, queue:1, learned:2}` — спершу «📖 Вчу», далі
@@ -527,12 +527,13 @@ const PICTURE_SCENES = [
     по найкращому дню. Повний опис — розділ «Фіксовані UI-елементи». Кілька ітерацій
     по UX: денний (не all-time) лічильник, мітки підписані пунктами (4/8/12…), простір
     над верхньою міткою.
-  - **+5 пісень NEFFEX → тепер 22 пісні, разом 9450 XP:**
+  - **+6 пісень NEFFEX → тепер 23 пісні, разом 9850 XP:**
     - «Hungover 🍻» (`SJ5eW0xRgOA`) — 450 XP (score 134)
     - «Till I Let Go 🌙» (`8bblUQGhPjw`) — 350 XP (score 108)
     - «Best of Me 🤘» (`0Wa_CR0H8g4`) — 600 XP (score 178, топ-ранг біля Soldier)
     - «Numb 💊» (`xzAhPbM0kVI`) — 400 XP (score 123)
     - «Grateful 🙏» (`83RUhxsfLWs`) — 450 XP (score 141)
+    - «Cold ❄️» (`WzQBAc8i73E`) — 400 XP (score 115; межа 350/400, обрано 400)
     Усі через генератор-скрипт (`node`, формула score = lines+words/10+slang×2) з
     каліброваним XP по мапі рангів. Деталі шкали — розділ «Пісні».
     ⚠️ Best of Me — відео замінено (`A4LiP8WFuG0` → `0Wa_CR0H8g4`) за запитом.
