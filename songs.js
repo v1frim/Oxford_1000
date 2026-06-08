@@ -3687,6 +3687,67 @@ const SONGS = [
       { en: "take action",          ua: "почати діяти",        note: "вжити заходів, перейти до дій" }
     ]
   }
+  ,
+  {
+    id: "neffex-destiny",
+    artist: "NEFFEX",
+    title: "Destiny 🙌",
+    ytId: "24C8r8JupYY",
+    xp: 550,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, I don't believe in destiny, I just do what's best for me",                ua: "Так, я не вірю в долю — я просто роблю те, що краще для мене" },
+        { en: "Don't listen to my enemies, they're just full of jealousy, duh",                ua: "Не слухаю ворогів — вони просто сповнені заздрості, ну ясно" },
+        { en: "This legacy, you gon' see what's left of me",                                   ua: "Ця спадщина — ти побачиш, що залишиться після мене" },
+        { en: "You gon' see success in me, you ain't seen the rest of me",                     ua: "Ти побачиш у мені успіх — ти ще не бачив усього мене" },
+        { en: "I just wanna be the best at what I know, better than the rest",                 ua: "Я просто хочу бути найкращим у тому, що вмію — кращим за решту" },
+        { en: "Just watch me grow, put me to the test and watch me go",                        ua: "Просто дивись, як я росту — випробуй мене і дивись, як я пру вперед" },
+        { en: "This is my quest, I'ma make it known, they call me, \"Obsessive,\" oh, I know", ua: "Це моя місія, я заявлю про неї — мене звуть «одержимим», о, я знаю" },
+        { en: "Call me, \"Selective\" with my notes, call me, \"Aggressive\" with my flow",    ua: "Кажуть, я «прискіпливий» до нот, «агресивний» у своєму флоу" },
+        { en: "Call me, \"Offensive\" even though, yo, we ain't gonna lie",                    ua: "Кажуть, я «зухвалий» — хоча, йо, не брехатимемо" },
+        { en: "Life's tough, try to get by, life's rough, try to do it right",                 ua: "Життя важке — намагаюсь триматися; життя жорстке — намагаюсь робити правильно" },
+        { en: "It's not enough, even though you try, you still mess up",                       ua: "Цього мало — навіть коли стараєшся, все одно лажаєш" },
+        { en: "But I'm still gonna fight for what I love, still gonna die for what I love",    ua: "Та я все одно битимусь за те, що люблю — і помру за те, що люблю" },
+        { en: "Still gonna try, I won't give up, still gonna fight until I've won",            ua: "Все одно пробуватиму, не здамся — битимусь, доки не переможу" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "They say I'm way too obsessed and I've got nothin' left",      ua: "Кажуть, я надто одержимий і в мене нічого не лишилось" },
+        { en: "And I'm not quite there yet, but those words, they'll regret", ua: "І я ще не зовсім досяг мети — але за ті слова вони пошкодують" },
+        { en: "'Cause I've got somethin' left and I'm not giving in",         ua: "Бо в мене ще дещо є — і я не поступлюся" },
+        { en: "I will not let them win, I won't stop 'til the end, no",       ua: "Я не дам їм перемогти — не зупинюсь до самого кінця, ні" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I've been through some injuries, mentally and physically",              ua: "Я пройшов через травми — душевні й фізичні" },
+        { en: "Studied them religiously, so, I don't repeat history",                  ua: "Вивчав їх ретельно, щоб не повторювати минулого" },
+        { en: "And people won't admit to me, they don't want a victory",               ua: "І люди не зізнаються мені — вони не хочуть перемоги" },
+        { en: "Bad enough to get it, see? They'd rather just go leave it be",          ua: "Достатньо сильно, щоб її здобути — бачиш? Вони радше залишать усе як є" },
+        { en: "And, oh, this journey I've been on since thirteen",                     ua: "І, о, ця подорож, у якій я з тринадцяти років" },
+        { en: "Workin' hard and learning, never stoppin' searching, yeah",             ua: "Тяжко працюю і вчусь, ніколи не припиняю шукати, так" },
+        { en: "It's burning, all this passion hurts me, I took action working",        ua: "Це пече — уся ця пристрасть ранить мене; я взявся до діла, працюючи" },
+        { en: "Writing down these words, see? No, I'm not okay",                       ua: "Записую ці слова, бачиш? Ні, я не в порядку" },
+        { en: "I just wanna be something, I don't wanna be nothing, livin' all alone", ua: "Я просто хочу щось значити, не хочу бути нічим, живучи геть самотньо" },
+        { en: "No, I'm not alright, I'm just barely getting by",                       ua: "Ні, мені не добре — я ледве зводжу кінці з кінцями" },
+        { en: "But I'll tell you I'm just fine, so, you leave me alone",               ua: "Та я скажу тобі, що зі мною все гаразд — тож дай мені спокій" }
+      ]}
+    ],
+    glossary: {
+      "destiny": "доля, призначення", "legacy": "спадщина, спадок",
+      "jealousy": "заздрість, ревнощі", "quest": "пошук, місія",
+      "obsessive": "одержимий, нав'язливий", "selective": "прискіпливий, вибірковий",
+      "offensive": "образливий, зухвалий", "religiously": "неухильно, ретельно (як ритуал)",
+      "victory": "перемога", "injuries": "травми, поранення"
+    },
+    slang: [
+      { en: "gon'",            ua: "gonna (going to)",          note: "AAVE-скорочення: збираюся" },
+      { en: "I'ma",            ua: "I'm gonna (I am going to)", note: "AAVE-скорочення: я зараз/я збираюся" },
+      { en: "duh",             ua: "ну ясно, очевидно ж",       note: "вигук: підкреслення очевидності" },
+      { en: "put to the test", ua: "випробувати",               note: "ідіома: перевірити на міцність" },
+      { en: "get by",          ua: "зводити кінці з кінцями",   note: "ідіома: ледь справлятися, виживати" },
+      { en: "mess up",         ua: "лажати, помилятися",        note: "сленг: зробити помилку, зіпсувати" },
+      { en: "leave it be",     ua: "залишити як є",             note: "ідіома: не чіпати, не втручатися" },
+      { en: "leave me alone",  ua: "дай мені спокій",           note: "відчепися, не турбуй" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
