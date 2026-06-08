@@ -1973,7 +1973,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Forget 'em 🚌",
     ytId: "EJYFz25as1w",
-    xp: 200,
+    xp: 275,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yo, yeah, I just wanna be on a tour bus (Yo, yeah)",  ua: "Йо, так, я просто хочу опинитися в гастрольному автобусі (Йо, так)" },
