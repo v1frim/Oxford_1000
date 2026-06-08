@@ -364,8 +364,8 @@ border: 1px solid rgba(255,255,255,0.22);
 Окремий розділ для вивчення текстів пісень (NEFFEX тощо): паралельний текст
 оригінал‖переклад (рядок-у-рядок), YouTube, статус вивчення, hover-переклади, сленг.
 
-**⚠️ СТАН: 24 пісні NEFFEX** (не пілот). Усі з повним текстом, перекладом,
-glossary та сленгом. Остання додана — «Inspired 🚀» (`ytId="cjny7ykmcUE"`).
+**⚠️ СТАН: 25 пісень NEFFEX** (не пілот). Усі з повним текстом, перекладом,
+glossary та сленгом. Остання додана — «Hype 🔥» (`ytId="DcfVqJV8-YM"`).
 
 - **Дані:** окремий файл **`songs.js`** (підключений `<script src="songs.js">` ПЕРЕД
   основним скриптом). `SONGS = [{id, artist, title, ytId, xp, sections:[{label,
@@ -388,11 +388,12 @@ glossary та сленгом. Остання додана — «Inspired 🚀» 
   - 800: All These Thoughts, First Time, Numb
   - 750: Cold, Flirt, New Beginnings
   - 700: Careless, Till I Let Go
+  - 700: Hype
   - 600: Lit
   - 550: Fight
   - 450: Inspired
   - 400: Dangerous Woman
-  - **Разом: 20200 XP** по всіх 24 піснях.
+  - **Разом: 20900 XP** по всіх 25 піснях.
   **Міграція `oxford_xp_formula_v6`** (сесія 15): перераховує stats XP + додає нові
   значення XP для вже зарахованих пісень (`oxford_songs_xp_v1`). Ідемпотентна.
   **Для нових пісень:** `node build-song.js` → калібрувальна таблиця score→xp по всіх

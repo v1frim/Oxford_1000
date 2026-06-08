@@ -3050,6 +3050,94 @@ const SONGS = [
       { en: "do what I want",     ua: "робити що хочу",        note: "по-своєму, начхати на чужу думку" }
     ]
   }
+  ,
+  {
+    id: "neffex-hype",
+    artist: "NEFFEX",
+    title: "Hype 🔥",
+    ytId: "DcfVqJV8-YM",
+    xp: 700,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I stay loose, I stay hype, I stay loose, I stay hype (Yeah)",                               ua: "Я тримаюся розкуто, я на хайпі, тримаюся розкуто, на хайпі (Так)" },
+        { en: "I stay loose, I stay hype, I could do this all night (Yeah, that's right)",                 ua: "Тримаюся розкуто, на хайпі — можу так цілу ніч (Так, саме так)" },
+        { en: "'Cause I do what I like, yeah, I do what I like",                                           ua: "Бо роблю, що мені подобається, так, роблю що хочу" },
+        { en: "Yeah, I do what I like, sipping Goose, sipping Sprite (Yeah, yeah, let's go)",              ua: "Так, роблю що хочу, попиваю Goose, попиваю Sprite (Так, так, погнали)" },
+        { en: "And I go with the flow, yeah, I go with the flow",                                          ua: "І пливу за течією, так, пливу за течією" },
+        { en: "Yeah, I go with the flow 'cause I know, I'm the show (Oh, that's right)",                   ua: "Так, пливу за течією, бо знаю — я і є шоу (О, саме так)" },
+        { en: "In the zone, here I go, in the zone, here I go, in the zone, here I go (Yeah, yeah, yeah)", ua: "У зоні, ось я рушаю, у зоні, ось я, у зоні, ось я (Так, так, так)" },
+        { en: "Yeah, they know, I'm a pro (Pro, pro, pro, pro, pro)",                                      ua: "Так, усі знають — я профі (Профі, профі, профі, профі...)" },
+        { en: "Let's go, let's go",                                                                        ua: "Погнали, погнали" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(Hey, hey, hey, hey)", ua: "(Ей, ей, ей, ей)" },
+        { en: "Yeah, let's go",       ua: "Так, погнали" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "If I go, I'ma get, when I flow, I'ma hit (Yeah, what?)",                   ua: "Як я рухаюся — беру, як у потоці — б'ю (Так, що?)" },
+        { en: "And I know I'm the kid, I'm a show, don't forget (Let's go)",              ua: "І знаю: я — той самий хлопець, я шоу — не забудь (Погнали)" },
+        { en: "I'ma blow up winning, got my flow, so vivid",                              ua: "Злечу вгору переможцем, мій потік такий яскравий" },
+        { en: "Here we go, just beginning (Oh, oh)",                                      ua: "Ось ми й починаємо (О, о)" },
+        { en: "Yeah, I throw every inning (That's right, that's right)",                  ua: "Так, відіграю кожну подачу (Саме так, саме так)" },
+        { en: "Got my flow, so legit, all I know is my shit (Oh)",                        ua: "Мій потік такий реальний — усе, що я знаю, це моя справа (О)" },
+        { en: "Where I go, they come with, Post Malone in this bitch (Aye, aye)",         ua: "Куди я — вони за мною; Post Malone тут (Е, е)" },
+        { en: "Rockstar, making hits, got guitar in this shit (Aye, aye, aye)",           ua: "Рокзірка, роблю хіти, є гітара в цій справі (Е, е, е)" },
+        { en: "Leaving scars 'cause we lit, all these bars (That's right, that's right)", ua: "Залишаємо шрами, бо ми вогненні, всі ці рядки (Саме так)" },
+        { en: "That I spit, yeah (Yeah, yeah, yeah, yeah, yeah)",                         ua: "Що я читаю, так (Так, так, так, так, так)" },
+        { en: "Let's go, let's go",                                                       ua: "Погнали, погнали" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "(Hey, hey, hey, hey)", ua: "(Ей, ей, ей, ей)" },
+        { en: "Let's go",             ua: "Погнали" }
+      ]},
+      { label: "КУПЛЕТ 3", lines: [
+        { en: "If I know, what I want, then I know, what I get (Oh)",                            ua: "Якщо знаю, чого хочу, то знаю, що отримаю (О)" },
+        { en: "If I go, they come with 'cause they know",                                        ua: "Якщо рушаю — вони за мною, бо знають" },
+        { en: "I get lit (Yeah, yeah, that's right, that's right)",                              ua: "Я запалюю (Так, так, саме так, саме так)" },
+        { en: "I'm the pro, not a myth, in my flow, got some wit (Let's go, that's right)",      ua: "Я профі, не міф, у моєму потоці є дотепність (Погнали, саме так)" },
+        { en: "Never slow, drink a fifth, I get hype, I get lit",                                ua: "Ніколи не гальмую, п'ю пляшку, заводжусь, запалюю" },
+        { en: "Here I go, I get lit, here I go, I get lit (Oh)",                                 ua: "Ось я рушаю, запалюю, ось рушаю, запалюю (О)" },
+        { en: "Here I go, I get lit, I get hype for this shit (Yeah, yeah, I get hype)",         ua: "Ось рушаю, запалюю, заводжусь від цього (Так, так, я заводжусь)" },
+        { en: "Here I go, I get lit, here I go, I get lit (Oh)",                                 ua: "Ось я рушаю, запалюю, ось рушаю, запалюю (О)" },
+        { en: "Here I go, I get lit, I get hype for this shit (Oh, that's right, that's right)", ua: "Ось рушаю, запалюю, заводжусь від цього (О, саме так, саме так)" }
+      ]}
+    ],
+    glossary: {
+      "loose": "розкутий, вільний (без напруги)", "hype": "хайп; збуджений, заведений",
+      "all night": "цілу ніч", "sipping": "попиваю (дрібними ковтками)",
+      "goose": "Grey Goose (марка преміальної горілки)", "sprite": "Sprite (лимонадний напій)",
+      "flow": "потік, ритм; go with the flow — пливти за течією",
+      "zone": "зона; in the zone — у стані концентрації/потоку",
+      "i'ma": "я зараз / я буду (I'm gonna)", "vivid": "яскравий, чіткий",
+      "inning": "подача (бейсбол); тут: раунд, спроба",
+      "legit": "справжній, реальний (сленг: по-справжньому крутий)",
+      "post malone": "Post Malone (американський репер/поп-рок-артист)",
+      "bitch": "тут груб. підсилення (ця штука / цей чувак)", "aye": "е (вигук згоди/схвалення)",
+      "rockstar": "рок-зірка", "hits": "хіти (популярні пісні)", "scars": "шрами",
+      "bars": "рими (рядки реп-куплету)", "spit": "виплівати; spit bars — читати рими (реп)",
+      "myth": "міф", "wit": "дотепність, розум",
+      "fifth": "пляшка ~750 мл (п'ята частина галону)",
+      "woah": "во-о (вигук здивування/захвату)", "yeah": "так (вигук схвалення/ритму)"
+    },
+    slang: [
+      { en: "stay hype",                 ua: "тримати хайп",          note: "лишатися збудженим, заведеним; не втрачати енергії" },
+      { en: "stay loose",                ua: "залишатися розкутим",   note: "без напруги, вільно — протилежне до «tight» (скутий)" },
+      { en: "sipping Goose",             ua: "попиваю Grey Goose",    note: "Grey Goose — преміальна горілка; «sipping» = статусне пиття" },
+      { en: "go with the flow",          ua: "пливти за течією",      note: "не напружуватись, приймати те, що є; рухатись природно" },
+      { en: "I'm the show",              ua: "я і є шоу",             note: "я головна атракція, центр уваги" },
+      { en: "in the zone",               ua: "у зоні",                note: "у стані повної концентрації та потоку; все виходить само" },
+      { en: "I'ma hit",                  ua: "я влучу / б'ю",         note: "досягати ефекту, вражати; hit = вдарити/хіт" },
+      { en: "I'm the kid",               ua: "я той самий",           note: "the kid = the one; натяк «я і є той хлопець»" },
+      { en: "blow up winning",           ua: "злетіти переможцем",    note: "blow up = стати знаменитим (вибухнути); winning = перемагаючи" },
+      { en: "Post Malone in this bitch", ua: "Post Malone тут",       note: "груб.: «bitch» = підсилення місця (тут/у цій штуці)" },
+      { en: "spit bars",                 ua: "читати рими",           note: "spit = виплівати → виконувати куплети; bars = рядки/рими" },
+      { en: "drink a fifth",             ua: "пити пляшку",           note: "fifth = п'ята частина галону ≈ 750 мл алкоголю" },
+      { en: "get lit",                   ua: "запалюватися",          note: "стати неймовірним/вогненним; або захмеліти — подвійний сенс" },
+      { en: "get hype",                  ua: "заводитися",            note: "відчувати збудження, адреналін; готуватися до дії" },
+      { en: "we lit",                    ua: "ми вогненні",           note: "ми на висоті, ми неймовірні (lit = розпалені/круті)" },
+      { en: "throw every inning",        ua: "відіграю кожну подачу", note: "бейсбол: throw an inning = подати / провести подачу; тут: впоратися з кожним раундом" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
