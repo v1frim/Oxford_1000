@@ -3748,6 +3748,86 @@ const SONGS = [
       { en: "leave me alone",  ua: "дай мені спокій",           note: "відчепися, не турбуй" }
     ]
   }
+  ,
+  {
+    id: "neffex-watch-me",
+    artist: "NEFFEX",
+    title: "Watch Me 🏆",
+    ytId: "ib9HZzZhG7I",
+    xp: 950,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "I never take doubt as a lesson, I never second-guess it",                       ua: "Я ніколи не вчуся на сумнівах, ніколи не переграю рішення" },
+        { en: "Take negativity and reject it, I got my mind blind to rejection (Let's go)",    ua: "Беру негатив і відкидаю його — мій розум сліпий до відмов (погнали)" },
+        { en: "So, I'll be just fine, don't be wasting any time with discretion (Yeah, yeah)", ua: "Тож зі мною все буде гаразд — не марнуй час на обережність (так, так)" },
+        { en: "I run this campaign, like, I'm running an election",                            ua: "Я веду цю кампанію, наче балотуюсь на виборах" },
+        { en: "I pop this champagne, like, we're not in a recession (That's right)",           ua: "Я відкорковую шампанське, наче й немає жодної кризи (саме так)" },
+        { en: "I feel no damn pain, Ibuprofen is a blessing",                                  ua: "Я не відчуваю жодного болю — ібупрофен це благо" },
+        { en: "Feel it pumping through my veins, got me feeling like I'm flexing, yeah",       ua: "Відчуваю, як він пульсує у венах — почуваюся, наче хизуюсь, так" },
+        { en: "I'm in motion, I'm obsessive, like the ocean, I'm relentless (Yeah)",           ua: "Я в русі, я одержимий — наче океан, я невпинний (так)" },
+        { en: "No promotion, still progressing, overdosing on these lessons",                  ua: "Без просування, та все одно прогресую — передозовуюсь цими уроками" },
+        { en: "And these words, my only weapon, cut you deep, oh, yeah, I threaten",           ua: "А ці слова — моя єдина зброя; ріжуть глибоко, о так, я погрожую" },
+        { en: "Feel the heat and all the tension, need relief from this whole session",        ua: "Відчуваю жар і всю напругу — потребую перепочинку від усього цього" },
+        { en: "But I keep myself progressing 'cause I creep around suppressants",              ua: "Та я тримаю себе в прогресі — бо обходжу всі заспокійливі" },
+        { en: "I don't sleep enough, you guessed it, every second is a blessing (Yeah)",       ua: "Я мало сплю, ти вгадав — кожна секунда це благо (так)" },
+        { en: "Got no time to be depressed, on this grind, you're always stressed",            ua: "Немає часу впадати в депресію — у цій гонитві ти завжди в стресі" },
+        { en: "So, I work harder than the rest, Dad always said to do my best, yeah",          ua: "Тож я працюю більше за решту — тато завжди казав викладатися на повну, так" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Yeah, I don't ever doubt myself, I can count on no-one else",                 ua: "Так, я ніколи не сумніваюсь у собі — більше ні на кого не покладаюсь" },
+        { en: "And I do not need your help, I was told to, \"Show, not tell\" (Yeah, yeah)", ua: "І мені не потрібна твоя допомога — мене вчили: «Показуй, а не розказуй» (так, так)" },
+        { en: "I don't ever doubt myself, I can count on no-one else",                       ua: "Я ніколи не сумніваюсь у собі — більше ні на кого не покладаюсь" },
+        { en: "And I do not need your help, I was told to, \"Show, not tell\"",              ua: "І мені не потрібна твоя допомога — мене вчили: «Показуй, а не розказуй»" },
+        { en: "So, watch me",                                                                ua: "Тож дивись на мене" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, man, this beat got me aggressive",                                   ua: "Так, чувак, цей біт завів мене на агресію" },
+        { en: "Got me on the straight offensive",                                         ua: "Кинув мене в чисту атаку" },
+        { en: "You can't stop this train direction 'cause it runs without an engine",     ua: "Ти не зупиниш цей потяг — він мчить навіть без двигуна" },
+        { en: "Oh, and did I fail to mention that I need all your attention?",            ua: "О, і чи я забув згадати, що мені потрібна вся твоя увага?" },
+        { en: "'Cause we're failing in retention, listen up or just forget it",           ua: "Бо ми не вміємо втримувати увагу — слухай уважно або просто забий" },
+        { en: "I ain't here to spit perfection, I embrace my imperfections",              ua: "Я тут не для ідеальних рим — я приймаю свої недоліки" },
+        { en: "I just want all that's neglected to hear something they connect with",     ua: "Я лише хочу, щоб усі покинуті почули щось близьке собі" },
+        { en: "So, I use my only method, all these words that I've invested",             ua: "Тож я використовую єдиний свій метод — усі ці слова, що я вклав" },
+        { en: "I don't hope that they're impressive, I just hope that they're effective", ua: "Я не сподіваюсь, що вони вражають — лише сподіваюсь, що вони дієві" },
+        { en: "Yeah, I swear to God if you want it, then you got to get it",              ua: "Так, присягаюсь Богом: якщо ти цього хочеш — то мусиш це здобути" },
+        { en: "'Cause when I'm on my deathbed, no, I will not regret it",                 ua: "Бо на смертному одрі я ні про що не жалкуватиму" },
+        { en: "You only got one life, one shot don't let it slip away",                   ua: "У тебе лише одне життя, один шанс — не дай йому вислизнути" },
+        { en: "Today get up and make a big change, huh?",                                 ua: "Сьогодні встань і зроби велику зміну, га?" },
+        { en: "You decide your own future, a winner or a loser",                          ua: "Ти сам вирішуєш своє майбутнє — переможець чи невдаха" },
+        { en: "A headline or a rumor, on the bench or a shooter?",                        ua: "Заголовок чи чутка, на лаві запасних чи бомбардир?" },
+        { en: "Superstar or recruiter, defense or prosecutor?",                           ua: "Суперзірка чи рекрутер, захисник чи прокурор?" },
+        { en: "Just living, a consumer or will you be a producer?",                       ua: "Просто живеш — споживач, чи станеш творцем?" },
+        { en: "If you have a dream, go capture it, go act a bit",                         ua: "Якщо маєш мрію — йди і схопи її, дій хоч трохи" },
+        { en: "Get off your ass, and take some action, bitch",                            ua: "Підніми свій зад і почни діяти, чорт забирай" },
+        { en: "Start acting like you want this shit 'cause passion ain't compassionate",  ua: "Поводься так, ніби справді цього хочеш — бо пристрасть не знає жалю" },
+        { en: "Too many people want this shit, it's not enough you're talented",          ua: "Забагато людей цього хочуть — замало просто бути талановитим" },
+        { en: "Kid you have to fucking grab at it, I'm sick of being adequate",           ua: "Малий, ти мусиш вхопитися за це — я втомився бути просто пристойним" },
+        { en: "Another college graduate, just looking for an advocate",                   ua: "Ще один випускник коледжу, що просто шукає заступника" },
+        { en: "To hire me to pack their shit, you want it? Take a stab at it",            ua: "Щоб найняв мене пакувати їхні речі — хочеш цього? Спробуй-но" },
+        { en: "You need it? Then get after it, these people they don't matter, kid",      ua: "Потребуєш цього? Тоді берись за справу — ці люди не мають значення, малий" },
+        { en: "Just block them out and capture it",                                       ua: "Просто відгородься від них і схопи своє" }
+      ]}
+    ],
+    glossary: {
+      "rejection": "відмова, неприйняття", "discretion": "обачність, розсудливість",
+      "recession": "економічний спад, криза", "relentless": "невпинний, безжальний",
+      "suppressants": "пригнічувачі (заспокійливі ліки)",
+      "retention": "утримання (уваги/пам'яті)", "imperfections": "недоліки, вади",
+      "prosecutor": "прокурор, обвинувач", "compassionate": "співчутливий, жалісливий",
+      "adequate": "достатній, пристойний"
+    },
+    slang: [
+      { en: "second-guess",      ua: "перегравати рішення",    note: "сумніватися в уже прийнятому рішенні" },
+      { en: "flex",              ua: "хизуватися",             note: "сленг: випендрюватися, демонструвати статус/силу" },
+      { en: "show, not tell",    ua: "показуй, а не розказуй", note: "принцип: доводь діями, не словами" },
+      { en: "spit",              ua: "читати реп",             note: "сленг: виконувати рими (spit bars)" },
+      { en: "slip away",         ua: "вислизати",              note: "непомітно зникати, втрачатися" },
+      { en: "get off your ass",  ua: "піднімай зад",           note: "груб.: припини байдикувати, берись до діла" },
+      { en: "take a stab at it", ua: "спробувати",             note: "ідіома: зробити спробу" },
+      { en: "get after it",      ua: "братися за справу",      note: "енергійно почати діяти" }
+    ]
+  }
 ];
 
 if (typeof window !== "undefined") { window.SONGS = SONGS; }
