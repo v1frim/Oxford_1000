@@ -442,6 +442,8 @@
   .tm.now  .tm-line { width: 16px; height: 2px; background: #ffd166; }
   .tm-n { font-size: 9px; color: rgba(255,255,255,0.6); line-height: 1; font-weight: 600; }
   .tm.now  .tm-n { color: #ffd166; font-weight: 800; font-size: 10px; }
+  .tm.done .tm-line { width: 10px; background: rgba(255,255,255,0.5); }
+  .tm.done .tm-n { color: rgba(255,255,255,0.45); }
   .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
   .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
   .th-plans b { color: #ffd166; font-size: 13px; }
@@ -10121,16 +10123,6 @@ function renderLbTotals() {
     row("Досвід (XP)", xp, "#ffd166");
 }
 
-function getThermoPoints() {
-  const days = loadDays();
-  const duo  = loadDuoSessions();
-  const lh   = loadLhDone();
-  let pts = 0;
-  Object.values(days).forEach(d => { pts += d.games || 0; });
-  Object.values(duo).forEach(n => { pts += n; });
-  Object.keys(lh).forEach(k => { pts += Number(k) <= 35 ? 1 : 2; });
-  return pts;
-}
 function getThermoPointsToday() {
   const today = new Date().toISOString().slice(0, 10);
   const days  = loadDays();
@@ -10142,28 +10134,47 @@ function getThermoPointsToday() {
   Object.entries(lh).forEach(([k, dt]) => { if (dt === today) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
+function getBestDayPoints() {
+  const days = loadDays();
+  const duo  = loadDuoSessions();
+  const lh   = loadLhDone();
+  const allDates = new Set([
+    ...Object.keys(days),
+    ...Object.keys(duo),
+    ...Object.values(lh).filter(v => v && v.length === 10)
+  ]);
+  let best = 0;
+  allDates.forEach(date => {
+    let pts = 0;
+    if (days[date]) pts += days[date].games || 0;
+    pts += duo[date] || 0;
+    Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
+    if (pts > best) best = pts;
+  });
+  return best;
+}
 function renderThermo() {
-  const pts    = getThermoPoints();
-  const today  = getThermoPointsToday();
-  const plans  = Math.floor(pts / 4);
-  // Показуємо поточні плани + 4 вперед, з округленням до 4 для рівного вигляду
-  const maxPl  = Math.max(8, Math.ceil((plans + 4) / 4) * 4);
-  const fillPct = Math.min(100, (pts / (maxPl * 4)) * 100);
+  const pts   = getThermoPointsToday();
+  const best  = getBestDayPoints();
+  const plans = Math.floor(pts / 4);
+  const maxPts = Math.max(16, best + 4);
+  const fillPct = Math.min(100, (pts / maxPts) * 100);
 
   document.getElementById("thermo-fill").style.height = fillPct + "%";
   document.getElementById("thermo-pts").textContent = pts + " п.";
-  const todayStr = today > 0 ? '+' + today + ' сьогодні' : '';
-  document.getElementById("thermo-plans").innerHTML =
-    'урок <b>' + plans + '</b>' + (todayStr ? '<br><span style="font-size:9px;color:rgba(255,255,255,0.4)">' + todayStr + '</span>' : '');
+  document.getElementById("thermo-plans").innerHTML = 'план <b>' + plans + '</b>';
 
-  // Мітки: лінія на кожен план; цифра лише кратні 5 + поточний; поточний — жовтий
+  // Мітки: кожні 4 пункти = 1 план; поточний наступний — жовтий
   let html = '';
-  for (let p = 1; p <= maxPl; p++) {
-    const bot = (p / maxPl) * 100;
+  const maxPlans = Math.ceil(maxPts / 4);
+  for (let p = 1; p <= maxPlans; p++) {
+    const ptsAtPlan = p * 4;
+    if (ptsAtPlan > maxPts) break;
+    const bot = (ptsAtPlan / maxPts) * 100;
     const isCur = p === plans + 1;
-    const showNum = isCur || p % 5 === 0;
-    html += '<div class="tm' + (isCur ? ' now' : '') + '" style="bottom:' + bot + '%">'
-          + (showNum ? '<span class="tm-n">' + p + '</span>' : '')
+    const isDone = p <= plans;
+    html += '<div class="tm' + (isCur ? ' now' : isDone ? ' done' : '') + '" style="bottom:' + bot.toFixed(1) + '%">'
+          + '<span class="tm-n">п' + p + '</span>'
           + '<div class="tm-line"></div></div>';
   }
   document.getElementById("thermo-marks").innerHTML = html;
