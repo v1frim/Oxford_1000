@@ -3137,6 +3137,99 @@ const SONGS = [
       { en: "we lit",                    ua: "ми вогненні",           note: "ми на висоті, ми неймовірні (lit = розпалені/круті)" },
       { en: "throw every inning",        ua: "відіграю кожну подачу", note: "бейсбол: throw an inning = подати / провести подачу; тут: впоратися з кожним раундом" }
     ]
+  },
+  {
+    id: "neffex-crown",
+    artist: "NEFFEX",
+    title: "Crown 👑",
+    ytId: "_MTbjHKtobY",
+    xp: 850,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, it's our time to shine, yo, that's the kind of state of mind",    ua: "Настав наш час сяяти — і саме такий настрій треба мати" },
+        { en: "You gotta combine with hard work and time, you gotta climb to the top", ua: "Поєднай наполегливість і час — і дерися на вершину" },
+        { en: "Don't let yourself drop 'til your heart stops, let this beat rock",     ua: "Не падай, доки б'ється серце — нехай цей ритм вирує" },
+        { en: "Got a new clock and a new stock for this new rock",                     ua: "Новий відлік, нові ресурси — для нового удару" },
+        { en: "Just let your mind loose from the noose, Doc",                          ua: "Просто звільни розум із пастки, чуваче" },
+        { en: "Drunk of the Goose, yeah, thinking that I'm Tupac",                     ua: "Хильнув Grey Goose — уявляю себе Тупаком" },
+        { en: "Yeah, getting caught with a few thoughts 'cause I'm too lost",          ua: "Загруз у думках, бо надто загубився у собі" },
+        { en: "I'm about to log off, the speakers can't even handle me",               ua: "Готовий вимкнутись — навіть колонки не витримують" },
+        { en: "Give it what I got, nobody's gon' drain my energy",                     ua: "Вкладаю всього себе — ніхто не відбере мою енергію" },
+        { en: "And I will never stop, I'm motivated by enemies",                       ua: "Ніколи не зупинюсь — вороги лише підживлюють мене" },
+        { en: "Setting up shop, so, everybody remember me",                            ua: "Відкриваю своє діло — нехай усі мене запам'ятають" },
+        { en: "And no, I am not going through life regretfully",                       ua: "Ні — я не проживу своє життя в жалях" },
+        { en: "I'd rather work non-stop, what they call, \"Incessantly\"",             ua: "Краще працювати невпинно — саме те, що звуть «невпинністю»" },
+        { en: "Than work some odd job just to live life pleasantly",                   ua: "Ніж перебиватися на буденній роботі лише заради спокою" },
+        { en: "Already got lost in my mind, not a fantasy, I'm getting antsy",         ua: "Вже загубився у думках — не фантазія, мене охопила нетерплячість" },
+        { en: "We're the forgotten souls, so, stop, drop, and roll",                   ua: "Ми — забуті душі; стоп, падай і котись" },
+        { en: "Ya lost all control and pop off, you're bold",                          ua: "Ти втратив контроль і зірвався — ти сміливець" },
+        { en: "I got squat, I fold, I'm not bought, I'm sold",                         ua: "Я з нуля — але гнучкий; мене не купити: я сам обрав свій шлях" },
+        { en: "My stock rocks it's gold, hey, knock knock, behold",                    ua: "Мій актив — чисте золото; стук-стук — оце так погляд" },
+        { en: "It's tick-tock to close, I ain't stopping though",                      ua: "Час спливає — а я все одно не зупиняюсь" },
+        { en: "It's hip-hop you know or is it rock and roll?",                         ua: "Це хіп-хоп, знаєш — чи то рок-н-рол?" },
+        { en: "I'm not dropping dough, no, my pockets grow",                           ua: "Я не витрачаю грошей — мої кишені ростуть" },
+        { en: "You can't stop the show, so, get rocking, oh",                          ua: "Шоу не зупинити — то розкачуйся" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "So, let me break, break, break it all down for you",      ua: "Тож дай-но розкладу тобі все по поличках" },
+        { en: "I ain't never giving up, I ain't never giving in",        ua: "Я ніколи не здамся і ніколи не поступлюся" },
+        { en: "You know I'm take, take, taking that crown from you",     ua: "Знаєш — я забираю, забираю твою корону" },
+        { en: "I ain't worried 'bout you, I ain't here to make friends", ua: "Мені байдуже до тебе — я тут не за дружбою" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "Yeah, I ain't never slowing down, keep on growing 'til I'm found", ua: "Ніколи не сповільнюсь — зростатиму, доки мене помітять" },
+        { en: "Yeah, nah, I'm never slowing down 'cause we're blowing up now",    ua: "Ні, ніколи не сповільнюсь — бо ми злітаємо прямо зараз" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I carve words like a weapon, attack with no questions",                ua: "Вирізаю слова як зброю — атакую без вагань" },
+        { en: "In my own section and they still disconnected",                        ua: "У своїй стихії — а вони все ще відключені" },
+        { en: "'Cause their minds been infected and they're filled with objection",   ua: "Бо їхні розуми заражені й сповнені заперечень" },
+        { en: "Too filled for recollection, so, we're losing all attention",          ua: "Надто переповнені для спогадів — і ми втрачаємо всю увагу" },
+        { en: "They don't know I'm in contention 'cause I'm gaining their attention", ua: "Вони не знають, що я в конкуренції — я вже заволодів їхньою увагою" },
+        { en: "'Cause I'm making a connection, lyricism and aggression",              ua: "Бо я будую зв'язок — лірика і агресія" },
+        { en: "Got me feeling my ascension, in my passion, my profession",            ua: "Відчуваю своє сходження — у пристрасті й ремеслі" },
+        { en: "I'm attacking my obsession, taking action and progressing, ah",        ua: "Атакую свою пристрасть — дію і рухаюсь уперед" },
+        { en: "I go off on the enemy, that's what makes them scared of me",           ua: "Налітаю на ворога — ось що робить їх переляканими" },
+        { en: "Make my plans carefully, then execute 'em daringly",                   ua: "Будую плани ретельно — а втілюю їх сміливо" },
+        { en: "They say I act recklessly, but that's why I'm effective, see?",        ua: "Кажуть, я діяю безрозсудно — але саме тому я ефективний" },
+        { en: "You can't predict my tendencies, I offer no transparency",             ua: "Мої дії непередбачувані — я не даю жодної прозорості" },
+        { en: "Some people think I'm lost, others think I'll be a legend",            ua: "Дехто думає, що я загублений; інші — що стану легендою" },
+        { en: "I'm never gonna stop 'til I'm one above second",                       ua: "Ніколи не зупинюсь, доки не стану першим" },
+        { en: "And my thoughts at the top, but my mind stay present",                 ua: "Думки — на вершині, але розум залишається в моменті" },
+        { en: "Don't let your dreams stop 'cause dreaming is a blessing",             ua: "Не давай мріям зупинятись — мріяти це благо" },
+        { en: "Yeah, they doubt me all the same",                                     ua: "Та вони однаково сумніваються в мені" },
+        { en: "Told me I won't make a name",                                          ua: "Казали — я не зроблю собі ім'я" },
+        { en: "But it's not about the fame, it's about keeping me sane",              ua: "Але справа не в славі — а в тому, щоб залишатись при здоровому глузді" },
+        { en: "So, I stay within my lane",                                            ua: "Тож я тримаюсь своєї смуги" },
+        { en: "Feel my blood pump through my veins",                                  ua: "Відчуваю, як кров пульсує крізь вени" },
+        { en: "Feel adrenaline, no pain",                                             ua: "Відчуваю адреналін — і жодного болю" },
+        { en: "Welcome all to my domain",                                             ua: "Ласкаво просимо до мого царства" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "So, let me break, break, break it all down for you (Don't be scared)",  ua: "Тож дай-но розкладу все по поличках (Не бійся)" },
+        { en: "I ain't never giving up, I ain't never giving in",                      ua: "Я ніколи не здамся і ніколи не поступлюся" },
+        { en: "You know I'm take, take, taking that crown from you (Don't be scared)", ua: "Знаєш — я забираю, забираю твою корону (Не бійся)" },
+        { en: "I ain't worried 'bout you, I ain't here to make friends",               ua: "Мені байдуже до тебе — я тут не за дружбою" },
+        { en: "(Don't be scared)",                                                     ua: "(Не бійся)" }
+      ]}
+    ],
+    glossary: {
+      "squat": "нуль, нічого (сленг)", "incessantly": "невпинно, безперестанку",
+      "antsy": "нетерплячий", "contention": "суперництво, конкуренція", "ascension": "сходження",
+      "recklessly": "безрозсудно", "transparency": "прозорість",
+      "tendencies": "тенденції, схильності", "recollection": "спогад, пам'ять",
+      "domain": "царство, сфера"
+    },
+    slang: [
+      { en: "gon'",         ua: "gonna (going to)",          note: "AAVE-скорочення: збираюся" },
+      { en: "set up shop",  ua: "відкрити справу",           note: "ідіома: розпочати власну діяльність" },
+      { en: "drop dough",   ua: "витрачати гроші",           note: "slang: dough = гроші" },
+      { en: "pop off",      ua: "зриватись, вибухати",       note: "slang: раптово говорити або діяти агресивно" },
+      { en: "go off on",    ua: "набрасовуватись на когось", note: "фразеол.: різко критикувати або атакувати" },
+      { en: "stay in lane", ua: "займатись своїм",           note: "ідіома: не втручатись у чуже" },
+      { en: "blow up",      ua: "злетіти, стати відомим",    note: "slang: стрімко набути популярності" },
+      { en: "log off",      ua: "вимкнутись",                note: "метафора: відійти від справ" }
+    ]
   }
   ,
   {
