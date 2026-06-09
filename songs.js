@@ -3388,8 +3388,9 @@ const SONGS = [
         { label: "КУПЛЕТ 1", lines: [
           { en: "I said, \"You better watch what you're doin'\" (Doin')",          ua: "Я сказав: «Краще пильнуй, що ти робиш» (Робиш)" },
           { en: "'Cause I ain't gonna stop when I'm movin' (Movin')",              ua: "Бо я не спинюся, коли вже в русі (В русі)" },
-          { en: "I'm headed to the top, I'ma do it, I'm headed to the top",        ua: "Я прямую на вершину, я це зроблю, прямую на вершину" },
-          { en: "I'ma prove it and, baby girl, I like what you're doin' (Doin')",  ua: "Я це доведу; крихітко, мені до вподоби, що ти робиш (Робиш)" },
+          { en: "I'm headed to the top, I'ma do it",                               ua: "Я прямую на вершину, я це зроблю" },
+          { en: "I'm headed to the top, I'ma prove it",                            ua: "Я прямую на вершину, я це доведу" },
+          { en: "And, baby girl, I like what you're doin' (Doin')",                ua: "І, крихітко, мені до вподоби, що ти робиш (Робиш)" },
           { en: "Your body's outta sight when you're movin' (Movin')",             ua: "Твоє тіло — неймовірне, коли ти рухаєшся (Рухаєшся)" },
           { en: "You look just like my type, so, let's do it",                     ua: "Ти точно мій типаж, тож нумо до справи" },
           { en: "You know, I'll treat you right, let me prove it",                 ua: "Знаєш, я ставитимусь до тебе як слід, дай доведу" },
@@ -3427,6 +3428,12 @@ const SONGS = [
           { en: "Get the hell out of my way, now",                      ua: "Геть з мого шляху, негайно" },
           { en: "It doesn't matter what you say, now",                  ua: "Уже байдуже, що ти кажеш" },
           { en: "I'm gonna take hold of fate, now (Now)",               ua: "Я схоплю долю за горло (Зараз)" }
+        ]},
+        { label: "БРИДЖ", lines: [
+          { en: "They all know I'm here to stay, now",          ua: "Тепер усі знають — я тут надовго" },
+          { en: "And I'm gonna change the game, now",           ua: "І я збираюся змінити гру" },
+          { en: "No, I won't break down",                       ua: "Ні, я не зломлюся" },
+          { en: "And point it towards all of them greats, now", ua: "І спрямую все це до тих великих" }
         ]}
       ],
       glossary: {
@@ -3449,7 +3456,10 @@ const SONGS = [
         "chasing": "гнатися, переслідувати (chase)", "ass": "дупа (груб.)",
         "bury": "ховати, закопувати", "six feet deep": "на два метри вглиб (у могилу)",
         "stay down": "лежати, не підніматись", "get the hell out": "забирайся геть (груб.)",
-        "fate": "доля", "take hold of": "схопити, взяти під контроль"
+        "fate": "доля", "take hold of": "схопити, взяти під контроль",
+        "here to stay": "тут надовго, всерйоз і надовго", "change the game": "змінити правила гри",
+        "break down": "зламатися, розкиснути", "point": "спрямувати, націлити (point towards)",
+        "greats": "великі, видатні люди (легенди)"
       },
       slang: [
         { en: "watch what you're doin'",      ua: "пильнуй, що робиш",           note: "попередження: будь обережний" },
@@ -3471,7 +3481,10 @@ const SONGS = [
         { en: "six feet deep",                ua: "на два метри вглиб",          note: "у могилі (поховати глибоко)" },
         { en: "stay down",                    ua: "лежи й не рипайся",           note: "здавайся, не вставай після поразки" },
         { en: "get the hell out of my way",   ua: "геть з дороги",               note: "груб.: забирайся, не заважай" },
-        { en: "take hold of fate",            ua: "взяти долю в свої руки",      note: "контролювати власну долю" }
+        { en: "take hold of fate",            ua: "взяти долю в свої руки",      note: "контролювати власну долю" },
+        { en: "here to stay",                 ua: "тут надовго",                 note: "прийшов всерйоз і надовго, нікуди не дінусь" },
+        { en: "change the game",              ua: "змінити правила гри",         note: "кардинально все поміняти, задати новий рівень" },
+        { en: "won't break down",             ua: "не зламаюсь",                 note: "не здамся, не розкисну під тиском" }
       ]
     }
   ,
