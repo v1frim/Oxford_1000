@@ -444,12 +444,12 @@
   .tm-minor .tm-line { width: 6px; height: 1px; background: rgba(255,255,255,0.22); }
   .tm-minor .tm-n { font-size: 7px; font-weight: 500; color: rgba(255,255,255,0.40); }
   .tm-minor.done .tm-n { color: rgba(255,255,255,0.52); }
-  /* основні поділки (4,8,12,16) — ЗАВЖДИ виділені (засвічені), крупніші; розмір фіксований */
+  /* основні поділки (4,8,12,16) — крупніші; майбутні лишаються нейтрально-білими */
   .tm-major .tm-line { width: 11px; height: 2px; background: rgba(255,255,255,0.82); }
   .tm-major .tm-n { font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.90); }
-  /* наступний план (поточна ціль) — жовтий, вирізняється з-поміж основних */
-  .tm.now .tm-line { background: #ffd166; }
-  .tm.now .tm-n { color: #ffd166; }
+  /* ПРОЙДЕНІ основні — жовто-оранжеві (акцент досягнутого прогресу) */
+  .tm-major.done .tm-line { background: #ffd166; }
+  .tm-major.done .tm-n { color: #ffd166; }
   .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
   .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
   .th-plans b { color: #ffd166; font-size: 13px; }
@@ -10223,15 +10223,13 @@ function renderThermo() {
   document.getElementById("thermo-pts").textContent = pts + " п.";
   document.getElementById("thermo-plans").innerHTML = 'план <b>' + plans + '</b>';
 
-  // Мітки: основні на кожні 4 пункти (4/8/12/16, межі планів), дрібні — на кожен пункт
+  // Мітки: основні (4/8/12/16) + проміжні на кожен пункт; до 17 (18 = верх трубки без мітки)
   let html = '';
-  const nextMark = (plans + 1) * 4;
-  for (let pAt = 1; pAt <= topMark; pAt++) {
+  for (let pAt = 1; pAt < maxPts; pAt++) {
     const bot = (pAt / maxPts) * 100;
     const isMajor = pAt % 4 === 0;
-    const isCur   = pAt === nextMark;
     const isDone  = pAt <= pts;
-    const cls = 'tm ' + (isMajor ? 'tm-major' : 'tm-minor') + (isCur ? ' now' : '') + (isDone ? ' done' : '');
+    const cls = 'tm ' + (isMajor ? 'tm-major' : 'tm-minor') + (isDone ? ' done' : '');
     html += '<div class="' + cls + '" style="bottom:' + bot.toFixed(1) + '%">'
           + '<span class="tm-n">' + pAt + '</span>'
           + '<div class="tm-line"></div></div>';
