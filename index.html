@@ -437,16 +437,19 @@
   .th-tube-col  { position: relative; width: 14px; }
   .th-tube { width: 100%; height: 100%; border-radius: 7px; background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.16); overflow: hidden; position: relative; }
   #thermo-fill { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, #ffd166, #ffa94d 50%, #ff6b6b); background-size: 100% 300px; background-position: left bottom; background-repeat: no-repeat; border-radius: 0 0 7px 7px; transition: height .6s cubic-bezier(.34,1.2,.64,1); }
-  .tm { position: absolute; right: 0; display: flex; align-items: center; gap: 3px; transform: translateY(50%); }
-  .tm-line { width: 6px; height: 1px; background: rgba(255,255,255,0.28); flex-shrink: 0; }
-  .tm.now  .tm-line { width: 16px; height: 2px; background: #ffd166; }
-  .tm-n { font-size: 9px; color: rgba(255,255,255,0.6); line-height: 1; font-weight: 600; }
-  .tm.now  .tm-n { color: #ffd166; font-weight: 800; font-size: 10px; }
-  .tm.done .tm-line { width: 10px; background: rgba(255,255,255,0.5); }
-  .tm.done .tm-n { color: rgba(255,255,255,0.45); }
-  .tm-minor .tm-line { width: 4px; background: rgba(255,255,255,0.18); }
-  .tm-minor .tm-n { font-size: 7px; font-weight: 500; color: rgba(255,255,255,0.42); }
-  .tm-minor.done .tm-n { color: rgba(255,255,255,0.3); }
+  .tm { position: absolute; right: 0; display: flex; align-items: center; gap: 4px; transform: translateY(50%); }
+  .tm-line { flex-shrink: 0; border-radius: 1px; }
+  .tm-n { line-height: 1; }
+  /* проміжні поділки (1,2,3,5…) — дрібні й тьмяні; розмір ФІКСОВАНИЙ, не залежить від статусу */
+  .tm-minor .tm-line { width: 6px; height: 1px; background: rgba(255,255,255,0.22); }
+  .tm-minor .tm-n { font-size: 7px; font-weight: 500; color: rgba(255,255,255,0.40); }
+  .tm-minor.done .tm-n { color: rgba(255,255,255,0.52); }
+  /* основні поділки (4,8,12,16) — ЗАВЖДИ виділені (засвічені), крупніші; розмір фіксований */
+  .tm-major .tm-line { width: 11px; height: 2px; background: rgba(255,255,255,0.82); }
+  .tm-major .tm-n { font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.90); }
+  /* наступний план (поточна ціль) — жовтий, вирізняється з-поміж основних */
+  .tm.now .tm-line { background: #ffd166; }
+  .tm.now .tm-n { color: #ffd166; }
   .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
   .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
   .th-plans b { color: #ffd166; font-size: 13px; }
@@ -1495,7 +1498,7 @@ const WORDS = [
   {en:"skip",ua:"пропускати"},{en:"slip",ua:["ковзнути","послизнутися"]},{en:"steal",ua:"красти"},
   {en:"stretch",ua:"розтягуватися"},{en:"study",ua:"навчатися"},{en:"suffer",ua:"страждати"},
   {en:"touch",ua:"торкатися"},{en:"translate",ua:"перекладати"},{en:"treat",ua:"ставитися"},
-  {en:"vote",ua:"голосувати"},{en:"to waste",ua:"витрачати"},{en:"wear",ua:"носити"},
+  {en:"vote",ua:"голосувати"},{en:"to waste",ua:["витрачати","марнувати","відходи"]},{en:"wear",ua:"носити"},
   // ── NOUNS ──
   {en:"ability",ua:"здатність"},{en:"access",ua:"доступ"},{en:"activity",ua:"діяльність"},
   {en:"adult",ua:"дорослий"},{en:"alarm",ua:"сигнал тривоги"},{en:"apartment",ua:"квартира"},
@@ -1534,7 +1537,7 @@ const WORDS = [
   {en:"structure",ua:"структура"},{en:"style",ua:"стиль"},{en:"topic",ua:"тема"},
   {en:"trouble",ua:"проблема"},{en:"variety",ua:"різноманітність"},{en:"version",ua:"версія"},
   {en:"victim",ua:"жертва"},{en:"view",ua:"вигляд"},{en:"violence",ua:"насилля"},
-  {en:"waste",ua:"відходи"},{en:"zone",ua:"зона"},{en:"meal",ua:"їжа"},
+  {en:"waste",ua:["відходи","витрачати","марнувати"]},{en:"zone",ua:"зона"},{en:"meal",ua:"їжа"},
   {en:"disease",ua:"хвороба"},{en:"fever",ua:"температура"},{en:"medicine",ua:"ліки"},{en:"pill",ua:["таблетка","пігулка"]},
   {en:"surgery",ua:"операція"},{en:"symptom",ua:"симптом"},{en:"vaccine",ua:"вакцина"},
   {en:"virus",ua:"вірус"},{en:"wound",ua:"рана"},{en:"colleague",ua:"колега"},
@@ -10228,7 +10231,7 @@ function renderThermo() {
     const isMajor = pAt % 4 === 0;
     const isCur   = pAt === nextMark;
     const isDone  = pAt <= pts;
-    const cls = 'tm' + (isMajor ? '' : ' tm-minor') + (isCur ? ' now' : isDone ? ' done' : '');
+    const cls = 'tm ' + (isMajor ? 'tm-major' : 'tm-minor') + (isCur ? ' now' : '') + (isDone ? ' done' : '');
     html += '<div class="' + cls + '" style="bottom:' + bot.toFixed(1) + '%">'
           + '<span class="tm-n">' + pAt + '</span>'
           + '<div class="tm-line"></div></div>';
