@@ -444,6 +444,9 @@
   .tm.now  .tm-n { color: #ffd166; font-weight: 800; font-size: 10px; }
   .tm.done .tm-line { width: 10px; background: rgba(255,255,255,0.5); }
   .tm.done .tm-n { color: rgba(255,255,255,0.45); }
+  .tm-minor .tm-line { width: 4px; background: rgba(255,255,255,0.18); }
+  .tm-minor .tm-n { font-size: 7px; font-weight: 500; color: rgba(255,255,255,0.42); }
+  .tm-minor.done .tm-n { color: rgba(255,255,255,0.3); }
   .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
   .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
   .th-plans b { color: #ffd166; font-size: 13px; }
@@ -1606,7 +1609,7 @@ const WORDS = [
   {en:"board",ua:["дошка","правління"]},{en:"board",ua:["правління","дошка"]},
   {en:"to lead",ua:"вести"},{en:"lead",ua:"свинець"},
   {en:"address",ua:"адреса"},{en:"to address",ua:"звертатися"},
-  {en:"tear",ua:"сльоза"},{en:"to tear",ua:"рвати"},
+  {en:"tear",ua:["сльоза","рвати"]},{en:"to tear",ua:["рвати","сльоза"]},
   // ── EXPANDED VOCABULARY (Syn/Ant + Examples) ──
   {en:"abandoned",ua:"покинутий"},
   {en:"abnormal",ua:"ненормальний"},
@@ -7256,9 +7259,8 @@ function speak(word) {
   if (!window.speechSynthesis) return;
   const synth = window.speechSynthesis;
   if (!preferredVoice) preferredVoice = pickVoice();
-  // Verb infinitive "to X" — speak just the word for cleaner pronunciation
-  const trimmed = String(word).trim();
-  const toSpeak = /^to\s+\S+$/i.test(trimmed) ? trimmed.replace(/^to\s+/i, "") : word;
+  // Speak the full form, including the infinitive "to" (e.g. "to point")
+  const toSpeak = String(word).trim();
   const doSpeak = () => {
     synth.resume();
     const u = new SpeechSynthesisUtterance(toSpeak);
@@ -7485,7 +7487,7 @@ function showCorrection(answer) {
   if ((mode === "en-def" || mode === "en-cloze") && uaWord) {
     corrAnswerEl.innerHTML = wrapSentence(answer) + " — " + esc(uaWord);
   } else if (mode === "en-syn" || mode === "en-ant" || mode === "ua-en") {
-    corrAnswerEl.innerHTML = wrapSentence(answer);
+    corrAnswerEl.innerHTML = wrapEnWord(answer);
   } else {
     corrAnswerEl.textContent = answer; // en-ua: answer is UA text, no EN hover
   }
@@ -8910,8 +8912,12 @@ function wrapEnWord(words) {
     const w = word.trim();
     if (!w) return esc(word);
     const bare = w.replace(/^to /, "");
-    const stem = stemEn(bare);
-    const trans = stem ? EN_TO_UA.get(stem).join(", ") : "";
+    // Prefer the full "to X" entry (its own clean sense) before the bare stem,
+    // so "to point" shows "показувати", not point's merged "точка, показувати"
+    const full = w.toLowerCase();
+    let trans = "";
+    if (EN_TO_UA.has(full)) trans = EN_TO_UA.get(full).join(", ");
+    else { const stem = stemEn(bare); trans = stem ? EN_TO_UA.get(stem).join(", ") : ""; }
     const ipa = TRANS[w] || TRANS[bare] || TRANS[bare.toLowerCase()] || "";
     let attrs = ' class="hw"';
     if (trans) attrs += ' data-trans="' + esc(trans) + '"';
@@ -10214,14 +10220,16 @@ function renderThermo() {
   document.getElementById("thermo-pts").textContent = pts + " п.";
   document.getElementById("thermo-plans").innerHTML = 'план <b>' + plans + '</b>';
 
-  // Мітка на кожні 4 пункти (4, 8, 12...) = межа плану; наступна — жовта
+  // Мітки: основні на кожні 4 пункти (4/8/12/16, межі планів), дрібні — на кожен пункт
   let html = '';
   const nextMark = (plans + 1) * 4;
-  for (let pAt = 4; pAt <= topMark; pAt += 4) {
+  for (let pAt = 1; pAt <= topMark; pAt++) {
     const bot = (pAt / maxPts) * 100;
-    const isCur  = pAt === nextMark;
-    const isDone = pAt <= pts;
-    html += '<div class="tm' + (isCur ? ' now' : isDone ? ' done' : '') + '" style="bottom:' + bot.toFixed(1) + '%">'
+    const isMajor = pAt % 4 === 0;
+    const isCur   = pAt === nextMark;
+    const isDone  = pAt <= pts;
+    const cls = 'tm' + (isMajor ? '' : ' tm-minor') + (isCur ? ' now' : isDone ? ' done' : '');
+    html += '<div class="' + cls + '" style="bottom:' + bot.toFixed(1) + '%">'
           + '<span class="tm-n">' + pAt + '</span>'
           + '<div class="tm-line"></div></div>';
   }
