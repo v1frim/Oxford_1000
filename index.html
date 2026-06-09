@@ -1842,7 +1842,7 @@ const WORDS = [
   {en:"erroneous",ua:"помилковий"},
   {en:"establish",ua:"засновувати"},
   {en:"evident",ua:"очевидний"},
-  {en:"exceptional",ua:"винятковий"},
+  {en:"exception",ua:"виняток"},{en:"exceptional",ua:"винятковий"},
   {en:"exchange",ua:"обмінювати"},
   {en:"exciting",ua:"захопливий"},
   {en:"execute",ua:"виконувати"},
@@ -2879,7 +2879,7 @@ const TRANS = {
   "enjoyable":"/ɛnˈdʒɔɪəbəl/","enormous":"/iˈnɔrməs/","enraged":"/ɛnˈreɪdʒd/","entertaining":"/ɛnɝˈteɪnɪŋ/","entire":"/ɪnˈtaɪɝ/","envelope":"/ˈɛnvəloʊp/","environment":"/ɪnˈvaɪrənmənt/",
   "equal":"/ˈikwəl/","equipment":"/ɪˈkwɪpmənt/","equivalent":"/ɪˈkwɪvələnt/","erroneous":"/ɛˈroʊniəs/","error":"/ˈɛrɝ/","essay":"/ˈɛseɪ/",
   "essential":"/ɛˈsɛnʃəl/","establish":"/ɪˈstæblɪʃ/","evidence":"/ˈɛvədəns/","evident":"/ˈɛvədənt/","exact":"/ɪɡˈzækt/","examine":"/ɪɡˈzæmɪn/",
-  "exceptional":"/ɪkˈsɛpʃənəl/","exchange":"/ɪksˈtʃeɪndʒ/","exciting":"/ɪkˈsaɪtɪŋ/","execute":"/ˈɛksəkjut/","exercise":"/ˈɛksɝsaɪz/","exhausted":"/ɪɡˈzɔstɪd/",
+  "exception":"/ɪkˈsɛpʃən/","exceptional":"/ɪkˈsɛpʃənəl/","exchange":"/ɪksˈtʃeɪndʒ/","exciting":"/ɪkˈsaɪtɪŋ/","execute":"/ˈɛksəkjut/","exercise":"/ˈɛksɝsaɪz/","exhausted":"/ɪɡˈzɔstɪd/",
   "exhibit":"/ɪɡˈzɪbɪt/","existing":"/ɪɡˈzɪstɪŋ/","exit":"/ˈɛɡzɪt/","expand":"/ɪkˈspænd/","explore":"/ɪksˈplɔr/","extraordinary":"/ɛkstrəˈɔrdənɛri/",
   "fair":"/ˈfɛr/","familiar":"/fəˈmɪljɝ/","fantastic":"/fænˈtæstɪk/","fascinating":"/ˈfæsəneɪtɪŋ/","fashion":"/ˈfæʃən/","fatigued":"/fəˈtiɡd/",
   "faultless":"/fˈɒltləs/","faulty":"/ˈfɔlti/","fearful":"/ˈfɪrfəl/","fearless":"/ˈfɪrləs/","feasible":"/ˈfizəbəl/","featherweight":"/ˈfɛðɝweɪt/",
@@ -4043,7 +4043,7 @@ const EXAMPLES = {
   "erroneous":"The report contained several erroneous statements.",
   "establish":"They established a new record for the marathon.",
   "evident":"It was evident that she had worked very hard.",
-  "exceptional":"She showed exceptional talent from an early age.",
+  "exception":"I'll make an exception for you.","exceptional":"She showed exceptional talent from an early age.",
   "exchange":"We exchanged email addresses after the meeting.",
   "exciting":"Moving to a new city was an exciting experience.",
   "execute":"The plan was executed perfectly.",
@@ -5718,7 +5718,7 @@ const EXAMPLES_UA = {
   "erroneous":"Звіт містив кілька помилкових тверджень.",
   "establish":"Вони встановили новий рекорд на марафоні.",
   "evident":"Було очевидно, що вона дуже старанно працювала.",
-  "exceptional":"З раннього віку вона проявила виняткові таланти.",
+  "exception":"Для тебе я зроблю виняток.","exceptional":"З раннього віку вона проявила виняткові таланти.",
   "exchange":"Після зустрічі ми обмінялися адресами електронної пошти.",
   "exciting":"Переїзд у нове місто — захопливий досвід.",
   "execute":"План був виконаний ідеально.",
@@ -10159,15 +10159,31 @@ function getBestDayPoints() {
   });
   return best;
 }
+function thermoColor(t) {
+  // t 0..1 → колір уздовж градієнта термометра (жовтий → помаранчевий → червоний)
+  t = Math.max(0, Math.min(1, t));
+  const stops = [[255,209,102],[255,169,77],[255,107,107]]; // #ffd166, #ffa94d, #ff6b6b
+  const seg = t < 0.5 ? 0 : 1;
+  const lt  = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5;
+  const a = stops[seg], b = stops[seg + 1];
+  return a.map((v, i) => Math.round(v + (b[i] - v) * lt));
+}
 function renderThermo() {
   const pts   = getThermoPointsToday();
-  const best  = getBestDayPoints();
   const plans = Math.floor(pts / 4);
-  const topMark = Math.max(16, Math.floor(best / 4) * 4); // верхня мітка = найбільший повний план
-  const maxPts  = topMark + 2;                             // +2 пункти простору над міткою
+  const topMark = 16;          // фіксована верхня мітка (мітки 4, 8, 12, 16)
+  const maxPts  = topMark + 2; // 18 — +2 пункти простору над міткою
   const fillPct = Math.min(100, (pts / maxPts) * 100);
 
   document.getElementById("thermo-fill").style.height = fillPct + "%";
+  // Кулька знизу міняє відтінок відносно рівня полоски: жовта → помаранчева → червона
+  const [tr, tg, tb] = thermoColor(fillPct / 100);
+  const bulb = document.querySelector(".th-bulb");
+  if (bulb) {
+    const light = `rgb(${Math.min(255,tr+18)},${Math.min(255,tg+30)},${Math.min(255,tb+30)})`;
+    bulb.style.background = `linear-gradient(135deg, ${light}, rgb(${tr},${tg},${tb}))`;
+    bulb.style.boxShadow = `0 2px 12px rgba(${tr},${tg},${tb},0.5)`;
+  }
   document.getElementById("thermo-pts").textContent = pts + " п.";
   document.getElementById("thermo-plans").innerHTML = 'план <b>' + plans + '</b>';
 
