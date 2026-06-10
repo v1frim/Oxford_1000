@@ -613,39 +613,47 @@ const PICTURE_SCENES = [
 - Створено: 2026-05-26
 - Останнє оновлення: 2026-06-10 (сесія 19)
 - Зміни сесії 19:
-  - **+1 пісня NEFFEX: «Who The F**k Is NEFFEX!? 🔥»** (`rB34EsdRlA4`) — 700 XP
-    (score 89.8, мода 3 сусідів і формула збіглися). → **36 пісень, разом 36450 XP**.
-    Повтори Pre-Chorus/Chorus/Drop не дубльовано (усталена практика); [Drop] → ПРОГРАШ
-    (3 унікальні рядки). Мат адаптовано нейтрально-експресивно («чортових п'ятнадцяти»).
+  - **TL;DR:** +185 слів (покриття прикладів тепер 100% + новий чекер `check-coverage.js`);
+    панель «Прогрес по днях» згорнуто (7 днів→тижні→місяці→роки) і зроблено скролованою;
+    +1 пісня (36-та, разом 36450 XP); розблоковано ачівку «Пісень вивчено» (планка 40).
+
+  - **— СЛОВНИК / ПОКРИТТЯ —**
+  - **Новий committed-інструмент `check-coverage.js` + ОБОВ'ЯЗКОВА процедура:** сканує всі
+    речення `EXAMPLES` і знаходить слова, які гра покаже без hover-перекладу (відтворює
+    runtime-логіку `stemEn→EN_TO_UA→IRREGULAR→суфікси`). Запускати після БУДЬ-ЯКИХ змін
+    словника/прикладів до `✅ OK`. Зафіксовано в CLAUDE.md + розділ «Правило додавання
+    нових слів». Причина: користувач майже щодня натрапляв на слова без перекладу (тригер
+    цієї сесії — `invitation` у прикладі `decline`).
+  - **+183 слова (coverage batch)** — закрито ВСІ 203 прогалини, кожне повноцінне
+    (WORDS+TRANS+EXAMPLES+EXAMPLES_UA): 19 дієслів (to ride, to forgive, to burst…) +
+    іменники/прикметники (invitation, performance, building, fact, body, queue, dentist,
+    parent, tasty…). Блок у WORDS під коментарем `COVERAGE BATCH (сесія 19)`.
+  - **entry** (вхід/запис) + **amount** (кількість/сума) — на початку сесії, повноцінні.
+  - **+9 IRREGULAR** (strode→stride, healthier→healthy, colour→color, grandchildren→
+    grandchild, forgave/forgiven→forgive, spun→spin); **+15 hover-only m.set** (Columbus,
+    Italy, Spain, Portugal, Nile, Alps, Orleans, Europe, Internet, Shakespeare, penicillin +
+    службові via, since).
+  - **café→cafe** у 4 реченнях (é розбивав токенізатор `[A-Za-z']` → "caf" без перекладу);
+    **nutritious** — додано відсутню IPA. Імена людей (Tom, Mary, Leo) свідомо без
+    перекладу (список `ALLOW` у чекері).
+
+  - **— ПІСНІ / АЧІВКИ —**
+  - **36-та пісня «Who The F**k Is NEFFEX!? 🔥»** (`rB34EsdRlA4`) — 700 XP (score 89.8,
+    формула й мода збіглися). → 36 пісень, **36450 XP**. [Drop]→ПРОГРАШ; повтори
+    Pre-Chorus/Chorus/Drop не дубльовано; мат адаптовано нейтрально-експресивно.
   - **Ачівку «Пісень вивчено» розблоковано:** пороги `[5,10,20,30,40]` (планка 40 за
-    запитом), live-лічильник `countLearnedSongs()`, `checkAchievements(true)` на
-    перемиканні статусу. ⚠️ `SONGS_STATUS_KEY` перенесено вище до `ACH_KEY` (TDZ!) —
-    деталі в розділі «Leaderboard → Досягнення».
-  - **Панель «Прогрес по днях» — згортка днів (за запитом):** було 14 окремих днів
-    (вилазили за екран). Стало: **7 днів → тижні (вкл. поточний, сумою) → місяці → роки**.
-    Поточний тиждень навмисно накладається на денний блок. Панель тепер скролиться
-    (`#prog-list overflow-y:auto`, `max-height: calc(100vh-40px)`) — край екрана не ріже.
-    Деталі — розділ «Панель Прогрес по днях». Перевірено симуляцією групування.
-  - **Нова процедура + інструмент `check-coverage.js`** (committed, як build-song.js):
-    сканер слів без перекладу в прикладних реченнях. Запускати ОБОВ'ЯЗКОВО після
-    будь-яких змін словника/прикладів (див. розділ «Правило додавання нових слів»).
-    Зафіксовано і в CLAUDE.md. Причина: користувач практично щодня натрапляв на
-    слова без перекладу в реченнях (останній тригер — `invitation` у прикладі decline).
-  - **COVERAGE BATCH: +183 нові слова** (усі повноцінні: WORDS+TRANS+EXAMPLES+EXAMPLES_UA) —
-    закрито ВСІ 203 прогалини покриття. Серед них: 19 дієслів (to ride, to heat, to blow,
-    to forgive, to regret, to behave, to burst…), іменники/прикметники (invitation,
-    performance, building, fact, body, luck, queue, bride/groom, dentist, parent, tasty…).
-    Блок у WORDS позначено коментарем `COVERAGE BATCH (сесія 19)`.
-  - **+9 IRREGULAR форм:** strode→stride, healthier/healthiest→healthy, colour/colours→color,
-    grandchildren→grandchild, forgave/forgiven→forgive, spun→spin.
-  - **+15 hover-only m.set:** Columbus, Antarctica, Italy, Italian, Spain, Portugal, Nile,
-    Alps, Orleans, penicillin, Europe, Internet, Shakespeare + службові via, since.
-  - **café→cafe** у 4 реченнях EXAMPLES (é розбивав токенізатор `[A-Za-z']` —
-    "café" показувався як "caf" без перекладу).
-  - **nutritious** — додано відсутню IPA.
-  - Раніше в сесії: **entry** (вхід/запис) і **amount** (кількість/сума) — повноцінні
-    слова з прикладами (були в реченнях/визначеннях без перекладу).
-  - ⚠️ Імена людей у реченнях (Tom, Mary, Leo…) свідомо БЕЗ перекладу (ALLOW у чекері).
+    запитом: 36 + 4 на перспективу), `value=countLearnedSongs()`, `checkAchievements(true)`
+    при зміні статусу пісні. ⚠️ `SONGS_STATUS_KEY` перенесено вгору до `ACH_KEY` — інакше
+    TDZ на старті (top-level `checkAchievements(false)` → `value()` → `loadSongStatus()`).
+    Деталі — розділ «Leaderboard → Досягнення».
+
+  - **— UI: ПАНЕЛЬ «ПРОГРЕС ПО ДНЯХ» —**
+  - **Згортка (за запитом):** було 14 окремих днів (різало екран) → **7 днів → тижні
+    (вкл. ПОТОЧНИЙ, сумою — навмисне накладання на дні) → місяці (старіші 8 тижнів, цей
+    рік) → роки (минулі)**. Хелпер `groupRows()` в `renderProgressPanel`. Перевірено
+    симуляцією на реальних і синтетичних датах.
+  - **Панель скролиться:** `#progress-panel` flex-колонка, `#prog-list overflow-y:auto`,
+    `max-height: calc(100vh-40px)` — край екрана більше не ріже (була жорстка `height:560px`).
 - Зміни сесії 18:
   - 🔴 **КРИТИЧНИЙ ФІКС: mastery + day_mistakes тепер за СЛОВОМ** (`wordKey=getEn[0]`),
     не за позицією в `WORDS`. Раніше вставка слова в середину масиву зсувала всі індекси
