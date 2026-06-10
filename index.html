@@ -11017,6 +11017,10 @@ document.getElementById("duo-minus").addEventListener("click", () => {
 // 10 досягнень × 5 ліг. Зберігаємо лише найвищу "оголошену" лігу для дедуплікації
 // сповіщень — поточна ліга в панелі завжди рахується наживо з фактичних значень.
 const ACH_KEY = "oxford_achievements_v1";        // {achId: highestNotifiedLevel 0-5}
+// ⚠️ Оголошено ТУТ (а не в розділі пісень), бо checkAchievements(false) нижче
+// викликає value() ачівки "songs" → loadSongStatus() → цей const. Якщо повернути
+// його вниз — TDZ ReferenceError на старті. do NOT move below checkAchievements.
+const SONGS_STATUS_KEY = "oxford_songs_status_v1";
 const ACH_LEAGUES = [
   { name: "Бронза",      label: "Бронзова",      color: "#cd7f32", color2: "#f0b070" },
   { name: "Срібло",      label: "Срібна",         color: "#c0c0c0", color2: "#e8eef7" },
@@ -11035,12 +11039,13 @@ const ACHIEVEMENTS = [
   { id:"streak",    icon:"🔥", name:"Днів поспіль",           thresholds:[7,14,30,60,90],                     value:()=>bestStreakLength() },
   { id:"totaldays", icon:"📅", name:"Днів гри загалом",       thresholds:[30,90,180,365,730],                 value:()=>activeDaysCount() },
   { id:"xp",        icon:"⚡", name:"Накопичено XP",           thresholds:[15000,45000,90000,150000,250000],   value:()=>loadXp() },
-  { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[1,5,15,30,50], locked:true,         value:()=>0 },
+  { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[5,10,20,30,40],                     value:()=>countLearnedSongs() },
 ];
 function loadAch() { try { return JSON.parse(localStorage.getItem(ACH_KEY) || "{}"); } catch(e) { return {}; } }
 function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
 function sumDayField(f) { return Object.values(loadDays()).reduce((s,d)=>s+(d[f]||0),0); }
 function countKnownWords() { return Object.values(loadMastery()).filter(s=>s>=3).length; }
+function countLearnedSongs() { return Object.values(loadSongStatus()).filter(s=>s==="learned").length; }
 function activeDaysCount() { return Object.values(loadDays()).filter(d=>(d.games||0)>0).length; }
 function bestStreakLength() { const s = computeStreaks(loadDays()); return s.length ? s[0].length : 0; }
 function achLevelFor(a) { const v = a.value(); let lvl=0; for (let i=0;i<5;i++) if (v >= a.thresholds[i]) lvl=i+1; return lvl; }
@@ -11293,7 +11298,7 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
 updateLayoutAlign();
 
 // ── Розділ «Пісні» ───────────────────────────────────────────────────────
-const SONGS_STATUS_KEY = "oxford_songs_status_v1";
+// SONGS_STATUS_KEY оголошено вище, біля ACH_KEY (TDZ для ачівки "songs")
 const SONGS_XP_KEY     = "oxford_songs_xp_v1";
 function loadSongsXpAwarded() { try { return JSON.parse(localStorage.getItem(SONGS_XP_KEY)) || {}; } catch(e) { return {}; } }
 function saveSongsXpAwarded(o) { localStorage.setItem(SONGS_XP_KEY, JSON.stringify(o)); }
@@ -11429,6 +11434,7 @@ songsOverlay.addEventListener("click", e => {
         }
       }
     }
+    checkAchievements(true);   // ачівка «Пісень вивчено» спрацьовує одразу
   } else if (act === "yt-toggle") {
     const frame = document.getElementById("song-yt-frame");
     if (frame.classList.contains("hidden")) {

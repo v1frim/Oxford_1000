@@ -4072,6 +4072,79 @@ const SONGS = [
       { en: "one step at a time",  ua: "крок за кроком",      note: "ідіома: поступово, не поспішаючи" },
       { en: "back to the grind",   ua: "знову до праці",      note: "повернутися до рутинної важкої роботи" }
     ]
+  },
+  {
+    id: "neffex-who-the-fk-is-neffex",
+    artist: "NEFFEX",
+    title: "Who The F**k Is NEFFEX!? 🔥",
+    ytId: "rB34EsdRlA4",
+    xp: 700,
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Yeah, all right",                                             ua: "Так, гаразд" },
+        { en: "We've been balling out since we were motherfucking fifteen",  ua: "Ми відриваємось на повну з наших чортових п'ятнадцяти" },
+        { en: "Steady coming up in what they like to call the OC",           ua: "Впевнено піднімаємось там, де всі звуть OC" },
+        { en: "Cruising in a Chevy every weekend to a new beach",            ua: "Щовікенду катаємо на Шеві до нового пляжу" },
+        { en: "Woofer in the back playing music was our routine",            ua: "Сабвуфер позаду качає музику — така наша рутина" },
+        { en: "Parties on the weekends at the house that everyone knows",    ua: "Вечірки на вихідних у будинку, який знають усі" },
+        { en: "Parents never home, so, that's the spot where everyone goes", ua: "Батьків вічно нема вдома — тож усі сходяться саме туди" },
+        { en: "Hooking up with girls who never seem to wear enough clothes", ua: "Мутимо з дівчатами, на яких вічно замало одягу" },
+        { en: "Always broken up by cops that tell us all to, \"Go home\"",   ua: "І все це щоразу розганяють копи: «Розходьтесь по домівках»" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "Save us now, these kids are running from their dreams",    ua: "Врятуйте нас: ці діти тікають від своїх мрій" },
+        { en: "Never feeling free, we must stop this now",                ua: "Не почуваються вільними — ми мусимо це спинити" },
+        { en: "Make it count, this life is nothing, but a story",         ua: "Проживи недарма: це життя — лише історія" },
+        { en: "Don't let it be boring, we must never back down",          ua: "Не дай їй стати нудною — ми не маємо відступати" },
+        { en: "Make a sound, don't be quiet for the others",              ua: "Подай голос — не мовчи на догоду іншим" },
+        { en: "Strength — it comes in numbers, so, we must get loud",     ua: "Сила — в гурті, тож нам треба бути гучними" },
+        { en: "Hope is found and if we never hit the ground",             ua: "Надію знайдено — і якщо ми не впадемо" },
+        { en: "Keep our head up in the clouds, we will make it, somehow", ua: "Тримаймо голови в хмарах — ми якось проб'ємось" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "I won't stop if you don't stop",                                  ua: "Я не зупинюсь, якщо не зупинишся ти" },
+        { en: "If we don't stop we'll hit the top (We will make it somehow)",    ua: "Якщо не зупинимось — сягнемо вершини (ми якось проб'ємось)" },
+        { en: "I won't stop if you don't stop (And if we never hit the ground)", ua: "Я не зупинюсь, якщо не зупинишся ти (і якщо ми не впадемо)" },
+        { en: "Keep our head up in the clouds, we will make it somehow",         ua: "Тримаймо голови в хмарах — ми якось проб'ємось" }
+      ]},
+      { label: "ПРОГРАШ", lines: [
+        { en: "And if we never hit the ground",                          ua: "І якщо ми ніколи не впадемо" },
+        { en: "Keep our head up in the clouds, we will make it somehow", ua: "Тримаймо голови в хмарах — ми якось проб'ємось" },
+        { en: "I won't stop, I won't stop (We will make it somehow)",    ua: "Я не зупинюсь, я не зупинюсь (ми якось проб'ємось)" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "Yeah, let's go",                                                 ua: "Так, погнали" },
+        { en: "Chilling at the beach with a couple girls from high school",     ua: "Чілимо на пляжі з парочкою дівчат зі школи" },
+        { en: "Got one for us each, blonde hair and their eyes blue",           ua: "Кожному по одній: біляве волосся, блакитні очі" },
+        { en: "Growing up in Cali that's the type you're seeing, ride through", ua: "Ростеш у Калі — саме таких і бачиш, коли їдеш повз" },
+        { en: "No, I ain't complaining, man, we love that it's a nice view",    ua: "Ні, я не скаржусь, друже — нам до вподоби цей краєвид" },
+        { en: "Stealing lots of booze from the mall on the weekends",           ua: "Цупимо купу бухла з молу на вихідних" },
+        { en: "'Cause we wanna drink until our brains stop thinking",           ua: "Бо хочемо пити, доки мізки не перестануть думати" },
+        { en: "Pouring cheap vodka into bottles of that Gray Goose",            ua: "Переливаємо дешеву горілку в пляшки з-під Grey Goose" },
+        { en: "'Cause the ladies wanna think their sippin' on that good juice", ua: "Бо панянки хочуть вірити, що цмулять добірний трунок" }
+      ]}
+    ],
+    glossary: {
+      "steady": "впевнено, стабільно", "cruise": "неспішно їздити, катати",
+      "woofer": "сабвуфер, басовий динамік", "routine": "рутина, звичний порядок",
+      "cop": "коп, поліцейський", "somehow": "якось, так чи інакше", "strength": "сила",
+      "blonde": "білявий, білявка", "mall": "торговий центр, мол", "vodka": "горілка",
+      "sip": "цмулити, потягувати", "juice": "сік; (сленг) пійло"
+    },
+    slang: [
+      { en: "balling out",               ua: "відриватися на повну", note: "сленг: жити на широку ногу, шикувати" },
+      { en: "the OC",                    ua: "Орандж Каунті",        note: "Orange County — округ біля Лос-Анджелеса, Каліфорнія" },
+      { en: "hook up",                   ua: "мутити, сходитися",    note: "сленг: романтично зближуватися з кимось" },
+      { en: "Cali",                      ua: "Каліфорнія",           note: "розмовне скорочення California" },
+      { en: "booze",                     ua: "бухло",                note: "сленг: алкоголь" },
+      { en: "Gray Goose",                ua: "Грей Ґус",             note: "бренд преміальної горілки" },
+      { en: "good juice",                ua: "добірний трунок",      note: "тут: дороге пійло (іронія про підміну дешевим)" },
+      { en: "hit the top",               ua: "сягнути вершини",      note: "ідіома: досягти успіху" },
+      { en: "hit the ground",            ua: "впасти на землю",      note: "тут: зазнати краху, опуститися" },
+      { en: "head up in the clouds",     ua: "голова в хмарах",      note: "ідіома: мрійництво; тут — не опускати голови" },
+      { en: "make it",                   ua: "пробитися",            note: "сленг: досягти успіху, вибитися в люди" },
+      { en: "strength comes in numbers", ua: "сила — в гурті",       note: "прислів'я: разом ми сильніші" }
+    ]
   }
 ];
 
