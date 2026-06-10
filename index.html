@@ -66,6 +66,9 @@
     color: #fff;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,0.12);
   }
+  /* Панель прогресу: flex-колонка, список скролиться всередині, висота не більша за екран */
+  #progress-panel { display: flex; flex-direction: column; max-height: calc(100vh - 40px); }
+  #progress-panel #prog-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   .lb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; }
   .lb-tabs { display: flex; gap: 4px; }
   .lb-tab {
@@ -10316,10 +10319,8 @@ function renderProgressPanel() {
   const duoSessions = loadDuoSessions();
   const lhDone = loadLhDone();
   const songsXpAwarded = loadSongsXpAwarded();
-  const recentCount = 14;
-  const recentDates = [...allDates].reverse().slice(0, recentCount);
-  const recentSet = new Set(recentDates);
-  const olderDates = allDates.filter(d => !recentSet.has(d)); // sorted asc
+  const recentCount = 7;
+  const recentDates = [...allDates].reverse().slice(0, recentCount); // newest first
 
   // ── Recent days ──
   let html = recentDates.map(date => {
@@ -10339,32 +10340,38 @@ function renderProgressPanel() {
     return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + metaHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
-  // ── Older: group by week, then by month if > 8 weeks ago ──
-  if (olderDates.length > 0) {
-    const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 56); // 8 weeks
-    const cutoffStr = cutoff.getFullYear() + "-" + String(cutoff.getMonth()+1).padStart(2,"0") + "-" + String(cutoff.getDate()).padStart(2,"0");
-    const weekDates  = olderDates.filter(d => d >= cutoffStr);
-    const monthDates = olderDates.filter(d => d <  cutoffStr);
+  // ── Згортки: тижні (вкл. поточний) → місяці (старіші, цей рік) → роки (минулі) ──
+  // Тижні навмисно НАКЛАДАЮТЬСЯ на денний блок: поточний тиждень сумує останні дні.
+  const isoDaysAgo = (n) => {
+    const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - n);
+    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  };
+  const weekCutoff = isoDaysAgo(56);                        // останні ~8 тижнів показуємо тижнями
+  const curYear = String(new Date().getFullYear());
+  const weekDates  = allDates.filter(d => d >= weekCutoff); // вкл. поточний тиждень (накладається на дні)
+  const olderDates = allDates.filter(d => d <  weekCutoff);
+  const monthDates = olderDates.filter(d => d.slice(0,4) === curYear); // старіші за 8 тижнів, цей рік
+  const yearDates  = olderDates.filter(d => d.slice(0,4) !== curYear); // минулі роки
 
-    if (weekDates.length > 0) {
-      html += '<div class="prog-section">Тижні</div>';
-      const weeks = _progGroupBy(weekDates, _progMondayKey);
-      html += Object.keys(weeks).sort().reverse().map(wk => {
-        const {dk, dl, games, rev, duo, lh, dt, songs} = _progAggregate(weeks[wk], history, allDates, days);
-        const metaHtml = _progMetaHtml(games, lh, duo, songs);
-        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtRange(weeks[wk]) + metaHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
-      }).join("");
-    }
+  const groupRows = (groups, fmt) =>
+    Object.keys(groups).sort().reverse().map(k => {
+      const {dk, dl, games, rev, duo, lh, dt, songs} = _progAggregate(groups[k], history, allDates, days);
+      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) +
+        _progMetaHtml(games, lh, duo, songs) + '</span><span class="prog-delta">' +
+        _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
+    }).join("");
 
-    if (monthDates.length > 0) {
-      html += '<div class="prog-section">Місяці</div>';
-      const months = _progGroupBy(monthDates, d => d.slice(0,7));
-      html += Object.keys(months).sort().reverse().map(mk => {
-        const {dk, dl, games, rev, duo, lh, dt, songs} = _progAggregate(months[mk], history, allDates, days);
-        const metaHtml = _progMetaHtml(games, lh, duo, songs);
-        return '<div class="prog-row prog-group"><span class="prog-date">' + _progFmtMonth(mk) + metaHtml + '</span><span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
-      }).join("");
-    }
+  if (weekDates.length > 0) {
+    html += '<div class="prog-section">Тижні</div>';
+    html += groupRows(_progGroupBy(weekDates, _progMondayKey), (g) => _progFmtRange(g));
+  }
+  if (monthDates.length > 0) {
+    html += '<div class="prog-section">Місяці</div>';
+    html += groupRows(_progGroupBy(monthDates, d => d.slice(0,7)), (g, k) => _progFmtMonth(k));
+  }
+  if (yearDates.length > 0) {
+    html += '<div class="prog-section">Роки</div>';
+    html += groupRows(_progGroupBy(yearDates, d => d.slice(0,4)), (g, k) => k);
   }
   list.innerHTML = html;
 }
