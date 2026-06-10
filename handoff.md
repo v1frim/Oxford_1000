@@ -324,9 +324,9 @@ border: 1px solid rgba(255,255,255,0.22);
 ## Архітектура коду
 
 ### Дані
-- `WORDS` — масив `{en, ua}` (~2350+ entries)
-- `TRANS` — IPA (~2140+ entries, 100% покриття)
-- `EXAMPLES` / `EXAMPLES_UA` — EN/UA речення (~2175+ пар)
+- `WORDS` — масив `{en, ua}` (~2580+ entries; +183 у сесії 19 — coverage batch)
+- `TRANS` — IPA (100% покриття, перевіряється `check-coverage.js`)
+- `EXAMPLES` / `EXAMPLES_UA` — EN/UA речення (~2568+ пар, 100% hover-покриття слів)
 - `DEFS` — визначення (~476) для Def-режиму
 - `SYNS` — синоніми (~187) для Syn-режиму
 - `ANTS` — антоніми (~143) для Ant-режиму
@@ -548,6 +548,20 @@ const PICTURE_SCENES = [
 переклади в масив `ua` ОБОХ записів — щоб гра не штрафувала за валідну відповідь, яку
 користувач не міг вгадати з ізольованого слова (сесія 18).
 
+**⚠️ ОБОВ'ЯЗКОВА ПЕРЕВІРКА ПОКРИТТЯ (сесія 19, за запитом):** після БУДЬ-ЯКОЇ зміни
+словника або прикладних речень запусти **`node check-coverage.js`** → має бути `✅ OK`.
+- Скрипт відтворює точну runtime-логіку hover (`stemEn` → `EN_TO_UA` → `IRREGULAR` →
+  суфікси) і знаходить у реченнях `EXAMPLES` слова, які гра покаже БЕЗ перекладу.
+- Кожне знайдене слово додаємо **повноцінно** (WORDS + TRANS + EXAMPLES + EXAMPLES_UA),
+  не hover-only. Нові прикладні речення пиши з УЖЕ покритих слів — і перезапускай
+  чекер до чистого OK (він зловить рекурсію: нове слово в новому прикладі).
+- Винятки: **гео/культурні власні назви** (Italy, Columbus, Internet…) → hover-only
+  `m.set` в EN_TO_UA IIFE; **імена людей** (Tom, Mary…) → список `ALLOW` у чекері.
+  Службові слова типу since/via → теж `m.set` (як during/unless).
+- Додатково чекер звіряє повноту всіх записів WORDS (TRANS/EXAMPLES/EXAMPLES_UA).
+- **Мета (вимога користувача):** він НІКОЛИ не має натрапити на слово без перекладу
+  в прикладному реченні. Це траплялось щодня до сесії 19 — більше не повинно.
+
 **Санітарна перевірка після правок:** `node -e "new Function(...)"` на JS-блоці.
 Для `index.html` — витягти inline `<script>` без `src` і прогнати через `new Function`.
 
@@ -582,7 +596,28 @@ const PICTURE_SCENES = [
 
 ## Версія документа
 - Створено: 2026-05-26
-- Останнє оновлення: 2026-06-09 (сесія 18)
+- Останнє оновлення: 2026-06-10 (сесія 19)
+- Зміни сесії 19:
+  - **Нова процедура + інструмент `check-coverage.js`** (committed, як build-song.js):
+    сканер слів без перекладу в прикладних реченнях. Запускати ОБОВ'ЯЗКОВО після
+    будь-яких змін словника/прикладів (див. розділ «Правило додавання нових слів»).
+    Зафіксовано і в CLAUDE.md. Причина: користувач практично щодня натрапляв на
+    слова без перекладу в реченнях (останній тригер — `invitation` у прикладі decline).
+  - **COVERAGE BATCH: +183 нові слова** (усі повноцінні: WORDS+TRANS+EXAMPLES+EXAMPLES_UA) —
+    закрито ВСІ 203 прогалини покриття. Серед них: 19 дієслів (to ride, to heat, to blow,
+    to forgive, to regret, to behave, to burst…), іменники/прикметники (invitation,
+    performance, building, fact, body, luck, queue, bride/groom, dentist, parent, tasty…).
+    Блок у WORDS позначено коментарем `COVERAGE BATCH (сесія 19)`.
+  - **+9 IRREGULAR форм:** strode→stride, healthier/healthiest→healthy, colour/colours→color,
+    grandchildren→grandchild, forgave/forgiven→forgive, spun→spin.
+  - **+15 hover-only m.set:** Columbus, Antarctica, Italy, Italian, Spain, Portugal, Nile,
+    Alps, Orleans, penicillin, Europe, Internet, Shakespeare + службові via, since.
+  - **café→cafe** у 4 реченнях EXAMPLES (é розбивав токенізатор `[A-Za-z']` —
+    "café" показувався як "caf" без перекладу).
+  - **nutritious** — додано відсутню IPA.
+  - Раніше в сесії: **entry** (вхід/запис) і **amount** (кількість/сума) — повноцінні
+    слова з прикладами (були в реченнях/визначеннях без перекладу).
+  - ⚠️ Імена людей у реченнях (Tom, Mary, Leo…) свідомо БЕЗ перекладу (ALLOW у чекері).
 - Зміни сесії 18:
   - 🔴 **КРИТИЧНИЙ ФІКС: mastery + day_mistakes тепер за СЛОВОМ** (`wordKey=getEn[0]`),
     не за позицією в `WORDS`. Раніше вставка слова в середину масиву зсувала всі індекси
