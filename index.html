@@ -68,6 +68,7 @@
   }
   /* Панель прогресу: flex-колонка, список скролиться всередині, висота не більша за екран */
   #progress-panel { display: flex; flex-direction: column; max-height: calc(100vh - 40px); }
+  #progress-panel.hidden { display: none; }  /* ID-селектор display перебиває .hidden — без цього панель не ховається */
   #progress-panel #prog-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   .lb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; }
   .lb-tabs { display: flex; gap: 4px; }
@@ -325,6 +326,7 @@
     gap: 6px;
     z-index: 200;
   }
+  #bottom-left-btns.hidden { display: none; }  /* ховається під час гри — ID display перебиває .hidden */
   #bottom-left-btns button, #progress-btn {
     background: rgba(12,32,68,0.52);
     backdrop-filter: blur(18px);
