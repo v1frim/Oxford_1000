@@ -597,6 +597,12 @@ const PICTURE_SCENES = [
   Не повертати на позиційні індекси — це ламалось при вставці слів. `updateMastery`,
   `categoryIndices`, `add/removeDayMistake` приймають index і конвертують у слово; review
   «за день» через `indexOfWordKey`. Міграція `migrateMasteryToWordKeys` скидає старий формат.
+- ⚠️ **CSS-пастка (сесія 20):** ставлячи `display:` на елемент через **ID-селектор**
+  (напр. `#progress-panel { display:flex }`), якщо цей елемент ховається класом `.hidden` —
+  ОБОВ'ЯЗКОВО додай парне `#id.hidden { display:none }`. ID (специфічність 1,0,0) перебиває
+  `.hidden` (0,1,0), інакше клас `hidden` НЕ ховає: toggle/Alt/старт гри ставлять клас, а CSS
+  його ігнорує. Патерн у файлі: `#thermo.hidden`, `#cat-modal.hidden`, `#lh-screen.hidden`,
+  `#songs-overlay.hidden`, `#progress-panel.hidden`, `#bottom-left-btns.hidden`.
 
 ---
 
@@ -611,7 +617,20 @@ const PICTURE_SCENES = [
 
 ## Версія документа
 - Створено: 2026-05-26
-- Останнє оновлення: 2026-06-10 (сесія 19)
+- Останнє оновлення: 2026-06-11 (сесія 20)
+- Зміни сесії 20:
+  - **Фікс регресії з панеллю «Прогрес по днях»:** після сесії 19 (`#progress-panel
+    { display:flex }`) панель перестала ховатись — кнопка/Alt/старт гри ставили `.hidden`,
+    але ID-специфічність перебивала `.hidden{display:none}`. Додано `#progress-panel.hidden`
+    + `#bottom-left-btns.hidden` (той самий латентний дефект на нижніх кнопках). Побічно:
+    `updateLayoutAlign` читав клас як наявний → зайвий `shift-right` (усі 3 панелі праворуч)
+    — теж пройшло. Лесон винесено в ⚠️ CSS-пастку («Що НЕ змінювати»).
+  - **Підписи комітів — хибне спрацювання stop-хука (НЕ реальна проблема):** усі коміти CCR
+    підписані (SSH, `gpgsig`, ідентичність `claude`/`noreply@anthropic.com`), тож на GitHub
+    вони Verified. Але cloud-контейнер не налаштовує `gpg.ssh.allowedSignersFile`, тож
+    `git %G?` повертає `N` → хук гадає, що підпису немає. НЕ переписувати/форс-пушити історію
+    (`--reset-author` нічого не лікує). Першопричина нагадувань: `origin/HEAD` був unset, і
+    хук брав його за базу порівняння. Фікс — `git remote set-head origin main`.
 - Зміни сесії 19:
   - **TL;DR:** +185 слів (покриття прикладів тепер 100% + новий чекер `check-coverage.js`);
     панель «Прогрес по днях» згорнуто (7 днів→тижні→місяці→роки) і зроблено скролованою;
