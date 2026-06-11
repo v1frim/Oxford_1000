@@ -4024,6 +4024,9 @@ const EXAMPLES = {
   "hot:гострий":"This curry is too hot for me.",
   "play:п'єса":"We saw a great play at the theater.",
   "season:приправляти":"Season the meat with salt and pepper.",
+  "open:відчиняти":"Can you open the window, please?",
+  "clean:прибирати":"I clean my room every Saturday.",
+  "type:друкувати":"She can type very fast.",
   "last:тривати":"The meeting lasted two hours.",
   "fair:ярмарок":"We had fun at the summer fair.",
   "fine":"It's a fine day for a walk.",
@@ -5884,6 +5887,9 @@ const EXAMPLES_UA = {
   "hot:гострий":"Це каррі занадто гостре для мене.",
   "play:п'єса":"Ми бачили чудову п'єсу в театрі.",
   "season:приправляти":"Приправ м'ясо сіллю і перцем.",
+  "open:відчиняти":"Можеш відчинити вікно, будь ласка?",
+  "clean:прибирати":"Я прибираю свою кімнату щосуботи.",
+  "type:друкувати":"Вона друкує дуже швидко.",
   "last:тривати":"Зустріч тривала дві години.",
   "fair:ярмарок":"Ми весело провели час на літньому ярмарку.",
   "fine":"Це чудовий день для прогулянки.",
@@ -8213,7 +8219,15 @@ function recordAnswer(userVal, status) {
 
 function lookupExample(table, enWord, uaWord) {
   if (uaWord && table[enWord + ":" + uaWord]) return table[enWord + ":" + uaWord];
-  return table[enWord] || "";
+  if (table[enWord]) return table[enWord];
+  // "to X" → X: приклади дієслів лежать під голим ключем
+  // (омографи — під дизамбігом "X:переклад", він пріоритетніший за голий)
+  const bare = enWord.replace(/^to /, "");
+  if (bare !== enWord) {
+    if (uaWord && table[bare + ":" + uaWord]) return table[bare + ":" + uaWord];
+    return table[bare] || "";
+  }
+  return "";
 }
 
 function fmtElapsed(s) {
