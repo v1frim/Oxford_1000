@@ -417,26 +417,28 @@
   #xp-section.xp-levelup #xp-fill { animation: xp-levelup-fill 0.9s ease; }
   @keyframes xp-levelup-hex { 0% { transform: scale(1); } 35% { transform: scale(1.35) rotate(-6deg); } 100% { transform: scale(1); } }
   @keyframes xp-levelup-fill { 0%,100% { filter: brightness(1); } 40% { filter: brightness(1.9); } }
-  /* «Свіжий рівень»: годину після level-up по шеврону і смужці БЕЗПЕРЕРВНО пливуть
-     відблиски. Рух — рівно на один період repeating-градієнта, тож шов невидимий і цикл
-     не «обривається» посеред анімації (раніше одиночна смуга стрибала на межі циклу). */
+  /* «Свіжий рівень»: ПОВІЛЬНЕ безперервне переливання (цикл 60s). Зсув за цикл = ціле число
+     ГОРИЗОНТАЛЬНИХ періодів градієнта (period/sin(кут), бо діагональ повторюється по X саме
+     так): 120/sin105°≈124.23 → 13×≈1615px; 46/sin110°≈48.95 → 12×≈587.4px. Тоді на межі
+     60s-циклу паттерн збігається сам із собою (шов відсутній), а повільний хід робить
+     переливання м'яким і ненав'язливим — нічого не «обривається». */
   #xp-section.xp-fresh #xp-hex { filter: drop-shadow(0 0 7px var(--tier2)); }
   #xp-section.xp-fresh #xp-hex::after {
     background-image:
       repeating-linear-gradient(110deg, transparent 0px, transparent 24px, rgba(255,255,255,0.5) 35px, transparent 46px),
       radial-gradient(circle at 50% 35%, rgba(255,255,255,0.18), rgba(0,0,0,0.45));
     background-size: auto, auto;
-    animation: xp-fresh-sheen 2.2s linear infinite; }
+    animation: xp-fresh-sheen 60s linear infinite; }
   @keyframes xp-fresh-sheen {
     from { background-position: 0 0, 0 0; }
-    to   { background-position: 46px 0, 0 0; } }
+    to   { background-position: 587.4px 0, 0 0; } }
   #xp-section.xp-fresh #xp-fill {
     background-image: repeating-linear-gradient(105deg,
       var(--tier) 0px, var(--tier2) 38px, #fff 60px, var(--tier2) 82px, var(--tier) 120px);
     background-size: auto;
-    animation: xp-fresh-fill 2.2s linear infinite;
+    animation: xp-fresh-fill 60s linear infinite;
     box-shadow: 0 0 12px var(--tier2); }
-  @keyframes xp-fresh-fill { from { background-position: 0 0; } to { background-position: 120px 0; } }
+  @keyframes xp-fresh-fill { from { background-position: 0 0; } to { background-position: 1615px 0; } }
   #backup-btn.needs-backup { color: #ffa94d !important; border-color: rgba(255,169,77,0.5) !important; }
   #duo-wrap { display: flex; gap: 4px; }
   #duo-btn { background: rgba(88,204,2,0.12) !important; border-color: rgba(88,204,2,0.35) !important; color: #7fdd40 !important; }
