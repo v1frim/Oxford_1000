@@ -11446,10 +11446,17 @@ songsOverlay.addEventListener("click", e => {
           addXp(song.xp);
           awarded[el.dataset.song] = new Date().toISOString().slice(0, 10);
           saveSongsXpAwarded(awarded);
-          renderLbTotals();
         }
       }
     }
+    // Оновити всі панелі, що залежать від статусу/XP пісні — як у LingoHut/Duo.
+    // Раніше тут був лише renderLbTotals(): права «Загальна статистика» оновлювалась,
+    // а ліва «Прогрес по днях» (значок 🎵 + XP за день) — ні, бо не звався
+    // renderProgressPanel(). Тепер набір збігається з обробниками LingoHut/Duo.
+    renderXpBar();
+    renderLbTotals();
+    renderThermo();
+    renderProgressPanel();
     checkAchievements(true);   // ачівка «Пісень вивчено» спрацьовує одразу
   } else if (act === "yt-toggle") {
     const frame = document.getElementById("song-yt-frame");
