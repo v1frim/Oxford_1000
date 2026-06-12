@@ -642,8 +642,16 @@ const PICTURE_SCENES = [
     статусу пісні (`act==="status"`) звав лише `renderLbTotals()` (права «Загальна
     статистика»), без `renderProgressPanel()`/`renderXpBar()`/`renderThermo()` — на відміну
     від близнюків LingoHut/Duo. Дані писались вірно (`songsXpAwarded[id]=дата`), та ліва
-    панель не перемальовувалась наживо (значок з'являвся лише після reload/перемикання).
-    Додано повний набір ре-рендерів — тепер як у LingoHut/Duo.
+    панель не перемальовувалась наживо. Додано повний набір ре-рендерів — як у LingoHut/Duo.
+  - **Значок 🎵 ВСЕ ОДНО зникав після reload — СПРАВЖНІЙ КОРІНЬ: TDZ.** `const SONGS_XP_KEY`
+    оголошувався низько (розділ пісень), а load-time `renderProgressPanel()` (коли панель
+    відкрита) і міграції XP читають його через `loadSongsXpAwarded()` ВИЩЕ → доступ до `const`
+    у TDZ кидав `ReferenceError`, який глушив `try/catch` у loadSongsXpAwarded → повертало `{}`
+    → на завантаженні значок не малювався (живий рендер після старту працював — ключ уже
+    ініціалізований; тому «висів» до reload). Фікс: підняв `const SONGS_XP_KEY` до
+    `SONGS_STATUS_KEY`/`ACH_KEY` (той самий прийом уже застосовано до STATUS-ключа).
+    ⚠️ **Урок:** `const`-ключі, які читають load-time функції (checkAchievements /
+    renderProgressPanel / міграції), оголошуй ДО них — інакше TDZ + catch проковтує → `{}`.
   - **⚠️ Латентне (НЕ чіпав): mix локальної і UTC дати в ключах днів.** `loadDays`
     (ігри/correct/reviewCorrect) ключується ЛОКАЛЬНОЮ датою (`todayKey()`), а XP-день,
     пісні (`songsXpAwarded`), LingoHut, Duo та mastery-history — UTC

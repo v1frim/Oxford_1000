@@ -11105,6 +11105,10 @@ const ACH_KEY = "oxford_achievements_v1";        // {achId: highestNotifiedLevel
 // викликає value() ачівки "songs" → loadSongStatus() → цей const. Якщо повернути
 // його вниз — TDZ ReferenceError на старті. do NOT move below checkAchievements.
 const SONGS_STATUS_KEY = "oxford_songs_status_v1";
+const SONGS_XP_KEY     = "oxford_songs_xp_v1";  // ⚠️ ТУТ (не в розділі пісень), бо load-time
+// renderProgressPanel() та міграції XP читають його через loadSongsXpAwarded() ще ДО старого
+// місця оголошення внизу → був TDZ ReferenceError, який глушив try/catch → повертало {} →
+// значок 🎵 у «Прогрес по днях» зникав після reload (живий рендер після старту вже працював).
 const ACH_LEAGUES = [
   { name: "Бронза",      label: "Бронзова",      color: "#cd7f32", color2: "#f0b070" },
   { name: "Срібло",      label: "Срібна",         color: "#c0c0c0", color2: "#e8eef7" },
@@ -11382,8 +11386,8 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
 updateLayoutAlign();
 
 // ── Розділ «Пісні» ───────────────────────────────────────────────────────
-// SONGS_STATUS_KEY оголошено вище, біля ACH_KEY (TDZ для ачівки "songs")
-const SONGS_XP_KEY     = "oxford_songs_xp_v1";
+// SONGS_STATUS_KEY і SONGS_XP_KEY оголошено вище, біля ACH_KEY (їх читають load-time
+// checkAchievements / renderProgressPanel / міграції XP ще до цього розділу → інакше TDZ).
 function loadSongsXpAwarded() { try { return JSON.parse(localStorage.getItem(SONGS_XP_KEY)) || {}; } catch(e) { return {}; } }
 function saveSongsXpAwarded(o) { localStorage.setItem(SONGS_XP_KEY, JSON.stringify(o)); }
 const SONG_STATUS_META = {
