@@ -417,6 +417,16 @@
   #xp-section.xp-levelup #xp-fill { animation: xp-levelup-fill 0.9s ease; }
   @keyframes xp-levelup-hex { 0% { transform: scale(1); } 35% { transform: scale(1.35) rotate(-6deg); } 100% { transform: scale(1); } }
   @keyframes xp-levelup-fill { 0%,100% { filter: brightness(1); } 40% { filter: brightness(1.9); } }
+  /* «Свіжий рівень»: годину після level-up шеврон + смужка переливаються */
+  #xp-section.xp-fresh #xp-hex { animation: xp-fresh-hex 1.7s ease-in-out infinite; }
+  @keyframes xp-fresh-hex {
+    0%,100% { filter: drop-shadow(0 0 4px var(--tier)) brightness(1); }
+    50%     { filter: drop-shadow(0 0 13px var(--tier2)) drop-shadow(0 0 22px var(--tier)) brightness(1.25); } }
+  #xp-section.xp-fresh #xp-fill {
+    background: linear-gradient(100deg, var(--tier) 0%, var(--tier2) 34%, #ffffff 50%, var(--tier2) 66%, var(--tier) 100%);
+    background-size: 250% 100%; animation: xp-fresh-fill 1.5s linear infinite;
+    box-shadow: 0 0 12px var(--tier2); }
+  @keyframes xp-fresh-fill { from { background-position: 120% 0; } to { background-position: -130% 0; } }
   #backup-btn.needs-backup { color: #ffa94d !important; border-color: rgba(255,169,77,0.5) !important; }
   #duo-wrap { display: flex; gap: 4px; }
   #duo-btn { background: rgba(88,204,2,0.12) !important; border-color: rgba(88,204,2,0.35) !important; color: #7fdd40 !important; }
@@ -700,6 +710,22 @@
   .ms-box.nudge .ms-text { font-size: 16px; color: #87b4ff; }
   .ms-box.cleared .ms-text { color: #7be07b; }
   .ms-sub  { font-size: 13px; opacity: 0.65; color: #fff; margin-top: 5px; }
+  /* Свято рівня — окремий вигляд: шеврон із номером замість емодзі */
+  .ms-box.levelup .ms-icon {
+    position: relative; z-index: 0; width: 78px; height: 86px; margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px; font-weight: 800; color: #fff; line-height: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6); animation: ms-lvl-pop 0.6s ease 0.08s 1 backwards; }
+  .ms-box.levelup .ms-icon::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(155deg, var(--lvl2, #ffe08a), var(--lvl, #e0a020));
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    box-shadow: 0 0 26px var(--lvl, #ffd166); }
+  .ms-box.levelup .ms-text { font-size: 23px; color: var(--lvl2, #ffd166); }
+  @keyframes ms-lvl-pop {
+    0%   { transform: scale(0.4) rotate(-14deg); }
+    60%  { transform: scale(1.18) rotate(7deg); }
+    100% { transform: scale(1) rotate(0); } }
   .row-left { flex: 1; min-width: 0; }
   .row-right { display: flex; align-items: flex-start; gap: 7px; flex-shrink: 0; max-width: 50%; }
   .row-right-text { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 2px; min-width: 0; }
@@ -8270,12 +8296,12 @@ function _ctx() {
   if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return _audioCtx;
 }
-function _beep(freq, startAt, duration, vol) {
+function _beep(freq, startAt, duration, vol, type) {
   const ctx = _ctx();
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
   osc.connect(gain); gain.connect(ctx.destination);
-  osc.type = "sine";
+  osc.type = type || "sine";
   osc.frequency.setValueAtTime(freq, ctx.currentTime + startAt);
   gain.gain.setValueAtTime(0, ctx.currentTime + startAt);
   gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + startAt + 0.01);
@@ -8320,23 +8346,44 @@ function sfxRank() {
   _beep(1568, 0.33, 0.28, 0.20);
   _beep(2093, 0.50, 0.30, 0.10); // high sparkle
 }
+function sfxLevelUp() {
+  // Окреме «свято рівня»: тепла трикутна висхідна гама → витриманий мажорний акорд
+  // (C6–E6–G6) + низький корінь для ваги. Свідомо НЕ як sfxRank (інший тембр і фраза).
+  const t = "triangle";
+  _beep(523,  0.00, 0.10, 0.15, t);  // C5
+  _beep(659,  0.10, 0.10, 0.15, t);  // E5
+  _beep(784,  0.20, 0.10, 0.15, t);  // G5
+  _beep(1047, 0.30, 0.13, 0.17, t);  // C6
+  _beep(1319, 0.43, 0.13, 0.17, t);  // E6
+  _beep(1568, 0.58, 0.60, 0.18, t);  // G6 (ведуча)
+  _beep(1047, 0.58, 0.60, 0.11, t);  // C6
+  _beep(1319, 0.58, 0.60, 0.09, t);  // E6
+  _beep(262,  0.58, 0.55, 0.13, "sine"); // C4 — низький корінь
+}
 let _msTimer = null;
-function showMilestone(icon, text, sub, type, color) {
+function showMilestone(icon, text, sub, type, color, color2) {
   const ov  = document.getElementById("milestone-overlay");
   const box = ov.querySelector(".ms-box");
   const icEl = ov.querySelector(".ms-icon"), txtEl = ov.querySelector(".ms-text");
   icEl.textContent = icon;
   txtEl.textContent = text;
   ov.querySelector(".ms-sub").textContent  = sub || "";
-  box.className = "ms-box" + (type === "cleared" ? " cleared" : type === "nudge" ? " nudge" : type === "achievement" ? " achievement" : "");
-  // Achievement milestones carry the league color (bronze→king) applied inline.
-  if (type === "achievement" && color) {
+  box.className = "ms-box" + (type === "cleared" ? " cleared" : type === "nudge" ? " nudge" : type === "achievement" ? " achievement" : type === "levelup" ? " levelup" : "");
+  // Achievement & level-up milestones carry a tier/league colour applied inline.
+  if ((type === "achievement" || type === "levelup") && color) {
     box.style.borderColor = color;
     box.style.boxShadow = "0 0 52px " + color + "66, 0 10px 30px rgba(0,0,0,0.5)";
-    txtEl.style.color = color; icEl.style.color = color;
+    if (type === "levelup") {
+      box.style.setProperty("--lvl", color);
+      box.style.setProperty("--lvl2", color2 || color);
+      txtEl.style.color = color2 || color; icEl.style.color = "";  // номер у шевроні лишаємо білим
+    } else {
+      txtEl.style.color = color; icEl.style.color = color;
+    }
   } else {
     box.style.borderColor = ""; box.style.boxShadow = "";
     txtEl.style.color = ""; icEl.style.color = "";
+    box.style.removeProperty("--lvl"); box.style.removeProperty("--lvl2");
   }
   ov.classList.remove("show");
   void ov.offsetWidth;
@@ -8355,7 +8402,7 @@ function _drainMilestones() {
   const item = _msQueue.shift();
   if (!item) { _msRunning = false; return; }
   if (item.sfx) item.sfx();
-  showMilestone(item.icon, item.text, item.sub, item.type, item.color);
+  showMilestone(item.icon, item.text, item.sub, item.type, item.color, item.color2);
   setTimeout(_drainMilestones, 2700);
 }
 
@@ -10197,6 +10244,8 @@ function getTodayXpGain() { return getDayXpGain(new Date().toISOString().slice(0
 // 20 levels grouped into 5 colour tiers (4 levels each) — Бронза→Королівство
 function xpTierForLevel(level) { return Math.min(4, Math.floor((level - 1) / 4)); }
 let _xpPrevLevel = null;
+let _xpFreshTimer = null;
+const LEVELUP_AT_KEY = "oxford_levelup_at_v1";  // ts останнього level-up; годинне «свіже» підсвічування
 function renderXpBar() {
   const xp = loadXp();
   const info = getLevelInfo(xp);
@@ -10219,8 +10268,27 @@ function renderXpBar() {
     sec.classList.remove("xp-levelup"); void sec.offsetWidth; // restart animation
     sec.classList.add("xp-levelup");
     setTimeout(() => sec.classList.remove("xp-levelup"), 1000);
+    // Свято рівня: окремий звук + оверлей (інший тип, ніж досягнення) + мітка часу
+    // для годинного «свіжого» підсвічування шеврона і смужки (переживає reload).
+    localStorage.setItem(LEVELUP_AT_KEY, String(Date.now()));
+    const lg = ACH_LEAGUES[tier];
+    enqueueMilestone({
+      icon: String(info.level),
+      text: "Новий рівень!",
+      sub: "Рівень " + info.level + " · " + info.name,
+      type: "levelup",
+      color: lg.color, color2: lg.color2,
+      sfx: sfxLevelUp,
+    });
   }
   _xpPrevLevel = info.level;
+  // Годину після level-up: шеврон + смужка переливаються. Стан тримаємо в localStorage,
+  // тож переживає перезавантаження; знімаємо таймером по завершенні години.
+  const _luAt = parseInt(localStorage.getItem(LEVELUP_AT_KEY) || "0", 10);
+  const _fresh = _luAt > 0 && (Date.now() - _luAt) < 3600000;
+  sec.classList.toggle("xp-fresh", _fresh);
+  if (_xpFreshTimer) { clearTimeout(_xpFreshTimer); _xpFreshTimer = null; }
+  if (_fresh) _xpFreshTimer = setTimeout(renderXpBar, 3600000 - (Date.now() - _luAt) + 300);
 }
 
 function updateMastery(wordIndex, correct) {
