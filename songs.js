@@ -4145,6 +4145,58 @@ const SONGS = [
       { en: "make it",                   ua: "пробитися",            note: "сленг: досягти успіху, вибитися в люди" },
       { en: "strength comes in numbers", ua: "сила — в гурті",       note: "прислів'я: разом ми сильніші" }
     ]
+  },
+  {
+    id: "neffex-scars",
+    artist: "NEFFEX",
+    title: "Scars 🩹",
+    ytId: "Ecvxh1gabWQ",
+    xp: 400,
+    sections: [
+      { label: "ПРИСПІВ", lines: [
+        { en: "And she said she wants to walk the boulevard",                   ua: "А вона сказала, що хоче гуляти бульваром" },
+        { en: "And I said, \"I just wanna look up at the stars\"",              ua: "А я сказав: «Я просто хочу дивитися на зорі»" },
+        { en: "And she said, \"I just wanna be without these scars, yeah",      ua: "А вона сказала: «Я просто хочу позбутися цих шрамів, так" },
+        { en: "That I hate\"",                                                  ua: "Які я ненавиджу»" },
+        { en: "She said, \"I just want to find out who you are\"",              ua: "Вона сказала: «Я просто хочу дізнатися, хто ти»" },
+        { en: "And I said, \"I don't even know where I should start\"",         ua: "А я сказав: «Я навіть не знаю, з чого почати»" },
+        { en: "And she said, \"Maybe you could help me with these scars, yeah", ua: "А вона сказала: «Може, ти допоможеш мені з цими шрамами, так" },
+        { en: "'Cause I don't wanna fall apart, yeah\"",                        ua: "Бо я не хочу розсипатися на шматки, так»" }
+      ]},
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Hey, we all have a past that we can't change, ayy",       ua: "Гей, у всіх нас є минуле, яке не змінити, ей" },
+        { en: "Things we've done that maybe we could hate, ayy",         ua: "Вчинки, які ми, можливо, ненавидимо, ей" },
+        { en: "We all feel the same, just a little shame",               ua: "Ми всі почуваємось однаково — лише трохи сорому" },
+        { en: "But it'll be okay, 'cause",                               ua: "Але все буде добре, бо" },
+        { en: "We'll keep finding love in these drugs and this trauma",  ua: "Ми й далі шукатимемо любов у цих наркотиках і цій травмі" },
+        { en: "We'll keep moving on from the past when we wanna",        ua: "Ми й далі залишатимемо минуле позаду, коли захочемо" },
+        { en: "We'll keep driving fast listening to every genre",        ua: "Ми й далі гнатимемо швидко, слухаючи геть усі жанри" },
+        { en: "And if you wanna drown then I could hold you down, yeah", ua: "А якщо ти захочеш потонути — я буду поруч і втримаю тебе, так" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I just want it fast, yeah, I just wanna go",                ua: "Я просто хочу швидко, так, я просто хочу рушати" },
+        { en: "If you want it bad then, baby, let me know",                ua: "Якщо ти дуже цього хочеш, крихітко, дай знати" },
+        { en: "We could make it last, yeah, we could take it slow",        ua: "Ми могли б це розтягнути, так, могли б не поспішати" },
+        { en: "Don't look back, don't look back, don't look back, oh, no", ua: "Не озирайся, не озирайся, не озирайся, о, ні" },
+        { en: "I see the scars and you know the pain, yeah",               ua: "Я бачу шрами, а ти знаєш цей біль, так" },
+        { en: "I hear the words while you felt everything, yeah",          ua: "Я чую слова, поки ти відчувала все, так" },
+        { en: "I wish I could change all of the memories, yeah",           ua: "Хотів би я змінити всі ці спогади, так" },
+        { en: "Keep staying strong and it'll be okay",                     ua: "Тримайся, будь сильною — і все буде добре" }
+      ]}
+    ],
+    glossary: {
+      "boulevard": "бульвар", "stars": "зорі", "scars": "шрами", "shame": "сором",
+      "drugs": "наркотики", "trauma": "травма", "genre": "жанр", "drown": "тонути",
+      "memories": "спогади"
+    },
+    slang: [
+      { en: "hold you down",   ua: "буду поруч, підтримаю тебе", note: "сленг: бути відданим і підтримувати когось" },
+      { en: "fall apart",      ua: "розсипатися на шматки",      note: "емоційно зламатися, втратити контроль над собою" },
+      { en: "take it slow",    ua: "не поспішати",               note: "розвивати щось поступово, без поспіху" },
+      { en: "make it last",    ua: "зробити тривалим",           note: "щоб щось (мить, стосунки) тривало довше" },
+      { en: "want it bad",     ua: "дуже сильно хотіти",         note: "\"bad\" тут підсилює — «страшенно хочу»" },
+      { en: "don't look back", ua: "не озирайся",                note: "не жалкуй про минуле, рухайся далі" }
+    ]
   }
 ];
 
