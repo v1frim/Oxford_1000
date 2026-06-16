@@ -1122,6 +1122,11 @@ const DURATION = 60;
 // Each entry: { en, ua }
 // For UA→EN, all words sharing the same `ua` are accepted as correct answers.
 const WORDS = [
+  // Fight (NEFFEX) — нові слова з пісні (сесія 22)
+  {en:"bleed",ua:["кровоточити","спливати кров'ю"]},
+  {en:"complacent",ua:["самовдоволений","самозаспокоєний"]},
+  {en:"proceed",ua:["переходити","прямувати"]},
+  {en:"stall",ua:["зволікати","глохнути"]},
   // ── VERBS ──────────────────────────────────────────────────────────────
   {en:"be",ua:"бути"},{en:"have",ua:"мати"},{en:"do",ua:["робити","зробити"]},
   {en:"say",ua:"казати"},{en:"go",ua:["іти","йти","ходити"]},{en:"get",ua:["отримувати","діставати"]},
@@ -2772,6 +2777,7 @@ const WORDS = [
 
 // ── IPA TRANSCRIPTIONS (American English) ──────────────────────────────────
 const TRANS = {
+  "bleed":"/bliːd/","complacent":"/kəmˈpleɪsənt/","proceed":"/prəˈsiːd/","stall":"/stɔːl/",
   // Verbs
   "be":"/biː/","have":"/hæv/","do":"/duː/","say":"/seɪ/","go":"/ɡoʊ/",
   "get":"/ɡɛt/","make":"/meɪk/","know":"/noʊ/","think":"/θɪŋk/","take":"/teɪk/",
@@ -3333,6 +3339,7 @@ const TRANS = {
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
 const EXAMPLES = {
+  "bleed":"The deep cut started to bleed.","complacent":"Do not become complacent after one win.","proceed":"Let's proceed to the next question.","stall":"Do not stall, give me an answer now.",
   // Verbs
   "be":"She wants to be a doctor.","have":"I have two cats at home.",
   "do":"What do you do every morning?","say":"What did she say to you?",
@@ -5205,6 +5212,7 @@ const EXAMPLES = {
 };
 
 const EXAMPLES_UA = {
+  "bleed":"Глибокий поріз почав кровоточити.","complacent":"Не ставай самовдоволеним після однієї перемоги.","proceed":"Перейдімо до наступного питання.","stall":"Не зволікай, дай мені відповідь зараз.",
   // Verbs
   "be":"Вона хоче бути лікарем.","have":"У мене вдома дві кішки.",
   "do":"Що ти робиш щоранку?","say":"Що вона тобі сказала?",
