@@ -1122,6 +1122,13 @@ const DURATION = 60;
 // Each entry: { en, ua }
 // For UA→EN, all words sharing the same `ua` are accepted as correct answers.
 const WORDS = [
+  // Lit (NEFFEX) — нові слова з пісні (сесія 22)
+  {en:"commit",ua:["вчиняти","зобов'язуватися"]},
+  {en:"fifth",ua:"п'ятий"},
+  {en:"swear",ua:["клястися","присягатися","лаятися"]},
+  {en:"trigger",ua:["курок","спусковий гачок","спричиняти"]},
+  {en:"winner",ua:"переможець"},
+  {en:"wristband",ua:["напульсник","наручна стрічка"]},
   // Fight (NEFFEX) — нові слова з пісні (сесія 22)
   {en:"bleed",ua:["кровоточити","спливати кров'ю"]},
   {en:"complacent",ua:["самовдоволений","самозаспокоєний"]},
@@ -2777,6 +2784,7 @@ const WORDS = [
 
 // ── IPA TRANSCRIPTIONS (American English) ──────────────────────────────────
 const TRANS = {
+  "commit":"/kəˈmɪt/","fifth":"/fɪfθ/","swear":"/sweər/","trigger":"/ˈtrɪɡər/","winner":"/ˈwɪnər/","wristband":"/ˈrɪstbænd/",
   "bleed":"/bliːd/","complacent":"/kəmˈpleɪsənt/","proceed":"/prəˈsiːd/","stall":"/stɔːl/",
   // Verbs
   "be":"/biː/","have":"/hæv/","do":"/duː/","say":"/seɪ/","go":"/ɡoʊ/",
@@ -3339,6 +3347,7 @@ const TRANS = {
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
 const EXAMPLES = {
+  "commit":"He did not commit the crime.","fifth":"He finished in fifth place.","swear":"I swear I will tell the truth.","trigger":"He pulled the trigger.","winner":"The winner of the race was very happy.","wristband":"She has a blue wristband on her arm.",
   "bleed":"The deep cut started to bleed.","complacent":"Do not become complacent after one win.","proceed":"Let's proceed to the next question.","stall":"Do not stall, give me an answer now.",
   // Verbs
   "be":"She wants to be a doctor.","have":"I have two cats at home.",
@@ -5212,6 +5221,7 @@ const EXAMPLES = {
 };
 
 const EXAMPLES_UA = {
+  "commit":"Він не вчиняв цього злочину.","fifth":"Він фінішував на п'ятому місці.","swear":"Клянуся, що скажу правду.","trigger":"Він натиснув на курок.","winner":"Переможець забігу був дуже щасливий.","wristband":"У неї на руці синій напульсник.",
   "bleed":"Глибокий поріз почав кровоточити.","complacent":"Не ставай самовдоволеним після однієї перемоги.","proceed":"Перейдімо до наступного питання.","stall":"Не зволікай, дай мені відповідь зараз.",
   // Verbs
   "be":"Вона хоче бути лікарем.","have":"У мене вдома дві кішки.",
@@ -9370,6 +9380,7 @@ const HW_SKIP = new Set([
   "not","no","yes","very","too","also","just","only","even","still","yet"
 ]);
 const IRREGULAR = {
+  swore:"swear",
   was:"be",were:"be","been":"be",am:"be",is:"be",are:"be",
   had:"have",has:"have",
   did:"do",done:"do",does:"do",
