@@ -8566,13 +8566,9 @@ function endGame(endedEarly) {
     newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
-      // game milestones (daily games played)
-      const gamesCount = (loadDays()[newDayKey] || {}).games || 0;
-      if (gamesCount > 0 && gamesCount % 4 === 0) {
-        enqueueMilestone({ icon: "🎯", text: gamesCount + " ігор!", sub: "Урок виконано!", type: "milestone", sfx: sfxMilestone });
-      } else if (gamesCount % 4 === 2) {
-        enqueueMilestone({ icon: "💪", text: "Ще трішки!", sub: "2 гри зіграно сьогодні", type: "nudge", sfx: sfxNudge });
-      }
+      // milestone-вітання тепер за пунктами «термометра» (а не за к-стю ігор):
+      // гра дала пункт(и) → перевіряємо перетин 4/8… (🎯 план) та 2/6… (💪 півплану).
+      checkThermoMilestones();
     }
     // leaderboard rank milestone (only once the board was already full — a real bump)
     const rank = newEntryId ? getScoreRank(newEntryId) : null;
@@ -10098,7 +10094,8 @@ const BACKUP_KEYS = [
   "oxford_scores_v1","oxford_days_v1","oxford_today_best_v1",
   "oxford_latest_v1","oxford_day_mistakes_v1",
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
-  "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1"
+  "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
+  "oxford_achievements_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -10975,6 +10972,50 @@ function getThermoPointsToday() {
   const songSess = loadSongSessions();
   return getThermoCarryIn(today, days, duo, lh, songSess) + thermoRawForDate(today, days, duo, lh, songSess);
 }
+
+// ── Денні milestone-вітання за пунктами «термометра» (раніше — за к-стю ігор) ──
+// 🎯 основне на кожні 4 пункти (план виконано: 4/8/12/16…), 💪 проміжне на півплані
+// (2/6/10/14…). Рахуємо від ПОКАЗАНИХ пунктів (з carry-in). Ловимо ПЕРЕТИН порогу —
+// пункт може стрибнути на +2 (заняття піснями, LingoHut №36+). «Верхня планка» сесії
+// (high-water) не дає спамити на reload і на дай-бери −/+ (за домовленістю з користувачем).
+let thermoMsHighWater = -1;   // найвищі вже відсвятковані пункти сьогодні (в межах сесії)
+let thermoMsDate = "";        // дата (UTC), до якої належить планка
+function checkThermoMilestones() {
+  const today = new Date().toISOString().slice(0, 10);
+  const pts = getThermoPointsToday();
+  if (thermoMsDate !== today) {        // новий день / перший виклик на завантаженні: лише база
+    thermoMsDate = today;
+    thermoMsHighWater = pts;
+    return;
+  }
+  if (pts <= thermoMsHighWater) return;  // без приросту (або −) → не святкуємо, планку лишаємо
+  for (let t = thermoMsHighWater + 1; t <= pts; t++) {
+    if (t % 4 === 0) {
+      enqueueMilestone({ icon: "🎯", text: "План " + (t / 4) + " виконано!", sub: t + " пунктів сьогодні", type: "milestone", sfx: sfxMilestone });
+    } else if (t % 4 === 2) {
+      enqueueMilestone({ icon: "💪", text: "Ще трішки!", sub: "Півплану позаду — не зупиняйся!", type: "nudge", sfx: sfxNudge });
+    }
+  }
+  thermoMsHighWater = pts;
+}
+
+// Сума СИРИХ пунктів термометра за поточний (UTC) місяць — для місячного досягнення.
+// Сирі (не показані): показані містять carry-in, який при сумуванні задвоївся б.
+function thermoPointsThisMonth() {
+  const ym = new Date().toISOString().slice(0, 7);   // "YYYY-MM"
+  const days = loadDays();
+  const duo  = loadDuoSessions();
+  const lh   = loadLhDone();
+  const songSess = loadSongSessions();
+  const dates = new Set();
+  Object.keys(days).forEach(d => dates.add(d));
+  Object.keys(duo).forEach(d => dates.add(d));
+  Object.keys(songSess).forEach(d => dates.add(d));
+  Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
+  let pts = 0;
+  dates.forEach(d => { if (d.slice(0, 7) === ym) pts += thermoRawForDate(d, days, duo, lh, songSess); });
+  return pts;
+}
 function getBestDayPoints() {
   const days = loadDays();
   const duo  = loadDuoSessions();
@@ -11113,6 +11154,7 @@ function toggleLhLesson(n) {
   renderLbTotals();
   renderThermo();
   renderProgressPanel();
+  checkThermoMilestones();
   checkAchievements(true);
 }
 function renderLhGrid() {
@@ -11180,6 +11222,7 @@ document.getElementById("duo-btn").addEventListener("click", () => {
   renderLbTotals();
   renderThermo();
   renderProgressPanel();
+  checkThermoMilestones();
   checkAchievements(true);
 });
 
@@ -11228,6 +11271,8 @@ document.getElementById("songsess-plus").addEventListener("click", () => {
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
+  checkThermoMilestones();
+  checkAchievements(true);
 });
 
 document.getElementById("songsess-minus").addEventListener("click", () => {
@@ -11274,6 +11319,9 @@ const ACHIEVEMENTS = [
   { id:"totaldays", icon:"📅", name:"Днів гри загалом",       thresholds:[30,90,180,365,730],                 value:()=>activeDaysCount() },
   { id:"xp",        icon:"⚡", name:"Накопичено XP",           thresholds:[15000,45000,90000,150000,250000],   value:()=>loadXp() },
   { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[5,10,20,30,40],                     value:()=>countLearnedSongs() },
+  // Місячне: пункти «термометра» за поточний місяць. Лічильник скидається щомісяця
+  // (value = лише цей місяць), а здобута ліга лишається назавжди (claimed лише росте).
+  { id:"thermo_month", icon:"🌡️", name:"Пунктів за місяць",   thresholds:[60,120,240,300,360],                value:()=>thermoPointsThisMonth(), monthly:true },
 ];
 function loadAch() { try { return JSON.parse(localStorage.getItem(ACH_KEY) || "{}"); } catch(e) { return {}; } }
 function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
@@ -11336,6 +11384,22 @@ function renderAchVariantA() {
   return '<div class="ach-list-a">' + ACHIEVEMENTS.map(a => {
     if (a.locked) return achCardHtml({ icon:"🔒", title:a.name, lvl:0, pct:0,
       count:"скоро", desc:"🔒 в розробці", c:"#5b6b85", c2:"#8090aa", glow:"transparent", locked:true });
+    if (a.monthly) {
+      // Значок = найвища здобута ліга НАЗАВЖДИ (claimed); смужка = пункти ЦЬОГО місяця
+      // до наступної (ще не здобутої) ліги. Нова нагорода — лише коли місяць пробив
+      // лігу вищу за рекорд (це робить checkAchievements: claimed лише росте).
+      const claimedLvl = loadAch()[a.id] || 0;
+      const mp = a.value();
+      const cur = claimedLvl > 0 ? ACH_LEAGUES[claimedLvl-1] : ACH_NOLEAGUE;
+      const goal = claimedLvl < 5 ? a.thresholds[claimedLvl] : a.thresholds[4];
+      const pct = Math.min(100, Math.max(0, Math.round(mp / goal * 100)));
+      const count = claimedLvl < 5 ? fmtAchNum(mp) + ' / ' + fmtAchNum(goal) : '👑 ' + fmtAchNum(mp);
+      const lgPart = claimedLvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
+        : (claimedLvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
+      const desc = lgPart + ' · цей місяць: ' + mp + ' п.';
+      return achCardHtml({ icon:a.icon, title:a.name, lvl:claimedLvl, pct, count, desc,
+        c:cur.color, c2:cur.color2, glow:cur.color, shimmer: claimedLvl >= 3 });
+    }
     const v = a.value();
     const lvl = achLevelFor(a);
     const cur = lvl > 0 ? ACH_LEAGUES[lvl-1] : ACH_NOLEAGUE;
@@ -11357,6 +11421,7 @@ renderSongSessBtn();
 renderLeaderboard();
 renderLbTotals();
 renderThermo();
+checkThermoMilestones();   // виставити базову планку milestone'ів = поточні пункти (без вітань на старті)
 checkAchievements(false);
 updateReviewTodayBtn();
 saveMasterySnapshot();
