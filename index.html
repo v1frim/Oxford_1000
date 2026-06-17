@@ -10943,18 +10943,37 @@ function renderLbTotals() {
     row("Досвід (XP)", xp, "#ffd166");
 }
 
+// Сирі пункти за конкретний день (гра / Duolingo / LingoHut / заняття піснями).
+function thermoRawForDate(date, days, duo, lh, songSess) {
+  let pts = 0;
+  if (days[date]) pts += days[date].games || 0;
+  pts += duo[date] || 0;
+  pts += (songSess[date] || 0) * 2;   // заняття піснями: 2 пункти кожне
+  Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
+  return pts;
+}
+// Перенесення залишку на сьогодні: виконані плани (кратні 4) «згоряють», а
+// недороблений хвіст (1–3 пункти) переходить на наступний день — ланцюжком через
+// усі минулі дні (порожні дні залишок не міняють). Тобто 7 пунктів учора → +3
+// сьогодні, 13 → +1 і т.д. Без окремого сховища: рахується з уже збережених даних.
+function getThermoCarryIn(today, days, duo, lh, songSess) {
+  const dates = new Set();
+  Object.keys(days).forEach(d => dates.add(d));
+  Object.keys(duo).forEach(d => dates.add(d));
+  Object.keys(songSess).forEach(d => dates.add(d));
+  Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
+  const past = [...dates].filter(d => d < today).sort();
+  let carry = 0;
+  for (const d of past) carry = (carry + thermoRawForDate(d, days, duo, lh, songSess)) % 4;
+  return carry;
+}
 function getThermoPointsToday() {
   const today = new Date().toISOString().slice(0, 10);
   const days  = loadDays();
   const duo   = loadDuoSessions();
   const lh    = loadLhDone();
   const songSess = loadSongSessions();
-  let pts = 0;
-  if (days[today]) pts += days[today].games || 0;
-  pts += duo[today] || 0;
-  pts += (songSess[today] || 0) * 2;   // заняття піснями: 2 пункти кожне
-  Object.entries(lh).forEach(([k, dt]) => { if (dt === today) pts += Number(k) <= 35 ? 1 : 2; });
-  return pts;
+  return getThermoCarryIn(today, days, duo, lh, songSess) + thermoRawForDate(today, days, duo, lh, songSess);
 }
 function getBestDayPoints() {
   const days = loadDays();
