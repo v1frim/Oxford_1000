@@ -810,6 +810,13 @@
   #lh-btn:hover { background:rgba(135,180,255,0.22); }
   #songs-btn { padding:7px 20px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #songs-btn:hover { background:rgba(200,155,255,0.22); }
+  #songsess-wrap { display:flex; gap:4px; align-items:center; }
+  #songsess-plus { padding:7px 14px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
+  #songsess-plus:hover { background:rgba(200,155,255,0.22); }
+  #songsess-count { display:inline-block; background:rgba(200,155,255,0.22); color:#c89bff; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
+  #songsess-minus { padding:7px 10px; background:rgba(200,155,255,0.10); border:1px solid rgba(200,155,255,0.28); color:rgba(255,255,255,0.4); border-radius:12px; cursor:pointer; font-size:12px; transition:all 0.15s; }
+  #songsess-minus:hover { color:#ff6b6b; border-color:rgba(255,107,107,0.4); }
+  .prog-songsess { font-size: 11px; color: #c89bff; opacity: 0.85; margin-left: 4px; }
 
   /* ── Розділ «Пісні» — повноекранний overlay ───────────────────────────── */
   #songs-overlay {
@@ -991,7 +998,11 @@
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
     <div id="extra-btns">
       <button id="lh-btn">📚 Уроки LingoHut</button>
-      <button id="songs-btn">🎵 Пісні англійською</button>
+      <div id="songsess-wrap">
+        <button id="songs-btn">🎵 Пісні англійською</button>
+        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 у «Плани»)">🎧 +<span id="songsess-count" style="display:none"></span></button>
+        <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
+      </div>
     </div>
   </div>
 
@@ -10087,7 +10098,7 @@ const BACKUP_KEYS = [
   "oxford_scores_v1","oxford_days_v1","oxford_today_best_v1",
   "oxford_latest_v1","oxford_day_mistakes_v1",
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
-  "oxford_songs_status_v1","oxford_songs_xp_v1"
+  "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -10421,21 +10432,23 @@ function _progAggregate(dates, history, allDates, days) {
   const firstIdx = allDates.indexOf(dates[0]);
   const prev = firstIdx > 0 ? history[allDates[firstIdx-1]] : {k:0,l:0,t:WORDS.length};
   const last = history[dates[dates.length-1]] || prev;
-  let games = 0, rev = 0, duo = 0;
+  let games = 0, rev = 0, duo = 0, songSess = 0;
   const duoSessions = loadDuoSessions();
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; }
+  const songSessions = loadSongSessions();
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; }
   const dateSet = new Set(dates);
   const lh    = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const songs = Object.values(loadSongsXpAwarded()).filter(v => dateSet.has(v)).length;
   const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
-  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs };
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess };
 }
-function _progMetaHtml(games, lh, duo, songs) {
+function _progMetaHtml(games, lh, duo, songs, songSess) {
   let h = "";
   if (games > 0) h += '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>';
   if (lh > 0)    h += '<span class="prog-lh">· 📚' + lh + '</span>';
   if (duo > 0)   h += '<span class="prog-duo">· 🦉' + duo + '</span>';
   if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
+  if (songSess > 0) h += '<span class="prog-songsess">· 🎧' + songSess + '</span>';
   return h;
 }
 function _progFmtRange(dates) {
@@ -10463,6 +10476,7 @@ function renderProgressPanel() {
   const duoSessions = loadDuoSessions();
   const lhDone = loadLhDone();
   const songsXpAwarded = loadSongsXpAwarded();
+  const songSessions = loadSongSessions();
   const recentCount = 7;
   const recentDates = [...allDates].reverse().slice(0, recentCount); // newest first
 
@@ -10476,7 +10490,8 @@ function renderProgressPanel() {
     const duo = duoSessions[date] || 0;
     const lh    = Object.values(lhDone).filter(v => v === date).length;
     const songs = Object.values(songsXpAwarded).filter(v => v === date).length;
-    const metaHtml = _progMetaHtml(games, lh, duo, songs);
+    const songSess = songSessions[date] || 0;
+    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     const xpGain = getDayXpGain(date);
@@ -10499,9 +10514,9 @@ function renderProgressPanel() {
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
-      const {dk, dl, games, rev, duo, lh, dt, songs} = _progAggregate(groups[k], history, allDates, days);
+      const {dk, dl, games, rev, duo, lh, dt, songs, songSess} = _progAggregate(groups[k], history, allDates, days);
       return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) +
-        _progMetaHtml(games, lh, duo, songs) + '</span><span class="prog-delta">' +
+        _progMetaHtml(games, lh, duo, songs, songSess) + '</span><span class="prog-delta">' +
         _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
@@ -10924,6 +10939,7 @@ function renderLbTotals() {
     row("Duolingo", getTotalDuoSessions(), "#7fdd40") +
     row("Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +
     row("Пісні вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
+    row("Заняття піснями", getTotalSongSessions(), "#c89bff") +
     row("Досвід (XP)", xp, "#ffd166");
 }
 
@@ -10932,9 +10948,11 @@ function getThermoPointsToday() {
   const days  = loadDays();
   const duo   = loadDuoSessions();
   const lh    = loadLhDone();
+  const songSess = loadSongSessions();
   let pts = 0;
   if (days[today]) pts += days[today].games || 0;
   pts += duo[today] || 0;
+  pts += (songSess[today] || 0) * 2;   // заняття піснями: 2 пункти кожне
   Object.entries(lh).forEach(([k, dt]) => { if (dt === today) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
@@ -10942,9 +10960,11 @@ function getBestDayPoints() {
   const days = loadDays();
   const duo  = loadDuoSessions();
   const lh   = loadLhDone();
+  const songSess = loadSongSessions();
   const allDates = new Set([
     ...Object.keys(days),
     ...Object.keys(duo),
+    ...Object.keys(songSess),
     ...Object.values(lh).filter(v => v && v.length === 10)
   ]);
   let best = 0;
@@ -10952,6 +10972,7 @@ function getBestDayPoints() {
     let pts = 0;
     if (days[date]) pts += days[date].games || 0;
     pts += duo[date] || 0;
+    pts += (songSess[date] || 0) * 2;
     Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
     if (pts > best) best = pts;
   });
@@ -11157,6 +11178,52 @@ document.getElementById("duo-minus").addEventListener("click", () => {
   renderProgressPanel();
 });
 
+// ── SONG-STUDY SESSION TRACKER (заняття піснями) ─────────────────────────────
+// Ручна позначка «вчив англійську піснями». БЕЗ XP — лише +2 пункти в «Плани»
+// за кожну сесію (за вимогою користувача). Лічильник скидається щодня (UTC-дата,
+// як Duolingo/термометр). ⚠️ const оголошено ТУТ — до init-викликів renderThermo/
+// renderLbTotals/renderProgressPanel нижче; інакше TDZ (як було з SONGS_XP_KEY, сесія 20).
+const SONG_SESS_KEY = "oxford_song_sessions_v1";   // {date: count}
+function loadSongSessions() {
+  try { return JSON.parse(localStorage.getItem(SONG_SESS_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveSongSessions(obj) { localStorage.setItem(SONG_SESS_KEY, JSON.stringify(obj)); }
+function songSessToday() { return new Date().toISOString().slice(0, 10); }
+function getTotalSongSessions() {
+  return Object.values(loadSongSessions()).reduce((s, n) => s + n, 0);
+}
+function renderSongSessBtn() {
+  const count = loadSongSessions()[songSessToday()] || 0;
+  const countEl = document.getElementById("songsess-count");
+  countEl.textContent = count || "";
+  countEl.style.display = count > 0 ? "inline-block" : "none";
+  document.getElementById("songsess-minus").style.display = count > 0 ? "" : "none";
+}
+
+document.getElementById("songsess-plus").addEventListener("click", () => {
+  const sessions = loadSongSessions();
+  const today = songSessToday();
+  sessions[today] = (sessions[today] || 0) + 1;
+  saveSongSessions(sessions);
+  renderSongSessBtn();
+  renderThermo();
+  renderLbTotals();
+  renderProgressPanel();
+});
+
+document.getElementById("songsess-minus").addEventListener("click", () => {
+  const sessions = loadSongSessions();
+  const today = songSessToday();
+  if (!sessions[today]) return;
+  sessions[today]--;
+  if (!sessions[today]) delete sessions[today];
+  saveSongSessions(sessions);
+  renderSongSessBtn();
+  renderThermo();
+  renderLbTotals();
+  renderProgressPanel();
+});
+
 // ── ACHIEVEMENTS ──────────────────────────────────────────────────────────────
 // 10 досягнень × 5 ліг. Зберігаємо лише найвищу "оголошену" лігу для дедуплікації
 // сповіщень — поточна ліга в панелі завжди рахується наживо з фактичних значень.
@@ -11266,6 +11333,7 @@ function renderAchVariantA() {
 }
 
 renderDuoBtn();
+renderSongSessBtn();
 
 renderLeaderboard();
 renderLbTotals();
