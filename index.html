@@ -1301,7 +1301,7 @@ const WORDS = [
   // ── NOUNS – Places ─────────────────────────────────────────────────────
   {en:"home",ua:"дім"},{en:"house",ua:"будинок"},{en:"household",ua:["домогосподарство","побутовий"]},{en:"room",ua:"кімната"},
   {en:"kitchen",ua:"кухня"},{en:"bedroom",ua:"спальня"},{en:"bathroom",ua:"ванна"},
-  {en:"garden",ua:"сад"},{en:"city",ua:"місто"},{en:"town",ua:"містечко"},
+  {en:"garden",ua:"сад"},{en:"city",ua:"місто"},{en:"town",ua:"містечко",uaAlt:["місто"]},
   {en:"village",ua:"село"},{en:"country",ua:"країна"},{en:"world",ua:"світ"},
   {en:"school",ua:"школа"},{en:"university",ua:"університет"},{en:"hospital",ua:"лікарня"},
   {en:"hotel",ua:"готель"},{en:"restaurant",ua:"ресторан"},{en:"airport",ua:"аеропорт"},
@@ -8146,7 +8146,10 @@ function isCorrect(input) {
   const inpNorm = normEn(inp);
 
   if (mode === "en-ua") {
-    return getUa(currentWord).some(u => normUa(u) === inp);
+    // uaAlt — додаткові ПРИЙНЯТНІ переклади, які НЕ показуються як підказка в ua-en
+    // (напр. town приймає «місто», але «місто» лишається промптом лише для city).
+    return getUa(currentWord).some(u => normUa(u) === inp)
+      || (currentWord.uaAlt || []).some(u => normUa(u) === inp);
   } else if (mode === "ua-en") {
     const shownUa = getUa(currentWord);
     return WORDS.some(w =>
@@ -8177,7 +8180,7 @@ function getCorrectAnswer() {
     });
     return [...ans].join(" / ");
   } else if (mode === "en-ua") {
-    return getUa(currentWord).join(" / ");
+    return [...getUa(currentWord), ...(currentWord.uaAlt || [])].join(" / ");
   } else if (mode === "en-def" || mode === "en-cloze") {
     return getEn(currentWord).join(" / ");
   } else if (mode === "en-syn") {
