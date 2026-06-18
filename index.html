@@ -982,6 +982,7 @@
         <div class="mode-btns">
           <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
           <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
+          <button id="btn-mix" class="mode-btn">🔀 Мікс</button>
         </div>
       </div>
       <div class="mode-group">
@@ -7996,6 +7997,7 @@ const tabAll         = document.getElementById("tab-all");
 const tabBad         = document.getElementById("tab-bad");
 const btnUaEn        = document.getElementById("btn-ua-en");
 const btnEnUa        = document.getElementById("btn-en-ua");
+const btnMix         = document.getElementById("btn-mix");
 const btnEnDef       = document.getElementById("btn-en-def");
 const btnEnSyn       = document.getElementById("btn-en-syn");
 const btnEnAnt       = document.getElementById("btn-en-ant");
@@ -8006,7 +8008,8 @@ const corrAnswerEl   = document.getElementById("correction-answer");
 function getEn(w) { return Array.isArray(w.en) ? w.en : [w.en]; }
 function getUa(w) { return Array.isArray(w.ua) ? w.ua : [w.ua]; }
 
-let mode = "ua-en";
+let mode = "ua-en";          // ПОТОЧНИЙ конкретний напрям (у міксі перевипадковлюється щослова)
+let selectedMode = "ua-en";  // ОБРАНИЙ режим: ua-en/en-ua/mix/en-def…; "mix" → напрям випадковий
 let score = 0;
 let timeLeft = DURATION;
 let currentWord = null;
@@ -8032,8 +8035,8 @@ let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
 let correctionTimer = null;
 
-const ALL_MODES = ["ua-en", "en-ua", "en-def", "en-syn", "en-ant", "en-cloze"];
-const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
+const ALL_MODES = ["ua-en", "en-ua", "mix", "en-def", "en-syn", "en-ant", "en-cloze"];
+const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "mix": btnMix, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
 const MODE_HINTS = {
   "ua-en":    "Перекладіть англійською:",
   "en-ua":    "Перекладіть українською:",
@@ -8050,8 +8053,11 @@ function buildEnAntPool()   { return WORDS.map((_,i)=>i).filter(i=>{ const e=get
 function buildEnClozePool() { return WORDS.map((_,i)=>i).filter(i=>EXAMPLES[getEn(WORDS[i])[0]]); }
 
 function setMode(m) {
-  mode = m;
-  Object.entries(MODE_BTNS).forEach(([k,btn]) => btn.classList.toggle("active", k === m));
+  selectedMode = m;
+  // "mix" — обраний режим без фіксованого напряму: резолвимо випадковий конкретний
+  // (далі nextWord перевипадковлює його щослова). Решта режимів = самі собою.
+  mode = (m === "mix") ? (Math.random() < 0.5 ? "en-ua" : "ua-en") : m;
+  Object.entries(MODE_BTNS).forEach(([k,btn]) => btn.classList.toggle("active", k === selectedMode));
 }
 
 function shuffle(arr) {
@@ -8080,9 +8086,11 @@ function nextWord() {
       shufflePos = 0;
     }
     currentWordIndex = shuffledIndices[shufflePos++];
+    if (selectedMode === "mix") mode = Math.random() < 0.5 ? "en-ua" : "ua-en";
   }
   currentWord = WORDS[currentWordIndex];
   wordDisplay.classList.remove("multiline");
+  modeHintEl.textContent = MODE_HINTS[mode] || "";   // оновлюємо щослова — для міксу та випадкових повторень
 
   if (mode === "ua-en") {
     const vals = getUa(currentWord);
@@ -8563,7 +8571,7 @@ function endGame(endedEarly) {
     const ts = Date.now();
     const wordCount = WORDS.length;
     const scoresWereFull = loadScores().length >= LB_LIMIT;
-    newEntryId = saveScore({ score, wrong, skipped, mode, ts, wordCount });
+    newEntryId = saveScore({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
       // milestone-вітання тепер за пунктами «термометра» (а не за к-стю ігор):
@@ -8579,8 +8587,8 @@ function endGame(endedEarly) {
         enqueueMilestone({ icon: "🏆", text: rank + " місце!", sub: rank <= 3 ? "У топ-3 найкращих ігор!" : "У топ-10 найкращих ігор!", type: "rank", sfx: sfxRank });
       }
     }
-    updateTodayBest({ score, wrong, skipped, mode, ts, wordCount });
-    updateLatest({ score, wrong, skipped, mode, ts, wordCount });
+    updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
+    updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
   } else {
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
@@ -9840,6 +9848,7 @@ document.addEventListener("mouseover", e => {
 
 btnUaEn.addEventListener("click",    () => setMode("ua-en"));
 btnEnUa.addEventListener("click",    () => setMode("en-ua"));
+btnMix.addEventListener("click",     () => setMode("mix"));
 btnEnDef.addEventListener("click",   () => setMode("en-def"));
 btnEnSyn.addEventListener("click",   () => setMode("en-syn"));
 btnEnAnt.addEventListener("click",   () => setMode("en-ant"));
@@ -9860,7 +9869,7 @@ document.addEventListener("keyup", e => {
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
   const dir = code === "ShiftLeft" ? 1 : ALL_MODES.length - 1;
-  const next = ALL_MODES[(ALL_MODES.indexOf(mode) + dir) % ALL_MODES.length];
+  const next = ALL_MODES[(ALL_MODES.indexOf(selectedMode) + dir) % ALL_MODES.length];
   setMode(next);
 });
 
@@ -10763,6 +10772,7 @@ function renderTabGames() {
     const LB_MODE_LABELS = {
       "ua-en":    "UA→US",
       "en-ua":    "US→UA",
+      "mix":      "🔀 Мікс",
       "en-def":   "Definition",
       "en-syn":   "Synonym",
       "en-ant":   "Antonym",
