@@ -8593,6 +8593,7 @@ function endGame(endedEarly) {
     updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
     updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
   } else {
+    setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
     if (wordsReviewed > 0) {
@@ -8638,10 +8639,11 @@ function startReview() {
     records.filter(r => r.status !== "correct").map(r => r.wordIndex)
   )];
   if (failedIndices.length === 0) return;
-  // Same direction as game, fallback to en-ua for non-translation modes
-  const dir = (mode === "ua-en" || mode === "en-ua") ? mode : "en-ua";
-  reviewDir = dir;
-  setMode(dir);
+  // Повторення помилок з фінального екрана — ЗАВЖДИ міксом (випадковий напрям щослова),
+  // незалежно від режиму гри (за запитом). selectedMode НЕ чіпаємо — режим користувача
+  // повернеться по завершенні повторення (setMode(selectedMode) у displayEndScreen).
+  reviewDir = "random";
+  mode = "en-ua";   // конкретний старт; nextWord перевипадковлює напрям щослова (reviewDir="random")
   startGame(failedIndices);
 }
 
