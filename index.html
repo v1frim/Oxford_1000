@@ -325,6 +325,7 @@
     flex-direction: column;
     gap: 6px;
     z-index: 200;
+    width: 210px;   /* однакова ширина всіх рядків */
   }
   #bottom-left-btns.hidden { display: none; }  /* ховається під час гри — ID display перебиває .hidden */
   #bottom-left-btns button, #progress-btn {
@@ -339,9 +340,14 @@
     border-radius: 20px;
     transition: color 0.15s, background 0.15s, border-color 0.15s;
     text-align: left;
+    box-sizing: border-box;
+    white-space: nowrap;
   }
   #bottom-left-btns button:hover, #progress-btn:hover,
   #progress-btn.active { color: #fff; background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); }
+  /* Однакова довжина рядків: одиночні кнопки на всю ширину; у парах головна кнопка тягнеться, +/− фіксовані */
+  #bottom-left-btns > button { width: 100%; }
+  #duo-btn, #gpt-btn { flex: 1 1 auto; min-width: 0; }
   /* ── XP level bar (tiered, game-style) ──────────────────────── */
   #xp-section { margin: 18px 0 0; width: 100%;
     --tier:#cd7f32; --tier2:#f0b070; }
@@ -440,18 +446,22 @@
     box-shadow: 0 0 12px var(--tier2); }
   @keyframes xp-fresh-fill { from { background-position: 0 0; } to { background-position: 1615px 0; } }
   #backup-btn.needs-backup { color: #ffa94d !important; border-color: rgba(255,169,77,0.5) !important; }
-  #duo-wrap { display: flex; gap: 4px; }
+  #duo-wrap { display: flex; gap: 4px; width: 100%; }
   #duo-btn { background: rgba(88,204,2,0.12) !important; border-color: rgba(88,204,2,0.35) !important; color: #7fdd40 !important; }
   #duo-btn:hover { background: rgba(88,204,2,0.24) !important; color: #a5f060 !important; border-color: rgba(88,204,2,0.6) !important; }
   #duo-count { display:inline-block; background:rgba(88,204,2,0.22); color:#7fdd40; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
   #duo-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #duo-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
-  #gpt-wrap { display: flex; gap: 4px; }
+  #gpt-wrap { display: flex; gap: 4px; width: 100%; }
   #gpt-btn { background: rgba(45,212,191,0.12) !important; border-color: rgba(45,212,191,0.35) !important; color: #2dd4bf !important; }
   #gpt-btn:hover { background: rgba(45,212,191,0.24) !important; color: #5ee9d6 !important; border-color: rgba(45,212,191,0.6) !important; }
   #gpt-count { display:inline-block; background:rgba(45,212,191,0.22); color:#2dd4bf; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
+  #gpt-plus { padding:5px 10px !important; color:#2dd4bf !important; }
+  #gpt-plus:hover { color:#5ee9d6 !important; border-color:rgba(45,212,191,0.6) !important; background:rgba(45,212,191,0.18) !important; }
   #gpt-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #gpt-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
+  .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
+  .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
   .prog-gpt { font-size: 11px; color: #2dd4bf; opacity: 0.85; margin-left: 4px; }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
@@ -1053,6 +1063,7 @@
       <button id="tab-all" class="tab active">Усі</button>
       <button id="tab-bad" class="tab">Помилки і пропуски</button>
       <a id="gt-link" class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate" target="_blank" rel="noopener" title="Відкрити Google Перекладач у новій вкладці">🌐 Перекладач</a>
+      <a id="gpt-link" class="gt-link gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a>
     </div>
     <div class="results-list" id="results-list"></div>
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
@@ -1126,7 +1137,8 @@
     <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
   </div>
   <div id="gpt-wrap">
-    <button id="gpt-btn">🤖 Запити GPT<span id="gpt-count" style="display:none"></span></button>
+    <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 Запити GPT<span id="gpt-count" style="display:none"></span></button>
+    <button id="gpt-plus" title="Додати запит GPT (+1)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
   </div>
 </div>
@@ -11279,6 +11291,7 @@ document.getElementById("duo-minus").addEventListener("click", () => {
   renderDuoBtn();
   renderXpBar();
   renderLbTotals();
+  renderThermo();   // термометр має опускатись одразу, а не лише після reload
   renderProgressPanel();
 });
 
@@ -11353,8 +11366,14 @@ function renderGptBtn() {
   document.getElementById("gpt-minus").style.display = count > 0 ? "" : "none";
 }
 
+// Головна кнопка — ЛИШЕ навігація в ChatGPT (НЕ рахує запит: запити робляться
+// під час гри, тож лічильник нарощується вручну через «+»).
 document.getElementById("gpt-btn").addEventListener("click", () => {
   window.open("https://chatgpt.com/", "_blank", "noopener");
+});
+
+// «+» — додати запит у будь-який момент (без відкриття сайту).
+document.getElementById("gpt-plus").addEventListener("click", () => {
   const reqs = loadGptRequests();
   const today = gptToday();
   reqs[today] = (reqs[today] || 0) + 1;
