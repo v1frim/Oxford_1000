@@ -325,7 +325,7 @@
     flex-direction: column;
     gap: 6px;
     z-index: 200;
-    width: 210px;   /* однакова ширина всіх рядків */
+    width: max-content;   /* звужено: однакова ширина всіх рядків = найширший рядок */
   }
   #bottom-left-btns.hidden { display: none; }  /* ховається під час гри — ID display перебиває .hidden */
   #bottom-left-btns button, #progress-btn {
@@ -462,14 +462,14 @@
   #gpt-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
-  .prog-gpt { font-size: 11px; color: #2dd4bf; opacity: 0.85; margin-left: 4px; }
+  .prog-gpt { font-size: 12px; color: #2dd4bf; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
-  .prog-date { opacity: 0.65; font-size: 13px; min-width: 52px; }
-  .prog-games { font-size: 11px; opacity: 0.5; margin-left: 4px; }
-  .prog-lh { font-size: 11px; color: #87b4ff; opacity: 0.8; margin-left: 4px; }
-  .prog-duo  { font-size: 11px; color: #7fdd40; opacity: 0.85; margin-left: 4px; }
-  .prog-song { font-size: 11px; color: #c89bff; opacity: 0.85; margin-left: 4px; }
+  .prog-date { color: rgba(255,255,255,0.68); font-size: 13px; flex: 1 1 auto; min-width: 0; }
+  .prog-games { font-size: 12px; color: rgba(255,255,255,0.72); margin-left: 5px; }
+  .prog-lh { font-size: 12px; color: #87b4ff; opacity: 0.95; font-weight: 600; margin-left: 5px; }
+  .prog-duo  { font-size: 12px; color: #7fdd40; opacity: 0.95; font-weight: 600; margin-left: 5px; }
+  .prog-song { font-size: 12px; color: #c89bff; opacity: 0.95; font-weight: 600; margin-left: 5px; }
 
   /* ── Термометр планів ── */
   #thermo { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 150; display: flex; flex-direction: column; align-items: center; gap: 6px; user-select: none; pointer-events: none; background: rgba(12,32,68,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.16); border-radius: 16px; padding: 12px 12px 14px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
@@ -497,12 +497,12 @@
   .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
   .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
   .th-plans b { color: #ffd166; font-size: 13px; }
-  .prog-delta { display: flex; gap: 8px; justify-content: flex-end; align-items: baseline; flex-wrap: nowrap; }
+  .prog-delta { display: flex; gap: 8px; justify-content: flex-end; align-items: baseline; flex-wrap: nowrap; flex: 0 0 auto; }
   .prog-known   { color: #7be07b; font-size: 13px; font-weight: 600; }
   .prog-learning{ color: #87b4ff; font-size: 13px; font-weight: 600; }
   .prog-new     { color: #ffa94d; font-size: 13px; font-weight: 600; }
   .prog-none    { opacity: 0.35; font-size: 13px; }
-  .prog-xp      { color: #ffd166; font-size: 11px; opacity: 0.8; margin-left: 4px; }
+  .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
   .prog-row.prog-group .prog-date { font-size: 12px; }
   .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
@@ -833,7 +833,7 @@
   #songsess-count { display:inline-block; background:rgba(200,155,255,0.22); color:#c89bff; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
   #songsess-minus { padding:7px 10px; background:rgba(200,155,255,0.10); border:1px solid rgba(200,155,255,0.28); color:rgba(255,255,255,0.4); border-radius:12px; cursor:pointer; font-size:12px; transition:all 0.15s; }
   #songsess-minus:hover { color:#ff6b6b; border-color:rgba(255,107,107,0.4); }
-  .prog-songsess { font-size: 11px; color: #c89bff; opacity: 0.85; margin-left: 4px; }
+  .prog-songsess { font-size: 12px; color: #c89bff; opacity: 0.95; font-weight: 600; margin-left: 5px; }
 
   /* ── Розділ «Пісні» — повноекранний overlay ───────────────────────────── */
   #songs-overlay {
@@ -1137,7 +1137,7 @@
     <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
   </div>
   <div id="gpt-wrap">
-    <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 Запити GPT<span id="gpt-count" style="display:none"></span></button>
+    <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
     <button id="gpt-plus" title="Додати запит GPT (+1)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
   </div>
