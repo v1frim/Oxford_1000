@@ -505,10 +505,11 @@
   .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
   .prog-row.prog-group { align-items: center; }
-  .prog-gdate { color: rgba(255,255,255,0.7); font-size: 12px; flex: 0 0 auto; min-width: 74px; }
-  .pg-meta  { display: grid; grid-template-columns: repeat(3, auto); column-gap: 12px; row-gap: 3px; align-items: baseline; justify-items: start; flex: 1 1 auto; min-width: 0; }
-  .pg-delta { display: grid; grid-template-columns: repeat(3, auto); column-gap: 10px; row-gap: 3px; align-items: baseline; justify-items: end; flex: 0 0 auto; margin-left: auto; }
-  .pg-meta > span, .pg-delta > span { margin: 0; }
+  .prog-gdate { color: rgba(255,255,255,0.7); font-size: 12px; flex: 0 0 auto; min-width: 54px; }
+  .pg-meta  { display: flex; flex-direction: column; row-gap: 1px; flex: 0 1 auto; min-width: 0; }
+  .pg-line  { display: flex; gap: 8px; align-items: baseline; }
+  .pg-delta { display: grid; grid-template-columns: repeat(3, auto); column-gap: 8px; row-gap: 1px; align-items: baseline; justify-items: end; flex: 0 0 auto; margin-left: auto; }
+  .pg-line > span, .pg-delta > span { margin: 0; }
   .pg-delta > span { font-size: 12px; }
   #review-mode-modal {
     position: fixed; inset: 0;
@@ -10494,20 +10495,23 @@ function _progMetaHtml(games, lh, duo, songs, songSess, gpt) {
   if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
   return h;
 }
-// ── Згрупований рядок (тиждень/місяць/рік): активності у 2 рядки × 3 стовпці
-//    (ігри·дуо·лінго / gpt·заняття·пісні), дата по центру ліворуч, дельти у 2
-//    рядки (знаю·вивчаю·нові / «повторення» рівно під «вивчаю»). ──────────────
+// ── Згрупований рядок (тиждень/місяць/рік): активності у 2 КОМПАКТНІ рядки
+//    (ігри·🦉дуо·📚лінго / 🤖gpt·🎧заняття·🎵пісні), дата по центру ліворуч,
+//    дельти-сітка (знаю·вивчаю·нові / «повторення» рівно під «вивчаю»). ───────
 function _pgCell(cls, content, col, row) {
   return content ? '<span class="' + cls + '" style="grid-column:' + col + ';grid-row:' + row + '">' + content + '</span>' : '';
 }
-function _progMetaGrid(games, duo, lh, gpt, songSess, songs) {
+function _progMetaLines(games, duo, lh, gpt, songSess, songs) {
+  const sp = (cls, c) => c ? '<span class="' + cls + '">' + c + '</span>' : '';
+  const l1 = sp("prog-games", games > 0 ? games + ' ' + plural(games,"гра","ігри","ігор") : "")
+           + sp("prog-duo",   duo > 0 ? '🦉' + duo : "")
+           + sp("prog-lh",    lh > 0 ? '📚' + lh : "");
+  const l2 = sp("prog-gpt",      gpt > 0 ? '🤖' + gpt : "")
+           + sp("prog-songsess", songSess > 0 ? '🎧' + songSess : "")
+           + sp("prog-song",     songs > 0 ? '🎵' + songs : "");
   let h = "";
-  h += _pgCell("prog-games",    games > 0 ? games + ' ' + plural(games,"гра","ігри","ігор") : "", 1, 1);
-  h += _pgCell("prog-duo",      duo > 0 ? '🦉' + duo : "", 2, 1);
-  h += _pgCell("prog-lh",       lh > 0 ? '📚' + lh : "", 3, 1);
-  h += _pgCell("prog-gpt",      gpt > 0 ? '🤖' + gpt : "", 1, 2);
-  h += _pgCell("prog-songsess", songSess > 0 ? '🎧' + songSess : "", 2, 2);
-  h += _pgCell("prog-song",     songs > 0 ? '🎵' + songs : "", 3, 2);
+  if (l1) h += '<div class="pg-line">' + l1 + '</div>';
+  if (l2) h += '<div class="pg-line">' + l2 + '</div>';
   return '<div class="pg-meta">' + h + '</div>';
 }
 function _progDeltaGrid(dk, dl, rev, dt) {
@@ -10588,7 +10592,7 @@ function renderProgressPanel() {
     Object.keys(groups).sort().reverse().map(k => {
       const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt} = _progAggregate(groups[k], history, allDates, days);
       return '<div class="prog-row prog-group"><span class="prog-gdate">' + fmt(groups[k], k) + '</span>' +
-        _progMetaGrid(games, duo, lh, gpt, songSess, songs) +
+        _progMetaLines(games, duo, lh, gpt, songSess, songs) +
         _progDeltaGrid(dk, dl, rev, dt) + '</div>';
     }).join("");
 
