@@ -504,8 +504,12 @@
   .prog-none    { opacity: 0.35; font-size: 13px; }
   .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
-  .prog-row.prog-group .prog-date { font-size: 12px; }
-  .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
+  .prog-row.prog-group { align-items: center; }
+  .prog-gdate { color: rgba(255,255,255,0.7); font-size: 12px; flex: 0 0 auto; min-width: 74px; }
+  .pg-meta  { display: grid; grid-template-columns: repeat(3, auto); column-gap: 12px; row-gap: 3px; align-items: baseline; justify-items: start; flex: 1 1 auto; min-width: 0; }
+  .pg-delta { display: grid; grid-template-columns: repeat(3, auto); column-gap: 10px; row-gap: 3px; align-items: baseline; justify-items: end; flex: 0 0 auto; margin-left: auto; }
+  .pg-meta > span, .pg-delta > span { margin: 0; }
+  .pg-delta > span { font-size: 12px; }
   #review-mode-modal {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.55);
@@ -10483,12 +10487,39 @@ function _progAggregate(dates, history, allDates, days) {
 function _progMetaHtml(games, lh, duo, songs, songSess, gpt) {
   let h = "";
   if (games > 0) h += '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>';
-  if (lh > 0)    h += '<span class="prog-lh">· 📚' + lh + '</span>';
   if (duo > 0)   h += '<span class="prog-duo">· 🦉' + duo + '</span>';
-  if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
-  if (songSess > 0) h += '<span class="prog-songsess">· 🎧' + songSess + '</span>';
+  if (lh > 0)    h += '<span class="prog-lh">· 📚' + lh + '</span>';
   if (gpt > 0)   h += '<span class="prog-gpt">· 🤖' + gpt + '</span>';
+  if (songSess > 0) h += '<span class="prog-songsess">· 🎧' + songSess + '</span>';
+  if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
   return h;
+}
+// ── Згрупований рядок (тиждень/місяць/рік): активності у 2 рядки × 3 стовпці
+//    (ігри·дуо·лінго / gpt·заняття·пісні), дата по центру ліворуч, дельти у 2
+//    рядки (знаю·вивчаю·нові / «повторення» рівно під «вивчаю»). ──────────────
+function _pgCell(cls, content, col, row) {
+  return content ? '<span class="' + cls + '" style="grid-column:' + col + ';grid-row:' + row + '">' + content + '</span>' : '';
+}
+function _progMetaGrid(games, duo, lh, gpt, songSess, songs) {
+  let h = "";
+  h += _pgCell("prog-games",    games > 0 ? games + ' ' + plural(games,"гра","ігри","ігор") : "", 1, 1);
+  h += _pgCell("prog-duo",      duo > 0 ? '🦉' + duo : "", 2, 1);
+  h += _pgCell("prog-lh",       lh > 0 ? '📚' + lh : "", 3, 1);
+  h += _pgCell("prog-gpt",      gpt > 0 ? '🤖' + gpt : "", 1, 2);
+  h += _pgCell("prog-songsess", songSess > 0 ? '🎧' + songSess : "", 2, 2);
+  h += _pgCell("prog-song",     songs > 0 ? '🎵' + songs : "", 3, 2);
+  return '<div class="pg-meta">' + h + '</div>';
+}
+function _progDeltaGrid(dk, dl, rev, dt) {
+  const known    = dk > 0 ? '+' + dk + ' ✓' : dk < 0 ? dk + ' ✓' : "";
+  const learning = dl > 0 ? '+' + dl + ' ↗' : dl < 0 ? dl + ' ↗' : "";
+  const nw       = dt > 0 ? '+' + dt + ' ●' : "";
+  let h = "";
+  h += _pgCell("prog-known",    known,    1, 1);
+  h += _pgCell("prog-learning", learning, 2, 1);
+  h += _pgCell("prog-new",      nw,       3, 1);
+  h += _pgCell("lb-review",     rev > 0 ? '🔁 +' + rev : "", 2, 2);  // під «вивчаю»
+  return '<div class="pg-delta">' + (h || '<span class="prog-none">—</span>') + '</div>';
 }
 function _progFmtRange(dates) {
   const months = ["січ","лют","бер","кві","тра","чер","лип","сер","вер","жов","лис","гру"];
@@ -10556,9 +10587,9 @@ function renderProgressPanel() {
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
       const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt} = _progAggregate(groups[k], history, allDates, days);
-      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) +
-        _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span><span class="prog-delta">' +
-        _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
+      return '<div class="prog-row prog-group"><span class="prog-gdate">' + fmt(groups[k], k) + '</span>' +
+        _progMetaGrid(games, duo, lh, gpt, songSess, songs) +
+        _progDeltaGrid(dk, dl, rev, dt) + '</div>';
     }).join("");
 
   if (weekDates.length > 0) {
