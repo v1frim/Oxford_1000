@@ -1832,7 +1832,7 @@ const WORDS = [
   {en:"cowardly",ua:"боягузливий"},
   {en:"crack",ua:"тріскати"},
   {en:"crime",ua:"злочин"},
-  {en:"crisp",ua:"хрусткий"},
+  {en:"crisp",ua:["хрусткий","свіжий"]},
   {en:"crowded",ua:"переповнений"},
   {en:"crown",ua:"корона"},
   {en:"crucial",ua:"вирішальний"},
@@ -8694,6 +8694,9 @@ const EN_TO_UA = (() => {
   m.set("could",       ["міг би"]);
   m.set("would",       ["би", "хотів би"]);
   m.set("should",      ["мав би", "повинен"]);
+  // "march" — омограф: марш/маршувати (часте в реченнях) vs March=березень (місяць у WORDS).
+  // Авто-білд дав лише "березень"; додаємо "марш", щоб hover у контексті походу був коректним.
+  m.set("march",       ["марш", "березень"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
