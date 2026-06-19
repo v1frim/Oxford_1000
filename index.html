@@ -504,13 +504,8 @@
   .prog-none    { opacity: 0.35; font-size: 13px; }
   .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
-  .prog-row.prog-group { align-items: center; }
-  .prog-gdate { color: rgba(255,255,255,0.7); font-size: 12px; flex: 0 0 auto; min-width: 54px; }
-  .pg-meta  { display: flex; flex-direction: column; row-gap: 1px; flex: 0 1 auto; min-width: 0; }
-  .pg-line  { display: flex; gap: 8px; align-items: baseline; }
-  .pg-delta { display: grid; grid-template-columns: repeat(3, auto); column-gap: 8px; row-gap: 1px; align-items: baseline; justify-items: end; flex: 0 0 auto; margin-left: auto; }
-  .pg-line > span, .pg-delta > span { margin: 0; }
-  .pg-delta > span { font-size: 12px; }
+  .prog-row.prog-group .prog-date { font-size: 12px; }
+  .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
   #review-mode-modal {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.55);
@@ -10495,36 +10490,6 @@ function _progMetaHtml(games, lh, duo, songs, songSess, gpt) {
   if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
   return h;
 }
-// ── Згрупований рядок (тиждень/місяць/рік): активності у 2 КОМПАКТНІ рядки
-//    (ігри·🦉дуо·📚лінго / 🤖gpt·🎧заняття·🎵пісні), дата по центру ліворуч,
-//    дельти-сітка (знаю·вивчаю·нові / «повторення» рівно під «вивчаю»). ───────
-function _pgCell(cls, content, col, row) {
-  return content ? '<span class="' + cls + '" style="grid-column:' + col + ';grid-row:' + row + '">' + content + '</span>' : '';
-}
-function _progMetaLines(games, duo, lh, gpt, songSess, songs) {
-  const sp = (cls, c) => c ? '<span class="' + cls + '">' + c + '</span>' : '';
-  const l1 = sp("prog-games", games > 0 ? games + ' ' + plural(games,"гра","ігри","ігор") : "")
-           + sp("prog-duo",   duo > 0 ? '🦉' + duo : "")
-           + sp("prog-lh",    lh > 0 ? '📚' + lh : "");
-  const l2 = sp("prog-gpt",      gpt > 0 ? '🤖' + gpt : "")
-           + sp("prog-songsess", songSess > 0 ? '🎧' + songSess : "")
-           + sp("prog-song",     songs > 0 ? '🎵' + songs : "");
-  let h = "";
-  if (l1) h += '<div class="pg-line">' + l1 + '</div>';
-  if (l2) h += '<div class="pg-line">' + l2 + '</div>';
-  return '<div class="pg-meta">' + h + '</div>';
-}
-function _progDeltaGrid(dk, dl, rev, dt) {
-  const known    = dk > 0 ? '+' + dk + ' ✓' : dk < 0 ? dk + ' ✓' : "";
-  const learning = dl > 0 ? '+' + dl + ' ↗' : dl < 0 ? dl + ' ↗' : "";
-  const nw       = dt > 0 ? '+' + dt + ' ●' : "";
-  let h = "";
-  h += _pgCell("prog-known",    known,    1, 1);
-  h += _pgCell("prog-learning", learning, 2, 1);
-  h += _pgCell("prog-new",      nw,       3, 1);
-  h += _pgCell("lb-review",     rev > 0 ? '🔁 +' + rev : "", 2, 2);  // під «вивчаю»
-  return '<div class="pg-delta">' + (h || '<span class="prog-none">—</span>') + '</div>';
-}
 function _progFmtRange(dates) {
   const months = ["січ","лют","бер","кві","тра","чер","лип","сер","вер","жов","лис","гру"];
   const d1 = new Date(dates[0]+"T00:00:00"), d2 = new Date(dates[dates.length-1]+"T00:00:00");
@@ -10591,9 +10556,9 @@ function renderProgressPanel() {
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
       const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt} = _progAggregate(groups[k], history, allDates, days);
-      return '<div class="prog-row prog-group"><span class="prog-gdate">' + fmt(groups[k], k) + '</span>' +
-        _progMetaLines(games, duo, lh, gpt, songSess, songs) +
-        _progDeltaGrid(dk, dl, rev, dt) + '</div>';
+      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) +
+        _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span><span class="prog-delta">' +
+        _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
   if (weekDates.length > 0) {
