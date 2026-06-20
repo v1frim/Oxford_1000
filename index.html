@@ -1138,7 +1138,7 @@
   </div>
   <div id="gpt-wrap">
     <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
-    <button id="gpt-plus" title="Додати запит GPT (+1)">+</button>
+    <button id="gpt-plus" title="Додати запит GPT (+1, +10 XP)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
   </div>
 </div>
@@ -10304,8 +10304,8 @@ function computeRetroXp() {
   return xp;
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
-// Per day: correct×1 + reviewCorrect×2 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100).
-function computeDayStatsXp(date, history, hdates, days, duo, lhDone) {
+// Per day: correct×1 + reviewCorrect×2 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100) + GPT×10.
+function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt) {
   let xp = 0;
   const d = days[date] || {};
   xp += (d.correct || 0);          // correct answers in regular games
@@ -10321,6 +10321,7 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone) {
   }
   xp += (duo[date] || 0) * DUO_XP;                          // Duolingo
   Object.entries(lhDone).forEach(([lesson, dt]) => { if (dt === date) xp += getLhXp(Number(lesson)); });
+  xp += ((gpt && gpt[date]) || 0) * GPT_XP;                 // GPT-запити (сесія 27)
   return xp;
 }
 function computeXpFromStats() {
@@ -10329,11 +10330,12 @@ function computeXpFromStats() {
   const hdates  = Object.keys(history).sort();
   const duo     = loadDuoSessions();
   const lhDone  = loadLhDone();
+  const gpt     = loadGptRequests();
   const allDates = new Set([
-    ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone)
+    ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone), ...Object.keys(gpt)
   ]);
   let xp = 0;
-  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone); });
+  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt); });
   return xp;
 }
 const XP_DAY_KEY = "oxford_xp_day_v1";  // per-day XP gain {date: xp}; do NOT remove (used by trackDayXp/getDayXpGain/migration)
@@ -11352,6 +11354,7 @@ document.getElementById("songsess-minus").addEventListener("click", () => {
 // скасовує сьогоднішній запит (як Duolingo). ⚠️ const/функції оголошено ТУТ — до
 // init-викликів renderThermo/renderLbTotals/thermoPointsThisMonth нижче (інакше TDZ).
 const GPT_KEY = "oxford_gpt_v1";   // {date: count}
+const GPT_XP = 10;                 // XP за 1 запит GPT (сесія 27; раніше було БЕЗ XP)
 function loadGptRequests() {
   try { return JSON.parse(localStorage.getItem(GPT_KEY) || "{}"); } catch(e) { return {}; }
 }
@@ -11380,7 +11383,9 @@ document.getElementById("gpt-plus").addEventListener("click", () => {
   const today = gptToday();
   reqs[today] = (reqs[today] || 0) + 1;
   saveGptRequests(reqs);
+  addXp(GPT_XP);
   renderGptBtn();
+  renderXpBar();
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
@@ -11395,7 +11400,9 @@ document.getElementById("gpt-minus").addEventListener("click", () => {
   reqs[today]--;
   if (!reqs[today]) delete reqs[today];
   saveGptRequests(reqs);
+  addXp(-GPT_XP);
   renderGptBtn();
+  renderXpBar();
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
@@ -11700,6 +11707,41 @@ if (!localStorage.getItem("oxford_xp_formula_v7")) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
     localStorage.setItem("oxford_xp_formula_v7", "1");
+  } catch(e) {}
+}
+// ── v8 (сесія 27): GPT-запити тепер дають XP (10 за запит). Перерахунок як v7
+//    (stats XP + songs XP), але computeDayStatsXp тепер враховує gpt×10 → добиває
+//    XP за всі історичні GPT-запити (back-fill). Ідемпотентна.
+if (!localStorage.getItem("oxford_xp_formula_v8")) {
+  try {
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _gpt    = loadGptRequests();
+    const _awarded = loadSongsXpAwarded();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
+      ...Object.keys(_gpt), ...Object.values(_awarded)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    Object.entries(_awarded).forEach(([id, date]) => {
+      const song = SONGS.find(s => s.id === id);
+      if (song && song.xp) {
+        _xpd[date] = (_xpd[date] || 0) + song.xp;
+        _total += song.xp;
+      }
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v8", "1");
   } catch(e) {}
 }
 renderXpBar();
