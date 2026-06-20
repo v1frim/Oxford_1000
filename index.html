@@ -11433,7 +11433,7 @@ const ACHIEVEMENTS = [
   { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[5,10,20,30,40],                     value:()=>countLearnedSongs() },
   // Місячне: пункти «термометра» за поточний місяць. Лічильник скидається щомісяця
   // (value = лише цей місяць), а здобута ліга лишається назавжди (claimed лише росте).
-  { id:"thermo_month", icon:"🌡️", name:"Пунктів за місяць",   thresholds:[60,120,240,300,360],                value:()=>thermoPointsThisMonth(), monthly:true },
+  { id:"thermo_month", icon:"🌡️", name:"Пунктів за місяць",   thresholds:[60,120,180,240,300],                value:()=>thermoPointsThisMonth(), monthly:true },
 ];
 function loadAch() { try { return JSON.parse(localStorage.getItem(ACH_KEY) || "{}"); } catch(e) { return {}; } }
 function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
