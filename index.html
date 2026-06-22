@@ -10558,8 +10558,9 @@ function renderProgressPanel() {
     return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + metaHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
-  // ── Згортки: місяці (повні суми, новіші згори) → Загалом (увесь період) ──
-  // Місяць навмисно НАКЛАДАЄТЬСЯ на денний блок: поточний місяць сумує і останні дні.
+  // ── Згортки: місяці (повні суми, новіші згори). «Загалом / За весь час» прибрано
+  // (сесія 28) — дублювало «Загальну статистику». Місяць навмисно НАКЛАДАЄТЬСЯ на
+  // денний блок: поточний місяць сумує і останні дні.
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
@@ -10573,10 +10574,6 @@ function renderProgressPanel() {
   if (Object.keys(byMonth).length > 0) {
     html += '<div class="prog-section">Місяці</div>';
     html += groupRows(byMonth, (g, k) => _progFmtMonth(k));
-  }
-  if (allDates.length > 0) {
-    html += '<div class="prog-section">Загалом</div>';
-    html += groupRows({ all: allDates }, () => "За весь час");
   }
   list.innerHTML = html;
 }
