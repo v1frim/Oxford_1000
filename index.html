@@ -69,7 +69,18 @@
   /* Панель прогресу: flex-колонка, список скролиться всередині, висота не більша за екран */
   #progress-panel { display: flex; flex-direction: column; max-height: calc(100vh - 40px); }
   #progress-panel.hidden { display: none; }  /* ID-селектор display перебиває .hidden — без цього панель не ховається */
-  #progress-panel #prog-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  #progress-panel #prog-list { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.22) transparent; } /* Firefox + новий Chromium */
+  #progress-panel #prog-list:hover { scrollbar-color: rgba(255,255,255,0.34) transparent; }
+  /* Тонкий ненав'язливий скролбар (Safari / старий Chromium): прозорий трек, ледь
+     видимий «плаваючий» білий повзунок, яскравішає на hover. Замінює дефолтну сіру смужку. */
+  #progress-panel #prog-list::-webkit-scrollbar { width: 10px; }
+  #progress-panel #prog-list::-webkit-scrollbar-track { background: transparent; }
+  #progress-panel #prog-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.18); border-radius: 8px;
+    border: 2px solid transparent; background-clip: padding-box; transition: background-color .2s ease; }
+  #progress-panel #prog-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.34); background-clip: padding-box; }
   .lb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; }
   .lb-tabs { display: flex; gap: 4px; }
   .lb-tab {
