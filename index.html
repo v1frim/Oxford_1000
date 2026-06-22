@@ -8598,8 +8598,11 @@ function endGame(endedEarly) {
   finalScoreEl.textContent = score;
   const wrong   = records.filter(r => r.status === "wrong").length;
   const skipped = records.filter(r => r.status === "skipped").length;
-  summaryEl.textContent =
-    "Правильних: " + score + " · Помилок: " + wrong + " · Пропущено: " + skipped;
+  const wrongTotal = wrong + skipped;  // помилки + пропуски = «неправильних» (як у загальній статистиці)
+  summaryEl.innerHTML =
+    'Правильних: <span style="color:#7be07b;font-weight:700">' + score + '</span> · ' +
+    'Неправильних: <span style="color:#ff9d9d;font-weight:700">' + wrongTotal + '</span> · ' +
+    'Усього: ' + (score + wrongTotal);
   const reviewBtn = document.getElementById("review-btn");
   reviewBtn.classList.toggle("hidden", wrong + skipped === 0);
   let newEntryId = null;
