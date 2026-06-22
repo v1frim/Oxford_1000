@@ -407,6 +407,20 @@ backdrop-filter: blur(22px) saturate(1.3);
 border: 1px solid rgba(255,255,255,0.22);
 ```
 
+**⚠️ Reveal-on-ready для `.layout` (сесія 28) — `.layout { opacity:0 }` → клас `.ready`
+(`opacity:1`).** Причина: на **hard-reload (Ctrl+Shift+R)** `songs.js` (блокуючий `<script>`
+перед основним) тягнеться з мережі; поки він вантажиться, Chrome малює body, де видно ЛИШЕ
+картку (бічні панелі ще `hidden`). Коли основний скрипт відпрацьовує і поряд із карткою
+«спалахує» панель прогресу — Chrome переcomposить `backdrop-filter` картки → **світла смужка
+ліворуч на картці** (доля секунди, лише коли прогрес відкритий, лише hard-reload, F5 з кешем —
+ні). Фікс: тримаємо `.layout` невидимим, показуємо ОДНИМ кадром уже зібрану розкладку. `.ready`
+додається: (1) головний шлях — у фінальному `requestAnimationFrame` ініту (після `updateLayoutAlign`),
+(2) **fallback** — крихітний inline-скрипт `addEventListener("load",…)` ПЕРЕД `songs.js` (показує
+лейаут навіть якщо основний скрипт кинув помилку до свого reveal-виклику → не лишаємо порожній екран).
+⚠️ `#thermo`/`#bottom-left-btns`/`#lb-totals` — fixed, ПОЗА `.layout`, тож не гасяться (видимі одразу).
+⚠️ Headless відтворити смужку не вдалось (preload-scanner + GPU-composite); фікс перевірявся
+користувачем через Ctrl+Shift+R. НЕ прибирати `opacity:0`/`.ready` без узгодження.
+
 ### Hover translations
 - `.hw` spans в реченнях → тултіп з перекладом + IPA
 - Клік → TTS

@@ -35,7 +35,12 @@
     gap: 24px;
     flex-wrap: wrap;
     justify-content: center;
+    opacity: 0;   /* схований доки лейаут не зібрано повністю — інакше на hard-reload
+                     (Ctrl+Shift+R, поки тягнеться songs.js) видно картку саму, а коли
+                     поряд «спалахує» панель прогресу — backdrop-filter картки даває смужку.
+                     Клас .ready додається в кінці ініту (+ fallback на window load). */
   }
+  .layout.ready { opacity: 1; }
   /* Коли видно лише картку + leaderboard (панель прогресу схована),
      зсуваємо групу праворуч, щоб центральна картка лишалась по центру екрана. */
   @media (min-width: 1500px) {
@@ -1160,6 +1165,9 @@
     <div class="songs-body" id="songs-body"></div>
   </div>
 </div>
+<!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
+     до свого reveal-виклику. Реєструється ДО songs.js, бо не має залежностей. -->
+<script>addEventListener("load",function(){var l=document.querySelector(".layout");if(l)l.classList.add("ready");});</script>
 <script src="songs.js"></script>
 <script>
 const DURATION = 60;
@@ -11764,7 +11772,9 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
   renderProgressPanel();
 }
 updateLayoutAlign();
-requestAnimationFrame(updateLayoutAlign);   // повторно після першого layout — точна висота панелі
+// rAF: повторно вирівняти ПІСЛЯ першого layout (точна висота панелі) і аж тоді показати
+// лейаут — перший видимий кадр уже містить повністю зібрану розкладку (без миготіння смужки).
+requestAnimationFrame(() => { updateLayoutAlign(); document.querySelector(".layout").classList.add("ready"); });
 window.addEventListener("resize", () => requestAnimationFrame(updateLayoutAlign));
 
 // ── Розділ «Пісні» ───────────────────────────────────────────────────────
