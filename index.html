@@ -39,7 +39,7 @@
   /* Коли видно лише картку + leaderboard (панель прогресу схована),
      зсуваємо групу праворуч, щоб центральна картка лишалась по центру екрана. */
   @media (min-width: 1500px) {
-    .layout.shift-right { margin-left: 222px; }
+    .layout.shift-right { margin-left: 254px; }
   }
   .card {
     background: rgba(12, 32, 68, 0.58);
@@ -48,7 +48,7 @@
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 20px;
     padding: 32px;
-    width: 460px;
+    width: 530px;
     max-width: 94vw;
     text-align: center;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,0.12);
@@ -60,7 +60,7 @@
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 20px;
     padding: 22px 20px;
-    width: 420px;
+    width: 485px;
     max-width: 94vw;
     height: 560px;
     color: #fff;
@@ -10558,18 +10558,8 @@ function renderProgressPanel() {
     return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + metaHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
-  // ── Згортки: тижні (вкл. поточний) → місяці (старіші, цей рік) → роки (минулі) ──
-  // Тижні навмисно НАКЛАДАЮТЬСЯ на денний блок: поточний тиждень сумує останні дні.
-  const isoDaysAgo = (n) => {
-    const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - n);
-    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
-  };
-  const weekCutoff = isoDaysAgo(56);                        // останні ~8 тижнів показуємо тижнями
-  const curYear = String(new Date().getFullYear());
-  const weekDates  = allDates.filter(d => d >= weekCutoff); // вкл. поточний тиждень (накладається на дні)
-  const olderDates = allDates.filter(d => d <  weekCutoff);
-  const monthDates = olderDates.filter(d => d.slice(0,4) === curYear); // старіші за 8 тижнів, цей рік
-  const yearDates  = olderDates.filter(d => d.slice(0,4) !== curYear); // минулі роки
+  // ── Згортки: місяці (повні суми, новіші згори) → Загалом (увесь період) ──
+  // Місяць навмисно НАКЛАДАЄТЬСЯ на денний блок: поточний місяць сумує і останні дні.
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
@@ -10579,17 +10569,14 @@ function renderProgressPanel() {
         _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
-  if (weekDates.length > 0) {
-    html += '<div class="prog-section">Тижні</div>';
-    html += groupRows(_progGroupBy(weekDates, _progMondayKey), (g) => _progFmtRange(g));
-  }
-  if (monthDates.length > 0) {
+  const byMonth = _progGroupBy(allDates, d => d.slice(0,7));
+  if (Object.keys(byMonth).length > 0) {
     html += '<div class="prog-section">Місяці</div>';
-    html += groupRows(_progGroupBy(monthDates, d => d.slice(0,7)), (g, k) => _progFmtMonth(k));
+    html += groupRows(byMonth, (g, k) => _progFmtMonth(k));
   }
-  if (yearDates.length > 0) {
-    html += '<div class="prog-section">Роки</div>';
-    html += groupRows(_progGroupBy(yearDates, d => d.slice(0,4)), (g, k) => k);
+  if (allDates.length > 0) {
+    html += '<div class="prog-section">Загалом</div>';
+    html += groupRows({ all: allDates }, () => "За весь час");
   }
   list.innerHTML = html;
 }
@@ -10964,10 +10951,23 @@ function renderLeaderboard(newGameId, newDayKey) {
 function hideLeaderboard() { leaderboardEl.classList.add("hidden"); updateLayoutAlign(); }
 // Зсув групи праворуч лише коли видно картку + leaderboard без панелі прогресу,
 // щоб центральна картка не з'їжджала вліво від центру екрана.
+function positionThermo() {
+  const thermo = document.getElementById("thermo");
+  if (!thermo) return;
+  const panel = document.getElementById("progress-panel");
+  // Центруємо термометр по вертикалі відносно панелі «Прогрес по днях» (вона притиснута
+  // до верху найвищої колонки, тож її центр вище за 50% екрана). Панель схована → CSS-центр.
+  if (panel && !panel.classList.contains("hidden")) {
+    const r = panel.getBoundingClientRect();
+    if (r.height > 0) { thermo.style.top = Math.round(r.top + r.height / 2) + "px"; return; }
+  }
+  thermo.style.top = "";
+}
 function updateLayoutAlign() {
   const lbVisible = !leaderboardEl.classList.contains("hidden");
   const progHidden = document.getElementById("progress-panel").classList.contains("hidden");
   document.querySelector(".layout").classList.toggle("shift-right", lbVisible && progHidden);
+  positionThermo();
 }
 function renderLbTotals() {
   const days = loadDays();
@@ -11767,6 +11767,8 @@ if (localStorage.getItem("oxford_progress_open_v1") === "1") {
   renderProgressPanel();
 }
 updateLayoutAlign();
+requestAnimationFrame(updateLayoutAlign);   // повторно після першого layout — точна висота панелі
+window.addEventListener("resize", () => requestAnimationFrame(updateLayoutAlign));
 
 // ── Розділ «Пісні» ───────────────────────────────────────────────────────
 // SONGS_STATUS_KEY і SONGS_XP_KEY оголошено вище, біля ACH_KEY (їх читають load-time
