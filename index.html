@@ -1518,7 +1518,7 @@ const WORDS = [
   {en:"wise",ua:"мудрий"},{en:"honest",ua:"чесний"},{en:"polite",ua:"ввічливий"},
   {en:"rude",ua:"грубий"},{en:"friendly",ua:"привітний"},{en:"shy",ua:"сором'язливий"},
   {en:"confident",ua:"впевнений"},{en:"nervous",ua:"нервовий"},{en:"calm",ua:"спокійний"},
-  {en:"serious",ua:"серйозний"},{en:"to serve",ua:["служити","подавати"]},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий"},
+  {en:"serious",ua:"серйозний"},{en:"to serve",ua:["служити","подавати"]},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий",uaAlt:["ледачий"]},
   {en:"hardworking",ua:"працьовитий"},{en:"creative",ua:"творчий"},{en:"logical",ua:"логічний"},
   {en:"romantic",ua:"романтичний"},{en:"practical",ua:"практичний"},{en:"political",ua:"політичний"},
   {en:"economic",ua:"економічний"},{en:"social",ua:"соціальний"},{en:"cultural",ua:"культурний"},
@@ -2056,7 +2056,7 @@ const WORDS = [
   {en:"hygienic",ua:"гігієнічний"},
   {en:"icy",ua:"крижаний"},
   {en:"identify",ua:"ідентифікувати"},
-  {en:"idle",ua:"ледачий"},
+  {en:"idle",ua:"ледачий",uaAlt:["лінивий"]},
   {en:"ill",ua:"хворий"},
   {en:"illness",ua:"хвороба"},
   {en:"illustrate",ua:"ілюструвати"},
@@ -8193,7 +8193,9 @@ function isCorrect(input) {
     return getUa(currentWord).some(u => normUa(u) === inp)
       || (currentWord.uaAlt || []).some(u => normUa(u) === inp);
   } else if (mode === "ua-en") {
-    const shownUa = getUa(currentWord);
+    // uaAlt поточного слова теж вважається показаним сенсом, тож приймаються
+    // англ. відповідники слів-синонімів (напр. на "ледачий"/idle проходить і lazy).
+    const shownUa = getUa(currentWord).concat(currentWord.uaAlt || []);
     return WORDS.some(w =>
       getUa(w).some(u => shownUa.includes(u)) &&
       getEn(w).some(e => normEn(e) === inpNorm)
@@ -8215,7 +8217,7 @@ function isCorrect(input) {
 
 function getCorrectAnswer() {
   if (mode === "ua-en") {
-    const shownUa = getUa(currentWord);
+    const shownUa = getUa(currentWord).concat(currentWord.uaAlt || []);
     const ans = new Set();
     WORDS.forEach(w => {
       if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(e));
@@ -8736,6 +8738,9 @@ const EN_TO_UA = (() => {
   // "march" — омограф: марш/маршувати (часте в реченнях) vs March=березень (місяць у WORDS).
   // Авто-білд дав лише "березень"; додаємо "марш", щоб hover у контексті походу був коректним.
   m.set("march",       ["марш", "березень"]);
+  // idle/lazy — взаємні синоніми (ледачий≈лінивий, idle≈lazy); hover показує обидва значення
+  m.set("idle",        ["ледачий", "лінивий"]);
+  m.set("lazy",        ["лінивий", "ледачий"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
