@@ -8364,6 +8364,7 @@ function recordAnswer(userVal, status) {
     if (reviewTaintedIndices) reviewTaintedIndices.add(currentWordIndex);
     if (!reviewRemaining) updateMastery(currentWordIndex, false);
   }
+  updateWrongBadge();   // live ✗N = неправильні + пропущені, у всіх режимах
 }
 
 function lookupExample(table, enWord, uaWord) {
@@ -8382,18 +8383,22 @@ function lookupExample(table, enWord, uaWord) {
 function fmtElapsed(s) {
   return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
 }
+function updateWrongBadge() {
+  // ✗N біля рахунку = неправильні + пропущені (як у підсумку гри). Live у ВСІХ режимах.
+  const bad = records.filter(r => r.status !== "correct").length;
+  const scoreDiv = scoreEl.parentElement;
+  let badge = document.getElementById("review-wrong-badge");
+  if (bad > 0) {
+    if (!badge) { badge = document.createElement("span"); badge.id = "review-wrong-badge"; scoreDiv.appendChild(badge); }
+    badge.textContent = "✗" + bad;
+  } else if (badge) { badge.remove(); }
+}
 function updateReviewProgress() {
   if (!reviewRemaining) return;
   const remaining = reviewRemaining.size;
   const done = reviewTotalPool - remaining;
   document.getElementById("review-progress").textContent = done + "/" + reviewTotalPool;
-  const wrong = records.filter(r => r.status !== "correct").length;
-  const scoreDiv = scoreEl.parentElement;
-  let badge = document.getElementById("review-wrong-badge");
-  if (wrong > 0) {
-    if (!badge) { badge = document.createElement("span"); badge.id = "review-wrong-badge"; scoreDiv.appendChild(badge); }
-    badge.textContent = "✗" + wrong;
-  } else if (badge) { badge.remove(); }
+  updateWrongBadge();
 }
 function tick() {
   if (reviewRemaining) {
@@ -8543,8 +8548,6 @@ function startGame(pool, opts) {
     document.getElementById("review-progress-stat").style.display = "";
     timerEl.classList.remove("low","overtime");
     timerEl.textContent = "0:00";
-    const badge = document.getElementById("review-wrong-badge");
-    if (badge) badge.remove();
   } else {
     reviewRemaining = null;
     reviewCorrectCounts = null;
@@ -8559,6 +8562,8 @@ function startGame(pool, opts) {
   if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
   answerEl.disabled = false;
   scoreEl.textContent = "0";
+  const _oldWrongBadge = document.getElementById("review-wrong-badge");
+  if (_oldWrongBadge) _oldWrongBadge.remove();
   timerEl.textContent = DURATION;
   timerEl.classList.remove("low", "overtime");
   let sourcePool;
