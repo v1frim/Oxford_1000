@@ -1518,7 +1518,7 @@ const WORDS = [
   {en:"wise",ua:"мудрий"},{en:"honest",ua:"чесний"},{en:"polite",ua:"ввічливий"},
   {en:"rude",ua:"грубий"},{en:"friendly",ua:"привітний"},{en:"shy",ua:"сором'язливий"},
   {en:"confident",ua:"впевнений"},{en:"nervous",ua:"нервовий"},{en:"calm",ua:"спокійний"},
-  {en:"serious",ua:"серйозний"},{en:"to serve",ua:["служити","подавати"]},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий",uaAlt:["ледачий"]},
+  {en:"serious",ua:"серйозний"},{en:"to serve",ua:["служити","подавати"]},{en:"silly",ua:"безглуздий"},{en:"lazy",ua:"лінивий",uaAlt:["ледачий"],enAlt:["idle"]},
   {en:"hardworking",ua:"працьовитий"},{en:"creative",ua:"творчий"},{en:"logical",ua:"логічний"},
   {en:"romantic",ua:"романтичний"},{en:"practical",ua:"практичний"},{en:"political",ua:"політичний"},
   {en:"economic",ua:"економічний"},{en:"social",ua:"соціальний"},{en:"cultural",ua:"культурний"},
@@ -2013,7 +2013,7 @@ const WORDS = [
   {en:"glance",ua:"поглянути"},
   {en:"gloomy",ua:"похмурий"},
   {en:"glowing",ua:"сяючий"},
-  {en:"gorgeous",ua:"розкішний"},
+  {en:"gorgeous",ua:"розкішний",uaAlt:["чудовий","прекрасний","приголомшливий","шикарний","пишний","гарний","красивий"]},
   {en:"grab",ua:"хапати"},
   {en:"gracious",ua:"ласкавий"},
   {en:"gradual",ua:"поступовий"},
@@ -2056,7 +2056,7 @@ const WORDS = [
   {en:"hygienic",ua:"гігієнічний"},
   {en:"icy",ua:"крижаний"},
   {en:"identify",ua:"ідентифікувати"},
-  {en:"idle",ua:"ледачий",uaAlt:["лінивий","бездіяльний"]},
+  {en:"idle",ua:"ледачий",uaAlt:["лінивий","бездіяльний"],enAlt:["lazy"]},
   {en:"ill",ua:"хворий"},
   {en:"illness",ua:"хвороба"},
   {en:"illustrate",ua:"ілюструвати"},
@@ -8193,9 +8193,10 @@ function isCorrect(input) {
     return getUa(currentWord).some(u => normUa(u) === inp)
       || (currentWord.uaAlt || []).some(u => normUa(u) === inp);
   } else if (mode === "ua-en") {
-    // uaAlt поточного слова теж вважається показаним сенсом, тож приймаються
-    // англ. відповідники слів-синонімів (напр. на "ледачий"/idle проходить і lazy).
-    const shownUa = getUa(currentWord).concat(currentWord.uaAlt || []);
+    const shownUa = getUa(currentWord);
+    // enAlt — прямі прийнятні англ. відповіді (слова-синоніми), які НЕ показуються
+    // як промпт (напр. на «ледачий»/idle проходить lazy). НЕ впливає на en-ua.
+    if ((currentWord.enAlt || []).some(e => normEn(e) === inpNorm)) return true;
     return WORDS.some(w =>
       getUa(w).some(u => shownUa.includes(u)) &&
       getEn(w).some(e => normEn(e) === inpNorm)
@@ -8217,11 +8218,12 @@ function isCorrect(input) {
 
 function getCorrectAnswer() {
   if (mode === "ua-en") {
-    const shownUa = getUa(currentWord).concat(currentWord.uaAlt || []);
+    const shownUa = getUa(currentWord);
     const ans = new Set();
     WORDS.forEach(w => {
       if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(e));
     });
+    (currentWord.enAlt || []).forEach(e => ans.add(e));
     return [...ans].join(" / ");
   } else if (mode === "en-ua") {
     return [...getUa(currentWord), ...(currentWord.uaAlt || [])].join(" / ");
@@ -8741,6 +8743,8 @@ const EN_TO_UA = (() => {
   // idle/lazy — взаємні синоніми (ледачий≈лінивий, idle≈lazy); hover показує обидва значення
   m.set("idle",        ["ледачий", "лінивий", "бездіяльний"]);
   m.set("lazy",        ["лінивий", "ледачий"]);
+  // gorgeous — багатозначний; hover показує основні відтінки (узгоджено з прикладом «приголомшливий»)
+  m.set("gorgeous",    ["розкішний", "приголомшливий", "чудовий", "прекрасний", "шикарний"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
