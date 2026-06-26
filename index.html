@@ -2635,7 +2635,7 @@ const WORDS = [
   {en:"tie",ua:["краватка","зав'язувати"]},
   {en:"tire",ua:["шина","втомлювати"]},
   {en:"twist",ua:["крутити","поворот"]},
-  {en:"unexpected",ua:"несподіваний",uaAlt:["неочікуваний","несподівано","неочікувано"]},
+  {en:"unexpected",ua:"несподіваний",uaAlt:["неочікуваний"]},{en:"unexpectedly",ua:"несподівано",uaAlt:["неочікувано"]},
   {en:"wage",ua:"зарплата"},
   {en:"web",ua:["мережа","павутина"]},
   {en:"forbidden",ua:["заборонений","заборонено"]},
@@ -3354,7 +3354,7 @@ const TRANS = {
   "sore":"/sɔːr/","sound":"/saʊnd/","south":"/saʊθ/","spread":"/sprɛd/","square":"/skwɛr/",
   "squeeze":"/skwiːz/","staff":"/stæf/","stress":"/strɛs/","strike":"/straɪk/","stripe":"/straɪp/",
   "submit":"/səbˈmɪt/","sunflower":"/ˈsʌnflaʊər/","supportive":"/səˈpɔːrtɪv/","swimming":"/ˈswɪmɪŋ/","tie":"/taɪ/",
-  "tire":"/ˈtaɪər/","traffic":"/ˈtræfɪk/","twice":"/twaɪs/","twist":"/twɪst/","unexpected":"/ˌʌnɪkˈspɛktɪd/",
+  "tire":"/ˈtaɪər/","traffic":"/ˈtræfɪk/","twice":"/twaɪs/","twist":"/twɪst/","unexpectedly":"/ˌʌnɪkˈspɛktli/","unexpected":"/ˌʌnɪkˈspɛktɪd/",
   "upstairs":"/ˌʌpˈstɛrz/","wage":"/weɪdʒ/","web":"/wɛb/","wept":"/wɛpt/","west":"/wɛst/",
   "wipe":"/waɪp/","worry":"/ˈwɜːri/",
   "admit":"/ədˈmɪt/","athlete":"/ˈæθliːt/","athletes":"/ˈæθliːts/","gymnast":"/ˈdʒɪmnæst/","explanation":"/ˌekspləˈneɪʃən/","comedy":"/ˈkɑːmədi/","pill":"/pɪl/","ambition":"/æmˈbɪʃən/","account":"/əˈkaʊnt/","committee":"/kəˈmɪti/",
@@ -5065,7 +5065,7 @@ const EXAMPLES = {
   "traffic":"There is heavy traffic on the highway.",
   "twice":"I read the book twice.",
   "twist":"She twisted her ankle while running.",
-  "unexpected":"The result was completely unexpected.",
+  "unexpected":"The result was completely unexpected.","unexpectedly":"The rain stopped unexpectedly.",
   "upstairs":"The bedroom is upstairs.",
   "wage":"The minimum wage increased this year.",
   "web":"Most people use the web every day.",
@@ -6939,7 +6939,7 @@ const EXAMPLES_UA = {
   "traffic":"На шосе великий затор.",
   "twice":"Я прочитав книгу двічі.",
   "twist":"Вона вивихнула щиколотку під час бігу.",
-  "unexpected":"Результат був абсолютно несподіваним.",
+  "unexpected":"Результат був абсолютно несподіваним.","unexpectedly":"Дощ несподівано припинився.",
   "upstairs":"Спальня знаходиться нагорі.",
   "wage":"Мінімальна заробітна плата збільшилась цього року.",
   "web":"Більшість людей користуються мережею щодня.",
@@ -8755,6 +8755,7 @@ const EN_TO_UA = (() => {
   m.set("welcome",     ["ласкаво просимо", "вітати"]);
   m.set("race",        ["гонка", "раса", "перегони"]);
   m.set("unexpected",  ["несподіваний", "неочікуваний"]);
+  m.set("unexpectedly", ["несподівано", "неочікувано"]);
   m.set("clarify",     ["уточнювати", "уточнити", "пояснювати"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
