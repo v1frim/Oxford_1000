@@ -1029,7 +1029,7 @@
       </div>
     </div>
     <button id="start-btn">Почати</button>
-    <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки за сьогодні</button>
+    <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки</button>
     <div id="extra-btns">
       <button id="lh-btn">📚 Уроки LingoHut</button>
       <div id="songsess-wrap">
@@ -2111,7 +2111,7 @@ const WORDS = [
   {en:"liberated",ua:"звільнений"},
   {en:"lifeless",ua:"безжиттєвий"},
   {en:"little",ua:"маленький"},
-  {en:"livid",ua:"несамовитий"},
+  {en:"livid",ua:"несамовитий",uaAlt:["розлючений","оскаженілий","лютий","багряний","блідий"]},
   {en:"living",ua:"живий"},
   {en:"loathe",ua:"ненавидіти"},
   {en:"locate",ua:"знаходити"},
@@ -8655,9 +8655,8 @@ function endGame(endedEarly) {
       summaryEl.textContent +=
         " · ~" + secsPerWord + " " + (secsPerWord === 1 ? "сек" : "сек") + "/слово";
     }
-    // All today's mistakes cleared?
-    const todayMistakes = (loadDayMistakes()[todayKey()] || []);
-    if (todayMistakes.length === 0) {
+    // Усі помилки (за всі дні) закриті? (review тепер працює з агрегованим пулом)
+    if (allDayMistakeKeys().length === 0) {
       enqueueMilestone({ icon: "✨", text: "Усі помилки закриті!", sub: "Так тримати!", type: "cleared", sfx: sfxCleared });
     }
   }
@@ -8745,6 +8744,8 @@ const EN_TO_UA = (() => {
   m.set("lazy",        ["лінивий", "ледачий"]);
   // gorgeous — багатозначний; hover показує основні відтінки (узгоджено з прикладом «приголомшливий»)
   m.set("gorgeous",    ["розкішний", "приголомшливий", "чудовий", "прекрасний", "шикарний"]);
+  // livid — у прикладі «розлючена/несамовита»; також (про шкіру/синець) багряний, мертвотно-блідий
+  m.set("livid",       ["несамовитий", "розлючений", "багряний"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
@@ -9842,12 +9843,7 @@ document.getElementById("progress-btn").addEventListener("click", () => {
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
 document.getElementById("review-today-btn").addEventListener("click", () => {
-  const btn = document.getElementById("review-today-btn");
-  const day = btn.dataset.day;
-  if (!day) return;
-  const m = loadDayMistakes();
-  const words = m[day] || [];
-  const mistakes = words.map(indexOfWordKey).filter(i => i >= 0);
+  const mistakes = allDayMistakeKeys().map(indexOfWordKey).filter(i => i >= 0);
   if (mistakes.length === 0) return;
   showReviewModeModal(mistakes);
 });
@@ -10757,6 +10753,14 @@ function removeDayMistake(idx) {
   }
   if (changed) saveDayMistakes(m);
 }
+// Усі унікальні невиправлені помилкові слова за ВСІ дні (сьогодні + раніше).
+// Кнопка повторення працює з цим агрегованим пулом, а не з одним днем.
+function allDayMistakeKeys() {
+  const m = loadDayMistakes();
+  const seen = new Set();
+  for (const dk of Object.keys(m)) for (const wk of (m[dk] || [])) seen.add(wk);
+  return [...seen];
+}
 function isYesterdayKey(key) {
   const d = new Date(todayKey() + "T00:00:00");
   d.setDate(d.getDate() - 1);
@@ -10775,14 +10779,12 @@ function pickReviewDay() {
 function updateReviewTodayBtn() {
   const btn = document.getElementById("review-today-btn");
   if (!btn) return;
-  const pick = pickReviewDay();
-  if (!pick) {
+  const keys = allDayMistakeKeys();   // усі невиправлені помилки за всі дні
+  if (keys.length === 0) {
     btn.classList.add("hidden");
-    delete btn.dataset.day;
   } else {
     btn.classList.remove("hidden");
-    btn.textContent = "📒 Помилки " + pick.label + " (" + pick.list.length + ")";
-    btn.dataset.day = pick.key;
+    btn.textContent = "📒 Помилки (" + keys.length + ")";
   }
 }
 function tsToDayKey(ts) {
@@ -11404,14 +11406,9 @@ function renderGptBtn() {
   document.getElementById("gpt-minus").style.display = count > 0 ? "" : "none";
 }
 
-// Головна кнопка — ЛИШЕ навігація в ChatGPT (НЕ рахує запит: запити робляться
-// під час гри, тож лічильник нарощується вручну через «+»).
-document.getElementById("gpt-btn").addEventListener("click", () => {
-  window.open("https://chatgpt.com/", "_blank", "noopener");
-});
-
-// «+» — додати запит у будь-який момент (без відкриття сайту).
-document.getElementById("gpt-plus").addEventListener("click", () => {
+// Зарахувати 1 запит GPT (+XP, оновити всі лічильники). Спільне для «+» та для
+// GPT-лінка на фінал-екрані гри (клік там = реальний запит під час розбору помилки).
+function countGptRequest() {
   const reqs = loadGptRequests();
   const today = gptToday();
   reqs[today] = (reqs[today] || 0) + 1;
@@ -11424,7 +11421,21 @@ document.getElementById("gpt-plus").addEventListener("click", () => {
   renderProgressPanel();
   checkThermoMilestones();
   checkAchievements(true);
+}
+
+// Головна кнопка меню — ЛИШЕ навігація в ChatGPT (НЕ рахує: можна просто відкрити
+// сайт; реальні запити рахуються через «+» або GPT-лінк на фінал-екрані гри).
+document.getElementById("gpt-btn").addEventListener("click", () => {
+  window.open("https://chatgpt.com/", "_blank", "noopener");
 });
+
+// GPT-лінк на фінал-екрані гри — клік = реальний запит (розбір щойно зробленої
+// помилки), тож рахуємо одразу. Посилання саме відкриває ChatGPT через href.
+const gptLink = document.getElementById("gpt-link");
+if (gptLink) gptLink.addEventListener("click", () => countGptRequest());
+
+// «+» — додати запит у будь-який момент (без відкриття сайту).
+document.getElementById("gpt-plus").addEventListener("click", () => countGptRequest());
 
 document.getElementById("gpt-minus").addEventListener("click", () => {
   const reqs = loadGptRequests();
