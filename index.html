@@ -1258,7 +1258,7 @@ const WORDS = [
   {en:"refuse",ua:"відмовлятися"},{en:"release",ua:"випускати"},{en:"rent",ua:"орендувати"},
   {en:"to report",ua:"повідомляти"},{en:"require",ua:"вимагати"},{en:"search",ua:"шукати"},
   {en:"speak",ua:"говорити"},{en:"suggest",ua:"пропонувати"},{en:"survive",ua:"виживати"},
-  {en:"trust",ua:"довіряти"},{en:"warn",ua:"попереджати"},{en:"wonder",ua:"дивуватися"},
+  {en:"trust",ua:"довіряти",uaAlt:["довіра"]},{en:"warn",ua:"попереджати"},{en:"wonder",ua:"дивуватися"},
   {en:"wake",ua:"прокидатися"},{en:"to type",ua:"друкувати"},{en:"test",ua:"тестувати"},
 
   // ── NOUNS – Time ───────────────────────────────────────────────────────
@@ -2271,6 +2271,7 @@ const WORDS = [
   {en:"resent",ua:"обурюватися"},
   {en:"reserved",ua:["стриманий","зарезервований"]},
   {en:"respect",ua:"повага"},
+  {en:"welcome",ua:"ласкаво просимо",uaAlt:["вітати","бажаний"]},
   {en:"respectful",ua:"поважний"},
   {en:"restless",ua:"неспокійний"},
   {en:"restricted",ua:"обмежений"},
@@ -3006,7 +3007,7 @@ const TRANS = {
   "example":"/ɪɡˈzæmpəl/","information":"/ˌɪnfərˈmeɪʃən/","news":"/njuːz/",
   "story":"/ˈstɔːri/","truth":"/truːθ/","lie":"/laɪ/","dream":"/driːm/",
   "hope":"/hoʊp/","fear":"/fɪr/","hate":"/heɪt/","joy":"/dʒɔɪ/",
-  "sadness":"/ˈsædnəs/","anger":"/ˈæŋɡər/","peace":"/piːs/","war":"/wɔːr/",
+  "sadness":"/ˈsædnəs/","anger":"/ˈæŋɡər/","peace":"/piːs/","war":"/wɔːr/","welcome":"/ˈwɛlkəm/",
   "freedom":"/ˈfriːdəm/","power":"/ˈpaʊər/","knowledge":"/ˈnɑːlɪdʒ/",
   "experience":"/ɪkˈspɪriəns/","memory":"/ˈmɛməri/","choice":"/tʃɔɪs/",
   "chance":"/tʃæns/","risk":"/rɪsk/","success":"/səkˈsɛs/","failure":"/ˈfeɪljər/",
@@ -3709,7 +3710,7 @@ const EXAMPLES = {
   "fear":"Fear of failure stops many people.","hate":"Hate only hurts yourself.",
   "joy":"Her baby brought her great joy.","sadness":"There was sadness in his eyes.",
   "anger":"Take a breath to control your anger.","peace":"We all wish for world peace.",
-  "war":"War destroys everything.","freedom":"Freedom is a basic human right.",
+  "war":"War destroys everything.","welcome":"Welcome to our new home!","freedom":"Freedom is a basic human right.",
   "power":"Knowledge is power.","knowledge":"Knowledge is better than money.",
   "experience":"Experience is the best teacher.","memory":"That memory makes me smile.",
   "choice":"You have a choice.","chance":"Give me one more chance.",
@@ -5583,7 +5584,7 @@ const EXAMPLES_UA = {
   "fear":"Страх невдачі зупиняє багатьох людей.","hate":"Ненависть шкодить лише тобі.",
   "joy":"Дитина принесла їй велику радість.","sadness":"У його очах був смуток.",
   "anger":"Зроби вдих, щоб контролювати свій гнів.","peace":"Ми всі бажаємо миру в усьому світі.",
-  "war":"Війна руйнує все.","freedom":"Свобода — основне право людини.",
+  "war":"Війна руйнує все.","welcome":"Ласкаво просимо до нашого нового дому!","freedom":"Свобода — основне право людини.",
   "power":"Знання — сила.","knowledge":"Знання краще за гроші.",
   "experience":"Досвід — найкращий учитель.","memory":"Цей спогад змушує мене посміхатися.",
   "choice":"У тебе є вибір.","chance":"Дай мені ще один шанс.",
@@ -8746,6 +8747,7 @@ const EN_TO_UA = (() => {
   m.set("gorgeous",    ["розкішний", "приголомшливий", "чудовий", "прекрасний", "шикарний"]);
   // livid — у прикладі «розлючена/несамовита»; також (про шкіру/синець) багряний, мертвотно-блідий
   m.set("livid",       ["несамовитий", "розлючений", "багряний"]);
+  m.set("welcome",     ["ласкаво просимо", "вітати"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
