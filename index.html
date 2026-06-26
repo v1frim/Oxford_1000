@@ -1314,6 +1314,11 @@ const WORDS = [
   {en:"bone",ua:"кістка"},{en:"skin",ua:"шкіра"},{en:"shoulder",ua:"плече"},
   {en:"neck",ua:"шия"},{en:"chin",ua:"підборіддя"},{en:"cheek",ua:"щока"},
   {en:"forehead",ua:"лоб"},{en:"nail",ua:"ніготь"},{en:"elbow",ua:"лікоть"},
+  {en:"abdomen",ua:"живіт"},{en:"thigh",ua:"стегно"},{en:"groin",ua:"пах"},{en:"genitals",ua:"статеві органи"},
+  {en:"calf",ua:"литка",uaAlt:["теля"]},{en:"breast",ua:"груди"},{en:"nipple",ua:"сосок"},{en:"armpit",ua:"пахва"},
+  {en:"waist",ua:"талія"},{en:"forearm",ua:"передпліччя"},{en:"navel",ua:"пупок"},{en:"shin",ua:"гомілка"},
+  {en:"eyelid",ua:"повіка"},{en:"eyebrow",ua:"брова"},{en:"jaw",ua:"щелепа"},{en:"nostril",ua:"ніздря"},
+  {en:"eyelash",ua:"вія"},{en:"iris",ua:"райдужка",uaAlt:["ірис"]},{en:"pupil",ua:"зіниця",uaAlt:["учень"]},{en:"hazel",ua:"карий",uaAlt:["горіховий"]},
   {en:"wrist",ua:"зап'ясток"},
 
   // ── NOUNS – Animals ────────────────────────────────────────────────────
@@ -2384,7 +2389,7 @@ const WORDS = [
   {en:"taste",ua:"смак"},
   {en:"tedious",ua:"нудний"},
   {en:"teeth",ua:"зуби"},{en:"teenager",ua:"підліток"},
-  {en:"temple",ua:"храм"},
+  {en:"temple",ua:"храм",uaAlt:["скроня"]},
   {en:"tender",ua:"ніжний"},
   {en:"terrified",ua:"наляканий"},
   {en:"text",ua:"повідомлення"},
@@ -2934,6 +2939,7 @@ const TRANS = {
   "passenger":"/ˈpæsɪndʒər/","customer":"/ˈkʌstəmər/",
   // Body
   "head":"/hɛd/","face":"/feɪs/","eye":"/aɪ/","ear":"/ɪr/","nose":"/noʊz/",
+  "abdomen":"/ˈæbdəmən/","thigh":"/θaɪ/","groin":"/ɡrɔɪn/","genitals":"/ˈdʒɛnətəlz/","calf":"/kæf/","breast":"/brɛst/","nipple":"/ˈnɪpəl/","armpit":"/ˈɑrmpɪt/","waist":"/weɪst/","forearm":"/ˈfɔrɑrm/","navel":"/ˈneɪvəl/","shin":"/ʃɪn/","eyelid":"/ˈaɪlɪd/","eyebrow":"/ˈaɪbraʊ/","jaw":"/dʒɔ/","nostril":"/ˈnɑstrəl/","eyelash":"/ˈaɪlæʃ/","iris":"/ˈaɪrɪs/","pupil":"/ˈpjupəl/","hazel":"/ˈheɪzəl/",
   "mouth":"/maʊθ/","lip":"/lɪp/","tooth":"/tuːθ/","tongue":"/tʌŋ/",
   "hair":"/hɛr/","hand":"/hænd/","finger":"/ˈfɪŋɡər/","foot":"/fʊt/",
   "leg":"/lɛɡ/","knee":"/niː/","back":"/bæk/","chest":"/tʃɛst/",
@@ -3577,7 +3583,7 @@ const EXAMPLES = {
   "chest":"She felt a pain in her chest.","stomach":"My stomach is empty — let's eat!",
   "heart":"Exercise keeps your heart healthy.","brain":"The human brain is amazing.",
   "blood":"He donated blood at the hospital.","bone":"Milk is good for your bones.",
-  "skin":"Protect your skin from the sun.","shoulder":"He put his hand on her shoulder.",
+  "skin":"Protect your skin from the sun.","shoulder":"He put his hand on her shoulder.","abdomen":"He felt a pain in his abdomen.","thigh":"She put her hand on her thigh.","groin":"He felt pain in his groin.","genitals":"The genitals are part of the body.","calf":"He hurt his calf during the run.","breast":"She placed her hand on her breast.","nipple":"The nipple is part of the breast.","armpit":"She felt pain in her armpit.","waist":"He put his hands on his waist.","forearm":"He hurt his forearm.","navel":"She has a ring in her navel.","shin":"She hit her shin on the table.","eyelid":"She closed her eyelids.","eyebrow":"He raised his eyebrow.","jaw":"He broke his jaw.","nostril":"Air enters through the nostrils.","eyelash":"She has long eyelashes.","iris":"The iris is part of the eye.","pupil":"Light enters through the pupil.","hazel":"She has hazel eyes.",
   "neck":"My neck hurts from bad posture.","chin":"She rested her chin on her hand.",
   "cheek":"He kissed her on the cheek.","forehead":"She pressed a cloth to her forehead.",
   "nail":"She painted her nails red.","elbow":"He leaned on his elbow.",
@@ -5451,7 +5457,7 @@ const EXAMPLES_UA = {
   "chest":"Вона відчула біль у грудях.","stomach":"Мій шлунок порожній — давай їсти!",
   "heart":"Фізичні вправи зберігають серце здоровим.","brain":"Людський мозок — це дивовижно.",
   "blood":"Він здав кров у лікарні.","bone":"Молоко корисне для кісток.",
-  "skin":"Захищай шкіру від сонця.","shoulder":"Він поклав руку їй на плече.",
+  "skin":"Захищай шкіру від сонця.","shoulder":"Він поклав руку їй на плече.","abdomen":"Він відчув біль у животі.","thigh":"Вона поклала руку на стегно.","groin":"Він відчув біль у паху.","genitals":"Статеві органи — частина тіла.","calf":"Він пошкодив литку під час бігу.","breast":"Вона поклала руку на груди.","nipple":"Сосок — частина грудей.","armpit":"Вона відчула біль під пахвою.","waist":"Він поклав руки на талію.","forearm":"Він пошкодив передпліччя.","navel":"У неї кільце в пупку.","shin":"Вона вдарилася гомілкою об стіл.","eyelid":"Вона заплющила повіки.","eyebrow":"Він підняв брову.","jaw":"Він зламав щелепу.","nostril":"Повітря входить через ніздрі.","eyelash":"У неї довгі вії.","iris":"Райдужка — частина ока.","pupil":"Світло проходить через зіницю.","hazel":"У неї карі очі.",
   "neck":"У мене болить шия через погану поставу.","chin":"Вона спирала підборіддя на руку.",
   "cheek":"Він поцілував її в щоку.","forehead":"Вона приклала тканину до лоба.",
   "nail":"Вона пофарбувала нігті в червоний.","elbow":"Він спирався на лікоть.",
@@ -8769,6 +8775,11 @@ const EN_TO_UA = (() => {
   m.set("unexpected",  ["несподіваний", "неочікуваний"]);
   m.set("unexpectedly", ["несподівано", "неочікувано"]);
   m.set("clarify",     ["уточнювати", "уточнити", "пояснювати"]);
+  m.set("temple",      ["храм", "скроня"]);
+  m.set("calf",        ["литка", "теля"]);
+  m.set("pupil",       ["зіниця", "учень"]);
+  m.set("iris",        ["райдужка", "ірис"]);
+  m.set("hazel",       ["карий", "горіховий"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
