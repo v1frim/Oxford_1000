@@ -8077,6 +8077,8 @@ const REVIEW_REQUIRED_CORRECT = 3;
 let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
 let correctionTimer = null;
+let reviewFromMenu = false;   // true лише для повторення з кнопки «📒 Помилки» в меню
+                              // (це джерело дає пункти «Плани»; post-game «Повторити помилки» — ні)
 
 const ALL_MODES = ["ua-en", "en-ua", "mix", "en-def", "en-syn", "en-ant", "en-cloze"];
 const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "mix": btnMix, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
@@ -8651,7 +8653,7 @@ function endGame(endedEarly) {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
-    recordMistakeReviews(wordsReviewed);   // пройдені помилки → пункти «Плани» (10 = 1 пункт, залишок переноситься)
+    if (reviewFromMenu) recordMistakeReviews(wordsReviewed);   // лише повторення з кнопки «📒 Помилки» в меню (не post-game) → пункти «Плани»
     checkThermoMilestones();               // новий пункт міг перетнути межу плану (🎯/💪)
     if (wordsReviewed > 0) {
       const secsPerWord = Math.round(reviewElapsed / wordsReviewed);
@@ -8700,6 +8702,7 @@ function startReview() {
   // повернеться по завершенні повторення (setMode(selectedMode) у displayEndScreen).
   reviewDir = "random";
   mode = "en-ua";   // конкретний старт; nextWord перевипадковлює напрям щослова (reviewDir="random")
+  reviewFromMenu = false;   // post-game повторення НЕ дає пунктів «Плани» (за запитом)
   startGame(failedIndices);
 }
 
@@ -9849,6 +9852,7 @@ document.getElementById("review-btn").addEventListener("click", startReview);
 document.getElementById("review-today-btn").addEventListener("click", () => {
   const mistakes = allDayMistakeKeys().map(indexOfWordKey).filter(i => i >= 0);
   if (mistakes.length === 0) return;
+  reviewFromMenu = true;   // це джерело (кнопка меню) дає пункти «Плани» за закриті слова
   showReviewModeModal(mistakes);
 });
 document.getElementById("review-mode-modal").addEventListener("click", e => {
@@ -10788,7 +10792,10 @@ function updateReviewTodayBtn() {
     btn.classList.add("hidden");
   } else {
     btn.classList.remove("hidden");
-    btn.textContent = "📒 Помилки (" + keys.length + ")";
+    const closed = Object.values(loadMistakeReviews()).reduce((s, n) => s + n, 0);
+    const prog = closed % 10;   // прогрес у поточному десятку до наступного пункту «Плани»
+    btn.textContent = "📒 Помилки (" + keys.length + ") · " + prog + "/10";
+    btn.title = "Пробіл · закрито " + prog + "/10 слів до наступного пункту «Плани»";
   }
 }
 function tsToDayKey(ts) {
@@ -11030,8 +11037,9 @@ function renderLbTotals() {
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
-// Кожне «пройдене» (закрите 3× поспіль) слово під час повторення помилок — і з
-// фінал-екрана гри, і з кнопки «📒 Помилки» в меню — рахується тут. За кожні 10
+// Кожне «пройдене» (закрите 3× поспіль) слово під час повторення помилок З КНОПКИ
+// «📒 Помилки» в меню рахується тут (post-game «Повторити помилки» — НЕ рахує, за
+// запитом користувача — `reviewFromMenu`). За кожні 10
 // таких слів +1 пункт у термометр; залишок (<10) переноситься вперед через дні
 // (кумулятивний «лічильник» 0.x пункта). Окремий від reviewCorrect ключ → правило
 // діє ВІД ЗАПУСКУ фічі, без ретро-зсуву історичних пунктів / місячної ачівки.
