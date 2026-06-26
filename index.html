@@ -246,6 +246,18 @@
     font-size: 15px;
     padding: 10px 22px;
   }
+  /* Прогрес «N/15» до пункту «Плани» — навмисно тьмяний і відокремлений тонкою
+     рискою: можна підглянути, але не мозолить очі (за запитом користувача, сесія 31). */
+  #review-today-btn .rt-prog {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid rgba(30, 60, 114, 0.22);
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(30, 60, 114, 0.5);
+    letter-spacing: 0.01em;
+    vertical-align: middle;
+  }
   .skip {
     margin-top: 12px;
     font-size: 15px;
@@ -10797,9 +10809,11 @@ function updateReviewTodayBtn() {
   } else {
     btn.classList.remove("hidden");
     const closed = Object.values(loadMistakeReviews()).reduce((s, n) => s + n, 0);
-    const prog = closed % 10;   // прогрес у поточному десятку до наступного пункту «Плани»
-    btn.textContent = "📒 Помилки (" + keys.length + ") · " + prog + "/10";
-    btn.title = "Пробіл · закрито " + prog + "/10 слів до наступного пункту «Плани»";
+    const prog = closed % 15;   // прогрес у поточній 15-ці до наступного пункту «Плани»
+    // «N/15» загорнуто в .rt-prog — тьмяний, відокремлений рискою лічильник (не нав'язливий,
+    // але можна підглянути). Основне «📒 Помилки (N)» лишається помітним.
+    btn.innerHTML = "📒 Помилки (" + keys.length + ")<span class=\"rt-prog\">" + prog + "/15</span>";
+    btn.title = "Пробіл · закрито " + prog + "/15 слів до наступного пункту «Плани»";
   }
 }
 function tsToDayKey(ts) {
@@ -11043,8 +11057,8 @@ function renderLbTotals() {
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
 // Кожне «пройдене» (закрите 3× поспіль) слово під час повторення помилок З КНОПКИ
 // «📒 Помилки» в меню рахується тут (post-game «Повторити помилки» — НЕ рахує, за
-// запитом користувача — `reviewFromMenu`). За кожні 10
-// таких слів +1 пункт у термометр; залишок (<10) переноситься вперед через дні
+// запитом користувача — `reviewFromMenu`). За кожні 15
+// таких слів +1 пункт у термометр; залишок (<15) переноситься вперед через дні
 // (кумулятивний «лічильник» 0.x пункта). Окремий від reviewCorrect ключ → правило
 // діє ВІД ЗАПУСКУ фічі, без ретро-зсуву історичних пунктів / місячної ачівки.
 // ⚠️ const/функції — ДО init-викликів renderThermo/checkThermoMilestones нижче (TDZ).
@@ -11062,15 +11076,15 @@ function recordMistakeReviews(count) {
   saveMistakeReviews(mr);
 }
 // {date: count} → {date: пунктів, що «випадають» саме цього дня}. 1 пункт за кожні
-// 10 пройдених слів, рахується КУМУЛЯТИВНО через усі дні: залишок < 10 переноситься
-// вперед (тому 12 слів сьогодні = 1 пункт, а наступні 8 будь-коли = ще 1).
+// 15 пройдених слів, рахується КУМУЛЯТИВНО через усі дні: залишок < 15 переноситься
+// вперед (тому 16 слів сьогодні = 1 пункт, а наступні 14 будь-коли = ще 1).
 function mistakeReviewPointsByDate(mr) {
   const out = {};
   let cum = 0;
   for (const d of Object.keys(mr).sort()) {
     const before = cum;
     cum += mr[d] || 0;
-    const p = Math.floor(cum / 10) - Math.floor(before / 10);
+    const p = Math.floor(cum / 15) - Math.floor(before / 15);
     if (p) out[d] = p;
   }
   return out;
@@ -11083,7 +11097,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts) {
   pts += duo[date] || 0;
   pts += (songSess[date] || 0) * 2;   // заняття піснями: 2 пункти кожне
   pts += Math.floor((gpt[date] || 0) / 2);   // GPT-запити: 1 пункт за кожні 2 запити
-  pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 10 пройдених (з перенесенням)
+  pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
