@@ -1083,7 +1083,7 @@
     </div>
     <div class="results-list" id="results-list"></div>
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
-    <button id="restart-btn">Спробувати ще раз</button>
+    <button id="restart-btn">🏠 На головну</button>
   </div>
 </div>
 <div id="review-mode-modal" class="hidden">
@@ -1595,7 +1595,7 @@ const WORDS = [
   {en:"force",ua:"змушувати"},{en:"gain",ua:"отримувати"},{en:"greet",ua:"вітати"},
   {en:"handle",ua:["ручка","справлятися"]},{en:"hide",ua:"ховатися"},{en:"hire",ua:"наймати"},
   {en:"influence",ua:"впливати"},{en:"injure",ua:"травмувати"},{en:"lend",ua:"позичати"},
-  {en:"lift",ua:"підіймати"},{en:"listen",ua:"слухати"},{en:"maintain",ua:"підтримувати"},
+  {en:"lift",ua:"підіймати",uaAlt:["піднімати","ліфт"]},{en:"elevator",ua:"ліфт"},{en:"listen",ua:"слухати"},{en:"maintain",ua:"підтримувати"},
   {en:"manage",ua:"керувати"},{en:"measure",ua:"вимірювати"},{en:"mention",ua:"згадувати"},
   {en:"notice",ua:"помічати"},{en:"notebook",ua:"зошит"},{en:"occur",ua:"відбуватися"},{en:"offer",ua:"пропонувати"},
   {en:"operate",ua:"керувати"},{en:"pack",ua:"пакувати"},{en:"paint",ua:"малювати"},
@@ -3228,7 +3228,7 @@ const TRANS = {
   "jog":"/ˈdʒɑɡ/","joke":"/ˈdʒoʊk/","joyful":"/ˈdʒɔɪfəl/","judge":"/ˈdʒədʒ/","july":"/dʒuˈlaɪ/","june":"/ˈdʒun/",
   "jungle":"/ˈdʒəŋɡəl/","keen":"/ˈkin/","labor":"/ˈleɪbɝ/","landscape":"/ˈlænskeɪp/","large":"/ˈlɑrdʒ/","latest":"/ˈleɪtəst/",
   "launch":"/ˈlɔntʃ/","layer":"/ˈleɪɝ/","lead":"/ˈlɛd/","leap":"/ˈlip/","lecture":"/ˈlɛktʃɝ/","leisurely":"/ˈlizɝli/",
-  "lend":"/ˈlɛnd/","lethargic":"/ləˈθɑrdʒɪk/","liberated":"/ˈlɪbɝeɪtɪd/","license":"/ˈlaɪsəns/","lifeless":"/ˈlaɪfləs/","lift":"/ˈlɪft/",
+  "lend":"/ˈlɛnd/","lethargic":"/ləˈθɑrdʒɪk/","liberated":"/ˈlɪbɝeɪtɪd/","license":"/ˈlaɪsəns/","lifeless":"/ˈlaɪfləs/","lift":"/ˈlɪft/","elevator":"/ˈɛləveɪtɝ/",
   "like":"/ˈlaɪk/","likely":"/ˈlaɪkli/","limit":"/ˈlɪmət/","link":"/ˈlɪŋk/","listen":"/ˈlɪsən/","little":"/ˈlɪtəl/",
   "livid":"/ˈlɪvɪd/","living":"/ˈlɪvɪŋ/","loathe":"/ˈloʊð/","locate":"/ˈloʊkeɪt/","locked":"/ˈlɑkt/","lofty":"/ˈlɔfti/",
   "lonely":"/ˈloʊnli/","lovely":"/ˈləvli/","low":"/ˈloʊ/","lower":"/ˈloʊɝ/","lucid":"/ˈlusəd/","lucky":"/ˈləki/",
@@ -3969,7 +3969,7 @@ const EXAMPLES = {
   "greet":"He greeted every guest with a smile.","handle":"Turn the handle to open the door.",
   "hide":"The children hid behind the sofa.","hire":"They hired a new manager.",
   "influence":"Friends can influence your decisions.","injure":"He injured his knee at practice.",
-  "lend":"Can you lend me some money?","lift":"He lifted the heavy box easily.",
+  "lend":"Can you lend me some money?","lift":"He lifted the heavy box easily.","elevator":"We took the elevator to the top floor.",
   "listen":"Please listen carefully to the instructions.","maintain":"It is hard to maintain a healthy diet.",
   "manage":"She manages a team of ten people.","measure":"Measure the room before buying furniture.",
   "mention":"Did he mention what time he arrives?","newspaper":"He reads the newspaper every morning with his coffee.","notebook":"She always keeps a small notebook in her bag.","notice":"I noticed a mistake in the report.",
@@ -5843,7 +5843,7 @@ const EXAMPLES_UA = {
   "greet":"Він вітав кожного гостя з усмішкою.","handle":"Поверни ручку, щоб відчинити двері.",
   "hide":"Діти сховалися за диваном.","hire":"Вони найняли нового менеджера.",
   "influence":"Друзі можуть впливати на твої рішення.","injure":"Він травмував коліно на тренуванні.",
-  "lend":"Можеш позичити мені трохи грошей?","lift":"Він легко підняв важку коробку.",
+  "lend":"Можеш позичити мені трохи грошей?","lift":"Він легко підняв важку коробку.","elevator":"Ми піднялися ліфтом на верхній поверх.",
   "listen":"Будь ласка, уважно слухайте інструкції.","maintain":"Важко дотримуватися здорового харчування.",
   "manage":"Вона керує командою з десяти людей.","measure":"Виміряй кімнату перед купівлею меблів.",
   "mention":"Він згадав, о котрій прибуде?","newspaper":"Він читає газету щоранку з кавою.","notebook":"Вона завжди тримає маленький зошит у своїй сумці.","notice":"Я помітив помилку у звіті.",
@@ -9034,7 +9034,7 @@ const EN_TO_UA = (() => {
   m.set("introduce",   ["представляти", "знайомити"]);
   m.set("join",        ["приєднуватися"]);
   m.set("knock",       ["стукати"]);
-  m.set("lift",        ["піднімати"]);
+  m.set("lift",        ["підіймати", "піднімати", "ліфт"]);
   m.set("link",        ["зв'язувати", "посилання"]);
   m.set("machine",     ["механізм", "машина", "пристрій"]);
   m.set("manage",      ["керувати", "впоратися"]);
