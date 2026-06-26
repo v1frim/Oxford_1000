@@ -1561,7 +1561,7 @@ const WORDS = [
   // ── COLORS ──
   {en:"red",ua:"червоний"},{en:"blue",ua:"синій"},{en:"white",ua:"білий"},
   {en:"black",ua:"чорний"},{en:"yellow",ua:"жовтий"},{en:"purple",ua:"фіолетовий"},
-  {en:"pink",ua:"рожевий"},{en:"brown",ua:"коричневий"},{en:"grey",ua:"сірий"},
+  {en:"pink",ua:"рожевий"},{en:"brown",ua:"коричневий"},{en:"green",ua:"зелений"},{en:"grey",ua:"сірий",enAlt:["gray"]},
   // ── NUMBERS ──
   {en:"fourteen",ua:"чотирнадцять"},{en:"fifteen",ua:"п'ятнадцять"},{en:"sixteen",ua:"шістнадцять"},
   {en:"seventeen",ua:"сімнадцять"},{en:"eighteen",ua:"вісімнадцять"},{en:"nineteen",ua:"дев'ятнадцять"},
@@ -2243,7 +2243,7 @@ const WORDS = [
   {en:"query",ua:"запит"},
   {en:"questioning",ua:"допитливий"},
   {en:"quick",ua:"швидкий"},
-  {en:"race",ua:"гонка"},
+  {en:"race",ua:"гонка",uaAlt:["раса","заїзд","перегони"]},
   {en:"radiant",ua:"сяючий"},
   {en:"recall",ua:"згадувати"},
   {en:"recent",ua:"нещодавній"},
@@ -3153,7 +3153,7 @@ const TRANS = {
   "bloom":"/ˈblum/","blue":"/ˈblu/","board":"/ˈbɔrd/","boiling":"/ˈbɔɪlɪŋ/","boisterous":"/ˈbɔɪstɝəs/","bold":"/ˈboʊld/",
   "bonus":"/ˈboʊnəs/","booming":"/ˈbumɪŋ/","boost":"/ˈbust/","border":"/ˈbɔrdɝ/","borrow":"/ˈbɑroʊ/","bound":"/ˈbaʊnd/",
   "bowl":"/ˈboʊl/","bracelet":"/ˈbreɪslət/","breakfast":"/ˈbrɛkfəst/","breath":"/ˈbrɛθ/","breathtaking":"/ˈbrɛθˌteɪkɪŋ/","brilliant":"/ˈbrɪljənt/","broad":"/ˈbrɔd/",
-  "broke":"/ˈbroʊk/","brown":"/ˈbraʊn/","brutal":"/ˈbrutəl/","budget":"/ˈbədʒɪt/","burning":"/ˈbɝnɪŋ/","cabin":"/ˈkæbən/",
+  "broke":"/ˈbroʊk/","brown":"/ˈbraʊn/","green":"/ɡrin/","brutal":"/ˈbrutəl/","budget":"/ˈbədʒɪt/","burning":"/ˈbɝnɪŋ/","cabin":"/ˈkæbən/",
   "cable":"/ˈkeɪbəl/","candid":"/ˈkændəd/","candle":"/ˈkændəl/","capital":"/ˈkæpətəl/","captivating":"/ˈkæptɪveɪtɪŋ/","captive":"/ˈkæptɪv/",
   "care":"/ˈkɛr/","careful":"/ˈkɛrfəl/","careless":"/ˈkɛrləs/","caring":"/ˈkɛrɪŋ/","cash":"/ˈkæʃ/","cause":"/ˈkɑz/",
   "cautious":"/ˈkɔʃəs/","cease":"/ˈsis/","celebrated":"/ˈsɛləbreɪtɪd/","certain":"/ˈsɝtən/","certificate":"/sɝˈtɪfɪkət/","challenge":"/ˈtʃæləndʒ/",
@@ -3926,7 +3926,7 @@ const EXAMPLES = {
   "red":"She wore a red dress to the party.","blue":"The sky is clear and blue today.",
   "white":"He painted the walls white.","black":"The cat has black fur.",
   "yellow":"Sunflowers are bright yellow.","purple":"She loves purple flowers.",
-  "pink":"The sunset painted the sky pink.","brown":"He has brown eyes.",
+  "pink":"The sunset painted the sky pink.","brown":"He has brown eyes.","green":"She has beautiful green eyes.",
   "grey":"The clouds turned grey before the rain.",
   "fourteen":"She is fourteen years old.","fifteen":"The bus leaves in fifteen minutes.",
   "sixteen":"He got sixteen points on the test.","seventeen":"Seventeen people attended the meeting.",
@@ -5800,7 +5800,7 @@ const EXAMPLES_UA = {
   "red":"Вона прийшла на вечірку в червоній сукні.","blue":"Небо сьогодні ясне й синє.",
   "white":"Він пофарбував стіни в білий колір.","black":"Кіт має чорну шерсть.",
   "yellow":"Соняшники яскраво-жовті.","purple":"Вона любить фіолетові квіти.",
-  "pink":"Захід сонця забарвив небо в рожевий колір.","brown":"У нього карі очі.",
+  "pink":"Захід сонця забарвив небо в рожевий колір.","brown":"У нього карі очі.","green":"У неї красиві зелені очі.",
   "grey":"Перед дощем хмари посіріли.",
   "fourteen":"їй чотирнадцять років.","fifteen":"Автобус відправляється за п'ятнадцять хвилин.",
   "sixteen":"Він набрав шістнадцять балів на тесті.","seventeen":"На зустріч прийшли сімнадцять людей.",
@@ -8753,6 +8753,7 @@ const EN_TO_UA = (() => {
   // livid — у прикладі «розлючена/несамовита»; також (про шкіру/синець) багряний, мертвотно-блідий
   m.set("livid",       ["несамовитий", "розлючений", "багряний"]);
   m.set("welcome",     ["ласкаво просимо", "вітати"]);
+  m.set("race",        ["гонка", "раса", "перегони"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
