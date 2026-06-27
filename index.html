@@ -1248,7 +1248,7 @@ const WORDS = [
   {en:"remove",ua:"видаляти"},{en:"remark",ua:"зауваження"},{en:"repeat",ua:"повторювати"},{en:"replace",ua:"замінювати"},
   {en:"rest",ua:["відпочивати","відпочинок"]},{en:"return",ua:"повертатися"},{en:"rise",ua:"зростати"},
   {en:"save",ua:["зберігати","рятувати"]},{en:"share",ua:"ділитися"},{en:"solve",ua:"вирішувати"},
-  {en:"spend",ua:"витрачати"},{en:"support",ua:["підтримувати","підтримка"]},{en:"teach",ua:["навчати","вчити","викладати"]},
+  {en:"spend",ua:"витрачати",uaAlt:["тратити","проводити"]},{en:"support",ua:["підтримувати","підтримка"]},{en:"teach",ua:["навчати","вчити","викладати"]},
   {en:"throw",ua:"кидати"},{en:"travel",ua:"подорожувати"},{en:"visit",ua:"відвідувати"},
   {en:"accept",ua:"приймати"},{en:"account",ua:["рахунок","обліковий запис"]},{en:"achieve",ua:"досягти"},{en:"add",ua:"додавати"},
   {en:"agree",ua:"погоджуватися"},{en:"allow",ua:"дозволяти"},{en:"to answer",ua:"відповідати"},
@@ -1614,7 +1614,7 @@ const WORDS = [
   {en:"influence",ua:"впливати"},{en:"injure",ua:"травмувати"},{en:"lend",ua:"позичати"},
   {en:"lift",ua:"підіймати",uaAlt:["піднімати","ліфт"]},{en:"elevator",ua:"ліфт"},{en:"listen",ua:"слухати"},{en:"maintain",ua:"підтримувати"},
   {en:"manage",ua:"керувати"},{en:"measure",ua:"вимірювати"},{en:"mention",ua:"згадувати"},
-  {en:"notice",ua:"помічати"},{en:"notebook",ua:"зошит"},{en:"occur",ua:"відбуватися"},{en:"offer",ua:"пропонувати",uaAlt:["пропозиція"]},
+  {en:"notice",ua:"помічати",uaAlt:["повідомлення","оголошення"]},{en:"notebook",ua:"зошит"},{en:"occur",ua:"відбуватися"},{en:"offer",ua:"пропонувати",uaAlt:["пропозиція"]},
   {en:"operate",ua:"керувати"},{en:"pack",ua:"пакувати"},{en:"paint",ua:"малювати"},
   {en:"perform",ua:"виконувати"},{en:"pour",ua:"наливати"},{en:"predict",ua:"передбачати"},
   {en:"press",ua:"натискати"},{en:"pretend",ua:"вдавати"},{en:"print",ua:"друкувати"},
@@ -2342,7 +2342,7 @@ const WORDS = [
   {en:"sluggish",ua:"млявий"},
   {en:"small",ua:"маленький"},
   {en:"smash",ua:"розбивати"},
-  {en:"snack",ua:"перекуска"},
+  {en:"snack",ua:"перекуска",uaAlt:["перекус","закуска"]},
   {en:"snug",ua:"затишний"},
   {en:"sob",ua:"ридати"},
   {en:"sociable",ua:"товариський"},
@@ -8781,6 +8781,7 @@ const EN_TO_UA = (() => {
   m.set("iris",        ["райдужка", "ірис"]);
   m.set("hazel",       ["карий", "горіховий"]);
   m.set("offer",       ["пропонувати", "пропозиція"]);
+  m.set("notice",      ["помічати", "повідомлення", "оголошення"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
@@ -9096,7 +9097,7 @@ const EN_TO_UA = (() => {
   m.set("shout",       ["кричати"]);
   m.set("smile",       ["усміхатися", "усмішка"]);
   m.set("solve",       ["вирішувати"]);
-  m.set("spend",       ["витрачати", "проводити"]);
+  m.set("spend",       ["витрачати", "тратити", "проводити"]);
   m.set("succeed",     ["досягати успіху"]);
   m.set("support",     ["підтримувати", "підтримка"]);
   m.set("surprise",    ["здивувати", "сюрприз"]);
@@ -9392,7 +9393,7 @@ const EN_TO_UA = (() => {
   m.set("skip",        ["пропускати"]);
   m.set("slip",        ["ковзнути", "послизнутися"]);
   m.set("smell",       ["запах", "пахнути"]);
-  m.set("snack",       ["перекус", "закуска"]);
+  m.set("snack",       ["перекуска", "перекус", "закуска"]);
   m.set("socket",      ["розетка"]);
   m.set("song",        ["пісня"]);
   m.set("sore",        ["болючий"]);
