@@ -1216,7 +1216,7 @@ const WORDS = [
   {en:"believe",ua:"вірити"},{en:"hold",ua:"тримати"},{en:"bring",ua:["приносити","принести"]},
   {en:"write",ua:"писати"},{en:"sit",ua:"сидіти"},{en:"stand",ua:"стояти"},
   {en:"lose",ua:"губити"},{en:"pay",ua:"платити"},{en:"meet",ua:"зустрічати"},
-  {en:"learn",ua:"вчитися"},{en:"change",ua:"змінювати"},{en:"understand",ua:"розуміти"},
+  {en:"learn",ua:"вчитися"},{en:"change",ua:"змінювати",uaAlt:["зміна"]},{en:"understand",ua:"розуміти"},
   {en:"to watch",ua:["спостерігати","дивитися","стежити"]},{en:"follow",ua:"слідувати"},{en:"stop",ua:"зупинятися"},
   {en:"create",ua:"створювати"},{en:"read",ua:"читати"},{en:"grow",ua:"рости"},
   {en:"to open",ua:["відчиняти","відкривати"]},{en:"walk",ua:"ходити"},{en:"win",ua:["вигравати","перемагати","перемога"]},
@@ -1252,7 +1252,7 @@ const WORDS = [
   {en:"throw",ua:"кидати"},{en:"travel",ua:"подорожувати"},{en:"visit",ua:"відвідувати"},
   {en:"accept",ua:"приймати"},{en:"account",ua:["рахунок","обліковий запис"]},{en:"achieve",ua:"досягти"},{en:"add",ua:"додавати"},
   {en:"agree",ua:"погоджуватися"},{en:"allow",ua:"дозволяти"},{en:"to answer",ua:"відповідати"},
-  {en:"appear",ua:"з'являтися"},{en:"apply",ua:"застосовувати"},{en:"application",ua:["застосування","заявка","додаток"]},{en:"attack",ua:"атакувати"},
+  {en:"appear",ua:"з'являтися"},{en:"apply",ua:"застосовувати"},{en:"application",ua:["застосування","заявка","додаток"]},{en:"attack",ua:"атакувати",uaAlt:["атака","напад"]},
   {en:"avoid",ua:"уникати"},{en:"breathe",ua:"дихати"},{en:"catch",ua:"ловити"},
   {en:"celebrate",ua:"святкувати"},{en:"continue",ua:"продовжувати"},{en:"defeat",ua:"перемагати"},
   {en:"deliver",ua:"доставляти"},{en:"design",ua:"проектувати",uaAlt:["дизайн"]},{en:"discover",ua:"відкривати"},
@@ -1444,7 +1444,7 @@ const WORDS = [
   {en:"agreement",ua:"угода"},{en:"argument",ua:"суперечка"},{en:"decision",ua:"рішення"},
   {en:"mistake",ua:"помилка"},{en:"accident",ua:"випадок"},{en:"event",ua:"подія"},
   {en:"meeting",ua:"зустріч"},{en:"journey",ua:"подорож"},{en:"adventure",ua:"пригода"},
-  {en:"mystery",ua:["загадка","таємниця"]},{en:"invention",ua:"винахід"},{en:"surprise",ua:"сюрприз"},
+  {en:"mystery",ua:["загадка","таємниця"]},{en:"invention",ua:"винахід"},{en:"surprise",ua:"сюрприз",uaAlt:["дивувати","здивувати"]},
   {en:"prize",ua:"приз"},{en:"reward",ua:"нагорода"},{en:"opportunity",ua:"нагода"},
 
   // ── NOUNS – Society / Work ─────────────────────────────────────────────
@@ -1526,7 +1526,7 @@ const WORDS = [
   {en:"salty",ua:"солоний"},{en:"spicy",ua:["пряний","гострий"]},{en:"delicious",ua:"смачний"},
   {en:"strong",ua:["сильний","міцний"]},{en:"weak",ua:"слабкий"},{en:"whole",ua:"цілий"},
   {en:"broken",ua:"зламаний"},{en:"dead",ua:"мертвий"},{en:"alive",ua:"живий"},
-  {en:"lost",ua:"загублений"},{en:"clear",ua:"ясний"},{en:"dark",ua:"темний"},
+  {en:"lost",ua:"загублений"},{en:"clear",ua:"ясний",uaAlt:["очищати","прибирати"]},{en:"dark",ua:"темний"},
   {en:"bright",ua:"яскравий"},{en:"quiet",ua:"тихий"},{en:"loud",ua:"гучний"},
   {en:"wet",ua:"мокрий"},{en:"dry",ua:"сухий"},{en:"sharp",ua:["гострий","різкий","точний"]},
   {en:"round",ua:"круглий"},{en:"flat",ua:"плоский"},{en:"straight",ua:"прямий"},
@@ -1902,6 +1902,8 @@ const WORDS = [
   {en:"delighted",ua:"задоволений"},
   {en:"delightful",ua:"чудовий"},
   {en:"delivery",ua:"доставка"},
+  {en:"response",ua:"відповідь",uaAlt:["реакція"]},{en:"treatment",ua:"лікування",uaAlt:["обробка"]},{en:"expansion",ua:"розширення"},{en:"movement",ua:"рух"},{en:"criticism",ua:"критика"},
+  {en:"universal",ua:"універсальний",uaAlt:["всесвітній"]},{en:"rapidly",ua:"швидко"},{en:"correctly",ua:"правильно"},{en:"politely",ua:"ввічливо"},{en:"generally",ua:["загалом","зазвичай"]},
   {en:"demanding",ua:"вимогливий"},
   {en:"demolish",ua:"руйнувати"},
   {en:"demonstrate",ua:"демонструвати"},
@@ -2283,7 +2285,7 @@ const WORDS = [
   {en:"remote",ua:"віддалений"},
   {en:"renowned",ua:"знаменитий"},
   {en:"repel",ua:"відштовхувати"},
-  {en:"reply",ua:"відповідати"},
+  {en:"reply",ua:"відповідати",uaAlt:["відповідь"]},
   {en:"required",ua:["потрібний","необхідний"]},
   {en:"resent",ua:"обурюватися"},
   {en:"reserved",ua:["стриманий","зарезервований"]},
@@ -3098,7 +3100,7 @@ const TRANS = {
   "terrible":"/ˈtɛrɪbəl/","excellent":"/ˈɛksələnt/","perfect":"/ˈpɜːrfɪkt/",
   "important":"/ɪmˈpɔːrtənt/","necessary":"/ˈnɛsəˌsɛri/","possible":"/ˈpɑːsɪbəl/",
   "impossible":"/ɪmˈpɑːsɪbəl/","difficult":"/ˈdɪfɪkəlt/","easy":"/ˈiːzi/",
-  "correct":"/kəˈrɛkt/","wrong":"/rɔːŋ/","true":"/truː/","false":"/fɔːls/",
+  "correct":"/kəˈrɛkt/","response":"/rɪˈspɑns/","treatment":"/ˈtritmənt/","expansion":"/ɪkˈspænʃən/","movement":"/ˈmuvmənt/","criticism":"/ˈkrɪtɪsɪzəm/","universal":"/ˌjunəˈvɝsəl/","rapidly":"/ˈræpɪdli/","correctly":"/kəˈrɛktli/","politely":"/pəˈlaɪtli/","generally":"/ˈdʒɛnərəli/","wrong":"/rɔːŋ/","true":"/truː/","false":"/fɔːls/",
   "real":"/riːl/","fake":"/feɪk/","safe":"/seɪf/","dangerous":"/ˈdeɪndʒərəs/",
   "sick":"/sɪk/","healthy":"/ˈhɛlθi/","tired":"/ˈtaɪərd/","hungry":"/ˈhʌŋɡri/",
   "thirsty":"/ˈθɜːrsti/","rich":"/rɪtʃ/","poor":"/pʊr/","expensive":"/ɪkˈspɛnsɪv/",
@@ -3845,7 +3847,7 @@ const EXAMPLES = {
   "perfect":"This is the perfect moment.","important":"Regular exercise is very important.",
   "necessary":"Is it necessary to bring a jacket?","possible":"Is it possible to change the date?",
   "impossible":"Nothing is impossible.","difficult":"The puzzle was very difficult.",
-  "easy":"This recipe is easy to follow.","correct":"That answer is correct.",
+  "easy":"This recipe is easy to follow.","correct":"That answer is correct.","response":"We got a quick response.","treatment":"He received treatment at the hospital.","expansion":"The expansion of the city was rapid.","movement":"He made a quick movement.","criticism":"She ignored the criticism.","universal":"Music is a universal language.","rapidly":"He spoke rapidly.","correctly":"She answered the question correctly.","politely":"He politely asked for help.","generally":"The weather is generally warm here.",
   "wrong":"Something went wrong.","true":"Is it true that he quit his job?",
   "false":"The information was false.","real":"Are those flowers real?",
   "fake":"That bag is a fake.","safe":"Is it safe to drink this water?",
@@ -5719,7 +5721,7 @@ const EXAMPLES_UA = {
   "perfect":"Це ідеальний момент.","important":"Регулярні вправи дуже важливі.",
   "necessary":"Чи потрібно брати куртку?","possible":"Чи можливо змінити дату?",
   "impossible":"Немає нічого неможливого.","difficult":"Головоломка була дуже складна.",
-  "easy":"Цей рецепт легко повторити.","correct":"Ця відповідь правильна.",
+  "easy":"Цей рецепт легко повторити.","correct":"Ця відповідь правильна.","response":"Ми отримали швидку відповідь.","treatment":"Він отримав лікування в лікарні.","expansion":"Розширення міста було швидким.","movement":"Він зробив швидкий рух.","criticism":"Вона проігнорувала критику.","universal":"Музика — універсальна мова.","rapidly":"Він говорив швидко.","correctly":"Вона правильно відповіла на питання.","politely":"Він ввічливо попросив про допомогу.","generally":"Погода тут зазвичай тепла.",
   "wrong":"Щось пішло не так.","true":"Чи правда, що він звільнився?",
   "false":"Інформація була неправдива.","real":"Ці квіти справжні?",
   "fake":"Ця сумка підробка.","safe":"Чи безпечно пити цю воду?",
@@ -8782,6 +8784,14 @@ const EN_TO_UA = (() => {
   m.set("hazel",       ["карий", "горіховий"]);
   m.set("offer",       ["пропонувати", "пропозиція"]);
   m.set("notice",      ["помічати", "повідомлення", "оголошення"]);
+  m.set("response",    ["відповідь", "реакція"]);
+  m.set("treatment",   ["лікування", "обробка"]);
+  m.set("universal",   ["універсальний", "всесвітній"]);
+  m.set("reply",       ["відповідати", "відповідь"]);
+  m.set("change",      ["змінювати", "зміна"]);
+  m.set("attack",      ["атакувати", "атака", "напад"]);
+  m.set("surprise",    ["сюрприз", "дивувати"]);
+  m.set("clear",       ["ясний", "очищати"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
