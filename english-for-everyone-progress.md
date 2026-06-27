@@ -23,6 +23,9 @@
 |-------|------|--------|------------------------|
 | 12–13 | Parts of the body / face / eyes | **+20:** abdomen, thigh, groin, genitals, calf(+теля), breast, nipple, armpit, waist, forearm, navel, shin, eyelid, eyebrow, jaw, nostril, eyelash, iris(+ірис), pupil(+учень), hazel. Раніше: green(фікс), gray(US). `temple` +«скроня». Пропущено: tear duct (фраза). | вже були: head, shoulder, chest, arm, hand, leg, foot, heel, ankle, wrist, hip, elbow, knee, neck, chin, cheek, forehead, hair, skin, eye, ear, nose, mouth, lips, teeth, blue, brown, grey |
 
-> Поза сторінками (за прямими запитами користувача): `race` +uaAlt [раса, заїзд, перегони];
-> `lift` +uaAlt [піднімати, ліфт] + hover-фікс; нове слово `elevator`=ліфт; приклад `web`
-> перероблено на «мережа». UI: кнопку фінал-екрану «Спробувати ще раз» → «🏠 На головну».
+> Поза сторінками (за прямими запитами / зауваженнями під час гри): `race` +[раса,заїзд,перегони];
+> `lift` +[піднімати,ліфт]; нове `elevator`=ліфт; `web`-приклад → «мережа»; `unexpected`/`clarify`
+> +форми; `unexpectedly` виокремлено окремим словом; `offer` +пропозиція; `handle` → омограф
+> (handle=ручка / to handle=справлятися — прибрано хибний pen на «справлятися»); `snack`
+> +[перекус,закуска]; `spend` +[тратити,проводити]; `notice` +[повідомлення,оголошення].
+> UI: кнопку фінал-екрану «Спробувати ще раз» → «🏠 На головну».
