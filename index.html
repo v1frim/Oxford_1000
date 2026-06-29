@@ -11080,7 +11080,9 @@ function renderLbTotals() {
     row("Пісні вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
     row("Заняття піснями", getTotalSongSessions(), "#c89bff") +
     row("Запити GPT", getTotalGptRequests(), "#2dd4bf") +
-    row("Досвід (XP)", xp, "#ffd166");
+    row("Досвід (XP)", xp, "#ffd166") +
+    row("Сер. пунктів/день", avgThermoPerDay(false).toFixed(1), "#ffa94d") +
+    row("Сер. за цей місяць", avgThermoPerDay(true).toFixed(1), "#ffa94d");
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
@@ -11204,6 +11206,28 @@ function thermoPointsThisMonth() {
   let pts = 0;
   dates.forEach(d => { if (d.slice(0, 7) === ym) pts += thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts); });
   return pts;
+}
+// Середня к-сть СИРИХ пунктів термометра за АКТИВНИЙ день (день із бодай 1 пунктом).
+// monthOnly=true → лише поточний UTC-місяць. Для рядків «Загальної статистики».
+function avgThermoPerDay(monthOnly) {
+  const days = loadDays(), duo = loadDuoSessions(), lh = loadLhDone(),
+        songSess = loadSongSessions(), gpt = loadGptRequests();
+  const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
+  const dates = new Set();
+  Object.keys(days).forEach(d => dates.add(d));
+  Object.keys(duo).forEach(d => dates.add(d));
+  Object.keys(songSess).forEach(d => dates.add(d));
+  Object.keys(gpt).forEach(d => dates.add(d));
+  Object.keys(mrPts).forEach(d => dates.add(d));
+  Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
+  const ym = new Date().toISOString().slice(0, 7);
+  let sum = 0, n = 0;
+  dates.forEach(d => {
+    if (monthOnly && d.slice(0, 7) !== ym) return;
+    const pts = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts);
+    if (pts > 0) { sum += pts; n++; }
+  });
+  return n ? sum / n : 0;
 }
 function getBestDayPoints() {
   const days = loadDays();
