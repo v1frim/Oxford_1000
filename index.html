@@ -1320,6 +1320,11 @@ const WORDS = [
   {en:"eyelid",ua:"повіка"},{en:"eyebrow",ua:"брова"},{en:"jaw",ua:"щелепа"},{en:"nostril",ua:"ніздря"},
   {en:"eyelash",ua:"вія"},{en:"iris",ua:"райдужка",uaAlt:["ірис"]},{en:"pupil",ua:"зіниця",uaAlt:["учень"]},{en:"hazel",ua:"карий",uaAlt:["горіховий"]},
   {en:"wrist",ua:"зап'ясток"},
+  {en:"palm",ua:"долоня"},{en:"fingernail",ua:"ніготь"},{en:"cuticle",ua:"кутикула"},{en:"knuckle",ua:"кісточка"},{en:"fist",ua:"кулак"},
+  {en:"sole",ua:"підошва"},{en:"toe",ua:"палець ноги"},{en:"instep",ua:"підйом стопи"},{en:"toenail",ua:"ніготь на нозі"},{en:"arch",ua:"арка",uaAlt:["звід стопи"]},
+  {en:"wink",ua:"підморгувати"},{en:"blink",ua:"кліпати",uaAlt:["моргати"]},{en:"blush",ua:"червоніти"},{en:"yawn",ua:"позіхати"},{en:"snore",ua:"хропіти"},
+  {en:"lick",ua:"лизати"},{en:"suck",ua:"смоктати"},{en:"sigh",ua:"зітхати"},{en:"shrug",ua:"знизувати плечима"},{en:"bow",ua:"кланятися",uaAlt:["вклонятися"]},
+  {en:"clap",ua:"плескати",uaAlt:["аплодувати"]},{en:"sweat",ua:"пітніти"},{en:"perspire",ua:"пітніти"},{en:"shiver",ua:"тремтіти"},{en:"sneeze",ua:"чхати"},{en:"nod",ua:"кивати"},
 
   // ── NOUNS – Animals ────────────────────────────────────────────────────
   {en:"dog",ua:"собака"},{en:"cat",ua:"кіт"},{en:"horse",ua:"кінь"},
@@ -2950,7 +2955,7 @@ const TRANS = {
   "stomach":"/ˈstʌmək/","heart":"/hɑːrt/","brain":"/breɪn/","blood":"/blʌd/",
   "bone":"/boʊn/","skin":"/skɪn/","shoulder":"/ˈʃoʊldər/","neck":"/nɛk/",
   "chin":"/tʃɪn/","cheek":"/tʃiːk/","forehead":"/ˈfɔːrhɛd/","nail":"/neɪl/",
-  "elbow":"/ˈɛlboʊ/","wrist":"/rɪst/",
+  "elbow":"/ˈɛlboʊ/","wrist":"/rɪst/","palm":"/pɑm/","fingernail":"/ˈfɪŋɡɝneɪl/","cuticle":"/ˈkjutɪkəl/","knuckle":"/ˈnʌkəl/","fist":"/fɪst/","sole":"/soʊl/","toe":"/toʊ/","instep":"/ˈɪnstɛp/","toenail":"/ˈtoʊneɪl/","arch":"/ɑrtʃ/","wink":"/wɪŋk/","blink":"/blɪŋk/","blush":"/blʌʃ/","yawn":"/jɔn/","snore":"/snɔr/","lick":"/lɪk/","suck":"/sʌk/","sigh":"/saɪ/","shrug":"/ʃrʌɡ/","bow":"/baʊ/","clap":"/klæp/","sweat":"/swɛt/","perspire":"/pɝˈspaɪr/","shiver":"/ˈʃɪvɝ/","sneeze":"/sniz/","nod":"/nɑd/",
   // Animals
   "dog":"/dɔːɡ/","cat":"/kæt/","horse":"/hɔːrs/","cow":"/kaʊ/","pig":"/pɪɡ/",
   "sheep":"/ʃiːp/","chicken":"/ˈtʃɪkɪn/","bird":"/bɜːrd/","fish":"/fɪʃ/",
@@ -3591,7 +3596,7 @@ const EXAMPLES = {
   "neck":"My neck hurts from bad posture.","chin":"She rested her chin on her hand.",
   "cheek":"He kissed her on the cheek.","forehead":"She pressed a cloth to her forehead.",
   "nail":"She painted her nails red.","elbow":"He leaned on his elbow.",
-  "wrist":"She wore a bracelet on her wrist.",
+  "wrist":"She wore a bracelet on her wrist.","palm":"She held it in her palm.","fingernail":"She painted her fingernails red.","cuticle":"She cut the cuticle around her nail.","knuckle":"She hit her knuckle on the door.","fist":"He hit the table with his fist.","sole":"He cleaned the sole of his shoe.","toe":"She hurt her toe.","instep":"The instep is part of the foot.","toenail":"He cut his toenails.","arch":"The bridge has a stone arch.","wink":"He winked at her.","blink":"He blinked his eyes.","blush":"She blushed when he smiled.","yawn":"She yawned because she was tired.","snore":"He snores at night.","lick":"The dog licked my hand.","suck":"The baby sucked its thumb.","sigh":"She sighed deeply.","shrug":"He shrugged his shoulders.","bow":"He bowed politely.","clap":"Everyone clapped after the show.","sweat":"She sweats when she runs.","perspire":"He began to perspire in the sun.","shiver":"She shivered in the cold.","sneeze":"He sneezed three times.","nod":"She nodded in agreement.",
   // Animals
   "dog":"My dog loves to run in the park.","cat":"The cat sat on the warm roof.",
   "horse":"She rides her horse every weekend.","cow":"The cow produces fresh milk.",
@@ -5465,7 +5470,7 @@ const EXAMPLES_UA = {
   "neck":"У мене болить шия через погану поставу.","chin":"Вона спирала підборіддя на руку.",
   "cheek":"Він поцілував її в щоку.","forehead":"Вона приклала тканину до лоба.",
   "nail":"Вона пофарбувала нігті в червоний.","elbow":"Він спирався на лікоть.",
-  "wrist":"Вона носила браслет на зап'ясті.",
+  "wrist":"Вона носила браслет на зап'ясті.","palm":"Вона тримала це в долоні.","fingernail":"Вона пофарбувала нігті в червоний.","cuticle":"Вона підрізала кутикулу навколо нігтя.","knuckle":"Вона вдарилася кісточкою об двері.","fist":"Він ударив по столу кулаком.","sole":"Він почистив підошву взуття.","toe":"Вона забила палець на нозі.","instep":"Підйом — частина стопи.","toenail":"Він підстриг нігті на ногах.","arch":"Міст має кам'яну арку.","wink":"Він підморгнув їй.","blink":"Він кліпнув очима.","blush":"Вона почервоніла, коли він усміхнувся.","yawn":"Вона позіхнула, бо була втомлена.","snore":"Він хропить вночі.","lick":"Собака лизнув мою руку.","suck":"Немовля смоктало великий палець.","sigh":"Вона глибоко зітхнула.","shrug":"Він знизав плечима.","bow":"Він ввічливо вклонився.","clap":"Усі плескали після вистави.","sweat":"Вона пітніє, коли бігає.","perspire":"Він почав пітніти на сонці.","shiver":"Вона тремтіла від холоду.","sneeze":"Він чхнув три рази.","nod":"Вона кивнула на знак згоди.",
   // Animals
   "dog":"Мій пес любить бігати в парку.","cat":"Кіт сидів на теплому даху.",
   "horse":"Вона їздить на коні щовихідних.","cow":"Корова дає свіже молоко.",
@@ -8798,6 +8803,10 @@ const EN_TO_UA = (() => {
   m.set("abort",       ["перервати", "припинити"]);
   m.set("postpone",    ["відкладати", "переносити"]);
   m.set("suspend",     ["призупиняти", "підвішувати"]);
+  m.set("arch",        ["арка", "звід стопи"]);
+  m.set("bow",         ["кланятися", "вклонятися"]);
+  m.set("blink",       ["кліпати", "моргати"]);
+  m.set("clap",        ["плескати", "аплодувати"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
