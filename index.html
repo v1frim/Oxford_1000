@@ -2047,6 +2047,8 @@ const WORDS = [
   {en:"guest",ua:"гість"},
   {en:"guide",ua:["вести","гід","путівник"]},
   {en:"halt",ua:"зупиняти"},
+  {en:"terminate",ua:"припиняти",uaAlt:["завершувати","розривати"]},{en:"cancel",ua:"скасовувати"},{en:"abort",ua:"перервати",uaAlt:["припинити"]},
+  {en:"freeze",ua:["замерзати","заморожувати"],uaAlt:["завмерти"]},{en:"postpone",ua:"відкладати",uaAlt:["переносити"]},{en:"suspend",ua:"призупиняти",uaAlt:["підвішувати"]},
   {en:"handsome",ua:"вродливий"},
   {en:"happiness",ua:"щастя"},
   {en:"harmless",ua:"нешкідливий"},
@@ -3230,7 +3232,7 @@ const TRANS = {
   "grab":"/ˈɡræb/","gracious":"/ˈɡreɪʃəs/","gradual":"/ˈɡrædʒuəl/","grant":"/ˈɡrænt/","grasp":"/ˈɡræsp/","grateful":"/ˈɡreɪtfəl/",
   "grave":"/ˈɡreɪv/","great":"/ˈɡreɪt/","greedy":"/ˈɡridi/","greet":"/ˈɡrit/","grey":"/ˈɡreɪ/","grimy":"/ˈɡraɪmi/",
   "grin":"/ˈɡrɪn/","guarantee":"/ɡɛrənˈti/","guard":"/ˈɡɑrd/","guest":"/ˈɡɛst/","guide":"/ˈɡaɪd/","habit":"/ˈhæbət/",
-  "halt":"/ˈhɔlt/","handle":"/ˈhændəl/","to handle":"/ˈhændəl/","handsome":"/ˈhænsəm/","happiness":"/ˈhæpinəs/","harmful":"/ˈhɑrmfəl/","harmless":"/ˈhɑrmləs/",
+  "halt":"/ˈhɔlt/","terminate":"/ˈtɝməneɪt/","cancel":"/ˈkænsəl/","abort":"/əˈbɔrt/","freeze":"/friz/","postpone":"/poʊstˈpoʊn/","suspend":"/səˈspɛnd/","handle":"/ˈhændəl/","to handle":"/ˈhændəl/","handsome":"/ˈhænsəm/","happiness":"/ˈhæpinəs/","harmful":"/ˈhɑrmfəl/","harmless":"/ˈhɑrmləs/",
   "harsh":"/ˈhɑrʃ/","harvest":"/ˈhɑrvəst/","hasten":"/ˈheɪsən/","hasty":"/ˈheɪsti/","hazardous":"/ˈhæzɝdəs/","heartless":"/ˈhɑrtləs/",
   "heel":"/ˈhil/","helmet":"/ˈhɛlmət/","helpful":"/ˈhɛlpfəl/","heroic":"/hɪˈroʊɪk/","hide":"/ˈhaɪd/","hideous":"/ˈhɪdiəs/",
   "high":"/ˈhaɪ/","hike":"/ˈhaɪk/","hilarious":"/hɪˈlɛriəs/","hinder":"/ˈhɪndɝ/","hip":"/ˈhɪp/","hire":"/ˈhaɪɝ/",
@@ -4489,7 +4491,7 @@ const EXAMPLES = {
   "guard":"A guard stood at the entrance to the museum.",
   "guest":"We had several guests for dinner last night.",
   "guide":"She offered to guide us through the old city.",
-  "halt":"The car halted at the traffic lights.",
+  "halt":"The car halted at the traffic lights.","terminate":"He had to terminate the meeting.","cancel":"I had to cancel the meeting.","abort":"They decided to abort the plan.","freeze":"Water freezes when it is very cold.","postpone":"They postponed the game.","suspend":"They suspended the service.",
   "handsome":"He was tall and handsome with dark eyes.",
   "happiness":"True happiness comes from within.",
   "harmless":"The snake was harmless but it looked scary.",
@@ -6363,7 +6365,7 @@ const EXAMPLES_UA = {
   "guard":"Біля входу до музею стояв охоронець.",
   "guest":"Минулого вечора на вечерю приходили кілька гостей.",
   "guide":"Вона запропонувала провести нас старим містом.",
-  "halt":"Автомобіль зупинився на світлофорі.",
+  "halt":"Автомобіль зупинився на світлофорі.","terminate":"Йому довелося завершити зустріч.","cancel":"Мені довелося скасувати зустріч.","abort":"Вони вирішили перервати план.","freeze":"Вода замерзає, коли дуже холодно.","postpone":"Вони перенесли гру.","suspend":"Вони призупинили послугу.",
   "handsome":"Він був високим і вродливим із темними очима.",
   "happiness":"Справжнє щастя йде зсередини.",
   "harmless":"Змія була нешкідливою, але виглядала страшно.",
@@ -8792,6 +8794,10 @@ const EN_TO_UA = (() => {
   m.set("attack",      ["атакувати", "атака", "напад"]);
   m.set("surprise",    ["сюрприз", "дивувати"]);
   m.set("clear",       ["ясний", "очищати"]);
+  m.set("terminate",   ["припиняти", "завершувати"]);
+  m.set("abort",       ["перервати", "припинити"]);
+  m.set("postpone",    ["відкладати", "переносити"]);
+  m.set("suspend",     ["призупиняти", "підвішувати"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
