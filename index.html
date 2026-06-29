@@ -1229,7 +1229,7 @@ const WORDS = [
   {en:"help",ua:"допомагати"},{en:"talk",ua:"розмовляти"},{en:"turn",ua:"повертати"},
   {en:"start",ua:"починати"},{en:"carry",ua:"нести"},{en:"drive",ua:"їздити"},
   {en:"to fly",ua:"літати"},{en:"swim",ua:"плавати"},{en:"jump",ua:["стрибати","стрибок"]},
-  {en:"smile",ua:"посміхатися"},{en:"laugh",ua:"сміятися"},{en:"cry",ua:"плакати"},
+  {en:"smile",ua:"посміхатися",uaAlt:["посмішка","усмішка"]},{en:"laugh",ua:"сміятися"},{en:"cry",ua:"плакати"},
   {en:"fight",ua:"битися"},{en:"dance",ua:"танцювати"},{en:"sing",ua:"співати"},
   {en:"cook",ua:"готувати"},{en:"to clean",ua:"прибирати"},{en:"to close",ua:["закривати","зачиняти"]},
   {en:"choose",ua:"вибирати"},{en:"check",ua:"перевіряти"},{en:"count",ua:"рахувати"},
@@ -2047,7 +2047,7 @@ const WORDS = [
   {en:"great",ua:["чудовий","чудово"]},
   {en:"greedy",ua:"жадібний"},
   {en:"grimy",ua:"брудний"},
-  {en:"grin",ua:"посміхатися"},
+  {en:"grin",ua:"широко усміхатися",uaAlt:["шкіритися","вишкіритися","посміхатися"]},{en:"smirk",ua:"єхидно посміхатися",uaAlt:["самовдоволено посміхатися","криво посміхатися"]},{en:"beam",ua:"промінь",uaAlt:["сяяти","широко усміхатися"]},
   {en:"guard",ua:"охороняти"},
   {en:"guest",ua:"гість"},
   {en:"guide",ua:["вести","гід","путівник"]},
@@ -3236,7 +3236,7 @@ const TRANS = {
   "glad":"/ˈɡlæd/","glance":"/ˈɡlæns/","global":"/ˈɡloʊbəl/","gloomy":"/ˈɡlumi/","glowing":"/ˈɡloʊɪŋ/","gorgeous":"/ˈɡɔrdʒəs/",
   "grab":"/ˈɡræb/","gracious":"/ˈɡreɪʃəs/","gradual":"/ˈɡrædʒuəl/","grant":"/ˈɡrænt/","grasp":"/ˈɡræsp/","grateful":"/ˈɡreɪtfəl/",
   "grave":"/ˈɡreɪv/","great":"/ˈɡreɪt/","greedy":"/ˈɡridi/","greet":"/ˈɡrit/","grey":"/ˈɡreɪ/","grimy":"/ˈɡraɪmi/",
-  "grin":"/ˈɡrɪn/","guarantee":"/ɡɛrənˈti/","guard":"/ˈɡɑrd/","guest":"/ˈɡɛst/","guide":"/ˈɡaɪd/","habit":"/ˈhæbət/",
+  "grin":"/ˈɡrɪn/","smirk":"/smɝk/","beam":"/bim/","guarantee":"/ɡɛrənˈti/","guard":"/ˈɡɑrd/","guest":"/ˈɡɛst/","guide":"/ˈɡaɪd/","habit":"/ˈhæbət/",
   "halt":"/ˈhɔlt/","terminate":"/ˈtɝməneɪt/","cancel":"/ˈkænsəl/","abort":"/əˈbɔrt/","freeze":"/friz/","postpone":"/poʊstˈpoʊn/","suspend":"/səˈspɛnd/","handle":"/ˈhændəl/","to handle":"/ˈhændəl/","handsome":"/ˈhænsəm/","happiness":"/ˈhæpinəs/","harmful":"/ˈhɑrmfəl/","harmless":"/ˈhɑrmləs/",
   "harsh":"/ˈhɑrʃ/","harvest":"/ˈhɑrvəst/","hasten":"/ˈheɪsən/","hasty":"/ˈheɪsti/","hazardous":"/ˈhæzɝdəs/","heartless":"/ˈhɑrtləs/",
   "heel":"/ˈhil/","helmet":"/ˈhɛlmət/","helpful":"/ˈhɛlpfəl/","heroic":"/hɪˈroʊɪk/","hide":"/ˈhaɪd/","hideous":"/ˈhɪdiəs/",
@@ -4492,7 +4492,7 @@ const EXAMPLES = {
   "great":"It was great to see you at the party.",
   "greedy":"He was too greedy and ended up with nothing.",
   "grimy":"His hands were grimy after working in the garden.",
-  "grin":"She grinned when she heard the good news.",
+  "grin":"She grinned when she heard the good news.","smirk":"He smirked at her question.","beam":"A beam of light came through the window.",
   "guard":"A guard stood at the entrance to the museum.",
   "guest":"We had several guests for dinner last night.",
   "guide":"She offered to guide us through the old city.",
@@ -6366,7 +6366,7 @@ const EXAMPLES_UA = {
   "great":"Було чудово побачити вас на вечірці.",
   "greedy":"Він був надто жадібним і зрештою нічого не отримав.",
   "grimy":"Після роботи в саду його руки були брудними.",
-  "grin":"Вона посміхнулася, почувши добрі новини.",
+  "grin":"Вона широко усміхнулася, почувши добрі новини.","smirk":"Він єхидно посміхнувся на її питання.","beam":"Промінь світла проходив крізь вікно.",
   "guard":"Біля входу до музею стояв охоронець.",
   "guest":"Минулого вечора на вечерю приходили кілька гостей.",
   "guide":"Вона запропонувала провести нас старим містом.",
@@ -8807,6 +8807,10 @@ const EN_TO_UA = (() => {
   m.set("bow",         ["кланятися", "вклонятися"]);
   m.set("blink",       ["кліпати", "моргати"]);
   m.set("clap",        ["плескати", "аплодувати"]);
+  m.set("smile",       ["посміхатися", "посмішка", "усмішка"]);
+  m.set("grin",        ["широко усміхатися", "шкіритися"]);
+  m.set("smirk",       ["єхидно посміхатися", "самовдоволено посміхатися"]);
+  m.set("beam",        ["промінь", "сяяти", "широко усміхатися"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
