@@ -1706,7 +1706,7 @@ const WORDS = [
   {en:"global",ua:"глобальний"},{en:"grateful",ua:"вдячний"},{en:"harmful",ua:"шкідливий"},
   {en:"helpful",ua:"корисний"},{en:"huge",ua:"величезний"},{en:"ideal",ua:"ідеальний"},
   {en:"illegal",ua:"незаконний"},{en:"intelligent",ua:"розумний"},{en:"likely",ua:"ймовірний"},
-  {en:"lonely",ua:"самотній"},{en:"lovely",ua:"чудовий"},{en:"lucky",ua:"щасливий"},
+  {en:"lonely",ua:"самотній"},{en:"lovely",ua:"чудовий",uaAlt:["милий","прекрасний","гарний","привабливий","чарівний"]},{en:"lucky",ua:"щасливий"},
   {en:"major",ua:"головний"},{en:"massive",ua:"масивний"},{en:"negative",ua:"негативний"},
   {en:"obvious",ua:"очевидний"},{en:"official",ua:"офіційний"},{en:"opposite",ua:"протилежний"},
   {en:"ordinary",ua:"звичайний"},{en:"patient",ua:"терплячий"},{en:"patience",ua:"терпіння"},{en:"pleasant",ua:"приємний"},
@@ -8823,6 +8823,7 @@ const EN_TO_UA = (() => {
   m.set("beam",        ["промінь", "сяяти", "широко усміхатися"]);
   m.set("goal",        ["мета", "ціль", "гол"]);
   m.set("prefer",      ["воліти", "віддавати перевагу", "надавати перевагу"]);
+  m.set("lovely",      ["чудовий", "милий", "прекрасний", "чарівний"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
