@@ -346,13 +346,17 @@ max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHu
      `value = countLearnedSongs()` (лічить статуси "learned" у `oxford_songs_status_v1`).
      `checkAchievements(true)` викликається при перемиканні статусу пісні (live-вітання;
      milestone-overlay z-index 10000 > songs-overlay 150 — видно поверх розділу пісень).
-   - **Місячне «Пунктів за місяць» 🌡️ (сесія 24, 11-те досягнення):** `thresholds:[60,120,180,240,300]`,
-     `value=thermoPointsThisMonth()` (сума СИРИХ пунктів термометра за поточний UTC-місяць).
-     Поле `monthly:true`. Лічильник скидається щомісяця (value = лише цей місяць), а здобута
-     ліга лишається НАЗАВЖДИ (`checkAchievements` лише підвищує claimed; нова нагорода — лише
-     коли місяць пробив рекордну лігу). **Окремий рендер у `renderAchVariantA`** (гілка
-     `a.monthly`): значок = найвища здобута ліга (claimed), смужка = пункти цього місяця до
-     наступної ліги. ⚠️ `ACH_KEY` (`oxford_achievements_v1`) додано в `BACKUP_KEYS`.
+   - **«Періодичні» досягнення (`periodic:true`; сесія 30 — було `monthly` сесії 24):** ДВА —
+     «Пунктів за місяць» 🌡️ (`value=thermoPointsThisMonth`, `record=bestMonthPoints`, `isMonth:true`,
+     thresholds [60,120,180,240,300]) і «Днів поспіль» 🔥 (`value=currentStreakLength`,
+     `record=bestStreakLength`, [7,14,30,60,90]). `value` = ПОТОЧНЕ (цей місяць / поточна серія),
+     `record` = РЕКОРД за весь час, + `unit`. Лічильник скидається (місяць — щомісяця; серія — при
+     збитті стріку), а здобута ліга лишається НАЗАВЖДИ (`checkAchievements` лише підвищує claimed —
+     скидання поточного НЕ знижує лігу). **Рендер `renderAchVariantA` гілка `a.periodic`:** значок =
+     найвища здобута ліга (claimed), смужка/лічильник = ПОТОЧНЕ до наступної ліги, підпис =
+     «зараз/цей місяць: N unit · рекорд: M unit». ⚠️ Раніше «Днів поспіль» показувала РЕКОРД на
+     смужці (застрягала при збитті стріку) — уніфіковано з місячним за запитом користувача (сесія 30).
+     ⚠️ `ACH_KEY` (`oxford_achievements_v1`) додано в `BACKUP_KEYS`.
    - ⚠️ **`const SONGS_STATUS_KEY` оголошено біля `ACH_KEY`** (НЕ в розділі пісень):
      top-level `checkAchievements(false)` викликає `value()` → `loadSongStatus()` → цей
      const. Якщо перенести вниз — TDZ ReferenceError на старті. НЕ переносити.
