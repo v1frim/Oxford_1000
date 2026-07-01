@@ -11635,13 +11635,13 @@ const ACHIEVEMENTS = [
   { id:"review",    icon:"🔁", name:"Повторень",              thresholds:[2000,5000,10000,15000,20000],       value:()=>sumDayField("reviewCorrect") },
   { id:"duo",       icon:"🦉", name:"Duolingo сесій",         thresholds:[50,150,400,700,1000],               value:()=>getTotalDuoSessions() },
   { id:"lingohut",  icon:"📚", name:"Уроків LingoHut",        thresholds:[10,35,70,100,125],                  value:()=>Object.keys(loadLhDone()).length },
-  { id:"streak",    icon:"🔥", name:"Днів поспіль",           thresholds:[7,14,30,60,90],                     value:()=>bestStreakLength() },
+  { id:"streak",    icon:"🔥", name:"Днів поспіль",           thresholds:[7,14,30,60,90],                     value:()=>currentStreakLength(), record:()=>bestStreakLength(), periodic:true, unit:"дн." },
   { id:"totaldays", icon:"📅", name:"Днів гри загалом",       thresholds:[30,90,180,365,730],                 value:()=>activeDaysCount() },
   { id:"xp",        icon:"⚡", name:"Накопичено XP",           thresholds:[15000,45000,90000,150000,250000],   value:()=>loadXp() },
   { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[5,10,20,30,40],                     value:()=>countLearnedSongs() },
   // Місячне: пункти «термометра» за поточний місяць. Лічильник скидається щомісяця
   // (value = лише цей місяць), а здобута ліга лишається назавжди (claimed лише росте).
-  { id:"thermo_month", icon:"🌡️", name:"Пунктів за місяць",   thresholds:[60,120,180,240,300],                value:()=>thermoPointsThisMonth(), monthly:true },
+  { id:"thermo_month", icon:"🌡️", name:"Пунктів за місяць",   thresholds:[60,120,180,240,300],                value:()=>thermoPointsThisMonth(), record:()=>bestMonthPoints(), periodic:true, unit:"п.", isMonth:true },
 ];
 function loadAch() { try { return JSON.parse(localStorage.getItem(ACH_KEY) || "{}"); } catch(e) { return {}; } }
 function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
@@ -11650,6 +11650,20 @@ function countKnownWords() { return Object.values(loadMastery()).filter(s=>s>=3)
 function countLearnedSongs() { return Object.values(loadSongStatus()).filter(s=>s==="learned").length; }
 function activeDaysCount() { return Object.values(loadDays()).filter(d=>(d.games||0)>0).length; }
 function bestStreakLength() { const s = computeStreaks(loadDays()); return s.length ? s[0].length : 0; }
+function currentStreakLength() { const s = computeStreaks(loadDays()); const c = s.find(x => x.ongoing); return c ? c.length : 0; }
+// Найкращий місяць за весь час — сума СИРИХ пунктів термометра по кожному місяцю, максимум.
+function bestMonthPoints() {
+  const days=loadDays(),duo=loadDuoSessions(),lh=loadLhDone(),songSess=loadSongSessions(),gpt=loadGptRequests();
+  const mrPts=mistakeReviewPointsByDate(loadMistakeReviews());
+  const dates=new Set();
+  [days,duo,songSess,gpt].forEach(o=>Object.keys(o).forEach(d=>dates.add(d)));
+  Object.keys(mrPts).forEach(d=>dates.add(d));
+  Object.values(lh).forEach(d=>{ if(d&&d.length===10) dates.add(d); });
+  const byMonth={};
+  dates.forEach(d=>{ const ym=d.slice(0,7); byMonth[ym]=(byMonth[ym]||0)+thermoRawForDate(d,days,duo,lh,songSess,gpt,mrPts); });
+  let mx=0; for(const v of Object.values(byMonth)) if(v>mx) mx=v;
+  return mx;
+}
 function achLevelFor(a) { const v = a.value(); let lvl=0; for (let i=0;i<5;i++) if (v >= a.thresholds[i]) lvl=i+1; return lvl; }
 function fmtAchNum(n) { if (n < 1000) return String(n); const k = Math.floor(n/100)/10; return (k % 1 === 0 ? k.toFixed(0) : k.toFixed(1)) + "k"; }
 
@@ -11704,19 +11718,21 @@ function renderAchVariantA() {
   return '<div class="ach-list-a">' + ACHIEVEMENTS.map(a => {
     if (a.locked) return achCardHtml({ icon:"🔒", title:a.name, lvl:0, pct:0,
       count:"скоро", desc:"🔒 в розробці", c:"#5b6b85", c2:"#8090aa", glow:"transparent", locked:true });
-    if (a.monthly) {
-      // Значок = найвища здобута ліга НАЗАВЖДИ (claimed); смужка = пункти ЦЬОГО місяця
-      // до наступної (ще не здобутої) ліги. Нова нагорода — лише коли місяць пробив
-      // лігу вищу за рекорд (це робить checkAchievements: claimed лише росте).
+    if (a.periodic) {
+      // Ліга (значок) = найвища здобута НАЗАВЖДИ (claimed, monotonic у checkAchievements);
+      // смужка/лічильник = ПОТОЧНЕ значення (поточна серія / цей місяць) до наступної ліги;
+      // РЕКОРД (найдовша серія / найкращий місяць) — у підписі. Скидання поточного НЕ знижує лігу.
       const claimedLvl = loadAch()[a.id] || 0;
-      const mp = a.value();
+      const mp = a.value();      // поточне
+      const rec = a.record();    // рекорд за весь час
       const cur = claimedLvl > 0 ? ACH_LEAGUES[claimedLvl-1] : ACH_NOLEAGUE;
       const goal = claimedLvl < 5 ? a.thresholds[claimedLvl] : a.thresholds[4];
       const pct = Math.min(100, Math.max(0, Math.round(mp / goal * 100)));
       const count = claimedLvl < 5 ? fmtAchNum(mp) + ' / ' + fmtAchNum(goal) : '👑 ' + fmtAchNum(mp);
       const lgPart = claimedLvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
         : (claimedLvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
-      const desc = lgPart + ' · цей місяць: ' + mp + ' п.';
+      const curLabel = a.isMonth ? 'цей місяць' : 'зараз';
+      const desc = lgPart + ' · ' + curLabel + ': ' + mp + ' ' + a.unit + ' · рекорд: ' + rec + ' ' + a.unit;
       return achCardHtml({ icon:a.icon, title:a.name, lvl:claimedLvl, pct, count, desc,
         c:cur.color, c2:cur.color2, glow:cur.color, shimmer: claimedLvl >= 3 });
     }
