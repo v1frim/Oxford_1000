@@ -11109,6 +11109,7 @@ function renderLbTotals() {
     row("Заняття піснями", getTotalSongSessions(), "#c89bff") +
     row("Запити GPT", getTotalGptRequests(), "#2dd4bf") +
     row("Досвід (XP)", xp, "#ffd166") +
+    row("Пунктів цього місяця", thermoPointsThisMonth(), "#ffa94d") +
     row("Сер. пунктів/день", avgThermoPerDay(false).toFixed(1), "#ffa94d") +
     row("Сер. за цей місяць", avgThermoPerDay(true).toFixed(1), "#ffa94d");
 }
