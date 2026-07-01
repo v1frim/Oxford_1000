@@ -1685,7 +1685,7 @@ const WORDS = [
   {en:"essay",ua:"есе"},{en:"lecture",ua:"лекція"},{en:"presentation",ua:"презентація"},
   {en:"professor",ua:"професор"},{en:"scholarship",ua:"стипендія"},{en:"semester",ua:"семестр"},
   {en:"abroad",ua:"за кордоном"},{en:"arrival",ua:"прибуття"},{en:"currency",ua:"валюта"},
-  {en:"departure",ua:"відправлення"},{en:"destination",ua:"місце призначення"},
+  {en:"departure",ua:"відправлення",uaAlt:["від'їзд","відбуття","виліт"]},{en:"destination",ua:"місце призначення"},
   {en:"passport",ua:"паспорт"},{en:"reservation",ua:"бронювання"},{en:"route",ua:"маршрут"},
   {en:"schedule",ua:"розклад"},{en:"souvenir",ua:"сувенір"},{en:"visa",ua:"віза"},
   {en:"app",ua:"застосунок"},{en:"battery",ua:"батарея"},{en:"cable",ua:"кабель"},
@@ -2417,7 +2417,7 @@ const WORDS = [
   {en:"toward",ua:"до"},
   {en:"towering",ua:"велетенський"},
   {en:"trace",ua:"слід"},
-  {en:"transfer",ua:["передавати","переказ","перевести"]},
+  {en:"transfer",ua:["передавати","переказ","перевести"],uaAlt:["пересадка","трансфер"]},
   {en:"transform",ua:"перетворювати"},
   {en:"transmit",ua:"надсилати"},
   {en:"transparent",ua:"прозорий"},
@@ -8824,6 +8824,8 @@ const EN_TO_UA = (() => {
   m.set("goal",        ["мета", "ціль", "гол"]);
   m.set("prefer",      ["воліти", "віддавати перевагу", "надавати перевагу"]);
   m.set("lovely",      ["чудовий", "милий", "прекрасний", "чарівний"]);
+  m.set("departure",   ["відправлення", "від'їзд", "виліт"]);
+  m.set("transfer",    ["передавати", "переказ", "пересадка", "трансфер"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
