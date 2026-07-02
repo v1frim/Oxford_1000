@@ -1258,9 +1258,9 @@ const WORDS = [
   {en:"deliver",ua:"доставляти"},{en:"design",ua:"проектувати",uaAlt:["дизайн"]},{en:"discover",ua:"відкривати"},
   {en:"divide",ua:"ділити"},{en:"earn",ua:"заробляти"},{en:"escape",ua:"тікати"},
   {en:"feed",ua:"годувати"},{en:"forget",ua:"забувати"},{en:"guess",ua:"вгадувати"},
-  {en:"hit",ua:"вдаряти"},{en:"hurt",ua:["боліти","біль"]},{en:"ignore",ua:"ігнорувати"},
+  {en:"hit",ua:"вдаряти",uaAlt:["ударяти","вдарити","ударити"]},{en:"punch",ua:"вдарити кулаком",uaAlt:["бити кулаком"]},{en:"slap",ua:"ляснути",uaAlt:["дати ляпас","ляпас"]},{en:"smack",ua:"шльопнути",uaAlt:["ляснути"]},{en:"stab",ua:"вдарити ножем",uaAlt:["штрикати","заколоти"]},{en:"shoot",ua:"стріляти",uaAlt:["вистрілити","застрелити"]},{en:"hurt",ua:["боліти","біль"]},{en:"ignore",ua:"ігнорувати"},
   {en:"inform",ua:"інформувати"},{en:"introduce",ua:"знайомити"},{en:"invite",ua:"запрошувати"},
-  {en:"kick",ua:"копати"},{en:"kiss",ua:"цілувати"},{en:"knock",ua:"стукати"},
+  {en:"kick",ua:"бити ногою",uaAlt:["копати","копнути"]},{en:"kiss",ua:"цілувати"},{en:"knock",ua:"стукати"},
   {en:"land",ua:["приземлятися","земля","суходіл"]},{en:"lock",ua:"замикати"},{en:"miss",ua:["скучати","сумувати","пропускати"]},
   {en:"mix",ua:"змішувати"},{en:"order",ua:["замовляти","порядок","наказ"]},{en:"organize",ua:"організовувати"},
   {en:"own",ua:"володіти"},{en:"prefer",ua:"воліти",uaAlt:["віддавати перевагу","надавати перевагу"]},{en:"prepare",ua:"готуватися"},
@@ -1806,7 +1806,7 @@ const WORDS = [
   {en:"bare",ua:"голий"},
   {en:"bashful",ua:["соромливий","сором'язливий"]},
   {en:"basketball",ua:"баскетбол"},
-  {en:"beat",ua:"перемагати"},
+  {en:"beat",ua:"перемагати",uaAlt:["бити","побити"]},
   {en:"better",ua:"кращий"},
   {en:"bicycle",ua:"велосипед"},
   {en:"big",ua:"великий"},
@@ -2909,7 +2909,7 @@ const TRANS = {
   "defeat":"/dɪˈfiːt/","deliver":"/dɪˈlɪvər/","design":"/dɪˈzaɪn/",
   "discover":"/dɪˈskʌvər/","divide":"/dɪˈvaɪd/","earn":"/ɜːrn/",
   "escape":"/ɪˈskeɪp/","feed":"/fiːd/","forget":"/fərˈɡɛt/","guess":"/ɡɛs/",
-  "hit":"/hɪt/","hurt":"/hɜːrt/","ignore":"/ɪɡˈnɔːr/","inform":"/ɪnˈfɔːrm/",
+  "hit":"/hɪt/","punch":"/pʌntʃ/","slap":"/slæp/","smack":"/smæk/","stab":"/stæb/","shoot":"/ʃut/","hurt":"/hɜːrt/","ignore":"/ɪɡˈnɔːr/","inform":"/ɪnˈfɔːrm/",
   "introduce":"/ˌɪntrəˈduːs/","invite":"/ɪnˈvaɪt/","kick":"/kɪk/","kiss":"/kɪs/",
   "knock":"/nɑːk/","land":"/lænd/","lock":"/lɑːk/","miss":"/mɪs/","mix":"/mɪks/",
   "order":"/ˈɔːrdər/","organize":"/ˈɔːrɡənaɪz/","own":"/oʊn/","prefer":"/prɪˈfɜːr/",
@@ -3517,7 +3517,7 @@ const EXAMPLES = {
   "discover":"Columbus discovered America in 1492.","divide":"Divide the cake into eight pieces.",
   "earn":"He earns a good salary.","escape":"The prisoner escaped from jail.",
   "feed":"Feed the cat twice a day.","forget":"Don't forget your keys.",
-  "guess":"Guess who called today!","hit":"He hit the ball hard.",
+  "guess":"Guess who called today!","hit":"He hit the ball hard.","punch":"He punched him in the face.","slap":"She slapped his face.","smack":"She smacked the child's hand.","stab":"He stabbed the meat with a knife.","shoot":"He wants to shoot the target.",
   "hurt":"My knee hurts after running.","ignore":"Ignore rude comments online.",
   "inform":"I'll inform you of any changes.","introduce":"Let me introduce you to my friend.",
   "invite":"I'd like to invite you to dinner.","kick":"Kick the ball into the goal.",
@@ -5391,7 +5391,7 @@ const EXAMPLES_UA = {
   "discover":"Колумб відкрив Америку в 1492 році.","divide":"Поділи торт на вісім частин.",
   "earn":"Він заробляє хорошу зарплату.","escape":"В'язень утік з в'язниці.",
   "feed":"Годуй кота двічі на день.","forget":"Не забудь свої ключі.",
-  "guess":"Угадай, хто сьогодні телефонував!","hit":"Він сильно вдарив по м'ячу.",
+  "guess":"Угадай, хто сьогодні телефонував!","hit":"Він сильно вдарив по м'ячу.","punch":"Він ударив його кулаком в обличчя.","slap":"Вона дала йому ляпаса.","smack":"Вона ляснула дитину по руці.","stab":"Він проткнув м'ясо ножем.","shoot":"Він хоче вистрілити в ціль.",
   "hurt":"Моє коліно болить після бігу.","ignore":"Ігноруй грубі коментарі онлайн.",
   "inform":"Я повідомлю тебе про будь-які зміни.","introduce":"Дозволь представити тебе моєму другу.",
   "invite":"Я хочу запросити тебе на вечерю.","kick":"Удар м'яч у ворота.",
@@ -8827,6 +8827,14 @@ const EN_TO_UA = (() => {
   m.set("departure",   ["відправлення", "від'їзд", "виліт"]);
   m.set("transfer",    ["передавати", "переказ", "пересадка", "трансфер"]);
   m.set("pursue",      ["переслідувати", "прагнути", "добиватися"]);
+  m.set("hit",         ["вдаряти", "вдарити", "ударити"]);
+  m.set("kick",        ["бити ногою", "копати", "копнути"]);
+  m.set("beat",        ["перемагати", "бити"]);
+  m.set("punch",       ["вдарити кулаком", "бити кулаком"]);
+  m.set("slap",        ["ляснути", "ляпас"]);
+  m.set("smack",       ["шльопнути", "ляснути"]);
+  m.set("stab",        ["вдарити ножем", "штрикати"]);
+  m.set("shoot",       ["стріляти", "вистрілити"]);
   // Common words not in WORDS but frequent in example sentences
   m.set("great",       ["чудовий", "великий"]);
   m.set("every",       ["кожен", "кожна", "кожне"]);
