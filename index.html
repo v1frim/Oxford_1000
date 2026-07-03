@@ -2503,6 +2503,11 @@ const WORDS = [
   {en:"wreck",ua:"аварія"},
   // Added from example sentences
   {en:"apology",ua:"вибачення"},
+  {en:"forgiveness",ua:"прощення"},
+  {en:"to pardon",ua:["помилувати","помилування"]},
+  {en:"remorse",ua:"каяття"},
+  {en:"to repent",ua:"каятися"},
+  {en:"to atone",ua:"спокутувати"},
   {en:"discount",ua:"знижка"},
   {en:"excuse",ua:["виправдання","вибачення"]},
   {en:"hall",ua:["зала","коридор"]},
@@ -3359,7 +3364,7 @@ const TRANS = {
   "wreck":"/rˈɛk/","yellow":"/jˈɛləʊ/","zone":"/zˈəʊn/",
   "achievement":"/əˈtʃiːvmənt/","action":"/ˈækʃən/","advanced":"/ədˈvænst/","air":"/ɛr/","album":"/ˈælbəm/",
   "alien":"/ˈeɪliən/","allergic":"/əˈlɜːrdʒɪk/","allergy":"/ˈælərdʒi/","ambulance":"/ˈæmbjələns/","animal":"/ˈænɪməl/",
-  "apology":"/əˈpɑːlədʒi/","applaud":"/əˈplɔːd/","attend":"/əˈtɛnd/","bilingual":"/baɪˈlɪŋɡwəl/","birth":"/bɜːrθ/",
+  "apology":"/əˈpɑːlədʒi/","applaud":"/əˈplɔːd/","forgiveness":"/fərˈɡɪvnəs/","pardon":"/ˈpɑːrdn/","remorse":"/rɪˈmɔːrs/","repent":"/rɪˈpɛnt/","atone":"/əˈtoʊn/","attend":"/əˈtɛnd/","bilingual":"/baɪˈlɪŋɡwəl/","birth":"/bɜːrθ/",
   "boredom":"/ˈbɔːrdəm/","burn":"/bɜːrn/","cafe":"/kæˈfeɪ/","calculation":"/ˌkælkjuˈleɪʃən/","ceremony":"/ˈsɛrəmoʊni/",
   "charge":"/tʃɑːrdʒ/","cloth":"/klɔːθ/","coding":"/ˈkoʊdɪŋ/","comment":"/ˈkɑːmɛnt/","completion":"/kəmˈpliːʃən/",
   "connection":"/kəˈnɛkʃən/","consequence":"/ˈkɑːnsɪkwəns/","cookie":"/ˈkʊki/","cosy":"/ˈkoʊzi/","countryside":"/ˈkʌntrisaɪd/",
@@ -4957,6 +4962,11 @@ const EXAMPLES = {
   "ambulance":"Call an ambulance — someone is hurt!",
   "animal":"A dog is a friendly animal.",
   "apology":"He gave a sincere apology.",
+  "forgiveness":"She asked him for forgiveness.",
+  "pardon":"The king decided to pardon the prisoner.",
+  "remorse":"He felt deep remorse for his actions.",
+  "repent":"He promised to repent and change his ways.",
+  "atone":"She wanted to atone for her mistake.",
   "applaud":"The audience applauded after the show.",
   "attend":"She attended every class this month.",
   "bilingual":"She is bilingual in English and French.",
@@ -6831,6 +6841,11 @@ const EXAMPLES_UA = {
   "ambulance":"Викличте швидку — хтось поранений!",
   "animal":"Собака — дружня тварина.",
   "apology":"Він вибачився щиро.",
+  "forgiveness":"Вона просила в нього прощення.",
+  "pardon":"Король вирішив помилувати в'язня.",
+  "remorse":"Він відчував глибоке каяття за свої вчинки.",
+  "repent":"Він пообіцяв покаятися і змінити свою поведінку.",
+  "atone":"Вона хотіла спокутувати свою помилку.",
   "applaud":"Глядачі аплодували після вистави.",
   "attend":"Вона відвідувала кожне заняття цього місяця.",
   "bilingual":"Вона двомовна — розмовляє англійською та французькою.",
@@ -7191,6 +7206,8 @@ const EXPRESSIONS = [
   {en:"flash a smile", ua:"подарувати усмішку", note:"швидко, мимохіть посміхнутися"},
   {en:"force a smile", ua:"натягнути посмішку", note:"вимушено посміхнутися"},
   {en:"give a smile", ua:"посміхнутися", note:"подарувати посмішку"},
+  {en:"make amends", ua:"загладити провину", note:"виправити заподіяне, помиритися після сварки"},
+  {en:"excuse me", ua:"перепрошую", note:"ввічливе привернення уваги або вибачення"},
 ];
 
 const DEFS = {
@@ -9524,6 +9541,11 @@ const EN_TO_UA = (() => {
   m.set("worth",       ["вартий"]);
   m.set("excuse",      ["виправдання", "вибачення", "виправдовувати"]);
   m.set("apology",     ["вибачення", "пробачення"]);
+  m.set("forgiveness", ["прощення"]);
+  m.set("pardon",      ["помилувати", "помилування"]);
+  m.set("remorse",     ["каяття"]);
+  m.set("repent",      ["каятися"]);
+  m.set("atone",       ["спокутувати"]);
   m.set("apologies",   ["вибачення"]);
   m.set("rather",      ["досить", "скоріше", "досить-таки"]);
   m.set("approach",   ["підхід", "наближатися"]);
