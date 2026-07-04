@@ -1360,7 +1360,8 @@
   <div class="lb-header">
     <div class="lb-tabs">
       <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
-      <button class="lb-tab" data-tab="days" title="Найкращі дні">📅</button>
+      <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
+      <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
     </div>
@@ -10465,7 +10466,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["games", "days", "streaks", "ach"];
+    const tabs = ["games", "days", "xpdays", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -11408,7 +11409,7 @@ function renderTabGames() {
   lbListEl.innerHTML = html;
 }
 function renderTabDays() {
-  lbTitleEl.textContent = "Найкращі дні";
+  lbTitleEl.textContent = "Найкращі ігрові дні";
   const days = loadDays();
   const today = todayKey();
   const todayEntry = days[today] ? { key: today, ...days[today] } : null;
@@ -11426,11 +11427,11 @@ function renderTabDays() {
   const renderEntry = (e, cls) => {
     const games = e.games || 0;
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    const revStr = e.reviewCorrect > 0 ? '<span class="lb-review">🔁 +' + e.reviewCorrect + '</span>' : "";
+    // 🔁 повторення ПРИБРАНО з рядків (сесія 32, за запитом — «на те значення не дивлюсь»)
     return '<li class="' + cls + '">' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
-      revStr + gamesStr +
+      gamesStr +
       '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
     '</li>';
   };
@@ -11441,6 +11442,73 @@ function renderTabDays() {
   }).join("");
   if (todayEntry && !entries.some(e => e.key === today)) {
     html += '<li class="lb-sep"></li>' + renderEntry(todayEntry, "lb-today");
+  }
+  lbListEl.innerHTML = html;
+}
+// XP по днях БЕЗ вивчених пісень: пісня «вибухає» +400..1600 у день відмітки,
+// хоч вчилась тижнями (заняття 🎧 і так відбивають процес). Спільний хелпер
+// для вкладки «Найкращі XP-дні» і рекорду «Досвіду (XP) за день».
+function xpDayNoSongs() {
+  let xpDay = {};
+  try { xpDay = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}"); } catch(e) {}
+  const songXpByDate = {};
+  Object.entries(loadSongsXpAwarded()).forEach(([sid, d]) => {
+    const song = (typeof SONGS !== "undefined" ? SONGS : []).find(s => s.id === sid);
+    if (song && song.xp) songXpByDate[d] = (songXpByDate[d] || 0) + song.xp;
+  });
+  const out = {};
+  Object.entries(xpDay).forEach(([d, v]) => {
+    const n = v - (songXpByDate[d] || 0);
+    if (n > 0) out[d] = n;
+  });
+  return out;
+}
+function renderTabXpDays() {
+  lbTitleEl.textContent = "Найкращі XP-дні";
+  const xpMap = xpDayNoSongs();
+  const days = loadDays();
+  const duo = loadDuoSessions();
+  const lhDone = loadLhDone();
+  const gpt = loadGptRequests();
+  const songSess = loadSongSessions();
+  const songsAwarded = loadSongsXpAwarded();
+  const today = todayKey();
+  const entries = Object.entries(xpMap)
+    .map(([key, xp]) => ({ key, xp }))
+    .sort((a, b) => b.xp - a.xp)
+    .slice(0, LB_LIMIT);
+  if (entries.length === 0) {
+    lbListEl.innerHTML = "";
+    lbEmptyEl.textContent = "Тут будуть твої найкращі XP-дні.";
+    lbEmptyEl.classList.remove("hidden");
+    return;
+  }
+  lbEmptyEl.classList.add("hidden");
+  const renderEntry = (e, cls) => {
+    const d = e.key;
+    const acts = [];
+    const g = (days[d] && days[d].games) || 0;
+    if (g) acts.push("🎮" + g);
+    if (duo[d]) acts.push("🦉" + duo[d]);
+    const lh = Object.values(lhDone).filter(v => v === d).length;
+    if (lh) acts.push("📚" + lh);
+    if (gpt[d]) acts.push("🤖" + gpt[d]);
+    if (songSess[d]) acts.push("🎧" + songSess[d]);
+    const sg = Object.values(songsAwarded).filter(v => v === d).length;
+    if (sg) acts.push("🎵" + sg);
+    return '<li class="' + cls + '">' +
+      '<span class="lb-score" style="color:#ffd166">⚡' + e.xp + '</span>' +
+      '<span class="lb-games">· ' + (acts.join(" ") || "—") + '</span>' +
+      '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
+    '</li>';
+  };
+  let html = entries.map(e => {
+    const isNew = e.key === today ? " is-new" : "";
+    const isYesterday = !isNew && isYesterdayKey(e.key) ? " lb-yesterday" : "";
+    return renderEntry(e, isNew + isYesterday);
+  }).join("");
+  if (xpMap[today] && !entries.some(e => e.key === today)) {
+    html += '<li class="lb-sep"></li>' + renderEntry({ key: today, xp: xpMap[today] }, "lb-today");
   }
   lbListEl.innerHTML = html;
 }
@@ -11492,10 +11560,12 @@ function renderLeaderboard(newGameId, newDayKey) {
   document.getElementById("lb-title").classList.remove("hidden");
   document.getElementById("lb-list").classList.toggle("hidden", achActive);
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
-  document.getElementById("lb-reset").style.visibility = achActive ? "hidden" : "";
+  // reset схований і на «XP-днях»: вони виводяться з XP-історії (oxford_xp_day_v1), не з лідерборд-сховища
+  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays") ? "hidden" : "";
   if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); lbTitleEl.textContent = "Досягнення"; renderAchievements(); }
   else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "days") renderTabDays();
+  else if (lbActiveTab === "xpdays") renderTabXpDays();
   else renderTabStreaks();
   leaderboardEl.classList.remove("hidden");
   updateLayoutAlign();
@@ -12852,21 +12922,8 @@ function computeRecords() {
   const gpt = loadGptRequests();
   const lh = loadLhDone();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
-  let xpDay = {};
-  try { xpDay = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}"); } catch(e) {}
-  // Для РЕКОРДУ XP пісні виключаються (пісня «вибухає» +400..1600 у день відмітки,
-  // хоч вчилась багато днів — рекорд ставав недосяжним). У «Прогресі по днях» і
-  // загальному XP пісні враховуються як і раніше — віднімання ЛИШЕ тут.
-  const songXpByDate = {};
-  Object.entries(loadSongsXpAwarded()).forEach(([sid, d]) => {
-    const song = ALL_SONGS.find(s => s.id === sid);
-    if (song && song.xp) songXpByDate[d] = (songXpByDate[d] || 0) + song.xp;
-  });
-  const xpNoSongs = {};
-  Object.entries(xpDay).forEach(([d, v]) => {
-    const n = v - (songXpByDate[d] || 0);
-    if (n > 0) xpNoSongs[d] = n;
-  });
+  // XP без пісень — спільний хелпер із вкладкою «Найкращі XP-дні» (визначений біля неї)
+  const xpNoSongs = xpDayNoSongs();
   // Δ mastery по знімках історії
   const history = loadMasteryHistory();
   const hdates = Object.keys(history).sort();
