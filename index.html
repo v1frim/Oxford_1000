@@ -853,6 +853,9 @@
   #extra-btns { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:14px; }
   #lh-btn { padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #lh-btn:hover { background:rgba(135,180,255,0.22); }
+  #expr-btn { display:block; width:100%; margin:0 0 10px; padding:12px 20px; background:linear-gradient(135deg, rgba(200,155,255,0.22), rgba(200,155,255,0.12)); border:1px solid rgba(200,155,255,0.42); color:#e6d3ff; border-radius:14px; cursor:pointer; font-size:15px; font-weight:600; transition:background 0.15s, transform 0.1s; }
+  #expr-btn:hover { background:linear-gradient(135deg, rgba(200,155,255,0.32), rgba(200,155,255,0.18)); }
+  #expr-btn:active { transform:scale(0.99); }
   #songs-btn { padding:7px 20px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
   #songs-btn:hover { background:rgba(200,155,255,0.22); }
   #songsess-wrap { display:flex; gap:4px; align-items:center; }
@@ -987,6 +990,60 @@
     .song-line { grid-template-columns: 1fr; gap: 2px; }
     .song-line .sl-ua { padding-left: 10px; }
   }
+
+  /* ── Розділ «Вирази і сленг» — повноекранний overlay (reuse .songs-panel/.songs-head/.songs-body) ── */
+  #expr-overlay {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(8,22,48,0.72); backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  #expr-overlay.hidden { display: none; }
+  .expr-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+  .expr-tab { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); color:rgba(255,255,255,0.7); border-radius:999px; padding:6px 14px; font-size:13px; cursor:pointer; transition:all .15s; }
+  .expr-tab:hover { background:rgba(255,255,255,0.16); }
+  .expr-tab.active { background:rgba(200,155,255,0.22); color:#c89bff; border-color:#c89bff; }
+  .expr-practice-btn { margin-left:auto; background:rgba(200,155,255,0.2); border:1px solid rgba(200,155,255,0.42); color:#e6d3ff; border-radius:12px; padding:8px 18px; font-size:14px; font-weight:600; cursor:pointer; transition:background .15s; }
+  .expr-practice-btn:hover { background:rgba(200,155,255,0.32); }
+  .expr-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .expr-card { display:flex; align-items:flex-start; gap:12px; background:linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035)); border:1px solid rgba(255,255,255,0.12); border-left:3px solid rgba(255,255,255,0.22); border-radius:14px; padding:13px 16px; }
+  .expr-card.queue { border-left-color:#87b4ff; }
+  .expr-card.learning { border-left-color:#ffa94d; }
+  .expr-card.learned { border-left-color:#7be07b; }
+  .expr-card .ex-main { flex:1; min-width:0; }
+  .expr-card .ex-en { font-size:15px; font-weight:700; color:#fff; }
+  .expr-card .ex-ua { font-size:14px; color:#c89bff; margin-top:2px; }
+  .expr-card .ex-note { font-size:12px; opacity:0.55; margin-top:3px; line-height:1.4; }
+  .expr-card .ex-src { font-size:11px; opacity:0.42; margin-top:5px; }
+  .ex-status { flex-shrink:0; font-size:12px; font-weight:700; padding:5px 11px; border-radius:999px; white-space:nowrap; border:1px solid transparent; cursor:pointer; transition:all .15s; }
+  .ex-status.queue { background:rgba(135,180,255,0.14); color:#87b4ff; border-color:rgba(135,180,255,0.3); }
+  .ex-status.learning { background:rgba(255,169,77,0.14); color:#ffa94d; border-color:rgba(255,169,77,0.3); }
+  .ex-status.learned { background:rgba(123,224,123,0.16); color:#7be07b; border-color:rgba(123,224,123,0.35); }
+  /* — флеш-картки — */
+  .exf-wrap { max-width:560px; margin:6px auto 0; text-align:center; }
+  .exf-progress { font-size:13px; opacity:0.6; margin-bottom:16px; }
+  .exf-card { position:relative; background:linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04)); border:1px solid rgba(255,255,255,0.16); border-radius:18px; padding:40px 26px; min-height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; }
+  .exf-cat { position:absolute; top:12px; right:16px; font-size:11px; opacity:0.4; }
+  .exf-en { font-size:26px; font-weight:800; line-height:1.3; color:#fff; }
+  .exf-ua { font-size:21px; color:#c89bff; font-weight:600; }
+  .exf-note { font-size:14px; opacity:0.65; line-height:1.5; max-width:440px; }
+  .exf-src { font-size:12px; opacity:0.4; }
+  .exf-controls { margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .exf-btn { border:none; border-radius:12px; padding:12px 24px; font-size:15px; font-weight:600; cursor:pointer; transition:transform .1s, background .15s; }
+  .exf-btn:active { transform:scale(0.97); }
+  .exf-reveal { background:rgba(200,155,255,0.85); color:#1a0b2e; }
+  .exf-reveal:hover { background:#c89bff; }
+  .exf-again { background:rgba(255,169,77,0.2); border:1px solid rgba(255,169,77,0.45); color:#ffa94d; }
+  .exf-again:hover { background:rgba(255,169,77,0.32); }
+  .exf-know { background:rgba(123,224,123,0.22); border:1px solid rgba(123,224,123,0.5); color:#7be07b; }
+  .exf-know:hover { background:rgba(123,224,123,0.34); }
+  .exf-speak { background:none; border:none; color:rgba(255,255,255,0.4); cursor:pointer; font-size:20px; padding:0 6px; }
+  .exf-speak:hover { color:#c89bff; }
+  .exf-hint { font-size:12px; opacity:0.45; margin-top:16px; }
+  .exf-done { text-align:center; padding:34px 20px; }
+  .exf-done .exd-big { font-size:46px; margin-bottom:12px; }
+  .exf-done .exd-sub { font-size:16px; opacity:0.75; margin-bottom:22px; }
+  @media (max-width:620px){ .expr-grid{ grid-template-columns:1fr; } .expr-practice-btn{ margin-left:0; } }
 </style>
 </head>
 <body>
@@ -1040,6 +1097,7 @@
         </div>
       </div>
     </div>
+    <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази і сленг</button>
     <button id="start-btn">Почати</button>
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки</button>
     <div id="extra-btns">
@@ -1175,6 +1233,12 @@
   <div class="songs-panel">
     <div class="songs-head" id="songs-head"></div>
     <div class="songs-body" id="songs-body"></div>
+  </div>
+</div>
+<div id="expr-overlay" class="hidden">
+  <div class="songs-panel">
+    <div class="songs-head" id="expr-head"></div>
+    <div class="songs-body" id="expr-body"></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -10297,7 +10361,8 @@ const BACKUP_KEYS = [
   "oxford_latest_v1","oxford_day_mistakes_v1",
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
-  "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1"
+  "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
+  "oxford_expr_status_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -12182,6 +12247,208 @@ document.getElementById("songs-btn").addEventListener("click", openSongs);
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && !songsOverlay.classList.contains("hidden")) {
     e.preventDefault(); e.stopPropagation(); closeSongs();
+  }
+}, true);
+
+// ── Розділ «Вирази і сленг» ──────────────────────────────────────────────────
+// Об'єднує EXPRESSIONS (ідіоми/вирази) + пісенний slang з усіх пісень у один
+// тренажер флеш-карток. Дані НЕ змішуються з WORDS. Статус — окремий ключ
+// oxford_expr_status_v1 (у BACKUP_KEYS). Поки БЕЗ XP/термометра (за узгодженням).
+const EXPR_STATUS_KEY = "oxford_expr_status_v1";
+function loadExprStatus() {
+  try { return JSON.parse(localStorage.getItem(EXPR_STATUS_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveExprStatus(o) { localStorage.setItem(EXPR_STATUS_KEY, JSON.stringify(o)); }
+function getExprStatus(id) { return loadExprStatus()[id] || "queue"; }
+function setExprStatus(id, st) {
+  const o = loadExprStatus();
+  if (st === "queue") delete o[id]; else o[id] = st;   // "queue" = дефолт → не роздуваємо сховище
+  saveExprStatus(o);
+}
+
+// Звести EXPRESSIONS + slang усіх пісень у єдиний банк (дедуп за en, ігнор регістру).
+function buildExprBank() {
+  const seen = new Set(), out = [];
+  const push = (en, ua, note, cat, src) => {
+    const key = String(en).toLowerCase().trim();
+    if (!en || seen.has(key)) return;
+    seen.add(key);
+    out.push({ en, ua, note: note || "", cat, src });
+  };
+  (typeof EXPRESSIONS !== "undefined" ? EXPRESSIONS : []).forEach(e => push(e.en, e.ua, e.note, "idiom", "Ідіоми та вирази"));
+  ALL_SONGS.forEach(s => (s.slang || []).forEach(sl => push(sl.en, sl.ua, sl.note, "slang", s.title)));
+  return out;
+}
+const EXPR_BANK = buildExprBank();
+const EXPR_STATUS_META = { queue:{cls:"queue",label:"● На черзі"}, learning:{cls:"learning",label:"↗ Вчу"}, learned:{cls:"learned",label:"✓ Вивчено"} };
+const EXPR_STATUS_CYCLE = { queue:"learning", learning:"learned", learned:"queue" };
+const EXPR_FILTERS = [
+  { key:"all",    label:"Усі" },
+  { key:"idiom",  label:"💬 Ідіоми та вирази" },
+  { key:"slang",  label:"🎵 Сленг пісень" },
+];
+
+const exprOverlay = document.getElementById("expr-overlay");
+const exprHead = document.getElementById("expr-head");
+const exprBody = document.getElementById("expr-body");
+let exprFilter = "all";     // all | idiom | slang
+let exprView = "list";      // list | card
+let exprDeck = [];          // колода флеш-карток (відфільтрована + перемішана)
+let exprPos = 0;
+let exprRevealed = false;
+
+function exprFiltered() {
+  if (exprFilter === "idiom") return EXPR_BANK.filter(x => x.cat === "idiom");
+  if (exprFilter === "slang") return EXPR_BANK.filter(x => x.cat === "slang");
+  return EXPR_BANK;
+}
+
+function openExpr() { exprView = "list"; exprFilter = "all"; exprOverlay.classList.remove("hidden"); renderExprList(); }
+function closeExpr() { exprOverlay.classList.add("hidden"); exprHead.innerHTML = ""; exprBody.innerHTML = ""; }
+
+function renderExprHead() {
+  const learned = EXPR_BANK.filter(x => getExprStatus(x.en) === "learned").length;
+  exprHead.innerHTML =
+    '<div><h2>💬 Вирази і сленг</h2> <span class="sh-sub">' + EXPR_BANK.length + ' ' +
+      plural(EXPR_BANK.length, "вираз", "вирази", "виразів") + ' · вивчено ' + learned + '</span></div>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+}
+
+function renderExprList() {
+  exprView = "list";
+  renderExprHead();
+  if (!EXPR_BANK.length) {
+    exprBody.innerHTML = '<p style="opacity:0.6;text-align:center;margin-top:40px">Виразів ще немає.</p>';
+    return;
+  }
+  const list = exprFiltered();
+  let html = '<div class="expr-tabs">';
+  EXPR_FILTERS.forEach(f => {
+    const n = f.key === "all" ? EXPR_BANK.length : EXPR_BANK.filter(x => x.cat === f.key).length;
+    html += '<button class="expr-tab' + (exprFilter === f.key ? ' active' : '') + '" data-act="filter" data-filter="' + f.key + '">' + f.label + ' (' + n + ')</button>';
+  });
+  html += '<button class="expr-practice-btn" data-act="practice">▶ Тренувати картки (' + list.length + ')</button>';
+  html += '</div>';
+  html += '<div class="expr-grid">' + list.map(x => {
+    const m = EXPR_STATUS_META[getExprStatus(x.en)];
+    const srcLabel = x.cat === "idiom" ? "💬 Ідіома / вираз" : "🎵 " + esc(x.src);
+    return '<div class="expr-card ' + m.cls + '">' +
+      '<div class="ex-main">' +
+        '<div class="ex-en">' + esc(x.en) +
+          ' <button class="sl-speak" data-act="speak" data-line="' + escAttr(x.en) + '" title="Прослухати">🔊</button></div>' +
+        '<div class="ex-ua">' + esc(x.ua) + '</div>' +
+        (x.note ? '<div class="ex-note">' + esc(x.note) + '</div>' : '') +
+        '<div class="ex-src">' + srcLabel + '</div>' +
+      '</div>' +
+      '<button class="ex-status ' + m.cls + '" data-act="cycle" data-id="' + escAttr(x.en) + '" title="Змінити статус">' + m.label + '</button>' +
+    '</div>';
+  }).join("") + '</div>';
+  exprBody.innerHTML = html;
+  exprBody.scrollTop = 0;
+}
+
+function startExprPractice() {
+  exprDeck = exprFiltered().slice();
+  // перемішати (Fisher–Yates; Math.random у браузері дозволений)
+  for (let i = exprDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [exprDeck[i], exprDeck[j]] = [exprDeck[j], exprDeck[i]];
+  }
+  exprPos = 0; exprRevealed = false; exprView = "card";
+  renderExprCard();
+}
+
+function renderExprCard() {
+  exprView = "card";
+  exprHead.innerHTML =
+    '<button class="songs-back" data-act="list">← Список</button>' +
+    '<div><h2>💬 Тренування карток</h2> <span class="sh-sub">' + EXPR_FILTERS.find(f => f.key === exprFilter).label + '</span></div>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+  if (!exprDeck.length) {
+    exprBody.innerHTML = '<div class="exf-done"><div class="exd-sub">Немає карток для цього фільтра.</div>' +
+      '<button class="exf-btn exf-reveal" data-act="list">← До списку</button></div>';
+    return;
+  }
+  if (exprPos >= exprDeck.length) {
+    const learned = exprDeck.filter(x => getExprStatus(x.en) === "learned").length;
+    exprBody.innerHTML = '<div class="exf-done"><div class="exd-big">🎉</div>' +
+      '<div class="exd-sub">Колоду пройдено! Вивчено ' + learned + ' з ' + exprDeck.length + '.</div>' +
+      '<div class="exf-controls">' +
+        '<button class="exf-btn exf-again" data-act="practice">↻ Ще раз</button>' +
+        '<button class="exf-btn exf-know" data-act="list">✓ До списку</button>' +
+      '</div></div>';
+    return;
+  }
+  const c = exprDeck[exprPos];
+  const catLabel = c.cat === "idiom" ? "💬 ідіома / вираз" : "🎵 " + esc(c.src);
+  let html = '<div class="exf-wrap">';
+  html += '<div class="exf-progress">Картка ' + (exprPos + 1) + ' / ' + exprDeck.length + '</div>';
+  html += '<div class="exf-card"><span class="exf-cat">' + catLabel + '</span>';
+  html += '<div class="exf-en">' + esc(c.en) +
+    ' <button class="exf-speak" data-act="speak" data-line="' + escAttr(c.en) + '" title="Прослухати">🔊</button></div>';
+  if (exprRevealed) {
+    html += '<div class="exf-ua">' + esc(c.ua) + '</div>';
+    if (c.note) html += '<div class="exf-note">' + esc(c.note) + '</div>';
+  }
+  html += '</div>';   // .exf-card
+  html += '<div class="exf-controls">';
+  if (!exprRevealed) {
+    html += '<button class="exf-btn exf-reveal" data-act="reveal">Показати переклад</button>';
+    html += '</div><div class="exf-hint">Enter / Пробіл — показати · Esc — вийти</div>';
+  } else {
+    html += '<button class="exf-btn exf-again" data-act="rate" data-rate="learning">↻ Ще вчу</button>';
+    html += '<button class="exf-btn exf-know" data-act="rate" data-rate="learned">✓ Знаю</button>';
+    html += '</div><div class="exf-hint">Enter — знаю · ← — ще вчу · Esc — вийти</div>';
+  }
+  html += '</div>';   // .exf-wrap
+  exprBody.innerHTML = html;
+  exprBody.scrollTop = 0;
+}
+
+function exprRate(status) {
+  const c = exprDeck[exprPos];
+  if (c) setExprStatus(c.en, status);
+  exprPos++; exprRevealed = false;
+  renderExprCard();
+}
+
+// Делегований клік на overlay
+exprOverlay.addEventListener("click", e => {
+  if (e.target === exprOverlay) { closeExpr(); return; }   // клік по фону
+  const el = e.target.closest("[data-act]");
+  if (!el) return;
+  const act = el.dataset.act;
+  if (act === "close") closeExpr();
+  else if (act === "speak") speak(el.dataset.line);
+  else if (act === "list") renderExprList();
+  else if (act === "practice") startExprPractice();
+  else if (act === "reveal") { exprRevealed = true; renderExprCard(); }
+  else if (act === "rate") exprRate(el.dataset.rate);
+  else if (act === "filter") { exprFilter = el.dataset.filter; renderExprList(); }
+  else if (act === "cycle") {
+    const id = el.dataset.id;
+    setExprStatus(id, EXPR_STATUS_CYCLE[getExprStatus(id)]);
+    renderExprList();
+  }
+});
+document.getElementById("expr-btn").addEventListener("click", openExpr);
+// Клавіатура в розділі виразів (capture, щоб не тригерити ігрові обробники за оверлеєм)
+document.addEventListener("keydown", e => {
+  if (exprOverlay.classList.contains("hidden")) return;
+  if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeExpr(); return; }
+  if (exprView !== "card") {
+    // у списку глушимо Enter/Пробіл, щоб позаду не стартувала гра
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); }
+    return;
+  }
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault(); e.stopPropagation();
+    if (exprPos >= exprDeck.length) { renderExprList(); return; }
+    if (!exprRevealed) { exprRevealed = true; renderExprCard(); }
+    else exprRate("learned");
+  } else if (e.key === "ArrowLeft") {
+    e.preventDefault(); e.stopPropagation();
+    if (exprRevealed && exprPos < exprDeck.length) exprRate("learning");
   }
 }, true);
 </script>
