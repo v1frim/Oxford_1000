@@ -12838,6 +12838,19 @@ function computeRecords() {
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
   let xpDay = {};
   try { xpDay = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}"); } catch(e) {}
+  // Для РЕКОРДУ XP пісні виключаються (пісня «вибухає» +400..1600 у день відмітки,
+  // хоч вчилась багато днів — рекорд ставав недосяжним). У «Прогресі по днях» і
+  // загальному XP пісні враховуються як і раніше — віднімання ЛИШЕ тут.
+  const songXpByDate = {};
+  Object.entries(loadSongsXpAwarded()).forEach(([sid, d]) => {
+    const song = ALL_SONGS.find(s => s.id === sid);
+    if (song && song.xp) songXpByDate[d] = (songXpByDate[d] || 0) + song.xp;
+  });
+  const xpNoSongs = {};
+  Object.entries(xpDay).forEach(([d, v]) => {
+    const n = v - (songXpByDate[d] || 0);
+    if (n > 0) xpNoSongs[d] = n;
+  });
   // Δ mastery по знімках історії
   const history = loadMasteryHistory();
   const hdates = Object.keys(history).sort();
@@ -12865,7 +12878,7 @@ function computeRecords() {
   return [
     { id: "know",     ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
     { id: "learn",    ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
-    { id: "xp",       ic: "⚡", label: "Досвіду (XP) за день",     ..._maxOf(xpDay), color: "#ffd166" },
+    { id: "xp",       ic: "⚡", label: "Досвіду (XP) за день · без пісень", ..._maxOf(xpNoSongs), color: "#ffd166" },
     { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" },
     { id: "correct",  ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
     { id: "answers",  ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
@@ -12878,39 +12891,38 @@ function computeRecords() {
 }
 
 // ── Вітання «Новий рекорд!» — як rank/level-up, але для денних максимумів ──────
-// Порівнює поточні максимуми computeRecords() зі збереженими; перший запуск лише
-// «сідить» базу (без спаму історією). Оголошення — раз на метрику на день (далі
-// того ж дня значення оновлюється мовчки, щоб серія ігор не сипала вітаннями).
-// Ключ НЕ в BACKUP_KEYS свідомо: значення виводяться з даних, це лише дедуп-стан.
+// Порівнює поточні максимуми computeRecords() зі збереженою базою; перший запуск
+// лише «сідить» базу (без спаму історією). Вітає за КОЖНЕ побиття (без денного
+// дедупу — за запитом: рекорди б'ються нечасто). База синхронізується В ОБИДВА
+// боки: «−» (Duo/GPT) знижує її разом із даними → повторний «+» чесно привітає знову.
+// Ключ НЕ в BACKUP_KEYS свідомо: значення виводяться з даних, це лише стан порівняння.
 function checkRecordMilestones() {
   try {
     const KEY = "oxford_records_best_v1";
-    const today = new Date().toISOString().slice(0, 10);
     const raw = localStorage.getItem(KEY);
     const store = raw ? JSON.parse(raw) : null;
     const recs = computeRecords();
     if (!store) {   // перший запуск — тиха база
       const seed = {};
-      recs.forEach(r => { seed[r.id] = { v: r.v, ad: null }; });
+      recs.forEach(r => { seed[r.id] = r.v; });
       localStorage.setItem(KEY, JSON.stringify(seed));
       return;
     }
     let changed = false;
     recs.forEach(r => {
-      const prev = store[r.id];
-      if (!prev) { store[r.id] = { v: r.v, ad: null }; changed = true; return; }  // нова метрика — тихо
-      if (r.v > prev.v) {
-        const old = prev.v;
-        prev.v = r.v; changed = true;
-        if (prev.ad !== today && old > 0) {
-          prev.ad = today;
-          enqueueMilestone({
-            icon: r.ic, text: "Новий рекорд!",
-            sub: r.label + ": " + r.v + " (було " + old + ")",
-            type: "rank", sfx: sfxRank,
-          });
-        }
+      let prev = store[r.id];
+      if (prev && typeof prev === "object") prev = prev.v;   // міграція старого формату {v,ad}
+      if (prev === undefined) {                              // нова метрика — тихо
+        store[r.id] = r.v; changed = true; return;
       }
+      if (r.v > prev && prev > 0) {
+        enqueueMilestone({
+          icon: r.ic, text: "Новий рекорд!",
+          sub: r.label + ": " + r.v + " (було " + prev + ")",
+          type: "rank", sfx: sfxRank,
+        });
+      }
+      if (r.v !== prev || typeof store[r.id] === "object") { store[r.id] = r.v; changed = true; }
     });
     if (changed) localStorage.setItem(KEY, JSON.stringify(store));
   } catch (e) {}   // ранній виклик до ініту залежностей — тихо, спрацює наступного разу
