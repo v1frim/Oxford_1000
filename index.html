@@ -11547,6 +11547,9 @@ function renderLbTotals() {
       row("📈", "Сер./день · міс.", avgThermoPerDay(true).toFixed(1), "#8fd3ff") +
     '</div>' +
     '<button id="lb-records-btn" title="Найкращі показники за день">🏆 Рекорди</button>';
+  // Вітання «Новий рекорд!» — renderLbTotals звуть усі точки зміни даних
+  // (кінець гри, Duolingo/GPT/LingoHut/пісні), тож перевірка тут покриває все.
+  checkRecordMilestones();
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
@@ -12860,18 +12863,57 @@ function computeRecords() {
   const t = _maxOf(days, x => (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0));
   const r = _maxOf(days, x => x.reviewCorrect || 0);
   return [
-    { ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
-    { ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
-    { ic: "⚡", label: "Досвіду (XP) за день",     ..._maxOf(xpDay), color: "#ffd166" },
-    { ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" },
-    { ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
-    { ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
-    { ic: "🎮", label: "Ігор за день",             ...g, color: "#ffd166" },
-    { ic: "🔁", label: "Повторень за день",        ...r, color: "#87b4ff" },
-    { ic: "🦉", label: "Duolingo за день",         ..._maxOf(duo), color: "#7fdd40" },
-    { ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
-    { ic: "🤖", label: "Запитів GPT за день",      ..._maxOf(gpt), color: "#2dd4bf" },
+    { id: "know",     ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
+    { id: "learn",    ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
+    { id: "xp",       ic: "⚡", label: "Досвіду (XP) за день",     ..._maxOf(xpDay), color: "#ffd166" },
+    { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" },
+    { id: "correct",  ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
+    { id: "answers",  ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
+    { id: "games",    ic: "🎮", label: "Ігор за день",             ...g, color: "#ffd166" },
+    { id: "review",   ic: "🔁", label: "Повторень за день",        ...r, color: "#87b4ff" },
+    { id: "duo",      ic: "🦉", label: "Duolingo за день",         ..._maxOf(duo), color: "#7fdd40" },
+    { id: "songsess", ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
+    { id: "gpt",      ic: "🤖", label: "Запитів GPT за день",      ..._maxOf(gpt), color: "#2dd4bf" },
   ];
+}
+
+// ── Вітання «Новий рекорд!» — як rank/level-up, але для денних максимумів ──────
+// Порівнює поточні максимуми computeRecords() зі збереженими; перший запуск лише
+// «сідить» базу (без спаму історією). Оголошення — раз на метрику на день (далі
+// того ж дня значення оновлюється мовчки, щоб серія ігор не сипала вітаннями).
+// Ключ НЕ в BACKUP_KEYS свідомо: значення виводяться з даних, це лише дедуп-стан.
+function checkRecordMilestones() {
+  try {
+    const KEY = "oxford_records_best_v1";
+    const today = new Date().toISOString().slice(0, 10);
+    const raw = localStorage.getItem(KEY);
+    const store = raw ? JSON.parse(raw) : null;
+    const recs = computeRecords();
+    if (!store) {   // перший запуск — тиха база
+      const seed = {};
+      recs.forEach(r => { seed[r.id] = { v: r.v, ad: null }; });
+      localStorage.setItem(KEY, JSON.stringify(seed));
+      return;
+    }
+    let changed = false;
+    recs.forEach(r => {
+      const prev = store[r.id];
+      if (!prev) { store[r.id] = { v: r.v, ad: null }; changed = true; return; }  // нова метрика — тихо
+      if (r.v > prev.v) {
+        const old = prev.v;
+        prev.v = r.v; changed = true;
+        if (prev.ad !== today && old > 0) {
+          prev.ad = today;
+          enqueueMilestone({
+            icon: r.ic, text: "Новий рекорд!",
+            sub: r.label + ": " + r.v + " (було " + old + ")",
+            type: "rank", sfx: sfxRank,
+          });
+        }
+      }
+    });
+    if (changed) localStorage.setItem(KEY, JSON.stringify(store));
+  } catch (e) {}   // ранній виклик до ініту залежностей — тихо, спрацює наступного разу
 }
 function openRecords() {
   document.getElementById("records-head").innerHTML =
