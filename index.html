@@ -2580,7 +2580,7 @@ const WORDS = [
   {en:"serene",ua:"спокійний"},
   {en:"shade",ua:"тінь"},
   {en:"shadowy",ua:"тіньовий"},
-  {en:"shallow",ua:"дрібний"},
+  {en:"shallow",ua:["мілкий","неглибокий"],uaAlt:["мілководний","дрібний","поверхневий"]},
   {en:"shared",ua:"спільний"},
   {en:"shatter",ua:"розбивати"},
   {en:"shelf",ua:"полиця"},
@@ -8918,6 +8918,7 @@ function startGame(pool, opts) {
   document.getElementById("progress-btn").classList.remove("active");
   document.getElementById("bottom-left-btns").classList.add("hidden");
   document.getElementById("thermo").classList.add("hidden");
+  document.getElementById("lb-totals").classList.add("hidden");
 
   nextWord();
   intervalId = setInterval(tick, 1000);
@@ -10202,6 +10203,7 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   startScreen.classList.remove("hidden");
   document.getElementById("bottom-left-btns").classList.remove("hidden");
   document.getElementById("thermo").classList.remove("hidden");
+  document.getElementById("lb-totals").classList.remove("hidden");
   renderThermo();
   renderLeaderboard();
   updateReviewTodayBtn();
@@ -10410,6 +10412,7 @@ document.addEventListener("keydown", e => {
     startScreen.classList.remove("hidden");
     document.getElementById("bottom-left-btns").classList.remove("hidden");
     document.getElementById("thermo").classList.remove("hidden");
+    document.getElementById("lb-totals").classList.remove("hidden");
     renderLeaderboard();
     renderLbTotals();
     renderThermo();
