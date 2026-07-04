@@ -12394,11 +12394,11 @@ function renderExprCard() {
   html += '<div class="exf-controls">';
   if (!exprRevealed) {
     html += '<button class="exf-btn exf-reveal" data-act="reveal">Показати переклад</button>';
-    html += '</div><div class="exf-hint">Enter / Пробіл — показати · Esc — вийти</div>';
+    html += '</div><div class="exf-hint">Enter / Пробіл — показати · Tab — озвучити · Esc — вийти</div>';
   } else {
     html += '<button class="exf-btn exf-again" data-act="rate" data-rate="learning">↻ Ще вчу</button>';
     html += '<button class="exf-btn exf-know" data-act="rate" data-rate="learned">✓ Знаю</button>';
-    html += '</div><div class="exf-hint">Enter — знаю · ← — ще вчу · Esc — вийти</div>';
+    html += '</div><div class="exf-hint">Enter — знаю · Пробіл / ← — ще вчу · Tab — озвучити · Esc — вийти</div>';
   }
   html += '</div>';   // .exf-wrap
   exprBody.innerHTML = html;
@@ -12441,14 +12441,24 @@ document.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); }
     return;
   }
-  if (e.key === "Enter" || e.key === " ") {
+  if (exprPos >= exprDeck.length) {   // екран «колоду пройдено»
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); renderExprList(); }
+    return;
+  }
+  if (e.key === "Tab") {              // Tab — озвучити англійський вираз (до і після розкриття)
     e.preventDefault(); e.stopPropagation();
-    if (exprPos >= exprDeck.length) { renderExprList(); return; }
+    const c = exprDeck[exprPos]; if (c) speak(c.en);
+  } else if (e.key === "Enter") {     // Enter — показати / «Знаю»
+    e.preventDefault(); e.stopPropagation();
     if (!exprRevealed) { exprRevealed = true; renderExprCard(); }
     else exprRate("learned");
-  } else if (e.key === "ArrowLeft") {
+  } else if (e.key === " ") {         // Пробіл — показати / «Ще вчу»
     e.preventDefault(); e.stopPropagation();
-    if (exprRevealed && exprPos < exprDeck.length) exprRate("learning");
+    if (!exprRevealed) { exprRevealed = true; renderExprCard(); }
+    else exprRate("learning");
+  } else if (e.key === "ArrowLeft") { // ← — «Ще вчу» (дубль до Пробілу)
+    e.preventDefault(); e.stopPropagation();
+    if (exprRevealed) exprRate("learning");
   }
 }, true);
 </script>
