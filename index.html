@@ -1207,6 +1207,9 @@
   .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
   /* — Прогрес по днях: комірки «значок зверху / число знизу», розділені напівпрозорими рисками — */
+  /* ширше за лідерборд (420) на 20px — щоб насичені місячні рядки не переносились;
+     правило «прогрес і лідерборд однакової ширини» СКАСОВАНО за запитом (сесія 32) */
+  #progress-panel { width: 440px; }
   .prog-row { align-items: center; }
   .prog-date { flex: 0 0 auto; min-width: 52px; }
   .prog-cells { display: flex; flex: 1 1 auto; align-items: center; flex-wrap: wrap; min-width: 0; row-gap: 3px; }
@@ -1864,8 +1867,8 @@ const WORDS = [
   {en:"great-grandson",ua:"правнук"},{en:"great-granddaughter",ua:["правнучка","правнука"]},
   {en:"mother-in-law",ua:["теща","свекруха"]},{en:"father-in-law",ua:["тесть","свекор"]},
   {en:"son-in-law",ua:"зять"},{en:"daughter-in-law",ua:"невістка"},
-  {en:"brother-in-law",ua:"шурин",uaAlt:["дівер","свояк","брат чоловіка","брат дружини"]},
-  {en:"sister-in-law",ua:"зовиця",uaAlt:["своячка","братова","сестра чоловіка","сестра дружини"]},
+  {en:"brother-in-law",ua:"брат чоловіка або дружини",uaAlt:["шурин","дівер","свояк","брат чоловіка","брат дружини"]},
+  {en:"sister-in-law",ua:"сестра чоловіка або дружини",uaAlt:["зовиця","своячка","братова","сестра чоловіка","сестра дружини"]},
   {en:"stepfather",ua:"вітчим"},{en:"stepmother",ua:"мачуха"},
   {en:"stepson",ua:"пасинок"},{en:"stepdaughter",ua:["падчерка","пасербиця"]},
   {en:"stepbrother",ua:"зведений брат"},{en:"stepsister",ua:"зведена сестра"},
