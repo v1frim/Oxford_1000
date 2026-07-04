@@ -1196,6 +1196,20 @@
   .rec-label { font-size: 14px; font-weight: 700; }
   .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
+  /* — Прогрес по днях: комірки «значок зверху / число знизу», розділені напівпрозорими рисками — */
+  .prog-row { align-items: center; }
+  .prog-date { flex: 0 0 auto; min-width: 52px; }
+  .prog-cells { display: flex; flex: 1 1 auto; align-items: center; flex-wrap: wrap; min-width: 0; row-gap: 3px; }
+  .pgc {
+    display: inline-flex; flex-direction: column; align-items: center;
+    line-height: 1.15; min-width: 26px; padding: 0 4px; margin-left: 0 !important;
+  }
+  .pgc + .pgc { border-left: 1px solid rgba(255,255,255,0.14); }
+  .pgc-ic { font-size: 11px; opacity: 0.92; }
+  .pgc-v { font-size: 12px; font-weight: 700; }
+  .prog-delta { border-left: 1px solid rgba(255,209,102,0.28); padding-left: 5px; gap: 0; align-items: center; }
+  .prog-delta .prog-none { opacity: 0.35; padding: 0 4px; }
+  .prog-row.prog-group .pgc-v { font-size: 12px; }
 </style>
 </head>
 <body>
@@ -10851,14 +10865,16 @@ function _progGroupBy(dates, keyFn) {
   for (const d of dates) { const k = keyFn(d); if (!g[k]) g[k] = []; g[k].push(d); }
   return g;
 }
+// РЕДИЗАЙН: комірка «значок зверху, число знизу» (колонки економлять ширину рядка)
+function _pgCell(ic, val, cls) {
+  return '<span class="pgc ' + (cls || "") + '"><span class="pgc-ic">' + ic + '</span><span class="pgc-v">' + val + '</span></span>';
+}
 function _progDeltaHtml(dk, dl, rev, dt) {
   let h = "";
-  if (dk > 0) h += '<span class="prog-known">+' + dk + ' ✓</span>';
-  if (dl > 0) h += '<span class="prog-learning">+' + dl + ' ↗</span>';
-  if (dk < 0) h += '<span class="prog-known">' + dk + ' ✓</span>';
-  if (dl < 0) h += '<span class="prog-learning">' + dl + ' ↗</span>';
-  if (rev > 0) h += '<span class="lb-review">🔁 +' + rev + '</span>';
-  if (dt > 0) h += '<span class="prog-new">+' + dt + ' ●</span>';
+  if (dk) h += _pgCell("✓", (dk > 0 ? "+" : "") + dk, "prog-known");
+  if (dl) h += _pgCell("↗", (dl > 0 ? "+" : "") + dl, "prog-learning");
+  if (rev > 0) h += _pgCell("🔁", "+" + rev, "lb-review");
+  if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new");
   return h || '<span class="prog-none">—</span>';
 }
 function _progAggregate(dates, history, allDates, days) {
@@ -10878,12 +10894,12 @@ function _progAggregate(dates, history, allDates, days) {
 }
 function _progMetaHtml(games, lh, duo, songs, songSess, gpt) {
   let h = "";
-  if (games > 0) h += '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>';
-  if (duo > 0)   h += '<span class="prog-duo">· 🦉' + duo + '</span>';
-  if (lh > 0)    h += '<span class="prog-lh">· 📚' + lh + '</span>';
-  if (gpt > 0)   h += '<span class="prog-gpt">· 🤖' + gpt + '</span>';
-  if (songSess > 0) h += '<span class="prog-songsess">· 🎧' + songSess + '</span>';
-  if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
+  if (games > 0) h += _pgCell("🎮", games, "prog-games");
+  if (duo > 0)   h += _pgCell("🦉", duo, "prog-duo");
+  if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
+  if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
+  if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
+  if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
   return h;
 }
 function _progFmtRange(dates) {
@@ -10932,8 +10948,10 @@ function renderProgressPanel() {
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     const xpGain = getDayXpGain(date);
-    const xpHtml = xpGain > 0 ? '<span class="prog-xp">⚡+' + xpGain + '</span>' : '';
-    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + metaHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
+    const xpHtml = xpGain > 0 ? _pgCell("⚡", "+" + xpGain, "prog-xp") : '';
+    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + '</span>' +
+      '<span class="prog-cells">' + metaHtml + xpHtml + '</span>' +
+      '<span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
   // ── Згортки: місяці (повні суми, новіші згори). «Загалом / За весь час» прибрано
@@ -10943,15 +10961,26 @@ function renderProgressPanel() {
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
       const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt} = _progAggregate(groups[k], history, allDates, days);
-      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) +
-        _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span><span class="prog-delta">' +
-        _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
+      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) + '</span>' +
+        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span>' +
+        '<span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
-  const byMonth = _progGroupBy(allDates, d => d.slice(0,7));
+  // РЕДИЗАЙН: рік винесено в заголовок секції — місяці ПОТОЧНОГО року підписані лише
+  // назвою («Липень»), а завершені роки згортаються в один річний рядок («2026 рік»).
+  const curYear = new Date().toISOString().slice(0, 4);
+  const monthName = k => _progFmtMonth(k).split(" ")[0];
+  const curYearDates = allDates.filter(d => d.slice(0, 4) === curYear);
+  const byMonth = _progGroupBy(curYearDates, d => d.slice(0, 7));
   if (Object.keys(byMonth).length > 0) {
-    html += '<div class="prog-section">Місяці</div>';
-    html += groupRows(byMonth, (g, k) => _progFmtMonth(k));
+    html += '<div class="prog-section">Місяці · ' + curYear + '</div>';
+    html += groupRows(byMonth, (g, k) => monthName(k));
+  }
+  const pastDates = allDates.filter(d => d.slice(0, 4) !== curYear);
+  if (pastDates.length > 0) {
+    const byYear = _progGroupBy(pastDates, d => d.slice(0, 4));
+    html += '<div class="prog-section">Роки</div>';
+    html += groupRows(byYear, (g, k) => k + ' рік');
   }
   list.innerHTML = html;
 }
