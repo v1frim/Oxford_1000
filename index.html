@@ -1054,6 +1054,162 @@
   .exf-done .exd-big { font-size:46px; margin-bottom:12px; }
   .exf-done .exd-sub { font-size:16px; opacity:0.75; margin-bottom:22px; }
   @media (max-width:620px){ .expr-grid{ grid-template-columns:1fr; } .expr-practice-btn{ margin-left:0; } }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     РЕДИЗАЙН v2 «Космос» (гілка redesign) — темна космічна тема з золотом.
+     Блок стоїть ОСТАННІМ у <style> і перекриває кольори/фони каскадом;
+     геометрію (display/flex/розміри) НЕ чіпає — .hidden-пастки не зачеплені.
+     ═══════════════════════════════════════════════════════════════════════════ */
+  body {
+    background:
+      /* зорі */
+      radial-gradient(1.6px 1.6px at 12% 22%, rgba(255,255,255,0.9), transparent 60%),
+      radial-gradient(1.2px 1.2px at 28% 64%, rgba(255,255,255,0.7), transparent 60%),
+      radial-gradient(2px   2px   at 43% 12%, rgba(255,255,255,0.85), transparent 60%),
+      radial-gradient(1.3px 1.3px at 58% 46%, rgba(255,255,255,0.6), transparent 60%),
+      radial-gradient(1.7px 1.7px at 71% 80%, rgba(255,255,255,0.75), transparent 60%),
+      radial-gradient(1.2px 1.2px at 84% 28%, rgba(255,255,255,0.7), transparent 60%),
+      radial-gradient(2px   2px   at 92% 62%, rgba(255,255,255,0.8), transparent 60%),
+      radial-gradient(1.3px 1.3px at 6%  84%, rgba(255,255,255,0.6), transparent 60%),
+      radial-gradient(1.5px 1.5px at 36% 90%, rgba(255,255,255,0.65), transparent 60%),
+      radial-gradient(1.2px 1.2px at 64% 6%,  rgba(255,255,255,0.6), transparent 60%),
+      /* туманності */
+      radial-gradient(ellipse 55% 38% at 75% 15%, rgba(124,58,237,0.16), transparent 70%),
+      radial-gradient(ellipse 45% 30% at 15% 70%, rgba(255,209,102,0.08), transparent 70%),
+      radial-gradient(ellipse 60% 45% at 45% 105%, rgba(45,120,220,0.14), transparent 70%),
+      /* глибокий космос */
+      linear-gradient(180deg, #05070f 0%, #0a0e20 40%, #101731 75%, #131b38 100%);
+  }
+  .card, .leaderboard {
+    background: linear-gradient(165deg, rgba(16,20,42,0.92), rgba(9,12,26,0.90));
+    border: 1px solid rgba(255,209,102,0.30);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,209,102,0.14), inset 0 0 60px rgba(255,209,102,0.03);
+  }
+  h1 {
+    background: linear-gradient(180deg, #ffe9a8, #ffd166 55%, #d99b2b);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 800;
+    text-shadow: 0 0 24px rgba(255,209,102,0.25);
+  }
+  .lb-tab { background: rgba(255,209,102,0.07); border-color: rgba(255,209,102,0.22); }
+  .lb-tab:hover { background: rgba(255,209,102,0.16); }
+  .lb-tab.active { background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206; border-color: #ffd166; box-shadow: 0 0 14px rgba(255,209,102,0.35); }
+  .mode-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,209,102,0.20); }
+  .mode-btn:hover { background: rgba(255,209,102,0.12); }
+  .mode-btn.active { background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206; border-color: #ffd166; box-shadow: 0 0 16px rgba(255,209,102,0.35); }
+  #start-btn { background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206; box-shadow: 0 6px 22px rgba(255,201,77,0.35); border: 1px solid #ffd166; }
+  #start-btn:hover { background: linear-gradient(180deg, #fff0b8, #ffd166); }
+  #expr-btn { background: linear-gradient(135deg, rgba(124,58,237,0.30), rgba(124,58,237,0.14)); border-color: rgba(196,181,253,0.45); color: #d9c9ff; }
+  #expr-btn:hover { background: linear-gradient(135deg, rgba(124,58,237,0.44), rgba(124,58,237,0.22)); }
+  #answer { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,209,102,0.25); color: #fff; }
+  #answer:focus { border-color: #ffd166; box-shadow: 0 0 12px rgba(255,209,102,0.28); }
+  #thermo, #bottom-left-btns, #lb-totals {
+    background: linear-gradient(165deg, rgba(14,18,38,0.90), rgba(8,11,24,0.88));
+    border: 1px solid rgba(255,209,102,0.28);
+    box-shadow: 0 12px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,209,102,0.12);
+  }
+  #bottom-left-btns button, #progress-btn { background: rgba(255,209,102,0.07); border: 1px solid rgba(255,209,102,0.20); }
+  #bottom-left-btns button:hover, #progress-btn:hover { background: rgba(255,209,102,0.16); }
+  .songs-panel {
+    background: linear-gradient(165deg, rgba(15,19,40,0.985), rgba(9,12,26,0.985));
+    border: 1px solid rgba(255,209,102,0.32);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,209,102,0.14);
+  }
+  /* — Загальна статистика: рамковані плашки з іконкою-медальйоном (стиль інфографіки) — */
+  #lb-totals { padding: 12px 12px; min-width: 216px; }
+  .lb-totals-title { color: #ffd166; opacity: 0.9; text-align: center; letter-spacing: 0.14em; margin-bottom: 8px; }
+  .lb-stat-row {
+    border: 1px solid rgba(255,209,102,0.18); border-radius: 9px;
+    background: linear-gradient(90deg, rgba(255,209,102,0.05), rgba(255,255,255,0.015));
+    padding: 3px 8px 3px 4px; margin: 3px 0; gap: 8px; align-items: center;
+  }
+  .lb-stat-ic {
+    flex: 0 0 auto; width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,209,102,0.22), rgba(0,0,0,0.35));
+    border: 1px solid rgba(255,209,102,0.30);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 11px;
+  }
+  .lb-stat-label { flex: 1 1 auto; }
+  .lb-variable { background: rgba(255,169,77,0.07); }
+  .lb-variable .lb-stat-row { border-color: rgba(255,169,77,0.22); }
+  #lb-records-btn {
+    display: block; width: 100%; margin-top: 8px; padding: 7px 10px;
+    background: linear-gradient(180deg, rgba(255,209,102,0.20), rgba(255,209,102,0.10));
+    border: 1px solid rgba(255,209,102,0.45); border-radius: 10px;
+    color: #ffd166; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s;
+  }
+  #lb-records-btn:hover { background: linear-gradient(180deg, rgba(255,209,102,0.32), rgba(255,209,102,0.16)); }
+  /* — XP-блок клікабельний (відкриває сходи рівнів) — */
+  #xp-section { cursor: pointer; border-radius: 12px; transition: background .15s; }
+  #xp-section:hover { background: rgba(255,209,102,0.06); }
+  /* — Оверлей «Сходи рівнів» — */
+  #levels-overlay, #records-overlay {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(4,6,14,0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  #levels-overlay.hidden, #records-overlay.hidden { display: none; }
+  .levels-panel, .records-panel { width: 620px; }
+  .lvl-list { display: flex; flex-direction: column; gap: 6px; }
+  .lvl-row {
+    display: flex; align-items: center; gap: 12px; padding: 9px 14px;
+    border: 1px solid color-mix(in srgb, var(--lg) 45%, transparent);
+    border-left: 4px solid var(--lg); border-radius: 12px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--lg) 10%, transparent), rgba(255,255,255,0.015));
+  }
+  .lvl-row.future { opacity: 0.45; }
+  .lvl-row.cur {
+    opacity: 1; border-color: var(--lg2); border-left-width: 4px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--lg) 26%, transparent), color-mix(in srgb, var(--lg) 8%, transparent));
+    box-shadow: 0 0 22px color-mix(in srgb, var(--lg) 40%, transparent);
+  }
+  .lvl-num {
+    flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--lg2), var(--lg));
+    color: #14100a; font-weight: 800; font-size: 13px;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--lg) 55%, transparent);
+  }
+  .lvl-ic { font-size: 20px; flex: 0 0 auto; }
+  .lvl-name { flex: 1 1 auto; font-size: 15px; font-weight: 700; }
+  .lvl-you { display: block; font-size: 11px; font-weight: 600; color: var(--lg2); margin-top: 1px; }
+  .lvl-xp { font-size: 12px; opacity: 0.65; font-weight: 600; white-space: nowrap; }
+  /* — Оверлей «Рекорди» — */
+  .rec-list { display: flex; flex-direction: column; gap: 8px; }
+  .rec-row {
+    display: flex; align-items: center; gap: 14px; padding: 11px 16px;
+    border: 1px solid color-mix(in srgb, var(--rc) 40%, transparent);
+    border-radius: 14px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--rc) 9%, transparent), rgba(255,255,255,0.015));
+    max-width: 92%;
+  }
+  .rec-row.alt { flex-direction: row-reverse; text-align: right; margin-left: auto; }
+  .rec-row.alt .rec-main { text-align: right; }
+  .rec-medal {
+    flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--rc) 45%, #fff 8%), rgba(0,0,0,0.4));
+    border: 1px solid color-mix(in srgb, var(--rc) 60%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--rc) 35%, transparent);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 21px;
+  }
+  .rec-main { flex: 1 1 auto; min-width: 0; }
+  .rec-label { font-size: 14px; font-weight: 700; }
+  .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
+  .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
+  /* — Прогрес по днях: комірки «значок зверху / число знизу», розділені напівпрозорими рисками — */
+  .prog-row { align-items: center; }
+  .prog-date { flex: 0 0 auto; min-width: 52px; }
+  .prog-cells { display: flex; flex: 1 1 auto; align-items: center; flex-wrap: wrap; min-width: 0; row-gap: 3px; }
+  .pgc {
+    display: inline-flex; flex-direction: column; align-items: center;
+    line-height: 1.15; min-width: 26px; padding: 0 4px; margin-left: 0 !important;
+  }
+  .pgc + .pgc { border-left: 1px solid rgba(255,255,255,0.14); }
+  .pgc-ic { font-size: 11px; opacity: 0.92; }
+  .pgc-v { font-size: 12px; font-weight: 700; }
+  .prog-delta { border-left: 1px solid rgba(255,209,102,0.28); padding-left: 5px; gap: 0; align-items: center; }
+  .prog-delta .prog-none { opacity: 0.35; padding: 0 4px; }
+  .prog-row.prog-group .pgc-v { font-size: 12px; }
 </style>
 </head>
 <body>
@@ -1249,6 +1405,18 @@
   <div class="songs-panel">
     <div class="songs-head" id="expr-head"></div>
     <div class="songs-body" id="expr-body"></div>
+  </div>
+</div>
+<div id="levels-overlay" class="hidden">
+  <div class="songs-panel levels-panel">
+    <div class="songs-head" id="levels-head"></div>
+    <div class="songs-body" id="levels-body"></div>
+  </div>
+</div>
+<div id="records-overlay" class="hidden">
+  <div class="songs-panel records-panel">
+    <div class="songs-head" id="records-head"></div>
+    <div class="songs-body" id="records-body"></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -10506,14 +10674,17 @@ function handleImportClick() {
 const XP_KEY = "oxford_xp_v1";
 // Thresholds: triangular curve (k-1)*k/2 * 800, scaled ×(180000/152000) so
 // Level 20 = 180000 XP, rounded to nearest 100. Step grows linearly (+900…+18000).
+// РЕДИЗАЙН (гілка redesign): космічна шкала рівнів — від струн до мультивсесвіту.
+// Пороги XP НЕ змінені (та сама трикутна крива, Level 20 = 180,000) — лише назви/іконки.
 const XP_LEVELS = [
-  [0,"Новачок"],[900,"Початківець"],[2800,"Учень"],[5700,"Практик"],
-  [9500,"Знавець"],[14200,"Фахівець"],[19900,"Досвідчений"],[26500,"Майстер"],
-  [34100,"Провідний"],[42600,"Експерт"],[52100,"Старший Експерт"],[62500,"Спеціаліст"],
-  [73900,"Провідний Спеціаліст"],[86200,"Лінгвіст"],[99500,"Старший Лінгвіст"],
-  [113700,"Поліглот"],[128800,"Аналітик"],[144900,"Майстер Мов"],
-  [162000,"Гуру"],[180000,"Легенда"],
+  [0,"Струни"],[900,"Кварк"],[2800,"Атом"],[5700,"Молекула"],
+  [9500,"Клітина"],[14200,"Організм"],[19900,"Людина"],[26500,"Родина"],
+  [34100,"Громада"],[42600,"Місто"],[52100,"Країна"],[62500,"Континент"],
+  [73900,"Планета"],[86200,"Зоряна система"],[99500,"Галактика"],
+  [113700,"Скупчення галактик"],[128800,"Надскупчення"],[144900,"Космічна павутина"],
+  [162000,"Всесвіт"],[180000,"Мультивсесвіт"],
 ];
+const LEVEL_ICONS = ["🧵","⚛️","🔬","🧪","🦠","🌱","🧍","👪","🏘️","🏙️","🗺️","🌍","🪐","☀️","🌌","✨","💫","🕸️","🌠","♾️"];
 function loadXp() { return parseInt(localStorage.getItem(XP_KEY) || "0", 10) || 0; }
 function saveXp(n) { localStorage.setItem(XP_KEY, String(Math.max(0, n))); }
 function addXp(delta) { saveXp(loadXp() + delta); trackDayXp(delta); }
@@ -10602,7 +10773,7 @@ function renderXpBar() {
   sec.classList.remove("tier-0","tier-1","tier-2","tier-3","tier-4");
   sec.classList.add("tier-" + tier);
   document.getElementById("xp-hex-num").textContent = info.level;
-  document.getElementById("xp-name").textContent = info.name;
+  document.getElementById("xp-name").textContent = LEVEL_ICONS[info.level - 1] + " " + info.name;
   document.getElementById("xp-nums").textContent = info.isMax ? "MAX" : (xp - info.cur) + " / " + (info.next - info.cur) + " XP";
   document.getElementById("xp-fill").style.width = pct + "%";
   document.getElementById("xp-league").textContent = ACH_LEAGUES[tier].label + " ліга";
@@ -10694,14 +10865,16 @@ function _progGroupBy(dates, keyFn) {
   for (const d of dates) { const k = keyFn(d); if (!g[k]) g[k] = []; g[k].push(d); }
   return g;
 }
+// РЕДИЗАЙН: комірка «значок зверху, число знизу» (колонки економлять ширину рядка)
+function _pgCell(ic, val, cls) {
+  return '<span class="pgc ' + (cls || "") + '"><span class="pgc-ic">' + ic + '</span><span class="pgc-v">' + val + '</span></span>';
+}
 function _progDeltaHtml(dk, dl, rev, dt) {
   let h = "";
-  if (dk > 0) h += '<span class="prog-known">+' + dk + ' ✓</span>';
-  if (dl > 0) h += '<span class="prog-learning">+' + dl + ' ↗</span>';
-  if (dk < 0) h += '<span class="prog-known">' + dk + ' ✓</span>';
-  if (dl < 0) h += '<span class="prog-learning">' + dl + ' ↗</span>';
-  if (rev > 0) h += '<span class="lb-review">🔁 +' + rev + '</span>';
-  if (dt > 0) h += '<span class="prog-new">+' + dt + ' ●</span>';
+  if (dk) h += _pgCell("✓", (dk > 0 ? "+" : "") + dk, "prog-known");
+  if (dl) h += _pgCell("↗", (dl > 0 ? "+" : "") + dl, "prog-learning");
+  if (rev > 0) h += _pgCell("🔁", "+" + rev, "lb-review");
+  if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new");
   return h || '<span class="prog-none">—</span>';
 }
 function _progAggregate(dates, history, allDates, days) {
@@ -10721,12 +10894,12 @@ function _progAggregate(dates, history, allDates, days) {
 }
 function _progMetaHtml(games, lh, duo, songs, songSess, gpt) {
   let h = "";
-  if (games > 0) h += '<span class="prog-games">· ' + games + ' ' + plural(games,"гра","ігри","ігор") + '</span>';
-  if (duo > 0)   h += '<span class="prog-duo">· 🦉' + duo + '</span>';
-  if (lh > 0)    h += '<span class="prog-lh">· 📚' + lh + '</span>';
-  if (gpt > 0)   h += '<span class="prog-gpt">· 🤖' + gpt + '</span>';
-  if (songSess > 0) h += '<span class="prog-songsess">· 🎧' + songSess + '</span>';
-  if (songs > 0) h += '<span class="prog-song">· 🎵' + songs + '</span>';
+  if (games > 0) h += _pgCell("🎮", games, "prog-games");
+  if (duo > 0)   h += _pgCell("🦉", duo, "prog-duo");
+  if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
+  if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
+  if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
+  if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
   return h;
 }
 function _progFmtRange(dates) {
@@ -10775,8 +10948,10 @@ function renderProgressPanel() {
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     const xpGain = getDayXpGain(date);
-    const xpHtml = xpGain > 0 ? '<span class="prog-xp">⚡+' + xpGain + '</span>' : '';
-    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + metaHtml + xpHtml + '</span><span class="prog-delta">' + dh + '</span></div>';
+    const xpHtml = xpGain > 0 ? _pgCell("⚡", "+" + xpGain, "prog-xp") : '';
+    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + '</span>' +
+      '<span class="prog-cells">' + metaHtml + xpHtml + '</span>' +
+      '<span class="prog-delta">' + dh + '</span></div>';
   }).join("");
 
   // ── Згортки: місяці (повні суми, новіші згори). «Загалом / За весь час» прибрано
@@ -10786,15 +10961,26 @@ function renderProgressPanel() {
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
       const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt} = _progAggregate(groups[k], history, allDates, days);
-      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) +
-        _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span><span class="prog-delta">' +
-        _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
+      return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) + '</span>' +
+        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span>' +
+        '<span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
-  const byMonth = _progGroupBy(allDates, d => d.slice(0,7));
+  // РЕДИЗАЙН: рік винесено в заголовок секції — місяці ПОТОЧНОГО року підписані лише
+  // назвою («Липень»), а завершені роки згортаються в один річний рядок («2026 рік»).
+  const curYear = new Date().toISOString().slice(0, 4);
+  const monthName = k => _progFmtMonth(k).split(" ")[0];
+  const curYearDates = allDates.filter(d => d.slice(0, 4) === curYear);
+  const byMonth = _progGroupBy(curYearDates, d => d.slice(0, 7));
   if (Object.keys(byMonth).length > 0) {
-    html += '<div class="prog-section">Місяці</div>';
-    html += groupRows(byMonth, (g, k) => _progFmtMonth(k));
+    html += '<div class="prog-section">Місяці · ' + curYear + '</div>';
+    html += groupRows(byMonth, (g, k) => monthName(k));
+  }
+  const pastDates = allDates.filter(d => d.slice(0, 4) !== curYear);
+  if (pastDates.length > 0) {
+    const byYear = _progGroupBy(pastDates, d => d.slice(0, 4));
+    html += '<div class="prog-section">Роки</div>';
+    html += groupRows(byYear, (g, k) => k + ' рік');
   }
   list.innerHTML = html;
 }
@@ -11212,31 +11398,34 @@ function renderLbTotals() {
   const total = correct + wrong + skipped;
   const xp = loadXp();
   const fmt = n => String(n);
-  const row = (label, val, color) =>
-    '<div class="lb-stat-row"><span class="lb-stat-label">' + label + '</span>' +
+  // РЕДИЗАЙН: кожен рядок — рамкована «плашка» з іконкою-медальйоном (стиль інфографіки)
+  const row = (icon, label, val, color) =>
+    '<div class="lb-stat-row"><span class="lb-stat-ic">' + icon + '</span>' +
+    '<span class="lb-stat-label">' + label + '</span>' +
     '<span class="lb-stat-val"' + (color ? ' style="color:' + color + '"' : '') + '>' + fmt(val) + '</span></div>';
   const learnedSongs = SONGS.filter(s => getSongStatus(s.id) === "learned").length;
   const lhDoneCount  = Object.keys(loadLhDone()).length;
   document.getElementById("lb-totals").innerHTML =
-    '<div class="lb-totals-title">Загальна статистика</div>' +
-    row("Днів гри", activeDays) +
-    row("Ігор", games) +
-    row("Відповідей", total) +
-    row("Правильних", correct, "#7be07b") +
-    row("Неправильних", wrong + skipped, "#ff9d9d") +
-    row("Повторень", review, "#87b4ff") +
-    row("Duolingo", getTotalDuoSessions(), "#7fdd40") +
-    row("Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +
-    row("Пісні вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
-    row("Заняття піснями", getTotalSongSessions(), "#c89bff") +
-    row("Запити GPT", getTotalGptRequests(), "#2dd4bf") +
-    row("Досвід (XP)", xp, "#ffd166") +
+    '<div class="lb-totals-title">✦ Загальна статистика ✦</div>' +
+    row("📅", "Днів гри", activeDays) +
+    row("🎮", "Ігор", games) +
+    row("🧮", "Відповідей", total) +
+    row("✅", "Правильних", correct, "#7be07b") +
+    row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +
+    row("🔁", "Повторень", review, "#87b4ff") +
+    row("🦉", "Duolingo", getTotalDuoSessions(), "#7fdd40") +
+    row("📚", "Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +
+    row("🎵", "Пісні вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
+    row("🎧", "Заняття піснями", getTotalSongSessions(), "#c89bff") +
+    row("🤖", "Запити GPT", getTotalGptRequests(), "#2dd4bf") +
+    row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
       '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
-      row("Цього місяця", thermoPointsThisMonth(), "#ffa94d") +
-      row("Сер./день · всього", avgThermoPerDay(false).toFixed(1), "#ffd166") +
-      row("Сер./день · міс.", avgThermoPerDay(true).toFixed(1), "#8fd3ff") +
-    '</div>';
+      row("📆", "Цього місяця", thermoPointsThisMonth(), "#ffa94d") +
+      row("📊", "Сер./день · всього", avgThermoPerDay(false).toFixed(1), "#ffd166") +
+      row("📈", "Сер./день · міс.", avgThermoPerDay(true).toFixed(1), "#8fd3ff") +
+    '</div>' +
+    '<button id="lb-records-btn" title="Найкращі показники за день">🏆 Рекорди</button>';
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
@@ -12464,6 +12653,137 @@ exprOverlay.addEventListener("click", e => {
   }
 });
 document.getElementById("expr-btn").addEventListener("click", openExpr);
+
+// ── РЕДИЗАЙН: «Сходи рівнів» (космічна шкала) ────────────────────────────────
+// Клік по XP-блоку відкриває повний список 20 рівнів (мультивсесвіт згори →
+// струни знизу, як на референсі), з порогами XP, лігами і поточною позицією.
+const levelsOverlay = document.getElementById("levels-overlay");
+function fmtXpNum(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+function openLevels() {
+  const info = getLevelInfo(loadXp());
+  document.getElementById("levels-head").innerHTML =
+    '<div><h2>🌌 Сходи рівнів</h2> <span class="sh-sub">від струн до мультивсесвіту</span></div>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+  let html = '<div class="lvl-list">';
+  for (let i = XP_LEVELS.length - 1; i >= 0; i--) {
+    const lvl = i + 1;
+    const tier = xpTierForLevel(lvl);
+    const lg = ACH_LEAGUES[tier];
+    const isCur = lvl === info.level;
+    const isPast = lvl < info.level;
+    const cls = 'lvl-row' + (isCur ? ' cur' : '') + (isPast ? ' past' : '') + (lvl > info.level ? ' future' : '');
+    html += '<div class="' + cls + '" style="--lg:' + lg.color + ';--lg2:' + lg.color2 + '">' +
+      '<span class="lvl-num">' + lvl + '</span>' +
+      '<span class="lvl-ic">' + LEVEL_ICONS[i] + '</span>' +
+      '<span class="lvl-name">' + XP_LEVELS[i][1] +
+        (isCur ? '<span class="lvl-you">ти тут · ' + fmtXpNum(info.xp) + ' XP</span>' : '') + '</span>' +
+      '<span class="lvl-xp">' + fmtXpNum(XP_LEVELS[i][0]) + ' XP</span>' +
+    '</div>';
+  }
+  html += '</div>';
+  document.getElementById("levels-body").innerHTML = html;
+  levelsOverlay.classList.remove("hidden");
+  // проскролити до поточного рівня
+  const cur = levelsOverlay.querySelector(".lvl-row.cur");
+  if (cur) cur.scrollIntoView({ block: "center" });
+}
+function closeLevels() { levelsOverlay.classList.add("hidden"); }
+levelsOverlay.addEventListener("click", e => {
+  if (e.target === levelsOverlay || e.target.closest('[data-act="close"]')) closeLevels();
+});
+document.getElementById("xp-section").addEventListener("click", openLevels);
+
+// ── РЕДИЗАЙН: «Рекорди» — найкращі показники за день ─────────────────────────
+// Рахуються з уже збережених щоденних сховищ (без нового сховища, завжди актуальні).
+const recordsOverlay = document.getElementById("records-overlay");
+function fmtRecDate(d) { return d ? d.slice(8, 10) + "." + d.slice(5, 7) + "." + d.slice(2, 4) : "—"; }
+function _maxOf(obj, pick) {
+  let bestV = 0, bestD = null;
+  Object.entries(obj).forEach(([d, v]) => {
+    const n = pick ? pick(v) : v;
+    if (n > bestV) { bestV = n; bestD = d; }
+  });
+  return { v: bestV, d: bestD };
+}
+function computeRecords() {
+  const days = loadDays();
+  const duo = loadDuoSessions();
+  const songSess = loadSongSessions();
+  const gpt = loadGptRequests();
+  const lh = loadLhDone();
+  const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
+  let xpDay = {};
+  try { xpDay = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}"); } catch(e) {}
+  // Δ mastery по знімках історії
+  const history = loadMasteryHistory();
+  const hdates = Object.keys(history).sort();
+  let bestK = { v: 0, d: null }, bestL = { v: 0, d: null };
+  hdates.forEach((d, i) => {
+    const cur = history[d];
+    const prev = i > 0 ? history[hdates[i - 1]] : { k: 0, l: 0 };
+    const dk = (cur.k || 0) - (prev.k || 0);
+    const dl = (cur.l || 0) - (prev.l || 0);
+    if (dk > bestK.v) bestK = { v: dk, d };
+    if (dl > bestL.v) bestL = { v: dl, d };
+  });
+  // сирі пункти термометра по всіх датах
+  const allDates = new Set([...Object.keys(days), ...Object.keys(duo), ...Object.keys(songSess),
+    ...Object.keys(gpt), ...Object.keys(mrPts), ...Object.values(lh).filter(d => d && d.length === 10)]);
+  let bestPts = { v: 0, d: null };
+  allDates.forEach(d => {
+    const p = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts);
+    if (p > bestPts.v) bestPts = { v: p, d };
+  });
+  const g = _maxOf(days, x => x.games || 0);
+  const c = _maxOf(days, x => x.correct || 0);
+  const t = _maxOf(days, x => (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0));
+  const r = _maxOf(days, x => x.reviewCorrect || 0);
+  return [
+    { ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
+    { ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
+    { ic: "⚡", label: "Досвіду (XP) за день",     ..._maxOf(xpDay), color: "#ffd166" },
+    { ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" },
+    { ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
+    { ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
+    { ic: "🎮", label: "Ігор за день",             ...g, color: "#ffd166" },
+    { ic: "🔁", label: "Повторень за день",        ...r, color: "#87b4ff" },
+    { ic: "🦉", label: "Duolingo за день",         ..._maxOf(duo), color: "#7fdd40" },
+    { ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
+    { ic: "🤖", label: "Запитів GPT за день",      ..._maxOf(gpt), color: "#2dd4bf" },
+  ];
+}
+function openRecords() {
+  document.getElementById("records-head").innerHTML =
+    '<div><h2>🏆 Рекорди</h2> <span class="sh-sub">найкращі показники за день</span></div>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+  const recs = computeRecords();
+  let html = '<div class="rec-list">';
+  recs.forEach((rr, i) => {
+    html += '<div class="rec-row' + (i % 2 ? ' alt' : '') + '" style="--rc:' + rr.color + '">' +
+      '<span class="rec-medal">' + rr.ic + '</span>' +
+      '<div class="rec-main"><div class="rec-label">' + rr.label + '</div>' +
+        '<div class="rec-date">' + (rr.d ? "рекорд · " + fmtRecDate(rr.d) : "ще немає даних") + '</div></div>' +
+      '<span class="rec-val">' + rr.v + '</span>' +
+    '</div>';
+  });
+  html += '</div>';
+  document.getElementById("records-body").innerHTML = html;
+  recordsOverlay.classList.remove("hidden");
+}
+function closeRecords() { recordsOverlay.classList.add("hidden"); }
+recordsOverlay.addEventListener("click", e => {
+  if (e.target === recordsOverlay || e.target.closest('[data-act="close"]')) closeRecords();
+});
+// Кнопка в #lb-totals перемальовується renderLbTotals → делегований клік
+document.getElementById("lb-totals").addEventListener("click", e => {
+  if (e.target.closest("#lb-records-btn")) openRecords();
+});
+// Esc закриває сходи рівнів / рекорди (capture, як інші оверлеї)
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if (!levelsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeLevels(); }
+  else if (!recordsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeRecords(); }
+}, true);
 // Клавіатура в розділі виразів (capture, щоб не тригерити ігрові обробники за оверлеєм)
 document.addEventListener("keydown", e => {
   if (exprOverlay.classList.contains("hidden")) return;
