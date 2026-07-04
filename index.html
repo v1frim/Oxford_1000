@@ -1578,7 +1578,7 @@ const WORDS = [
   {en:"wrist",ua:"зап'ясток"},
   {en:"palm",ua:"долоня"},{en:"fingernail",ua:"ніготь"},{en:"cuticle",ua:"кутикула"},{en:"knuckle",ua:"кісточка"},{en:"fist",ua:"кулак"},
   {en:"sole",ua:"підошва"},{en:"toe",ua:"палець ноги"},{en:"instep",ua:"підйом стопи"},{en:"toenail",ua:"ніготь на нозі"},{en:"arch",ua:"арка",uaAlt:["звід стопи"]},
-  {en:"wink",ua:"підморгувати"},{en:"blink",ua:"кліпати",uaAlt:["моргати"]},{en:"blush",ua:"червоніти"},{en:"yawn",ua:"позіхати"},{en:"snore",ua:"хропіти"},
+  {en:"wink",ua:"підморгувати"},{en:"blink",ua:"кліпати",uaAlt:["моргати"]},{en:"blush",ua:["червоніти","рум'янець"],uaAlt:["почервоніти","зашарітися"]},{en:"yawn",ua:"позіхати"},{en:"snore",ua:"хропіти"},
   {en:"lick",ua:"лизати"},{en:"suck",ua:"смоктати"},{en:"sigh",ua:"зітхати"},{en:"shrug",ua:"знизувати плечима"},{en:"bow",ua:"кланятися",uaAlt:["вклонятися"]},
   {en:"clap",ua:"плескати",uaAlt:["аплодувати"]},{en:"sweat",ua:"пітніти"},{en:"perspire",ua:"пітніти"},{en:"shiver",ua:"тремтіти"},{en:"sneeze",ua:"чхати"},{en:"nod",ua:"кивати"},
 
@@ -1893,7 +1893,7 @@ const WORDS = [
   {en:"lift",ua:"підіймати",uaAlt:["піднімати","ліфт"]},{en:"elevator",ua:"ліфт"},{en:"listen",ua:"слухати"},{en:"maintain",ua:"підтримувати"},
   {en:"manage",ua:"керувати"},{en:"measure",ua:"вимірювати"},{en:"mention",ua:"згадувати"},
   {en:"notice",ua:"помічати",uaAlt:["повідомлення","оголошення"]},{en:"notebook",ua:"зошит"},{en:"occur",ua:"відбуватися"},{en:"offer",ua:"пропонувати",uaAlt:["пропозиція"]},
-  {en:"operate",ua:"керувати"},{en:"pack",ua:"пакувати"},{en:"paint",ua:"малювати"},
+  {en:"operate",ua:"керувати",uaAlt:["діяти","працювати","функціонувати","оперувати"]},{en:"pack",ua:"пакувати"},{en:"paint",ua:"малювати"},
   {en:"perform",ua:"виконувати"},{en:"pour",ua:"наливати"},{en:"predict",ua:"передбачати"},
   {en:"press",ua:"натискати"},{en:"pretend",ua:"вдавати"},{en:"print",ua:"друкувати"},
   {en:"promise",ua:"обіцяти"},{en:"quit",ua:"кидати"},{en:"react",ua:"реагувати"},
@@ -1980,7 +1980,7 @@ const WORDS = [
   {en:"helpful",ua:"корисний"},{en:"huge",ua:"величезний"},{en:"ideal",ua:"ідеальний"},
   {en:"illegal",ua:"незаконний"},{en:"intelligent",ua:"розумний"},{en:"likely",ua:["ймовірний","ймовірно"]},
   {en:"lonely",ua:"самотній"},{en:"lovely",ua:"чудовий",uaAlt:["милий","прекрасний","гарний","привабливий","чарівний"]},{en:"lucky",ua:"щасливий"},
-  {en:"major",ua:"головний"},{en:"massive",ua:"масивний"},{en:"negative",ua:"негативний"},
+  {en:"major",ua:"головний"},{en:"massive",ua:"масивний",uaAlt:["величезний","масштабний"]},{en:"negative",ua:"негативний"},
   {en:"obvious",ua:"очевидний"},{en:"official",ua:"офіційний"},{en:"opposite",ua:"протилежний"},
   {en:"ordinary",ua:"звичайний"},{en:"patient",ua:["терплячий","пацієнт"]},{en:"patience",ua:"терпіння"},{en:"pleasant",ua:"приємний"},
   {en:"positive",ua:"позитивний"},{en:"proud",ua:"гордий"},{en:"rapid",ua:"швидкий"},
@@ -2422,7 +2422,7 @@ const WORDS = [
   {en:"luminous",ua:"яскравий"},
   {en:"lunch",ua:"обід"},
   {en:"lying",ua:"брехня"},
-  {en:"machinery",ua:"техніка"},
+  {en:"machinery",ua:"техніка",uaAlt:["машинерія","обладнання","механізми"]},
   {en:"mad",ua:"шалений"},
   {en:"magician",ua:"фокусник"},
   {en:"magnificent",ua:"чудовий"},
@@ -9760,7 +9760,7 @@ const EN_TO_UA = (() => {
   m.set("log",         ["колода", "журнал"]);
   m.set("logo",        ["логотип"]);
   m.set("london",      ["Лондон"]);
-  m.set("machinery",   ["машинерія", "обладнання"]);
+  m.set("machinery",   ["техніка", "машинерія", "обладнання"]);   // «техніка» першою — збіг із промптом гри
   m.set("magician",    ["чарівник", "фокусник"]);
   m.set("management",  ["управління"]);
   m.set("mathematical",["математичний"]);
