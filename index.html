@@ -8476,6 +8476,7 @@ let reviewElapsed = 0;
 let reviewTotalPool = 0;
 let reviewDir = "en-ua";
 let pendingReviewPool = null;
+let pendingCatPool = null;   // пул гри по категорії (Знаю/Вивчаю/Нові) — теж чекає вибору напрямку
 let rmSelectedIdx = 0;
 const RM_DIRS = ["en-ua", "ua-en", "random"];
 let reviewCorrectCounts = null;
@@ -9086,9 +9087,17 @@ function updateRmSelection() {
 }
 function confirmRmSelection() {
   const dir = RM_DIRS[rmSelectedIdx];
+  document.getElementById("review-mode-modal").classList.add("hidden");
+  if (pendingCatPool) {
+    // Гра по категорії (Знаю/Вивчаю/Нові): звичайна timed-гра обраного напрямку.
+    // «Випадковий» → режим «мікс» (існуюча механіка: напрям щослова, лідерборд «🔀 Мікс»).
+    const pool = pendingCatPool; pendingCatPool = null;
+    setMode(dir === "random" ? "mix" : dir);
+    startGame(pool, { timed: true });
+    return;
+  }
   reviewDir = dir;
   if (dir !== "random") setMode(dir); else setMode("en-ua");
-  document.getElementById("review-mode-modal").classList.add("hidden");
   startGame(pendingReviewPool);
   pendingReviewPool = null;
 }
@@ -10331,6 +10340,7 @@ document.getElementById("review-mode-modal").addEventListener("click", e => {
   if (e.target.id === "rm-cancel" || e.target === document.getElementById("review-mode-modal")) {
     document.getElementById("review-mode-modal").classList.add("hidden");
     pendingReviewPool = null;
+    pendingCatPool = null;
   }
 });
 tabAll.addEventListener("click", () => setFilter("all"));
@@ -10425,6 +10435,7 @@ document.addEventListener("keydown", e => {
       e.preventDefault();
       document.getElementById("review-mode-modal").classList.add("hidden");
       pendingReviewPool = null;
+      pendingCatPool = null;
     } else if (e.key === "Tab") {
       e.preventDefault();
       rmSelectedIdx = (rmSelectedIdx + 1) % RM_DIRS.length;
@@ -11198,13 +11209,14 @@ function openCategoryModal(cat) {
         '</div>').join("")
     : '<div class="cat-empty">Тут поки порожньо</div>';
   listEl.scrollTop = 0;
-  const valid = new Set(modeValidPool());
-  const playable = idxs.filter(i => valid.has(i)).length;
+  // Гра по категорії тепер завжди переклад (вибір напрямку в модалці) —
+  // перетин із modeValidPool() активного режиму більше не потрібен.
+  const playable = idxs.length;
   const playBtn = document.getElementById("cat-play");
   playBtn.disabled = playable === 0;
   playBtn.textContent = playable
     ? "▶ Грати ці слова (" + playable + ")"
-    : "Немає слів для цього режиму";
+    : "Тут поки порожньо";
   playBtn.style.background = meta.color;
   document.getElementById("cat-modal").classList.remove("hidden");
 }
@@ -11214,11 +11226,15 @@ function closeCategoryModal() {
 }
 function startCategoryGame() {
   if (!catModalCat) return;
-  const valid = new Set(modeValidPool());
-  const pool = categoryIndices(catModalCat).filter(i => valid.has(i));
+  const pool = categoryIndices(catModalCat);
   if (!pool.length) return;
   closeCategoryModal();
-  startGame(pool, { timed: true });
+  // Вибір напрямку (US→UA / UA→US / Випадковий) — та сама модалка, що в повтореннях
+  // (сесія 32, за запитом: раніше гра брала поточний режим без вибору).
+  pendingCatPool = pool;
+  rmSelectedIdx = 0;
+  updateRmSelection();
+  document.getElementById("review-mode-modal").classList.remove("hidden");
 }
 document.getElementById("mastery-stats").addEventListener("click", e => {
   const badge = e.target.closest(".ms-badge[data-cat]");
