@@ -524,7 +524,7 @@ border: 1px solid rgba(255,255,255,0.22);
 ## Архітектура коду
 
 ### Дані
-- `WORDS` — масив `{en, ua}` (2704 entries; сесія 32: +5 (тема вибачень: forgiveness/pardon/remorse/repent/atone; полісемії interrupt/patient/well/trustworthy лише розширили `ua`/`uaAlt`, без нових записів); сесія 30: +24 (стор.16–17 м'язи/скелет/зуби) +5 (дієслова ударів punch/slap/smack/stab/shoot) +26 (стор.14–15 руки/ноги+body verbs) +6 (стоп-синоніми) +2 (smirk/beam) +10 (синоніми/частини мови зі списку) +1 (to handle омограф) +20 (частини тіла стор.12–13) +4 (welcome/green/elevator/unexpectedly); деталі — трекер + changelog; +1 у сесії 27 — іменник `ride` (поїздка/атракціон); +10 у сесії 22 — лексика пісень Fight/Lit; +9 у сесії 21 — LingoHut; +183 у сесії 19 — coverage batch). Опц. поля `uaAlt:[…]` / `enAlt:[…]` (uaAlt — сесія 24; enAlt — сесія 30) — ПРИЙНЯТНІ відповіді, які НЕ показуються як промпт. `uaAlt` = додаткові УКР. переклади (лише en-ua; `getUa` їх НЕ повертає → ua-en НЕ зачеплено); `enAlt` = АНГЛ. синоніми-відповіді (лише ua-en). Деталі — «Що НЕ змінювати → uaAlt/enAlt». Приклади enAlt: `idle`↔`lazy`. Приклади uaAlt: `town`→["місто"]; `design`→["дизайн"] (приймає і дієслово «проектувати», і іменник «дизайн»); `deadline`→["крайній термін","кінцевий термін","термін"] (сесія 27); `glove`→["рукавиця"] (сесія 28, осн. «рукавичка»); `spot`→["помітити","пляма","місце"] (сесія 28 — осн. дієслово «помічати»; ще й `EN_TO_UA["spot"]` тепер `["помічати","пляма","місце"]`, щоб hover збігався з раундом, бо раніше hover давав лише іменники, а раунд просив дієслово)
+- `WORDS` — масив `{en, ua}` (2737 entries; сесія 32: +33 (сімейна лексика з docx Family Vocabulary: mom/dad/kid/sibling/spouse/grandson/granddaughter/great-*/in-laws/step*/to adopt/boyfriend/girlfriend/fiance/fiancee/ancestor/descendant/generation/born; ⚠️ fiancé→fiance БЕЗ é — діакритика ламає токенізатор, як cafe у сесії 19) +5 (тема вибачень: forgiveness/pardon/remorse/repent/atone; полісемії interrupt/patient/well/trustworthy лише розширили `ua`/`uaAlt`, без нових записів); сесія 30: +24 (стор.16–17 м'язи/скелет/зуби) +5 (дієслова ударів punch/slap/smack/stab/shoot) +26 (стор.14–15 руки/ноги+body verbs) +6 (стоп-синоніми) +2 (smirk/beam) +10 (синоніми/частини мови зі списку) +1 (to handle омограф) +20 (частини тіла стор.12–13) +4 (welcome/green/elevator/unexpectedly); деталі — трекер + changelog; +1 у сесії 27 — іменник `ride` (поїздка/атракціон); +10 у сесії 22 — лексика пісень Fight/Lit; +9 у сесії 21 — LingoHut; +183 у сесії 19 — coverage batch). Опц. поля `uaAlt:[…]` / `enAlt:[…]` (uaAlt — сесія 24; enAlt — сесія 30) — ПРИЙНЯТНІ відповіді, які НЕ показуються як промпт. `uaAlt` = додаткові УКР. переклади (лише en-ua; `getUa` їх НЕ повертає → ua-en НЕ зачеплено); `enAlt` = АНГЛ. синоніми-відповіді (лише ua-en). Деталі — «Що НЕ змінювати → uaAlt/enAlt». Приклади enAlt: `idle`↔`lazy`. Приклади uaAlt: `town`→["місто"]; `design`→["дизайн"] (приймає і дієслово «проектувати», і іменник «дизайн»); `deadline`→["крайній термін","кінцевий термін","термін"] (сесія 27); `glove`→["рукавиця"] (сесія 28, осн. «рукавичка»); `spot`→["помітити","пляма","місце"] (сесія 28 — осн. дієслово «помічати»; ще й `EN_TO_UA["spot"]` тепер `["помічати","пляма","місце"]`, щоб hover збігався з раундом, бо раніше hover давав лише іменники, а раунд просив дієслово)
 - `TRANS` — IPA (100% покриття, перевіряється `check-coverage.js`)
 - `EXAMPLES` / `EXAMPLES_UA` — EN/UA речення (~2590 пар, 100% hover-покриття слів)
 - `DEFS` — визначення (~476) для Def-режиму
@@ -919,7 +919,7 @@ glossary та сленгом. Остання додана — «Scars 🩹» (`y
 - Останнє оновлення: 2026-07-04 (сесія 32)
 - Зміни сесії 32 (за запитом користувача; index.html + handoff.md):
   - **TL;DR:** словникові фікси-полісемії за скаргами в грі + 5 нових слів (тема вибачень) +
-    5 ідіом; НОВА ФІЧА — розділ «Вирази і сленг» (флеш-картки). WORDS 2699→2704.
+    5 ідіом; НОВА ФІЧА — розділ «Вирази і сленг» (флеш-картки); +33 сімейні слова. WORDS 2699→2737.
   - **— СЛОВНИК (полісемія за скаргами користувача під час гри) —**
     - `interrupt` +«перебивати» (було лише «переривати»; приклад-UA якраз про «не перебивай мене»).
     - `patient` +«пацієнт» (омограф: терплячий adj / пацієнт n; hover авто-сідиться з WORDS).
@@ -928,6 +928,15 @@ glossary та сленгом. Остання додана — «Scars 🩹» (`y
       це основний глос `worthy`, була б колізія ua-en).
   - **— +5 СЛІВ (шпаргалка apologize/forgive) —** forgiveness (прощення), to pardon (помилувати),
     remorse (каяття), to repent (каятися), to atone (спокутувати). Повний чеклист, check-coverage OK.
+  - **— +33 СЛОВА: СІМЕЙНА ЛЕКСИКА (docx Family Vocabulary) —** mom, dad, kid, sibling, spouse,
+    grandparents, grandson, granddaughter, great-grandmother/father/grandson/granddaughter,
+    6 in-laws (теща/свекруха, тесть/свекор, зять, невістка, шурин, зовиця — рідше вживані родичі
+    в uaAlt), 6 step* (вітчим/мачуха/пасинок/падчерка/зведені), to adopt, boyfriend/girlfriend
+    (чесні спільні глоси з boy/girl), fiance/fiancee (без é!), ancestor, descendant, generation,
+    born (чекер зловив у прикладі). `cousin` розширено +«двоюрідна сестра». Спільні глоси
+    (дитина child/kid, онук grandchild/grandson, наречена bride/fiancee) — чесні синоніми,
+    крос-логіка приймає обидва. Фрази (immediate family, family tree…) НЕ додано — кандидати
+    в EXPRESSIONS на майбутнє. WORDS 2704→2737.
   - **— +5 ІДІОМ у EXPRESSIONS —** break a leg, piece of cake, kick the bucket, spill the beans,
     hit the roof (+ раніше make amends, excuse me). Це вирази, НЕ пісенний slang → EXPRESSIONS.
   - **— НОВА ФІЧА: розділ «Вирази і сленг» (флеш-картки) —** повні деталі — окремий розділ вище.
