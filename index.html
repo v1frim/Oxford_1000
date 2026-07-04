@@ -432,6 +432,11 @@
   #xp-fill { height: 100%; border-radius: 5px;
     background: linear-gradient(90deg, var(--tier), var(--tier2));
     box-shadow: 0 0 8px var(--tier); transition: width 0.6s ease; }
+  /* сьогоднішній приріст XP — зелений сегмент у КІНЦІ заливки (у тон піла «+N XP») */
+  #xp-today-fill { position: absolute; top: 0; height: 100%;
+    background: linear-gradient(90deg, #06d6a0, #3ce8bd);
+    box-shadow: 0 0 8px rgba(6,214,160,0.55);
+    transition: left 0.6s ease, width 0.6s ease; }
   /* segment dividers */
   #xp-seg { position: absolute; inset: 0; pointer-events: none; display: flex; }
   #xp-seg i { flex: 1; border-right: 1px solid rgba(8,18,38,0.22); }
@@ -1244,7 +1249,7 @@
             <span id="xp-nums"></span>
             <span id="xp-today"></span>
           </div>
-          <div id="xp-bar"><div id="xp-fill"></div><div id="xp-seg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div id="xp-bar"><div id="xp-fill"></div><div id="xp-today-fill" style="display:none"></div><div id="xp-seg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
           <div id="xp-league"></div>
         </div>
       </div>
@@ -10786,6 +10791,22 @@ function renderXpBar() {
   const todayEl = document.getElementById("xp-today");
   todayEl.textContent = gain > 0 ? "+" + gain + " XP" : "";
   todayEl.style.display = gain > 0 ? "" : "none";
+  // Сьогоднішній приріст — окремим зеленим сегментом у кінці заливки. Якщо приріст
+  // перетнув межу рівня (level-up сьогодні) — показуємо лише частину В МЕЖАХ поточного рівня.
+  const gainSeg = document.getElementById("xp-today-fill");
+  if (gainSeg) {
+    const span = info.next - info.cur;
+    const inLevel = info.isMax ? 0 : Math.max(0, xp - Math.max(info.cur, xp - gain));
+    if (inLevel > 0) {
+      const rawPct  = (xp - info.cur) / span * 100;
+      const basePct = (xp - info.cur - inLevel) / span * 100;
+      gainSeg.style.left = basePct + "%";
+      gainSeg.style.width = (rawPct - basePct) + "%";
+      gainSeg.style.display = "";
+    } else {
+      gainSeg.style.display = "none";
+    }
+  }
   // level-up flash (only on a genuine increase within a session, not first paint)
   if (_xpPrevLevel !== null && info.level > _xpPrevLevel) {
     sec.classList.remove("xp-levelup"); void sec.offsetWidth; // restart animation
