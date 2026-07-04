@@ -144,6 +144,11 @@
   .lb-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; font-size: 12px; gap: 20px; }
   .lb-stat-label { opacity: 0.5; color: #fff; }
   .lb-stat-val { font-weight: 600; }
+  /* Блок «Плани» — ЗМІННІ (не накопичувальні) значення: відокремлений пунктирною рискою + голубувато-оранжева картка */
+  .lb-variable { margin-top: 9px; padding: 7px 9px 4px; border-radius: 10px; background: rgba(255,169,77,0.09); border: 1px solid rgba(255,169,77,0.22); border-top: 1px dashed rgba(255,169,77,0.55); }
+  .lb-subhead { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #ffa94d; opacity: 0.95; font-weight: 700; margin-bottom: 4px; }
+  .lb-variable .lb-stat-row { padding: 1px 0; font-size: 12px; }
+  .lb-variable .lb-stat-label { opacity: 0.72; }
   .lb-list li.lb-sep {
     background: transparent !important; box-shadow: none !important;
     border-top: 1px dashed rgba(255,255,255,0.25);
@@ -509,6 +514,8 @@
   .th-tube-col  { position: relative; width: 14px; }
   .th-tube { width: 100%; height: 100%; border-radius: 7px; background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.16); overflow: hidden; position: relative; }
   #thermo-fill { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, #ffd166, #ffa94d 50%, #ff6b6b); background-size: 100% 300px; background-position: left bottom; background-repeat: no-repeat; border-radius: 0 0 7px 7px; transition: height .6s cubic-bezier(.34,1.2,.64,1); }
+  /* Перенесені з попередніх днів пункти — холодний (голубий) відтінок, сидять НАД теплою частиною сьогоднішніх */
+  #thermo-carry { position: absolute; left: 0; right: 0; background: linear-gradient(to top, #4ba3e3, #8fd3ff); box-shadow: 0 0 7px rgba(130,205,255,0.5); transition: height .6s cubic-bezier(.34,1.2,.64,1), bottom .6s cubic-bezier(.34,1.2,.64,1); }
   .tm { position: absolute; right: 0; display: flex; align-items: center; gap: 4px; transform: translateY(50%); }
   .tm-line { flex-shrink: 0; border-radius: 1px; }
   .tm-n { line-height: 1; }
@@ -522,6 +529,9 @@
   /* ПРОЙДЕНІ основні — жовто-оранжеві (акцент досягнутого прогресу) */
   .tm-major.done .tm-line { background: #ffd166; }
   .tm-major.done .tm-n { color: #ffd166; }
+  /* ПЕРЕНЕСЕНІ (холодна зона) — голубі, перебивають теплі (правило нижче за специфічністю рівне → виграє порядком) */
+  .tm.carry.done .tm-line { background: #8fd3ff; }
+  .tm.carry.done .tm-n { color: #8fd3ff; }
   .th-bulb { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#ffd166,#ffa94d); border: 1px solid rgba(255,255,255,0.2); margin-top: -5px; box-shadow: 0 2px 12px rgba(255,209,102,.45); }
   .th-plans { font-size: 10px; color: rgba(255,255,255,0.62); text-align: center; line-height: 1.4; }
   .th-plans b { color: #ffd166; font-size: 13px; }
@@ -1209,7 +1219,7 @@
   <div class="th-pts" id="thermo-pts">—</div>
   <div class="th-body">
     <div class="th-marks-col" id="thermo-marks"></div>
-    <div class="th-tube-col"><div class="th-tube"><div id="thermo-fill" style="height:0"></div></div></div>
+    <div class="th-tube-col"><div class="th-tube"><div id="thermo-fill" style="height:0"></div><div id="thermo-carry" style="height:0"></div></div></div>
   </div>
   <div class="th-bulb"></div>
   <div class="th-plans" id="thermo-plans">—</div>
@@ -11221,9 +11231,12 @@ function renderLbTotals() {
     row("Заняття піснями", getTotalSongSessions(), "#c89bff") +
     row("Запити GPT", getTotalGptRequests(), "#2dd4bf") +
     row("Досвід (XP)", xp, "#ffd166") +
-    row("Пунктів цього місяця", thermoPointsThisMonth(), "#ffa94d") +
-    row("Сер. пунктів/день", avgThermoPerDay(false).toFixed(1), "#ffa94d") +
-    row("Сер. за цей місяць", avgThermoPerDay(true).toFixed(1), "#ffa94d");
+    '<div class="lb-variable">' +
+      '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
+      row("Цього місяця", thermoPointsThisMonth(), "#ffa94d") +
+      row("Сер./день · всього", avgThermoPerDay(false).toFixed(1), "#ffd166") +
+      row("Сер./день · міс.", avgThermoPerDay(true).toFixed(1), "#8fd3ff") +
+    '</div>';
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
@@ -11408,13 +11421,31 @@ function thermoColor(t) {
   return a.map((v, i) => Math.round(v + (b[i] - v) * lt));
 }
 function renderThermo() {
-  const pts   = getThermoPointsToday();
+  const today = new Date().toISOString().slice(0, 10);
+  const days  = loadDays();
+  const duo   = loadDuoSessions();
+  const lh    = loadLhDone();
+  const songSess = loadSongSessions();
+  const gpt   = loadGptRequests();
+  const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
+  const carryIn  = getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts); // перенесене з минулих днів (0–3)
+  const todayRaw = thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts); // зароблене саме сьогодні
+  const pts   = carryIn + todayRaw;
   const plans = Math.floor(pts / 4);
   const topMark = 16;          // фіксована верхня мітка (мітки 4, 8, 12, 16)
   const maxPts  = topMark + 2; // 18 — +2 пункти простору над міткою
   const fillPct = Math.min(100, (pts / maxPts) * 100);
 
-  document.getElementById("thermo-fill").style.height = fillPct + "%";
+  // Тепла частина (сьогоднішні пункти) — знизу; холодна (перенесене) — НАД нею, у самому верху заливки.
+  const warmPct  = Math.min(100, (todayRaw / maxPts) * 100);
+  const carryPct = Math.max(0, Math.min(100 - warmPct, (carryIn / maxPts) * 100));
+  document.getElementById("thermo-fill").style.height = warmPct + "%";
+  const carryEl = document.getElementById("thermo-carry");
+  if (carryEl) {
+    carryEl.style.display = carryIn > 0 ? "block" : "none";
+    carryEl.style.bottom = warmPct + "%";
+    carryEl.style.height = carryPct + "%";
+  }
   // Кулька знизу міняє відтінок відносно рівня полоски: жовта → помаранчева → червона
   const [tr, tg, tb] = thermoColor(fillPct / 100);
   const bulb = document.querySelector(".th-bulb");
@@ -11432,7 +11463,8 @@ function renderThermo() {
     const bot = (pAt / maxPts) * 100;
     const isMajor = pAt % 4 === 0;
     const isDone  = pAt <= pts;
-    const cls = 'tm ' + (isMajor ? 'tm-major' : 'tm-minor') + (isDone ? ' done' : '');
+    const isCarry = pAt > todayRaw && pAt <= pts;   // мітка у холодній (перенесеній) зоні
+    const cls = 'tm ' + (isMajor ? 'tm-major' : 'tm-minor') + (isDone ? ' done' : '') + (isCarry ? ' carry' : '');
     html += '<div class="' + cls + '" style="bottom:' + bot.toFixed(1) + '%">'
           + '<span class="tm-n">' + pAt + '</span>'
           + '<div class="tm-line"></div></div>';
@@ -12398,7 +12430,7 @@ function renderExprCard() {
   } else {
     html += '<button class="exf-btn exf-again" data-act="rate" data-rate="learning">↻ Ще вчу</button>';
     html += '<button class="exf-btn exf-know" data-act="rate" data-rate="learned">✓ Знаю</button>';
-    html += '</div><div class="exf-hint">Enter — знаю · Пробіл / ← — ще вчу · Tab — озвучити · Esc — вийти</div>';
+    html += '</div><div class="exf-hint">Enter — знаю · Пробіл — ще вчу · Tab — озвучити · Esc — вийти</div>';
   }
   html += '</div>';   // .exf-wrap
   exprBody.innerHTML = html;
@@ -12456,9 +12488,6 @@ document.addEventListener("keydown", e => {
     e.preventDefault(); e.stopPropagation();
     if (!exprRevealed) { exprRevealed = true; renderExprCard(); }
     else exprRate("learning");
-  } else if (e.key === "ArrowLeft") { // ← — «Ще вчу» (дубль до Пробілу)
-    e.preventDefault(); e.stopPropagation();
-    if (exprRevealed) exprRate("learning");
   }
 }, true);
 </script>
