@@ -10694,19 +10694,21 @@ function appendGamesLog(game) {
   log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount });
   localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-5000)));
 }
-// Місце гри серед усіх ЗБЕРЕЖЕНИХ (лог ∪ топ-10 без дублів за ts): кращий = більший
-// score, при рівності — менше помилок. Повертає {rank, total}.
-function gameRank(game) {
+// Місце гри серед усіх ЗБЕРЕЖЕНИХ (лог ∪ топ-10 ∪ передані extras, без дублів за ts).
+// Ранг = ПОЗИЦІЯ у відсортованому списку (score↓, помилки↑, ts↑ як тай-брейк) → кожна
+// гра має УНІКАЛЬНИЙ номер (не дублюється між «остання» і «найкраща за день», навіть
+// коли лог сьогоднішніх ігор ще порожній). Повертає Map ts→{rank,total}.
+function gameRanks(extras) {
   const seen = new Set();
   const all = [];
-  loadGamesLog().concat(loadScores()).forEach(g => {
+  loadGamesLog().concat(loadScores(), extras || []).forEach(g => {
     if (g && g.ts && !seen.has(g.ts)) { seen.add(g.ts); all.push(g); }
   });
-  if (game.ts && !seen.has(game.ts)) all.push(game);
   const bad = g => (g.wrong || 0) + (g.skipped || 0);
-  let better = 0;
-  all.forEach(g => { if (g.score > game.score || (g.score === game.score && bad(g) < bad(game))) better++; });
-  return { rank: better + 1, total: all.length };
+  all.sort((a, b) => b.score - a.score || bad(a) - bad(b) || a.ts - b.ts);
+  const map = new Map();
+  all.forEach((g, i) => map.set(g.ts, { rank: i + 1, total: all.length }));
+  return map;
 }
 function updateLatest(game) {
   const entry = { key: todayKey(), score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
@@ -11492,11 +11494,13 @@ function renderTabGames() {
   lbEmptyEl.classList.add("hidden");
   let html = scores.map(s => renderGameRow(s, s.id === lbNewGameId ? "is-new" : "")).join("");
   const extra = [];
+  // спільний рейтинг: обидва extra-рядки ранжуються в ОДНОМУ списку → без дублів номерів
+  const ranks = gameRanks([hasTodayBest ? todayBest : null, hasLatest ? latest : null].filter(Boolean));
   if (hasTodayBest && !scores.some(s => s.ts === todayBest.ts)) {
-    extra.push(renderGameRow(todayBest, "lb-today", gameRank(todayBest).rank));
+    extra.push(renderGameRow(todayBest, "lb-today", (ranks.get(todayBest.ts) || {}).rank));
   }
   if (hasLatest && !scores.some(s => s.ts === latest.ts) && (!hasTodayBest || latest.ts !== todayBest.ts)) {
-    extra.push(renderGameRow(latest, "lb-latest", gameRank(latest).rank));
+    extra.push(renderGameRow(latest, "lb-latest", (ranks.get(latest.ts) || {}).rank));
   }
   if (extra.length) {
     html += '<li class="lb-sep"></li>' + extra.join("");
