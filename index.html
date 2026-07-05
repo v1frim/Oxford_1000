@@ -172,6 +172,11 @@
     border-radius: 6px;
   }
   .lb-list li.lb-latest::before { content: "ост"; opacity: 0.85; font-size: 10px; color: #87b4ff; }
+  /* реальне місце в повній історії (сесія 33): якщо відоме — показуємо номер замість ★/«ост» */
+  .lb-list li.lb-today[data-rank]::before, .lb-list li.lb-latest[data-rank]::before {
+    content: attr(data-rank) "."; opacity: 0.9; font-size: 12px; color: #ffd166;
+  }
+  .lb-list li.lb-latest[data-rank]::before { color: #87b4ff; }
   .lb-list li.lb-today .lb-mode,
   .lb-list li.is-new .lb-mode,
   .lb-list li.is-today-game .lb-mode { font-weight: 600; opacity: 0.85; color: #ffe39e; }
@@ -9121,6 +9126,7 @@ function endGame(endedEarly) {
     }
     updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
     updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
+    appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
   } else {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
@@ -10675,6 +10681,33 @@ function loadLatest() {
   try { return JSON.parse(localStorage.getItem(LB_LATEST_KEY)); }
   catch { return null; }
 }
+// ── ЛОГ УСІХ ІГОР (сесія 33) — для реального місця «останньої гри» в історії ────
+// Раніше зберігався лише топ-10: точне місце гри поза топом було невідоме.
+// Лог пишеться З МОМЕНТУ фічі (стара історія поза топ-10 втрачена — місце рахується
+// серед ЗБЕРЕЖЕНИХ ігор: топ-10 + лог). ~70 байт/гра, кап 5000 (≈350 КБ максимум).
+const GAMES_LOG_KEY = "oxford_games_log_v1";
+function loadGamesLog() {
+  try { return JSON.parse(localStorage.getItem(GAMES_LOG_KEY)) || []; } catch { return []; }
+}
+function appendGamesLog(game) {
+  const log = loadGamesLog();
+  log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount });
+  localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-5000)));
+}
+// Місце гри серед усіх ЗБЕРЕЖЕНИХ (лог ∪ топ-10 без дублів за ts): кращий = більший
+// score, при рівності — менше помилок. Повертає {rank, total}.
+function gameRank(game) {
+  const seen = new Set();
+  const all = [];
+  loadGamesLog().concat(loadScores()).forEach(g => {
+    if (g && g.ts && !seen.has(g.ts)) { seen.add(g.ts); all.push(g); }
+  });
+  if (game.ts && !seen.has(game.ts)) all.push(game);
+  const bad = g => (g.wrong || 0) + (g.skipped || 0);
+  let better = 0;
+  all.forEach(g => { if (g.score > game.score || (g.score === game.score && bad(g) < bad(game))) better++; });
+  return { rank: better + 1, total: all.length };
+}
 function updateLatest(game) {
   const entry = { key: todayKey(), score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
   localStorage.setItem(LB_LATEST_KEY, JSON.stringify(entry));
@@ -10719,7 +10752,7 @@ const BACKUP_KEYS = [
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
-  "oxford_expr_status_v1"
+  "oxford_expr_status_v1","oxford_games_log_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -11423,7 +11456,7 @@ function renderTabGames() {
   const todayBest = loadTodayBest();
   const latest = loadLatest();
   const today = todayKey();
-  const renderGameRow = (s, cls) => {
+  const renderGameRow = (s, cls, rank) => {
     const LB_MODE_LABELS = {
       "ua-en":    "UA→US",
       "en-ua":    "US→UA",
@@ -11442,7 +11475,7 @@ function renderTabGames() {
       + (isYesterdayGame ? " lb-yesterday-date" : "")
       + (isLatestGame ? " is-latest-game" : "");
     const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
-    return '<li class="' + klass + '">' +
+    return '<li class="' + klass + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед збережених ігор (повний лог — з моменту фічі)"' : '') + '>' +
       '<span class="lb-score">' + s.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)' + poolStr + '</span>' +
       '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
@@ -11460,10 +11493,10 @@ function renderTabGames() {
   let html = scores.map(s => renderGameRow(s, s.id === lbNewGameId ? "is-new" : "")).join("");
   const extra = [];
   if (hasTodayBest && !scores.some(s => s.ts === todayBest.ts)) {
-    extra.push(renderGameRow(todayBest, "lb-today"));
+    extra.push(renderGameRow(todayBest, "lb-today", gameRank(todayBest).rank));
   }
   if (hasLatest && !scores.some(s => s.ts === latest.ts) && (!hasTodayBest || latest.ts !== todayBest.ts)) {
-    extra.push(renderGameRow(latest, "lb-latest"));
+    extra.push(renderGameRow(latest, "lb-latest", gameRank(latest).rank));
   }
   if (extra.length) {
     html += '<li class="lb-sep"></li>' + extra.join("");
@@ -11486,11 +11519,11 @@ function renderTabDays() {
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  const renderEntry = (e, cls) => {
+  const renderEntry = (e, cls, rank) => {
     const games = e.games || 0;
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
     // 🔁 повторення ПРИБРАНО з рядків (сесія 32, за запитом — «на те значення не дивлюсь»)
-    return '<li class="' + cls + '">' +
+    return '<li class="' + cls + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед усіх ' + Object.keys(days).length + ' днів"' : '') + '>' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
       gamesStr +
@@ -11503,7 +11536,11 @@ function renderTabDays() {
     return renderEntry(e, isNew + isYesterday);
   }).join("");
   if (todayEntry && !entries.some(e => e.key === today)) {
-    html += '<li class="lb-sep"></li>' + renderEntry(todayEntry, "lb-today");
+    // реальне місце сьогодні у ПОВНІЙ історії днів (oxford_days_v1 зберігає всі дні)
+    const allSorted = Object.entries(days).map(([key, st]) => ({ key, ...st }))
+      .sort((a, b) => b.correct - a.correct || (a.wrong + a.skipped) - (b.wrong + b.skipped));
+    const rank = 1 + allSorted.findIndex(e => e.key === today);
+    html += '<li class="lb-sep"></li>' + renderEntry(todayEntry, "lb-today", rank);
   }
   lbListEl.innerHTML = html;
 }
@@ -11570,7 +11607,9 @@ function renderTabXpDays() {
     return renderEntry(e, isNew + isYesterday);
   }).join("");
   if (xpMap[today] && !entries.some(e => e.key === today)) {
-    html += '<li class="lb-sep"></li>' + renderEntry({ key: today, xp: xpMap[today] }, "lb-today");
+    const rank = 1 + Object.values(xpMap).filter(v => v > xpMap[today]).length;
+    html += '<li class="lb-sep"></li>' + renderEntry({ key: today, xp: xpMap[today] }, "lb-today")
+      .replace('<li class="lb-today"', '<li class="lb-today" data-rank="' + rank + '" title="місце серед усіх XP-днів"');
   }
   lbListEl.innerHTML = html;
 }
