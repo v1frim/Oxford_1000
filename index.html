@@ -1085,6 +1085,31 @@
       /* глибокий космос */
       linear-gradient(180deg, #05070f 0%, #0a0e20 40%, #101731 75%, #131b38 100%);
   }
+  /* ── Фон за порою дня (data-tod на <html>, ставиться раннім скриптом; дефолт/ніч = космос вище).
+     Сезонні межі затверджені користувачем (сесія 33). Картки/панелі лишаються темними у всіх фазах. ── */
+  html[data-tod="morning"] body {
+    background:
+      radial-gradient(ellipse 60% 40% at 78% 12%, rgba(255,225,180,0.55), transparent 70%),
+      radial-gradient(ellipse 50% 30% at 20% 8%, rgba(255,200,220,0.40), transparent 70%),
+      linear-gradient(180deg, #ffd9a8 0%, #ffc2ac 16%, #eeb0c4 34%, #c3b6dd 54%, #a9c6e8 76%, #cfe6f5 100%);
+  }
+  html[data-tod="day"] body {
+    background:
+      radial-gradient(ellipse 520px 180px at 8% 16%, rgba(255,255,255,0.85), transparent 100%),
+      radial-gradient(ellipse 300px 120px at 20% 11%, rgba(255,255,255,0.7), transparent 100%),
+      radial-gradient(ellipse 460px 160px at 76% 10%, rgba(255,255,255,0.8), transparent 100%),
+      radial-gradient(ellipse 280px 110px at 88% 6%, rgba(255,255,255,0.6), transparent 100%),
+      radial-gradient(ellipse 360px 130px at 95% 42%, rgba(255,255,255,0.5), transparent 100%),
+      linear-gradient(180deg, #6fb2e0 0%, #92c4e6 24%, #b2d6ef 48%, #cde6f6 70%, #e2f0fb 88%, #eef6fd 100%);
+  }
+  html[data-tod="evening"] body {
+    background:
+      radial-gradient(1.4px 1.4px at 22% 10%, rgba(255,255,255,0.7), transparent 60%),
+      radial-gradient(1.2px 1.2px at 64% 6%, rgba(255,255,255,0.6), transparent 60%),
+      radial-gradient(1.3px 1.3px at 84% 14%, rgba(255,255,255,0.55), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 50% 118%, rgba(255,170,90,0.55), transparent 70%),
+      linear-gradient(180deg, #1e1440 0%, #46285f 22%, #7b3a63 44%, #b85560 64%, #e0895a 84%, #f4b26e 100%);
+  }
   .card, .leaderboard {
     background: linear-gradient(165deg, rgba(16,20,42,0.92), rgba(9,12,26,0.90));
     border: 1px solid rgba(255,209,102,0.30);
@@ -1435,7 +1460,28 @@
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
      до свого reveal-виклику. Реєструється ДО songs.js, бо не має залежностей. -->
-<script>addEventListener("load",function(){var l=document.querySelector(".layout");if(l)l.classList.add("ready");});</script>
+<script>
+addEventListener("load",function(){var l=document.querySelector(".layout");if(l)l.classList.add("ready");});
+// ── Фон за порою дня З СЕЗОНАМИ (укр. широти; межі затверджені користувачем, сесія 33) ──
+// Виконується ДО songs.js/основного скрипта → правильний фон з першого кадру, без блимання.
+// Межі = ПОЧАТКИ фаз [ранок, день, вечір, ніч] за сезоном; ?tod=morning|day|evening|night — форс для перевірки.
+function todFor(m, h) {
+  var B = (m === 12 || m <= 2) ? [7, 9, 15, 17]    // зима
+        : (m <= 5)             ? [6, 8, 18, 21]    // весна
+        : (m <= 8)             ? [5, 7, 20, 23]    // літо
+        :                        [6, 8, 18, 21];   // осінь
+  return (h >= B[3] || h < B[0]) ? "night" : h < B[1] ? "morning" : h < B[2] ? "day" : "evening";
+}
+function todNow() {
+  var d = new Date();
+  return todFor(d.getMonth() + 1, d.getHours());
+}
+(function () {
+  var force = new URLSearchParams(location.search).get("tod");
+  document.documentElement.dataset.tod = force || todNow();
+  if (!force) setInterval(function () { document.documentElement.dataset.tod = todNow(); }, 10 * 60 * 1000);
+})();
+</script>
 <script src="songs.js"></script>
 <script>
 const DURATION = 60;
