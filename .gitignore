@@ -1,3 +1,7 @@
 node_modules/
 package-lock.json
 package.json
+
+# Тимчасові прев'ю/скріни (бета-експерименти; НЕ деплоїти на сайт)
+_theme_preview.html
+_*.png
