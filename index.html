@@ -1306,7 +1306,7 @@
         <div class="mode-btns">
           <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
           <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
-          <button id="btn-mix" class="mode-btn">🔀 Мікс</button>
+          <button id="btn-familiar" class="mode-btn" title="Грати всі слова, які ти вже вивчаєш або знаєш (Вивчаю + Знаю), з вибором напрямку">⭐ Знайомі</button>
         </div>
       </div>
       <div class="mode-group">
@@ -8535,7 +8535,7 @@ const tabAll         = document.getElementById("tab-all");
 const tabBad         = document.getElementById("tab-bad");
 const btnUaEn        = document.getElementById("btn-ua-en");
 const btnEnUa        = document.getElementById("btn-en-ua");
-const btnMix         = document.getElementById("btn-mix");
+const btnFamiliar    = document.getElementById("btn-familiar");
 const btnEnDef       = document.getElementById("btn-en-def");
 const btnEnSyn       = document.getElementById("btn-en-syn");
 const btnEnAnt       = document.getElementById("btn-en-ant");
@@ -8576,8 +8576,10 @@ let correctionTimer = null;
 let reviewFromMenu = false;   // true лише для повторення з кнопки «📒 Помилки» в меню
                               // (це джерело дає пункти «Плани»; post-game «Повторити помилки» — ні)
 
-const ALL_MODES = ["ua-en", "en-ua", "mix", "en-def", "en-syn", "en-ant", "en-cloze"];
-const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "mix": btnMix, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
+// Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «⭐ Знайомі»; "mix" лишається
+// валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
+const ALL_MODES = ["ua-en", "en-ua", "en-def", "en-syn", "en-ant", "en-cloze"];
+const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
 const MODE_HINTS = {
   "ua-en":    "Перекладіть англійською:",
   "en-ua":    "Перекладіть українською:",
@@ -9196,8 +9198,8 @@ function confirmRmSelection() {
   const dir = RM_DIRS[rmSelectedIdx];
   document.getElementById("review-mode-modal").classList.add("hidden");
   if (pendingCatPool) {
-    // Гра по категорії (Знаю/Вивчаю/Нові): звичайна timed-гра обраного напрямку.
-    // «Випадковий» → режим «мікс» (існуюча механіка: напрям щослова, лідерборд «🔀 Мікс»).
+    // Гра по категорії (Знаю/Вивчаю/Нові) або «⭐ Знайомі» (Вивчаю+Знаю): timed-гра
+    // обраного напрямку. «Випадковий» → «мікс» (напрям щослова, лідерборд «🔀 Мікс»).
     const pool = pendingCatPool; pendingCatPool = null;
     setMode(dir === "random" ? "mix" : dir);
     startGame(pool, { timed: true });
@@ -10513,7 +10515,7 @@ document.addEventListener("mouseover", e => {
 
 btnUaEn.addEventListener("click",    () => setMode("ua-en"));
 btnEnUa.addEventListener("click",    () => setMode("en-ua"));
-btnMix.addEventListener("click",     () => setMode("mix"));
+btnFamiliar.addEventListener("click", startFamiliarGame);
 btnEnDef.addEventListener("click",   () => setMode("en-def"));
 btnEnSyn.addEventListener("click",   () => setMode("en-syn"));
 btnEnAnt.addEventListener("click",   () => setMode("en-ant"));
@@ -11377,6 +11379,26 @@ function startCategoryGame() {
   closeCategoryModal();
   // Вибір напрямку (US→UA / UA→US / Випадковий) — та сама модалка, що в повтореннях
   // (сесія 32, за запитом: раніше гра брала поточний режим без вибору).
+  pendingCatPool = pool;
+  rmSelectedIdx = 0;
+  updateRmSelection();
+  document.getElementById("review-mode-modal").classList.remove("hidden");
+}
+// Пул «Знайомі» = слова, що вже траплялись у грі (є запис у mastery) = Вивчаю ∪ Знаю.
+function familiarIndices() {
+  const m = loadMastery();
+  const out = [];
+  for (let i = 0; i < WORDS.length; i++) {
+    if (m[wordKey(WORDS[i])] !== undefined) out.push(i);
+  }
+  return out;
+}
+// Кнопка «⭐ Знайомі» (замість колишнього «🔀 Мікс»): зіграти ВСІ опрацьовані слова
+// (Вивчаю + Знаю) разом — timed-гра з оновленням mastery, з вибором напрямку в модалці
+// (US→UA / UA→US / Випадковий). Реюз того самого флоу, що й гра по категорії (pendingCatPool).
+function startFamiliarGame() {
+  const pool = familiarIndices();
+  if (!pool.length) return;   // ще немає жодного опрацьованого слова — нічого грати
   pendingCatPool = pool;
   rmSelectedIdx = 0;
   updateRmSelection();
