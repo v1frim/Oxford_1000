@@ -9010,9 +9010,26 @@ function showMilestone(icon, text, sub, type, color, color2) {
 // Queue so multiple milestones play one after another instead of overwriting
 let _msQueue = [];
 let _msRunning = false;
+// Поки триває ігрова сесія (від старту гри, через екран результатів/повторень і аж до
+// повернення в головне меню) — вітання (рекорди, план «4 пункти», ачівки, level-up) НЕ
+// вискакують, а відкладаються у буфер і показуються лише в головному меню (за запитом
+// користувача). Прапор `_gameSessionActive` виставляється у startGame і скидається лише
+// на поверненні в меню — надійніше за перевірку видимості екранів (у endGame є момент,
+// коли і гра, і екран результатів приховані).
+let _msDeferred = [];
+let _gameSessionActive = false;
 function enqueueMilestone(item) {
+  if (_gameSessionActive) { _msDeferred.push(item); return; }
   _msQueue.push(item);
   if (!_msRunning) { _msRunning = true; setTimeout(_drainMilestones, 900); }
+}
+// Викликати при поверненні в головне меню — знімає прапор сесії і виливає відкладені
+// вітання у звичайну чергу (тепер вони покажуться, бо `_gameSessionActive` вже false).
+function flushDeferredMilestones() {
+  _gameSessionActive = false;
+  if (!_msDeferred.length) return;
+  const items = _msDeferred; _msDeferred = [];
+  items.forEach(enqueueMilestone);
 }
 function _drainMilestones() {
   const item = _msQueue.shift();
@@ -9075,6 +9092,7 @@ function startGame(pool, opts) {
 
   modeHintEl.textContent = MODE_HINTS[mode] || "";
 
+  _gameSessionActive = true;   // від старту гри до повернення в меню вітання відкладаються
   startScreen.classList.add("hidden");
   endScreen.classList.add("hidden");
   gameEl.classList.remove("hidden");
@@ -10386,6 +10404,7 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   updateBackupLabel();
   autoBackup();
   restoreProgressPanel();
+  flushDeferredMilestones();   // тепер ми в меню → показати відкладені вітання
 });
 
 document.getElementById("progress-btn").addEventListener("click", () => {
@@ -10597,6 +10616,7 @@ document.addEventListener("keydown", e => {
     renderMasteryStats();
     renderXpBar();
     restoreProgressPanel();
+    flushDeferredMilestones();   // тепер ми в меню → показати відкладені вітання
   }
 });
 
