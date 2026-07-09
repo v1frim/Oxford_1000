@@ -1624,6 +1624,10 @@ const WORDS = [
   {en:"writer",ua:"письменник"},{en:"scientist",ua:"вчений"},{en:"engineer",ua:"інженер"},
   {en:"lawyer",ua:"юрист"},{en:"pilot",ua:"пілот"},{en:"journalist",ua:"журналіст"},
   {en:"volunteer",ua:"волонтер"},{en:"passenger",ua:"пасажир"},{en:"customer",ua:"клієнт",uaAlt:["покупець","замовник"]},
+  {en:"client",ua:"клієнт",uaAlt:["замовник"]},{en:"buyer",ua:"покупець",uaAlt:["набувач","закупник"]},{en:"consumer",ua:"споживач",uaAlt:["покупець","клієнт"]},
+  {en:"vendor",ua:"торговець",uaAlt:["продавець","постачальник","лоточник"]},{en:"seller",ua:"продавець",uaAlt:["торговець","реалізатор"]},{en:"merchant",ua:"купець",uaAlt:["торговець","комерсант"]},
+  {en:"retailer",ua:"роздрібний продавець",uaAlt:["роздрібний торговець","рітейлер"]},{en:"wholesaler",ua:"оптовик",uaAlt:["оптовий продавець","оптовий торговець"]},{en:"supplier",ua:"постачальник",uaAlt:["постачальниця"]},
+  {en:"dealer",ua:"дилер",uaAlt:["продавець","торговець","розповсюджувач"]},{en:"distributor",ua:"дистриб'ютор",uaAlt:["розповсюджувач","постачальник"]},
 
   // ── NOUNS – Body ───────────────────────────────────────────────────────
   {en:"head",ua:"голова"},{en:"face",ua:"обличчя"},{en:"eye",ua:"око"},
@@ -3304,7 +3308,7 @@ const TRANS = {
   "singer":"/ˈsɪŋər/","actor":"/ˈæktər/","writer":"/ˈraɪtər/",
   "scientist":"/ˈsaɪəntɪst/","engineer":"/ˌɛndʒɪˈnɪr/","lawyer":"/ˈlɔːjər/",
   "pilot":"/ˈpaɪlət/","journalist":"/ˈdʒɜːrnəlɪst/","volunteer":"/ˌvɑːlənˈtɪr/",
-  "passenger":"/ˈpæsɪndʒər/","customer":"/ˈkʌstəmər/",
+  "passenger":"/ˈpæsɪndʒər/","customer":"/ˈkʌstəmər/","client":"/ˈklaɪənt/","buyer":"/ˈbaɪər/","consumer":"/kənˈsuːmər/","vendor":"/ˈvɛndər/","seller":"/ˈsɛlər/","merchant":"/ˈmɜːrtʃənt/","retailer":"/ˈriːteɪlər/","wholesaler":"/ˈhoʊlˌseɪlər/","supplier":"/səˈplaɪər/","dealer":"/ˈdiːlər/","distributor":"/dɪˈstrɪbjətər/",
   // Body
   "head":"/hɛd/","face":"/feɪs/","eye":"/aɪ/","ear":"/ɪr/","nose":"/noʊz/",
   "abdomen":"/ˈæbdəmən/","thigh":"/θaɪ/","groin":"/ɡrɔɪn/","genitals":"/ˈdʒɛnətəlz/","calf":"/kæf/","breast":"/brɛst/","nipple":"/ˈnɪpəl/","armpit":"/ˈɑrmpɪt/","waist":"/weɪst/","forearm":"/ˈfɔrɑrm/","navel":"/ˈneɪvəl/","shin":"/ʃɪn/","eyelid":"/ˈaɪlɪd/","eyebrow":"/ˈaɪbraʊ/","jaw":"/dʒɔ/","nostril":"/ˈnɑstrəl/","eyelash":"/ˈaɪlæʃ/","iris":"/ˈaɪrɪs/","pupil":"/ˈpjupəl/","hazel":"/ˈheɪzəl/",
@@ -3949,6 +3953,7 @@ const EXAMPLES = {
   "lawyer":"She hired a good lawyer.","pilot":"The pilot landed safely in the storm.",
   "journalist":"The journalist wrote a great article.","volunteer":"We need more volunteers.",
   "passenger":"The passenger forgot his bag.","customer":"The customer complained about the food.",
+  "client":"The client asked us to make a new website.","buyer":"The buyer paid for the new house.","consumer":"Every consumer wants good things at a low price.","vendor":"The street vendor sells fresh fruit every day.","seller":"The seller sold us fresh bread.","merchant":"The merchant sold things from many countries.","retailer":"The retailer sells food and clothes in the shop.","wholesaler":"The wholesaler sells food to many small shops.","supplier":"Our supplier brings fresh fruit to the shop every day.","dealer":"The car dealer gave us a good price.","distributor":"The distributor sends food to many shops.",
   // Body
   "head":"She shook her head slowly.","face":"He covered his face with his hands.",
   "eye":"She has beautiful blue eyes.","ear":"I have a pain in my ear.",
@@ -5864,6 +5869,7 @@ const EXAMPLES_UA = {
   "lawyer":"Вона найняла хорошого юриста.","pilot":"Пілот безпечно посадив літак у бурю.",
   "journalist":"Журналіст написав чудову статтю.","volunteer":"Нам потрібно більше волонтерів.",
   "passenger":"Пасажир забув свою сумку.","customer":"Клієнт поскаржився на їжу.",
+  "client":"Клієнт попросив нас зробити новий сайт.","buyer":"Покупець заплатив за новий будинок.","consumer":"Кожен споживач хоче хороші речі за низькою ціною.","vendor":"Вуличний торговець продає свіжі фрукти щодня.","seller":"Продавець продав нам свіжий хліб.","merchant":"Купець продавав речі з багатьох країн.","retailer":"Роздрібний продавець продає їжу та одяг у магазині.","wholesaler":"Оптовик продає їжу багатьом маленьким магазинам.","supplier":"Наш постачальник привозить свіжі фрукти в магазин щодня.","dealer":"Автомобільний дилер дав нам хорошу ціну.","distributor":"Дистриб'ютор надсилає їжу в багато магазинів.",
   // Body
   "head":"Вона повільно похитала головою.","face":"Він закрив обличчя руками.",
   "eye":"У неї красиві блакитні очі.","ear":"У мене болить вухо.",

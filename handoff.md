@@ -575,7 +575,11 @@ border: 1px solid rgba(255,255,255,0.22);
 ## Архітектура коду
 
 ### Дані
-- `WORDS` — масив `{en, ua}` (2784 entries; сесія 34: +41 стор.18-19 EFE (внутрішні органи/
+- `WORDS` — масив `{en, ua}` (2795 entries; сесія 34: +11 торговельний кластер (client/buyer/
+  consumer/vendor/seller/merchant/retailer/wholesaler/supplier/dealer/distributor — основні глоси
+  розведено, спільні продавець/торговець/постачальник → uaAlt; ⚠️ верифіковано воркфлоу; єдина
+  ua-en колізія-синонім «клієнт»=client+customer; purchaser/shopper пропущено як дублі buyer);
+  +41 стор.18-19 EFE (внутрішні органи/
   голова/шия/репродуктивні — lung/liver/kidney/…/male/female/…; вузьке pharynx/epiglottis/
   seminal gland/fallopian tube пропущено; компоненти багатослівних термінів gall/bladder/
   thyroid/adrenal/spinal/cord/vocal → hover через `m.set`) +2 (fuss/fidget — «метушитися» під
