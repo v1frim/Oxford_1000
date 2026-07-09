@@ -1306,7 +1306,7 @@
         <div class="mode-btns">
           <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
           <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
-          <button id="btn-familiar" class="mode-btn" title="Грати всі слова, які ти вже вивчаєш або знаєш (Вивчаю + Знаю), з вибором напрямку">⭐ Знайомі</button>
+          <button id="btn-tolearn" class="mode-btn" title="Грати слова, які ти ще вивчаєш або ще не бачив (Вивчаю + Нові), з вибором напрямку">📖 Вчити</button>
         </div>
       </div>
       <div class="mode-group">
@@ -8535,7 +8535,7 @@ const tabAll         = document.getElementById("tab-all");
 const tabBad         = document.getElementById("tab-bad");
 const btnUaEn        = document.getElementById("btn-ua-en");
 const btnEnUa        = document.getElementById("btn-en-ua");
-const btnFamiliar    = document.getElementById("btn-familiar");
+const btnToLearn     = document.getElementById("btn-tolearn");
 const btnEnDef       = document.getElementById("btn-en-def");
 const btnEnSyn       = document.getElementById("btn-en-syn");
 const btnEnAnt       = document.getElementById("btn-en-ant");
@@ -8576,7 +8576,7 @@ let correctionTimer = null;
 let reviewFromMenu = false;   // true лише для повторення з кнопки «📒 Помилки» в меню
                               // (це джерело дає пункти «Плани»; post-game «Повторити помилки» — ні)
 
-// Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «⭐ Знайомі»; "mix" лишається
+// Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «📖 Вчити»; "mix" лишається
 // валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
 const ALL_MODES = ["ua-en", "en-ua", "en-def", "en-syn", "en-ant", "en-cloze"];
 const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
@@ -9198,7 +9198,7 @@ function confirmRmSelection() {
   const dir = RM_DIRS[rmSelectedIdx];
   document.getElementById("review-mode-modal").classList.add("hidden");
   if (pendingCatPool) {
-    // Гра по категорії (Знаю/Вивчаю/Нові) або «⭐ Знайомі» (Вивчаю+Знаю): timed-гра
+    // Гра по категорії (Знаю/Вивчаю/Нові) або «📖 Вчити» (Вивчаю+Нові): timed-гра
     // обраного напрямку. «Випадковий» → «мікс» (напрям щослова, лідерборд «🔀 Мікс»).
     const pool = pendingCatPool; pendingCatPool = null;
     setMode(dir === "random" ? "mix" : dir);
@@ -10515,7 +10515,7 @@ document.addEventListener("mouseover", e => {
 
 btnUaEn.addEventListener("click",    () => setMode("ua-en"));
 btnEnUa.addEventListener("click",    () => setMode("en-ua"));
-btnFamiliar.addEventListener("click", startFamiliarGame);
+btnToLearn.addEventListener("click", startToLearnGame);
 btnEnDef.addEventListener("click",   () => setMode("en-def"));
 btnEnSyn.addEventListener("click",   () => setMode("en-syn"));
 btnEnAnt.addEventListener("click",   () => setMode("en-ant"));
@@ -11384,21 +11384,23 @@ function startCategoryGame() {
   updateRmSelection();
   document.getElementById("review-mode-modal").classList.remove("hidden");
 }
-// Пул «Знайомі» = слова, що вже траплялись у грі (є запис у mastery) = Вивчаю ∪ Знаю.
-function familiarIndices() {
+// Пул «Вчити» = слова, які ще НЕ засвоєні = Вивчаю (streak<3) ∪ Нові (немає запису в mastery).
+// Тобто все, КРІМ «Знаю» (streak>=3) — щоб тренувати саме те, що ще не знаєш.
+function toLearnIndices() {
   const m = loadMastery();
   const out = [];
   for (let i = 0; i < WORDS.length; i++) {
-    if (m[wordKey(WORDS[i])] !== undefined) out.push(i);
+    const s = m[wordKey(WORDS[i])];
+    if (!(s >= 3)) out.push(i);   // undefined (Нові) або s<3 (Вивчаю) → включаємо; s>=3 (Знаю) → ні
   }
   return out;
 }
-// Кнопка «⭐ Знайомі» (замість колишнього «🔀 Мікс»): зіграти ВСІ опрацьовані слова
-// (Вивчаю + Знаю) разом — timed-гра з оновленням mastery, з вибором напрямку в модалці
-// (US→UA / UA→US / Випадковий). Реюз того самого флоу, що й гра по категорії (pendingCatPool).
-function startFamiliarGame() {
-  const pool = familiarIndices();
-  if (!pool.length) return;   // ще немає жодного опрацьованого слова — нічого грати
+// Кнопка «📖 Вчити» (замість колишнього «🔀 Мікс»): зіграти всі слова, які ще вивчаєш або
+// ще не бачив (Вивчаю + Нові) разом — timed-гра з оновленням mastery, з вибором напрямку в
+// модалці (US→UA / UA→US / Випадковий). Реюз флоу гри по категорії (pendingCatPool).
+function startToLearnGame() {
+  const pool = toLearnIndices();
+  if (!pool.length) return;   // усе вже засвоєно — нічого вчити
   pendingCatPool = pool;
   rmSelectedIdx = 0;
   updateRmSelection();
