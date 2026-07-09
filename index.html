@@ -1306,7 +1306,7 @@
         <div class="mode-btns">
           <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
           <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
-          <button id="btn-tolearn" class="mode-btn" title="Грати слова, які ти ще вивчаєш або ще не бачив (Вивчаю + Нові), з вибором напрямку">📖 Вчити</button>
+          <button id="btn-tolearn" class="mode-btn" title="Грати слова, які ти ще вивчаєш або ще не бачив (Вивчаю + Нові), з вибором напрямку">📖 Незасвоєні</button>
         </div>
       </div>
       <div class="mode-group">
@@ -8576,7 +8576,7 @@ let correctionTimer = null;
 let reviewFromMenu = false;   // true лише для повторення з кнопки «📒 Помилки» в меню
                               // (це джерело дає пункти «Плани»; post-game «Повторити помилки» — ні)
 
-// Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «📖 Вчити»; "mix" лишається
+// Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «📖 Незасвоєні»; "mix" лишається
 // валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
 const ALL_MODES = ["ua-en", "en-ua", "en-def", "en-syn", "en-ant", "en-cloze"];
 const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
@@ -9198,7 +9198,7 @@ function confirmRmSelection() {
   const dir = RM_DIRS[rmSelectedIdx];
   document.getElementById("review-mode-modal").classList.add("hidden");
   if (pendingCatPool) {
-    // Гра по категорії (Знаю/Вивчаю/Нові) або «📖 Вчити» (Вивчаю+Нові): timed-гра
+    // Гра по категорії (Знаю/Вивчаю/Нові) або «📖 Незасвоєні» (Вивчаю+Нові): timed-гра
     // обраного напрямку. «Випадковий» → «мікс» (напрям щослова, лідерборд «🔀 Мікс»).
     const pool = pendingCatPool; pendingCatPool = null;
     setMode(dir === "random" ? "mix" : dir);
@@ -11395,7 +11395,7 @@ function toLearnIndices() {
   }
   return out;
 }
-// Кнопка «📖 Вчити» (замість колишнього «🔀 Мікс»): зіграти всі слова, які ще вивчаєш або
+// Кнопка «📖 Незасвоєні» (замість колишнього «🔀 Мікс»): зіграти всі слова, які ще вивчаєш або
 // ще не бачив (Вивчаю + Нові) разом — timed-гра з оновленням mastery, з вибором напрямку в
 // модалці (US→UA / UA→US / Випадковий). Реюз флоу гри по категорії (pendingCatPool).
 function startToLearnGame() {
