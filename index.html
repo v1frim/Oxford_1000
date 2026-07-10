@@ -11864,13 +11864,32 @@ function mistakeReviewPointsByDate(mr) {
   return out;
 }
 
+// GPT-запити → пункти з ПЕРЕНЕСЕННЯМ залишку між днями (сесія 34, за запитом):
+// кожен ПАРНИЙ запит в історії дає +1 пункт тому дню, коли пара замкнулась
+// (непарний «хвіст» дня чекає наступного запиту — як 15-ки пройдених помилок).
+// Мемоізація за identity об'єкта gpt — виклики в циклах передають той самий об'єкт.
+let _gptPtsCache = { src: null, map: null };
+function gptPointsByDate(gpt) {
+  if (_gptPtsCache.src === gpt) return _gptPtsCache.map;
+  const out = {};
+  let cum = 0;
+  for (const d of Object.keys(gpt).sort()) {
+    const before = cum;
+    cum += gpt[d] || 0;
+    const p = Math.floor(cum / 2) - Math.floor(before / 2);
+    if (p) out[d] = p;
+  }
+  _gptPtsCache = { src: gpt, map: out };
+  return out;
+}
+
 // Сирі пункти за конкретний день (гра / Duolingo / LingoHut / пісні / GPT / помилки).
 function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts) {
   let pts = 0;
   if (days[date]) pts += days[date].games || 0;
   pts += duo[date] || 0;
   pts += (songSess[date] || 0) * 2;   // заняття піснями: 2 пункти кожне
-  pts += Math.floor((gpt[date] || 0) / 2);   // GPT-запити: 1 пункт за кожні 2 запити
+  pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
@@ -12272,8 +12291,9 @@ document.getElementById("songsess-minus").addEventListener("click", () => {
 
 // ── GPT-REQUEST TRACKER (запити до ChatGPT: розбір різниці слів тощо) ──────────
 // Кнопка в лівому нижньому куті (як Duolingo): відкриває ChatGPT і рахує запит.
-// БЕЗ XP. Кожні 2 запити = +1 пункт у «Плани» (floor(count/2) за день — інверсія до
-// LingoHut, що дає 2 пункти за урок). Лічильник скидається щодня (UTC-дата). Мінус —
+// Кожні 2 запити = +1 пункт у «Плани» — З СЕСІЇ 34 пари рахуються НАСКРІЗЬ через дні
+// (gptPointsByDate: непарний хвіст переноситься; пункт падає в день, коли пара замкнулась).
+// Лічильник на кнопці скидається щодня (UTC-дата). Мінус —
 // скасовує сьогоднішній запит (як Duolingo). ⚠️ const/функції оголошено ТУТ — до
 // init-викликів renderThermo/renderLbTotals/thermoPointsThisMonth нижче (інакше TDZ).
 const GPT_KEY = "oxford_gpt_v1";   // {date: count}
