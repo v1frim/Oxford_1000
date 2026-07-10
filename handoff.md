@@ -575,7 +575,10 @@ border: 1px solid rgba(255,255,255,0.22);
 ## Архітектура коду
 
 ### Дані
-- `WORDS` — масив `{en, ua}` (2795 entries; сесія 34: +11 торговельний кластер (client/buyer/
+- `WORDS` — масив `{en, ua}` (2802 entries; сесія 34: +7 кластер «вплив/переконання» (sway/persuade/
+  convince/inspire/motivate/manipulate/to shape-омограф; persuade=умовляти vs convince=переконувати
+  розведено; збагачено uaAlt impact/influence/effect/affect/encourage/pressure; відхилено хибні
+  глоси ChatGPT: довести=prove, використовувати=use); +11 торговельний кластер (client/buyer/
   consumer/vendor/seller/merchant/retailer/wholesaler/supplier/dealer/distributor — основні глоси
   розведено, спільні продавець/торговець/постачальник → uaAlt; ⚠️ верифіковано воркфлоу; єдина
   ua-en колізія-синонім «клієнт»=client+customer; purchaser/shopper пропущено як дублі buyer);
