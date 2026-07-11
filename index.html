@@ -10559,16 +10559,19 @@ btnEnCloze.addEventListener("click", () => setMode("en-cloze"));
 let pendingShiftCode = null;   // e.code «чистого» Shift (ShiftLeft/ShiftRight → напрям циклу)
 let pendingAltToggle = false;  // Alt натиснуто «чисто» → на keyup тогл панелі прогресу
 document.addEventListener("keydown", e => {
+  // ⚠️ e.repeat НЕ озброює: авто-повтор затиснутого модифікатора не має «воскрешати»
+  // скасовану дію. Кейс: Ctrl+Shift (розкладка), Ctrl відпущено на пів секунди раніше —
+  // repeat-keydown Shift уже без ctrlKey, і без цієї перевірки цикл спрацював би знову.
   if (e.key === "Shift") {
     pendingAltToggle = false;                       // Shift поверх Alt = комбінація
     if (e.ctrlKey || e.altKey || e.metaKey) { pendingShiftCode = null; return; }
-    if (pendingShiftCode === null) pendingShiftCode = e.code;
+    if (pendingShiftCode === null && !e.repeat) pendingShiftCode = e.code;
   } else if (e.key === "Alt") {
     pendingShiftCode = null;                        // Alt поверх Shift = комбінація
     if (e.ctrlKey || e.shiftKey || e.metaKey) { pendingAltToggle = false; return; }
     // Alt у меню — наш хоткей: глушимо дефолт браузера (фокус menubar у Firefox)
     if (startScreen && !startScreen.classList.contains("hidden")) e.preventDefault();
-    pendingAltToggle = true;
+    if (!e.repeat) pendingAltToggle = true;
   } else {
     pendingShiftCode = null;
     pendingAltToggle = false;
@@ -10592,7 +10595,12 @@ document.addEventListener("keyup", e => {
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
   const dir = code === "ShiftLeft" ? 1 : ALL_MODES.length - 1;
-  const next = ALL_MODES[(ALL_MODES.indexOf(selectedMode) + dir) % ALL_MODES.length];
+  let next = ALL_MODES[(ALL_MODES.indexOf(selectedMode) + dir) % ALL_MODES.length];
+  // «Незасвоєні» з порожнім пулом (усе засвоєно) — мертвий лаунчер (Enter/«Почати»
+  // мовчки нічого не зроблять): пропускаємо цю зупинку циклу.
+  if (next === "tolearn" && !toLearnIndices().length) {
+    next = ALL_MODES[(ALL_MODES.indexOf(next) + dir) % ALL_MODES.length];
+  }
   setMode(next);
 });
 // Alt+Tab / втрата фокуса вікна: keyup модифікатора може не долетіти — скидаємо стан
@@ -10618,7 +10626,9 @@ document.addEventListener("keydown", e => {
       updateRmSelection();
     } else if (e.key === "Enter") {
       e.preventDefault();
-      confirmRmSelection();
+      // !e.repeat: утримуваний Enter (напр. відкрив модалку з меню і не відпустив) не має
+      // авто-підтверджувати вибір напрямку тим самим натисканням.
+      if (!e.repeat) confirmRmSelection();
     }
     return;
   }
