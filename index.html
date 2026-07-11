@@ -8588,7 +8588,9 @@ let reviewFromMenu = false;   // true лише для повторення з к
 
 // Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «📖 Незасвоєні»; "mix" лишається
 // валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
-const ALL_MODES = ["ua-en", "en-ua", "en-def", "en-syn", "en-ant", "en-cloze"];
+// "tolearn" у циклі — лаунчер «📖 Незасвоєні»: Shift підсвічує кнопку, Enter/«Почати»
+// відкриває модалку напрямку (сесія 35).
+const ALL_MODES = ["ua-en", "en-ua", "tolearn", "en-def", "en-syn", "en-ant", "en-cloze"];
 const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
 const MODE_HINTS = {
   "ua-en":    "Перекладіть англійською:",
@@ -8609,8 +8611,14 @@ function setMode(m) {
   selectedMode = m;
   // "mix" — обраний режим без фіксованого напряму: резолвимо випадковий конкретний
   // (далі nextWord перевипадковлює його щослова). Решта режимів = самі собою.
-  mode = (m === "mix") ? (Math.random() < 0.5 ? "en-ua" : "ua-en") : m;
+  // "tolearn" — НЕ ігровий режим, а лаунчер «📖 Незасвоєні»: конкретний mode не чіпаємо
+  // (гра з ним не стартує — Enter/«Почати» відкриють модалку, а confirmRmSelection
+  // виставить справжній режим обраного напрямку).
+  if (m !== "tolearn") {
+    mode = (m === "mix") ? (Math.random() < 0.5 ? "en-ua" : "ua-en") : m;
+  }
   Object.entries(MODE_BTNS).forEach(([k,btn]) => btn.classList.toggle("active", k === selectedMode));
+  btnToLearn.classList.toggle("active", selectedMode === "tolearn");
 }
 
 function shuffle(arr) {
@@ -10409,13 +10417,24 @@ function renderList() {
 }
 
 answerEl.addEventListener("input", handleInput);
-answerEl.addEventListener("keydown", e => { if (e.key === "Enter") { submitAnswer(); e.stopPropagation(); } });
+answerEl.addEventListener("keydown", e => {
+  if (e.key !== "Enter") return;
+  // Гра вже прихована (кінець), а фокус ще міг лишитись на полі — НЕ ковтаємо Enter,
+  // хай долетить до document-обробника (перехід з фіналу в меню). Інакше Enter
+  // «застрягав»: submitAnswer по завершеній грі + stopPropagation глушили перехід.
+  if (gameEl.classList.contains("hidden")) return;
+  submitAnswer();
+  e.stopPropagation();
+});
 document.getElementById("skip-btn").addEventListener("click", skipWord);
 document.getElementById("end-btn").addEventListener("click", () => {
   awaitingAfterWrong = false;
   endGame(timeLeft > 0);
 });
-document.getElementById("start-btn").addEventListener("click", () => startGame());
+document.getElementById("start-btn").addEventListener("click", () => {
+  // Обрано лаунчер «📖 Незасвоєні» (Shift-циклом) → «Почати» відкриває модалку напрямку
+  if (selectedMode === "tolearn") startToLearnGame(); else startGame();
+});
 function restoreProgressPanel() {
   if (localStorage.getItem("oxford_progress_open_v1") === "1") {
     const panel = document.getElementById("progress-panel");
@@ -10531,16 +10550,43 @@ btnEnSyn.addEventListener("click",   () => setMode("en-syn"));
 btnEnAnt.addEventListener("click",   () => setMode("en-ant"));
 btnEnCloze.addEventListener("click", () => setMode("en-cloze"));
 
-let pendingShiftCode = null;
+// ── «Чисті» натискання модифікаторів: Shift = цикл режимів, Alt = «Прогрес по днях» ──
+// Діють на KEYUP і ЛИШЕ якщо модифікатор натиснуто БЕЗ інших клавіш (сесія 35): системні
+// комбінації (Ctrl+Shift / Alt+Shift — зміна розкладки, Alt+PrtSc — скріншот) НЕ мають
+// перемикати режим чи ховати панель. Скасовує дію: (а) інший модифікатор уже затиснутий
+// на момент натискання, (б) БУДЬ-ЯКА інша клавіша між натисканням і відпусканням —
+// ловимо і keydown, і keyup, бо PrtSc у Windows шле ЛИШЕ keyup.
+let pendingShiftCode = null;   // e.code «чистого» Shift (ShiftLeft/ShiftRight → напрям циклу)
+let pendingAltToggle = false;  // Alt натиснуто «чисто» → на keyup тогл панелі прогресу
 document.addEventListener("keydown", e => {
   if (e.key === "Shift") {
+    pendingAltToggle = false;                       // Shift поверх Alt = комбінація
+    if (e.ctrlKey || e.altKey || e.metaKey) { pendingShiftCode = null; return; }
     if (pendingShiftCode === null) pendingShiftCode = e.code;
+  } else if (e.key === "Alt") {
+    pendingShiftCode = null;                        // Alt поверх Shift = комбінація
+    if (e.ctrlKey || e.shiftKey || e.metaKey) { pendingAltToggle = false; return; }
+    // Alt у меню — наш хоткей: глушимо дефолт браузера (фокус menubar у Firefox)
+    if (startScreen && !startScreen.classList.contains("hidden")) e.preventDefault();
+    pendingAltToggle = true;
   } else {
     pendingShiftCode = null;
+    pendingAltToggle = false;
   }
 });
 document.addEventListener("keyup", e => {
-  if (e.key !== "Shift") { pendingShiftCode = null; return; }
+  if (e.key === "Alt") {
+    const doToggle = pendingAltToggle;
+    pendingAltToggle = false;
+    if (!doToggle || !startScreen || startScreen.classList.contains("hidden")) return;
+    // Модалки поверх меню перехоплюють клавіші (як і раніше в основному keydown-обробнику)
+    if (!document.getElementById("cat-modal").classList.contains("hidden")) return;
+    if (!document.getElementById("review-mode-modal").classList.contains("hidden")) return;
+    e.preventDefault();
+    document.getElementById("progress-btn").click();
+    return;
+  }
+  if (e.key !== "Shift") { pendingShiftCode = null; pendingAltToggle = false; return; }
   const code = pendingShiftCode;
   pendingShiftCode = null;
   if (!code) return;
@@ -10549,6 +10595,8 @@ document.addEventListener("keyup", e => {
   const next = ALL_MODES[(ALL_MODES.indexOf(selectedMode) + dir) % ALL_MODES.length];
   setMode(next);
 });
+// Alt+Tab / втрата фокуса вікна: keyup модифікатора може не долетіти — скидаємо стан
+window.addEventListener("blur", () => { pendingShiftCode = null; pendingAltToggle = false; });
 
 document.addEventListener("keydown", e => {
   // Category words modal intercepts Esc (close) / Enter (play) while open
@@ -10599,11 +10647,8 @@ document.addEventListener("keydown", e => {
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
     return;
   }
-  if (e.key === "Alt" && startScreen && !startScreen.classList.contains("hidden")) {
-    e.preventDefault();
-    document.getElementById("progress-btn").click();
-    return;
-  }
+  // Alt (тогл «Прогресу по днях») перенесено в трекер «чистих» модифікаторів вище:
+  // тепер спрацьовує на keyup і лише без інших клавіш (Alt+PrtSc не ховає панель).
   if (e.key === "Tab" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
     if (awaitingAfterWrong) {
@@ -10636,7 +10681,11 @@ document.addEventListener("keydown", e => {
   }
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
-  if (!startScreen.classList.contains("hidden")) { startGame(); return; }
+  if (!startScreen.classList.contains("hidden")) {
+    // Лаунчер «📖 Незасвоєні» обрано Shift-циклом → Enter відкриває модалку напрямку
+    if (selectedMode === "tolearn") startToLearnGame(); else startGame();
+    return;
+  }
   if (!endScreen.classList.contains("hidden")) {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
@@ -11411,6 +11460,7 @@ function toLearnIndices() {
 function startToLearnGame() {
   const pool = toLearnIndices();
   if (!pool.length) return;   // усе вже засвоєно — нічого вчити
+  setMode("tolearn");         // підсвітити лаунчер: Shift-цикл продовжить звідси, Enter повторно відкриє модалку
   pendingCatPool = pool;
   rmSelectedIdx = 0;
   updateRmSelection();
