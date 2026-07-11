@@ -11198,7 +11198,9 @@ function saveMasterySnapshot() {
 }
 
 function fmtProgressDate(iso) {
-  const [ mm, dd] = iso.split("-");
+  // [, mm, dd] — кома-пропуск СВІДОМА (перший елемент = рік, він не потрібен).
+  // ⚠️ НЕ «чистити» як зайву кому: без неї mm=рік → «07 undefined» у датах (баг сесії 35).
+  const [, mm, dd] = iso.split("-");
   const months = ["січ","лют","бер","кві","тра","чер","лип","сер","вер","жов","лис","гру"];
   return dd + " " + months[parseInt(mm) - 1];
 }
