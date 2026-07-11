@@ -601,7 +601,13 @@ border: 1px solid rgba(255,255,255,0.22);
 ## Архітектура коду
 
 ### Дані
-- `WORDS` — масив `{en, ua}` (2802 entries; сесія 34: +7 кластер «вплив/переконання» (sway/persuade/
+- `WORDS` — масив `{en, ua}` (**2782 entries**; сесія 35: −20 вузьких анатомічних термінів за
+  запитом користувача — larynx/trachea/lymphatic/adrenal gland/breastbone/instep/cuticle/quadriceps/
+  pectoral/spleen/cervix/pancreas/gall bladder/thyroid gland/gland/ovary/navel/pelvis/cartilage/
+  palate. Видалено WORDS+TRANS+EXAMPLES+EXAMPLES_UA; «gland» ЛИШИВСЯ hover-словом (`m.set`, бо є
+  в прикладах endocrine/prostate); прибрано осиротілі component-hover gall/bladder/thyroid/adrenal
+  (spinal/cord/vocal лишились — spinal cord/vocal cords у WORDS). Свідомо ЛИШЕНО за запитом:
+  esophagus/endocrine/small intestine/large intestine/deltoid/scrotum/urinary. Було 2802; сесія 34: +7 кластер «вплив/переконання» (sway/persuade/
   convince/inspire/motivate/manipulate/to shape-омограф; persuade=умовляти vs convince=переконувати
   розведено; збагачено uaAlt impact/influence/effect/affect/encourage/pressure; відхилено хибні
   глоси ChatGPT: довести=prove, використовувати=use); +11 торговельний кластер (client/buyer/
@@ -1026,6 +1032,12 @@ end screen показувався порожнім, дебаг наосліп у
   - **«Чисті» модифікатори:** Shift-цикл і Alt-тогл панелі — на KEYUP, скасовуються будь-якою
     іншою клавішею (Ctrl+Shift/Alt+Shift зміна розкладки не циклить режим; Alt+PrtSc не ховає
     панель — PrtSc ловиться по keyup). `pendingShiftCode`/`pendingAltToggle` + blur-reset.
+  - **Декуттер анатомії (−20 слів, WORDS 2802→2782):** прибрано вузькі терміни зі стор. 12–19 EFE
+    за запитом користувача (larynx/trachea/lymphatic/adrenal gland/breastbone/instep/cuticle/
+    quadriceps/pectoral/spleen/cervix/pancreas/gall bladder/thyroid gland/gland/ovary/navel/pelvis/
+    cartilage/palate). Панель суддів (3 лінзи) класифікувала 91 анат. слово; користувач затвердив
+    список. Лишено: esophagus/endocrine/small intestine/large intestine/deltoid/scrotum/urinary.
+    «gland» → hover-only. check-coverage OK, browser-smoke 0 помилок. Деталі — розділ «Дані».
   - **Мікро-фікс Enter на `#answer`:** guard `gameEl hidden → return` перед
     submitAnswer+stopPropagation — прихований інпут із «застряглим» фокусом більше не ковтає
     Enter переходу з фіналу в меню (передіснуюча гонка ~1 кадр, знайдена headless-тестом).
