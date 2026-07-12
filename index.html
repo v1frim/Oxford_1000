@@ -2053,7 +2053,7 @@ const WORDS = [
   {en:"helpful",ua:"корисний"},{en:"huge",ua:"величезний"},{en:"ideal",ua:"ідеальний"},
   {en:"illegal",ua:"незаконний"},{en:"intelligent",ua:"розумний"},{en:"likely",ua:["ймовірний","ймовірно"]},
   {en:"lonely",ua:"самотній"},{en:"lovely",ua:"чудовий",uaAlt:["милий","прекрасний","гарний","привабливий","чарівний"]},{en:"lucky",ua:"щасливий"},
-  {en:"major",ua:"головний"},{en:"massive",ua:"масивний",uaAlt:["величезний","масштабний"]},{en:"negative",ua:"негативний"},
+  {en:"major",ua:"головний",uaAlt:["основний","серйозний","значний","майор","мажор","спеціальність"]},{en:"mayor",ua:"мер"},{en:"massive",ua:"масивний",uaAlt:["величезний","масштабний"]},{en:"negative",ua:"негативний"},
   {en:"obvious",ua:"очевидний"},{en:"official",ua:"офіційний"},{en:"opposite",ua:"протилежний"},
   {en:"ordinary",ua:"звичайний"},{en:"patient",ua:["терплячий","пацієнт"]},{en:"patience",ua:"терпіння"},{en:"pleasant",ua:"приємний"},
   {en:"positive",ua:"позитивний"},{en:"proud",ua:"гордий"},{en:"rapid",ua:"швидкий"},
@@ -2304,7 +2304,7 @@ const WORDS = [
   {en:"effortless",ua:"без зусиль"},
   {en:"elaborate",ua:"детальний"},
   {en:"elated",ua:"щасливий"},
-  {en:"elderly",ua:"літній"},
+  {en:"elderly",ua:"літній",uaAlt:["похилого віку","похилий","старенький"]},
   {en:"elevated",ua:"підвищений"},
   {en:"eliminate",ua:"усувати"},
   {en:"email",ua:"електронна пошта"},
@@ -3626,7 +3626,7 @@ const TRANS = {
   "livid":"/ˈlɪvɪd/","living":"/ˈlɪvɪŋ/","loathe":"/ˈloʊð/","locate":"/ˈloʊkeɪt/","locked":"/ˈlɑkt/","lofty":"/ˈlɔfti/",
   "lonely":"/ˈloʊnli/","lovely":"/ˈləvli/","low":"/ˈloʊ/","lower":"/ˈloʊɝ/","lucid":"/ˈlusəd/","lucky":"/ˈləki/",
   "luminous":"/ˈlumənəs/","lunch":"/ˈləntʃ/","lying":"/ˈlaɪɪŋ/","machinery":"/məˈʃinɝi/","mad":"/ˈmæd/","magazine":"/ˈmæɡəzin/",
-  "magician":"/məˈdʒɪʃən/","magnificent":"/mæɡˈnɪfəsənt/","maintain":"/meɪnˈteɪn/","major":"/ˈmeɪdʒɝ/","manage":"/ˈmænədʒ/","mandatory":"/ˈmændətɔri/",
+  "magician":"/məˈdʒɪʃən/","magnificent":"/mæɡˈnɪfəsənt/","maintain":"/meɪnˈteɪn/","major":"/ˈmeɪdʒɝ/","mayor":"/ˈmeɪɝ/","manage":"/ˈmænədʒ/","mandatory":"/ˈmændətɔri/",
   "manufacture":"/mænjəˈfæktʃɝ/","march":"/ˈmɑrtʃ/","married":"/ˈmɛrid/","marvelous":"/ˈmɑrvələs/","massive":"/ˈmæsɪv/","master":"/ˈmæstɝ/",
   "match":"/ˈmætʃ/","matching":"/ˈmætʃɪŋ/","mattress":"/ˈmætrəs/","may":"/ˈmeɪ/","meadow":"/ˈmɛdoʊ/","meal":"/ˈmil/",
   "mean":"/ˈmin/","meaning":"/ˈminɪŋ/","measure":"/ˈmɛʒɝ/","medicine":"/ˈmɛdəsən/","medieval":"/miˈdivəl/","memorize":"/ˈmɛmɝaɪz/",
@@ -4503,7 +4503,7 @@ const EXAMPLES = {
   "ideal":"This is the ideal moment to start.","illegal":"Parking here is illegal.",
   "intelligent":"She is one of the most intelligent students.","likely":"It is likely to rain today.",
   "lonely":"He felt lonely living far from family.","lovely":"What a lovely surprise!",
-  "lucky":"You were lucky to find that parking spot.","major":"This is a major problem.",
+  "lucky":"You were lucky to find that parking spot.","major":"This is a major problem.","mayor":"The mayor opened the new park.",
   "massive":"There was a massive crowd at the concert.","negative":"Try not to think negative thoughts.",
   "obvious":"The answer is obvious.","official":"Is this an official document?",
   "opposite":"The bank is on the opposite side of the street.","ordinary":"It was just an ordinary day.",
@@ -6420,7 +6420,7 @@ const EXAMPLES_UA = {
   "ideal":"Це ідеальний момент для початку.","illegal":"Тут паркуватися заборонено.",
   "intelligent":"Вона одна з найрозумніших студенток.","likely":"Сьогодні, мабуть, буде дощ.",
   "lonely":"Він почувався самотнім далеко від родини.","lovely":"Який чудовий сюрприз!",
-  "lucky":"Тобі пощастило знайти те місце для паркування.","major":"Це серйозна проблема.",
+  "lucky":"Тобі пощастило знайти те місце для паркування.","major":"Це серйозна проблема.","mayor":"Мер відкрив новий парк.",
   "massive":"На концерті був величезний натовп.","negative":"Намагайся не думати негативно.",
   "obvious":"Відповідь очевидна.","official":"Це офіційний документ?",
   "opposite":"Банк на протилежному боці вулиці.","ordinary":"Це був звичайний день.",
@@ -9887,6 +9887,7 @@ const EN_TO_UA = (() => {
   m.set("logo",        ["логотип"]);
   m.set("london",      ["Лондон"]);
   m.set("machinery",   ["техніка", "машинерія", "обладнання"]);   // «техніка» першою — збіг із промптом гри
+  m.set("major",       ["головний", "серйозний", "значний"]);     // hover у прикладі «major problem» = серйозна
   m.set("magician",    ["чарівник", "фокусник"]);
   m.set("management",  ["управління"]);
   m.set("mathematical",["математичний"]);
