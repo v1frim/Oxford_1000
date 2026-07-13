@@ -1542,7 +1542,7 @@ const WORDS = [
   {en:"to open",ua:["відчиняти","відкривати"]},{en:"walk",ua:"ходити"},{en:"win",ua:["вигравати","перемагати","перемога"]},
   {en:"remember",ua:"пам'ятати"},{en:"to love",ua:"любити"},{en:"buy",ua:"купувати"},
   {en:"wait",ua:"чекати"},{en:"die",ua:"вмирати"},{en:"send",ua:"надсилати"},
-  {en:"build",ua:"будувати"},{en:"stay",ua:"залишатися"},{en:"to fall",ua:"падати"},
+  {en:"build",ua:"будувати",uaAlt:["зводити","споруджувати"]},{en:"stay",ua:"залишатися"},{en:"to fall",ua:"падати"},
   {en:"cut",ua:"різати"},{en:"reach",ua:"досягати"},{en:"pass",ua:["проходити","передавати","здавати"]},
   {en:"sell",ua:"продавати"},{en:"decide",ua:"вирішувати"},{en:"break",ua:["ламати","перерва"]},
   {en:"decisive",ua:["рішучий","вирішальний"]},{en:"decisively",ua:"рішуче"},
@@ -3062,7 +3062,8 @@ const WORDS = [
   {en:"professional",ua:["професійний","професіонал"]},
   {en:"figure",ua:["фігура","постать","цифра"]},
   {en:"constant",ua:"постійний"},
-  {en:"building",ua:"будівля"},
+  {en:"building",ua:"будівля",uaAlt:["споруда","будування"]},
+  {en:"builder",ua:"будівельник"},{en:"construction",ua:["будівництво","конструкція"],uaAlt:["будування"]},{en:"construction site",ua:"будівельний майданчик",uaAlt:["будмайданчик"]},
   {en:"talent",ua:"талант"},
   {en:"cinema",ua:"кінотеатр"},
   {en:"operation",ua:"операція"},
@@ -3770,7 +3771,7 @@ const TRANS = {
   "attract":"/əˈtrækt/","strengthen":"/ˈstrɛŋθn/","forgive":"/fərˈɡɪv/","preheat":"/ˌpriːˈhiːt/","behave":"/bɪˈheɪv/",
   "post":"/poʊst/","criticize":"/ˈkrɪtɪsaɪz/","impress":"/ɪmˈprɛs/","dominate":"/ˈdɑːmɪneɪt/","evoke":"/ɪˈvoʊk/",
   "frown":"/fraʊn/","knead":"/niːd/","burst":"/bɜːrst/","spin":"/spɪn/","front":"/frʌnt/",
-  "performance":"/pərˈfɔːrməns/","professional":"/prəˈfɛʃənl/","figure":"/ˈfɪɡjər/","constant":"/ˈkɑːnstənt/","building":"/ˈbɪldɪŋ/",
+  "performance":"/pərˈfɔːrməns/","professional":"/prəˈfɛʃənl/","figure":"/ˈfɪɡjər/","constant":"/ˈkɑːnstənt/","building":"/ˈbɪldɪŋ/","builder":"/ˈbɪldɚ/","construction":"/kənˈstrʌkʃən/","construction site":"/kənˈstrʌkʃən ˌsaɪt/",
   "talent":"/ˈtælənt/","cinema":"/ˈsɪnəmə/","operation":"/ˌɑːpəˈreɪʃn/","manner":"/ˈmænər/","laptop":"/ˈlæptɑːp/",
   "investigation":"/ɪnˌvɛstɪˈɡeɪʃn/","pool":"/puːl/","satellite":"/ˈsætəlaɪt/","passion":"/ˈpæʃn/","bleach":"/bliːtʃ/",
   "wheelchair":"/ˈwiːltʃɛr/","user":"/ˈjuːzər/","description":"/dɪˈskrɪpʃn/","dedication":"/ˌdɛdɪˈkeɪʃn/","neighborhood":"/ˈneɪbərhʊd/",
@@ -5557,7 +5558,7 @@ const EXAMPLES = {
   "professional":"He is a professional player.",
   "figure":"I saw a tall figure in the dark.",
   "constant":"I am tired of the constant noise.",
-  "building":"This building is very old.",
+  "building":"This building is very old.","builder":"The builder built a new school.","construction":"The construction of the bridge took two years.","construction site":"Workers wear helmets at the construction site.",
   "talent":"She has a talent for music.",
   "cinema":"We go to the cinema on Fridays.",
   "operation":"The operation lasted four hours.",
@@ -7476,7 +7477,7 @@ const EXAMPLES_UA = {
   "professional":"Він професійний гравець.",
   "figure":"Я побачив високу постать у темряві.",
   "constant":"Я втомився від постійного шуму.",
-  "building":"Ця будівля дуже стара.",
+  "building":"Ця будівля дуже стара.","builder":"Будівельник збудував нову школу.","construction":"Будівництво моста тривало два роки.","construction site":"Робітники носять шоломи на будівельному майданчику.",
   "talent":"Вона має талант до музики.",
   "cinema":"Ми ходимо в кінотеатр по п'ятницях.",
   "operation":"Операція тривала чотири години.",
@@ -10070,6 +10071,7 @@ const EN_TO_UA = (() => {
   m.set("spinal", ["спинний"]);
   m.set("cord", ["шнур"]);
   m.set("vocal", ["голосовий"]);
+  m.set("site", ["місце", "майданчик", "сайт"]);   // компонент construction site
   // "gland" прибрано з WORDS (сесія 35, декуттер анатомії), але лишається hover-словом:
   // трапляється у прикладах КНИГ, що лишились (endocrine, prostate). "glands" → -s → "gland".
   m.set("gland", ["залоза"]);
