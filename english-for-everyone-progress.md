@@ -70,6 +70,21 @@
 > Збагачено uaAlt: move(+рухати/переміщати/пересувати/переїжджати), ship(+відправляти/пересилати/
 > судно — дієслово було непокрите), forward(+пересилати/переадресовувати), carry, drag(+волочити
 > в основні), collect, receive, pack, package(+посилка), dispatch.
+> **Кластер «страх» (+6, GPT):** worried, panic, horrified(у жаху), alarmed, startled, petrified;
+> terrified→нажаханий (градація); fear/scared/frightened/afraid збагачено uaAlt.
+> **«Шкала сили» (+5, GPT):** tap(+кран), pat, whack, slam, bang(грюкіт/бахнути).
+> **«Відчуття» (+2, GPT):** sensation(фізичне відчуття/сенсація), perception(сприйняття);
+> sense=[відчуття,чуття,сенс] (+глузд/зміст — make sense був непокритий); feel/feeling/emotion uaAlt.
+> **«Будівництво» (+3, GPT):** builder, construction(+конструкція), construction site (site→m.set).
+> **old/older/elder/elderly/aged (GPT):** elder+enAlt older; aged+віком/у віці; old+давній.
+> **+mayor**(мер — пара плутання до major); major розширено (+серйозний/майор/мажор/спеціальність).
+> Полісемії поточні: shift(+зсув), smooth(+рівний/плавний), seize(+вилучати), spread(+поширювати),
+> email(+електронний лист), renowned(+відомий), amazing(+разючий), impossible(+неможливо),
+> perform(+виступати), master(+оволодівати/майстер; набувати/добувати ВІДХИЛЕНО),
+> pick/choose/select(+обирати), mom/mother і backward/back — взаємні enAlt, coat(+шар),
+> unlocked/unlock(+розблокований), prevail(+переважати), cough(+кашель), treat(+лікувати/частувати),
+> working/worker/employee (кластер «робочий»), cherish/treasure, transfer «перевести (гроші)» +
+> slack «млявий (про справи)» — дисплей-підказки.
 >
 > За тематичним списком користувача (синоніми/частини мови, не зі сторінок): **+10 нових** —
 > response, treatment, expansion, movement, criticism, universal, rapidly, correctly, politely,
