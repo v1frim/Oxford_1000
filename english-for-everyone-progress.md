@@ -64,6 +64,12 @@
 > Відхилені глоси ChatGPT: convince≠«довести»(=prove), manipulate≠«використовувати»(=use),
 > influence≠«впливовість», pressure≠«примушувати»(=force). persuade/convince свідомо розведено
 > (умовляти vs переконувати).
+> **Логістичний кластер (+12, список GPT, верифіковано воркфлоу):** haul, tow, load(вантажити —
+> «завантажувати»=download!), unload, wrap, mail, drop off, pick up (фразові — багатослівні ключі),
+> convey(доносити (думку) — «передавати»=transfer), relay(переказувати), escort, deploy.
+> Збагачено uaAlt: move(+рухати/переміщати/пересувати/переїжджати), ship(+відправляти/пересилати/
+> судно — дієслово було непокрите), forward(+пересилати/переадресовувати), carry, drag(+волочити
+> в основні), collect, receive, pack, package(+посилка), dispatch.
 >
 > За тематичним списком користувача (синоніми/частини мови, не зі сторінок): **+10 нових** —
 > response, treatment, expansion, movement, criticism, universal, rapidly, correctly, politely,
