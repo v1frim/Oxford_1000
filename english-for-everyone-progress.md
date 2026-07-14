@@ -29,8 +29,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 19** (з 402)
-- **Наступна: 20**
+- **Остання опрацьована сторінка: 21** (з 402)
+- **Наступна: 22**
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -48,6 +48,7 @@
 | 14–15 | Hands and feet | **+26:** palm, fingernail, cuticle, knuckle, fist, sole, toe, instep, toenail, arch; wink, blink, blush, yawn, snore, lick, suck, sigh, shrug, bow, clap, sweat, perspire, shiver, sneeze, nod. **smile-група:** smile(+посмішка/усмішка), grin(уточнено «широко усміхатися»), +smirk, +beam. Пропущено: фрази (grin from ear to ear, flash/force/give a smile). | finger, thumb, wrist, heel, ankle, ball, ring, middle, big, little, bridge, laugh, cry, breathe, to wave, to frown |
 | 16–17 | Muscles and skeleton / teeth | **+24:** skull, rib, rib cage, pelvis, joint, skeleton, buttock, cartilage, ligament, tendon, biceps, triceps, gum, nerve, enamel, pulp, collarbone, breastbone, shoulder blade, kneecap + фітнес: deltoid, quadriceps, hamstring, pectoral. **Пропущено вузьку латину:** latissimus dorsi, gluteus, humerus, scapula, clavicle, sternum, ulna, radius, carpals, metacarpals, phalanges, femur, tibia, fibula, patella, tarsals, metatarsals, sacrum, coccyx, vertebrae, obliques, abdominals, incisors, canines, molars, premolars. | tooth, back, bone, chest, calf, jaw, root, spine, muscle, front, hip |
 | 18–19 | Internal organs / head / reproductive | **+41:** lung, liver, kidney, appendix(+додаток), spleen, pancreas, intestine(+кишка), small intestine, large intestine, gall bladder, thyroid gland, adrenal gland, trachea, gland; respiratory, digestive, urinary, endocrine, lymphatic, reproductive, cardiovascular, vein, artery; palate, spinal cord, esophagus, sinus(+синус), larynx, vocal cords, Adam's apple; male, female, penis, vagina, testicle, scrotum, ovary, uterus, womb, cervix, prostate. Компоненти багатослівних термінів (gall/bladder/thyroid/adrenal/spinal/cord/vocal) — hover через `m.set`. **Пропущено вузьке (за домовленістю):** pharynx, epiglottis, seminal gland, fallopian tube. | вже були: heart, stomach, nervous, brain, throat, tongue |
+| 20–21 | Family / life events | **+9:** couple(пара/подружжя — базове було ВІДСУТНЄ!), marriage(шлюб — теж), divorce(розлучення/розлучатися), divorced, widow(вдова), widower(вдівець), to grow up(виростати/дорослішати — фразове), toddler(«малюк (1-3 роки)» — хінт, бо малюк=baby), triplets(трійнята). **Збагачено:** engaged +заручений/заручена (було лише «зайнятий»). **Пропущено:** sister/brother-in-law (⚠️ guard сесії 32 — не повертати), twins (множина twin), to be born (born уже приймає народитися), single parent/middle-aged (прозорі композити → EXPRESSIONS як треба буде). | вже були: family, parents, husband, wife, twin, teenager, adult, partner, nephew, niece, uncle, aunt, cousin, step-родина, mother/father/son/daughter-in-law, born, generation, bride, groom, wedding, married, to marry, baby, grandson/granddaughter/great-* |
 
 > Поза сторінками (за прямими запитами / зауваженнями під час гри): `race` +[раса,заїзд,перегони];
 > `lift` +[піднімати,ліфт]; нове `elevator`=ліфт; `web`-приклад → «мережа»; `unexpected`/`clarify`
