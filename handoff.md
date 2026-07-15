@@ -615,13 +615,20 @@ border: 1px solid rgba(255,255,255,0.22);
 ## Архітектура коду
 
 ### Дані
-- `WORDS` — масив `{en, ua}` (**2811 entries**; сесія 36: +29 (кластери «страх» +6 worried/panic/
-  horrified/alarmed/startled/petrified + градація terrified=нажаханий; «шкала сили» +5 tap/pat/
-  whack/slam/bang; «відчуття» +2 sensation/perception + sense=[відчуття,чуття,сенс]; «будівництво»
-  +3 builder/construction/construction site; логістика +12 haul/tow/load(вантажити;
-  завантажувати=download!)/unload/wrap/mail/drop off/pick up(перші ФРАЗОВІ — ключі з пробілом)/
-  convey/relay/escort/deploy; +mayor(пара до major); дисплей-підказки transfer/slack/convey/deploy;
-  збагачено uaAlt/enAlt ~30 слів за фідбеком з гри — деталі трекер + чейнджлог); сесія 35: −20 вузьких анатомічних термінів за
+- `WORDS` — масив `{en, ua}` (**2861 entries**; сесія 36: +79 сумарно. Кластери за списками
+  GPT/скрінами EFE (кожен великий верифіковано ВОРКФЛОУ — draft+адверсарна перевірка): «страх» +6
+  (worried/panic/horrified/alarmed/startled/petrified + terrified=нажаханий); «шкала сили» +5
+  (tap/pat/whack/slam/bang); «відчуття» +2 (sensation/perception + sense=[відчуття,чуття,сенс]);
+  «будівництво» +3 (builder/construction/construction site); ЛОГІСТИКА +12 (haul/tow/load[вантажити;
+  завантажувати=download!]/unload/wrap/mail/drop off/pick up[перші ФРАЗОВІ — ключі з пробілом]/
+  convey/relay/escort/deploy); «плач/скорбота» +3 (grieve/lament/death) + sob/weep/mourn збагачено;
+  ЧИСЛА +14 (eleven/twelve — була дірка!/billion/порядкові fourth,sixth-tenth/dozen/double/triple/
+  pair/once); ЧАС +5 (today/tomorrow/yesterday/tonight — були hover-only!/weekday); СІМ'Я стор.20-21
+  +9 (couple/marriage — базові були відсутні!/divorce/divorced/widow/widower/to grow up/toddler/
+  triplets) + engaged; ПОЧУТТЯ стор.22-23 +19 (surprised/confused/bored/guilty/shocked/indifferent
+  та ін. + compassionate/sympathetic розведено); +mayor(пара до major). Дисплей-підказки
+  transfer/slack/convey/deploy. Збагачено uaAlt/enAlt ~50 слів за фідбеком з гри — ПОВНІ деталі
+  у трекері english-for-everyone-progress.md + чейнджлозі); сесія 35: −20 вузьких анатомічних термінів за
   запитом користувача — larynx/trachea/lymphatic/adrenal gland/breastbone/instep/cuticle/quadriceps/
   pectoral/spleen/cervix/pancreas/gall bladder/thyroid gland/gland/ovary/navel/pelvis/cartilage/
   palate. Видалено WORDS+TRANS+EXAMPLES+EXAMPLES_UA; «gland» ЛИШИВСЯ hover-словом (`m.set`, бо є
@@ -1058,8 +1065,14 @@ end screen показувався порожнім, дебаг наосліп у
 
 ## Версія документа
 - Створено: 2026-05-26
-- Останнє оновлення: 2026-07-14 (сесія 36)
-- Зміни сесії 36 (словниковий марафон за фідбеком з гри + GPT-кластери; WORDS 2782→2811):
+- Останнє оновлення: 2026-07-15 (сесія 36 — продовження)
+- Зміни сесії 36 (словниковий марафон + 🎬 кіно-трекер + пороги ачівок; WORDS 2782→2861, ~50 комітів):
+  - **🎬 НОВА ФІЧА «Кіно англійською» (2sub.movie)** — трекер за патерном GPT-кнопки, ЗАБЛОКОВАНИЙ
+    до 500 у «Знаю». Деталі — розділ #bottom-left-btns. Ключ `oxford_movies_v1`; +1 пункт «Плани»/
+    сеанс, БЕЗ XP; прапор розблокування `oxford_movie_unlocked_v1`.
+  - **Пороги 3 ачівок переглянуто (за запитом):** Знаю [100,500,2000,5000,10000] (500=срібло
+    збігається з розблокуванням кіно), Правильних [2000,7000,15000,25000,40000], Повторень
+    [1000,5000,10000,20000,30000]. Розділ «Що НЕ змінювати».
   - **Кластери (кожен великий верифіковано воркфлоу — draft + адверсарна перевірка):**
     «страх» +6 (worried/panic/horrified/alarmed/startled/petrified; terrified→нажаханий —
     градація замість 4× «наляканий»); «шкала сили» +5 (tap/pat/whack/slam/bang; slap/smack/hit/
@@ -1068,9 +1081,14 @@ end screen показувався порожнім, дебаг наосліп у
     компонент site → m.set); ЛОГІСТИКА +12 (haul/tow/load/unload/wrap/mail/drop off/pick up/
     convey/relay/escort/deploy) — load=вантажити (завантажувати=download!), convey=«доносити
     (думку)», relay=переказувати (передавати=transfer); drop off/pick up — ПЕРШІ ФРАЗОВІ
-    (багатослівні ключі, патерн construction site); old/older/elder/elderly/aged (elder
-    enAlt older); mom/mother і backward/back — взаємні enAlt (промпти розведені, відповіді
-    ліберальні); +mayor=мер (пара плутання до major /ˈmeɪɚ/ vs /ˈmeɪdʒɚ/).
+    (багатослівні ключі, патерн construction site); «плач/скорбота» +3 (grieve/lament/death —
+    зловив чекер); ЧИСЛА +14 (eleven/twelve — 11-12 випали між ten і thirteen!/billion/порядкові
+    fourth,sixth-tenth/dozen/double/triple/pair/once); ЧАС +5 (today/tomorrow/yesterday/tonight —
+    були лише hover-only, всупереч правилу!/weekday); EFE стор.20-21 СІМ'Я +9 (couple/marriage
+    базові були відсутні!/divorce/-d/widow/-er/to grow up/toddler/triplets); EFE стор.22-23
+    ПОЧУТТЯ +19 (surprised/confused/bored/guilty/shocked/indifferent та ін.); old/elder/elderly/aged
+    (elder enAlt older); mom/mother і backward/back — взаємні enAlt; +mayor=мер (пара до major).
+    ⚠️ compassionate=[милосердний,співчутливий] vs sympathetic=співчутливий (GPT-нюанс).
   - **Патерн «дисплей-підказка в дужках» (задокументовано в uaAlt/enAlt правилах):** основний
     глос з уточненням — transfer «перевести (гроші)» (vs перевеЗти=transport), slack «млявий
     (про справи)» (vs sluggish/lethargic=млявий-енергія), convey «доносити (думку)», deploy

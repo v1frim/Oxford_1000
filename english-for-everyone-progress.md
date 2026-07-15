@@ -101,6 +101,17 @@
 > unlocked/unlock(+розблокований), prevail(+переважати), cough(+кашель), treat(+лікувати/частувати),
 > working/worker/employee (кластер «робочий»), cherish/treasure, transfer «перевести (гроші)» +
 > slack «млявий (про справи)» — дисплей-підказки.
+> **Логістичний кластер (+12, GPT, воркфлоу):** haul, tow, load(вантажити — завантажувати=download!),
+> unload, wrap, mail, drop off, pick up (ПЕРШІ фразові — ключі з пробілом), convey(доносити (думку)),
+> relay(переказувати), escort, deploy; збагачено move/ship(відправляти)/forward/carry/drag/collect/
+> receive/pack/package/dispatch.
+> **Кластер «плач/скорбота» (+3, GPT):** grieve(горювати), lament(голосити), death(смерть — базове,
+> зловив чекер); sob=[ридати,схлипувати], weep/mourn збагачено. reveal(+виявляти).
+> **ЧИСЛА (+14):** eleven/twelve (дірка між ten і thirteen!), billion, порядкові fourth,sixth-tenth,
+> dozen, double, triple, pair(«пара (двох речей)»—хінт бо couple), once. Дні тижня 7/7 і місяці 12/12
+> були повними.
+> **ЧАС (+5):** today/tomorrow/yesterday/tonight (були лише hover m.set — всупереч правилу сесії 11!),
+> weekday. **master**(+оволодівати/освоювати/майстер; набувати=acquire/добувати=extract ВІДХИЛЕНО).
 >
 > За тематичним списком користувача (синоніми/частини мови, не зі сторінок): **+10 нових** —
 > response, treatment, expansion, movement, criticism, universal, rapidly, correctly, politely,
