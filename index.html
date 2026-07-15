@@ -10871,6 +10871,24 @@ function appendGamesLog(game) {
   log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount });
   localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-5000)));
 }
+// Точність за останні ~N відповідей: ідемо логом ігор від найновіших назад, накопичуючи
+// correct(=score)+wrong+skipped, доки не набереться ≥N (остання гра входить цілком).
+// Точність = correct/total (пропуски рахуються як «не влучив» — як «Неправильних» у грі).
+// ⚠️ Лог ведеться З МОМЕНТУ фічі (сесія 33) — «останні» точні; повний історичний total
+// для baseline береться окремо з oxford_days_v1. Повертає {pct, answers} або null.
+function recentAccuracy(targetAnswers) {
+  const log = loadGamesLog();
+  if (!log.length) return null;
+  let correct = 0, ans = 0;
+  for (let i = log.length - 1; i >= 0; i--) {
+    const g = log[i];
+    correct += g.score || 0;
+    ans += (g.score || 0) + (g.wrong || 0) + (g.skipped || 0);
+    if (ans >= targetAnswers) break;
+  }
+  if (ans === 0) return null;
+  return { pct: Math.round(correct / ans * 100), answers: ans };
+}
 // Місце гри серед усіх ЗБЕРЕЖЕНИХ (лог ∪ топ-10 ∪ передані extras, без дублів за ts).
 // Ранг = ПОЗИЦІЯ у відсортованому списку (score↓, помилки↑, ts↑ як тай-брейк) → кожна
 // гра має УНІКАЛЬНИЙ номер (не дублюється між «остання» і «найкраща за день», навіть
@@ -11919,6 +11937,21 @@ function renderLbTotals() {
   const total = correct + wrong + skipped;
   const xp = loadXp();
   const fmt = n => String(n);
+  // «весь час · останні ~300 ↗» — baseline (уся історія) поряд зі свіжим вікном;
+  // стрілка = свіже краще (↗ зелена) / гірше (↘ червона) / ≈ (→ тьмяна) за весь час.
+  const accuracyVal = (corr, tot) => {
+    if (tot <= 0) return '<span style="opacity:.5">—</span>';
+    const all = Math.round(corr / tot * 100);
+    const rec = recentAccuracy(300);
+    if (!rec) return '<span style="color:#ffd166">' + all + '%</span>';
+    const d = rec.pct - all;
+    const arr = d >= 1 ? '<span style="color:#7be07b">↗</span>'
+              : d <= -1 ? '<span style="color:#ff9d9d">↘</span>'
+              : '<span style="color:rgba(255,255,255,0.45)">→</span>';
+    return '<span style="color:#ffd166">' + all + '%</span>' +
+           '<span style="opacity:.4"> · </span>' +
+           '<span style="color:#8fd3ff">' + rec.pct + '%\u00a0' + arr + '</span>';
+  };
   // РЕДИЗАЙН: кожен рядок — рамкована «плашка» з іконкою-медальйоном (стиль інфографіки)
   const row = (icon, label, val, color) =>
     '<div class="lb-stat-row"><span class="lb-stat-ic">' + icon + '</span>' +
@@ -11933,6 +11966,7 @@ function renderLbTotals() {
     row("🧮", "Відповідей", total) +
     row("✅", "Правильних", correct, "#7be07b") +
     row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +
+    row("🎯", "Точність", accuracyVal(correct, total), "") +
     row("🔁", "Повторень", review, "#87b4ff") +
     row("🦉", "Duolingo", getTotalDuoSessions(), "#7fdd40") +
     row("📚", "Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +
