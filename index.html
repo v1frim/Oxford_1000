@@ -12494,7 +12494,7 @@ function renderMovieBtn() {
   if (!movieUnlocked()) {
     const known = countKnownWords();
     btn.classList.add("mv-locked");
-    btn.innerHTML = '🔒 Кіно <span class="mv-lock">Знаю ' + known + '/' + MOVIE_UNLOCK_KNOWN + '</span>';
+    btn.innerHTML = '🔒 Кіно <span class="mv-lock">у «Знаю» ' + known + '/' + MOVIE_UNLOCK_KNOWN + '</span>';
     btn.title = 'Розблокується, коли у «Знаю» буде ' + MOVIE_UNLOCK_KNOWN + ' слів (зараз ' + known + '). Грай — і кіно відкриється!';
     plus.style.display = "none";
     minus.style.display = "none";
