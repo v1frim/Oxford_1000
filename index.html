@@ -10887,7 +10887,7 @@ function recentAccuracy(targetAnswers) {
     if (ans >= targetAnswers) break;
   }
   if (ans === 0) return null;
-  return { pct: Math.round(correct / ans * 100), answers: ans };
+  return { pct: correct / ans * 100, answers: ans };   // pct — float (округлення на показі)
 }
 // Місце гри серед усіх ЗБЕРЕЖЕНИХ (лог ∪ топ-10 ∪ передані extras, без дублів за ts).
 // Ранг = ПОЗИЦІЯ у відсортованому списку (score↓, помилки↑, ts↑ як тай-брейк) → кожна
@@ -11937,21 +11937,24 @@ function renderLbTotals() {
   const total = correct + wrong + skipped;
   const xp = loadXp();
   const fmt = n => String(n);
-  // «весь час · останні ~300 ↗» — baseline (уся історія) поряд зі свіжим вікном;
-  // стрілка = свіже краще (↗ зелена) / гірше (↘ червона) / ≈ (→ тьмяна) за весь час.
-  const accuracyVal = (corr, tot) => {
-    if (tot <= 0) return '<span style="opacity:.5">—</span>';
-    const all = Math.round(corr / tot * 100);
-    const rec = recentAccuracy(300);
-    if (!rec) return '<span style="color:#ffd166">' + all + '%</span>';
-    const d = rec.pct - all;
-    const arr = d >= 1 ? '<span style="color:#7be07b">↗</span>'
-              : d <= -1 ? '<span style="color:#ff9d9d">↘</span>'
+  // Точність двома рядками: «весь час» (baseline, уся історія) і «останні 300» (свіже вікно
+  // з логу ігор) зі стрілкою тренду. Десяткові з КОМОЮ (51,2%) — 1% змінюється повільно,
+  // тож дробова частина показує рух. Стрілка порівнює ПОКАЗАНІ (округлені до 0,1) значення.
+  const fmtPct = p => p.toFixed(1).replace(".", ",") + "%";
+  const _allPct = total > 0 ? correct / total * 100 : null;
+  const _rec = recentAccuracy(300);
+  const accAllHtml = _allPct === null ? '<span style="opacity:.5">—</span>'
+                   : '<span style="color:#ffd166">' + fmtPct(_allPct) + '</span>';
+  let accRecHtml;
+  if (_rec && _allPct !== null) {
+    const aR = Math.round(_allPct * 10), rR = Math.round(_rec.pct * 10);   // 0,1-точні для стрілки
+    const arr = rR > aR ? '<span style="color:#7be07b">↗</span>'
+              : rR < aR ? '<span style="color:#ff9d9d">↘</span>'
               : '<span style="color:rgba(255,255,255,0.45)">→</span>';
-    return '<span style="color:#ffd166">' + all + '%</span>' +
-           '<span style="opacity:.4"> · </span>' +
-           '<span style="color:#8fd3ff">' + rec.pct + '%\u00a0' + arr + '</span>';
-  };
+    accRecHtml = '<span style="color:#8fd3ff">' + fmtPct(_rec.pct) + '\u00a0' + arr + '</span>';
+  } else {
+    accRecHtml = '<span style="opacity:.5">—</span>';
+  }
   // РЕДИЗАЙН: кожен рядок — рамкована «плашка» з іконкою-медальйоном (стиль інфографіки)
   const row = (icon, label, val, color) =>
     '<div class="lb-stat-row"><span class="lb-stat-ic">' + icon + '</span>' +
@@ -11966,13 +11969,14 @@ function renderLbTotals() {
     row("🧮", "Відповідей", total) +
     row("✅", "Правильних", correct, "#7be07b") +
     row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +
-    row("🎯", "Точність", accuracyVal(correct, total), "") +
+    row("🎯", "Точність · весь час", accAllHtml, "") +
+    row("📈", "Точність · останні 300", accRecHtml, "") +
     row("🔁", "Повторень", review, "#87b4ff") +
     row("🦉", "Duolingo", getTotalDuoSessions(), "#7fdd40") +
     row("📚", "Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +
-    row("🎵", "Пісні вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
-    row("🎧", "Заняття піснями", getTotalSongSessions(), "#c89bff") +
     row("🤖", "Запити GPT", getTotalGptRequests(), "#2dd4bf") +
+    row("🎵", "Пісень вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
+    row("🎧", "Пісні англійською", getTotalSongSessions(), "#c89bff") +
     row("🎬", "Кіно англійською", getTotalMovieSessions(), "#ffa94d") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
