@@ -513,6 +513,9 @@
   #movie-plus:hover { color:#ffc98f !important; border-color:rgba(255,169,77,0.6) !important; background:rgba(255,169,77,0.18) !important; }
   #movie-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #movie-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
+  #movie-btn.mv-locked { background: rgba(120,130,150,0.10) !important; border-color: rgba(255,255,255,0.14) !important; color: rgba(255,255,255,0.45) !important; cursor: default !important; }
+  #movie-btn.mv-locked:hover { background: rgba(120,130,150,0.14) !important; color: rgba(255,255,255,0.55) !important; }
+  .mv-lock { font-size: 10px; opacity: 0.75; margin-left: 4px; font-weight: 700; }
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
   .prog-gpt { font-size: 12px; color: #2dd4bf; opacity: 0.95; font-weight: 600; margin-left: 5px; }
@@ -11946,6 +11949,7 @@ function renderLbTotals() {
   // Вітання «Новий рекорд!» — renderLbTotals звуть усі точки зміни даних
   // (кінець гри, Duolingo/GPT/LingoHut/пісні), тож перевірка тут покриває все.
   checkRecordMilestones();
+  renderMovieBtn();   // 🔒/🎬 — лічильник розблокування живе з mastery (звуть усі точки зміни)
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
@@ -12476,17 +12480,42 @@ function saveMovieSessions(obj) { localStorage.setItem(MOVIES_KEY, JSON.stringif
 function getTotalMovieSessions() {
   return Object.values(loadMovieSessions()).reduce((s, n) => s + n, 0);
 }
+// 🔒 Кіно заблоковане до 500 слів у «Знаю» (за запитом: без бази кіно фруструє;
+// заблокована кнопка = жива ціль — лічильник N/500 оновлюється з mastery).
+const MOVIE_UNLOCK_KNOWN = 500;
+const MOVIE_UNLOCKED_KEY = "oxford_movie_unlocked_v1";   // прапор одноразового вітання
+function movieUnlocked() { return countKnownWords() >= MOVIE_UNLOCK_KNOWN; }
 function renderMovieBtn() {
+  const btn   = document.getElementById("movie-btn");
+  const plus  = document.getElementById("movie-plus");
+  const minus = document.getElementById("movie-minus");
+  if (!movieUnlocked()) {
+    const known = countKnownWords();
+    btn.classList.add("mv-locked");
+    btn.innerHTML = '🔒 Кіно <span class="mv-lock">' + known + '/' + MOVIE_UNLOCK_KNOWN + '</span>';
+    btn.title = 'Розблокується, коли у «Знаю» буде ' + MOVIE_UNLOCK_KNOWN + ' слів (зараз ' + known + '). Грай — і кіно відкриється!';
+    plus.style.display = "none";
+    minus.style.display = "none";
+    return;
+  }
+  // одноразове свято розблокування (deferred-буфер сам відкладе до меню, якщо йде гра)
+  if (!localStorage.getItem(MOVIE_UNLOCKED_KEY)) {
+    localStorage.setItem(MOVIE_UNLOCKED_KEY, "1");
+    enqueueMilestone({ icon: "🎬", text: "Кіно розблоковано!", sub: MOVIE_UNLOCK_KNOWN + " слів у «Знаю» — час дивитись!", type: "achievement", color: "#ffa94d", sfx: sfxRank });
+  }
+  btn.classList.remove("mv-locked");
+  btn.title = "Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)";
   const count = loadMovieSessions()[gptToday()] || 0;
-  const countEl = document.getElementById("movie-count");
-  countEl.textContent = count || "";
-  countEl.style.display = count > 0 ? "inline-block" : "none";
-  document.getElementById("movie-minus").style.display = count > 0 ? "" : "none";
+  btn.innerHTML = '🎬 Кіно<span id="movie-count" style="' + (count > 0 ? '' : 'display:none') + '">' + (count || "") + '</span>';
+  plus.style.display = "";
+  minus.style.display = count > 0 ? "" : "none";
 }
 document.getElementById("movie-btn").addEventListener("click", () => {
+  if (!movieUnlocked()) return;   // 🔒 ще заблоковано
   window.open("https://2sub.movie/", "_blank", "noopener");
 });
 document.getElementById("movie-plus").addEventListener("click", () => {
+  if (!movieUnlocked()) return;   // 🔒 ще заблоковано
   const sess = loadMovieSessions();
   const today = gptToday();
   sess[today] = (sess[today] || 0) + 1;
