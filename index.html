@@ -387,7 +387,7 @@
   #progress-btn.active { color: #fff; background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); }
   /* Однакова довжина рядків: одиночні кнопки на всю ширину; у парах головна кнопка тягнеться, +/− фіксовані */
   #bottom-left-btns > button { width: 100%; }
-  #duo-btn, #gpt-btn { flex: 1 1 auto; min-width: 0; }
+  #duo-btn, #gpt-btn, #movie-btn { flex: 1 1 auto; min-width: 0; }
   /* ── XP level bar (tiered, game-style) ──────────────────────── */
   #xp-section { margin: 18px 0 0; width: 100%;
     --tier:#cd7f32; --tier2:#f0b070; }
@@ -505,6 +505,14 @@
   #gpt-plus:hover { color:#5ee9d6 !important; border-color:rgba(45,212,191,0.6) !important; background:rgba(45,212,191,0.18) !important; }
   #gpt-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #gpt-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
+  #movie-wrap { display: flex; gap: 4px; width: 100%; }
+  #movie-btn { background: rgba(255,169,77,0.12) !important; border-color: rgba(255,169,77,0.35) !important; color: #ffa94d !important; }
+  #movie-btn:hover { background: rgba(255,169,77,0.24) !important; color: #ffc98f !important; border-color: rgba(255,169,77,0.6) !important; }
+  #movie-count { display:inline-block; background:rgba(255,169,77,0.22); color:#ffa94d; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
+  #movie-plus { padding:5px 10px !important; color:#ffa94d !important; }
+  #movie-plus:hover { color:#ffc98f !important; border-color:rgba(255,169,77,0.6) !important; background:rgba(255,169,77,0.18) !important; }
+  #movie-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
+  #movie-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
   .prog-gpt { font-size: 12px; color: #2dd4bf; opacity: 0.95; font-weight: 600; margin-left: 5px; }
@@ -1161,6 +1169,8 @@
   #duo-btn:hover { background: linear-gradient(0deg, rgba(88,204,2,0.28), rgba(88,204,2,0.28)), rgba(10,14,30,0.95) !important; }
   #gpt-btn { background: linear-gradient(0deg, rgba(45,212,191,0.14), rgba(45,212,191,0.14)), rgba(10,14,30,0.92) !important; }
   #gpt-btn:hover { background: linear-gradient(0deg, rgba(45,212,191,0.26), rgba(45,212,191,0.26)), rgba(10,14,30,0.95) !important; }
+  #movie-btn { background: linear-gradient(0deg, rgba(255,169,77,0.14), rgba(255,169,77,0.14)), rgba(10,14,30,0.92) !important; }
+  #movie-btn:hover { background: linear-gradient(0deg, rgba(255,169,77,0.26), rgba(255,169,77,0.26)), rgba(10,14,30,0.95) !important; }
   #bottom-left-btns button:hover, #progress-btn:hover { background: rgba(255,209,102,0.16); }
   .songs-panel {
     background: linear-gradient(165deg, rgba(15,19,40,0.985), rgba(9,12,26,0.985));
@@ -1449,6 +1459,11 @@
     <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
     <button id="gpt-plus" title="Додати запит GPT (+1, +15 XP)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
+  </div>
+  <div id="movie-wrap">
+    <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
+    <button id="movie-plus" title="Відмітити сеанс перегляду (+1 пункт «Плани»)">+</button>
+    <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
   </div>
 </div>
 
@@ -10911,7 +10926,7 @@ const BACKUP_KEYS = [
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
-  "oxford_expr_status_v1","oxford_games_log_v1"
+  "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -11270,23 +11285,25 @@ function _progAggregate(dates, history, allDates, days) {
   const firstIdx = allDates.indexOf(dates[0]);
   const prev = firstIdx > 0 ? history[allDates[firstIdx-1]] : {k:0,l:0,t:WORDS.length};
   const last = history[dates[dates.length-1]] || prev;
-  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0;
+  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0;
   const duoSessions = loadDuoSessions();
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; }
+  const movieSessions = loadMovieSessions();
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; }
   const dateSet = new Set(dates);
   const lh    = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const songs = Object.values(loadSongsXpAwarded()).filter(v => dateSet.has(v)).length;
   const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
-  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt };
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt, movies };
 }
-function _progMetaHtml(games, lh, duo, songs, songSess, gpt) {
+function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies) {
   let h = "";
   if (games > 0) h += _pgCell("🎮", games, "prog-games");
   if (duo > 0)   h += _pgCell("🦉", duo, "prog-duo");
   if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
   if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
+  if (movies > 0) h += _pgCell("🎬", movies, "prog-movie");
   if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
   if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
   return h;
@@ -11318,6 +11335,7 @@ function renderProgressPanel() {
   const songsXpAwarded = loadSongsXpAwarded();
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
+  const movieSessions = loadMovieSessions();
   const recentCount = 7;
   const recentDates = [...allDates].reverse().slice(0, recentCount); // newest first
 
@@ -11333,7 +11351,8 @@ function renderProgressPanel() {
     const songs = Object.values(songsXpAwarded).filter(v => v === date).length;
     const songSess = songSessions[date] || 0;
     const gpt = gptRequests[date] || 0;
-    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt);
+    const movies = movieSessions[date] || 0;
+    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt);
     const xpGain = getDayXpGain(date);
@@ -11349,9 +11368,9 @@ function renderProgressPanel() {
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
-      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt} = _progAggregate(groups[k], history, allDates, days);
+      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt, movies} = _progAggregate(groups[k], history, allDates, days);
       return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) + '</span>' +
-        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt) + '</span>' +
+        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies) + '</span>' +
         '<span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
@@ -11915,6 +11934,7 @@ function renderLbTotals() {
     row("🎵", "Пісні вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
     row("🎧", "Заняття піснями", getTotalSongSessions(), "#c89bff") +
     row("🤖", "Запити GPT", getTotalGptRequests(), "#2dd4bf") +
+    row("🎬", "Кіно англійською", getTotalMovieSessions(), "#ffa94d") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
       '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
@@ -11984,13 +12004,14 @@ function gptPointsByDate(gpt) {
 }
 
 // Сирі пункти за конкретний день (гра / Duolingo / LingoHut / пісні / GPT / помилки).
-function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts) {
+function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies) {
   let pts = 0;
   if (days[date]) pts += days[date].games || 0;
   pts += duo[date] || 0;
   pts += (songSess[date] || 0) * 2;   // заняття піснями: 2 пункти кожне
   pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
+  pts += (movies && movies[date]) || 0;   // 🎬 кіно з субтитрами: 1 пункт за сеанс (сесія 36)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
@@ -11998,17 +12019,18 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts) {
 // недороблений хвіст (1–3 пункти) переходить на наступний день — ланцюжком через
 // усі минулі дні (порожні дні залишок не міняють). Тобто 7 пунктів учора → +3
 // сьогодні, 13 → +1 і т.д. Без окремого сховища: рахується з уже збережених даних.
-function getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts) {
+function getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies) {
   const dates = new Set();
   Object.keys(days).forEach(d => dates.add(d));
   Object.keys(duo).forEach(d => dates.add(d));
   Object.keys(songSess).forEach(d => dates.add(d));
   Object.keys(gpt).forEach(d => dates.add(d));
   if (mrPts) Object.keys(mrPts).forEach(d => dates.add(d));
+  if (movies) Object.keys(movies).forEach(d => dates.add(d));
   Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
   const past = [...dates].filter(d => d < today).sort();
   let carry = 0;
-  for (const d of past) carry = (carry + thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts)) % 4;
+  for (const d of past) carry = (carry + thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies)) % 4;
   return carry;
 }
 function getThermoPointsToday() {
@@ -12019,7 +12041,8 @@ function getThermoPointsToday() {
   const songSess = loadSongSessions();
   const gpt   = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
-  return getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts) + thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts);
+  const movies = loadMovieSessions();
+  return getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies) + thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts, movies);
 }
 
 // ── Денні milestone-вітання за пунктами «термометра» (раніше — за к-стю ігор) ──
@@ -12058,15 +12081,17 @@ function thermoPointsThisMonth() {
   const songSess = loadSongSessions();
   const gpt  = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
+  const movies = loadMovieSessions();
   const dates = new Set();
   Object.keys(days).forEach(d => dates.add(d));
   Object.keys(duo).forEach(d => dates.add(d));
   Object.keys(songSess).forEach(d => dates.add(d));
   Object.keys(gpt).forEach(d => dates.add(d));
   Object.keys(mrPts).forEach(d => dates.add(d));
+  Object.keys(movies).forEach(d => dates.add(d));
   Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
   let pts = 0;
-  dates.forEach(d => { if (d.slice(0, 7) === ym) pts += thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts); });
+  dates.forEach(d => { if (d.slice(0, 7) === ym) pts += thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies); });
   return pts;
 }
 // Середня к-сть СИРИХ пунктів термометра за АКТИВНИЙ день (день із бодай 1 пунктом).
@@ -12075,18 +12100,20 @@ function avgThermoPerDay(monthOnly) {
   const days = loadDays(), duo = loadDuoSessions(), lh = loadLhDone(),
         songSess = loadSongSessions(), gpt = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
+  const movies = loadMovieSessions();
   const dates = new Set();
   Object.keys(days).forEach(d => dates.add(d));
   Object.keys(duo).forEach(d => dates.add(d));
   Object.keys(songSess).forEach(d => dates.add(d));
   Object.keys(gpt).forEach(d => dates.add(d));
   Object.keys(mrPts).forEach(d => dates.add(d));
+  Object.keys(movies).forEach(d => dates.add(d));
   Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
   const ym = new Date().toISOString().slice(0, 7);
   let sum = 0, n = 0;
   dates.forEach(d => {
     if (monthOnly && d.slice(0, 7) !== ym) return;
-    const pts = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts);
+    const pts = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies);
     if (pts > 0) { sum += pts; n++; }
   });
   return n ? sum / n : 0;
@@ -12136,8 +12163,9 @@ function renderThermo() {
   const songSess = loadSongSessions();
   const gpt   = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
-  const carryIn  = getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts); // перенесене з минулих днів (0–3)
-  const todayRaw = thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts); // зароблене саме сьогодні
+  const movies = loadMovieSessions();
+  const carryIn  = getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies); // перенесене з минулих днів (0–3)
+  const todayRaw = thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts, movies); // зароблене саме сьогодні
   const pts   = carryIn + todayRaw;
   const plans = Math.floor(pts / 4);
   const topMark = 16;          // фіксована верхня мітка (мітки 4, 8, 12, 16)
@@ -12437,6 +12465,52 @@ document.getElementById("gpt-btn").addEventListener("click", () => {
   window.open("https://chatgpt.com/", "_blank", "noopener");
 });
 
+// ── 🎬 MOVIE-SESSIONS TRACKER (кіно з подвійними субтитрами: 2sub.movie; сесія 36) ──
+// Патерн GPT-кнопки: ГОЛОВНА лише відкриває сайт (навігація ≠ сеанс), «+» відмічає
+// сеанс перегляду (+1 пункт «Плани», БЕЗ XP — за узгодженням), «−» скасовує сьогоднішній.
+const MOVIES_KEY = "oxford_movies_v1";   // {date: count}
+function loadMovieSessions() {
+  try { return JSON.parse(localStorage.getItem(MOVIES_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveMovieSessions(obj) { localStorage.setItem(MOVIES_KEY, JSON.stringify(obj)); }
+function getTotalMovieSessions() {
+  return Object.values(loadMovieSessions()).reduce((s, n) => s + n, 0);
+}
+function renderMovieBtn() {
+  const count = loadMovieSessions()[gptToday()] || 0;
+  const countEl = document.getElementById("movie-count");
+  countEl.textContent = count || "";
+  countEl.style.display = count > 0 ? "inline-block" : "none";
+  document.getElementById("movie-minus").style.display = count > 0 ? "" : "none";
+}
+document.getElementById("movie-btn").addEventListener("click", () => {
+  window.open("https://2sub.movie/", "_blank", "noopener");
+});
+document.getElementById("movie-plus").addEventListener("click", () => {
+  const sess = loadMovieSessions();
+  const today = gptToday();
+  sess[today] = (sess[today] || 0) + 1;
+  saveMovieSessions(sess);
+  renderMovieBtn();
+  renderThermo();
+  renderLbTotals();
+  renderProgressPanel();
+  checkThermoMilestones();
+  checkAchievements(true);
+});
+document.getElementById("movie-minus").addEventListener("click", () => {
+  const sess = loadMovieSessions();
+  const today = gptToday();
+  if (!sess[today]) return;
+  sess[today]--;
+  if (!sess[today]) delete sess[today];
+  saveMovieSessions(sess);
+  renderMovieBtn();
+  renderThermo();
+  renderLbTotals();
+  renderProgressPanel();
+});
+
 // GPT-лінк на фінал-екрані гри — клік = реальний запит (розбір щойно зробленої
 // помилки), тож рахуємо одразу. Посилання саме відкриває ChatGPT через href.
 const gptLink = document.getElementById("gpt-link");
@@ -12508,12 +12582,13 @@ function currentStreakLength() { const s = computeStreaks(loadDays()); const c =
 function bestMonthPoints() {
   const days=loadDays(),duo=loadDuoSessions(),lh=loadLhDone(),songSess=loadSongSessions(),gpt=loadGptRequests();
   const mrPts=mistakeReviewPointsByDate(loadMistakeReviews());
+  const movies=loadMovieSessions();
   const dates=new Set();
-  [days,duo,songSess,gpt].forEach(o=>Object.keys(o).forEach(d=>dates.add(d)));
+  [days,duo,songSess,gpt,movies].forEach(o=>Object.keys(o).forEach(d=>dates.add(d)));
   Object.keys(mrPts).forEach(d=>dates.add(d));
   Object.values(lh).forEach(d=>{ if(d&&d.length===10) dates.add(d); });
   const byMonth={};
-  dates.forEach(d=>{ const ym=d.slice(0,7); byMonth[ym]=(byMonth[ym]||0)+thermoRawForDate(d,days,duo,lh,songSess,gpt,mrPts); });
+  dates.forEach(d=>{ const ym=d.slice(0,7); byMonth[ym]=(byMonth[ym]||0)+thermoRawForDate(d,days,duo,lh,songSess,gpt,mrPts,movies); });
   let mx=0; for(const v of Object.values(byMonth)) if(v>mx) mx=v;
   return mx;
 }
@@ -12607,6 +12682,7 @@ function renderAchVariantA() {
 renderDuoBtn();
 renderSongSessBtn();
 renderGptBtn();
+renderMovieBtn();
 
 renderLeaderboard();
 renderLbTotals();
@@ -13281,11 +13357,13 @@ function computeRecords() {
     if (dl > bestL.v) bestL = { v: dl, d };
   });
   // сирі пункти термометра по всіх датах
+  const movies = loadMovieSessions();
   const allDates = new Set([...Object.keys(days), ...Object.keys(duo), ...Object.keys(songSess),
-    ...Object.keys(gpt), ...Object.keys(mrPts), ...Object.values(lh).filter(d => d && d.length === 10)]);
+    ...Object.keys(gpt), ...Object.keys(mrPts), ...Object.values(lh).filter(d => d && d.length === 10),
+    ...Object.keys(movies)]);
   let bestPts = { v: 0, d: null };
   allDates.forEach(d => {
-    const p = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts);
+    const p = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies);
     if (p > bestPts.v) bestPts = { v: p, d };
   });
   const g = _maxOf(days, x => x.games || 0);
