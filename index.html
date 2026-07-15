@@ -513,9 +513,11 @@
   #movie-plus:hover { color:#ffc98f !important; border-color:rgba(255,169,77,0.6) !important; background:rgba(255,169,77,0.18) !important; }
   #movie-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #movie-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
-  #movie-btn.mv-locked { background: rgba(120,130,150,0.10) !important; border-color: rgba(255,255,255,0.14) !important; color: rgba(255,255,255,0.45) !important; cursor: default !important; }
-  #movie-btn.mv-locked:hover { background: rgba(120,130,150,0.14) !important; color: rgba(255,255,255,0.55) !important; }
-  .mv-lock { font-size: 10px; opacity: 0.75; margin-left: 4px; font-weight: 700; }
+  /* Лок — СОЛІДНА темна підкладка (прозора вимивалась на світлих фазах доби, як ліві
+     кнопки в сесії 33); текст тьмяний, але читабельний; лічильник-ціль — оранжевий акцент. */
+  #movie-btn.mv-locked { background: linear-gradient(0deg, rgba(120,130,150,0.10), rgba(120,130,150,0.10)), rgba(10,14,30,0.92) !important; border-color: rgba(255,255,255,0.28) !important; color: rgba(255,255,255,0.72) !important; cursor: default !important; }
+  #movie-btn.mv-locked:hover { background: linear-gradient(0deg, rgba(120,130,150,0.16), rgba(120,130,150,0.16)), rgba(10,14,30,0.95) !important; color: rgba(255,255,255,0.85) !important; }
+  .mv-lock { font-size: 10px; margin-left: 4px; font-weight: 700; color: #ffa94d; background: rgba(255,169,77,0.16); border-radius: 10px; padding: 0 6px; }
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
   .prog-gpt { font-size: 12px; color: #2dd4bf; opacity: 0.95; font-weight: 600; margin-left: 5px; }
@@ -12585,10 +12587,10 @@ const ACH_LEAGUES = [
 ];
 const ACH_NOLEAGUE = { color: "#6b7a99", color2: "#9aa8c4" }; // ще не здобуто жодної ліги
 const ACHIEVEMENTS = [
-  { id:"correct",   icon:"✅", name:"Правильних відповідей", thresholds:[4000,10000,20000,30000,40000],     value:()=>sumDayField("correct") },
+  { id:"correct",   icon:"✅", name:"Правильних відповідей", thresholds:[2000,7000,15000,25000,40000],      value:()=>sumDayField("correct") },
   { id:"games",     icon:"🎮", name:"Ігор зіграно",          thresholds:[150,600,1500,2500,4000],            value:()=>sumDayField("games") },
-  { id:"known",     icon:"✓",  name:"Слів у «Знаю»",          thresholds:[1000,2500,5000,7500,10000],         value:()=>countKnownWords() },
-  { id:"review",    icon:"🔁", name:"Повторень",              thresholds:[2000,5000,10000,15000,20000],       value:()=>sumDayField("reviewCorrect") },
+  { id:"known",     icon:"✓",  name:"Слів у «Знаю»",          thresholds:[100,500,2000,5000,10000],           value:()=>countKnownWords() },
+  { id:"review",    icon:"🔁", name:"Повторень",              thresholds:[1000,5000,10000,20000,30000],       value:()=>sumDayField("reviewCorrect") },
   { id:"duo",       icon:"🦉", name:"Duolingo сесій",         thresholds:[50,150,400,700,1000],               value:()=>getTotalDuoSessions() },
   { id:"lingohut",  icon:"📚", name:"Уроків LingoHut",        thresholds:[10,35,70,100,125],                  value:()=>Object.keys(loadLhDone()).length },
   { id:"streak",    icon:"🔥", name:"Днів поспіль",           thresholds:[7,14,30,60,90],                     value:()=>currentStreakLength(), record:()=>bestStreakLength(), periodic:true, unit:"дн." },
