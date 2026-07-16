@@ -11945,16 +11945,9 @@ function renderLbTotals() {
   const _rec = recentAccuracy(300);
   const accAllHtml = _allPct === null ? '<span style="opacity:.5">—</span>'
                    : '<span style="color:#ffd166">' + fmtPct(_allPct) + '</span>';
-  let accRecHtml;
-  if (_rec && _allPct !== null) {
-    const aR = Math.round(_allPct * 10), rR = Math.round(_rec.pct * 10);   // 0,1-точні для стрілки
-    const arr = rR > aR ? '<span style="color:#7be07b">↗</span>'
-              : rR < aR ? '<span style="color:#ff9d9d">↘</span>'
-              : '<span style="color:rgba(255,255,255,0.45)">→</span>';
-    accRecHtml = '<span style="color:#8fd3ff">' + fmtPct(_rec.pct) + '\u00a0' + arr + '</span>';
-  } else {
-    accRecHtml = '<span style="opacity:.5">—</span>';
-  }
+  // стрілку тренду ПРИБРАНО (сесія 36, за запитом) — лише число; порівняння видно з рядка «весь час»
+  const accRecHtml = _rec ? '<span style="color:#8fd3ff">' + fmtPct(_rec.pct) + '</span>'
+                          : '<span style="opacity:.5">—</span>';
   // РЕДИЗАЙН: кожен рядок — рамкована «плашка» з іконкою-медальйоном (стиль інфографіки)
   const row = (icon, label, val, color) =>
     '<div class="lb-stat-row"><span class="lb-stat-ic">' + icon + '</span>' +
