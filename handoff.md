@@ -182,6 +182,32 @@
 Причина розділення: одним записом крос-логіка ua-en брала ВЕСЬ масив getUa, тож на промпт
 «справлятися» хибно зараховувався `pen` (бо handle ще й «ручка», а pen=«ручка»). Не об'єднувати.
 
+**🧹 ВЕЛИКА ЧИСТКА «розлитих сенсів» (сесія 36, за запитом після кейсу civil):** аудит усіх 338
+багатозначних записів (LLM-судді + скептичні верифікатори) знайшов записи, що змішували
+НЕПОВʼЯЗАНІ значення (як civil): промпт ua-en показував випадковий сенс, а приклад/відповіді
+пасували іншому. Виправлено **43 HIGH-слова** (2861→2877 записів):
+- **Патерн trim:** сирота-сенс → `uaAlt` (приймається в en-ua, НЕ промптиться в ua-en):
+  admit, commit, express, graze, log, pursue(→прагнути), rate(→темп), relative(→родич), relay,
+  reserved, row(→ряд), save(→зберігати), sensation, sense, speaker(→динамік), stall, strike(→страйкувати),
+  swear, tire(→шина), chat; tear(сльоза)/to tear(рвати) розведено взаємно.
+- **Патерн trim + новий приклад:** outline(контур), treasure(скарб), vault(сховище), ride(поїздка —
+  атракціон тепер uaAlt; приклад «The ride home took two hours»).
+- **Патерн split «to X» (прецедент handle/transport):** approach/to approach, charge(плата)/to charge(заряджати),
+  dash(тире)/to dash, drop(краплина)/to drop, guide(гід)/to guide, land(земля)/to land,
+  order(порядок)/to order, record(рекорд)/to record, sign(знак)/to sign, tie(краватка)/to tie.
+- **Патерн split same-en (2 записи з однаковим en, дизамбіг-ключі прикладів "en:ua"):**
+  fan(фанат)/fan(вентилятор), nail(ніготь)/nail(цвях), patient(терплячий)/patient(пацієнт),
+  right(право)/right(правий; «правильний» пішло до correct/proper), square(площа)/square(квадрат),
+  tip(чайові)/tip(порада), board(дошка)/board(правління) — існуючі 2 записи розведено.
+  ⚠️ mastery-ключ same-en пар СПІЛЬНИЙ (wordKey=getEn[0]) — як у board раніше, свідомо.
+- **enAlt-компенсація:** correct/proper приймають "right", rescue приймає "save", hit приймає "strike"
+  (сенси, що зникли з промптів, лишились законними відповідями у власників).
+- ⚠️ MEDIUM-список (34 слова, НЕ виправлені — на окрему сесію за узгодженням): appearance, break,
+  chip, contact, court, cream, crisp, damage, decisive, entry, graduate, hall, hard, household,
+  margin, matter, miss, over, pass, rather, scramble, solution, stage, stress, submit, title,
+  to post, to serve, to waste, tough, trigger, waste, web (+ низка low). Повний звіт аудиту
+  НЕ збережено в репо (був у scratchpad сесії) — за потреби перегенерувати аудит.
+
 **Про слово "transport" (сесія 30):** так само ДВА записи (та сама причина — приклад був про іменник):
 - `{en:"transport", ua:"транспорт"}` — іменник (приклад «Public transport in the city is excellent»)
 - `{en:"to transport", ua:"перевозити"}` — дієслово (приклад «They transport food to the city»)
