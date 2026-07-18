@@ -29,8 +29,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 24** (з 402)
-- **Наступна: 25**
+- **Остання опрацьована сторінка: 26** (з 402)
+- **Наступна: 28** (стор. 25 і 27 — праві боки розворотів, опрацьовані разом із 24/26)
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -42,6 +42,22 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 26 — «08 Pregnancy and childhood» (8.1 Pregnancy / 8.2 Toys / 8.3 Childhood)
+- **+25 нових** (16 погоджених + 9 обраних «на межі», за вибором користувача):
+  pregnant, pregnancy, ultrasound(УЗД), embryo, fetus(+enAlt foetus), placenta, midwife,
+  vaccination, stroller(+enAlt pram), pacifier(+enAlt dummy), diaper(+enAlt nappy), doll,
+  balloon, kite, puppet, trampoline, incubator, potty, rattle, wet wipe, baby formula,
+  board game, hula hoop, plush toy(+enAlt soft toy), maze.
+- **Мультислівні назви-предмети** (wet wipe / baby formula / board game / hula hoop / plush
+  toy) — СВІДОМО в WORDS (не ідіоми, а лексика-предмети; на відміну від fall in love/make a
+  will → ті у «Вирази»). Складники, яких не було, покрито hover через m.set: formula(суміш/
+  формула), hula(хула), hoop(обруч), plush(плюшевий/м'який). US/UK-дублети → enAlt.
+- **Пропущено:** umbilical cord, due date, pregnancy test, baby monitor, high chair, baby
+  carriage, Moses basket, stair gate, baby bath, diaper bag, nipple/teat, diaper rash cream,
+  obstetrician(вузько-мед.), hobby/rocking horse, pull-along toy, bead maze, bowling pins,
+  spinning top, yo-yo, jump rope, jigsaw puzzle, train set, building blocks, dollhouse, toybox.
+- Вже було: uterus, womb, birth, toddler, bottle.
 
 ### Стор. 24 — «07 Life events» (7.1 Relationships / 7.2 Life events / 7.3 Festivals)
 - **+11 нових:** acquaintance(знайомий), honeymoon(медовий місяць), retire(виходити на пенсію),
