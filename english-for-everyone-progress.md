@@ -29,8 +29,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 23** (з 402)
-- **Наступна: 24**
+- **Остання опрацьована сторінка: 24** (з 402)
+- **Наступна: 25**
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -42,6 +42,21 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 24 — «07 Life events» (7.1 Relationships / 7.2 Life events / 7.3 Festivals)
+- **+11 нових:** acquaintance(знайомий), honeymoon(медовий місяць), retire(виходити на пенсію),
+  emigrate(емігрувати), Christmas(Різдво), Easter(Великдень+Пасха), Halloween(Геловін),
+  Thanksgiving(День подяки), carnival(карнавал), baptism(хрещення), kindergarten(дитячий садок
+  — МОЄ рішення замість preschool/nursery: універсальніше; christening пропущено як рідший
+  синонім baptism).
+- **+2 у «Вирази і сленг»** (рішення користувача: фрази НЕ в словник, а в розділ виразів):
+  to fall in love(закохатися), make a will(скласти заповіт — замість слова will=заповіт,
+  за порадою GPT: без плутанини з модальним will).
+- **Пропущено:** Kwanzaa/Diwali/Holi/Baisakhi/Eid al-Fitr/Day of the Dead/Hajj/bar mitzvah/
+  Passover/Hanukkah (вузькокультурні свята); складені фрази (pen pal, best friend, birth
+  certificate, engaged/married couple тощо) — складники покриті.
+- Вже було покрито: neighbor, friend, colleague, couple, partner, fiancé(e), bride, groom,
+  to marry, birthday, present, wedding, anniversary, divorce, die, funeral, graduate, born, prize.
 | Стор. | Тема | Додано | Вже було / на розгляді |
 |-------|------|--------|------------------------|
 | 12–13 | Parts of the body / face / eyes | **+20:** abdomen, thigh, groin, genitals, calf(+теля), breast, nipple, armpit, waist, forearm, navel, shin, eyelid, eyebrow, jaw, nostril, eyelash, iris(+ірис), pupil(+учень), hazel. Раніше: green(фікс), gray(US). `temple` +«скроня». Пропущено: tear duct (фраза). | вже були: head, shoulder, chest, arm, hand, leg, foot, heel, ankle, wrist, hip, elbow, knee, neck, chin, cheek, forehead, hair, skin, eye, ear, nose, mouth, lips, teeth, blue, brown, grey |

@@ -3293,12 +3293,26 @@ const WORDS = [
   {en:"minimum",ua:["мінімум","мінімальний"]},
   {en:"retriever",ua:"ретривер"},
   {en:"parent",ua:["батько чи мати","батьки"]},
-  {en:"tasty",ua:"смачний"}
+  {en:"tasty",ua:"смачний"},
+  {en:"acquaintance",ua:"знайомий",uaAlt:["знайома"]},
+  {en:"honeymoon",ua:"медовий місяць"},
+  {en:"retire",ua:"виходити на пенсію",uaAlt:["вийти на пенсію","піти на пенсію"]},
+  {en:"emigrate",ua:"емігрувати"},
+  {en:"Christmas",ua:"Різдво"},
+  {en:"Easter",ua:"Великдень",uaAlt:["Пасха"]},
+  {en:"Halloween",ua:"Геловін",uaAlt:["Гелловін","Хелловін"]},
+  {en:"Thanksgiving",ua:"День подяки"},
+  {en:"carnival",ua:"карнавал"},
+  {en:"baptism",ua:"хрещення"},
+  {en:"kindergarten",ua:"дитячий садок",uaAlt:["дитсадок","садочок"]}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
 // ── IPA TRANSCRIPTIONS (American English) ──────────────────────────────────
 const TRANS = {
+  "acquaintance":"/əˈkweɪntəns/","honeymoon":"/ˈhʌniˌmun/","retire":"/rɪˈtaɪər/","emigrate":"/ˈɛməˌɡreɪt/",
+  "christmas":"/ˈkrɪsməs/","easter":"/ˈistər/","halloween":"/ˌhæləˈwin/","thanksgiving":"/ˈθæŋksˌɡɪvɪŋ/",
+  "carnival":"/ˈkɑrnəvəl/","baptism":"/ˈbæptɪzəm/","kindergarten":"/ˈkɪndərˌɡɑrtən/",
   "commit":"/kəˈmɪt/","fifth":"/fɪfθ/","swear":"/sweər/","trigger":"/ˈtrɪɡər/","winner":"/ˈwɪnər/","wristband":"/ˈrɪstbænd/",
   "bleed":"/bliːd/","complacent":"/kəmˈpleɪsənt/","proceed":"/prəˈsiːd/","stall":"/stɔːl/",
   // Verbs
@@ -4668,6 +4682,17 @@ const EXAMPLES = {
   "aid":"The organization provides aid to refugees.",
   "ailing":"She visited her ailing grandmother in hospital.",
   "aim":"She aimed to finish the project by Friday.",
+  "acquaintance":"He is an old acquaintance from work.",
+  "honeymoon":"They spent their honeymoon by the sea.",
+  "retire":"My father wants to retire next year.",
+  "emigrate":"Many people emigrate to other countries.",
+  "Christmas":"The whole family comes together at Christmas.",
+  "Easter":"We paint eggs for Easter.",
+  "Halloween":"Children wear scary clothes on Halloween.",
+  "Thanksgiving":"The family has a big dinner on Thanksgiving.",
+  "carnival":"The streets are full of music at the carnival.",
+  "baptism":"The baby's baptism will be in the church.",
+  "kindergarten":"Our daughter goes to kindergarten.",
   "alike":"The twins looked exactly alike.",
   "alter":"They had to alter their plans because of the rain.",
   "amusing":"The comedian told a very amusing story.",
@@ -6588,6 +6613,17 @@ const EXAMPLES_UA = {
   "aid":"Організація надає допомогу біженцям.",
   "ailing":"Вона відвідала свою хвору бабусю в лікарні.",
   "aim":"Вона мала на меті завершити проект до п'ятниці.",
+  "acquaintance":"Він давній знайомий з роботи.",
+  "honeymoon":"Вони провели медовий місяць біля моря.",
+  "retire":"Мій батько хоче вийти на пенсію наступного року.",
+  "emigrate":"Багато людей емігрує до інших країн.",
+  "Christmas":"На Різдво вся родина збирається разом.",
+  "Easter":"Ми фарбуємо яйця на Великдень.",
+  "Halloween":"На Геловін діти вдягають страшний одяг.",
+  "Thanksgiving":"На День подяки родина влаштовує велику вечерю.",
+  "carnival":"Вулиці повні музики на карнавалі.",
+  "baptism":"Хрещення немовляти буде в церкві.",
+  "kindergarten":"Наша донька ходить у дитячий садок.",
   "alike":"Близнюки виглядали абсолютно однаково.",
   "alter":"Їм довелося змінити плани через дощ.",
   "amusing":"Комік розповів дуже кумедну історію.",
@@ -7728,7 +7764,9 @@ const EXPRESSIONS = [
   {en:"piece of cake", ua:"дуже легко", note:"ідіома: щось геть просте, «раз плюнути»"},
   {en:"kick the bucket", ua:"померти", note:"ідіома (розм., жартівл.): «врізати дуба»"},
   {en:"spill the beans", ua:"розкрити секрет", note:"ідіома: проговоритися, видати таємницю"},
-  {en:"hit the roof", ua:"дуже розізлитися", note:"ідіома: спалахнути гнівом, «вибухнути»"}
+  {en:"hit the roof", ua:"дуже розізлитися", note:"ідіома: спалахнути гнівом, «вибухнути»"},
+  {en:"to fall in love", ua:"закохатися", note:"устала фраза: fall in love with someone — закохатися в когось"},
+  {en:"make a will", ua:"скласти заповіт", note:"устале: написати заповіт (also: write a will, AmE)"}
 ];
 
 const DEFS = {
