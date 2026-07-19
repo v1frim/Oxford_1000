@@ -34,8 +34,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 28** (з 402)
-- **Наступна: 30** (непарні праві боки розворотів опрацьовуються разом із парними)
+- **Остання опрацьована сторінка: 30** (з 402)
+- **Наступна: 32** (непарні праві боки розворотів опрацьовуються разом із парними)
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -47,6 +47,20 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 30 — «10 Personality traits» (10.1 Describing personalities)
+- **+23 нових прикметники** (всі, вкл. 2 «на межі» за вибором): unfriendly, talkative,
+  enthusiastic (спільний глос «захоплений» із keen — свідомо, синоніми), assertive
+  (асертивний; «наполегливий» лише прийом — промпт за persistent), critical, insensitive,
+  unreasonable, secretive, mature, immature, passionate, laid-back (невимушений;
+  «розслаблений» лише прийом — промпт за relaxed; m.set("laid") для hover), ambitious,
+  spontaneous, eccentric, impulsive, unreliable, arrogant, considerate, adventurous, clumsy,
+  approachable (спільний «привітний» із friendly — синоніми), unapproachable.
+- **Пропущено:** нічого (сторінка без фраз).
+- Вже було 35: friendly, serious, caring, sensitive, reasonable, kind, unkind, cautious,
+  generous, brave, funny, mean, patient, impatient, lazy, optimistic, outgoing, polite, rude,
+  shy, intelligent, nervous, confident, silly, selfish, romantic, calm, honest, dishonest,
+  supportive, reliable, talented, decisive, meticulous, thoughtless.
 
 ### Стор. 28 — «09 Daily routines» (9.1 Morning / 9.2 Evening / 9.3 Other activities)
 - **→ WORDS (+9):** to shave(голитися), to iron(прасувати+праска), groceries(продукти),
