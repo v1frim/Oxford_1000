@@ -11199,7 +11199,7 @@ const BACKUP_KEYS = [
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
-  "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1"
+  "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -11487,6 +11487,50 @@ function renderXpBar() {
 // ── Лог переходів mastery по днях: {date:{k:[enWord,...], l:[...]}} — щоб дельти
 // «Прогресу по днях» були клікабельні (список слів дня). Ведеться З МОМЕНТУ фічі —
 // для старіших днів слів немає (дельти-числа лишаються некликабельними).
+// ── Реєстр появи слів у СЛОВНИКУ: {enKey: "YYYY-MM-DD" | ""} — щоб комірка «+N ●»
+// (нові записи словника за день) була клікабельною. Самопідтримуваний: на кожному
+// завантаженні слова, яких ще немає в реєстрі, штампуються сьогоднішньою датою.
+// Перший запуск: сідінг — відомі партії 18-19 лип 2026 (стор. 24/26/28 EFE + ретро-
+// розподіл) отримують свої дати, решта (стара база) — "" (без дати, некликабельні).
+const WORDS_ADDED_KEY = "oxford_words_added_v1";
+const WORDS_ADDED_SEED = {
+  "2026-07-18": ["acquaintance","honeymoon","retire","emigrate","Christmas","Easter","Halloween",
+    "Thanksgiving","carnival","baptism","kindergarten","pregnant","pregnancy","ultrasound","embryo",
+    "fetus","placenta","midwife","vaccination","stroller","pacifier","diaper","doll","balloon","kite",
+    "puppet","trampoline","incubator","potty","rattle","wet wipe","baby formula","board game",
+    "hula hoop","plush toy","maze"],
+  "2026-07-19": ["New Year","birth certificate","jump rope","spinning top","yo-yo","building blocks",
+    "rocking horse","dollhouse","high chair","umbilical cord","bowling pin",
+    "to shave","to iron","groceries","overtime","lawn","to mow","makeup","radio","to get up"]
+};
+function loadWordsAdded() {
+  try { return JSON.parse(localStorage.getItem(WORDS_ADDED_KEY)) || {}; } catch(e) { return {}; }
+}
+// Виклик на старті: досіює реєстр. Нові (після деплоя) ключі → сьогоднішня дата.
+function updateWordsAddedRegistry() {
+  const reg = loadWordsAdded();
+  const isFirstRun = Object.keys(reg).length === 0;
+  const seedDate = {};
+  if (isFirstRun) {
+    for (const [d, keys] of Object.entries(WORDS_ADDED_SEED))
+      keys.forEach(k => { seedDate[k] = d; });
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  let changed = false;
+  WORDS.forEach(w => {
+    const k = wordKey(w);
+    if (!(k in reg)) { reg[k] = isFirstRun ? (seedDate[k] || "") : today; changed = true; }
+  });
+  if (changed) localStorage.setItem(WORDS_ADDED_KEY, JSON.stringify(reg));
+}
+// {date: [enKey,...]} — інверсія реєстру (порожні дати відкинуто)
+function wordsAddedByDate() {
+  const by = {};
+  const reg = loadWordsAdded();
+  for (const [k, d] of Object.entries(reg)) { if (d) { (by[d] = by[d] || []).push(k); } }
+  return by;
+}
+
 const MASTERY_TRANS_KEY = "oxford_mastery_trans_v1";
 function loadMasteryTrans() {
   try { return JSON.parse(localStorage.getItem(MASTERY_TRANS_KEY)) || {}; } catch(e) { return {}; }
@@ -11571,11 +11615,14 @@ function _progDeltaHtml(dk, dl, rev, dt, date) {
   const trans = date ? loadMasteryTrans()[date] : null;
   const clickable = cat => (trans && trans[cat] && trans[cat].length)
     ? ' prog-click" data-tdate="' + date + '" data-tcat="' + cat : '';
+  // ● «нові» — з РЕЄСТРУ появи слів у словнику (не з логу переходів)
+  const addedClickable = (date && wordsAddedByDate()[date] && wordsAddedByDate()[date].length)
+    ? ' prog-click" data-tdate="' + date + '" data-tcat="t' : '';
   let h = "";
   if (dk) h += _pgCell("✓", (dk > 0 ? "+" : "") + dk, "prog-known" + clickable("k"));
   if (dl) h += _pgCell("↗", (dl > 0 ? "+" : "") + dl, "prog-learning" + clickable("l"));
   if (rev > 0) h += _pgCell("🔁", "+" + rev, "lb-review");
-  if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new");
+  if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new" + addedClickable);
   return h || '<span class="prog-none">—</span>';
 }
 function _progAggregate(dates, history, allDates, days) {
@@ -11803,14 +11850,16 @@ function closeCategoryModal() {
 // Модалка «слова, що перейшли в категорію за день» (клік по ✓/↗ у «Прогресі по днях»).
 // Реюз #cat-modal: список EN—UA + TTS + «Грати ці слова» (кастомний пул catModalCustomPool).
 function openDayTransModal(date, cat) {
-  const day = loadMasteryTrans()[date];
-  const words = (day && day[cat]) || [];
+  // cat: "k"/"l" — лог переходів mastery; "t" — нові слова СЛОВНИКА за день (реєстр появи)
+  const words = cat === "t"
+    ? (wordsAddedByDate()[date] || [])
+    : ((loadMasteryTrans()[date] || {})[cat] || []);
   if (!words.length) return;
   const wordSet = new Set(words);
   const idxs = [];
   WORDS.forEach((w, i) => { if (wordSet.has(wordKey(w))) idxs.push(i); });
   if (!idxs.length) return;
-  const meta = cat === "k" ? CAT_META.known : CAT_META.learning;
+  const meta = cat === "k" ? CAT_META.known : cat === "t" ? CAT_META.new : CAT_META.learning;
   catModalCat = null;
   catModalCustomPool = idxs;
   const sorted = idxs.slice().sort((a, b) =>
@@ -13061,6 +13110,7 @@ renderGptBtn();
 renderMovieBtn();
 
 renderLeaderboard();
+updateWordsAddedRegistry();   // реєстр появи слів у словнику (для клікабельної «+N ●»)
 renderLbTotals();
 renderThermo();
 checkThermoMilestones();   // виставити базову планку milestone'ів = поточні пункти (без вітань на старті)
