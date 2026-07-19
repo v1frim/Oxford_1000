@@ -34,8 +34,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 26** (з 402)
-- **Наступна: 28** (стор. 25 і 27 — праві боки розворотів, опрацьовані разом із 24/26)
+- **Остання опрацьована сторінка: 28** (з 402)
+- **Наступна: 30** (непарні праві боки розворотів опрацьовуються разом із парними)
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -47,6 +47,23 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 28 — «09 Daily routines» (9.1 Morning / 9.2 Evening / 9.3 Other activities)
+- **→ WORDS (+9):** to shave(голитися), to iron(прасувати+праска), groceries(продукти),
+  overtime(понаднормово), lawn(газон), to mow(косити), makeup(макіяж), radio(радіо),
+  to get up(вставати — фразове, прецедент pick up).
+- **→ EXPRESSIONS (+24 сумарно за сторінку):** 9 колокацій першої хвилі (alarm goes off, make
+  the bed, catch the bus, clear the table, take out the trash, walk the dog, pay the bills,
+  take a nap, water the plants) + 15 другої: take a shower, brush your teeth, wash your face,
+  get dressed, have breakfast/lunch/dinner, go to bed, go to sleep, set the alarm, take a break,
+  to be late, do homework + обрані «на межі»: put the children to bed, go out.
+- **Пропущено** (прозорі): go to work/school, leave the house, cook dinner, watch TV, listen to
+  the radio, drink tea, feed the dog, buy groceries, clean the car, call a friend, catch the
+  train (нотатка catch the bus), read a newspaper, check emails, arrive early/on time,
+  finish/leave work, mow the lawn, send a package, wash up (неоднозначне BrE/AmE — не додано),
+  work overtime, put on makeup, take a bath (нотатка в take a shower).
+- Вже було: wake, exercise, chat, package, parcel, newspaper, alarm, shower, bath,
+  breakfast/lunch/dinner, homework, instrument, musical, dress.
 
 ### Ретро-розподіл пропусків стор. 24/26 (перше застосування правила розподілу)
 - **→ WORDS (+12):** New Year(Новий рік), birth certificate(свідоцтво про народження),
