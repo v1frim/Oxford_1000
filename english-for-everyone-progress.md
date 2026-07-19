@@ -48,6 +48,19 @@
 
 ## Журнал по сторінках
 
+### Ретро-розподіл пропусків стор. 24/26 (перше застосування правила розподілу)
+- **→ WORDS (+12):** New Year(Новий рік), birth certificate(свідоцтво про народження),
+  jump rope(скакалка, +skipping rope), spinning top(дзиґа), yo-yo(йо-йо), building blocks
+  (кубики), rocking horse(конячка-гойдалка), dollhouse(ляльковий будиночок, +doll's house),
+  high chair(дитячий стільчик), umbilical cord(пуповина), bowling pin(кегля, +skittle).
+- **→ EXPRESSIONS (+4):** to make friends(заводити друзів), to get married(одружитися),
+  to have a baby(народити дитину), to get a job(влаштуватися на роботу).
+- **Лишились пропущеними** (прозорі/вузькі): best friend, engaged/married couple, go to
+  preschool, start school, win a prize, holy water, bar mitzvah, Hajj-свята, baby monitor,
+  baby bath, diaper bag, nipple/teat, rash cream, Moses basket, stair gate, due date,
+  pregnancy test, hobby horse, pull-along toy, bead maze, train set, toybox, pen pal
+  (застаріле), obstetrician, jigsaw puzzle (jigsaw=пазл ВЖЕ є + puzzle є).
+
 ### Стор. 26 — «08 Pregnancy and childhood» (8.1 Pregnancy / 8.2 Toys / 8.3 Childhood)
 - **+25 нових** (16 погоджених + 9 обраних «на межі», за вибором користувача):
   pregnant, pregnancy, ultrasound(УЗД), embryo, fetus(+enAlt foetus), placenta, midwife,
