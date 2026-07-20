@@ -34,8 +34,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 32** (з 402)
-- **Наступна: 34** (непарні праві боки розворотів опрацьовуються разом із парними)
+- **Остання опрацьована сторінка: 34** (з 402)
+- **Наступна: 36** (непарні праві боки розворотів опрацьовуються разом із парними)
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -47,6 +47,22 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 34 — «12 Appearance and hair» (12.1 General appearance / 12.2 Hair)
+- **+33 нових у WORDS** (24 погоджених + 5 «на межі» БЕЗ auburn + 4 за списком GPT):
+  beard, mustache(+moustache), goatee, stubble, sideburns, bald, wig, ponytail, braid(+plait),
+  bun(пучок-зачіска; «булочку» СВІДОМО не додано — інший сенс), pigtails, curly, wavy,
+  blond(+blonde; у fair «білявий» лишився лише прийомом), middle-aged, wrinkle, freckle,
+  dimple, mole(родимка; «кріт» НЕ додано — інший сенс), dandruff, comb, hairbrush,
+  hair dryer(фен), greasy, pore, gel, highlights(мелірування), crew cut(їжачок), frizzy,
+  straight hair, facial hair, shaved head, hair spray(лак для волосся).
+- **eyebrow/eyelash ВЖЕ БУЛИ** (однина, з анатомії) — додано лише uaAlt множини (брови/вії).
+- **+1 вираз:** to get your hair cut(підстригтися) — конструкція get sth done.
+- **Пропущено:** auburn (за рішенням), French plait, cornrows, Afro, bob, crop (вузькі зачіски,
+  bob/crop багатозначні), side/center parting, straightening/curling iron, hair shears,
+  long/short/shoulder-length/normal/dry hair, to style/wash/tie/grow your hair, hair gel
+  (gel додано словом; spray був).
+- m.set: gray(сивий/сірий), crew(екіпаж), facial(лицьовий).
 
 ### Стор. 32 — «11 Abilities and actions» (11.1 Describing abilities and actions)
 - **+9 нових дієслів** (усе, чого бракувало з 67): to crawl(повзати), to creep(крастися),
