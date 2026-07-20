@@ -12078,6 +12078,32 @@ function allDayMistakeKeys() {
   for (const dk of Object.keys(m)) for (const wk of (m[dk] || [])) seen.add(wk);
   return [...seen];
 }
+// Санація збережених помилок (виклик на старті): ключ, що більше не резолвиться
+// у WORDS (перейменування en при розділенні сенсів bare↔"to X", видалені дублі),
+// нормалізується до чинного ключа або ВИДАЛЯЄТЬСЯ. Інакше — «вічна» помилка:
+// бейдж «📒 Помилки (N)» її рахує, а старт повторення відфільтровує (i<0) і
+// мовчки нічого не робить. Після санації бейдж і старт завжди узгоджені.
+function sanitizeDayMistakes() {
+  const m = loadDayMistakes();
+  let changed = false;
+  for (const dk of Object.keys(m)) {
+    const fixed = [];
+    for (const wk of (m[dk] || [])) {
+      let idx = indexOfWordKey(wk);
+      if (idx < 0) {   // спробувати парну форму: "to X" ↔ "X"
+        const alt = wk.startsWith("to ") ? wk.slice(3) : "to " + wk;
+        idx = indexOfWordKey(alt);
+      }
+      if (idx >= 0) {
+        const canon = wordKey(WORDS[idx]);   // канонічний ключ чинного запису
+        if (!fixed.includes(canon)) fixed.push(canon);
+        if (canon !== wk) changed = true;
+      } else changed = true;   // слово зникло зі словника — помилку не пройти, дропаємо
+    }
+    if (fixed.length === 0) delete m[dk]; else m[dk] = fixed;
+  }
+  if (changed) saveDayMistakes(m);
+}
 function isYesterdayKey(key) {
   const d = new Date(todayKey() + "T00:00:00");
   d.setDate(d.getDate() - 1);
@@ -12096,7 +12122,7 @@ function pickReviewDay() {
 function updateReviewTodayBtn() {
   const btn = document.getElementById("review-today-btn");
   if (!btn) return;
-  const keys = allDayMistakeKeys();   // усі невиправлені помилки за всі дні
+  const keys = allDayMistakeKeys().filter(k => indexOfWordKey(k) >= 0);   // усі невиправлені помилки за всі дні (лише резолвні — та сама умова, що при старті повторення)
   if (keys.length === 0) {
     btn.classList.add("hidden");
   } else {
@@ -13216,6 +13242,7 @@ renderGptBtn();
 renderMovieBtn();
 
 renderLeaderboard();
+sanitizeDayMistakes();        // нормалізація/чистка осиротілих ключів помилок (бейдж ↔ старт)
 updateWordsAddedRegistry();   // реєстр появи слів у словнику (для клікабельної «+N ●»)
 renderLbTotals();
 renderThermo();
