@@ -8976,6 +8976,8 @@ let reviewTotalPool = 0;
 let reviewDir = "en-ua";
 let pendingReviewPool = null;
 let pendingCatPool = null;   // пул гри по категорії (Знаю/Вивчаю/Нові) — теж чекає вибору напрямку
+let pendingCatTag = null;    // тег пулу ("known"/"learning"/"new") — підпис у лідерборді; known → взагалі НЕ в рейтинг
+let timedPoolTag = null;     // тег ПОТОЧНОЇ timed-гри по пулу (виставляє startGame з opts.tag)
 let rmSelectedIdx = 0;
 const RM_DIRS = ["en-ua", "ua-en", "random"];
 let reviewCorrectCounts = null;
@@ -9478,6 +9480,7 @@ function _drainMilestones() {
 function startGame(pool, opts) {
   opts = opts || {};
   const timedPool = (pool && opts.timed) ? pool : null;  // timed game over a custom pool (mastery updates)
+  timedPoolTag = timedPool ? (opts.tag || null) : null;    // тег пулу для лідерборда ("known" → не в рейтинг)
   activePool = (pool && !opts.timed) ? pool : null;        // review-style pool (3× correct to clear)
   if (activePool) {
     reviewRemaining = new Set(activePool);
@@ -9566,8 +9569,17 @@ function endGame(endedEarly) {
   if (!activePool) {
     const ts = Date.now();
     const wordCount = WORDS.length;
+    if (timedPoolTag === "known") {
+      // Гра пулом «Знаю» — easy-режим (за запитом): НЕ входить у «Найкращі ігри»
+      // взагалі (ні запису, ні місця, ні «сьогодні»/«ост»-рядків, ні games-log).
+      // Статистика дня (ігри/відповіді/XP/термометр) рахується як звичайно.
+      if (!endedEarly) {
+        newDayKey = recordDayStats(score, wrong, skipped, wordCount);
+        checkThermoMilestones();
+      }
+    } else {
     const scoresWereFull = loadScores().length >= LB_LIMIT;
-    newEntryId = saveScore({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
+    newEntryId = saveScore({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
       // milestone-вітання тепер за пунктами «термометра» (а не за к-стю ігор):
@@ -9583,9 +9595,10 @@ function endGame(endedEarly) {
         enqueueMilestone({ icon: "🏆", text: rank + " місце!", sub: rank <= 3 ? "У топ-3 найкращих ігор!" : "У топ-10 найкращих ігор!", type: "rank", sfx: sfxRank });
       }
     }
-    updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
-    updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
-    appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount });
+    updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+    updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+    appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+    }
   } else {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
@@ -9620,8 +9633,9 @@ function confirmRmSelection() {
     // Гра по категорії (Знаю/Вивчаю/Нові) або «📖 Незасвоєні» (Вивчаю+Нові): timed-гра
     // обраного напрямку. «Випадковий» → «мікс» (напрям щослова, лідерборд «🔀 Мікс»).
     const pool = pendingCatPool; pendingCatPool = null;
+    const tag = pendingCatTag; pendingCatTag = null;
     setMode(dir === "random" ? "mix" : dir);
-    startGame(pool, { timed: true });
+    startGame(pool, { timed: true, tag });
     return;
   }
   reviewDir = dir;
@@ -11206,7 +11220,7 @@ function updateTodayBest(game) {
     || game.score > stored.score
     || (game.score === stored.score && (game.wrong + game.skipped) < (stored.wrong + stored.skipped));
   if (isBetter) {
-    const entry = { key: today, score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
+    const entry = { key: today, score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag };
     localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify(entry));
   }
 }
@@ -11224,7 +11238,7 @@ function loadGamesLog() {
 }
 function appendGamesLog(game) {
   const log = loadGamesLog();
-  log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount });
+  log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag });
   localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-5000)));
 }
 // Точність за останні ~N відповідей: ідемо логом ігор від найновіших назад, накопичуючи
@@ -11262,7 +11276,7 @@ function gameRanks(extras) {
   return map;
 }
 function updateLatest(game) {
-  const entry = { key: todayKey(), score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount };
+  const entry = { key: todayKey(), score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag };
   localStorage.setItem(LB_LATEST_KEY, JSON.stringify(entry));
 }
 const LB_DAY_MISTAKES_KEY = "oxford_day_mistakes_v1";
@@ -11922,6 +11936,7 @@ function openCategoryModal(cat) {
   if (!meta) return;
   catModalCat = cat;
   catModalCustomPool = null;
+  catModalPoolTag = cat;   // "known"/"learning"/"new" — тег для лідерборда
   const idxs = categoryIndices(cat);
   const sorted = idxs.slice().sort((a, b) =>
     getEn(WORDS[a])[0].localeCompare(getEn(WORDS[b])[0]));
@@ -11948,10 +11963,12 @@ function openCategoryModal(cat) {
   playBtn.style.background = meta.color;
   document.getElementById("cat-modal").classList.remove("hidden");
 }
+let catModalPoolTag = null;   // тег пулу відкритої модалки (категорія або слова дня)
 function closeCategoryModal() {
   document.getElementById("cat-modal").classList.add("hidden");
   catModalCat = null;
   catModalCustomPool = null;
+  catModalPoolTag = null;
 }
 // Модалка «слова, що перейшли в категорію за день» (клік по ✓/↗ у «Прогресі по днях»).
 // Реюз #cat-modal: список EN—UA + TTS + «Грати ці слова» (кастомний пул catModalCustomPool).
@@ -11968,6 +11985,7 @@ function openDayTransModal(date, cat) {
   const meta = cat === "k" ? CAT_META.known : cat === "t" ? CAT_META.new : CAT_META.learning;
   catModalCat = null;
   catModalCustomPool = idxs;
+  catModalPoolTag = cat === "k" ? "known" : cat === "t" ? "new" : "learning";   // слова дня → той самий клас пулу
   const sorted = idxs.slice().sort((a, b) =>
     getEn(WORDS[a])[0].localeCompare(getEn(WORDS[b])[0]));
   document.getElementById("cat-title").innerHTML =
@@ -11990,7 +12008,9 @@ function startCategoryGame() {
   if (!catModalCat && !catModalCustomPool) return;
   const pool = catModalCustomPool ? catModalCustomPool.slice() : categoryIndices(catModalCat);
   if (!pool.length) return;
+  const tag = catModalPoolTag;   // захопити ДО closeCategoryModal (він чистить)
   closeCategoryModal();
+  pendingCatTag = tag;
   // Вибір напрямку (US→UA / UA→US / Випадковий) — та сама модалка, що в повтореннях
   // (сесія 32, за запитом: раніше гра брала поточний режим без вибору).
   pendingCatPool = pool;
@@ -12187,7 +12207,8 @@ function renderTabGames() {
       "en-ant":   "Antonym",
       "en-cloze": "Cloze"
     };
-    const modeStr = LB_MODE_LABELS[s.mode] || "US→UA";
+    const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові" };   // known не зберігається взагалі
+    const modeStr = (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
     const isLatestGame = !cls && latest && s.ts === latest.ts;
@@ -13242,6 +13263,36 @@ renderGptBtn();
 renderMovieBtn();
 
 renderLeaderboard();
+// Одноразово (20.07.2026): прибрати з рейтингу гру пулом «Знаю» (mix, 8, 0 помилок),
+// зіграну ДО фічі «known не в рейтинг» — вона зайняла 14-те місце. Точковий матч.
+(function fixKnownLbEntry() {
+  const FLAG = "oxford_fix_known_lb_v1";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    const isIt = e => e && e.mode === "mix" && e.score === 8 && (e.wrong || 0) === 0 &&
+      (e.skipped || 0) === 0 && tsToDayKey(e.ts) === "2026-07-20";
+    const scores = loadScores();
+    const i = scores.findIndex(isIt);
+    if (i >= 0) { scores.splice(i, 1); localStorage.setItem(LB_KEY, JSON.stringify(scores)); }
+    const log = loadGamesLog();
+    const j = log.findIndex(isIt);
+    if (j >= 0) { log.splice(j, 1); localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log)); }
+    const latest = loadLatest();
+    if (isIt(latest)) localStorage.removeItem(LB_LATEST_KEY);
+    const tb = loadTodayBest();
+    if (isIt(tb)) {
+      // перерахувати найкращу гру дня з логу (без вилученої)
+      const day = loadGamesLog().filter(g => tsToDayKey(g.ts) === "2026-07-20" && !(g.tag === "known"));
+      if (day.length) {
+        const best = day.reduce((a, b) => (b.score > a.score || (b.score === a.score &&
+          (b.wrong + b.skipped) < (a.wrong + a.skipped))) ? b : a);
+        localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify({ key: "2026-07-20", score: best.score,
+          wrong: best.wrong, skipped: best.skipped, mode: best.mode, ts: best.ts, wordCount: best.wordCount }));
+      } else localStorage.removeItem(LB_TODAY_BEST_KEY);
+    }
+    localStorage.setItem(FLAG, "1");
+  } catch (e) { /* не ставимо прапор — повтор на наступному завантаженні */ }
+})();
 sanitizeDayMistakes();        // нормалізація/чистка осиротілих ключів помилок (бейдж ↔ старт)
 updateWordsAddedRegistry();   // реєстр появи слів у словнику (для клікабельної «+N ●»)
 renderLbTotals();
