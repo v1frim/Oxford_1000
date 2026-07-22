@@ -9375,6 +9375,26 @@ function skipWord() {
   showCorrection(getCorrectAnswer());
 }
 
+// ua-en: mastery-прогрес отримує запис ВВЕДЕНОГО слова (сесія 37, за вибором користувача:
+// написав real на промпт «справжній» → прогрес real, а НЕ показаної картки authentic).
+// Серед записів із таким en перевага тому, чий ua/uaAlt містить показаний промпт
+// (shown «рекорд» + typed record → запис-іменник, не to record). Нема збігу → показана картка.
+// Помилки/регресії (wrong-гілка) ЛИШАЮТЬСЯ за показаною карткою — схибив саме на ній.
+function masteryTargetIndex(userVal) {
+  if (mode !== "ua-en") return currentWordIndex;
+  const normEn = s => s.toLowerCase().replace(/^to\s+/, "").trim();
+  const typed = normEn(userVal || "");
+  if (!typed) return currentWordIndex;
+  let first = -1;
+  for (let i = 0; i < WORDS.length; i++) {
+    if (getEn(WORDS[i]).some(e => normEn(e) === typed)) {
+      if (getUa(WORDS[i]).includes(currentShown) || (WORDS[i].uaAlt || []).includes(currentShown)) return i;
+      if (first < 0) first = i;
+    }
+  }
+  return first >= 0 ? first : currentWordIndex;
+}
+
 function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
@@ -9394,7 +9414,7 @@ function recordAnswer(userVal, status) {
       }
     } else {
       addXp(1);
-      updateMastery(currentWordIndex, true);
+      updateMastery(masteryTargetIndex(userVal), true);   // ua-en: прогрес введеному слову
     }
   } else {
     addDayMistake(currentWordIndex);

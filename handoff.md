@@ -119,6 +119,13 @@
 - ⚠️ Слово зі streak 0 в `m` (відповів НЕправильно/пропустив) = **Вивчаю**, а НЕ Нові.
   Бо "Нові" = `WORDS.length − known − learning` = слова, яких немає в `m` взагалі.
   Код категоризації: `if (s >= 3) known++; else learning++;` — streak 0 свідомо в learning.
+- **⚠️ ua-en: прогрес отримує ВВЕДЕНЕ слово (сесія 37, за вибором користувача):**
+  `masteryTargetIndex(userVal)` у correct-гілці recordAnswer — написав real на промпт
+  «справжній» (картка authentic) → +streak у real, НЕ в authentic (кейс: authentic «перейшов
+  у Знаю», хоча користувач його жодного разу не писав). Перевага запису, чий ua/uaAlt містить
+  показаний промпт (омографи record/to record); введене без власного запису (enAlt-відповіді
+  типу suggestion) → fallback показана картка. Помилки/регресії — ЗА ПОКАЗАНОЮ карткою.
+  Інші режими не зачеплені.
 - localStorage: `oxford_word_mastery_v1` `{enWord: streak}` — **ключ = англійське слово
   (`wordKey(w)=getEn(w)[0]`), НЕ позиція в WORDS** (виправлено в сесії 18 — див. changelog)
 - Review-сесії **не** оновлюють mastery (тільки звичайна гра)
