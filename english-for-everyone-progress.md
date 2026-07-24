@@ -34,8 +34,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 34** (з 402)
-- **Наступна: 36** (непарні праві боки розворотів опрацьовуються разом із парними)
+- **Остання опрацьована сторінка: 36** (з 402)
+- **Наступна: 38** (непарні праві боки розворотів опрацьовуються разом із парними)
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -47,6 +47,28 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 36 — «13 Clothes» (13.1 Describing / 13.2 Work clothes / 13.3 Kids' & babies')
+- **+30 нових у WORDS** (осн. список + усі «на межі», за вибором користувача):
+  - **Матеріали/патерни/крій:** leather(шкіра), denim(джинсова тканина), woolen(вовняний,
+    +enAlt woollen), striped(смугастий), checkered(картатий, +enAlt checked), loose(вільний),
+    baggy(мішкуватий), fitted(приталений), crumpled(зім'ятий), cropped(укорочений),
+    polka dot(у горошок, +enAlt spotted), plaid(шотландка), paisley(пейслі).
+  - **Робочий одяг:** uniform(уніформа, uaAlt форма — щоб не колізити з form/shape),
+    military(військовий), chef(шеф-кухар), apron(фартух), overalls(комбінезон, +enAlt
+    dungarees), scrubs(медична роба), lab coat(лабораторний халат, uaAlt халат),
+    high-visibility jacket(світловідбивна куртка), cargo pants(карго-штани).
+  - **Дитячий одяг:** hood(капюшон), costume(«костюм (маскарадний)», uaAlt костюм — щоб не
+    колізити з suit), bib(слинявчик), mitten(рукавиця; glove=рукавичка вже було),
+    snowsuit(зимовий комбінезон), onesie(піжама-комбінезон), booties(пінетки),
+    snap(«кнопка (застібка)», uaAlt кнопка, +enAlt popper).
+- **Збагачено наявні:** plain +однотонний(uaAlt), tight +тісний/облягаючий(uaAlt),
+  vintage +вінтажний/ретро(uaAlt).
+- **m.set (компоненти багатослівних термінів для hover):** polka, dot, lab, visibility, cargo.
+- **Пропущено:** прозорі композити (chef's hat/coat/uniform, firefighter's/military/school
+  uniform, school shirt/tie, play suit); UK/бренд-дублети → enAlt (woollen/checked/dungarees/
+  popper/spotted); вузьке (tabard, sleepsuit, bodysuit/babygro, romper suit).
+- check-coverage ✅ OK; WORDS 3002→3032.
 
 ### Стор. 34 — «12 Appearance and hair» (12.1 General appearance / 12.2 Hair)
 - **+33 нових у WORDS** (24 погоджених + 5 «на межі» БЕЗ auburn + 4 за списком GPT):

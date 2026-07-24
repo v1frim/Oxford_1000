@@ -1899,7 +1899,7 @@ const WORDS = [
   {en:"bright",ua:"яскравий"},{en:"quiet",ua:"тихий"},{en:"loud",ua:"гучний"},
   {en:"wet",ua:"мокрий"},{en:"dry",ua:"сухий"},{en:"sharp",ua:["гострий","різкий","точний"]},
   {en:"round",ua:"круглий"},{en:"flat",ua:"плоский"},{en:"straight",ua:"прямий"},
-  {en:"rough",ua:["шорсткий","грубий","нерівний"]},{en:"smooth",ua:"гладкий",uaAlt:["рівний","плавний","гладенький"]},{en:"tight",ua:"щільний"},
+  {en:"rough",ua:["шорсткий","грубий","нерівний"]},{en:"smooth",ua:"гладкий",uaAlt:["рівний","плавний","гладенький"]},{en:"tight",ua:"щільний",uaAlt:["тісний","облягаючий"]},
   {en:"smart",ua:"розумний"},{en:"stupid",ua:"дурний"},{en:"clever",ua:["кмітливий","розумний","хитрий"]},
   {en:"wise",ua:"мудрий"},{en:"honest",ua:"чесний"},{en:"polite",ua:"ввічливий"},
   {en:"rude",ua:"грубий"},{en:"friendly",ua:"привітний"},{en:"shy",ua:"сором'язливий"},
@@ -2637,7 +2637,7 @@ const WORDS = [
   {en:"pie",ua:"пиріг"},
   {en:"piece",ua:"шматок"},
   {en:"place",ua:"місце"},
-  {en:"plain",ua:"простий"},
+  {en:"plain",ua:"простий",uaAlt:["однотонний"]},
   {en:"plot",ua:"сюжет",uaAlt:["ділянка","змова","заколот"]},
   {en:"planet",ua:"планета"},
   {en:"pleased",ua:"задоволений"},
@@ -2881,7 +2881,7 @@ const WORDS = [
   {en:"vegetarian",ua:"вегетаріанець"},
   {en:"victory",ua:"перемога"},
   {en:"vigorous",ua:"енергійний"},
-  {en:"vintage",ua:"старовинний"},
+  {en:"vintage",ua:"старовинний",uaAlt:["вінтажний","ретро"]},
   {en:"vital",ua:"важливий"},
   {en:"vivid",ua:"яскравий"},
   {en:"voice",ua:"голос"},
@@ -3419,7 +3419,38 @@ const WORDS = [
   {en:"Thanksgiving",ua:"День подяки"},
   {en:"carnival",ua:"карнавал"},
   {en:"baptism",ua:"хрещення"},
-  {en:"kindergarten",ua:"дитячий садок",uaAlt:["дитсадок","садочок"]}
+  {en:"kindergarten",ua:"дитячий садок",uaAlt:["дитсадок","садочок"]},
+  // ── Одяг (English for Everyone, стор. 36-37) ──
+  {en:"leather",ua:"шкіра",uaAlt:["шкіряний"]},
+  {en:"denim",ua:"джинсова тканина",uaAlt:["денім"]},
+  {en:"woolen",ua:"вовняний",enAlt:["woollen"]},
+  {en:"striped",ua:"смугастий"},
+  {en:"checkered",ua:"картатий",uaAlt:["у клітинку"],enAlt:["checked"]},
+  {en:"loose",ua:"вільний",uaAlt:["нещільний","просторий","розхлябаний"]},
+  {en:"baggy",ua:"мішкуватий",uaAlt:["просторий"]},
+  {en:"fitted",ua:"приталений"},
+  {en:"crumpled",ua:"зім'ятий",uaAlt:["пом'ятий"]},
+  {en:"cropped",ua:"укорочений",uaAlt:["вкорочений"]},
+  {en:"polka dot",ua:"у горошок",uaAlt:["горошок"],enAlt:["spotted"]},
+  {en:"plaid",ua:"шотландка",uaAlt:["картатий","плед"]},
+  {en:"paisley",ua:"пейслі",uaAlt:["огірковий візерунок"]},
+  {en:"uniform",ua:"уніформа",uaAlt:["форма"]},
+  {en:"military",ua:"військовий",uaAlt:["воєнний","армійський"]},
+  {en:"chef",ua:"шеф-кухар",uaAlt:["кухар","шеф"]},
+  {en:"apron",ua:"фартух"},
+  {en:"overalls",ua:"комбінезон",uaAlt:["спецівка","роба"],enAlt:["dungarees"]},
+  {en:"scrubs",ua:"медична роба",uaAlt:["хірургічний костюм","скраби"]},
+  {en:"lab coat",ua:"лабораторний халат",uaAlt:["халат"]},
+  {en:"high-visibility jacket",ua:"світловідбивна куртка",uaAlt:["сигнальний жилет","світловідбивний жилет","жилет безпеки"]},
+  {en:"cargo pants",ua:"карго-штани",uaAlt:["штани-карго"]},
+  {en:"hood",ua:"капюшон",uaAlt:["капот"]},
+  {en:"costume",ua:"костюм (маскарадний)",uaAlt:["костюм","убрання","маскарадний костюм"]},
+  {en:"bib",ua:"слинявчик",uaAlt:["нагрудник"]},
+  {en:"mitten",ua:"рукавиця",uaAlt:["варежка"]},
+  {en:"snowsuit",ua:"зимовий комбінезон",uaAlt:["комбінезон"]},
+  {en:"onesie",ua:"піжама-комбінезон",uaAlt:["суцільна піжама","онезі","комбінезон-піжама"]},
+  {en:"booties",ua:"пінетки",uaAlt:["пінетка","черевички"]},
+  {en:"snap",ua:"кнопка (застібка)",uaAlt:["кнопка"],enAlt:["popper"]}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -4028,7 +4059,15 @@ const TRANS = {
   "chip":"/tʃɪp/","friendship":"/ˈfrɛndʃɪp/","pancake":"/ˈpænkeɪk/","antibiotic":"/ˌæntibaɪˈɑːtɪk/","survival":"/sərˈvaɪvl/",
   "estate":"/ɪˈsteɪt/","teamwork":"/ˈtiːmwɜːrk/","grandchild":"/ˈɡrændtʃaɪld/","least":"/liːst/","hometown":"/ˌhoʊmˈtaʊn/",
   "firefighter":"/ˈfaɪərfaɪtər/","bouquet":"/buˈkeɪ/","body":"/ˈbɑːdi/","highway":"/ˈhaɪweɪ/","minimum":"/ˈmɪnɪməm/",
-  "retriever":"/rɪˈtriːvər/","parent":"/ˈpɛrənt/","tasty":"/ˈteɪsti/","nutritious":"/nuˈtrɪʃəs/"
+  "retriever":"/rɪˈtriːvər/","parent":"/ˈpɛrənt/","tasty":"/ˈteɪsti/","nutritious":"/nuˈtrɪʃəs/",
+  "leather":"/ˈlɛðər/","denim":"/ˈdɛnɪm/","woolen":"/ˈwʊlən/","striped":"/straɪpt/",
+  "checkered":"/ˈtʃɛkərd/","loose":"/luːs/","baggy":"/ˈbæɡi/","fitted":"/ˈfɪtɪd/",
+  "crumpled":"/ˈkrʌmpəld/","cropped":"/krɑːpt/","polka dot":"/ˈpoʊkə ˌdɑːt/","plaid":"/plæd/",
+  "paisley":"/ˈpeɪzli/","uniform":"/ˈjuːnɪfɔːrm/","military":"/ˈmɪlɪtɛri/","chef":"/ʃɛf/",
+  "apron":"/ˈeɪprən/","overalls":"/ˈoʊvərɔːlz/","scrubs":"/skrʌbz/","lab coat":"/ˈlæb ˌkoʊt/",
+  "high-visibility jacket":"/ˌhaɪ vɪzɪˈbɪlɪti ˈdʒækɪt/","cargo pants":"/ˈkɑːrɡoʊ ˌpænts/",
+  "hood":"/hʊd/","costume":"/ˈkɑːstuːm/","bib":"/bɪb/","mitten":"/ˈmɪtən/",
+  "snowsuit":"/ˈsnoʊˌsuːt/","onesie":"/ˈwʌnzi/","booties":"/ˈbuːtiz/","snap":"/snæp/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -6075,7 +6114,37 @@ const EXAMPLES = {
   "minimum":"The minimum order is two books.",
   "retriever":"Our retriever loves to swim.",
   "parent":"Her parents live in the village.",
-  "tasty":"The soup is hot and tasty."
+  "tasty":"The soup is hot and tasty.",
+  "leather":"This bag is made of real leather.",
+  "denim":"He likes his blue denim jacket.",
+  "woolen":"She wears warm woolen socks in winter.",
+  "striped":"He bought a striped shirt.",
+  "checkered":"She likes her red checkered shirt.",
+  "loose":"This shirt is too loose for me.",
+  "baggy":"He wears a big baggy shirt.",
+  "fitted":"She wore a nice fitted dress.",
+  "crumpled":"His shirt was crumpled and dirty.",
+  "cropped":"She likes her short cropped jacket.",
+  "polka dot":"She wore a red polka dot dress.",
+  "plaid":"He wore a warm plaid shirt.",
+  "paisley":"This paisley shirt looks nice.",
+  "uniform":"Every student must wear a uniform.",
+  "military":"His brother joined the military.",
+  "chef":"The chef cooked a wonderful dinner.",
+  "apron":"She put on an apron before cooking.",
+  "overalls":"The worker wore dirty overalls.",
+  "scrubs":"The doctor wore blue scrubs.",
+  "lab coat":"The doctor wore a white lab coat.",
+  "high-visibility jacket":"The workers wore a bright high-visibility jacket.",
+  "cargo pants":"He wore green cargo pants.",
+  "hood":"He pulled the hood over his head.",
+  "costume":"She made a costume for the party.",
+  "bib":"The baby wore a bib while eating.",
+  "mitten":"The child lost one mitten in the snow.",
+  "snowsuit":"The baby wore a warm snowsuit outside.",
+  "onesie":"She sleeps in a soft onesie.",
+  "booties":"The baby has tiny booties on her feet.",
+  "snap":"This jacket has a metal snap."
 };
 
 const EXAMPLES_UA = {
@@ -8121,7 +8190,37 @@ const EXAMPLES_UA = {
   "minimum":"Мінімальне замовлення — дві книги.",
   "retriever":"Наш ретривер любить плавати.",
   "parent":"Її батьки живуть у селі.",
-  "tasty":"Суп гарячий і смачний."
+  "tasty":"Суп гарячий і смачний.",
+  "leather":"Ця сумка зроблена зі справжньої шкіри.",
+  "denim":"Йому подобається його синя джинсова куртка.",
+  "woolen":"Вона носить теплі вовняні шкарпетки взимку.",
+  "striped":"Він купив смугасту сорочку.",
+  "checkered":"Їй подобається її червона картата сорочка.",
+  "loose":"Ця сорочка мені завелика й вільна.",
+  "baggy":"Він носить велику мішкувату сорочку.",
+  "fitted":"Вона вдягнула гарну приталену сукню.",
+  "crumpled":"Його сорочка була зім'ята й брудна.",
+  "cropped":"Їй подобається її коротка укорочена куртка.",
+  "polka dot":"Вона вдягнула червону сукню в горошок.",
+  "plaid":"Він носив теплу картату сорочку.",
+  "paisley":"Ця сорочка з візерунком пейслі гарно виглядає.",
+  "uniform":"Кожен учень мусить носити уніформу.",
+  "military":"Його брат пішов у військо.",
+  "chef":"Шеф-кухар приготував чудову вечерю.",
+  "apron":"Вона вдягнула фартух перед готуванням.",
+  "overalls":"Робітник був у брудному комбінезоні.",
+  "scrubs":"Лікар був у синій медичній робі.",
+  "lab coat":"Лікар був у білому лабораторному халаті.",
+  "high-visibility jacket":"Робітники були в яскравій світловідбивній куртці.",
+  "cargo pants":"Він був у зелених карго-штанах.",
+  "hood":"Він натягнув капюшон на голову.",
+  "costume":"Вона зробила костюм на вечірку.",
+  "bib":"Малюк був у слинявчику під час їжі.",
+  "mitten":"Дитина загубила одну рукавицю в снігу.",
+  "snowsuit":"Малюк був у теплому зимовому комбінезоні надворі.",
+  "onesie":"Вона спить у м'якій піжамі-комбінезоні.",
+  "booties":"У малюка крихітні пінетки на ніжках.",
+  "snap":"На цій куртці металева кнопка."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -9864,6 +9963,12 @@ const EN_TO_UA = (() => {
   m.set("hula",        ["хула"]);
   m.set("hoop",        ["обруч"]);
   m.set("plush",       ["плюшевий", "м'який"]);
+  // компоненти багатослівних термінів одягу (стор. 36-37; дефіс/пробіл токенізується)
+  m.set("polka",       ["у горошок"]);
+  m.set("dot",         ["крапка", "цятка", "горошок"]);
+  m.set("lab",         ["лабораторія"]);
+  m.set("visibility",  ["видимість"]);
+  m.set("cargo",       ["вантаж", "карго"]);
   m.set("sudden",      ["раптовий", "несподіваний"]);
   m.set("laid",        ["невимушений", "розслаблений"]);   // laid-back у прикладі (дефіс токенізується)
   m.set("gray",        ["сивий", "сірий"]);
