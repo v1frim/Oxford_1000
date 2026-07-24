@@ -2801,7 +2801,11 @@ const WORDS = [
   {en:"terrified",ua:"нажаханий",uaAlt:["наляканий","переляканий","охоплений жахом"]},
   {en:"worried",ua:"стурбований",uaAlt:["занепокоєний","схвильований"]},{en:"panic",ua:["паніка","панікувати"],uaAlt:["запанікувати"]},
   {en:"horrified",ua:"у жаху",uaAlt:["шокований","приголомшений","вражений жахом"]},{en:"alarmed",ua:"стривожений",uaAlt:["насторожений","занепокоєний"]},
-  {en:"startled",ua:"сполоханий",uaAlt:["зляканий"]},{en:"petrified",ua:"заціпенілий",uaAlt:["заціпенілий від страху","паралізований страхом","скам'янілий"]},
+  {en:"startled",ua:"сполоханий",uaAlt:["зляканий"]},
+  {en:"to frighten",ua:["лякати","налякати"],uaAlt:["полохати"]},
+  {en:"to scare",ua:["лякати","налякати"],uaAlt:["полохати"]},
+  {en:"to terrify",ua:["жахати","жахнути"],uaAlt:["дуже лякати","наводити жах"]},
+  {en:"to startle",ua:["сполохати"],uaAlt:["наполохати","налякати зненацька","злякати зненацька"]},{en:"petrified",ua:"заціпенілий",uaAlt:["заціпенілий від страху","паралізований страхом","скам'янілий"]},
   {en:"text",ua:"повідомлення"},
   {en:"thoughtful",ua:"задумливий"},
   {en:"thoughtless",ua:["необдуманий","бездумний"]},
@@ -3916,7 +3920,7 @@ const TRANS = {
   "sunscreen":"/sˈʌnskriːn/","sunset":"/sˈʌnsɛt/","superb":"/suːpˈɜːb/","supply":"/səˈplaɪ/","suppose":"/sʌpˈəʊz/","surgery":"/sˈɜːdʒəri/",
   "suspicious":"/səspˈɪʃəs/","swallow":"/swˈɒləʊ/","sweater":"/swˈɛtɐ/","swift":"/swˈɪft/","symptom":"/sˈɪmptəm/","synthetic":"/sɪnθˈɛtɪk/",
   "talented":"/tˈæləntɪd/","taste":"/tˈeɪst/","tax":"/tˈæks/","tear":"/tɪr/","tedious":"/tˈiːdɪəs/","teenager":"/tˈiːneɪdʒər/","teeth":"/tˈiːθ/",
-  "temple":"/tˈɛmpəl/","temporary":"/tˈɛmprəri/","tender":"/tˈɛndɐ/","terrified":"/tˈɛrɪfaɪd/","worried":"/ˈwɝid/","panic":"/ˈpænɪk/","horrified":"/ˈhɔrəfaɪd/","alarmed":"/əˈlɑrmd/","startled":"/ˈstɑrtəld/","petrified":"/ˈpɛtrəfaɪd/","text":"/tˈɛkst/","than":"/ðˈɐn/",
+  "temple":"/tˈɛmpəl/","temporary":"/tˈɛmprəri/","tender":"/tˈɛndɐ/","terrified":"/tˈɛrɪfaɪd/","worried":"/ˈwɝid/","panic":"/ˈpænɪk/","horrified":"/ˈhɔrəfaɪd/","alarmed":"/əˈlɑrmd/","startled":"/ˈstɑrtəld/","frighten":"/ˈfraɪtən/","scare":"/skɛr/","terrify":"/ˈtɛrəfaɪ/","startle":"/ˈstɑrtəl/","petrified":"/ˈpɛtrəfaɪd/","text":"/tˈɛkst/","than":"/ðˈɐn/",
   "thank":"/θˈæŋk/","their":"/ðˈeə/","thing":"/θˈɪŋ/","third":"/θˈɜːd/","thirteen":"/θɜːtˈiːn/","eleven":"/ɪˈlɛvən/","twelve":"/twɛlv/","billion":"/ˈbɪljən/","fourth":"/fɔːrθ/","sixth":"/sɪksθ/","seventh":"/ˈsɛvənθ/","eighth":"/eɪtθ/","ninth":"/naɪnθ/","tenth":"/tɛnθ/","dozen":"/ˈdʌzən/","double":"/ˈdʌbəl/","triple":"/ˈtrɪpəl/","pair":"/pɛr/","once":"/wʌns/","thirty":"/θˈɜːti/",
   "thorough":"/θˈʌrɐ/","those":"/ðˈəʊz/","though":"/ðˈəʊ/","thought":"/θˈɔːt/","thoughtful":"/θˈɔːtfəl/","thoughtless":"/θˈɔːtləs/","thread":"/θrˈɛd/",
   "threatening":"/θrˈɛtənɪŋ/","throat":"/θrˈəʊt/","through":"/θrˈuː/","thumb":"/θˈʌm/","thunderous":"/θˈʌndərəs/","thursday":"/ˈθɜːrzdeɪ/",
@@ -5571,7 +5575,7 @@ const EXAMPLES = {
   "temple":"They visited an ancient temple in the mountains.",
   "tender":"She spoke in a tender and gentle voice.",
   "terrified":"She was absolutely terrified of spiders.",
-  "worried":"She was worried about the test.","panic":"There was panic in the streets.","horrified":"She was horrified by the news.","alarmed":"He was alarmed by the strange noise.","startled":"The cat was startled by the loud noise.","petrified":"I was petrified during the storm.",
+  "worried":"She was worried about the test.","panic":"There was panic in the streets.","horrified":"She was horrified by the news.","alarmed":"He was alarmed by the strange noise.","startled":"The cat was startled by the loud noise.","to frighten":"Loud noises frighten the baby.","to scare":"You scared me!","to terrify":"Spiders terrify her.","to startle":"A sudden noise can startle the cat.","petrified":"I was petrified during the storm.",
   "text":"He sent a text message to say he was on his way.",
   "thoughtful":"It was very thoughtful of you to bring flowers.",
   "thoughtless":"It was a thoughtless remark that hurt her feelings.",
@@ -7617,7 +7621,7 @@ const EXAMPLES_UA = {
   "temple":"Вони відвідали стародавній храм у горах.",
   "tender":"Вона говорила ніжним і лагідним голосом.",
   "terrified":"Вона до смерті боялася павуків.",
-  "worried":"Вона була стурбована через тест.","panic":"На вулицях була паніка.","horrified":"Вона була в жаху від новин.","alarmed":"Він був стривожений дивним шумом.","startled":"Кіт був сполоханий гучним шумом.","petrified":"Я заціпенів від страху під час бурі.",
+  "worried":"Вона була стурбована через тест.","panic":"На вулицях була паніка.","horrified":"Вона була в жаху від новин.","alarmed":"Він був стривожений дивним шумом.","startled":"Кіт був сполоханий гучним шумом.","to frighten":"Гучні звуки лякають немовля.","to scare":"Ти мене налякав!","to terrify":"Павуки жахають її.","to startle":"Раптовий шум може сполохати кота.","petrified":"Я заціпенів від страху під час бурі.",
   "text":"Він надіслав текстове повідомлення, що вже в дорозі.",
   "thoughtful":"Було дуже уважно з вашого боку принести квіти.",
   "thoughtless":"Це був необдуманий коментар, який образив її.",
@@ -9860,6 +9864,7 @@ const EN_TO_UA = (() => {
   m.set("hula",        ["хула"]);
   m.set("hoop",        ["обруч"]);
   m.set("plush",       ["плюшевий", "м'який"]);
+  m.set("sudden",      ["раптовий", "несподіваний"]);
   m.set("laid",        ["невимушений", "розслаблений"]);   // laid-back у прикладі (дефіс токенізується)
   m.set("gray",        ["сивий", "сірий"]);
   m.set("crew",        ["екіпаж", "команда"]);
