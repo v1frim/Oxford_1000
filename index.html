@@ -3450,7 +3450,46 @@ const WORDS = [
   {en:"snowsuit",ua:"зимовий комбінезон",uaAlt:["комбінезон"]},
   {en:"onesie",ua:"піжама-комбінезон",uaAlt:["суцільна піжама","онезі","комбінезон-піжама"]},
   {en:"booties",ua:"пінетки",uaAlt:["пінетка","черевички"]},
-  {en:"snap",ua:"кнопка (застібка)",uaAlt:["кнопка"],enAlt:["popper"]}
+  {en:"snap",ua:"кнопка (застібка)",uaAlt:["кнопка"],enAlt:["popper"]},
+  // ── Шкільне приладдя / клас ──
+  {en:"scissors",ua:"ножиці"},
+  {en:"ruler",ua:"лінійка",uaAlt:["правитель"]},
+  {en:"glue",ua:"клей",uaAlt:["клеїти","приклеювати"]},
+  {en:"eraser",ua:["гумка","ластик"]},
+  {en:"folder",ua:"папка",uaAlt:["тека"]},
+  {en:"pencil sharpener",ua:"точилка"},
+  {en:"lunch box",ua:"ланчбокс",uaAlt:["контейнер для їжі"]},
+  {en:"backpack",ua:"рюкзак",uaAlt:["наплічник"]},
+  {en:"pencil case",ua:"пенал"},
+  {en:"marker",ua:"маркер",uaAlt:["фломастер"]},
+  {en:"highlighter",ua:"текстовиділювач",uaAlt:["виділювач"]},
+  {en:"crayon",ua:"воскова крейда",uaAlt:["олівець-крейда"]},
+  {en:"paintbrush",ua:"пензлик",uaAlt:["пензель"]},
+  {en:"tape",ua:"скотч",uaAlt:["клейка стрічка"]},
+  {en:"stapler",ua:"степлер"},
+  {en:"paper clip",ua:"скріпка"},
+  {en:"hole punch",ua:"дирокол"},
+  {en:"calculator",ua:"калькулятор"},
+  {en:"chalk",ua:"крейда"},
+  {en:"compass",ua:"циркуль",uaAlt:["компас"]},
+  {en:"globe",ua:"глобус",uaAlt:["земна куля"]},
+  {en:"classroom",ua:"класна кімната",uaAlt:["навчальна аудиторія"]},
+  {en:"classmate",ua:"однокласник",uaAlt:["однокласниця","одногрупник"]},
+  {en:"blackboard",ua:"класна дошка",uaAlt:["крейдова дошка"]},
+  {en:"whiteboard",ua:"маркерна дошка",uaAlt:["біла дошка"]},
+  {en:"locker",ua:"шафка",uaAlt:["шафка для речей"]},
+  {en:"bell",ua:"дзвінок",uaAlt:["дзвін","дзвіночок"]},
+  {en:"workbook",ua:"робочий зошит"},
+  {en:"worksheet",ua:"робочий аркуш",uaAlt:["аркуш із завданнями"]},
+  {en:"quiz",ua:"вікторина",uaAlt:["короткий тест","опитування"]},
+  {en:"recess",ua:"шкільна перерва",uaAlt:["велика перерва"]},
+  {en:"timetable",ua:"розклад уроків",uaAlt:["розклад занять"]},
+  {en:"stationery",ua:"канцтовари",uaAlt:["канцелярія","канцелярське приладдя"]},
+  // базові слова, яких бракувало (зловив check-coverage на прикладах вище)
+  {en:"hole",ua:"дірка",uaAlt:["отвір","яма"]},
+  {en:"mark",ua:["позначати","позначка"],uaAlt:["мітка","відмічати","слід"]},
+  {en:"case",ua:"чохол",uaAlt:["футляр","коробка"]},
+  {en:"clip",ua:"кліп",uaAlt:["затискач","защіпка"]}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -4067,7 +4106,18 @@ const TRANS = {
   "apron":"/ˈeɪprən/","overalls":"/ˈoʊvərɔːlz/","scrubs":"/skrʌbz/","lab coat":"/ˈlæb ˌkoʊt/",
   "high-visibility jacket":"/ˌhaɪ vɪzɪˈbɪlɪti ˈdʒækɪt/","cargo pants":"/ˈkɑːrɡoʊ ˌpænts/",
   "hood":"/hʊd/","costume":"/ˈkɑːstuːm/","bib":"/bɪb/","mitten":"/ˈmɪtən/",
-  "snowsuit":"/ˈsnoʊˌsuːt/","onesie":"/ˈwʌnzi/","booties":"/ˈbuːtiz/","snap":"/snæp/"
+  "snowsuit":"/ˈsnoʊˌsuːt/","onesie":"/ˈwʌnzi/","booties":"/ˈbuːtiz/","snap":"/snæp/",
+  "scissors":"/ˈsɪzərz/","ruler":"/ˈruːlər/","glue":"/ɡluː/","eraser":"/ɪˈreɪsər/",
+  "folder":"/ˈfoʊldər/","pencil sharpener":"/ˈpɛnsəl ˌʃɑːrpənər/","lunch box":"/ˈlʌntʃ ˌbɑːks/",
+  "backpack":"/ˈbækpæk/","pencil case":"/ˈpɛnsəl ˌkeɪs/","marker":"/ˈmɑːrkər/",
+  "highlighter":"/ˈhaɪlaɪtər/","crayon":"/ˈkreɪɑːn/","paintbrush":"/ˈpeɪntbrʌʃ/","tape":"/teɪp/",
+  "stapler":"/ˈsteɪplər/","paper clip":"/ˈpeɪpər ˌklɪp/","hole punch":"/ˈhoʊl ˌpʌntʃ/",
+  "calculator":"/ˈkælkjəleɪtər/","chalk":"/tʃɔːk/","compass":"/ˈkʌmpəs/","globe":"/ɡloʊb/",
+  "classroom":"/ˈklæsruːm/","classmate":"/ˈklæsmeɪt/","blackboard":"/ˈblækbɔːrd/",
+  "whiteboard":"/ˈwaɪtbɔːrd/","locker":"/ˈlɑːkər/","bell":"/bɛl/","workbook":"/ˈwɜːrkbʊk/",
+  "worksheet":"/ˈwɜːrkʃiːt/","quiz":"/kwɪz/","recess":"/ˈriːsɛs/","timetable":"/ˈtaɪmteɪbəl/",
+  "stationery":"/ˈsteɪʃənɛri/",
+  "hole":"/hoʊl/","mark":"/mɑːrk/","case":"/keɪs/","clip":"/klɪp/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -6144,7 +6194,44 @@ const EXAMPLES = {
   "snowsuit":"The baby wore a warm snowsuit outside.",
   "onesie":"She sleeps in a soft onesie.",
   "booties":"The baby has tiny booties on her feet.",
-  "snap":"This jacket has a metal snap."
+  "snap":"This jacket has a metal snap.",
+  "scissors":"Cut the paper with scissors.",
+  "ruler":"She used a ruler to draw a line.",
+  "glue":"He put glue on the paper.",
+  "eraser":"Use an eraser to remove the mistake.",
+  "folder":"All my papers are in this folder.",
+  "pencil sharpener":"He needs a pencil sharpener for his pencil.",
+  "lunch box":"She put an apple in her lunch box.",
+  "backpack":"His backpack is full of books.",
+  "pencil case":"Her pens are in the pencil case.",
+  "marker":"He wrote the title with a black marker.",
+  "highlighter":"She marked the important words with a highlighter.",
+  "crayon":"The child drew a house with a red crayon.",
+  "paintbrush":"He washed the paintbrush after the lesson.",
+  "tape":"She fixed the box with tape.",
+  "stapler":"Use the stapler to join these pages.",
+  "paper clip":"He used a paper clip to hold the pages.",
+  "hole punch":"She made holes in the paper with a hole punch.",
+  "calculator":"He counted the numbers on a calculator.",
+  "chalk":"The teacher wrote on the board with chalk.",
+  "compass":"He drew a circle with a compass.",
+  "globe":"There is a globe on the teacher's desk.",
+  "classroom":"Our classroom is bright and large.",
+  "classmate":"My classmate helped me with the homework.",
+  "blackboard":"The teacher wrote the date on the blackboard.",
+  "whiteboard":"He drew a map on the whiteboard.",
+  "locker":"She keeps her coat in a locker.",
+  "bell":"We heard the bell and left the classroom.",
+  "workbook":"Write your answers in the workbook.",
+  "worksheet":"The teacher gave us a worksheet.",
+  "quiz":"We had a short quiz today.",
+  "recess":"The children play outside during recess.",
+  "timetable":"Look at the timetable for tomorrow.",
+  "stationery":"She bought stationery for school.",
+  "hole":"There is a hole in my sock.",
+  "mark":"Please mark the correct answer.",
+  "case":"He keeps his glasses in a case.",
+  "clip":"She watched a short clip on her phone."
 };
 
 const EXAMPLES_UA = {
@@ -8220,7 +8307,44 @@ const EXAMPLES_UA = {
   "snowsuit":"Малюк був у теплому зимовому комбінезоні надворі.",
   "onesie":"Вона спить у м'якій піжамі-комбінезоні.",
   "booties":"У малюка крихітні пінетки на ніжках.",
-  "snap":"На цій куртці металева кнопка."
+  "snap":"На цій куртці металева кнопка.",
+  "scissors":"Розріж папір ножицями.",
+  "ruler":"Вона взяла лінійку, щоб накреслити лінію.",
+  "glue":"Він намазав клей на папір.",
+  "eraser":"Скористайся гумкою, щоб прибрати помилку.",
+  "folder":"Усі мої папери в цій папці.",
+  "pencil sharpener":"Йому потрібна точилка для олівця.",
+  "lunch box":"Вона поклала яблуко у свій ланчбокс.",
+  "backpack":"Його рюкзак повний книжок.",
+  "pencil case":"Її ручки в пеналі.",
+  "marker":"Він написав заголовок чорним маркером.",
+  "highlighter":"Вона позначила важливі слова текстовиділювачем.",
+  "crayon":"Дитина намалювала будинок червоною восковою крейдою.",
+  "paintbrush":"Він помив пензлик після уроку.",
+  "tape":"Вона заклеїла коробку скотчем.",
+  "stapler":"Скріпи ці сторінки степлером.",
+  "paper clip":"Він скріпив сторінки скріпкою.",
+  "hole punch":"Вона зробила дірки в папері дироколом.",
+  "calculator":"Він порахував числа на калькуляторі.",
+  "chalk":"Учитель писав на дошці крейдою.",
+  "compass":"Він накреслив коло циркулем.",
+  "globe":"На столі вчителя стоїть глобус.",
+  "classroom":"Наша класна кімната світла й велика.",
+  "classmate":"Мій однокласник допоміг мені з домашнім завданням.",
+  "blackboard":"Учитель написав дату на класній дошці.",
+  "whiteboard":"Він намалював карту на маркерній дошці.",
+  "locker":"Вона тримає пальто в шафці.",
+  "bell":"Ми почули дзвінок і вийшли з класної кімнати.",
+  "workbook":"Пиши відповіді в робочому зошиті.",
+  "worksheet":"Учитель дав нам робочий аркуш.",
+  "quiz":"Сьогодні в нас був короткий тест.",
+  "recess":"Діти граються надворі під час перерви.",
+  "timetable":"Подивись розклад уроків на завтра.",
+  "stationery":"Вона купила канцтовари для школи.",
+  "hole":"У моїй шкарпетці дірка.",
+  "mark":"Будь ласка, познач правильну відповідь.",
+  "case":"Він тримає окуляри в чохлі.",
+  "clip":"Вона подивилася короткий кліп на телефоні."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -9969,6 +10093,7 @@ const EN_TO_UA = (() => {
   m.set("lab",         ["лабораторія"]);
   m.set("visibility",  ["видимість"]);
   m.set("cargo",       ["вантаж", "карго"]);
+  m.set("sharpener",   ["точилка"]);            // компонент pencil sharpener
   m.set("sudden",      ["раптовий", "несподіваний"]);
   m.set("laid",        ["невимушений", "розслаблений"]);   // laid-back у прикладі (дефіс токенізується)
   m.set("gray",        ["сивий", "сірий"]);
