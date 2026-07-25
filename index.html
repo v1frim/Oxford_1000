@@ -12232,21 +12232,31 @@ function openDayTransModal(date, cat) {
   catModalCat = null;
   catModalCustomPool = idxs;
   catModalPoolTag = cat === "k" ? "known" : cat === "t" ? "new" : "learning";   // слова дня → той самий клас пулу
-  const sorted = idxs.slice().sort((a, b) =>
-    getEn(WORDS[a])[0].localeCompare(getEn(WORDS[b])[0]));
+  // ⚠️ Пари з однаковим EN (run бігти/керувати, fan фанат/вентилятор…) ділять mastery-ключ,
+  // тож idxs містить ОБИДВА записи, а дельта в «Прогресі» рахує ключі. Групуємо рядки за
+  // ключем (сенси через « / »), щоб к-сть у списку збігалася з дельтою. Пул для гри —
+  // усі індекси (обидва сенси все одно тренуються).
+  const groups = new Map();                       // wordKey → [індекси WORDS]
+  idxs.forEach(i => {
+    const k = wordKey(WORDS[i]);
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(i);
+  });
+  const rows = [...groups.values()].sort((a, b) =>
+    getEn(WORDS[a[0]])[0].localeCompare(getEn(WORDS[b[0]])[0]));
   document.getElementById("cat-title").innerHTML =
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + ' · ' + fmtProgressDate(date) + '</span>' +
-    '<span class="cat-cnt">' + idxs.length + ' слів</span>';
+    '<span class="cat-cnt">' + rows.length + ' слів</span>';
   const listEl = document.getElementById("cat-list");
-  listEl.innerHTML = sorted.map(i =>
-    '<div class="cat-row" data-i="' + i + '">' +
-      '<span class="cat-en">' + esc(getEn(WORDS[i]).join(" / ")) + '</span>' +
-      '<span class="cat-ua">' + esc(getUa(WORDS[i]).join(", ")) + '</span>' +
+  listEl.innerHTML = rows.map(g =>
+    '<div class="cat-row" data-i="' + g[0] + '">' +
+      '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
+      '<span class="cat-ua">' + esc(g.map(i => getUa(WORDS[i]).join(", ")).join(" / ")) + '</span>' +
     '</div>').join("");
   listEl.scrollTop = 0;
   const playBtn = document.getElementById("cat-play");
   playBtn.disabled = false;
-  playBtn.textContent = "▶ Грати ці слова (" + idxs.length + ")";
+  playBtn.textContent = "▶ Грати ці слова (" + rows.length + ")";
   playBtn.style.background = meta.color;
   document.getElementById("cat-modal").classList.remove("hidden");
 }
