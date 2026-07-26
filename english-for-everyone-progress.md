@@ -149,9 +149,13 @@
   формула), hula(хула), hoop(обруч), plush(плюшевий/м'який). US/UK-дублети → enAlt.
 - **Пропущено:** umbilical cord, due date, pregnancy test, baby monitor, high chair, baby
   carriage, Moses basket, stair gate, baby bath, diaper bag, nipple/teat, diaper rash cream,
-  obstetrician(вузько-мед.), hobby/rocking horse, pull-along toy, bead maze, bowling pins,
+  hobby/rocking horse, pull-along toy, bead maze, bowling pins,
   spinning top, yo-yo, jump rope, jigsaw puzzle, train set, building blocks, dollhouse, toybox.
 - Вже було: uterus, womb, birth, toddler, bottle.
+- **Дододано пізніше (сесія 37, за запитом):** obstetrician(акушер/акушер-гінеколог) — раніше
+  значився пропущеним як «вузько-мед.», але планка вже пройдена (uterus/placenta/prostate).
+  ⚠️ midwife(акушерка) й obstetrician — РІЗНІ професії, не пара за родом: перша приймає пологи,
+  другий — лікар. «Акушер» СВІДОМО не додано в uaAlt до midwife (змішало б професії).
 
 ### Стор. 24 — «07 Life events» (7.1 Relationships / 7.2 Life events / 7.3 Festivals)
 - **+11 нових:** acquaintance(знайомий), honeymoon(медовий місяць), retire(виходити на пенсію),
