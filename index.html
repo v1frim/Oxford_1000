@@ -1551,7 +1551,7 @@ const WORDS = [
   {en:"want",ua:"хотіти"},{en:"look",ua:"дивитися",uaAlt:["виглядати","вигляд","погляд"]},{en:"use",ua:"використовувати"},
   {en:"find",ua:"знаходити"},{en:"give",ua:"давати"},{en:"tell",ua:"розповідати"},
   {en:"work",ua:"працювати"},{en:"call",ua:"дзвонити"},{en:"try",ua:"намагатися"},
-  {en:"ask",ua:"питати"},{en:"need",ua:"потребувати"},{en:"feel",ua:"відчувати",uaAlt:["почуватися"]},
+  {en:"ask",ua:["питати","просити"],uaAlt:["запитувати","попросити","прохати","спитати"]},{en:"need",ua:"потребувати"},{en:"feel",ua:"відчувати",uaAlt:["почуватися"]},
   {en:"become",ua:"ставати"},{en:"leave",ua:"залишати"},{en:"put",ua:"класти"},
   {en:"keep",ua:["тримати","зберігати"]},{en:"kettle",ua:"чайник"},{en:"let",ua:"дозволяти"},{en:"begin",ua:"починати"},
   {en:"show",ua:"показувати",uaAlt:["вистава","шоу","виступ","спектакль"]},{en:"hear",ua:"чути"},{en:"to play",ua:"грати"},
@@ -3395,6 +3395,13 @@ const WORDS = [
   // obstetrician = ЛІКАР акушер-гінеколог. Не зливати в один запис / не додавати
   // «акушер» у uaAlt до midwife.
   {en:"obstetrician",ua:["акушер","акушер-гінеколог"],uaAlt:["гінеколог"]},
+  // кластер «зір / вид» (сесія 38). ⚠️ eyesight і scenery СВІДОМО ділять гліс із sight
+  // («зір») та landscape («пейзаж») — це справжні синоніми, прецеденти: approachable≈friendly,
+  // to stand up≈to get up, prevail≈to dominate. Не «виправляти» на унікальні глоси.
+  {en:"vision",ua:"бачення",uaAlt:["зір","візія","уявлення"]},
+  {en:"eyesight",ua:"зір",uaAlt:["гострота зору"]},
+  {en:"sort",ua:["сортувати","різновид"],uaAlt:["сорт","вид","тип","розподіляти"]},
+  {en:"scenery",ua:["пейзаж","декорації"],uaAlt:["краєвид","природа"]},
   {en:"vaccination",ua:"вакцинація",uaAlt:["щеплення"]},
   {en:"stroller",ua:"дитячий візок",uaAlt:["візок","візочок","коляска"],enAlt:["pram"]},
   {en:"pacifier",ua:"пустушка",uaAlt:["соска","соска-пустушка"],enAlt:["dummy"]},
@@ -4121,7 +4128,8 @@ const TRANS = {
   "whiteboard":"/ˈwaɪtbɔːrd/","locker":"/ˈlɑːkər/","bell":"/bɛl/","workbook":"/ˈwɜːrkbʊk/",
   "worksheet":"/ˈwɜːrkʃiːt/","quiz":"/kwɪz/","recess":"/ˈriːsɛs/","timetable":"/ˈtaɪmteɪbəl/",
   "stationery":"/ˈsteɪʃənɛri/",
-  "hole":"/hoʊl/","mark":"/mɑːrk/","case":"/keɪs/","clip":"/klɪp/"
+  "hole":"/hoʊl/","mark":"/mɑːrk/","case":"/keɪs/","clip":"/klɪp/",
+  "vision":"/ˈvɪʒən/","eyesight":"/ˈaɪsaɪt/","sort":"/sɔːrt/","scenery":"/ˈsiːnəri/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -6236,7 +6244,11 @@ const EXAMPLES = {
   "hole":"There is a hole in my sock.",
   "mark":"Please mark the correct answer.",
   "case":"He keeps his glasses in a case.",
-  "clip":"She watched a short clip on her phone."
+  "clip":"She watched a short clip on her phone.",
+  "vision":"She has a clear vision for the future.",
+  "eyesight":"His eyesight is getting worse every year.",
+  "sort":"Please sort these books by size.",
+  "scenery":"The scenery in the mountains is beautiful."
 };
 
 const EXAMPLES_UA = {
@@ -8350,7 +8362,11 @@ const EXAMPLES_UA = {
   "hole":"У моїй шкарпетці дірка.",
   "mark":"Будь ласка, познач правильну відповідь.",
   "case":"Він тримає окуляри в чохлі.",
-  "clip":"Вона подивилася короткий кліп на телефоні."
+  "clip":"Вона подивилася короткий кліп на телефоні.",
+  "vision":"У неї чітке бачення майбутнього.",
+  "eyesight":"Його зір щороку погіршується.",
+  "sort":"Будь ласка, посортуй ці книги за розміром.",
+  "scenery":"Пейзаж у горах прекрасний."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
