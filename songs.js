@@ -4231,7 +4231,7 @@ const SONGS = [
     { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
     { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" }
   ]},
-    {  label: "КУПЛЕТ 2", lines: [
+    {  label: "КУПЛЕТ 1", lines: [
     { en: "Cute lil' mama had a swag like mine", ua: "Мила крихітко, у тебе стиль, як у мене" },
     { en: "She even wear her hair down her back like mine", ua: "Вона навіть носить волосся, спущене по спині, як я" },
     { en: "I make her feel right when it's wrong like lyin'", ua: "Я змушую її почуватися добре, навіть коли все неправильно, як брехня" },
