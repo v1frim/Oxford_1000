@@ -4211,11 +4211,26 @@ const SONGS = [
     // Порядок секцій у пісні: ВСТУП → ПРИСПІВ → КУПЛЕТ 1 → РЕФРЕН → ПРИСПІВ →
     //                          БРИДЖ → ПРИСПІВ  (повтори приспіву окремо НЕ дублюються)
     sections: [
-      { label: "ВСТУП",   lines: [] },
-      { label: "ПРИСПІВ", lines: [] },
-      { label: "КУПЛЕТ 1", lines: [] },
-      { label: "РЕФРЕН",  lines: [] },
-      { label: "БРИДЖ",   lines: [] }
+{
+  label: "ВСТУП", lines: [
+    { en: "She said, \"He's so sweet, I wanna lick the wrapper\"", ua: "Вона сказала: «Він такий солодкий, хочу облизати обгортку»" },
+    { en: "(I wanna lick the wrapper)", ua: "(Хочу облизати обгортку)" },
+    { en: "And she", ua: "І вона" },
+    { en: "She licked me like a lollipop", ua: "Облизувала мене, наче льодяник" },
+    { en: "Like a lollipop", ua: "Наче льодяник" }
+  ]},
+  { label: "ПРИСПІВ", lines: [
+    { en: "Shorty wanna thug", ua: "Мала хоче бути крутою" },
+    { en: "Bottles in the club", ua: "Пляшки в клубі" },
+    { en: "Shorty wanna hump", ua: "Мала хоче близькості" },
+    { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
+    { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" },
+    { en: "Shorty wanna thug", ua: "Мала хоче бути крутою" },
+    { en: "Bottles in the club", ua: "Пляшки в клубі" },
+    { en: "Shorty wanna hump", ua: "Мала хоче близькості" },
+    { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
+    { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" }
+  ]},
     ],
     // glossary — слова, яких немає в основному EN_TO_UA (hover у тексті).
     // Решта (lollipop, wrapper, mama, lick, juicy, knee, club, bottle) уже у WORDS.
