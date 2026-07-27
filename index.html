@@ -925,6 +925,16 @@
   }
   .songs-head h2 { font-size: 19px; margin: 0; font-weight: 700; }
   .songs-head .sh-sub { font-size: 13px; opacity: 0.6; }
+  .songs-search {
+    flex: 1 1 200px; min-width: 0; max-width: 340px; margin-left: auto;
+    background: rgba(6,18,42,0.78); border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 9px; padding: 7px 11px;
+    color: #fff; font-size: 13px; font-family: inherit; outline: none;
+    transition: border-color 0.15s;
+  }
+  .songs-search::placeholder { color: rgba(255,255,255,0.42); }
+  .songs-search:focus { border-color: #ffd166; }
+  .songs-empty { opacity: 0.6; text-align: center; margin-top: 40px; }
   .songs-back {
     background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
     color: #fff; cursor: pointer; padding: 6px 14px; border-radius: 10px;
@@ -14517,23 +14527,65 @@ const songsHead = document.getElementById("songs-head");
 const songsBody = document.getElementById("songs-body");
 const ALL_SONGS = (typeof SONGS !== "undefined") ? SONGS : [];
 let songsListScroll = 0;   // збережена позиція скролу списку (щоб повертатись на неї з деталі)
+let songsQuery = "";       // запит пошуку; ЗБЕРІГАЄТЬСЯ при поверненні з деталі, скидається при відкритті розділу
 
-function openSongs() { songsListScroll = 0; songsOverlay.classList.remove("hidden"); renderSongsList(); }
+function openSongs() { songsListScroll = 0; songsQuery = ""; songsOverlay.classList.remove("hidden"); renderSongsList(); }
 function closeSongs() {
   songsOverlay.classList.add("hidden");
   songsHead.innerHTML = ""; songsBody.innerHTML = "";   // прибрати iframe щоб зупинити відео
 }
+// Пошук по піснях: назва / виконавець / РЯДКИ тексту (en+ua) / сленг / glossary.
+// Хейстек будується один раз на пісню й кешується — інакше перебудова на кожну літеру.
+const _songHaystack = new Map();
+function songHaystack(s) {
+  let h = _songHaystack.get(s.id);
+  if (h !== undefined) return h;
+  const parts = [s.title, s.artist];
+  (s.sections || []).forEach(sec => {
+    parts.push(sec.label);
+    (sec.lines || []).forEach(l => { parts.push(l.en, l.ua); });
+  });
+  (s.slang || []).forEach(x => parts.push(x.en, x.ua, x.note));
+  Object.entries(s.glossary || {}).forEach(([k, v]) => parts.push(k, v));
+  h = parts.filter(Boolean).join(" \n ").toLowerCase();
+  _songHaystack.set(s.id, h);
+  return h;
+}
+// Кілька слів у запиті = І (усі мають зустрітись), порядок неважливий.
+function songsMatching(q) {
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return ALL_SONGS.slice();
+  return ALL_SONGS.filter(s => { const h = songHaystack(s); return terms.every(t => h.includes(t)); });
+}
 function renderSongsList() {
   songsHead.innerHTML =
     '<h2>🎵 Пісні англійською</h2>' +
-    '<span class="sh-sub">' + ALL_SONGS.length + ' ' + plural(ALL_SONGS.length, "пісня", "пісні", "пісень") + '</span>' +
+    '<span class="sh-sub" id="songs-count"></span>' +
+    '<input id="songs-search" class="songs-search" type="text" autocomplete="off" spellcheck="false"' +
+      ' placeholder="🔎 Пошук: назва, виконавець, слово з тексту…" value="' + escAttr(songsQuery) + '">' +
     '<button class="songs-close" data-act="close">✕</button>';
+  renderSongsGrid();
+}
+// ⚠️ Окремо від хедера: інакше кожна натиснута літера перестворювала б input і збивала фокус.
+function renderSongsGrid() {
+  const countEl = document.getElementById("songs-count");
   if (!ALL_SONGS.length) {
-    songsBody.innerHTML = '<p style="opacity:0.6;text-align:center;margin-top:40px">Пісень ще немає.</p>';
+    if (countEl) countEl.textContent = "";
+    songsBody.innerHTML = '<p class="songs-empty">Пісень ще немає.</p>';
+    return;
+  }
+  const found = songsMatching(songsQuery);
+  if (countEl) {
+    countEl.textContent = songsQuery.trim()
+      ? found.length + " з " + ALL_SONGS.length
+      : ALL_SONGS.length + " " + plural(ALL_SONGS.length, "пісня", "пісні", "пісень");
+  }
+  if (!found.length) {
+    songsBody.innerHTML = '<p class="songs-empty">Нічого не знайдено за запитом «' + esc(songsQuery) + '».</p>';
     return;
   }
   const STATUS_SORT_ORDER = { learning: 0, queue: 1, learned: 2 };
-  const sortedSongs = ALL_SONGS.slice().sort((a, b) =>
+  const sortedSongs = found.sort((a, b) =>
     (STATUS_SORT_ORDER[getSongStatus(a.id)] ?? 1) - (STATUS_SORT_ORDER[getSongStatus(b.id)] ?? 1)
   );
   songsBody.innerHTML = '<div class="songs-grid">' + sortedSongs.map(s => {
@@ -14635,11 +14687,17 @@ songsOverlay.addEventListener("click", e => {
   }
 });
 document.getElementById("songs-btn").addEventListener("click", openSongs);
+// Живий пошук: слухаємо на overlay, бо сам input перестворюється разом із хедером
+songsOverlay.addEventListener("input", e => {
+  if (e.target && e.target.id === "songs-search") { songsQuery = e.target.value; renderSongsGrid(); }
+});
 // Esc закриває розділ пісень (capture, щоб не чіпати ігрові обробники)
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && !songsOverlay.classList.contains("hidden")) {
-    e.preventDefault(); e.stopPropagation(); closeSongs();
-  }
+  if (songsOverlay.classList.contains("hidden")) return;
+  if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeSongs(); return; }
+  // ⚠️ Друк у полі пошуку НЕ повинен доходити до ігрових обробників (Пробіл=озвучити,
+  // Tab=вкладки лідерборду, Shift=цикл режимів, Alt=панель прогресу).
+  if (e.target && e.target.id === "songs-search") e.stopPropagation();
 }, true);
 
 // ── Розділ «Вирази і сленг» ──────────────────────────────────────────────────
