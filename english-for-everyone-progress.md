@@ -34,8 +34,8 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 36** (з 402)
-- **Наступна: 38** (непарні праві боки розворотів опрацьовуються разом із парними)
+- **Остання опрацьована сторінка: 46** (з 402)
+- **Наступна: 48** (непарні праві боки розворотів опрацьовуються разом із парними)
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
@@ -47,6 +47,47 @@
 > затвердив фінальний список. WORDS 2802→2782. Якщо колись знадобляться — дані в git-історії.
 
 ## Журнал по сторінках
+
+### Стор. 38-46 — «13-18 Clothes / Accessories / Shoes / Beauty» (5 розворотів одразу)
+Користувач надіслав 5 скрінів разом (суміжні теми) — опрацьовано ТРЬОМА партіями
+з `check-coverage` після кожної. **+150 слів, WORDS 3068→3218.**
+- **Стор. 38-39 (+38):** повсякденний одяг (outfit, blouse, skirt, T-shirt, jeans, shorts,
+  cardigan, leggings, sweatshirt, tank top, polo shirt, casual), нічний (slippers, pajamas,
+  bathrobe, nightie, eye mask, camisole), білизна (bra, tights, panties, boxer shorts,
+  undershirt, stockings), деталі (V-neck, pleat, hem), дієслова (to put on/take off/fasten/
+  unfasten/hang up/suit/turn up). +базові belt, mask, closet (зловив чекер).
+- **Стор. 40-43 (+66):** формальний одяг (collar, cuff, sleeve, suit, tailored, sleeveless,
+  strapless, lining, lapel, buttonhole, waistband, wedding/evening dress, tuxedo, veil),
+  пальта (raincoat, anorak, poncho, cloak, trench coat), спорт (tracksuit, sweatpants,
+  leotard, jersey, snorkel, fins, swimsuit, goggles, swim trunks), традиційний (kimono, sari,
+  kilt, sarong), аксесуари (scarf, necklace, earring, jewelry, pearl, suitcase, cap,
+  briefcase, handkerchief, buckle, pin, badge, brooch, pendant, strap, beanie, beret, turban,
+  hijab, sombrero, fedora, tiara, choker, stud, bangle, anklet, cufflinks, bow tie, fastening).
+  +базові silver, to roll, elegant, festival.
+- **Стор. 44-47 (+46):** взуття (sandals, sneaker, shoelace, zipper, flip-flops, insole,
+  loafer, clog, shoe polish, flats, stilettos, mule, slip-on, moccasin, slider, brogue,
+  eyelet, cleat, ski boot), краса (lipstick, mascara, perfume, powder, combination, wax, tan,
+  oily, foundation, eyeliner, eyeshadow, nail polish, tweezers, moisturizer, hand cream, dye,
+  manicure, pedicure, concealer, toner, cleanser, aftershave, lip balm, clippers).
+  +базові to polish, lace, ski.
+- **⚠️ UK-варіанти — через `enAlt` + `m.set`, БЕЗ окремих карток** (щоб не плодити дублі,
+  які щойно прибрали): jumper→sweater, trousers→pants, rucksack→backpack, purse→wallet,
+  pyjamas, dressing gown, knickers, pantyhose, waistcoat, flippers, zip, trainer, jewellery,
+  nail varnish, nightdress.
+- **⚠️ vest — US/UK пастка:** vest(US)=waistcoat(UK)=жилет, АЛЕ vest(UK)=undershirt(US)=майка.
+  Захисний коментар стоїть у WORDS. Не «спрощувати».
+- **⚠️ Обхід зайнятих глосів** (щоб не створювати нові колізії): «знімати»=to withdraw →
+  take off [скидати,злітати]; «вішати»=hang → hang up [повісити,класти слухавку];
+  «шафа»=cupboard → closet «шафа для одягу»; «блискавка»=lightning → zipper
+  «застібка-блискавка»; «жирний»=greasy → oily «масний»; «шнурок»=shoelace → lace «мереживо»;
+  «приталений»=fitted → tailored «пошитий на замовлення».
+- **Пропущено** (вузьке/етнографічне, за узгодженням із користувачем + думкою GPT):
+  agbada, thawb, lederhosen, folk blouse, deerstalker, cloche, boater, fez, yarmulke,
+  panama, newsboy cap, tabi boots, jelly sandals, espadrilles, Mary Janes, Derby shoes,
+  chukka boots, boat shoes, boot shapers, shoe trees, corset, garter, suspenders, basque,
+  tanning bed/mitt/goggles, UV tubes, прозорі композити (sports/denim jacket, ankle/hiking
+  boots, face wash, nail file, nail scissors, cotton balls).
+- ✅ `tie`(краватка) вже було — GPT помилково вважав відсутнім.
 
 ### Стор. 36 — «13 Clothes» (13.1 Describing / 13.2 Work clothes / 13.3 Kids' & babies')
 - **+30 нових у WORDS** (осн. список + усі «на межі», за вибором користувача):

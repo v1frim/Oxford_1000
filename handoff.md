@@ -1205,7 +1205,7 @@ end screen показувався порожнім, дебаг наосліп у
 ## Версія документа
 - Створено: 2026-05-26
 - Останнє оновлення: 2026-07-26 (сесія 38)
-- Зміни сесії 38 (словниковий добір + чистка колізій глосів + фікс модалки; WORDS 3002→3068, 22 коміти):
+- Зміни сесії 38 (словниковий добір + чистка колізій глосів + фікс модалки; WORDS 3002→3218, 26 комітів):
   - **EFE стор. 36 «13 Clothes» (+30):** матеріали/патерни/крій (leather, denim, woolen+woollen,
     striped, checkered+checked, loose, baggy, fitted, crumpled, cropped, polka dot+spotted,
     plaid, paisley); робочий одяг (uniform, military, chef, apron, overalls+dungarees, scrubs,
@@ -1327,6 +1327,25 @@ end screen показувався порожнім, дебаг наосліп у
     сенс (run бігти|керувати, bank банк|берег, hot гарячий|гострий, watch, play, like, lead,
     spring, light, kind, fine, match, present, content, cool, orange, fan, nail, right, square,
     tip, board, fair, patient). НЕ переробляти — механізм дизамбіг-ключів `en:ua` працює.
+  - **👗 EFE стор. 38-46 — 5 РОЗВОРОТІВ ОДРАЗУ (+150 слів, WORDS 3068→3218).** Користувач
+    надіслав 5 скрінів разом (суміжні теми: Clothes / Accessories / Shoes / Beauty), опрацьовано
+    ТРЬОМА партіями з `check-coverage` після кожної. Повний перелік — у журналі
+    `english-for-everyone-progress.md`. **Наступна сторінка EFE — 48.** Ключові рішення:
+    • **UK-варіанти — через `enAlt` + `m.set`, БЕЗ окремих карток** (jumper→sweater,
+      trousers→pants, rucksack→backpack, purse→wallet, pyjamas, knickers, waistcoat, zip,
+      trainer, flippers…). Свідомо, щоб НЕ відтворити картки-дублі, прибрані цією ж сесією.
+    • **⚠️ `vest` — US/UK пастка:** vest(US)=waistcoat(UK)=**жилет**, АЛЕ vest(UK)=
+      undershirt(US)=**майка**. Захисний коментар стоїть у WORDS — не «спрощувати».
+    • **Обхід зайнятих глосів** (щоб не плодити нові колізії): «знімати»=to withdraw →
+      `take off` [скидати,злітати]; «вішати»=hang → `hang up` [повісити,класти слухавку];
+      «шафа»=cupboard → `closet` «шафа для одягу»; «блискавка»=lightning → `zipper`
+      «застібка-блискавка»; «жирний»=greasy → `oily` «масний»; «шнурок»=shoelace → `lace`
+      «мереживо»; «приталений»=fitted → `tailored` «пошитий на замовлення».
+    • **Чекер знову виявив базові дірки** (слів не було ВЗАГАЛІ): belt, mask, closet, silver,
+      to roll, elegant, festival, to polish, lace, ski. Патерн стабільний — нові приклади
+      щоразу витягують кілька відсутніх базових слів; це нормальна частина процесу.
+    • Пропущено вузьке/етнографічне (agbada, thawb, deerstalker, tabi boots, espadrilles,
+      corset, garter, solarium-лексика) — перелік у журналі EFE.
   - **Перевірено, без змін:** числа 11–20, десятки 10–100, thousand/million/billion — усі вже
     були; складені 21–29 свідомо відсутні (утворюються з покритих частин).
 - Зміни сесії 37 — продовження 20.07 (WORDS 2912→2998, EXPRESSIONS 11→42):
