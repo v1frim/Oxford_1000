@@ -4230,7 +4230,10 @@ const SONGS = [
       "wanna": "розмовне want to",
       "ain't": "розмовне am not / isn't / haven't",
       "lil'": "скорочене little",
-      "ya": "розмовне you / your"
+      "ya": "розмовне you / your",
+      "ass": "зад (груб.); також «дурень»",
+      "lyin'": "розмовне lying — брехня, брехати",
+      "loss for words": "втратити дар мови, не знати що сказати"
     },
     slang: [
       { en: "shorty",        ua: "крихітка, дівчина",       note: "афроамериканський сленг; також shawty" },

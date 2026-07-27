@@ -3673,7 +3673,9 @@ const WORDS = [
   // лексика пісні «Lollipop» (Framing Hanley)
   {en:"lollipop",ua:"льодяник",uaAlt:["чупа-чупс","цукерка на паличці"]},
   {en:"wrapper",ua:"обгортка",uaAlt:["упаковка"]},
-  {en:"mama",ua:"мама",uaAlt:["матуся","мамка"]}
+  {en:"mama",ua:"мама",uaAlt:["матуся","мамка"]},
+  {en:"lady",ua:"леді",uaAlt:["пані","дама"]},
+  {en:"cute",ua:"милий",uaAlt:["симпатичний","гарненький","чарівний"]}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -4340,7 +4342,7 @@ const TRANS = {
   "moisturizer":"/ˈmɔɪstʃəraɪzər/","hand cream":"/ˈhænd ˌkriːm/","dye":"/daɪ/","manicure":"/ˈmænɪkjʊr/",
   "pedicure":"/ˈpɛdɪkjʊr/","concealer":"/kənˈsiːlər/","toner":"/ˈtoʊnər/","cleanser":"/ˈklɛnzər/",
   "aftershave":"/ˈæftərʃeɪv/","lip balm":"/ˈlɪp ˌbɑːm/","clippers":"/ˈklɪpərz/","to polish":"/tə ˈpɑːlɪʃ/","lace":"/leɪs/","ski":"/skiː/",
-  "lollipop":"/ˈlɑːlipɑːp/","wrapper":"/ˈræpər/","mama":"/ˈmɑːmə/"
+  "lollipop":"/ˈlɑːlipɑːp/","wrapper":"/ˈræpər/","mama":"/ˈmɑːmə/","lady":"/ˈleɪdi/","cute":"/kjuːt/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -6612,7 +6614,9 @@ const EXAMPLES = {
   "ski":"He broke his ski on the mountain.",
   "lollipop":"The child asked for a strawberry lollipop.",
   "wrapper":"He threw the paper wrapper away.",
-  "mama":"The little girl called for her mama."
+  "mama":"The little girl called for her mama.",
+  "lady":"An older lady sat by the window.",
+  "cute":"Their baby is very cute."
 };
 
 const EXAMPLES_UA = {
@@ -8883,7 +8887,9 @@ const EXAMPLES_UA = {
   "ski":"Він зламав лижу в горах.",
   "lollipop":"Дитина попросила полуничний льодяник.",
   "wrapper":"Він викинув паперову обгортку.",
-  "mama":"Маленька дівчинка кликала свою маму."
+  "mama":"Маленька дівчинка кликала свою маму.",
+  "lady":"Літня пані сиділа біля вікна.",
+  "cute":"Їхнє немовля дуже миле."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -10653,7 +10659,9 @@ const EN_TO_UA = (() => {
   m.set("trunks",      ["плавки"]);             // компонент swim trunks
   m.set("mexico",      ["Мексика"]);            // гео-назва
   m.set("flops",       ["шльопанці"]);          // компонент flip-flops
-  m.set("balm",        ["бальзам"]);            // компонент lip balm          // UK-варіант sweater (enAlt)            // компонент pencil sharpener
+  m.set("balm",        ["бальзам"]);            // компонент lip balm
+  m.set("mine",        ["мій", "моя", "моє"]);  // присвійний займенник
+  m.set("hers",        ["її"]);                 // присвійний займенник          // UK-варіант sweater (enAlt)            // компонент pencil sharpener
   m.set("sudden",      ["раптовий", "несподіваний"]);
   m.set("laid",        ["невимушений", "розслаблений"]);   // laid-back у прикладі (дефіс токенізується)
   m.set("gray",        ["сивий", "сірий"]);
