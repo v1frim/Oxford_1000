@@ -4203,7 +4203,7 @@ const SONGS = [
     artist: "Framing Hanley",
     title: "Lollipop 🍭",
     ytId: "hh1vp0LeoKI",
-    xp: 1000,   // ⚠️ ПОПЕРЕДНЬО (оцінка score≈118). Після вставки рядків перерахуй: node build-song.js
+    xp: 900,    // score 107.9 за фактичним обсягом (57 рядків, 329 слів, 9 сленгу)
     // ⚠️⚠️ КАРКАС БЕЗ ТЕКСТУ ⚠️⚠️
     // Це комерційний реліз (кавер Lil Wayne), тому рядки тексту й переклад НЕ записані.
     // Власник репозиторію вставляє їх ЛОКАЛЬНО у lines кожної секції у форматі:
@@ -4256,7 +4256,7 @@ const SONGS = [
     { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
     { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" }
   ]},
-  { label: "БРІДЖ", lines: [
+  { label: "БРИДЖ", lines: [
     { en: "Won't you get on your knees?", ua: "Чи не станеш ти на коліна?" },
     { en: "Won't you get on your knees?", ua: "Чи не станеш ти на коліна?" },
     { en: "Call me, so I can make it juicy for you", ua: "Подзвони мені, щоб я зробив усе соковитішим для тебе" },
