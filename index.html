@@ -14481,6 +14481,46 @@ if (!localStorage.getItem("oxford_xp_formula_v9")) {
     localStorage.setItem("oxford_xp_formula_v9", "1");
   } catch(e) {}
 }
+
+// formula_v10 (сесія 38): шкалу XP пісень перекалібровано — ПОВТОРЮВАНІ РЯДКИ
+// (приспів × N) тепер рахуються ОДИН раз, бо це той самий матеріал. Новий розмах
+// score 52.8…161.2 (був 59.6…181.0) → xp = round50(400 + (score−52.8)/108.4 × 1200).
+// Значення xp у songs.js уже нові; ця міграція перебудовує total + per-day, щоб уже
+// зараховані «вивчені» пісні перерахувались за новими ставками.
+// Тіло ідентичне v9 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp) —
+// ідемпотентна, прапор лише при успіху.
+if (!localStorage.getItem("oxford_xp_formula_v10")) {
+  try {
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _gpt    = loadGptRequests();
+    const _awarded = loadSongsXpAwarded();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
+      ...Object.keys(_gpt), ...Object.values(_awarded)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    Object.entries(_awarded).forEach(([id, date]) => {
+      const song = SONGS.find(s => s.id === id);
+      if (song && song.xp) {
+        _xpd[date] = (_xpd[date] || 0) + song.xp;
+        _total += song.xp;
+      }
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v10", "1");
+  } catch(e) {}
+}
 renderXpBar();
 updateBackupLabel();
 autoBackup();

@@ -170,7 +170,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Lit 🔥",
     ytId: "AHhiRc0Lnq4",
-    xp: 750,
+    xp: 650,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I'm just fuckin' lit, man, I'm just fuckin' lit",              ua: "Я просто до біса бухий, чуваку, просто бухий" },
@@ -277,7 +277,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Badass 💋",
     ytId: "rzElZuhGTpU",
-    xp: 1300,
+    xp: 1100,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "The wind is blowin' through her hair (Blowin' through her hair)", ua: "Вітер розвіває її волосся (Розвіває волосся)" },
@@ -413,7 +413,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "New Beginnings",
     ytId: "f4hcOJAXGxI",
-    xp: 950,
+    xp: 750,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "(Damn you look good tonight)",                                ua: "(Чорт, ти сьогодні чудово виглядаєш)" },
@@ -534,7 +534,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "All These Thoughts",
     ytId: "uemkb0PpW3c",
-    xp: 1050,
+    xp: 1000,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "Yo, all these thoughts keep me up at night, yeah",            ua: "Йо, усі ці думки не дають мені спати ночами, так" },
@@ -648,7 +648,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Flirt 💋",
     ytId: "eIeWkOZKidM",
-    xp: 900,
+    xp: 750,
     sections: [
       { label: "ПРИСПІВ", lines: [
         { en: "She just wants to flirt, so, I flirt right back (Right back)", ua: "Вона просто хоче фліртувати — тож і я фліртую у відповідь (У відповідь)" },
@@ -757,7 +757,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Pro 👠",
     ytId: "FKcDtEtT3wU",
-    xp: 1050,
+    xp: 1000,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "I wanna say some', yeah, let's go (I wanna say some', yeah, let's go)", ua: "Хочу дещо сказати, так, погнали (Хочу дещо сказати, так, погнали)" }
@@ -874,7 +874,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Self Made 👔",
     ytId: "5fSYGKYDK5E",
-    xp: 1100,
+    xp: 1000,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Growin' up in Cali, yeah, you know I love the weather",       ua: "Виростав у Каліфорнії, так, ти знаєш — я люблю тутешню погоду" },
@@ -998,7 +998,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "First Time 🔥",
     ytId: "E_UOkyJ87Fc",
-    xp: 1050,
+    xp: 950,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yeah, like J. Cole, it's my first time, God damn, man, she's so fine", ua: "Так, як у J. Cole, це мій перший раз, чорт забирай, чуваку, вона така гарна" },
@@ -1111,7 +1111,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Dangerous Woman",
     ytId: "n3j3sS-ZKXg",
-    xp: 400,
+    xp: 500,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I breathe in cuz I'm nervous",             ua: "Я вдихаю, бо нервуюся" },
@@ -1181,7 +1181,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Summer ☀️",
     ytId: "TAmhVFA1d8Q",
-    xp: 1500,
+    xp: 1300,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "I've been okay, I've been okay, okay, yeah",                  ua: "У мене все було гаразд, усе було добре, окей, так" }
@@ -1334,7 +1334,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Fight 👊",
     ytId: "1acVMrTZJoQ",
-    xp: 600,
+    xp: 450,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "Some lowkey like the molo-g-g-g-g",                          ua: "Щось тихцем, наче «моло»-г-г-г (вокальний приспів-семпл)" },
@@ -1426,7 +1426,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Careless 💔",
     ytId: "Z6L4u2i97Rw",
-    xp: 900,
+    xp: 750,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "But it's too late now, I remember you and me",               ua: "Але тепер уже запізно — я згадую тебе й себе" },
@@ -1541,7 +1541,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Rumors 💋",
     ytId: "kXptPzKNMq4",
-    xp: 1250,
+    xp: 1100,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "There's a rumor that's about her",                          ua: "Про неї ходить чутка" },
@@ -1680,7 +1680,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Soldier 🔥",
     ytId: "Ccsh_-Cucl4",
-    xp: 1600,
+    xp: 1200,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yeah, I spit raps like a heart attack, fast, fatal, hard, impact", ua: "Так, я читаю реп, як серцевий напад — швидко, смертельно, жорстко, з ударом" },
@@ -1840,7 +1840,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Legendary 💎",
     ytId: "ExQ-XgsmL5Y",
-    xp: 1050,
+    xp: 850,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Hands wrapped, knuckles taped black",                       ua: "Руки забинтовані, кісточки обмотані чорним" },
@@ -1973,7 +1973,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Forget 'em 🚌",
     ytId: "EJYFz25as1w",
-    xp: 1500,
+    xp: 1350,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yo, yeah, I just wanna be on a tour bus (Yo, yeah)",  ua: "Йо, так, я просто хочу опинитися в гастрольному автобусі (Йо, так)" },
@@ -2124,7 +2124,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Hungover 🍻",
     ytId: "SJ5eW0xRgOA",
-    xp: 1150,
+    xp: 1200,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I remember gettin' too drunk with my best friends",                                           ua: "Пам'ятаю, як надто напивався з найкращими друзями" },
@@ -2279,7 +2279,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Till I Let Go 🌙",
     ytId: "8bblUQGhPjw",
-    xp: 900,
+    xp: 700,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Swear I won't forget this, why do I regret this?",               ua: "Клянуся, не забуду цього — але чому мені так жаль?" },
@@ -2394,7 +2394,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Best of Me 🤘",
     ytId: "0Wa_CR0H8g4",
-    xp: 1550,
+    xp: 1450,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I have a dream, that's all I need",                                     ua: "У мене є мрія — це все, що мені треба" },
@@ -2565,7 +2565,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Numb 💊",
     ytId: "xzAhPbM0kVI",
-    xp: 1050,
+    xp: 1000,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "(Everything you do, I can't seem to get enough)",                         ua: "(Усе, що ти робиш — мені все мало)" },
@@ -2699,7 +2699,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Grateful 🙏",
     ytId: "83RUhxsfLWs",
-    xp: 1200,
+    xp: 1050,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "Always do it on my own, so, I gotta get through it",               ua: "Завжди роблю все сам, тож мушу пройти через це" },
@@ -2848,7 +2848,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Cold ❄️",
     ytId: "WzQBAc8i73E",
-    xp: 950,
+    xp: 900,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "(It's so cold outside, I'm alone, I'm all right)",                              ua: "(Надворі так холодно — я сам, і мені нормально)" }
@@ -2975,7 +2975,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Inspired 🚀",
     ytId: "cjny7ykmcUE",
-    xp: 450,
+    xp: 400,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "And I don't really know what comes next",                     ua: "І я й сам до пуття не знаю, що буде далі" },
@@ -3056,7 +3056,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Hype 🔥",
     ytId: "DcfVqJV8-YM",
-    xp: 800,
+    xp: 900,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I stay loose, I stay hype, I stay loose, I stay hype (Yeah)",                               ua: "Я тримаюся розкуто, я на хайпі, тримаюся розкуто, на хайпі (Так)" },
@@ -3143,7 +3143,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Crown 👑",
     ytId: "_MTbjHKtobY",
-    xp: 1050,
+    xp: 1200,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yeah, it's our time to shine, yo, that's the kind of state of mind",    ua: "Настав наш час сяяти — і саме такий настрій треба мати" },
@@ -3237,7 +3237,7 @@ const SONGS = [
       artist: "NEFFEX",
       title: "Things Are Gonna Get Better 👊",
       ytId: "FHW7rIRQl38",
-      xp: 1450,
+      xp: 1600,
       sections: [
         { label: "КУПЛЕТ 1", lines: [
           { en: "Growing up, parents got me a guitar",                                ua: "Коли я ріс, батьки купили мені гітару" },
@@ -3383,7 +3383,7 @@ const SONGS = [
       artist: "NEFFEX",
       title: "Dangerous 😈",
       ytId: "aKfO9o2IPJ0",
-      xp: 900,
+      xp: 1200,
       sections: [
         { label: "КУПЛЕТ 1", lines: [
           { en: "I said, \"You better watch what you're doin'\" (Doin')",          ua: "Я сказав: «Краще пильнуй, що ти робиш» (Робиш)" },
@@ -3493,7 +3493,7 @@ const SONGS = [
       artist: "NEFFEX",
       title: "Failure 🔥",
       ytId: "YKqDiNJJPXk",
-      xp: 1300,
+      xp: 1450,
       sections: [
         { label: "КУПЛЕТ 1", lines: [
           { en: "I don't get what I want, I get what I need, every single day",                     ua: "Я отримую не те, що хочу, а те, що мені потрібно — щодня" },
@@ -3628,7 +3628,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Chance 🎯",
     ytId: "HMbZi5W88mI",
-    xp: 800,
+    xp: 900,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Oh, we gonna play now, ready for the show",                 ua: "О, зараз ми зіграємо — готові до шоу" },
@@ -3706,7 +3706,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Destiny 🙌",
     ytId: "24C8r8JupYY",
-    xp: 550,
+    xp: 650,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yeah, I don't believe in destiny, I just do what's best for me",                ua: "Так, я не вірю в долю — я просто роблю те, що краще для мене" },
@@ -3767,7 +3767,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Watch Me 🏆",
     ytId: "ib9HZzZhG7I",
-    xp: 950,
+    xp: 1050,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I never take doubt as a lesson, I never second-guess it",                       ua: "Я ніколи не вчуся на сумнівах, ніколи не переграю рішення" },
@@ -3847,7 +3847,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Bros B4 Hoes 🔥",
     ytId: "4e3u78_0gbw",
-    xp: 550,
+    xp: 650,
     sections: [
       { label: "ВСТУП", lines: [
         { en: "I put my bros before hoes (Hoes, hoes, hoes)", ua: "Я ставлю корешів вище за тьолок (тьолок, тьолок)" },
@@ -3917,7 +3917,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Blow Up 💣",
     ytId: "dC1s0tSsTjo",
-    xp: 700,
+    xp: 850,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "I'ma make a couple stacks, do exactly what I want to (That's right)",  ua: "Я зароблю кілька пачок грошей — робитиму саме те, що хочу (саме так)" },
@@ -3992,7 +3992,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Hope 🕊️",
     ytId: "TXcg25C56xM",
-    xp: 1050,
+    xp: 1200,
     sections: [
       { label: "ПРИСПІВ", lines: [
         { en: "And when you feel like you're nothin'",                                  ua: "І коли ти почуваєшся нікчемою" },
@@ -4078,7 +4078,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Who The F**k Is NEFFEX!? 🔥",
     ytId: "rB34EsdRlA4",
-    xp: 700,
+    xp: 800,
     sections: [
       { label: "КУПЛЕТ 1", lines: [
         { en: "Yeah, all right",                                             ua: "Так, гаразд" },
@@ -4151,7 +4151,7 @@ const SONGS = [
     artist: "NEFFEX",
     title: "Scars 🩹",
     ytId: "Ecvxh1gabWQ",
-    xp: 400,
+    xp: 450,
     sections: [
       { label: "ПРИСПІВ", lines: [
         { en: "And she said she wants to walk the boulevard",                   ua: "А вона сказала, що хоче гуляти бульваром" },
@@ -4203,7 +4203,7 @@ const SONGS = [
     artist: "Framing Hanley",
     title: "Lollipop 🍭",
     ytId: "hh1vp0LeoKI",
-    xp: 900,    // score 107.9 за фактичним обсягом (57 рядків, 329 слів, 9 сленгу)
+    xp: 500,    // score 107.9 за фактичним обсягом (57 рядків, 329 слів, 9 сленгу)
     // ⚠️⚠️ КАРКАС БЕЗ ТЕКСТУ ⚠️⚠️
     // Це комерційний реліз (кавер Lil Wayne), тому рядки тексту й переклад НЕ записані.
     // Власник репозиторію вставляє їх ЛОКАЛЬНО у lines кожної секції у форматі:

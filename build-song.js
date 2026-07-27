@@ -45,16 +45,23 @@ function loadSongs() {
 }
 
 // ── 2. score = lines + words/10 + slang×2 ─────────────────────────────────────
+// ⚠️ ПОВТОРЮВАНІ РЯДКИ РАХУЮТЬСЯ ОДИН РАЗ (сесія 38, за запитом користувача):
+// приспів × 3 — це той самий матеріал, вивчається один раз, тож і зусилля не потрійні.
+// Дедуп за текстом en (без регістру й крайніх пробілів) наскрізь по всій пісні.
 function scoreOf(song) {
-  let lines = 0, words = 0;
+  const seen = new Set();
+  let lines = 0, words = 0, repeats = 0;
   for (const s of (song.sections || [])) {
     for (const l of (s.lines || [])) {
+      const key = String(l.en).trim().toLowerCase();
+      if (seen.has(key)) { repeats++; continue; }
+      seen.add(key);
       lines++;
       words += l.en.trim().split(/\s+/).filter(Boolean).length;
     }
   }
   const slang = (song.slang || []).length;
-  return { lines, words, slang, score: +(lines + words / 10 + slang * 2).toFixed(1) };
+  return { lines, words, slang, repeats, score: +(lines + words / 10 + slang * 2).toFixed(1) };
 }
 
 // ── 3. Калібрування: усі пісні відсортовані за score ──────────────────────────
