@@ -4231,6 +4231,56 @@ const SONGS = [
     { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
     { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" }
   ]},
+    {  label: "КУПЛЕТ 2", lines: [
+    { en: "Cute lil' mama had a swag like mine", ua: "Мила крихітко, у тебе стиль, як у мене" },
+    { en: "She even wear her hair down her back like mine", ua: "Вона навіть носить волосся, спущене по спині, як я" },
+    { en: "I make her feel right when it's wrong like lyin'", ua: "Я змушую її почуватися добре, навіть коли все неправильно, як брехня" },
+    { en: "Man she ain't never had a love like mine", ua: "Чувак, у неї ніколи не було такого кохання, як моє" },
+    { en: "But man I ain't never seen an ass like hers", ua: "Але я ніколи не бачив таких сідниць, як у неї" },
+    { en: "That- in my mouth had me loss for words", ua: "Це... залишило мене без слів" },
+    { en: "I told her to back it up like berp, berp", ua: "Я сказав їй відступити назад: «берп, берп»" },
+    { en: "I made that ass jump like jerp, jerp", ua: "Я змусив її сідниці підстрибувати: «джерп, джерп»" },
+    { en: "And that's when she", ua: "І тоді вона" },
+    { en: "She licked me like a lollipop", ua: "Облизувала мене, наче льодяник" },
+    { en: "Like a lollipop", ua: "Наче льодяник" }
+  ]},
+  { label: "ПРИСПІВ", lines: [
+    { en: "Shorty wanna thug", ua: "Мала хоче бути крутою" },
+    { en: "Bottles in the club", ua: "Пляшки в клубі" },
+    { en: "Shorty wanna hump", ua: "Мала хоче близькості" },
+    { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
+    { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" },
+    { en: "Shorty wanna thug", ua: "Мала хоче бути крутою" },
+    { en: "Bottles in the club", ua: "Пляшки в клубі" },
+    { en: "Shorty wanna hump", ua: "Мала хоче близькості" },
+    { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
+    { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" }
+  ]},
+  { label: "БРІДЖ", lines: [
+    { en: "Won't you get on your knees?", ua: "Чи не станеш ти на коліна?" },
+    { en: "Won't you get on your knees?", ua: "Чи не станеш ти на коліна?" },
+    { en: "Call me, so I can make it juicy for you", ua: "Подзвони мені, щоб я зробив усе соковитішим для тебе" },
+    { en: "Call me, so I can get it juicy for you", ua: "Подзвони мені, щоб зробити це соковитішим для тебе" },
+    { en: "Call me, so I can make it juicy for you", ua: "Подзвони мені, щоб я зробив усе соковитішим для тебе" },
+    { en: "Call me, so I can get it juicy", ua: "Подзвони мені, щоб зробити це соковитішим" },
+    { en: "Call me, so I can come and do it for you", ua: "Подзвони мені, і я прийду та зроблю це для тебе" },
+    { en: "Call me, so I can come and prove it for you", ua: "Подзвони мені, і я прийду довести це тобі" },
+    { en: "Call me, so I can make it juicy for you", ua: "Подзвони мені, щоб я зробив усе соковитішим для тебе" },
+    { en: "Call me, so I can get it juicy", ua: "Подзвони мені, щоб зробити це соковитішим" }
+  ]},
+  { label: "ПРИСПІВ", lines: [
+    { en: "Shorty wanna thug", ua: "Мала хоче бути крутою" },
+    { en: "Bottles in the club", ua: "Пляшки в клубі" },
+    { en: "Shorty wanna hump", ua: "Мала хоче близькості" },
+    { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
+    { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" },
+    { en: "Shorty wanna thug", ua: "Мала хоче бути крутою" },
+    { en: "Bottles in the club", ua: "Пляшки в клубі" },
+    { en: "Shorty wanna hump", ua: "Мала хоче близькості" },
+    { en: "You know I like to touch", ua: "Ти ж знаєш, що я люблю торкатися" },
+    { en: "Ya lovely lady lumps", ua: "Твоїх гарних жіночих форм" },
+    { en: "Won't you get on your knees?", ua: "Чи не станеш ти на коліна?" }
+  ]},
     ],
     // glossary — слова, яких немає в основному EN_TO_UA (hover у тексті).
     // Решта (lollipop, wrapper, mama, lick, juicy, knee, club, bottle) уже у WORDS.
