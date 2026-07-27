@@ -2789,7 +2789,7 @@ const WORDS = [
   {en:"supply",ua:"постачати"},
   {en:"suppose",ua:"припускати"},
   {en:"swallow",ua:"ковтати"},
-  {en:"sweater",ua:"светр"},
+  {en:"sweater",ua:"светр",enAlt:["jumper"]},
   {en:"swift",ua:"швидкий"},
   {en:"synthetic",ua:"синтетичний"},
   {en:"talented",ua:"талановитий"},
@@ -3500,7 +3500,48 @@ const WORDS = [
   {en:"hole",ua:"дірка",uaAlt:["отвір","яма"]},
   {en:"mark",ua:["позначати","позначка"],uaAlt:["мітка","відмічати","слід"]},
   {en:"case",ua:"чохол",uaAlt:["футляр","коробка"]},
-  {en:"clip",ua:["кліп","затискач"],uaAlt:["защіпка","заколка","кліпса","уривок","фрагмент","скріпка","обрізати","підстригати"]}
+  {en:"clip",ua:["кліп","затискач"],uaAlt:["защіпка","заколка","кліпса","уривок","фрагмент","скріпка","обрізати","підстригати"]},
+  // ── Одяг: повсякденний / нічний / білизна / дієслова (EFE стор. 38-39) ──
+  {en:"outfit",ua:"вбрання",uaAlt:["наряд","комплект одягу"]},
+  {en:"blouse",ua:"блузка",uaAlt:["блуза"]},
+  {en:"skirt",ua:"спідниця"},
+  {en:"T-shirt",ua:"футболка"},
+  {en:"jeans",ua:"джинси"},
+  {en:"shorts",ua:"шорти"},
+  {en:"cardigan",ua:"кардиган"},
+  {en:"leggings",ua:"легінси",uaAlt:["лосини"]},
+  {en:"sweatshirt",ua:"світшот",uaAlt:["толстовка"]},
+  {en:"tank top",ua:"майка",uaAlt:["безрукавка"]},
+  {en:"polo shirt",ua:"поло",uaAlt:["сорочка-поло"]},
+  {en:"casual",ua:"повсякденний",uaAlt:["неформальний","буденний","випадковий"]},
+  {en:"slippers",ua:"капці",uaAlt:["тапці","домашнє взуття"]},
+  {en:"pajamas",ua:"піжама",enAlt:["pyjamas"]},
+  {en:"bathrobe",ua:"халат",uaAlt:["банний халат"],enAlt:["dressing gown"]},
+  {en:"bra",ua:"бюстгальтер",uaAlt:["ліфчик"]},
+  {en:"tights",ua:"колготки",enAlt:["pantyhose"]},
+  // ⚠️ vest — US/UK пастка: vest(US)=waistcoat(UK)=жилет, але vest(UK)=undershirt(US)=майка
+  {en:"vest",ua:"жилет",uaAlt:["майка"],enAlt:["waistcoat"]},
+  {en:"undershirt",ua:"майка",uaAlt:["спідня майка"]},
+  {en:"panties",ua:"труси",uaAlt:["жіночі труси","трусики"],enAlt:["knickers"]},
+  {en:"boxer shorts",ua:"труси-боксери",uaAlt:["боксери"]},
+  {en:"stockings",ua:"панчохи"},
+  {en:"camisole",ua:"топ",uaAlt:["жіноча майка","камісоль"]},
+  {en:"eye mask",ua:"маска для сну"},
+  {en:"nightie",ua:"нічна сорочка",enAlt:["nightdress"]},
+  {en:"V-neck",ua:"V-подібний виріз",uaAlt:["мисоподібний виріз"]},
+  {en:"pleat",ua:"складка"},
+  {en:"hem",ua:"підгин",uaAlt:["край одягу","кайма","підрубка"]},
+  {en:"to put on",ua:"одягати",uaAlt:["надівати","вдягати"]},
+  {en:"to take off",ua:["скидати","злітати"],uaAlt:["знімати","роздягатися"]},
+  {en:"to fasten",ua:"застібати",uaAlt:["закріплювати","пристібати"]},
+  {en:"to unfasten",ua:"розстібати",uaAlt:["відстібати"]},
+  {en:"to hang up",ua:["повісити","класти слухавку"],uaAlt:["вішати","розвішувати"]},
+  {en:"to suit",ua:"личити",uaAlt:["пасувати","підходити"]},
+  {en:"to turn up",ua:"підкочувати",uaAlt:["з'являтися","приходити"]},
+  // базові слова, які зловив check-coverage на прикладах партії 1
+  {en:"belt",ua:["пояс","ремінь"],uaAlt:["ремінець"]},
+  {en:"mask",ua:"маска"},
+  {en:"closet",ua:"шафа для одягу",uaAlt:["шафа","гардероб","комора"]}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -4129,7 +4170,17 @@ const TRANS = {
   "worksheet":"/ˈwɜːrkʃiːt/","quiz":"/kwɪz/","recess":"/ˈriːsɛs/","timetable":"/ˈtaɪmteɪbəl/",
   "stationery":"/ˈsteɪʃənɛri/",
   "hole":"/hoʊl/","mark":"/mɑːrk/","case":"/keɪs/","clip":"/klɪp/",
-  "vision":"/ˈvɪʒən/","eyesight":"/ˈaɪsaɪt/","sort":"/sɔːrt/","scenery":"/ˈsiːnəri/"
+  "vision":"/ˈvɪʒən/","eyesight":"/ˈaɪsaɪt/","sort":"/sɔːrt/","scenery":"/ˈsiːnəri/",
+  "outfit":"/ˈaʊtfɪt/","blouse":"/blaʊs/","skirt":"/skɜːrt/","T-shirt":"/ˈtiːʃɜːrt/",
+  "jeans":"/dʒiːnz/","shorts":"/ʃɔːrts/","cardigan":"/ˈkɑːrdɪɡən/","leggings":"/ˈlɛɡɪŋz/",
+  "sweatshirt":"/ˈswɛtʃɜːrt/","tank top":"/ˈtæŋk ˌtɑːp/","polo shirt":"/ˈpoʊloʊ ˌʃɜːrt/",
+  "casual":"/ˈkæʒuəl/","slippers":"/ˈslɪpərz/","pajamas":"/pəˈdʒɑːməz/","bathrobe":"/ˈbæθroʊb/",
+  "bra":"/brɑː/","tights":"/taɪts/","vest":"/vɛst/","undershirt":"/ˈʌndərʃɜːrt/",
+  "panties":"/ˈpæntiz/","boxer shorts":"/ˈbɑːksər ˌʃɔːrts/","stockings":"/ˈstɑːkɪŋz/",
+  "camisole":"/ˈkæmɪsoʊl/","eye mask":"/ˈaɪ ˌmæsk/","nightie":"/ˈnaɪti/","V-neck":"/ˈviː ˌnɛk/",
+  "pleat":"/pliːt/","hem":"/hɛm/","to put on":"/tə ˈpʊt ˌɑːn/","to take off":"/tə ˈteɪk ˌɔːf/",
+  "to fasten":"/tə ˈfæsən/","to unfasten":"/tə ʌnˈfæsən/","to hang up":"/tə ˈhæŋ ˌʌp/",
+  "to suit":"/tə ˈsuːt/","to turn up":"/tə ˈtɜːrn ˌʌp/","belt":"/bɛlt/","mask":"/mæsk/","closet":"/ˈklɑːzɪt/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -6248,7 +6299,45 @@ const EXAMPLES = {
   "vision":"She has a clear vision for the future.",
   "eyesight":"His eyesight is getting worse every year.",
   "sort":"Please sort these books by size.",
-  "scenery":"The scenery in the mountains is beautiful."
+  "scenery":"The scenery in the mountains is beautiful.",
+  "outfit":"She wore a beautiful outfit to the party.",
+  "blouse":"She bought a white blouse for work.",
+  "skirt":"Her skirt is long and red.",
+  "T-shirt":"He wears a black T-shirt every day.",
+  "jeans":"These jeans are too tight for me.",
+  "shorts":"In summer he wears shorts.",
+  "cardigan":"She put on a warm cardigan.",
+  "leggings":"She wears leggings to the gym.",
+  "sweatshirt":"His grey sweatshirt is very soft.",
+  "tank top":"He wears a tank top in hot weather.",
+  "polo shirt":"He bought a blue polo shirt.",
+  "casual":"The office allows casual clothes on Friday.",
+  "slippers":"She wears warm slippers at home.",
+  "pajamas":"The children put on their pajamas.",
+  "bathrobe":"He wore a bathrobe after the shower.",
+  "bra":"She bought a new bra.",
+  "tights":"She wears black tights in winter.",
+  "vest":"He wore a vest under his jacket.",
+  "undershirt":"He wears a white undershirt under his shirt.",
+  "panties":"She bought new panties.",
+  "boxer shorts":"He sleeps in boxer shorts.",
+  "stockings":"She wore silk stockings to the party.",
+  "camisole":"She wore a camisole under the blouse.",
+  "eye mask":"She uses an eye mask to sleep.",
+  "nightie":"She wears a long nightie in winter.",
+  "V-neck":"He likes a shirt with a V-neck.",
+  "pleat":"Her skirt has a deep pleat.",
+  "hem":"The hem of her dress was too long.",
+  "to put on":"Put on your coat, it is cold.",
+  "to take off":"Take off your shoes at the door.",
+  "to fasten":"Please fasten your seat belt.",
+  "to unfasten":"He began to unfasten his shirt.",
+  "to hang up":"Hang up your coat in the closet.",
+  "to suit":"That colour really suits you.",
+  "to turn up":"He had to turn up his jeans.",
+  "belt":"He wears a brown leather belt.",
+  "mask":"The doctor wore a white mask.",
+  "closet":"Her coats are in the closet."
 };
 
 const EXAMPLES_UA = {
@@ -8366,7 +8455,45 @@ const EXAMPLES_UA = {
   "vision":"У неї чітке бачення майбутнього.",
   "eyesight":"Його зір щороку погіршується.",
   "sort":"Будь ласка, посортуй ці книги за розміром.",
-  "scenery":"Пейзаж у горах прекрасний."
+  "scenery":"Пейзаж у горах прекрасний.",
+  "outfit":"Вона вдягнула гарне вбрання на вечірку.",
+  "blouse":"Вона купила білу блузку для роботи.",
+  "skirt":"Її спідниця довга й червона.",
+  "T-shirt":"Він щодня носить чорну футболку.",
+  "jeans":"Ці джинси мені затісні.",
+  "shorts":"Влітку він носить шорти.",
+  "cardigan":"Вона вдягнула теплий кардиган.",
+  "leggings":"Вона носить легінси в спортзал.",
+  "sweatshirt":"Його сірий світшот дуже м'який.",
+  "tank top":"У спекотну погоду він носить майку.",
+  "polo shirt":"Він купив синє поло.",
+  "casual":"В офісі дозволено повсякденний одяг у п'ятницю.",
+  "slippers":"Удома вона носить теплі капці.",
+  "pajamas":"Діти вдягнули піжами.",
+  "bathrobe":"Після душу він був у халаті.",
+  "bra":"Вона купила новий бюстгальтер.",
+  "tights":"Узимку вона носить чорні колготки.",
+  "vest":"Він вдягнув жилет під піджак.",
+  "undershirt":"Він носить білу майку під сорочкою.",
+  "panties":"Вона купила нові труси.",
+  "boxer shorts":"Він спить у трусах-боксерах.",
+  "stockings":"Вона вдягнула шовкові панчохи на вечірку.",
+  "camisole":"Вона вдягнула топ під блузку.",
+  "eye mask":"Вона спить у масці для сну.",
+  "nightie":"Узимку вона носить довгу нічну сорочку.",
+  "V-neck":"Йому подобається сорочка з V-подібним вирізом.",
+  "pleat":"На її спідниці глибока складка.",
+  "hem":"Підгин її сукні був задовгий.",
+  "to put on":"Одягни пальто, надворі холодно.",
+  "to take off":"Скидай взуття біля дверей.",
+  "to fasten":"Будь ласка, застібніть ремінь безпеки.",
+  "to unfasten":"Він почав розстібати сорочку.",
+  "to hang up":"Повісь пальто в шафу.",
+  "to suit":"Цей колір тобі дуже личить.",
+  "to turn up":"Йому довелося підкотити джинси.",
+  "belt":"Він носить коричневий шкіряний пояс.",
+  "mask":"Лікар був у білій масці.",
+  "closet":"Її пальта в шафі для одягу."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -10115,7 +10242,10 @@ const EN_TO_UA = (() => {
   m.set("lab",         ["лабораторія"]);
   m.set("visibility",  ["видимість"]);
   m.set("cargo",       ["вантаж", "карго"]);
-  m.set("sharpener",   ["точилка"]);            // компонент pencil sharpener
+  m.set("sharpener",   ["точилка"]);
+  m.set("jumper",      ["светр"]);
+  m.set("tank",        ["бак", "танк"]);        // компонент tank top
+  m.set("polo",        ["поло"]);               // компонент polo shirt          // UK-варіант sweater (enAlt)            // компонент pencil sharpener
   m.set("sudden",      ["раптовий", "несподіваний"]);
   m.set("laid",        ["невимушений", "розслаблений"]);   // laid-back у прикладі (дефіс токенізується)
   m.set("gray",        ["сивий", "сірий"]);
