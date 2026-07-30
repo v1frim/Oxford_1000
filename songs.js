@@ -4517,9 +4517,7 @@ const SONGS = [
     artist: "Bryce Savage",
     title: "Devil in Her Eyes 😈",
     ytId: "RakR7T2W-NI",
-    xp: 500,    // ⚠️ ПОПЕРЕДНЄ значення! Перерахувати за шкалою ПІСЛЯ вставки тексту
-                //    і заповнення slang (node build-song.js). НЕ відмічати «вивчено» до того —
-                //    XP нараховується одноразово при першому переключенні статусу.
+    xp: 700,    // score 79.0 (31 унікальний рядок, 260 слів, 11 сленгу) → round50(400+(79-52.8)/108.4*1200)
     // ⚠⚠ КАРКАС БЕЗ ТЕКСТУ ⚠⚠
     // Комерційний реліз, тому рядки тексту й переклад НЕ записані.
     // Власник репозиторію вставляє їх сам у lines кожної секції у форматі:
@@ -4530,7 +4528,7 @@ const SONGS = [
     //        БРИДЖ · ПРОГРАШ · КІНЦІВКА
     sections: [
 {
-  label: "ІНТРО", lines: [
+  label: "ВСТУП", lines: [
     { en: "Oh-oh-oh (Oh-oh)", ua: "О-о-о (О-о)" }
   ]},
 
@@ -4578,23 +4576,46 @@ const SONGS = [
     { en: "Put our souls in a hearse", ua: "Наче наші душі поклали до катафалка" }
   ]},
 
-  { label: "БРІДЖ", lines: [
+  { label: "БРИДЖ", lines: [
     { en: "A pretty, little tattooed body", ua: "Гарне, тендітне тіло в татуюваннях" },
     { en: "What a perfect view", ua: "Який же ідеальний вигляд" },
     { en: "And she likes to be extra naughty when she's in the mood", ua: "І вона любить трохи пустувати, коли в неї є настрій" }
   ]},
 
-  { label: "АУТРО", lines: [
+  { label: "КІНЦІВКА", lines: [
     { en: "She got the Devil in her eyes, but they're pretty in the light", ua: "У її очах ніби сам диявол, але при світлі вони такі гарні" },
     { en: "Even prettier at night, like a city full of lights", ua: "А вночі ще красивіші — немов місто, сповнене вогнів" },
     { en: "And she a ride or die for a man she likes", ua: "І за чоловіка, якого кохає, вона піде до кінця" },
     { en: "If we don't make it out alive, see you on the other side", ua: "Якщо нам не судилося вижити — побачимося по той бік" }
   ]},
     ],
-    // Глосарій і сленг заповнюю я після вставки тексту (check-song-words.js).
     glossary: {
+      "tats": "розмовне tattoos — тату, татуювання",
+      "wanna": "розмовне want to — хотіти",
+      "gon'": "розмовне going to — збиратися щось зробити",
+      "'cause": "розмовне because — бо, тому що",
+      "'room": "обрізане bedroom — спальня",
+      "cap": "у сленгу — брехня (no cap = «без брехні, серйозно»)",
+      "she's": "скорочене she is / she has",
+      "they're": "скорочене they are",
+      "we'll": "скорочене we will",
+      "don't": "скорочене do not",
+      "i'll": "скорочене I will",
+      "oh": "вигук — «о» (не слово)",
+      "ooh": "вигук — «у-у» (не слово)"
     },
     slang: [
+      { en: "ride-or-die",        ua: "вірний до кінця",            note: "про людину, яка лишиться з тобою в будь-якій халепі" },
+      { en: "no cap",             ua: "без брехні, серйозно",       note: "cap = брехня; no cap = «клянусь, не жартую»" },
+      { en: "tats",               ua: "тату (розм.)",               note: "скорочене tattoos" },
+      { en: "bedroom eyes",       ua: "звабливий погляд",           note: "погляд «із натяком»; сталий вираз" },
+      { en: "trap",               ua: "пастка; згубна людина",      note: "тут не «капкан», а про того, хто затягує й не відпускає" },
+      { en: "to take it slow",    ua: "не поспішати",               note: "про стосунки — розвивати їх поступово" },
+      { en: "to make it out",     ua: "вибратися, врятуватися",     note: "make it out alive — вижити, вибратися живим" },
+      { en: "to put on a show",   ua: "влаштовувати виставу",       note: "поводитися демонстративно, привертати увагу" },
+      { en: "to keep someone up", ua: "не давати спати",            note: "her body keeps me up — через неї не спиться" },
+      { en: "the other side",     ua: "той світ",                   note: "евфемізм для життя після смерті" },
+      { en: "gon' / wanna",       ua: "збиратися / хотіти (розм.)", note: "скорочення going to / want to — лише мовлення й пісні" }
     ]
   }
 ];
