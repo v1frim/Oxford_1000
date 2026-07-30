@@ -12695,6 +12695,9 @@ function saveMasterySnapshot() {
   Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
   const today = new Date().toISOString().slice(0, 10);
   const history = loadMasteryHistory();
+  // t = ЗАПИСИ бази (WORDS.length, 3242), НЕ унікальні ключі — дельта «+N ●» в прогресі
+  // рахує нетто-зміну розміру словника. Бейдж-тотал меню натомість показує унікальні
+  // слова-ключі (3222) — СВІДОМО різні метрики, НЕ уніфікувати (сесія 39).
   history[today] = { k: known, l: learning, t: WORDS.length };
   localStorage.setItem(MASTERY_HISTORY_KEY, JSON.stringify(history));
 }
@@ -12851,10 +12854,22 @@ function renderProgressPanel() {
 }
 
 function renderMasteryStats() {
+  // Лічильники — по УНІКАЛЬНИХ словах-ключах (wordKey), сесія 39: 20 same-en пар
+  // (run, fair, bank…) ділять mastery-ключ, тож «слово» = ключ, а не запис WORDS.
+  // Ітеруємо ключі WORDS (НЕ Object.values(m)) — імунітет до осиротілих ключів
+  // mastery (перейменоване слово лишає streak у сховищі). K+L+N = унікальні ключі
+  // структурно; модалки категорій групують так само → числа завжди збігаються.
   const m = loadMastery();
-  let known = 0, learning = 0;
-  Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
-  const novel = WORDS.length - known - learning;
+  const seen = new Set();
+  let known = 0, learning = 0, novel = 0;
+  WORDS.forEach(w => {
+    const k = wordKey(w);
+    if (seen.has(k)) return;
+    seen.add(k);
+    const s = m[k];
+    if (s >= 3) known++; else if (s !== undefined) learning++; else novel++;
+  });
+  const uniqueWords = seen.size;
 
   const history = loadMasteryHistory();
   const allDates = Object.keys(history).sort();
@@ -12886,7 +12901,8 @@ function renderMasteryStats() {
     '<div class="ms-col"><span class="ms-badge ms-known" data-cat="known" title="Показати слова">✓ Знаю: ' + known + '</span>' + deltaK + '</div>' +
     '<div class="ms-col"><span class="ms-badge ms-learning" data-cat="learning" title="Показати слова">↗ Вивчаю: ' + learning + '</span>' + deltaL + '</div>' +
     '<div class="ms-col"><span class="ms-badge ms-new" data-cat="new" title="Показати слова">● Нові: ' + novel + '</span>' + deltaN + '</div>' +
-    '<div class="ms-col"><span class="ms-badge ms-total">' + WORDS.length + ' слів</span></div>';
+    '<div class="ms-col"><span class="ms-badge ms-total" title="' + WORDS.length + ' записи · ' +
+      (WORDS.length - uniqueWords) + ' слів мають по 2 сенси (run, fan, bank…)">' + uniqueWords + ' слів</span></div>';
 
   const bar = document.getElementById("mastery-bar");
   bar.innerHTML =
@@ -12931,23 +12947,33 @@ function openCategoryModal(cat) {
   catModalCustomPool = null;
   catModalPoolTag = cat;   // "known"/"learning"/"new" — тег для лідерборда
   const idxs = categoryIndices(cat);
-  const sorted = idxs.slice().sort((a, b) =>
-    getEn(WORDS[a])[0].localeCompare(getEn(WORDS[b])[0]));
+  // Групуємо за wordKey (сесія 39, той самий патерн, що openDayTransModal у сесії 38):
+  // same-en пари (run бігти/керувати…) — ОДИН рядок, сенси через « / »; лічильники
+  // заголовка і кнопки = СЛОВА (групи), а пул гри (categoryIndices) — усі індекси,
+  // обидва сенси тренуються. Так числа модалки збігаються з бейджами меню.
+  const groups = new Map();                       // wordKey → [індекси WORDS]
+  idxs.forEach(i => {
+    const k = wordKey(WORDS[i]);
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(i);
+  });
+  const rows = [...groups.values()].sort((a, b) =>
+    getEn(WORDS[a[0]])[0].localeCompare(getEn(WORDS[b[0]])[0]));
   document.getElementById("cat-title").innerHTML =
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + '</span>' +
-    '<span class="cat-cnt">' + idxs.length + ' слів</span>';
+    '<span class="cat-cnt">' + rows.length + ' слів</span>';
   const listEl = document.getElementById("cat-list");
-  listEl.innerHTML = sorted.length
-    ? sorted.map(i =>
-        '<div class="cat-row" data-i="' + i + '">' +
-          '<span class="cat-en">' + esc(getEn(WORDS[i]).join(" / ")) + '</span>' +
-          '<span class="cat-ua">' + esc(getUa(WORDS[i]).join(", ")) + '</span>' +
+  listEl.innerHTML = rows.length
+    ? rows.map(g =>
+        '<div class="cat-row" data-i="' + g[0] + '">' +
+          '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
+          '<span class="cat-ua">' + esc(g.map(i => getUa(WORDS[i]).join(", ")).join(" / ")) + '</span>' +
         '</div>').join("")
     : '<div class="cat-empty">Тут поки порожньо</div>';
   listEl.scrollTop = 0;
   // Гра по категорії тепер завжди переклад (вибір напрямку в модалці) —
   // перетин із modeValidPool() активного режиму більше не потрібен.
-  const playable = idxs.length;
+  const playable = rows.length;
   const playBtn = document.getElementById("cat-play");
   playBtn.disabled = playable === 0;
   playBtn.textContent = playable
@@ -14154,6 +14180,8 @@ const ACHIEVEMENTS = [
 function loadAch() { try { return JSON.parse(localStorage.getItem(ACH_KEY) || "{}"); } catch(e) { return {}; } }
 function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
 function sumDayField(f) { return Object.values(loadDays()).reduce((s,d)=>s+(d[f]||0),0); }
+// Рахує КЛЮЧІ mastery зі streak>=3 (ачівка «Слів у Знаю» + кіно-лок N/500). Сьогодні = бейджу
+// «Знаю»; розійтись може лише на осиротілі ключі (перейменоване слово) — прийнятно, пороги грубі.
 function countKnownWords() { return Object.values(loadMastery()).filter(s=>s>=3).length; }
 function countLearnedSongs() { return Object.values(loadSongStatus()).filter(s=>s==="learned").length; }
 function activeDaysCount() { return Object.values(loadDays()).filter(d=>(d.games||0)>0).length; }
