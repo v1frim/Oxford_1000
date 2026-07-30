@@ -4412,13 +4412,79 @@ const SONGS = [
     // Мітки: ВСТУП · КУПЛЕТ 1/2/3 · ПРЕД-ПРИСПІВ · ПРИСПІВ · ПОСТ-ПРИСПІВ · РЕФРЕН ·
     //        БРИДЖ · ПРОГРАШ · КІНЦІВКА
     sections: [
-      { label: "ВСТУП",       lines: [] },
-      { label: "КУПЛЕТ 1",    lines: [] },
-      { label: "ПРЕД-ПРИСПІВ", lines: [] },
-      { label: "ПРИСПІВ",     lines: [] },
-      { label: "КУПЛЕТ 2",    lines: [] },
-      { label: "БРИДЖ",       lines: [] },
-      { label: "КІНЦІВКА",    lines: [] }
+{
+  label: "КУПЛЕТ 1", lines: [
+    { en: "If you're like us, calling all riders", ua: "Якщо ти такий, як ми — клич усіх, хто з нами" },
+    { en: "Roll up beside us, no place to hide us", ua: "Ставай поруч із нами — нам ніде ховатися" },
+    { en: "All freedom fighters, let's unite us", ua: "Усі борці за свободу — об'єднаймося" },
+    { en: "Switch on your nitrous and, Let's go!", ua: "Вмикай закис азоту й... поїхали!" },
+    { en: "Destination, for navigation", ua: "Маємо ціль і маршрут" },
+    { en: "Man up ya station, feel the sensation", ua: "Займай свою позицію й відчуй цей драйв" },
+    { en: "Surround invasion, with communication", ua: "Долаймо вторгнення завдяки взаємодії" },
+    { en: "Move quick, we might avoid contamination", ua: "Рухайся швидко — можливо, уникнемо зараження" }
+  ]},
+
+  { label: "ПРИСПІВ", lines: [
+    { en: "Down, here comes the sound", ua: "Ось він — цей звук наближається" },
+    { en: "Everyone pound your feet", ua: "Усі тупайте ногами" },
+    { en: "To this phenomenon", ua: "Під цей феномен" },
+    { en: "Now let's make it loud, let's show 'em all how", ua: "Зробімо гучніше, покажімо всім, як" },
+    { en: "You move to this phenomenon", ua: "Ти рухаєшся під цей феномен" },
+    { en: "Roll, open your soul, maybe lose control", ua: "Відпусти себе, відкрий душу, можливо, втрать контроль" },
+    { en: "Inside of this phenomenon", ua: "Усередині цього феномена" },
+    { en: "Just let yourself go, and let everyone know", ua: "Просто відпусти себе й дай усім знати" },
+    { en: "You move to this phenomenon", ua: "Що ти рухаєшся під цей феномен" }
+  ]},
+
+  { label: "КУПЛЕТ 2", lines: [
+    { en: "Don't let these spiders crawl up beside us", ua: "Не дай цим павукам підповзти до нас" },
+    { en: "They want to bite us, inject the virus", ua: "Вони хочуть вкусити нас і занести вірус" },
+    { en: "Raise up the lighters, praise to the righteous", ua: "Підійміть запальнички — хвала праведним" },
+    { en: "We need to guide us, get prepared to go", ua: "Ми повинні спрямовувати себе — готуймося вирушати" },
+    { en: "If you're like us, calling all riders", ua: "Якщо ти такий, як ми — клич усіх, хто з нами" },
+    { en: "Roll up beside us, no place to hide us", ua: "Ставай поруч із нами — нам ніде ховатися" },
+    { en: "All freedom fighters, let's unite us", ua: "Усі борці за свободу — об'єднаймося" },
+    { en: "Switch on your nitrous and, Let's go", ua: "Вмикай закис азоту й... поїхали!" }
+  ]},
+
+  { label: "ПРИСПІВ", lines: [
+    { en: "Down, here comes the sound", ua: "Ось він — цей звук наближається" },
+    { en: "Everyone pound your feet", ua: "Усі тупайте ногами" },
+    { en: "To this phenomenon", ua: "Під цей феномен" },
+    { en: "Now let's make it loud, let's show 'em all how", ua: "Зробімо гучніше, покажімо всім, як" },
+    { en: "You move to this phenomenon", ua: "Ти рухаєшся під цей феномен" },
+    { en: "Roll! Open your soul, maybe lose control", ua: "Відпусти себе! Відкрий душу, можливо, втрать контроль" },
+    { en: "Inside of this phenomenon", ua: "Усередині цього феномена" },
+    { en: "Just let yourself go, and let everyone know", ua: "Просто відпусти себе й дай усім знати" },
+    { en: "You move to this phenomenon", ua: "Що ти рухаєшся під цей феномен" }
+  ]},
+
+  { label: "БРІДЖ", lines: [
+    { en: "Can't take it anymore", ua: "Я більше не можу це терпіти" },
+    { en: "Shake until we move the floor", ua: "Танцюй так, щоб затрусилася підлога" },
+    { en: "What are we waiting for? Let's go!", ua: "Чого ми ще чекаємо? Поїхали!" },
+    { en: "Tired of being ordinary", ua: "Втомився бути звичайним" },
+    { en: "Don't care if there's people staring", ua: "Мені байдуже, якщо люди дивляться" },
+    { en: "I'll rely on your strength to carry me on", ua: "Я покладуся на твою силу, щоб рухатися далі" },
+    { en: "I'm not invisible like you", ua: "Я не невидимий, як ти" },
+    { en: "Next time things get a little messed up", ua: "Наступного разу, коли все трохи піде шкереберть" },
+    { en: "I'll shine, but I'll never be see through", ua: "Я засяю, але ніколи не стану прозорим" },
+    { en: "I'm fine just trying to wake the rest up", ua: "Я в порядку — просто намагаюся розбудити інших" }
+  ]},
+
+  { label: "ПРИСПІВ", lines: [
+    { en: "Down, here comes the sound", ua: "Ось він — цей звук наближається" },
+    { en: "Everyone pound your feet", ua: "Усі тупайте ногами" },
+    { en: "To this phenomenon", ua: "Під цей феномен" },
+    { en: "Now let's make it loud, let's show 'em all how", ua: "Зробімо гучніше, покажімо всім, як" },
+    { en: "You move to this phenomenon", ua: "Ти рухаєшся під цей феномен" },
+    { en: "Roll! Open your soul, maybe lose control", ua: "Відпусти себе! Відкрий душу, можливо, втрать контроль" },
+    { en: "Inside of this phenomenon", ua: "Усередині цього феномена" },
+    { en: "Just let yourself go, and let everyone know", ua: "Просто відпусти себе й дай усім знати" },
+    { en: "You move to this phenomenon", ua: "Що ти рухаєшся під цей феномен" },
+    { en: "You move to this phenomenon", ua: "Ти рухаєшся під цей феномен" },
+    { en: "You move to this phenomenon", ua: "Ти рухаєшся під цей феномен" }
+  ]},
     ],
     // Глосарій і сленг заповнюю Я після вставки тексту (check-song-words.js).
     glossary: {
