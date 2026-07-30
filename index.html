@@ -3673,7 +3673,15 @@ const WORDS = [
   // лексика пісні «Lollipop» (Framing Hanley)
   {en:"lollipop",ua:"льодяник",uaAlt:["чупа-чупс","цукерка на паличці"]},
   {en:"wrapper",ua:"обгортка",uaAlt:["упаковка","фантик"]},
-  {en:"heaven",ua:"рай",uaAlt:["небеса"]},{en:"everybody",ua:"усі",uaAlt:["всі","кожен"]},
+  {en:"heaven",ua:"рай",uaAlt:["небеса"]},
+  {en:"soul",ua:"душа",uaAlt:["дух"]},{en:"shine",ua:"сяяти",uaAlt:["світити","блищати","блиск"]},
+  {en:"switch",ua:"перемикати",uaAlt:["перемикач","вимикач","змінювати"]},{en:"praise",ua:"хвалити",uaAlt:["похвала","вихваляти"]},
+  {en:"unite",ua:"об'єднувати",uaAlt:["єднати","згуртувати"]},{en:"invasion",ua:"вторгнення",uaAlt:["навала","інвазія"]},
+  {en:"navigation",ua:"навігація",uaAlt:["судноплавство"]},{en:"communication",ua:"спілкування",uaAlt:["комунікація","зв'язок"]},
+  {en:"phenomenon",ua:"явище",uaAlt:["феномен"]},{en:"surround",ua:"оточувати",uaAlt:["обступати","огортати"]},
+  {en:"inject",ua:"вколювати",uaAlt:["впорскувати","вводити ін'єкцію"]},{en:"righteous",ua:"праведний",uaAlt:["доброчесний"]},
+  {en:"contamination",ua:"зараження",uaAlt:["отруєння","зараженість"]},{en:"fighter",ua:"боєць",uaAlt:["борець","винищувач"]},
+  {en:"rider",ua:"вершник",uaAlt:["їздець","гонщик"]},{en:"lighter",ua:"запальничка",uaAlt:["легший"]},{en:"everybody",ua:"усі",uaAlt:["всі","кожен"]},
   {en:"alright",ua:"гаразд",uaAlt:["добре","нормально"]},
   {en:"mama",ua:"мама",uaAlt:["матуся","мамка"]},
   {en:"lady",ua:"леді",uaAlt:["пані","дама"]},
@@ -4345,7 +4353,11 @@ const TRANS = {
   "pedicure":"/ˈpɛdɪkjʊr/","concealer":"/kənˈsiːlər/","toner":"/ˈtoʊnər/","cleanser":"/ˈklɛnzər/",
   "aftershave":"/ˈæftərʃeɪv/","lip balm":"/ˈlɪp ˌbɑːm/","clippers":"/ˈklɪpərz/","to polish":"/tə ˈpɑːlɪʃ/","lace":"/leɪs/","ski":"/skiː/",
   "lollipop":"/ˈlɑːlipɑːp/","wrapper":"/ˈræpər/","mama":"/ˈmɑːmə/","lady":"/ˈleɪdi/","cute":"/kjuːt/",
-  "heaven":"/ˈhɛvən/","everybody":"/ˈɛvriˌbɑːdi/","alright":"/ɔːlˈraɪt/"
+  "heaven":"/ˈhɛvən/","everybody":"/ˈɛvriˌbɑːdi/","alright":"/ɔːlˈraɪt/",
+  "soul":"/soʊl/","shine":"/ʃaɪn/","switch":"/swɪtʃ/","praise":"/preɪz/","unite":"/juˈnaɪt/",
+  "invasion":"/ɪnˈveɪʒən/","navigation":"/ˌnævɪˈɡeɪʃən/","communication":"/kəˌmjuːnɪˈkeɪʃən/",
+  "phenomenon":"/fəˈnɑːmɪnən/","surround":"/səˈraʊnd/","inject":"/ɪnˈdʒɛkt/","righteous":"/ˈraɪtʃəs/",
+  "contamination":"/kənˌtæmɪˈneɪʃən/","fighter":"/ˈfaɪtər/","rider":"/ˈraɪdər/","lighter":"/ˈlaɪtər/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -6618,6 +6630,22 @@ const EXAMPLES = {
   "lollipop":"The child asked for a strawberry lollipop.",
   "wrapper":"He threw the paper wrapper away.",
   "heaven":"Many people believe in heaven.",
+  "soul":"Music can touch your soul.",
+  "shine":"The stars shine at night.",
+  "switch":"She can switch between two languages.",
+  "praise":"Teachers should praise good work.",
+  "unite":"Music can unite people from many countries.",
+  "invasion":"The country prepared for an invasion.",
+  "navigation":"Modern ships use satellite navigation.",
+  "communication":"Good communication helps every team.",
+  "phenomenon":"Scientists study this strange phenomenon.",
+  "surround":"High walls surround the old city.",
+  "inject":"The nurse can inject the vaccine into your arm.",
+  "righteous":"She was a righteous and honest woman.",
+  "contamination":"They tested the water for contamination.",
+  "fighter":"The fighter never gave up.",
+  "rider":"The rider fell from the horse.",
+  "lighter":"He used a lighter to start the fire.",
   "everybody":"Everybody wants to be happy.",
   "alright":"Do not worry, the end will be alright.",
   "mama":"The little girl called for her mama.",
@@ -8894,6 +8922,22 @@ const EXAMPLES_UA = {
   "lollipop":"Дитина попросила полуничний льодяник.",
   "wrapper":"Він викинув паперову обгортку.",
   "heaven":"Багато людей вірять у рай.",
+  "soul":"Музика може торкнутися твоєї душі.",
+  "shine":"Зірки сяють уночі.",
+  "switch":"Вона може перемикатися між двома мовами.",
+  "praise":"Учителі мають хвалити хорошу роботу.",
+  "unite":"Музика може об'єднувати людей з багатьох країн.",
+  "invasion":"Країна готувалася до вторгнення.",
+  "navigation":"Сучасні кораблі використовують супутникову навігацію.",
+  "communication":"Гарне спілкування допомагає кожній команді.",
+  "phenomenon":"Вчені вивчають це дивне явище.",
+  "surround":"Високі стіни оточують старе місто.",
+  "inject":"Медсестра може вколоти вакцину тобі в руку.",
+  "righteous":"Вона була праведною і чесною жінкою.",
+  "contamination":"Вони перевірили воду на зараження.",
+  "fighter":"Боєць ніколи не здавався.",
+  "rider":"Вершник упав з коня.",
+  "lighter":"Він скористався запальничкою, щоб розпалити вогонь.",
   "everybody":"Усі хочуть бути щасливими.",
   "alright":"Не хвилюйся, кінець буде гаразд.",
   "mama":"Маленька дівчинка кликала свою маму.",
@@ -11426,6 +11470,7 @@ const EN_TO_UA = (() => {
   m.set("orleans", ["Орлеан"]);
   m.set("penicillin", ["пеніцилін"]);
   m.set("via", ["через"]);
+  m.set("anymore", ["більше не", "уже не"]);
   m.set("since", ["відколи", "з того часу як"]);
   m.set("europe", ["Європа"]);
   m.set("internet", ["інтернет"]);
