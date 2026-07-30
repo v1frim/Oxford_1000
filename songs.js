@@ -4529,12 +4529,67 @@ const SONGS = [
     // Мітки: ВСТУП · КУПЛЕТ 1/2/3 · ПРЕД-ПРИСПІВ · ПРИСПІВ · ПОСТ-ПРИСПІВ · РЕФРЕН ·
     //        БРИДЖ · ПРОГРАШ · КІНЦІВКА
     sections: [
-      { label: "ВСТУП",    lines: [] },
-      { label: "ПРИСПІВ",  lines: [] },
-      { label: "КУПЛЕТ 1", lines: [] },
-      { label: "КУПЛЕТ 2", lines: [] },
-      { label: "БРИДЖ",    lines: [] },
-      { label: "КІНЦІВКА", lines: [] }
+{
+  label: "ІНТРО", lines: [
+    { en: "Oh-oh-oh (Oh-oh)", ua: "О-о-о (О-о)" }
+  ]},
+
+  { label: "ПРИСПІВ", lines: [
+    { en: "She got the Devil in her eyes, but they're pretty in the light", ua: "У її очах ніби сам диявол, але при світлі вони такі гарні" },
+    { en: "Even prettier at night, like a city full of lights", ua: "А вночі ще красивіші — немов місто, сповнене вогнів" },
+    { en: "And she a ride-or-die for a man she likes", ua: "І за чоловіка, якого кохає, вона піде до кінця" },
+    { en: "If we don't make it out alive, see you on the other side", ua: "Якщо нам не судилося вижити — побачимося по той бік" }
+  ]},
+
+  { label: "КУПЛЕТ 1", lines: [
+    { en: "A pretty, little tattooed body", ua: "Гарне, тендітне тіло в татуюваннях" },
+    { en: "What a perfect view", ua: "Який же ідеальний вигляд" },
+    { en: "And she likes to be extra naughty", ua: "І вона любить трохи пустувати" },
+    { en: "When she's in the mood", ua: "Коли в неї є настрій" },
+    { en: "She got those bright eyes in the night, a hidden thigh tattoo", ua: "Уночі її очі сяють, а на стегні приховане татуювання" },
+    { en: "So, we'll go tire out our bodies 'cause that's what sinners do", ua: "Тож ми виснажимо свої тіла, адже саме так чинять грішники" }
+  ]},
+
+  { label: "ПРИСПІВ", lines: [
+    { en: "She got the Devil in her eyes, but they're pretty in the light", ua: "У її очах ніби сам диявол, але при світлі вони такі гарні" },
+    { en: "Even prettier at night, like a city full of lights", ua: "А вночі ще красивіші — немов місто, сповнене вогнів" },
+    { en: "And she a ride-or-die for a man she likes", ua: "І за чоловіка, якого кохає, вона піде до кінця" },
+    { en: "If we don't make it out alive, see you on the other side", ua: "Якщо нам не судилося вижити — побачимося по той бік" }
+  ]},
+
+  { label: "КУПЛЕТ 2", lines: [
+    { en: "She gon' kill me with those bedroom eyes", ua: "Вона зводить мене з розуму своїм спокусливим поглядом" },
+    { en: "She likes to put on a show", ua: "Вона любить влаштовувати справжнє шоу" },
+    { en: "And her body keeps me up at night", ua: "Її тіло не дає мені заснути вночі" },
+    { en: "We never could take it slow", ua: "У нас ніколи не виходило нікуди не поспішати" },
+    { en: "I knew her in another life, some other nights", ua: "Наче я знав її в іншому житті, в інші ночі" },
+    { en: "She's warm like a summer drive, I feel alive", ua: "Вона тепла, як літня нічна поїздка, і поруч із нею я відчуваю себе живим" },
+    { en: "A storm when the lightning strikes, a fire lights", ua: "Вона — мов буря зі спалахом блискавки й полум'ям" },
+    { en: "Reborn in our current life, our stories tied", ua: "Ми ніби народилися знову в цьому житті, а наші долі переплелися" },
+    { en: "She looks good in the moonlight", ua: "Вона неймовірно виглядає в місячному світлі" },
+    { en: "Dark, yet bright looking good, lookin' too nice", ua: "Темна, але водночас сяюча — надто гарна" },
+    { en: "She make me wanna go all night", ua: "Вона змушує мене не зупинятися всю ніч" },
+    { en: "Wanna go until the sunlight", ua: "Хочеться продовжувати до самого світанку" },
+    { en: "Back full of tats, God, I like it like that", ua: "Спина вкрита татуюваннями — Боже, мені це подобається" },
+    { en: "She bad, so bad, never give a heart back", ua: "Вона небезпечна — якщо забере серце, вже не поверне" },
+    { en: "She a trap, no cap, every soul she's had", ua: "Вона справжня пастка — кожна душа, яка її покохала..." },
+    { en: "Fall hard, fall fast, with a heart, all black, oh", ua: "Закохується сильно й миттєво, навіть якщо серце вже почорніло" },
+    { en: "To be loved by her is something like a perfect curse", ua: "Бути коханим нею — це ніби ідеальне прокляття" },
+    { en: "Put our souls in a hearse", ua: "Наче наші душі поклали до катафалка" }
+  ]},
+
+  { label: "БРІДЖ", lines: [
+    { en: "A pretty, little tattooed body", ua: "Гарне, тендітне тіло в татуюваннях" },
+    { en: "What a perfect view", ua: "Який же ідеальний вигляд" },
+    { en: "And she likes to be extra naughty when she's in the mood", ua: "І вона любить трохи пустувати, коли в неї є настрій" }
+  ]},
+
+  { label: "АУТРО", lines: [
+    { en: "She got the Devil in her eyes, but they're pretty in the light", ua: "У її очах ніби сам диявол, але при світлі вони такі гарні" },
+    { en: "Even prettier at night, like a city full of lights", ua: "А вночі ще красивіші — немов місто, сповнене вогнів" },
+    { en: "And she a ride or die for a man she likes", ua: "І за чоловіка, якого кохає, вона піде до кінця" },
+    { en: "If we don't make it out alive, see you on the other side", ua: "Якщо нам не судилося вижити — побачимося по той бік" }
+  ]},
     ],
     // Глосарій і сленг заповнюю я після вставки тексту (check-song-words.js).
     glossary: {
