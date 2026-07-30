@@ -4311,6 +4311,89 @@ const SONGS = [
       { en: "lil'",          ua: "маленький (розм.)",       note: "скорочене little; у прізвиськах — Lil Wayne" },
       { en: "ya",            ua: "ти, твій (розм.)",        note: "розмовне you / your" }
     ]
+  },
+  {
+    id: "neffex-closer-to-heaven",
+    artist: "NEFFEX",
+    title: "Closer to Heaven 🕊️",
+    ytId: "3zPiacz_X2U",
+    xp: 450,    // score 57.8 (28 унікальних рядків, 198 слів, 5 сленгу) → round50(400+(57.8-52.8)/108.4*1200)
+    sections: [
+      { label: "КУПЛЕТ 1", lines: [
+        { en: "Pain 'cause it'll never be the same",                                   ua: "Боляче, бо вже ніколи не буде як раніше" },
+        { en: "This world will just forget your name",                                 ua: "Цей світ просто забуде твоє ім'я" },
+        { en: "But I will never be the same, oh",                                      ua: "Але я вже ніколи не буду тим самим, о" },
+        { en: "Why is there just an end to life?",                                     ua: "Чому в житті є просто кінець?" },
+        { en: "I hope that it feels alright",                                          ua: "Надіюсь, що це відчувається спокійно" },
+        { en: "I hope that the end is nice, mmm",                                      ua: "Надіюсь, що кінець буде добрим, ммм" }
+      ]},
+      { label: "ПРЕД-ПРИСПІВ", lines: [
+        { en: "I don't understand it",                                                 ua: "Я цього не розумію" },
+        { en: "I don't know who planned it",                                           ua: "Я не знаю, хто це задумав" },
+        { en: "I can't seem to handle",                                                ua: "Я, здається, не можу витримати" },
+        { en: "All the memories and change",                                           ua: "Усіх цих спогадів і змін" },
+        { en: "I don't understand it",                                                 ua: "Я цього не розумію" },
+        { en: "I know I can't stand this",                                             ua: "Я знаю, що не можу цього стерпіти" },
+        { en: "I hate knowing nothing",                                                ua: "Ненавиджу знати, що ніщо" },
+        { en: "Will ever be the same",                                                 ua: "Уже ніколи не буде як раніше" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Are you closer to heaven?",                                             ua: "Ти вже ближче до раю?" },
+        { en: "Are you closer to heaven?",                                             ua: "Ти вже ближче до раю?" },
+        { en: "Do you think I'll be let in?",                                          ua: "Думаєш, мене туди впустять?" },
+        { en: "Tell me, are you closer to heaven?",                                    ua: "Скажи мені, ти вже ближче до раю?" },
+        { en: "'Cause I need time",                                                    ua: "Бо мені потрібен час" },
+        { en: "'Cause I need time",                                                    ua: "Бо мені потрібен час" }
+      ]},
+      { label: "КУПЛЕТ 2", lines: [
+        { en: "I've seen so many places and faces from chasin'",                       ua: "Я бачив стільки місць і облич, поки гнався" },
+        { en: "A dream that no one said I could have",                                 ua: "За мрією, якої мені ніхто не обіцяв" },
+        { en: "But none can replace or take away all the days",                        ua: "Та ніхто не замінить і не забере всі ті дні" },
+        { en: "And memories that we once had",                                         ua: "І спогади, які ми колись мали" }
+      ]},
+      { label: "ПРИСПІВ", lines: [
+        { en: "Are you closer to heaven?",                                             ua: "Ти вже ближче до раю?" },
+        { en: "Are you closer to heaven?",                                             ua: "Ти вже ближче до раю?" },
+        { en: "Do you think I'll be let in?",                                          ua: "Думаєш, мене туди впустять?" },
+        { en: "Tell me, are you closer to heaven?",                                    ua: "Скажи мені, ти вже ближче до раю?" },
+        { en: "'Cause I need time",                                                    ua: "Бо мені потрібен час" }
+      ]},
+      { label: "КІНЦІВКА", lines: [
+        { en: "I'm not alright, I don't feel fine",                                    ua: "Мені не добре, я почуваюся кепсько" },
+        { en: "I'm sick of watchin' everybody age with time",                          ua: "Мене нудить дивитись, як усі старіють із часом" },
+        { en: "As they lose their sight, they lose their mind",                        ua: "Як вони втрачають зір, втрачають розум" },
+        { en: "I'm sick of always feeling like I'm losing mine ('Cause I need time)",  ua: "Мене нудить постійно відчувати, що втрачаю свій (Бо мені потрібен час)" },
+        { en: "I'm not alright, I don't feel fine",                                    ua: "Мені не добре, я почуваюся кепсько" },
+        { en: "I'm sick of watching everybody age with time",                          ua: "Мене нудить дивитись, як усі старіють із часом" },
+        { en: "As they lose their sight, they lose their mind",                        ua: "Як вони втрачають зір, втрачають розум" },
+        { en: "I'm sick of always feelin' like I'm losing mine ('Cause I need time)",  ua: "Мене нудить постійно відчувати, що втрачаю свій (Бо мені потрібен час)" },
+        { en: "('Cause I need time)",                                                  ua: "(Бо мені потрібен час)" }
+      ]},
+    ],
+    glossary: {
+      "'cause": "розмовне because — бо, тому що",
+      "it'll": "скорочене it will",
+      "i'll": "скорочене I will",
+      "i've": "скорочене I have",
+      "don't": "скорочене do not",
+      "can't": "скорочене cannot",
+      "i'm": "скорочене I am",
+      "chasin'": "розмовне chasing — гнатися, переслідувати",
+      "watchin'": "розмовне watching — дивитися, спостерігати",
+      "feelin'": "розмовне feeling — відчувати",
+      "mine": "мій, моє (без іменника)",
+      "none": "жоден, ніхто, ніщо",
+      "ever": "коли-небудь; будь-коли",
+      "mmm": "вигук — «ммм» (не слово)",
+      "oh": "вигук — «о» (не слово)"
+    },
+    slang: [
+      { en: "'cause",              ua: "бо, тому що (розм.)",        note: "скорочене because — типове для піснярів і мовлення" },
+      { en: "chasin' / watchin'",  ua: "гнатися / дивитися (розм.)", note: "«проглинання» -g у -ing: chasing→chasin'; чути в усіх жанрах" },
+      { en: "to be sick of",       ua: "бути сит по горло чимось",   note: "не «хворіти», а «до смерті надоїло»: I'm sick of waiting" },
+      { en: "to lose your mind",   ua: "втрачати розум, божеволіти", note: "у пісні — про старіння і втрату ясності думки" },
+      { en: "to let someone in",   ua: "впускати когось",            note: "тут — «чи впустять мене в рай»; фразове дієслово" }
+    ]
   }
 ];
 
