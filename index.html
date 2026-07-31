@@ -10610,10 +10610,13 @@ function endGame(endedEarly) {
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
     if (reviewFromMenu) {
-      recordMistakeReviews(wordsReviewed);   // лише повторення з кнопки «📒 Помилки» в меню (не post-game) → пункти «Плани»
-      // Сесія 39: +1 XP за КОЖНЕ закрите слово — ПОВЕРХ базових 2 XP, які нарахував
-      // recordAnswer. Тобто закрите слово з кнопки меню = 3 XP, з post-game = 2 XP.
-      if (wordsReviewed > 0) addXp(wordsReviewed * MISTAKE_REVIEW_XP);
+      // лише повторення з кнопки «📒 Помилки» в меню (не post-game) → пункти «Плани»
+      // Сесія 39: XP нараховуємо ЗА ПУНКТ (15 закритих слів), а не за кожне слово —
+      // рахуємо, скільки пунктів додалось після запису, і платимо за них.
+      const _mrPtsBefore = _totalMistakePoints();
+      recordMistakeReviews(wordsReviewed);
+      const _gainedPts = _totalMistakePoints() - _mrPtsBefore;
+      if (_gainedPts > 0) addXp(_gainedPts * MISTAKE_REVIEW_XP);
     }
     checkThermoMilestones();               // новий пункт міг перетнути межу плану (🎯/💪)
     if (wordsReviewed > 0) {
@@ -12527,7 +12530,7 @@ function computeRetroXp() {
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100) + GPT×10.
-function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mr) {
+function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts) {
   let xp = 0;
   const d = days[date] || {};
   xp += (d.correct || 0);          // correct answers in regular games
@@ -12548,7 +12551,9 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // Параметри опційні — старі блоки міграцій (v3…v9) кличуть функцію без них.
   xp += ((songSess && songSess[date]) || 0) * SONGSESS_XP;  // 🎧 заняття піснями
   xp += ((movies && movies[date]) || 0) * MOVIE_XP;         // 🎬 кіно з субтитрами
-  xp += ((mr && mr[date]) || 0) * MISTAKE_REVIEW_XP;        // 📒 закриті слова помилок (з кнопки меню)
+  // 📒 ПУНКТИ помилок (кожен = 15 закритих слів), а не самі слова — mrPts уже
+  // порахований через mistakeReviewPointsByDate (перенесення залишку між днями).
+  xp += ((mrPts && mrPts[date]) || 0) * MISTAKE_REVIEW_XP;
   return xp;
 }
 function computeXpFromStats() {
@@ -12560,13 +12565,13 @@ function computeXpFromStats() {
   const gpt     = loadGptRequests();
   const songSess = loadSongSessions();
   const movies  = loadMovieSessions();
-  const mr      = loadMistakeReviews();
+  const mrPts   = mistakeReviewPointsByDate(loadMistakeReviews());
   const allDates = new Set([
     ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone), ...Object.keys(gpt),
-    ...Object.keys(songSess), ...Object.keys(movies), ...Object.keys(mr)
+    ...Object.keys(songSess), ...Object.keys(movies), ...Object.keys(mrPts)
   ]);
   let xp = 0;
-  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mr); });
+  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts); });
   return xp;
 }
 const XP_DAY_KEY = "oxford_xp_day_v1";  // per-day XP gain {date: xp}; do NOT remove (used by trackDayXp/getDayXpGain/migration)
@@ -13619,6 +13624,15 @@ function mistakeReviewPointsByDate(mr) {
   return out;
 }
 
+// Скільки пунктів «Плани» за помилки зароблено ВСЬОГО за історію (для нарахування XP
+// у endGame: платимо за приріст, а не за кожне слово). Еквівалент floor(усі слова / 15).
+function _totalMistakePoints() {
+  const mr = loadMistakeReviews();
+  let sum = 0;
+  Object.values(mr).forEach(n => { sum += n || 0; });
+  return Math.floor(sum / 15);
+}
+
 // GPT-запити → пункти з ПЕРЕНЕСЕННЯМ залишку між днями (сесія 34, за запитом):
 // кожен ПАРНИЙ запит в історії дає +1 пункт тому дню, коли пара замкнулась
 // (непарний «хвіст» дня чекає наступного запиту — як 15-ки пройдених помилок).
@@ -13953,8 +13967,10 @@ const DUO_KEY = "oxford_duolingo_v1";
 const DUO_XP = 30;   // сесія 32: 25→30 (переоцінка активності; міграція formula_v9)
 const SONGSESS_XP = 20;        // 🎧 заняття піснями: сесія 39, було БЕЗ XP (міграція formula_v11)
 const MOVIE_XP = 40;           // 🎬 сеанс кіно: сесія 39, було БЕЗ XP (міграція formula_v11)
-const MISTAKE_REVIEW_XP = 1;   // 📒 +1 XP за КОЖНЕ закрите слово повторення з кнопки меню
-                               // (сесія 39; додається ПОВЕРХ базових 2 XP за закрите слово)
+const MISTAKE_REVIEW_XP = 15;  // 📒 XP за 1 ПУНКТ «Плани» = за закриття 15-ки слів (сесія 39).
+                               // ⚠️ Нараховується РАЗОМ із пунктом, а не по 1 за слово: 7 закритих
+                               // слів = 0 XP, 15-те слово замикає пункт і дає одразу +15.
+                               // Залишок переноситься між днями (mistakeReviewPointsByDate).
 
 function loadDuoSessions() {
   try { return JSON.parse(localStorage.getItem(DUO_KEY) || "{}"); } catch(e) { return {}; }
@@ -14668,13 +14684,15 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
     localStorage.setItem("oxford_xp_formula_v10", "1");
   } catch(e) {}
 }
-// formula_v11 (сесія 39, за запитом): три активності, що раніше давали лише пункти
-// «Плани», тепер дають і XP — 🎧 заняття піснями 20, 🎬 сеанс кіно 40, 📒 кожне закрите
-// слово помилок з кнопки меню +1 (поверх базових 2 XP за закрите слово). Кіно заодно
-// дає 2 пункти замість 1 (це не XP, міграції не стосується — рахується динамічно).
+// formula_v12 (сесія 39, за запитом): три активності, що раніше давали лише пункти
+// «Плани», тепер дають і XP — 🎧 заняття піснями 20, 🎬 сеанс кіно 40, 📒 **15 XP за
+// ПУНКТ** (тобто за закриття 15-ки слів; НЕ по 1 XP за слово — уточнення користувача
+// одразу після v11). Кіно заодно дає 2 пункти замість 1 (це не XP, рахується динамічно).
+// ⚠️ Прапор саме v12: v11 із правилом «+1 за слово» встиг потрапити в прод на кілька
+// хвилин, тож на пристрої, де він уже спрацював, потрібен новий перерахунок.
 // Тіло як v10 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp), плюс нові
 // джерела в allDates. Ідемпотентна, прапор лише при успіху.
-if (!localStorage.getItem("oxford_xp_formula_v11")) {
+if (!localStorage.getItem("oxford_xp_formula_v12")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -14684,17 +14702,17 @@ if (!localStorage.getItem("oxford_xp_formula_v11")) {
     const _gpt    = loadGptRequests();
     const _ss     = loadSongSessions();
     const _mv     = loadMovieSessions();
-    const _mr     = loadMistakeReviews();
+    const _mrPts  = mistakeReviewPointsByDate(loadMistakeReviews());   // ПУНКТИ, не слова
     const _awarded = loadSongsXpAwarded();
     const _allDates = new Set([
       ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
       ...Object.keys(_gpt), ...Object.values(_awarded),
-      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mr)
+      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mrPts)
     ]);
     const _xpd = {};
     let _total = 0;
     _allDates.forEach(date => {
-      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mr);
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts);
       if (v > 0) _xpd[date] = v;
       _total += v;
     });
@@ -14707,7 +14725,7 @@ if (!localStorage.getItem("oxford_xp_formula_v11")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
-    localStorage.setItem("oxford_xp_formula_v11", "1");
+    localStorage.setItem("oxford_xp_formula_v12", "1");
   } catch(e) {}
 }
 renderXpBar();
