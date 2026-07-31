@@ -643,6 +643,10 @@
   .cat-row:hover { background: rgba(255,255,255,0.09); }
   .cat-en { font-weight: 600; white-space: nowrap; }
   .cat-ua { opacity: 0.6; text-align: right; }
+  /* Лічильники відповідей на слово (сесія 40): ✓правильних / ✗помилок у звичайній грі */
+  .cat-tally { flex: 0 0 auto; font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0.85; }
+  .cat-tally .ct-c { color: #7be07b; }
+  .cat-tally .ct-w { color: #ff6b6b; margin-left: 6px; }
   .cat-empty { text-align: center; opacity: 0.5; padding: 34px 0; font-size: 14px; }
   .cat-play {
     margin-top: 14px; padding: 12px; border-radius: 12px; cursor: pointer;
@@ -12331,6 +12335,18 @@ function loadMastery() {
   catch(e) { return {}; }
 }
 function saveMastery(m) { localStorage.setItem(MASTERY_KEY, JSON.stringify(m)); }
+// ⚠️ ФОРМАТ ЗАПИСУ mastery (сесія 40): число (СТАРИЙ формат = сам streak) АБО
+// {s, c, w} — s=streak (0-3), c/w=скільки разів слово взято правильно/неправильно.
+// Міграції НЕМАЄ і не треба: старі числа читаються як streak із нульовими лічильниками,
+// а об'єктом запис стає при першій же відповіді. Старі бекапи так само читаються.
+// ⚠️ КАТЕГОРІЇ (Знаю/Вивчаю/Нові) рахуються ВИКЛЮЧНО по streak — c/w це довідковий
+// шар, від нього НЕ має залежати жодна категоризація, XP чи дельта прогресу.
+// ⚠️ Лічильники рухає лише `updateMastery`, який кличеться ТІЛЬКИ зі звичайної гри
+// (за запитом користувача): повторення / «📒 Помилки» — це засвоєння вже проваленого
+// слова, тож ні streak, ні c/w не чіпають. НЕ підключати їх до review-гілки.
+// Будь-яке нове читання mastery — через mStreak(), НЕ через голе значення.
+function mStreak(v) { return (v !== null && typeof v === "object") ? v.s : v; }
+function mTally(v) { return (v !== null && typeof v === "object") ? { c: v.c || 0, w: v.w || 0 } : { c: 0, w: 0 }; }
 // mastery та помилки днів використовують канонічну EN-форму слова як ключ (а НЕ
 // позицію в масиві) — щоб додавання нових слів не зсувало чужий прогрес.
 function wordKey(w) { return getEn(w)[0]; }
@@ -12523,7 +12539,8 @@ function getLevelInfo(xp) {
 function computeRetroXp() {
   const m = loadMastery();
   let xp = 0;
-  Object.values(m).forEach(s => {
+  Object.values(m).forEach(v => {
+    const s = mStreak(v);
     if (s >= 1) { xp += 3; xp += 1; }  // new→learn bonus + 1 correct
     if (s >= 2)   xp += 1;              // 2nd correct
     if (s >= 3) { xp += 5; xp += 1; }  // learn→know bonus + 3rd correct
@@ -12732,16 +12749,24 @@ function recordMasteryTrans(cat, enKey) {
 function updateMastery(wordIndex, correct) {
   const m = loadMastery();
   const key = wordKey(WORDS[wordIndex]);
-  const prev = m[key];
+  const rec = m[key];
+  const prev = mStreak(rec);
+  const tally = mTally(rec);
+  // Кумулятивні лічильники (сесія 40): на відміну від streak (стеля 3, обнуляється
+  // помилкою) вони НЕ скидаються ніколи — саме вони показують, які слова реально збивають.
+  // Пропуск приходить сюди як correct=false, тож рахується в w (як і в бейджі «✗N»).
+  if (correct) tally.c++; else tally.w++;
+  const setStreak = s => { m[key] = { s: s, c: tally.c, w: tally.w }; };
   if (correct) {
-    m[key] = Math.min((prev !== undefined ? prev : 0) + 1, 3);
+    const next = Math.min((prev !== undefined ? prev : 0) + 1, 3);
+    setStreak(next);
     // Transition: Нові → Вивчаю (only the genuine first encounter; a word reset to
     // streak 0 is already "Вивчаю", so re-reaching 1 must NOT re-award +3)
-    if (prev === undefined && m[key] === 1) { addXp(3); recordMasteryTrans("l", key); }
+    if (prev === undefined && next === 1) { addXp(3); recordMasteryTrans("l", key); }
     // Transition: Вивчаю → Знаю
-    else if ((prev === 1 || prev === 2) && m[key] === 3) { addXp(5); recordMasteryTrans("k", key); }
+    else if ((prev === 1 || prev === 2) && next === 3) { addXp(5); recordMasteryTrans("k", key); }
   } else {
-    m[key] = 0;
+    setStreak(0);
     // Transition: Нові → Вивчаю through a wrong/skipped first encounter.
     // The word still entered "Вивчаю" for the first time. User counts this as progress
     // (they then spend time studying the new word), so award the same +3 as a correct
@@ -12770,7 +12795,7 @@ function saveMasterySnapshot() {
     const wk = wordKey(w);
     if (seen.has(wk)) return;
     seen.add(wk);
-    const st = m[wk];
+    const st = mStreak(m[wk]);
     if (st >= 3) known++; else if (st !== undefined) learning++;
   });
   const today = new Date().toISOString().slice(0, 10);
@@ -12972,7 +12997,7 @@ function renderMasteryStats() {
     const k = wordKey(w);
     if (seen.has(k)) return;
     seen.add(k);
-    const s = m[k];
+    const s = mStreak(m[k]);
     if (s >= 3) known++; else if (s !== undefined) learning++; else novel++;
   });
   const uniqueWords = seen.size;
@@ -13028,7 +13053,7 @@ function categoryIndices(cat) {
   const m = loadMastery();
   const out = [];
   for (let i = 0; i < WORDS.length; i++) {
-    const s = m[wordKey(WORDS[i])];
+    const s = mStreak(m[wordKey(WORDS[i])]);
     const inCat = cat === "known"    ? s >= 3
                 : cat === "learning" ? (s !== undefined && s < 3)
                 : /* new */            s === undefined;
@@ -13063,17 +13088,38 @@ function openCategoryModal(cat) {
     if (!groups.has(k)) groups.set(k, []);
     groups.get(k).push(i);
   });
-  const rows = [...groups.values()].sort((a, b) =>
-    getEn(WORDS[a[0]])[0].localeCompare(getEn(WORDS[b[0]])[0]));
+  // Лічильники відповідей (сесія 40): у «Вивчаю» тисячі слів, і алфавітний список не
+  // показував, ЯКІ з них реально збивають — streak цього не пам'ятає (стеля 3, обнуляється
+  // помилкою). Тому «Вивчаю» сортуємо за проблемністю (помилок ↓, потім правильних ↑),
+  // «Знаю»/«Нові» лишаються за алфавітом. Лічильник спільний на wordKey — як і сам mastery.
+  const mm = loadMastery();
+  const tallyOf = g => mTally(mm[wordKey(WORDS[g[0]])]);
+  const byAlpha = (a, b) => getEn(WORDS[a[0]])[0].localeCompare(getEn(WORDS[b[0]])[0]);
+  const rows = [...groups.values()].sort(cat === "learning"
+    ? (a, b) => {
+        const ta = tallyOf(a), tb = tallyOf(b);
+        return (tb.w - ta.w) || (ta.c - tb.c) || byAlpha(a, b);
+      }
+    : byAlpha);
+  const tallyHtml = g => {
+    const t = tallyOf(g);
+    return (t.c || t.w)
+      ? '<span class="cat-tally" title="У звичайній грі: правильно ' + t.c + ' · помилок і пропусків ' + t.w + '">' +
+          '<span class="ct-c">✓' + t.c + '</span><span class="ct-w">✗' + t.w + '</span></span>'
+      : '';
+  };
+  const sortNote = cat === "learning" && rows.some(g => { const t = tallyOf(g); return t.c || t.w; })
+    ? ' · спершу проблемні' : '';
   document.getElementById("cat-title").innerHTML =
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + '</span>' +
-    '<span class="cat-cnt">' + rows.length + ' слів</span>';
+    '<span class="cat-cnt">' + rows.length + ' слів' + sortNote + '</span>';
   const listEl = document.getElementById("cat-list");
   listEl.innerHTML = rows.length
     ? rows.map(g =>
         '<div class="cat-row" data-i="' + g[0] + '">' +
           '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
           '<span class="cat-ua">' + esc(g.map(i => getUa(WORDS[i]).join(", ")).join(" / ")) + '</span>' +
+          tallyHtml(g) +
         '</div>').join("")
     : '<div class="cat-empty">Тут поки порожньо</div>';
   listEl.scrollTop = 0;
@@ -13177,7 +13223,7 @@ function toLearnIndices() {
   const m = loadMastery();
   const out = [];
   for (let i = 0; i < WORDS.length; i++) {
-    const s = m[wordKey(WORDS[i])];
+    const s = mStreak(m[wordKey(WORDS[i])]);
     if (!(s >= 3)) out.push(i);   // undefined (Нові) або s<3 (Вивчаю) → включаємо; s>=3 (Знаю) → ні
   }
   return out;
@@ -14329,7 +14375,7 @@ function saveAch(o) { localStorage.setItem(ACH_KEY, JSON.stringify(o)); }
 function sumDayField(f) { return Object.values(loadDays()).reduce((s,d)=>s+(d[f]||0),0); }
 // Рахує КЛЮЧІ mastery зі streak>=3 (ачівка «Слів у Знаю» + кіно-лок N/500). Сьогодні = бейджу
 // «Знаю»; розійтись може лише на осиротілі ключі (перейменоване слово) — прийнятно, пороги грубі.
-function countKnownWords() { return Object.values(loadMastery()).filter(s=>s>=3).length; }
+function countKnownWords() { return Object.values(loadMastery()).filter(v=>mStreak(v)>=3).length; }
 function countLearnedSongs() { return Object.values(loadSongStatus()).filter(s=>s==="learned").length; }
 function activeDaysCount() { return Object.values(loadDays()).filter(d=>(d.games||0)>0).length; }
 function bestStreakLength() { const s = computeStreaks(loadDays()); return s.length ? s[0].length : 0; }
