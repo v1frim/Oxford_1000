@@ -34,8 +34,56 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 46** (з 402)
-- **Наступна: 48** (непарні праві боки розворотів опрацьовуються разом із парними)
+- **Остання опрацьована сторінка: 55** (з 402)
+- **Наступна: 56** (непарні праві боки розворотів опрацьовуються разом із парними)
+
+> **🏥 МЕДИЧНИЙ БЛОК, стор. 48-55 — 4 розвороти одразу (сесія 40, +154 слова, WORDS 3256→3410).**
+> Користувач надіслав 4 суміжні розвороти разом; опрацьовано ЧОТИРМА партіями з
+> `check-coverage` і комітом після кожної.
+> **19 Illness and injury (стор. 48-49, +44):** хвороби (flu, runny nose, chill, sore throat,
+> tonsillitis, headache, migraine, dizzy, food poisoning, poisoning, rash, chickenpox, measles,
+> mumps, eczema, asthma, hay fever, diabetes, nosebleed, nausea, appendicitis, blood pressure,
+> cramp, backache, stomachache, insomnia, diarrhea) + травми (X-ray, crutches, sprain,
+> broken bone, sling, neck brace, bruise, splinter, sunburn, sting, blister, concussion,
+> head injury, electric shock, hemorrhage). Чекер витяг базові wire, shock.
+> **20 Visiting the doctor (стор. 50-51, +44):** clinic, waiting room, medical examination,
+> check-up, syringe, needle, blood test, test results, prescription, medication, tablet,
+> inoculation, scales, stethoscope, inhaler, nasal spray, face mask, dressing, gauze,
+> thermometer, painkiller, antiseptic, bandage, ointment, adhesive bandage, adhesive tape,
+> cotton pad, safety pin + дієслова (to vomit, to ache, to faint, to lie down, to lose weight,
+> to gain weight, to resuscitate, chest compressions). Чекер витяг pharmacy, examination,
+> adhesive, nasal, pad, compression, label, passage.
+> **21 The hospital (стор. 52-53, +35):** oxygen mask, drip, surgical mask, hospital bed,
+> paramedic, stretcher, scan, scalpel, stitch, plastic surgery, operating table, operating room,
+> emergency room, intensive care unit, recovery room, ward, maternity ward, to discharge,
+> outpatient + відділення (cardiology, neurology, pediatrics, psychiatry, oncology, maternity,
+> physical therapy, ENT). Чекер витяг oxygen, surgical, intensive, unit, cancer, therapy, kit, length.
+> **22 The dentist and optician (стор. 54-55, +31):** filling, plaque, decay, cavity, extraction,
+> baby teeth, braces, dentures, drill, dental floss, dental hygienist, whitening, basin, probe,
+> dental, to floss, to rinse + оптика (retina, cornea, lens, eyeball, optometrist, nearsighted,
+> farsighted, cataract, glasses, reading glasses, sunglasses, contact lenses, eye drops, lens case).
+>
+> **Рішення цього блоку:**
+> - **UK-дублети — через `enAlt`, БЕЗ окремих карток** (підтверджено користувачем, патерн сесії 38):
+>   plaster→adhesive bandage, cotton wool→cotton pad, false teeth→dentures, milk teeth→baby teeth,
+>   short-/long-sighted, physiotherapy, A&E→emergency room, theatre→operating room,
+>   doctor's surgery→clinic, diarrhoea, haemorrhage, paediatrics.
+> - **`medication`/`tablet`/`inoculation` — ПОВНОЦІННІ картки** (за прямим рішенням користувача:
+>   «і ті і ті зустрічаються»), а не enAlt до medicine/pill/vaccination. `tablet` одразу з
+>   другим значенням «планшет».
+> - **Спільні глоси — НЕ уникали штучно** (перевірено логіку `isCorrect`): у ua-en приймається
+>   будь-яке слово зі спільним глосом, тож `рецепт` recipe/prescription і `таблетка` pill/tablet —
+>   норма. Обходили лише там, де глос належав НЕ-синоніму: sling≠шина(tire), safety pin≠шпилька(pin).
+>   Точні багатослівні глоси («медична маска») мають голу форму в uaAlt, інакше en-ua відхиляв би.
+> - **ПРОПУЩЕНО (~32):** прозорі когнати-відділення (радіологія, дерматологія, урологія,
+>   гінекологія, патологія, офтальмологія, ендокринологія, гастроентерологія, ортопедія —
+>   пишуться майже однаково, картка нічого не вчить); вузьке обладнання (phoropter, Snellen chart,
+>   retinal camera, reflector, interdental brush, dental history, dental X-ray, foot boot,
+>   hospital notes, hospital porter, private room, blood pressure monitor, whiplash, astigmatism,
+>   monocle, opera glasses, bifocal, contact lens solution, lens cleaning cloth — категорія
+>   декуттера сесії 35); прозорі композити (to feel better, to drink water).
+> - Компоненти багатослівних назв → `m.set`: runny, hay, ray, brace, compressions, hygienist;
+>   + `easier` (стемер не зводить порівняльний ступінь — патерн `prettier` із сесії 39).
 
 > **⚠️ Декуттер анатомії (сесія 35):** за запитом користувача прибрано **20 вузьких
 > анатомічних термінів** зі стор. 12–19 (він не вживає їх ні англійською, ні українською):
