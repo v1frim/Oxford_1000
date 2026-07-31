@@ -12825,14 +12825,22 @@ function _progDeltaHtml(dk, dl, rev, dt, date) {
   // ● «нові» — з РЕЄСТРУ появи слів у словнику (не з логу переходів)
   const added = date ? (wordsAddedByDate()[date] || []).length : 0;
   let h = "";
+  // Реконструкція потоків дня з лога і нетто-дельт (інваріанти моделі переходів):
+  // перші зустрічі F = dl + dk; регресії Знаю→Вивчаю R = lLog − F;
+  // переходи Вивчаю→Знаю P = dk + R (= lLog − dl). Clamp — на брудні/старі дані.
+  const F = Math.max(0, dl + dk);
+  const R = Math.max(0, lLog - F);
+  const P = Math.max(0, dk + R);
   if (dk || kLog) {
-    const back = Math.max(0, kLog - dk);   // повернулись у «Вивчаю» (регресії)
-    const t = kLog ? 'У «Знаю» ввійшло ' + kLog + (back ? ', повернулось у «Вивчаю» ' + back : '') + ' · нетто ' + sgn(dk) : '';
+    const t = kLog ? 'У «Знаю» пішло ' + P + (R ? ', випало назад у «Вивчаю» ' + R : '') + ' · нетто ' + sgn(dk) : '';
     h += _pgCell("✓", sgn(dk), "prog-known" + (kLog ? " prog-click" : ""), cellAttrs("k", kLog, t));
   }
   if (dl || lLog) {
-    const moved = Math.max(0, lLog - dl);  // пішли далі в «Знаю»
-    const t = lLog ? 'У «Вивчаю» ввійшло ' + lLog + (moved ? ', пішло далі в «Знаю» ' + moved : '') + ' · нетто ' + sgn(dl) : '';
+    const parts = [];
+    if (F) parts.push('нових ' + F);
+    if (R) parts.push('випали зі «Знаю» ' + R);
+    const t = lLog ? 'У «Вивчаю» ввійшло ' + lLog + (parts.length ? ' (' + parts.join(', ') + ')' : '') +
+      (P ? ', пішло далі в «Знаю» ' + P : '') + ' · нетто ' + sgn(dl) : '';
     h += _pgCell("↗", sgn(dl), "prog-learning" + (lLog ? " prog-click" : ""), cellAttrs("l", lLog, t));
   }
   if (rev > 0) h += _pgCell("🔁", "+" + rev, "lb-review");
@@ -13127,8 +13135,8 @@ function openDayTransModal(date, cat) {
       const net = cat === "k" ? hist[date].k - prevSnap.k : hist[date].l - prevSnap.l;
       if (net !== rows.length) {
         const expl = cat === "l"
-          ? 'Комірка ↗ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' того ж дня пішли далі в «Знаю»'
-          : 'Комірка ✓ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' повернулось у «Вивчаю»';
+          ? 'Комірка ↗ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' того ж дня пішли далі в «Знаю» (або випали й повернулись)'
+          : 'Комірка ✓ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' випало назад у «Вивчаю»';
         netNote = ' <span title="' + expl + '" style="opacity:.65">(у прогресі ' + (net > 0 ? "+" : "") + net + ')</span>';
       }
     }
