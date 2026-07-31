@@ -1354,7 +1354,7 @@
       <button id="lh-btn">📚 Уроки LingoHut</button>
       <div id="songsess-wrap">
         <button id="songs-btn">🎵 Пісні англійською</button>
-        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 у «Плани»)">🎧 +<span id="songsess-count" style="display:none"></span></button>
+        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +20 XP)">🎧 +<span id="songsess-count" style="display:none"></span></button>
         <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
       </div>
     </div>
@@ -1480,7 +1480,7 @@
   </div>
   <div id="movie-wrap">
     <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
-    <button id="movie-plus" title="Відмітити сеанс перегляду (+1 пункт «Плани»)">+</button>
+    <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +40 XP)">+</button>
     <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
   </div>
 </div>
@@ -10609,7 +10609,12 @@ function endGame(endedEarly) {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
-    if (reviewFromMenu) recordMistakeReviews(wordsReviewed);   // лише повторення з кнопки «📒 Помилки» в меню (не post-game) → пункти «Плани»
+    if (reviewFromMenu) {
+      recordMistakeReviews(wordsReviewed);   // лише повторення з кнопки «📒 Помилки» в меню (не post-game) → пункти «Плани»
+      // Сесія 39: +1 XP за КОЖНЕ закрите слово — ПОВЕРХ базових 2 XP, які нарахував
+      // recordAnswer. Тобто закрите слово з кнопки меню = 3 XP, з post-game = 2 XP.
+      if (wordsReviewed > 0) addXp(wordsReviewed * MISTAKE_REVIEW_XP);
+    }
     checkThermoMilestones();               // новий пункт міг перетнути межу плану (🎯/💪)
     if (wordsReviewed > 0) {
       const secsPerWord = Math.round(reviewElapsed / wordsReviewed);
@@ -12522,7 +12527,7 @@ function computeRetroXp() {
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100) + GPT×10.
-function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt) {
+function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mr) {
   let xp = 0;
   const d = days[date] || {};
   xp += (d.correct || 0);          // correct answers in regular games
@@ -12539,6 +12544,11 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt) {
   xp += (duo[date] || 0) * DUO_XP;                          // Duolingo
   Object.entries(lhDone).forEach(([lesson, dt]) => { if (dt === date) xp += getLhXp(Number(lesson)); });
   xp += ((gpt && gpt[date]) || 0) * GPT_XP;                 // GPT-запити (сесія 27)
+  // Сесія 39: три джерела, що раніше давали лише пункти «Плани», тепер дають і XP.
+  // Параметри опційні — старі блоки міграцій (v3…v9) кличуть функцію без них.
+  xp += ((songSess && songSess[date]) || 0) * SONGSESS_XP;  // 🎧 заняття піснями
+  xp += ((movies && movies[date]) || 0) * MOVIE_XP;         // 🎬 кіно з субтитрами
+  xp += ((mr && mr[date]) || 0) * MISTAKE_REVIEW_XP;        // 📒 закриті слова помилок (з кнопки меню)
   return xp;
 }
 function computeXpFromStats() {
@@ -12548,11 +12558,15 @@ function computeXpFromStats() {
   const duo     = loadDuoSessions();
   const lhDone  = loadLhDone();
   const gpt     = loadGptRequests();
+  const songSess = loadSongSessions();
+  const movies  = loadMovieSessions();
+  const mr      = loadMistakeReviews();
   const allDates = new Set([
-    ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone), ...Object.keys(gpt)
+    ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone), ...Object.keys(gpt),
+    ...Object.keys(songSess), ...Object.keys(movies), ...Object.keys(mr)
   ]);
   let xp = 0;
-  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt); });
+  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mr); });
   return xp;
 }
 const XP_DAY_KEY = "oxford_xp_day_v1";  // per-day XP gain {date: xp}; do NOT remove (used by trackDayXp/getDayXpGain/migration)
@@ -13632,7 +13646,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies) {
   pts += (songSess[date] || 0) * 2;   // заняття піснями: 2 пункти кожне
   pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
-  pts += (movies && movies[date]) || 0;   // 🎬 кіно з субтитрами: 1 пункт за сеанс (сесія 36)
+  pts += ((movies && movies[date]) || 0) * 2;   // 🎬 кіно: 2 пункти за сеанс (сесія 39; було 1 у сесії 36)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
@@ -13937,6 +13951,10 @@ document.getElementById("lh-btn").addEventListener("click", () => {
 // ── DUOLINGO SESSION TRACKER ─────────────────────────────────────────────────
 const DUO_KEY = "oxford_duolingo_v1";
 const DUO_XP = 30;   // сесія 32: 25→30 (переоцінка активності; міграція formula_v9)
+const SONGSESS_XP = 20;        // 🎧 заняття піснями: сесія 39, було БЕЗ XP (міграція formula_v11)
+const MOVIE_XP = 40;           // 🎬 сеанс кіно: сесія 39, було БЕЗ XP (міграція formula_v11)
+const MISTAKE_REVIEW_XP = 1;   // 📒 +1 XP за КОЖНЕ закрите слово повторення з кнопки меню
+                               // (сесія 39; додається ПОВЕРХ базових 2 XP за закрите слово)
 
 function loadDuoSessions() {
   try { return JSON.parse(localStorage.getItem(DUO_KEY) || "{}"); } catch(e) { return {}; }
@@ -14017,7 +14035,9 @@ document.getElementById("songsess-plus").addEventListener("click", () => {
   const today = songSessToday();
   sessions[today] = (sessions[today] || 0) + 1;
   saveSongSessions(sessions);
+  addXp(SONGSESS_XP);          // сесія 39: заняття піснями дає XP (раніше лише пункти)
   renderSongSessBtn();
+  renderXpBar();
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
@@ -14032,7 +14052,9 @@ document.getElementById("songsess-minus").addEventListener("click", () => {
   sessions[today]--;
   if (!sessions[today]) delete sessions[today];
   saveSongSessions(sessions);
+  addXp(-SONGSESS_XP);         // симетрично до «+»
   renderSongSessBtn();
+  renderXpBar();
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
@@ -14137,7 +14159,9 @@ document.getElementById("movie-plus").addEventListener("click", () => {
   const today = gptToday();
   sess[today] = (sess[today] || 0) + 1;
   saveMovieSessions(sess);
+  addXp(MOVIE_XP);             // сесія 39: сеанс кіно дає XP (раніше лише пункти)
   renderMovieBtn();
+  renderXpBar();
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
@@ -14151,7 +14175,9 @@ document.getElementById("movie-minus").addEventListener("click", () => {
   sess[today]--;
   if (!sess[today]) delete sess[today];
   saveMovieSessions(sess);
+  addXp(-MOVIE_XP);            // симетрично до «+»
   renderMovieBtn();
+  renderXpBar();
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
@@ -14640,6 +14666,48 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
     localStorage.setItem("oxford_xp_formula_v10", "1");
+  } catch(e) {}
+}
+// formula_v11 (сесія 39, за запитом): три активності, що раніше давали лише пункти
+// «Плани», тепер дають і XP — 🎧 заняття піснями 20, 🎬 сеанс кіно 40, 📒 кожне закрите
+// слово помилок з кнопки меню +1 (поверх базових 2 XP за закрите слово). Кіно заодно
+// дає 2 пункти замість 1 (це не XP, міграції не стосується — рахується динамічно).
+// Тіло як v10 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp), плюс нові
+// джерела в allDates. Ідемпотентна, прапор лише при успіху.
+if (!localStorage.getItem("oxford_xp_formula_v11")) {
+  try {
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _gpt    = loadGptRequests();
+    const _ss     = loadSongSessions();
+    const _mv     = loadMovieSessions();
+    const _mr     = loadMistakeReviews();
+    const _awarded = loadSongsXpAwarded();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
+      ...Object.keys(_gpt), ...Object.values(_awarded),
+      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mr)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mr);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    Object.entries(_awarded).forEach(([id, date]) => {
+      const song = SONGS.find(s => s.id === id);
+      if (song && song.xp) {
+        _xpd[date] = (_xpd[date] || 0) + song.xp;
+        _total += song.xp;
+      }
+    });
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v11", "1");
   } catch(e) {}
 }
 renderXpBar();
