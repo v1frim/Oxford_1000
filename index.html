@@ -10575,6 +10575,9 @@ function endGame(endedEarly) {
   if (!activePool) {
     const ts = Date.now();
     const wordCount = WORDS.length;
+    // Знімок дня одразу після гри (сесія 39): mastery щойно оновився; інакше
+    // закриття вкладки з екрана результатів лишало дельти ✓/↗ доігровими.
+    saveMasterySnapshot();
     if (timedPoolTag === "known") {
       // Гра пулом «Знаю» — easy-режим (за запитом): НЕ входить у «Найкращі ігри»
       // взагалі (ні запису, ні місця, ні «сьогодні»/«ост»-рядків, ні games-log).
@@ -12529,7 +12532,8 @@ function computeRetroXp() {
   return xp;
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
-// Per day: correct×1 + reviewCorrect×2 + max(0,ΔВивчаю)×3 + (ΔЗнаю≥0 ? ×5 : ×3) + Duolingo×25 + LingoHut(50/75/100) + GPT×10.
+// Per day: correct×1 + reviewCorrect×2 + 3·ΔВивчаю + 8·ΔЗнаю + Duolingo×30 + LingoHut(50/75/100)
+//          + GPT×15 + 🎧×20 + 🎬×40 + 📒пункти×15.
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts) {
   let xp = 0;
   const d = days[date] || {};
@@ -12541,8 +12545,15 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
     const prev = idx > 0 ? history[hdates[idx - 1]] : { k: 0, l: 0, t: WORDS.length };
     const learnDelta = (cur.l || 0) - (prev.l || 0);
     const knownDelta = (cur.k || 0) - (prev.k || 0);
-    xp += 3 * Math.max(0, learnDelta);                      // нові → вивчаю
-    xp += knownDelta >= 0 ? 5 * knownDelta : 3 * knownDelta; // вивчаю→знаю (+5) / знаю→вивчаю (−3)
+    // Сесія 39 (formula_v13): 3·ΔВивчаю + 8·ΔЗнаю — алгебраїчно дорівнює живому
+    // нарахуванню «+3 за першу зустріч, +5 за вихід у Знаю»: слово, що пішло далі,
+    // ПОКИДАЄ «Вивчаю» (−3 з першого доданка), тож 8 = 3+5 це компенсує.
+    // Стара формула (max(0,Δl)·3 + Δk·5) з'їдала +3 КОЖНОГО слова, яке того ж дня
+    // дійшло до «Знаю», а при від'ємному Δl обнуляла доданок цілком.
+    // Інваріант: Δl + Δk = кількість перших зустрічей за день (входи в mastery).
+    // Свідома неточність: регресія «Знаю→Вивчаю» тут коштує −5 замість живих −3
+    // (2 XP різниці на рідкісну подію) — F і P зі снапшотів відновлюються точно, R — ні.
+    xp += 3 * learnDelta + 8 * knownDelta;
   }
   xp += (duo[date] || 0) * DUO_XP;                          // Duolingo
   Object.entries(lhDone).forEach(([lesson, dt]) => { if (dt === date) xp += getLhXp(Number(lesson)); });
@@ -12749,8 +12760,19 @@ function loadMasteryHistory() {
 
 function saveMasterySnapshot() {
   const m = loadMastery();
+  // По УНІКАЛЬНИХ словах-ключах WORDS (сесія 39) — та сама метрика, що бейджі меню
+  // й модалки категорій: осиротілі ключі mastery (перейменоване слово лишає streak
+  // у сховищі) в знімок НЕ потрапляють. Дельти ✓/↗ у «Прогресі» тепер звіряються
+  // з бейджами один в один.
+  const seen = new Set();
   let known = 0, learning = 0;
-  Object.values(m).forEach(s => { if (s >= 3) known++; else learning++; });
+  WORDS.forEach(w => {
+    const wk = wordKey(w);
+    if (seen.has(wk)) return;
+    seen.add(wk);
+    const st = m[wk];
+    if (st >= 3) known++; else if (st !== undefined) learning++;
+  });
   const today = new Date().toISOString().slice(0, 10);
   const history = loadMasteryHistory();
   // t = ЗАПИСИ бази (WORDS.length, 3242), НЕ унікальні ключі — дельта «+N ●» в прогресі
@@ -12759,6 +12781,10 @@ function saveMasterySnapshot() {
   history[today] = { k: known, l: learning, t: WORDS.length };
   localStorage.setItem(MASTERY_HISTORY_KEY, JSON.stringify(history));
 }
+// Знімок і на закритті вкладки: без цього гра, після якої користувач одразу закрив
+// сторінку (не повернувшись у меню), лишала history вчорашнім — переходи дня
+// «перетікали» у дельту наступного (сесія 39). Ідемпотентно: перезаписує лише сьогодні.
+window.addEventListener("pagehide", saveMasterySnapshot);
 
 function fmtProgressDate(iso) {
   // [, mm, dd] — кома-пропуск СВІДОМА (перший елемент = рік, він не потрібен).
@@ -12780,23 +12806,37 @@ function _progGroupBy(dates, keyFn) {
   return g;
 }
 // РЕДИЗАЙН: комірка «значок зверху, число знизу» (колонки економлять ширину рядка)
-function _pgCell(ic, val, cls) {
-  return '<span class="pgc ' + (cls || "") + '"><span class="pgc-ic">' + ic + '</span><span class="pgc-v">' + val + '</span></span>';
+function _pgCell(ic, val, cls, attrs) {
+  return '<span class="pgc ' + (cls || "") + '"' + (attrs || "") + '><span class="pgc-ic">' + ic + '</span><span class="pgc-v">' + val + '</span></span>';
 }
 function _progDeltaHtml(dk, dl, rev, dt, date) {
   // date (лише денні рядки): якщо лог переходів має слова за цей день — комірка
   // ✓/↗ клікабельна (список слів дня EN—UA). Групові рядки date не передають.
+  // ⚠️ Число комірки = НЕТТО-зміна категорії за день; модалка ж показує БРУТТО-лог
+  // входів. Тому комірка рендериться і при нетто 0 чи від'ємному, якщо в лозі є
+  // слова (інакше вони недосяжні), а title пояснює розклад (сесія 39).
   const trans = date ? loadMasteryTrans()[date] : null;
-  const clickable = cat => (trans && trans[cat] && trans[cat].length)
-    ? ' prog-click" data-tdate="' + date + '" data-tcat="' + cat : '';
+  const kLog = trans && trans.k ? trans.k.length : 0;
+  const lLog = trans && trans.l ? trans.l.length : 0;
+  const cellAttrs = (cat, has, title) =>
+    (has ? ' data-tdate="' + date + '" data-tcat="' + cat + '"' : '') +
+    (title ? ' title="' + title + '"' : '');
+  const sgn = v => (v > 0 ? "+" : "") + v;
   // ● «нові» — з РЕЄСТРУ появи слів у словнику (не з логу переходів)
-  const addedClickable = (date && wordsAddedByDate()[date] && wordsAddedByDate()[date].length)
-    ? ' prog-click" data-tdate="' + date + '" data-tcat="t' : '';
+  const added = date ? (wordsAddedByDate()[date] || []).length : 0;
   let h = "";
-  if (dk) h += _pgCell("✓", (dk > 0 ? "+" : "") + dk, "prog-known" + clickable("k"));
-  if (dl) h += _pgCell("↗", (dl > 0 ? "+" : "") + dl, "prog-learning" + clickable("l"));
+  if (dk || kLog) {
+    const back = Math.max(0, kLog - dk);   // повернулись у «Вивчаю» (регресії)
+    const t = kLog ? 'У «Знаю» ввійшло ' + kLog + (back ? ', повернулось у «Вивчаю» ' + back : '') + ' · нетто ' + sgn(dk) : '';
+    h += _pgCell("✓", sgn(dk), "prog-known" + (kLog ? " prog-click" : ""), cellAttrs("k", kLog, t));
+  }
+  if (dl || lLog) {
+    const moved = Math.max(0, lLog - dl);  // пішли далі в «Знаю»
+    const t = lLog ? 'У «Вивчаю» ввійшло ' + lLog + (moved ? ', пішло далі в «Знаю» ' + moved : '') + ' · нетто ' + sgn(dl) : '';
+    h += _pgCell("↗", sgn(dl), "prog-learning" + (lLog ? " prog-click" : ""), cellAttrs("l", lLog, t));
+  }
   if (rev > 0) h += _pgCell("🔁", "+" + rev, "lb-review");
-  if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new" + addedClickable);
+  if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new" + (added ? " prog-click" : ""), cellAttrs("t", added, ""));
   return h || '<span class="prog-none">—</span>';
 }
 function _progAggregate(dates, history, allDates, days) {
@@ -13065,7 +13105,7 @@ function openDayTransModal(date, cat) {
   catModalPoolTag = cat === "k" ? "known" : cat === "t" ? "new" : "learning";   // слова дня → той самий клас пулу
   // ⚠️ Пари з однаковим EN (run бігти/керувати, fan фанат/вентилятор…) ділять mastery-ключ,
   // тож idxs містить ОБИДВА записи, а дельта в «Прогресі» рахує ключі. Групуємо рядки за
-  // ключем (сенси через « / »), щоб к-сть у списку збігалася з дельтою. Пул для гри —
+  // ключем (сенси через « / »), щоб рядок = СЛОВО (як дельта рахує ключі). Пул для гри —
   // усі індекси (обидва сенси все одно тренуються).
   const groups = new Map();                       // wordKey → [індекси WORDS]
   idxs.forEach(i => {
@@ -13075,9 +13115,27 @@ function openDayTransModal(date, cat) {
   });
   const rows = [...groups.values()].sort((a, b) =>
     getEn(WORDS[a[0]])[0].localeCompare(getEn(WORDS[b[0]])[0]));
+  // Нетто-дельта дня (те, що показує комірка ✓/↗): коли вона ≠ кількості слів у
+  // списку — дописуємо її в заголовок, щоб числа «сходились» явно (сесія 39).
+  let netNote = "";
+  if (cat === "k" || cat === "l") {
+    const hist = loadMasteryHistory();
+    const hd = Object.keys(hist).sort();
+    const hi = hd.indexOf(date);
+    if (hi >= 0) {
+      const prevSnap = hi > 0 ? hist[hd[hi - 1]] : { k: 0, l: 0 };
+      const net = cat === "k" ? hist[date].k - prevSnap.k : hist[date].l - prevSnap.l;
+      if (net !== rows.length) {
+        const expl = cat === "l"
+          ? 'Комірка ↗ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' того ж дня пішли далі в «Знаю»'
+          : 'Комірка ✓ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' повернулось у «Вивчаю»';
+        netNote = ' <span title="' + expl + '" style="opacity:.65">(у прогресі ' + (net > 0 ? "+" : "") + net + ')</span>';
+      }
+    }
+  }
   document.getElementById("cat-title").innerHTML =
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + ' · ' + fmtProgressDate(date) + '</span>' +
-    '<span class="cat-cnt">' + rows.length + ' слів</span>';
+    '<span class="cat-cnt">' + rows.length + ' слів' + netNote + '</span>';
   const listEl = document.getElementById("cat-list");
   listEl.innerHTML = rows.map(g =>
     '<div class="cat-row" data-i="' + g[0] + '">' +
@@ -14684,7 +14742,10 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
     localStorage.setItem("oxford_xp_formula_v10", "1");
   } catch(e) {}
 }
-// formula_v12 (сесія 39, за запитом): три активності, що раніше давали лише пункти
+// formula_v13 (сесія 39): (а) mastery-XP тепер 3·ΔВивчаю + 8·ΔЗнаю — БРУТТО-еквівалент
+// живого нарахування; стара нетто-формула з max(0,·) з'їдала +3 кожного слова, що за
+// один день пройшло Нові→Вивчаю→Знаю (v12 встигла так перерахувати історію — v13
+// повертає з'їдене); (б) три активності, що раніше давали лише пункти
 // «Плани», тепер дають і XP — 🎧 заняття піснями 20, 🎬 сеанс кіно 40, 📒 **15 XP за
 // ПУНКТ** (тобто за закриття 15-ки слів; НЕ по 1 XP за слово — уточнення користувача
 // одразу після v11). Кіно заодно дає 2 пункти замість 1 (це не XP, рахується динамічно).
@@ -14692,7 +14753,7 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
 // хвилин, тож на пристрої, де він уже спрацював, потрібен новий перерахунок.
 // Тіло як v10 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp), плюс нові
 // джерела в allDates. Ідемпотентна, прапор лише при успіху.
-if (!localStorage.getItem("oxford_xp_formula_v12")) {
+if (!localStorage.getItem("oxford_xp_formula_v13")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -14725,7 +14786,7 @@ if (!localStorage.getItem("oxford_xp_formula_v12")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
-    localStorage.setItem("oxford_xp_formula_v12", "1");
+    localStorage.setItem("oxford_xp_formula_v13", "1");
   } catch(e) {}
 }
 renderXpBar();
