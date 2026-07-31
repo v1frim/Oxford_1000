@@ -3824,7 +3824,39 @@ const WORDS = [
   {en:"cancer",ua:"рак",uaAlt:["онкологічна хвороба"]},
   {en:"therapy",ua:"терапія",uaAlt:["лікування","психотерапія"]},
   {en:"kit",ua:"набір",uaAlt:["комплект","аптечка","спорядження"]},
-  {en:"length",ua:"довжина",uaAlt:["тривалість","відрізок"]}
+  {en:"length",ua:"довжина",uaAlt:["тривалість","відрізок"]},
+  // EFE стор. 54-55 «The dentist and optician» (сесія 40)
+  {en:"filling",ua:"пломба",uaAlt:["начинка","наповнення"]},
+  {en:"plaque",ua:"зубний наліт",uaAlt:["наліт"]},
+  {en:"decay",ua:"карієс",uaAlt:["гниття","псуватися","занепад"]},
+  {en:"cavity",ua:"дупло",uaAlt:["порожнина","отвір у зубі"]},
+  {en:"extraction",ua:"видалення зуба",uaAlt:["витягування","екстракція"]},
+  {en:"baby teeth",ua:"молочні зуби",enAlt:["milk teeth"]},
+  {en:"braces",ua:"брекети",uaAlt:["пластинка на зуби"]},
+  {en:"dentures",ua:"зубні протези",uaAlt:["вставні зуби"],enAlt:["false teeth"]},
+  {en:"drill",ua:"бормашина",uaAlt:["дриль","свердлити","свердло"]},
+  {en:"dental floss",ua:"зубна нитка"},
+  {en:"dental hygienist",ua:"зубний гігієніст",uaAlt:["гігієніст"]},
+  {en:"whitening",ua:"відбілювання",uaAlt:["освітлення"]},
+  {en:"basin",ua:"умивальник",uaAlt:["раковина","таз","басейн"]},
+  {en:"probe",ua:"зонд",uaAlt:["досліджувати","розслідування","щуп"]},
+  {en:"dental",ua:"зубний",uaAlt:["стоматологічний"]},
+  {en:"to floss",ua:"чистити зубною ниткою"},
+  {en:"to rinse",ua:"полоскати",uaAlt:["споліскувати","промивати"]},
+  {en:"retina",ua:"сітківка"},
+  {en:"cornea",ua:"рогівка"},
+  {en:"lens",ua:"лінза",uaAlt:["об'єктив","кришталик"]},
+  {en:"eyeball",ua:"очне яблуко"},
+  {en:"optometrist",ua:"оптометрист",uaAlt:["окуліст"]},
+  {en:"nearsighted",ua:"короткозорий",enAlt:["short-sighted"]},
+  {en:"farsighted",ua:"далекозорий",enAlt:["long-sighted"]},
+  {en:"cataract",ua:"катаракта"},
+  {en:"glasses",ua:"окуляри",enAlt:["spectacles"]},
+  {en:"reading glasses",ua:"окуляри для читання"},
+  {en:"sunglasses",ua:"сонцезахисні окуляри",uaAlt:["темні окуляри"]},
+  {en:"contact lenses",ua:"контактні лінзи"},
+  {en:"eye drops",ua:"очні краплі"},
+  {en:"lens case",ua:"футляр для лінз"}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -4621,7 +4653,38 @@ const TRANS = {
   "cancer":"/ˈkænsər/",
   "therapy":"/ˈθɛrəpi/",
   "kit":"/kɪt/",
-  "length":"/lɛŋθ/"
+  "length":"/lɛŋθ/",
+  "filling":"/ˈfɪlɪŋ/",
+  "plaque":"/plæk/",
+  "decay":"/dɪˈkeɪ/",
+  "cavity":"/ˈkævəti/",
+  "extraction":"/ɪkˈstrækʃən/",
+  "baby teeth":"/ˈbeɪbi tiːθ/",
+  "braces":"/ˈbreɪsɪz/",
+  "dentures":"/ˈdɛntʃərz/",
+  "drill":"/drɪl/",
+  "dental floss":"/ˈdɛntəl flɔːs/",
+  "dental hygienist":"/ˈdɛntəl haɪˈdʒiːnɪst/",
+  "whitening":"/ˈwaɪtənɪŋ/",
+  "basin":"/ˈbeɪsən/",
+  "probe":"/proʊb/",
+  "dental":"/ˈdɛntəl/",
+  "to floss":"/flɔːs/",
+  "to rinse":"/rɪns/",
+  "retina":"/ˈrɛtɪnə/",
+  "cornea":"/ˈkɔːrniə/",
+  "lens":"/lɛnz/",
+  "eyeball":"/ˈaɪbɔːl/",
+  "optometrist":"/ɑːpˈtɑːmətrɪst/",
+  "nearsighted":"/ˌnɪrˈsaɪtɪd/",
+  "farsighted":"/ˌfɑːrˈsaɪtɪd/",
+  "cataract":"/ˈkætərækt/",
+  "glasses":"/ˈɡlæsɪz/",
+  "reading glasses":"/ˈriːdɪŋ ˈɡlæsɪz/",
+  "sunglasses":"/ˈsʌnɡlæsɪz/",
+  "contact lenses":"/ˈkɑːntækt ˈlɛnzɪz/",
+  "eye drops":"/ˈaɪ drɑːps/",
+  "lens case":"/ˈlɛnz keɪs/"
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -7051,7 +7114,38 @@ const EXAMPLES = {
   "cancer":"Doctors found the cancer at an early stage.",
   "therapy":"Speech therapy helped the boy talk clearly.",
   "kit":"Keep a first aid kit in the car.",
-  "length":"The length of the room is five meters."
+  "length":"The length of the room is five meters.",
+  "filling":"The dentist put a filling in her tooth.",
+  "plaque":"Brushing removes plaque from your teeth.",
+  "decay":"Sugar leads to tooth decay.",
+  "cavity":"The dentist found a small cavity.",
+  "extraction":"The extraction took only ten minutes.",
+  "baby teeth":"Children lose their baby teeth at six or seven.",
+  "braces":"She wore braces for two years.",
+  "dentures":"His grandfather cleans his dentures every night.",
+  "drill":"The sound of the drill made him nervous.",
+  "dental floss":"Dental floss cleans between the teeth.",
+  "dental hygienist":"The dental hygienist showed him how to brush.",
+  "whitening":"Whitening made her smile brighter.",
+  "basin":"He filled the basin with warm water.",
+  "probe":"The dentist checked the tooth with a probe.",
+  "dental":"She works in a dental clinic.",
+  "to floss":"You should floss your teeth every day.",
+  "to rinse":"Rinse your mouth with warm water.",
+  "retina":"The doctor looked at the retina of his eye.",
+  "cornea":"The cornea covers the front of the eye.",
+  "lens":"He cleaned the lens of his camera.",
+  "eyeball":"The muscles move the eyeball in every direction.",
+  "optometrist":"The optometrist tested her eyes.",
+  "nearsighted":"A nearsighted person cannot read distant signs.",
+  "farsighted":"My farsighted father reads without glasses.",
+  "cataract":"An operation removed the cataract.",
+  "glasses":"He cannot drive without his glasses.",
+  "reading glasses":"She keeps her reading glasses by the bed.",
+  "sunglasses":"Wear sunglasses on a bright day.",
+  "contact lenses":"Contact lenses are easier for sport.",
+  "eye drops":"Use these eye drops twice a day.",
+  "lens case":"Keep your lenses in a clean lens case."
 };
 
 const EXAMPLES_UA = {
@@ -9480,7 +9574,38 @@ const EXAMPLES_UA = {
   "cancer":"Лікарі виявили рак на ранній стадії.",
   "therapy":"Мовна терапія допомогла хлопцеві говорити чітко.",
   "kit":"Тримай аптечку в машині.",
-  "length":"Довжина кімнати — п'ять метрів."
+  "length":"Довжина кімнати — п'ять метрів.",
+  "filling":"Стоматолог поставив їй пломбу в зуб.",
+  "plaque":"Чищення видаляє зубний наліт із зубів.",
+  "decay":"Цукор призводить до карієсу.",
+  "cavity":"Стоматолог знайшов невелике дупло.",
+  "extraction":"Видалення зуба зайняло лише десять хвилин.",
+  "baby teeth":"Діти втрачають молочні зуби в шість-сім років.",
+  "braces":"Вона носила брекети два роки.",
+  "dentures":"Його дідусь чистить зубні протези щовечора.",
+  "drill":"Звук бормашини нервував його.",
+  "dental floss":"Зубна нитка чистить між зубами.",
+  "dental hygienist":"Зубний гігієніст показав йому, як чистити зуби.",
+  "whitening":"Відбілювання зробило її усмішку яскравішою.",
+  "basin":"Він наповнив умивальник теплою водою.",
+  "probe":"Стоматолог перевірив зуб зондом.",
+  "dental":"Вона працює в зубній клініці.",
+  "to floss":"Тобі варто чистити зуби ниткою щодня.",
+  "to rinse":"Прополощи рот теплою водою.",
+  "retina":"Лікар оглянув сітківку його ока.",
+  "cornea":"Рогівка вкриває передню частину ока.",
+  "lens":"Він протер об'єктив своєї камери.",
+  "eyeball":"М'язи рухають очне яблуко в усіх напрямках.",
+  "optometrist":"Оптометрист перевірив її очі.",
+  "nearsighted":"Короткозора людина не може прочитати далекі знаки.",
+  "farsighted":"Мій далекозорий батько читає без окулярів.",
+  "cataract":"Операція усунула катаракту.",
+  "glasses":"Він не може водити без своїх окулярів.",
+  "reading glasses":"Вона тримає окуляри для читання біля ліжка.",
+  "sunglasses":"Носи сонцезахисні окуляри в яскравий день.",
+  "contact lenses":"Контактні лінзи зручніші для спорту.",
+  "eye drops":"Використовуй ці очні краплі двічі на день.",
+  "lens case":"Тримай лінзи в чистому футлярі для лінз."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -11257,6 +11382,8 @@ const EN_TO_UA = (() => {
   m.set("ray",         ["промінь"]);            // компонент X-ray
   m.set("brace",       ["фіксатор", "розпірка"]); // компонент neck brace
   m.set("compressions",["натискання"]);   // компонент chest compressions
+  m.set("hygienist",   ["гігієніст"]);      // компонент dental hygienist
+  m.set("easier",      ["легший", "простіший"]);  // стемер не зводить порівняльний ступінь
   m.set("jumper",      ["светр"]);
   m.set("tank",        ["бак", "танк"]);        // компонент tank top
   m.set("polo",        ["поло"]);               // компонент polo shirt
