@@ -506,6 +506,7 @@
   #gpt-btn { background: rgba(45,212,191,0.12) !important; border-color: rgba(45,212,191,0.35) !important; color: #2dd4bf !important; }
   #gpt-btn:hover { background: rgba(45,212,191,0.24) !important; color: #5ee9d6 !important; border-color: rgba(45,212,191,0.6) !important; }
   #gpt-count { display:inline-block; background:rgba(45,212,191,0.22); color:#2dd4bf; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
+  #selfrev-count { display:inline-block; background:rgba(135,180,255,0.22); color:#87b4ff; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
   #gpt-plus { padding:5px 10px !important; color:#2dd4bf !important; }
   #gpt-plus:hover { color:#5ee9d6 !important; border-color:rgba(45,212,191,0.6) !important; background:rgba(45,212,191,0.18) !important; }
   #gpt-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
@@ -1489,7 +1490,7 @@
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
   </div>
   <div id="selfrev-wrap">
-    <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив)">🧠 Повторив<span id="selfrev-count" style="display:none"></span></button>
+    <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив)">📚 Повторив<span id="selfrev-count" style="display:none"></span></button>
     <button id="selfrev-plus" title="Відмітити самостійне повторення (+1 пункт «Плани», +15 XP)">+</button>
     <button id="selfrev-minus" title="Скасувати останнє повторення (лише сьогодні)">−</button>
   </div>
@@ -13255,7 +13256,7 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // 📒 ПУНКТИ помилок (кожен = 15 закритих слів), а не самі слова — mrPts уже
   // порахований через mistakeReviewPointsByDate (перенесення залишку між днями).
   xp += ((mrPts && mrPts[date]) || 0) * MISTAKE_REVIEW_XP;
-  xp += ((selfRev && selfRev[date]) || 0) * SELF_REVIEW_XP;   // 🧠 самостійні повторення (сесія 40)
+  xp += ((selfRev && selfRev[date]) || 0) * SELF_REVIEW_XP;   // 📚 самостійні повторення (сесія 40)
   return xp;
 }
 function computeXpFromStats() {
@@ -13571,7 +13572,8 @@ function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev) {
   if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
   if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
   if (movies > 0) h += _pgCell("🎬", movies, "prog-movie");
-  if (selfRev > 0) h += _pgCell("🧠", selfRev, "prog-selfrev");
+  // ⚠️ НЕ 📚 — той значок у цьому ж рядку означає уроки LingoHut (сесія 40)
+  if (selfRev > 0) h += _pgCell("📖", selfRev, "prog-selfrev");
   if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
   if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
   return h;
@@ -14365,7 +14367,7 @@ function renderLbTotals() {
     row("🎵", "Пісень вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
     row("🎧", "Пісні англійською", getTotalSongSessions(), "#c89bff") +
     row("🎬", "Кіно англійською", getTotalMovieSessions(), "#ffa94d") +
-    row("🧠", "Самостійні повторення", getTotalSelfReviews(), "#87b4ff") +
+    row("📖", "Самостійні повторення", getTotalSelfReviews(), "#87b4ff") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
       '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
@@ -14445,7 +14447,7 @@ function gptPointsByDate(gpt) {
 }
 
 // Сирі пункти за конкретний день (гра / Duolingo / LingoHut / пісні / GPT / помилки).
-// ── 🧠 Самостійні повторення (сесія 40, за запитом) ─────────────────────────
+// ── 📚 Самостійні повторення (сесія 40, за запитом) ─────────────────────────
 // Користувач часто просто переглядає список «Вивчаю» і повторює слова про себе —
 // ця робота ніде не фіксувалась. Тепер її можна відмітити вручну кнопкою «+».
 // ⚠️ Ставка = як у пункта «📒 Помилки» (рішення користувача: «це аналог, стільки ж
@@ -14469,7 +14471,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, sel
   pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
   pts += ((movies && movies[date]) || 0) * 2;   // 🎬 кіно: 2 пункти за сеанс (сесія 39; було 1 у сесії 36)
-  pts += ((selfRev && selfRev[date]) || 0) * 1; // 🧠 самостійне повторення: 1 пункт (сесія 40)
+  pts += ((selfRev && selfRev[date]) || 0) * 1; // 📚 самостійне повторення: 1 пункт (сесія 40)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
@@ -15554,7 +15556,7 @@ if (!localStorage.getItem("oxford_xp_formula_v14")) {
     const _ss     = loadSongSessions();
     const _mv     = loadMovieSessions();
     const _mrPts  = mistakeReviewPointsByDate(loadMistakeReviews());   // ПУНКТИ, не слова
-    const _sr     = loadSelfReviews();                                 // 🧠 повторення (сесія 40)
+    const _sr     = loadSelfReviews();                                 // 📚 повторення (сесія 40)
     const _awarded = loadSongsXpAwarded();
     const _allDates = new Set([
       ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
