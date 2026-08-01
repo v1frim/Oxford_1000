@@ -1805,7 +1805,7 @@ const WORDS = [
   {en:"answer",ua:"відповідь",uaAlt:["відповідати"]},{en:"question",ua:"питання",uaAlt:["запитання","питати"]},{en:"reason",ua:"причина",uaAlt:["підстава","розум"]},
   {en:"result",ua:"результат",uaAlt:["наслідок"]},{en:"example",ua:"приклад",uaAlt:["зразок"]},{en:"information",ua:"інформація",uaAlt:["відомості","дані"]},
   {en:"news",ua:"новини",uaAlt:["новина","звістка"]},{en:"newspaper",ua:"газета"},{en:"story",ua:"розповідь",uaAlt:["історія","оповідання","сюжет"]},{en:"truth",ua:["правда","істина"]},
-  {en:"lie",ua:"брехня",uaAlt:["брехати","лежати"]},{en:"dream",ua:"мрія",uaAlt:["сон","мріяти","снитися"]},{en:"hope",ua:"надія",uaAlt:["сподіватися","надіятися"]},
+  {en:"lie",ua:"брехня",uaAlt:["неправда","обман","вигадка"]},{en:"dream",ua:"мрія",uaAlt:["сон","мріяти","снитися"]},{en:"hope",ua:"надія",uaAlt:["сподіватися","надіятися"]},
   {en:"fear",ua:"страх",uaAlt:["боятися","острах","побоювання"]},{en:"love",ua:"кохання",uaAlt:["любов","любити"]},{en:"hate",ua:["ненависть","ненавидіти"]},
   {en:"joy",ua:"радість",uaAlt:["втіха"]},{en:"sadness",ua:"сум",uaAlt:["смуток","печаль"]},{en:"anger",ua:"злість",uaAlt:["гнів","лють"]},
   {en:"peace",ua:"мир",uaAlt:["спокій"]},{en:"war",ua:"війна"},{en:"freedom",ua:"свобода",uaAlt:["воля"]},
@@ -2143,7 +2143,7 @@ const WORDS = [
   {en:"spring",ua:"пружина"},{en:"kind",ua:"тип"},{en:"bank",ua:"берег"},
   {en:"to book",ua:"бронювати"},{en:"orange",ua:"помаранчевий"},{en:"watch",ua:"годинник"},
   {en:"to wave",ua:"махати"},{en:"to ring",ua:"дзвонити"},{en:"to point",ua:"показувати"},
-  {en:"close",ua:"близький"},{en:"to lie",ua:"лежати"},{en:"to bear",ua:["терпіти","зносити"],uaAlt:["витримувати","стерпіти","нести","виносити"]},
+  {en:"close",ua:"близький"},{en:"to lie",ua:["лежати","брехати"],uaAlt:["прилягти","обманювати","говорити неправду"]},{en:"to bear",ua:["терпіти","зносити"],uaAlt:["витримувати","стерпіти","нести","виносити"]},
   {en:"cool",ua:"крутий"},{en:"hot",ua:"гострий"},{en:"play",ua:"п'єса"},
   {en:"to season",ua:"приправляти"},{en:"to last",ua:"тривати"},{en:"fair",ua:"ярмарок",uaAlt:["справедливий","чесний","виставка"]},
   // ── NEW POLYSEMOUS WORDS (each meaning as separate entry) ──
@@ -5449,6 +5449,7 @@ const EXAMPLES = {
   "point:показувати":"Don't point at people — it's rude.",
   "close:близький":"My house is close to the school.",
   "lie:лежати":"I want to lie down for a moment.",
+  "to lie:брехати":"He would never lie to his friends.",
   "bear:терпіти":"I can't bear this loud noise.",
   "cool:крутий":"That's a really cool car!",
   "hot:гострий":"This curry is too hot for me.",
@@ -7477,7 +7478,7 @@ const EXAMPLES_UA = {
   "reason":"Назви одну вагому причину.","result":"Результати тесту були позитивні.",
   "example":"Наведи мені приклад.","information":"Мені потрібно більше інформації.",
   "news":"Чув останні новини?","story":"Розкажи мені історію.",
-  "truth":"Правда завжди виходить назовні.","lie":"Не бреши.",
+  "truth":"Правда завжди виходить назовні.","lie":"Не кажи неправди.",
   "dream":"Слідуй за своєю мрією.","hope":"Ніколи не втрачай надію.",
   "fear":"Страх невдачі зупиняє багатьох людей.","hate":"Ненависть шкодить лише тобі.",
   "joy":"Дитина принесла їй велику радість.","sadness":"У його очах був смуток.",
@@ -7913,6 +7914,7 @@ const EXAMPLES_UA = {
   "point:показувати":"Не показуй на людей — це нечемно.",
   "close:близький":"Мій будинок близько до школи.",
   "lie:лежати":"Я хочу прилягти на хвилину.",
+  "to lie:брехати":"Він би ніколи не брехав своїм друзям.",
   "bear:терпіти":"Я не можу терпіти цей гучний шум.",
   "cool:крутий":"Це дуже крута машина!",
   "hot:гострий":"Це каррі занадто гостре для мене.",
@@ -9693,7 +9695,20 @@ const EXPRESSIONS = [
   {en:"gonna", ua:"збиратися (розм.)", note:"розмовне скорочення going to — про намір чи майбутнє"},
   {en:"ain't", ua:"не є (розм.)", note:"розмовне заперечення: замінює am not / is not / are not / have not"},
   {en:"lil'", ua:"маленький (розм.)", note:"скорочене little; часто у прізвиськах — Lil Wayne"},
-  {en:"ya", ua:"ти, твій (розм.)", note:"розмовне you / your у піснях і мовленні"}
+  {en:"ya", ua:"ти, твій (розм.)", note:"розмовне you / your у піснях і мовленні"},
+  // медичні звороти й колокації (сесія 40) — конструкції, а не окремі слова
+  {en:"to have surgery", ua:"перенести операцію", note:"= undergo surgery; після have — БЕЗ артикля: «have surgery», але «have AN operation»"},
+  {en:"to undergo surgery", ua:"пройти операцію", note:"формальніше за have surgery — у медичних текстах і новинах"},
+  {en:"to operate on somebody", ua:"оперувати когось", note:"operate вимагає прийменника ON: «they operated on him», не «operated him»"},
+  {en:"to catch a cold", ua:"застудитися", note:"саме catch, а не take чи get a cold"},
+  {en:"to run a fever", ua:"мати температуру", note:"= have a fever; про підвищену температуру тіла"},
+  {en:"to be on medication", ua:"приймати ліки", note:"про курс лікування, призначений лікарем"},
+  {en:"to get better", ua:"одужувати", note:"також про поліпшення в чомусь загалом: «my English is getting better»"},
+  {en:"to feel under the weather", ua:"почуватися недобре", note:"м'яко про легке нездужання; погода тут ні до чого"},
+  {en:"to take somebody's temperature", ua:"виміряти комусь температуру", note:"take, а не measure — це стала форма"},
+  {en:"to make an appointment", ua:"записатися на прийом", note:"до лікаря, стоматолога, перукаря"},
+  {en:"to be in good shape", ua:"бути у формі", note:"про здоров'я і фізичний стан"},
+  {en:"to pull through", ua:"одужати після тяжкого", note:"вижити, попри серйозну хворобу чи травму"}
 ];
 
 const DEFS = {
