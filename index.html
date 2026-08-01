@@ -1490,8 +1490,8 @@
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
   </div>
   <div id="selfrev-wrap">
-    <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив)">📚 Повторив<span id="selfrev-count" style="display:none"></span></button>
-    <button id="selfrev-plus" title="Відмітити самостійне повторення (+1 пункт «Плани», +15 XP)">+</button>
+    <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив слова)">📚 Повторив<span id="selfrev-count" style="display:none"></span></button>
+    <button id="selfrev-plus" title="Відмітити повторення слів (+1 пункт «Плани», +15 XP)">+</button>
     <button id="selfrev-minus" title="Скасувати останнє повторення (лише сьогодні)">−</button>
   </div>
   <div id="movie-wrap">
@@ -13256,7 +13256,7 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // 📒 ПУНКТИ помилок (кожен = 15 закритих слів), а не самі слова — mrPts уже
   // порахований через mistakeReviewPointsByDate (перенесення залишку між днями).
   xp += ((mrPts && mrPts[date]) || 0) * MISTAKE_REVIEW_XP;
-  xp += ((selfRev && selfRev[date]) || 0) * SELF_REVIEW_XP;   // 📚 самостійні повторення (сесія 40)
+  xp += ((selfRev && selfRev[date]) || 0) * SELF_REVIEW_XP;   // 📚 повторення слів (сесія 40)
   return xp;
 }
 function computeXpFromStats() {
@@ -14367,7 +14367,7 @@ function renderLbTotals() {
     row("🎵", "Пісень вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
     row("🎧", "Пісні англійською", getTotalSongSessions(), "#c89bff") +
     row("🎬", "Кіно англійською", getTotalMovieSessions(), "#ffa94d") +
-    row("📖", "Самостійні повторення", getTotalSelfReviews(), "#87b4ff") +
+    row("📖", "Повторення слів", getTotalSelfReviews(), "#87b4ff") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
       '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
@@ -14447,7 +14447,7 @@ function gptPointsByDate(gpt) {
 }
 
 // Сирі пункти за конкретний день (гра / Duolingo / LingoHut / пісні / GPT / помилки).
-// ── 📚 Самостійні повторення (сесія 40, за запитом) ─────────────────────────
+// ── 📚 Повторення слів (сесія 40, за запитом) ───────────────────────────────
 // Користувач часто просто переглядає список «Вивчаю» і повторює слова про себе —
 // ця робота ніде не фіксувалась. Тепер її можна відмітити вручну кнопкою «+».
 // ⚠️ Ставка = як у пункта «📒 Помилки» (рішення користувача: «це аналог, стільки ж
@@ -14471,7 +14471,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, sel
   pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
   pts += ((movies && movies[date]) || 0) * 2;   // 🎬 кіно: 2 пункти за сеанс (сесія 39; було 1 у сесії 36)
-  pts += ((selfRev && selfRev[date]) || 0) * 1; // 📚 самостійне повторення: 1 пункт (сесія 40)
+  pts += ((selfRev && selfRev[date]) || 0) * 1; // 📚 повторення слів: 1 пункт (сесія 40)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
