@@ -16079,18 +16079,21 @@ function computeRecords() {
   const c = _maxOf(days, x => x.correct || 0);
   const t = _maxOf(days, x => (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0));
   const r = _maxOf(days, x => x.reviewCorrect || 0);
+  // ⚠️ ПОРЯДОК дзеркалить «Загальну статистику» (#lb-totals) — за запитом користувача:
+  // ігри → відповіді → правильні → повторення → Duolingo → GPT → заняття піснями,
+  // далі похідні (mastery) і накопичувальні XP/пункти. Змінюєш один список — синхронізуй обидва.
   return [
+    { id: "games",    ic: "🎮", label: "Ігор за день",             ...g, color: "#ffd166" },
+    { id: "answers",  ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
+    { id: "correct",  ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
+    { id: "review",   ic: "🔁", label: "Повторень за день",        ...r, color: "#87b4ff" },
+    { id: "duo",      ic: "🦉", label: "Duolingo за день",         ..._maxOf(duo), color: "#7fdd40" },
+    { id: "gpt",      ic: "🤖", label: "Запитів GPT за день",      ..._maxOf(gpt), color: "#2dd4bf" },
+    { id: "songsess", ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
     { id: "know",     ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
     { id: "learn",    ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
     { id: "xp",       ic: "⚡", label: "Досвіду (XP) за день · без пісень", ..._maxOf(xpNoSongs), color: "#ffd166" },
-    { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" },
-    { id: "correct",  ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
-    { id: "answers",  ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
-    { id: "games",    ic: "🎮", label: "Ігор за день",             ...g, color: "#ffd166" },
-    { id: "review",   ic: "🔁", label: "Повторень за день",        ...r, color: "#87b4ff" },
-    { id: "duo",      ic: "🦉", label: "Duolingo за день",         ..._maxOf(duo), color: "#7fdd40" },
-    { id: "songsess", ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
-    { id: "gpt",      ic: "🤖", label: "Запитів GPT за день",      ..._maxOf(gpt), color: "#2dd4bf" }
+    { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" }
   ];
 }
 
