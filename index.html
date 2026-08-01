@@ -498,6 +498,11 @@
   #duo-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #duo-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   #gpt-wrap { display: flex; gap: 4px; width: 100%; }
+  #selfrev-wrap { display: flex; gap: 4px; width: 100%; }
+  #selfrev-plus { padding:5px 10px !important; color:#87b4ff !important; }
+  #selfrev-plus:hover { color:#a9c9ff !important; border-color:rgba(135,180,255,0.6) !important; background:rgba(135,180,255,0.18) !important; }
+  #selfrev-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
+  #selfrev-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   #gpt-btn { background: rgba(45,212,191,0.12) !important; border-color: rgba(45,212,191,0.35) !important; color: #2dd4bf !important; }
   #gpt-btn:hover { background: rgba(45,212,191,0.24) !important; color: #5ee9d6 !important; border-color: rgba(45,212,191,0.6) !important; }
   #gpt-count { display:inline-block; background:rgba(45,212,191,0.22); color:#2dd4bf; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
@@ -521,6 +526,7 @@
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
   .prog-gpt { font-size: 12px; color: #2dd4bf; opacity: 0.95; font-weight: 600; margin-left: 5px; }
+  .prog-selfrev { font-size: 12px; color: #87b4ff; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
   .prog-date { color: rgba(255,255,255,0.68); font-size: 13px; flex: 1 1 auto; min-width: 0; }
@@ -1481,6 +1487,11 @@
     <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
     <button id="gpt-plus" title="Додати запит GPT (+1, +15 XP)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
+  </div>
+  <div id="selfrev-wrap">
+    <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив)">🧠 Повторив<span id="selfrev-count" style="display:none"></span></button>
+    <button id="selfrev-plus" title="Відмітити самостійне повторення (+1 пункт «Плани», +15 XP)">+</button>
+    <button id="selfrev-minus" title="Скасувати останнє повторення (лише сьогодні)">−</button>
   </div>
   <div id="movie-wrap">
     <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
@@ -13024,7 +13035,8 @@ const BACKUP_KEYS = [
   "oxford_word_mastery_v1","oxford_mastery_history_v1",
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
-  "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1"
+  "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
+  "oxford_self_reviews_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -13197,7 +13209,7 @@ function computeRetroXp() {
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + 3·ΔВивчаю + 8·ΔЗнаю + Duolingo×30 + LingoHut(50/75/100)
 //          + GPT×15 + 🎧×20 + 🎬×40 + 📒пункти×15.
-function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts) {
+function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev) {
   let xp = 0;
   const d = days[date] || {};
   xp += (d.correct || 0);          // correct answers in regular games
@@ -13228,6 +13240,7 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // 📒 ПУНКТИ помилок (кожен = 15 закритих слів), а не самі слова — mrPts уже
   // порахований через mistakeReviewPointsByDate (перенесення залишку між днями).
   xp += ((mrPts && mrPts[date]) || 0) * MISTAKE_REVIEW_XP;
+  xp += ((selfRev && selfRev[date]) || 0) * SELF_REVIEW_XP;   // 🧠 самостійні повторення (сесія 40)
   return xp;
 }
 function computeXpFromStats() {
@@ -13240,12 +13253,13 @@ function computeXpFromStats() {
   const songSess = loadSongSessions();
   const movies  = loadMovieSessions();
   const mrPts   = mistakeReviewPointsByDate(loadMistakeReviews());
+  const selfRev = loadSelfReviews();
   const allDates = new Set([
     ...Object.keys(days), ...hdates, ...Object.keys(duo), ...Object.values(lhDone), ...Object.keys(gpt),
-    ...Object.keys(songSess), ...Object.keys(movies), ...Object.keys(mrPts)
+    ...Object.keys(songSess), ...Object.keys(movies), ...Object.keys(mrPts), ...Object.keys(selfRev)
   ]);
   let xp = 0;
-  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts); });
+  allDates.forEach(date => { xp += computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev); });
   return xp;
 }
 const XP_DAY_KEY = "oxford_xp_day_v1";  // per-day XP gain {date: xp}; do NOT remove (used by trackDayXp/getDayXpGain/migration)
@@ -13522,25 +13536,27 @@ function _progAggregate(dates, history, allDates, days) {
   const firstIdx = allDates.indexOf(dates[0]);
   const prev = firstIdx > 0 ? history[allDates[firstIdx-1]] : {k:0,l:0,t:WORDS.length};
   const last = history[dates[dates.length-1]] || prev;
-  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0;
+  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0, selfRev = 0;
   const duoSessions = loadDuoSessions();
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
   const movieSessions = loadMovieSessions();
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; }
+  const selfReviews = loadSelfReviews();
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; selfRev += selfReviews[d] || 0; }
   const dateSet = new Set(dates);
   const lh    = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const songs = Object.values(loadSongsXpAwarded()).filter(v => dateSet.has(v)).length;
   const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
-  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt, movies };
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt, movies, selfRev };
 }
-function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies) {
+function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev) {
   let h = "";
   if (games > 0) h += _pgCell("🎮", games, "prog-games");
   if (duo > 0)   h += _pgCell("🦉", duo, "prog-duo");
   if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
   if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
   if (movies > 0) h += _pgCell("🎬", movies, "prog-movie");
+  if (selfRev > 0) h += _pgCell("🧠", selfRev, "prog-selfrev");
   if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
   if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
   return h;
@@ -13573,6 +13589,7 @@ function renderProgressPanel() {
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
   const movieSessions = loadMovieSessions();
+  const selfReviews = loadSelfReviews();
   const recentCount = 7;
   const recentDates = [...allDates].reverse().slice(0, recentCount); // newest first
 
@@ -13589,7 +13606,8 @@ function renderProgressPanel() {
     const songSess = songSessions[date] || 0;
     const gpt = gptRequests[date] || 0;
     const movies = movieSessions[date] || 0;
-    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies);
+    const selfRev = selfReviews[date] || 0;
+    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt, date);
     const xpGain = getDayXpGain(date);
@@ -13605,9 +13623,9 @@ function renderProgressPanel() {
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
-      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt, movies} = _progAggregate(groups[k], history, allDates, days);
+      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt, movies, selfRev} = _progAggregate(groups[k], history, allDates, days);
       return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) + '</span>' +
-        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies) + '</span>' +
+        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev) + '</span>' +
         '<span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
@@ -14332,6 +14350,7 @@ function renderLbTotals() {
     row("🎵", "Пісень вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
     row("🎧", "Пісні англійською", getTotalSongSessions(), "#c89bff") +
     row("🎬", "Кіно англійською", getTotalMovieSessions(), "#ffa94d") +
+    row("🧠", "Самостійні повторення", getTotalSelfReviews(), "#87b4ff") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
       '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
@@ -14411,7 +14430,23 @@ function gptPointsByDate(gpt) {
 }
 
 // Сирі пункти за конкретний день (гра / Duolingo / LingoHut / пісні / GPT / помилки).
-function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies) {
+// ── 🧠 Самостійні повторення (сесія 40, за запитом) ─────────────────────────
+// Користувач часто просто переглядає список «Вивчаю» і повторює слова про себе —
+// ця робота ніде не фіксувалась. Тепер її можна відмітити вручну кнопкою «+».
+// ⚠️ Ставка = як у пункта «📒 Помилки» (рішення користувача: «це аналог, стільки ж
+// і повинно давати»): 1 повторення = 1 пункт «Плани» + SELF_REVIEW_XP.
+// ⚠️ Оголошено ПЕРЕД thermo-функціями (як GPT/songsess) — інакше TDZ на старті.
+const SELF_REVIEW_KEY = "oxford_self_reviews_v1";   // {date: count}
+const SELF_REVIEW_XP = 15;                          // = MISTAKE_REVIEW_XP (пункт «📒 Помилки»)
+function loadSelfReviews() {
+  try { return JSON.parse(localStorage.getItem(SELF_REVIEW_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveSelfReviews(obj) { localStorage.setItem(SELF_REVIEW_KEY, JSON.stringify(obj)); }
+function getTotalSelfReviews() {
+  return Object.values(loadSelfReviews()).reduce((sum, n) => sum + n, 0);
+}
+
+function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, selfRev) {
   let pts = 0;
   if (days[date]) pts += days[date].games || 0;
   pts += duo[date] || 0;
@@ -14419,6 +14454,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies) {
   pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
   pts += ((movies && movies[date]) || 0) * 2;   // 🎬 кіно: 2 пункти за сеанс (сесія 39; було 1 у сесії 36)
+  pts += ((selfRev && selfRev[date]) || 0) * 1; // 🧠 самостійне повторення: 1 пункт (сесія 40)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
   return pts;
 }
@@ -14426,7 +14462,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies) {
 // недороблений хвіст (1–3 пункти) переходить на наступний день — ланцюжком через
 // усі минулі дні (порожні дні залишок не міняють). Тобто 7 пунктів учора → +3
 // сьогодні, 13 → +1 і т.д. Без окремого сховища: рахується з уже збережених даних.
-function getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies) {
+function getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies, selfRev) {
   const dates = new Set();
   Object.keys(days).forEach(d => dates.add(d));
   Object.keys(duo).forEach(d => dates.add(d));
@@ -14434,10 +14470,11 @@ function getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies) {
   Object.keys(gpt).forEach(d => dates.add(d));
   if (mrPts) Object.keys(mrPts).forEach(d => dates.add(d));
   if (movies) Object.keys(movies).forEach(d => dates.add(d));
+  if (selfRev) Object.keys(selfRev).forEach(d => dates.add(d));
   Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
   const past = [...dates].filter(d => d < today).sort();
   let carry = 0;
-  for (const d of past) carry = (carry + thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies)) % 4;
+  for (const d of past) carry = (carry + thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies, selfRev)) % 4;
   return carry;
 }
 function getThermoPointsToday() {
@@ -14449,7 +14486,8 @@ function getThermoPointsToday() {
   const gpt   = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
   const movies = loadMovieSessions();
-  return getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies) + thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts, movies);
+  const selfRev = loadSelfReviews();
+  return getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies, selfRev) + thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts, movies, selfRev);
 }
 
 // ── Денні milestone-вітання за пунктами «термометра» (раніше — за к-стю ігор) ──
@@ -14489,6 +14527,7 @@ function thermoPointsThisMonth() {
   const gpt  = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
   const movies = loadMovieSessions();
+  const selfRev = loadSelfReviews();
   const dates = new Set();
   Object.keys(days).forEach(d => dates.add(d));
   Object.keys(duo).forEach(d => dates.add(d));
@@ -14496,9 +14535,10 @@ function thermoPointsThisMonth() {
   Object.keys(gpt).forEach(d => dates.add(d));
   Object.keys(mrPts).forEach(d => dates.add(d));
   Object.keys(movies).forEach(d => dates.add(d));
+  Object.keys(selfRev).forEach(d => dates.add(d));
   Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
   let pts = 0;
-  dates.forEach(d => { if (d.slice(0, 7) === ym) pts += thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies); });
+  dates.forEach(d => { if (d.slice(0, 7) === ym) pts += thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies, selfRev); });
   return pts;
 }
 // Середня к-сть СИРИХ пунктів термометра за АКТИВНИЙ день (день із бодай 1 пунктом).
@@ -14508,6 +14548,7 @@ function avgThermoPerDay(monthOnly) {
         songSess = loadSongSessions(), gpt = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
   const movies = loadMovieSessions();
+  const selfRev = loadSelfReviews();
   const dates = new Set();
   Object.keys(days).forEach(d => dates.add(d));
   Object.keys(duo).forEach(d => dates.add(d));
@@ -14515,12 +14556,13 @@ function avgThermoPerDay(monthOnly) {
   Object.keys(gpt).forEach(d => dates.add(d));
   Object.keys(mrPts).forEach(d => dates.add(d));
   Object.keys(movies).forEach(d => dates.add(d));
+  Object.keys(selfRev).forEach(d => dates.add(d));
   Object.values(lh).forEach(d => { if (d && d.length === 10) dates.add(d); });
   const ym = new Date().toISOString().slice(0, 7);
   let sum = 0, n = 0;
   dates.forEach(d => {
     if (monthOnly && d.slice(0, 7) !== ym) return;
-    const pts = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies);
+    const pts = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies, selfRev);
     if (pts > 0) { sum += pts; n++; }
   });
   return n ? sum / n : 0;
@@ -14571,8 +14613,9 @@ function renderThermo() {
   const gpt   = loadGptRequests();
   const mrPts = mistakeReviewPointsByDate(loadMistakeReviews());
   const movies = loadMovieSessions();
-  const carryIn  = getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies); // перенесене з минулих днів (0–3)
-  const todayRaw = thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts, movies); // зароблене саме сьогодні
+  const selfRev = loadSelfReviews();
+  const carryIn  = getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies, selfRev); // перенесене з минулих днів (0–3)
+  const todayRaw = thermoRawForDate(today, days, duo, lh, songSess, gpt, mrPts, movies, selfRev); // зароблене саме сьогодні
   const pts   = carryIn + todayRaw;
   const plans = Math.floor(pts / 4);
   const topMark = 16;          // фіксована верхня мітка (мітки 4, 8, 12, 16)
@@ -14923,6 +14966,36 @@ function renderMovieBtn() {
   plus.style.display = "";
   minus.style.display = count > 0 ? "" : "none";
 }
+function renderSelfRevBtn() {
+  const count = loadSelfReviews()[gptToday()] || 0;
+  const countEl = document.getElementById("selfrev-count");
+  countEl.textContent = count || "";
+  countEl.style.display = count > 0 ? "inline-block" : "none";
+  document.getElementById("selfrev-minus").style.display = count > 0 ? "" : "none";
+}
+// delta +1 / −1. «−» симетрично знімає стільки ж XP (як у GPT-кнопки).
+function countSelfReview(delta) {
+  const sr = loadSelfReviews();
+  const today = gptToday();
+  const cur = sr[today] || 0;
+  if (delta < 0 && cur <= 0) return;            // скасовувати можна лише сьогоднішні
+  if (cur + delta <= 0) delete sr[today]; else sr[today] = cur + delta;
+  saveSelfReviews(sr);
+  addXp(delta * SELF_REVIEW_XP);
+  renderSelfRevBtn();
+  renderXpBar();
+  renderThermo();
+  renderLbTotals();
+  renderProgressPanel();
+  checkThermoMilestones();
+  checkAchievements(true);
+}
+// ⚠️ Головна кнопка — ЛИШЕ відкриває список «Вивчаю» (навігація ≠ підрахунок, як у GPT/кіно):
+// переглянув слова → сам вирішуєш, чи це було повторення, і тиснеш «+».
+document.getElementById("selfrev-btn").addEventListener("click", () => openCategoryModal("learning"));
+document.getElementById("selfrev-plus").addEventListener("click", () => countSelfReview(1));
+document.getElementById("selfrev-minus").addEventListener("click", () => countSelfReview(-1));
+
 document.getElementById("movie-btn").addEventListener("click", () => {
   if (!movieUnlocked()) return;   // 🔒 ще заблоковано
   window.open("https://2sub.movie/", "_blank", "noopener");
@@ -15031,12 +15104,13 @@ function bestMonthPoints() {
   const days=loadDays(),duo=loadDuoSessions(),lh=loadLhDone(),songSess=loadSongSessions(),gpt=loadGptRequests();
   const mrPts=mistakeReviewPointsByDate(loadMistakeReviews());
   const movies=loadMovieSessions();
+  const selfRev=loadSelfReviews();
   const dates=new Set();
-  [days,duo,songSess,gpt,movies].forEach(o=>Object.keys(o).forEach(d=>dates.add(d)));
+  [days,duo,songSess,gpt,movies,selfRev].forEach(o=>Object.keys(o).forEach(d=>dates.add(d)));
   Object.keys(mrPts).forEach(d=>dates.add(d));
   Object.values(lh).forEach(d=>{ if(d&&d.length===10) dates.add(d); });
   const byMonth={};
-  dates.forEach(d=>{ const ym=d.slice(0,7); byMonth[ym]=(byMonth[ym]||0)+thermoRawForDate(d,days,duo,lh,songSess,gpt,mrPts,movies); });
+  dates.forEach(d=>{ const ym=d.slice(0,7); byMonth[ym]=(byMonth[ym]||0)+thermoRawForDate(d,days,duo,lh,songSess,gpt,mrPts,movies,selfRev); });
   let mx=0; for(const v of Object.values(byMonth)) if(v>mx) mx=v;
   return mx;
 }
@@ -15130,6 +15204,7 @@ function renderAchVariantA() {
 renderDuoBtn();
 renderSongSessBtn();
 renderGptBtn();
+renderSelfRevBtn();
 renderMovieBtn();
 
 renderLeaderboard();
@@ -15453,7 +15528,7 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
 // хвилин, тож на пристрої, де він уже спрацював, потрібен новий перерахунок.
 // Тіло як v10 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp), плюс нові
 // джерела в allDates. Ідемпотентна, прапор лише при успіху.
-if (!localStorage.getItem("oxford_xp_formula_v13")) {
+if (!localStorage.getItem("oxford_xp_formula_v14")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -15464,16 +15539,17 @@ if (!localStorage.getItem("oxford_xp_formula_v13")) {
     const _ss     = loadSongSessions();
     const _mv     = loadMovieSessions();
     const _mrPts  = mistakeReviewPointsByDate(loadMistakeReviews());   // ПУНКТИ, не слова
+    const _sr     = loadSelfReviews();                                 // 🧠 повторення (сесія 40)
     const _awarded = loadSongsXpAwarded();
     const _allDates = new Set([
       ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
       ...Object.keys(_gpt), ...Object.values(_awarded),
-      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mrPts)
+      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mrPts), ...Object.keys(_sr)
     ]);
     const _xpd = {};
     let _total = 0;
     _allDates.forEach(date => {
-      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts);
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts, _sr);
       if (v > 0) _xpd[date] = v;
       _total += v;
     });
@@ -15486,7 +15562,7 @@ if (!localStorage.getItem("oxford_xp_formula_v13")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
-    localStorage.setItem("oxford_xp_formula_v13", "1");
+    localStorage.setItem("oxford_xp_formula_v14", "1");
   } catch(e) {}
 }
 renderXpBar();
@@ -15973,12 +16049,13 @@ function computeRecords() {
   });
   // сирі пункти термометра по всіх датах
   const movies = loadMovieSessions();
+  const selfRev = loadSelfReviews();
   const allDates = new Set([...Object.keys(days), ...Object.keys(duo), ...Object.keys(songSess),
     ...Object.keys(gpt), ...Object.keys(mrPts), ...Object.values(lh).filter(d => d && d.length === 10),
-    ...Object.keys(movies)]);
+    ...Object.keys(movies), ...Object.keys(selfRev)]);
   let bestPts = { v: 0, d: null };
   allDates.forEach(d => {
-    const p = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies);
+    const p = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies, selfRev);
     if (p > bestPts.v) bestPts = { v: p, d };
   });
   const g = _maxOf(days, x => x.games || 0);
