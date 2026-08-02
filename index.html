@@ -1273,7 +1273,7 @@
     /* ⚠️ ФІКСОВАНА ширина + align-self, НЕ max-width: у колонковому flex рядок зі
        `margin-left:auto` стискався до контенту, тож ліві плашки виходили широкі,
        а праві — вузькі й різної довжини. Тепер обидві сторони однакові, зсув 10%. */
-    width: 76%; flex: 0 0 auto; align-self: flex-start;
+    width: 55%; flex: 0 0 auto; align-self: flex-start;
   }
   .rec-row.alt { flex-direction: row-reverse; text-align: right; align-self: flex-end; }
   .rec-row.alt .rec-main { text-align: right; }
@@ -1650,7 +1650,7 @@ const WORDS = [
   {en:"to report",ua:"повідомляти",uaAlt:["доповідати","звітувати"]},{en:"require",ua:"вимагати",uaAlt:["потребувати"]},{en:"search",ua:"шукати",uaAlt:["пошук","розшукувати"]},
   {en:"speak",ua:"говорити",uaAlt:["розмовляти","виступати"]},{en:"suggest",ua:"пропонувати",uaAlt:["радити","натякати"]},{en:"survive",ua:"виживати",uaAlt:["уціліти","переживати"]},
   {en:"trust",ua:"довіряти",uaAlt:["довіра","покладатися"]},{en:"warn",ua:"попереджати",uaAlt:["застерігати"]},{en:"wonder",ua:"дивуватися",uaAlt:["цікавитися","диво"]},
-  {en:"wake",ua:"прокидатися",uaAlt:["будити"]},{en:"to type",ua:"друкувати",uaAlt:["набирати"]},{en:"test",ua:["тестувати","тест"],uaAlt:["контрольна","перевіряти","перевірка"]},
+  {en:"wake",ua:"будити",uaAlt:["прокидатися","пробуджувати"]},{en:"to type",ua:"друкувати",uaAlt:["набирати"]},{en:"test",ua:["тестувати","тест"],uaAlt:["контрольна","перевіряти","перевірка"]},
 
   // ── NOUNS – Time ───────────────────────────────────────────────────────
   {en:"time",ua:"час",uaAlt:["раз","термін"]},{en:"year",ua:"рік"},{en:"month",ua:"місяць"},
@@ -2084,7 +2084,7 @@ const WORDS = [
   {en:"structure",ua:"структура",uaAlt:["будова","конструкція","споруда"]},{en:"style",ua:"стиль",uaAlt:["манера"]},{en:"topic",ua:"тема"},
   {en:"trouble",ua:"проблема",uaAlt:["біда","клопіт","неприємність"]},{en:"variety",ua:"різноманітність",uaAlt:["різновид","асортимент"]},{en:"version",ua:"версія",uaAlt:["варіант"]},
   {en:"victim",ua:"жертва",uaAlt:["потерпілий"]},{en:"view",ua:["вигляд","краєвид"],uaAlt:["вид","погляд","думка","перегляд","оглядати"]},{en:"violence",ua:"насилля",uaAlt:["насильство","жорстокість"]},
-  {en:"waste",ua:["відходи","витрачати","марнувати"]},{en:"zone",ua:"зона",uaAlt:["пояс","ділянка"]},{en:"meal",ua:["прийом їжі","трапеза"],uaAlt:["їжа","страва","харчування"]},
+  {en:"waste",ua:["відходи","витрачати","марнувати"]},{en:"trash",ua:"сміття",uaAlt:["мотлох"]},{en:"zone",ua:"зона",uaAlt:["пояс","ділянка"]},{en:"meal",ua:["прийом їжі","трапеза"],uaAlt:["їжа","страва","харчування"]},
   {en:"disease",ua:"хвороба",uaAlt:["захворювання","недуга"]},{en:"fever",ua:["гарячка","жар"],uaAlt:["температура","підвищена температура","пропасниця"]},{en:"medicine",ua:"ліки",uaAlt:["медицина","лікарський засіб"]},{en:"pill",ua:["таблетка","пігулка"]},
   {en:"surgery",ua:"операція",uaAlt:["хірургія"]},{en:"symptom",ua:"симптом",uaAlt:["ознака"]},{en:"vaccine",ua:"вакцина",uaAlt:["щеплення"]},
   {en:"virus",ua:"вірус"},{en:"wound",ua:"рана",uaAlt:["поранення","ранити"]},{en:"colleague",ua:"колега",uaAlt:["співробітник"]},
@@ -2388,7 +2388,7 @@ const WORDS = [
   {en:"email",ua:["електронна пошта","електронний лист"],uaAlt:["імейл","мейл","лист"]},
   {en:"emerge",ua:"з'являтися",uaAlt:["виникати","виходити"]},
   {en:"emotions",ua:"емоції",uaAlt:["почуття"]},
-  {en:"enable",ua:"вмикати",uaAlt:["уможливлювати","дозволяти"]},
+  {en:"enable",ua:"уможливлювати",uaAlt:["вмикати","дозволяти"]},
   {en:"encounter",ua:"зустрічати",uaAlt:["натрапляти","зіткнення"]},
   {en:"encourage",ua:"заохочувати",uaAlt:["підбадьорювати","підтримувати","спонукати"]},
   {en:"endeavor",ua:"намагатися",uaAlt:["прагнути","зусилля"]},
@@ -3567,6 +3567,19 @@ const WORDS = [
   {en:"to hang up",ua:["повісити","класти слухавку"],uaAlt:["вішати","розвішувати"]},
   {en:"to suit",ua:"личити",uaAlt:["пасувати","підходити"]},
   {en:"to turn up",ua:"підкочувати",uaAlt:["з'являтися","приходити"]},
+  // фразові дієслова, партія 1 (побутові) — сесія 41
+  {en:"to turn on",ua:"вмикати",uaAlt:["увімкнути","запускати"]},
+  {en:"to turn off",ua:"вимикати",uaAlt:["вимкнути","гасити"]},
+  {en:"to try on",ua:"приміряти",uaAlt:["міряти","помірити"]},
+  {en:"to throw away",ua:"викидати",uaAlt:["позбуватися","жбурляти"]},
+  {en:"to run out",ua:"закінчуватися",uaAlt:["вичерпуватися","скінчитися"]},
+  {en:"to look after",ua:"доглядати",uaAlt:["наглядати","приглядати","опікуватися"]},
+  {en:"to take out",ua:"виносити",uaAlt:["виймати","витягати"]},
+  {en:"to wake up",ua:"прокидатися",uaAlt:["пробуджуватися","будити"]},
+  // ⚠️ дужки — дисплей-підказка (сесія 35): чужий основний глос зайнятий (seem/to clean),
+  // тож гола форма ОБОВ'ЯЗКОВО в uaAlt, інакше відповідь неможливо набрати
+  {en:"to give up",ua:"здаватися (припинити боротьбу)",uaAlt:["здаватися","кидати","опускати руки","відступати"]},
+  {en:"to put away",ua:"прибирати (на місце)",uaAlt:["прибирати","складати","поскладати"]},
   // базові слова, які зловив check-coverage на прикладах партії 1
   {en:"belt",ua:["пояс","ремінь"],uaAlt:["ремінець"]},
   {en:"mask",ua:"маска",uaAlt:["личина"]},
@@ -4513,7 +4526,10 @@ const TRANS = {
   "bra":"/brɑː/","tights":"/taɪts/","vest":"/vɛst/","undershirt":"/ˈʌndərʃɜːrt/",
   "panties":"/ˈpæntiz/","boxer shorts":"/ˈbɑːksər ˌʃɔːrts/","stockings":"/ˈstɑːkɪŋz/",
   "camisole":"/ˈkæmɪsoʊl/","eye mask":"/ˈaɪ ˌmæsk/","nightie":"/ˈnaɪti/","V-neck":"/ˈviː ˌnɛk/",
-  "pleat":"/pliːt/","hem":"/hɛm/","to put on":"/tə ˈpʊt ˌɑːn/","to take off":"/tə ˈteɪk ˌɔːf/",
+  "pleat":"/pliːt/","hem":"/hɛm/","trash":"/træʃ/","to put on":"/tə ˈpʊt ˌɑːn/","to take off":"/tə ˈteɪk ˌɔːf/",
+  "to turn on":"/tə ˈtɜːrn ˌɑːn/","to turn off":"/tə ˈtɜːrn ˌɔːf/","to try on":"/tə ˈtraɪ ˌɑːn/",
+  "to throw away":"/tə ˌθroʊ əˈweɪ/","to run out":"/tə ˌrʌn ˈaʊt/","to look after":"/tə ˌlʊk ˈæftər/",
+  "to take out":"/tə ˌteɪk ˈaʊt/","to wake up":"/tə ˌweɪk ˈʌp/","to give up":"/tə ˌɡɪv ˈʌp/","to put away":"/tə ˌpʊt əˈweɪ/",
   "to fasten":"/tə ˈfæsən/","to unfasten":"/tə ʌnˈfæsən/","to hang up":"/tə ˈhæŋ ˌʌp/",
   "to suit":"/tə ˈsuːt/","to turn up":"/tə ˈtɜːrn ˌʌp/","belt":"/bɛlt/","mask":"/mæsk/","closet":"/ˈklɑːzɪt/",
   "collar":"/ˈkɑːlər/","cuff":"/kʌf/","sleeve":"/sliːv/","suit":"/suːt/","tailored":"/ˈteɪlərd/",
@@ -6859,6 +6875,17 @@ const EXAMPLES = {
   "hem":"The hem of her dress was too long.",
   "to put on":"Put on your coat, it is cold.",
   "to take off":"Take off your shoes at the door.",
+  "trash":"I take the trash outside every evening.",
+  "to turn on":"Please turn on the light in the kitchen.",
+  "to turn off":"Turn off the radio before you go to bed.",
+  "to try on":"Can I try on these shoes?",
+  "to throw away":"Do not throw away the empty bottles.",
+  "to run out":"We ran out of milk this morning.",
+  "to look after":"She looks after her little brother.",
+  "to take out":"Please take out the trash tonight.",
+  "to wake up":"I wake up early and make some coffee.",
+  "to give up":"Do not give up after the first failure.",
+  "to put away":"Put away your toys before dinner.",
   "to fasten":"Please fasten your seat belt.",
   "to unfasten":"He began to unfasten his shirt.",
   "to hang up":"Hang up your coat in the closet.",
@@ -9324,6 +9351,17 @@ const EXAMPLES_UA = {
   "hem":"Підгин її сукні був задовгий.",
   "to put on":"Одягни пальто, надворі холодно.",
   "to take off":"Скидай взуття біля дверей.",
+  "trash":"Я виношу сміття надвір щовечора.",
+  "to turn on":"Будь ласка, увімкни світло на кухні.",
+  "to turn off":"Вимкни радіо, перш ніж лягати спати.",
+  "to try on":"Можна приміряти ці туфлі?",
+  "to throw away":"Не викидай порожні пляшки.",
+  "to run out":"Сьогодні вранці в нас закінчилося молоко.",
+  "to look after":"Вона доглядає свого молодшого брата.",
+  "to take out":"Будь ласка, винеси сьогодні ввечері сміття.",
+  "to wake up":"Я прокидаюся рано і роблю собі каву.",
+  "to give up":"Не здавайся після першої невдачі.",
+  "to put away":"Прибери іграшки перед вечерею.",
   "to fasten":"Будь ласка, застібніть ремінь безпеки.",
   "to unfasten":"Він почав розстібати сорочку.",
   "to hang up":"Повісь пальто в шафу.",
@@ -16095,7 +16133,7 @@ function computeRecords() {
     { id: "songsess", ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
     { id: "know",     ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
     { id: "learn",    ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
-    { id: "xp",       ic: "⚡", label: "Досвіду (XP) за день · без пісень", ..._maxOf(xpNoSongs), color: "#ffd166" },
+    { id: "xp",       ic: "⚡", label: "XP за день · без пісень", ..._maxOf(xpNoSongs), color: "#ffd166" },
     { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" }
   ];
 }
