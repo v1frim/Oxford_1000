@@ -9728,16 +9728,16 @@ const EXPRESSIONS = [
   {en:"put the children to bed", ua:"вкладати дітей спати", note:"put to bed — вкласти спати"},
   {en:"go out", ua:"піти гуляти", note:"вийти кудись (з друзями, у кафе); go out with — також «зустрічатися»"},
   {en:"to get your hair cut", ua:"підстригтися", note:"конструкція get sth done: стрижку робить хтось інший (перукар)"},
-  {en:"shorty", ua:"крихітка, дівчина", note:"афроамериканський сленг: звертання до дівчини; також shawty"},
-  {en:"thug", ua:"бандит, крутий хлопець", note:"у хіп-хопі — образ вуличного «крутого»; thug life"},
-  {en:"swag", ua:"стиль, крутість", note:"впевнена манера триматися; to have swag — бути стильним"},
-  {en:"lady lumps", ua:"жіночі форми, вигини", note:"жартівливий сленг про фігуру (з пісні Black Eyed Peas)"},
+  {en:"shorty", ua:"крихітка, дівчина", note:"афроамериканський сленг: звертання до дівчини; також shawty", tag:"slang"},
+  {en:"thug", ua:"бандит, крутий хлопець", note:"у хіп-хопі — образ вуличного «крутого»; thug life", tag:"slang"},
+  {en:"swag", ua:"стиль, крутість", note:"впевнена манера триматися; to have swag — бути стильним", tag:"slang"},
+  {en:"lady lumps", ua:"жіночі форми, вигини", note:"жартівливий сленг про фігуру (з пісні Black Eyed Peas)", tag:"slang"},
   {en:"to back it up", ua:"здавати назад", note:"букв. подати назад (авто); у танцювальному сленгу — рухатися стегнами назад"},
-  {en:"wanna", ua:"хотіти / хочеш (розм.)", note:"розмовне want to; у питаннях — «хочеш»; лише в мовленні/піснях, не в письмі"},
-  {en:"gonna", ua:"збиратися / буде (розм.)", note:"розмовне going to; переклад залежить від речення: намір («збираюся») або майбутній час («буде»)"},
-  {en:"ain't", ua:"не є (розм.)", note:"розмовне заперечення: замінює am not / is not / are not / have not"},
-  {en:"lil'", ua:"маленький (розм.)", note:"скорочене little; часто у прізвиськах — Lil Wayne"},
-  {en:"ya", ua:"ти, твій (розм.)", note:"розмовне you / your у піснях і мовленні"},
+  {en:"wanna", ua:"хотіти / хочеш (розм.)", note:"розмовне want to; у питаннях — «хочеш»; лише в мовленні/піснях, не в письмі", tag:"slang"},
+  {en:"gonna", ua:"збиратися / буде (розм.)", note:"розмовне going to; переклад залежить від речення: намір («збираюся») або майбутній час («буде»)", tag:"slang"},
+  {en:"ain't", ua:"не є (розм.)", note:"розмовне заперечення: замінює am not / is not / are not / have not", tag:"slang"},
+  {en:"lil'", ua:"маленький (розм.)", note:"скорочене little; часто у прізвиськах — Lil Wayne", tag:"slang"},
+  {en:"ya", ua:"ти, твій (розм.)", note:"розмовне you / your у піснях і мовленні", tag:"slang"},
   // медичні звороти й колокації (сесія 40) — конструкції, а не окремі слова
   {en:"to have surgery", ua:"перенести операцію", note:"= undergo surgery; після have — БЕЗ артикля: «have surgery», але «have AN operation»"},
   {en:"to undergo surgery", ua:"пройти операцію", note:"формальніше за have surgery — у медичних текстах і новинах"},
@@ -15875,7 +15875,12 @@ function buildExprBank() {
     seen.add(key);
     out.push({ en, ua, note: note || "", cat, src });
   };
-  (typeof EXPRESSIONS !== "undefined" ? EXPRESSIONS : []).forEach(e => push(e.en, e.ua, e.note, "idiom", "Ідіоми та вирази"));
+  // ⚠️ tag:"slang" в EXPRESSIONS (сесія 41, за ревізією GPT): розмовні скорочення й
+  // хіп-хоп-сленг (ain't/gonna/wanna/ya/lil'/shorty/swag/thug/lady lumps) НЕ мішаються
+  // з ідіомами — падають у ту саму вкладку, що й сленг пісень. НЕ повертати в "idiom".
+  (typeof EXPRESSIONS !== "undefined" ? EXPRESSIONS : []).forEach(e => e.tag === "slang"
+    ? push(e.en, e.ua, e.note, "slang", "Розмовна мова")
+    : push(e.en, e.ua, e.note, "idiom", "Ідіоми та вирази"));
   ALL_SONGS.forEach(s => (s.slang || []).forEach(sl => push(sl.en, sl.ua, sl.note, "slang", s.title)));
   return out;
 }
@@ -15885,7 +15890,7 @@ const EXPR_STATUS_CYCLE = { queue:"learning", learning:"learned", learned:"queue
 const EXPR_FILTERS = [
   { key:"all",    label:"Усі" },
   { key:"idiom",  label:"💬 Ідіоми та вирази" },
-  { key:"slang",  label:"🎵 Сленг пісень" }
+  { key:"slang",  label:"🎵 Сленг і розмовне" }
 ];
 
 const exprOverlay = document.getElementById("expr-overlay");
