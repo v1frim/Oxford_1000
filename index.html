@@ -1270,9 +1270,12 @@
     border: 1px solid color-mix(in srgb, var(--rc) 40%, transparent);
     border-radius: 14px;
     background: linear-gradient(90deg, color-mix(in srgb, var(--rc) 9%, transparent), rgba(255,255,255,0.015));
-    max-width: 92%;
+    /* ⚠️ ФІКСОВАНА ширина + align-self, НЕ max-width: у колонковому flex рядок зі
+       `margin-left:auto` стискався до контенту, тож ліві плашки виходили широкі,
+       а праві — вузькі й різної довжини. Тепер обидві сторони однакові, зсув 10%. */
+    width: 90%; flex: 0 0 auto; align-self: flex-start;
   }
-  .rec-row.alt { flex-direction: row-reverse; text-align: right; margin-left: auto; }
+  .rec-row.alt { flex-direction: row-reverse; text-align: right; align-self: flex-end; }
   .rec-row.alt .rec-main { text-align: right; }
   .rec-medal {
     flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%;
