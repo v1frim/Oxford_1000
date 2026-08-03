@@ -12532,17 +12532,6 @@ const EN_TO_UA = (() => {
   return m;
 })();
 
-(() => {   // enAlt-hover (сесія 41): англійські синоніми-відповіді (nappy, trousers, pram…)
-  // показувались у панелі правильної відповіді БЕЗ перекладу — їх немає в WORDS.en.
-  // ⚠️ Додаємо ЛИШЕ ті, що не резолвляться наявним шляхом: інакше enAlt-омографи
-  // ("checked" від checkered, "spotted" від polka dot) перебили б дієслівні
-  // форми check/spot у реченнях. Тому перевірка EN_TO_UA.has + stemEn.
-  WORDS.forEach(w => (w.enAlt || []).forEach(a => {
-    const key = String(a).toLowerCase().trim();
-    if (!key || EN_TO_UA.has(key) || stemEn(key)) return;
-    EN_TO_UA.set(key, getUa(w).slice());
-  }));
-})();
 const HW_SKIP = new Set([
   "be","is","am","are","was","were","been","being",
   "have","has","had","having",
@@ -12816,6 +12805,20 @@ function stemEn(word) {
   for (const t of tries) if (t !== word && EN_TO_UA.has(t)) return t;
   return null;
 }
+// ⚠️ СТОЇТЬ ПІСЛЯ stemEn/HW_SKIP СВІДОМО: пас викликає stemEn, а той читає HW_SKIP
+// (const нижче за EN_TO_UA) — з місця одразу після EN_TO_UA це давало TDZ ReferenceError
+// і клало ВЕСЬ скрипт (прод сесії 41). НЕ переносити вгору.
+(() => {   // enAlt-hover (сесія 41): англійські синоніми-відповіді (nappy, trousers, pram…)
+  // показувались у панелі правильної відповіді БЕЗ перекладу — їх немає в WORDS.en.
+  // ⚠️ Додаємо ЛИШЕ ті, що не резолвляться наявним шляхом: інакше enAlt-омографи
+  // ("checked" від checkered, "spotted" від polka dot) перебили б дієслівні
+  // форми check/spot у реченнях. Тому перевірка EN_TO_UA.has + stemEn.
+  WORDS.forEach(w => (w.enAlt || []).forEach(a => {
+    const key = String(a).toLowerCase().trim();
+    if (!key || EN_TO_UA.has(key) || stemEn(key)) return;
+    EN_TO_UA.set(key, getUa(w).slice());
+  }));
+})();
 function wrapSentence(sentence) {
   return String(sentence).replace(/([A-Za-z']+)|([^A-Za-z']+)/g, (m, word, other) => {
     if (other !== undefined) return esc(other);
