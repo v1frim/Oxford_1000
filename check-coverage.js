@@ -27,7 +27,13 @@ const LINES = HTML.split("\n");
 const ALLOW = new Set([
   "tom", "mary", "john", "anna", "sarah", "peter", "jack", "emma", "alice",
   "bob", "david", "lisa", "mike", "james", "kate", "sam", "max", "lucy",
-  "leo", "alexander", "fleming",
+  "leo", "alexander", "fleming", "einstein", "adam",
+]);
+
+// Бази скорочень на 's (it's = it is): дзеркало списку винятків у stemEn — там
+// присвійний стрип для них свідомо не спрацьовує, тож і чекеру нема що вимагати.
+const CONTRACTION_S = new Set([
+  "it", "he", "she", "that", "what", "there", "here", "who", "how", "why", "let", "one", "everybody",
 ]);
 
 function sliceBlock(startRe, endRe, label) {
@@ -52,6 +58,8 @@ const blocks = [
   sliceBlock(/^const HW_SKIP = new Set\(\[$/, /^\]\);$/, "HW_SKIP"),
   sliceBlock(/^const IRREGULAR = \{$/, /^\};$/, "IRREGULAR"),
   sliceBlock(/^function stemEn\(word\) \{$/, /^\}$/, "stemEn"),
+  // hover-пас для enAlt (сесія 41) — має виконатись, інакше чекер не бачить тих ключів
+  sliceBlock(/^\(\(\) => \{   \/\/ enAlt-hover/, /^\}\)\(\);$/, "enAltHover"),
 ];
 
 const sandbox = new Function(
@@ -65,8 +73,13 @@ const missing = new Map(); // lower → {count, caps:Set, samples:Set}
 for (const [key, sentence] of Object.entries(EXAMPLES)) {
   for (const m of String(sentence).matchAll(/[A-Za-z']+/g)) {
     const raw = m[0];
-    if (raw.includes("'")) continue; // скорочення (didn't, it's) — пропуск
-    const lower = raw.toLowerCase().replace(/[^a-z]/g, "");
+    // Присвійні форми ("baby's") ПЕРЕВІРЯЄМО — саме вони давали слова без перекладу
+    // в грі (сесія 41). Решта апострофів — скорочення (didn't, it's) — пропуск.
+    const isPoss = /['\u2019]s$/.test(raw) || /s['\u2019]$/.test(raw);
+    if (raw.includes("'") && !isPoss) continue;
+    // 's = is/has, а не присвійність — той самий список, що в stemEn (index.html)
+    if (isPoss && CONTRACTION_S.has(raw.toLowerCase().replace(/['\u2019]s$/, ""))) continue;
+    const lower = raw.toLowerCase().replace(/['\u2019]s$/, "").replace(/[^a-z]/g, "");
     // та сама умова, що TTS-only гілка wrapSentence:
     if (lower.length <= 2 || HW_SKIP.has(lower)) continue;
     if (stemEn(raw) !== null) continue; // переклад є

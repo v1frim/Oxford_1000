@@ -12531,6 +12531,18 @@ const EN_TO_UA = (() => {
   m.set("gland", ["залоза"]);
   return m;
 })();
+
+(() => {   // enAlt-hover (сесія 41): англійські синоніми-відповіді (nappy, trousers, pram…)
+  // показувались у панелі правильної відповіді БЕЗ перекладу — їх немає в WORDS.en.
+  // ⚠️ Додаємо ЛИШЕ ті, що не резолвляться наявним шляхом: інакше enAlt-омографи
+  // ("checked" від checkered, "spotted" від polka dot) перебили б дієслівні
+  // форми check/spot у реченнях. Тому перевірка EN_TO_UA.has + stemEn.
+  WORDS.forEach(w => (w.enAlt || []).forEach(a => {
+    const key = String(a).toLowerCase().trim();
+    if (!key || EN_TO_UA.has(key) || stemEn(key)) return;
+    EN_TO_UA.set(key, getUa(w).slice());
+  }));
+})();
 const HW_SKIP = new Set([
   "be","is","am","are","was","were","been","being",
   "have","has","had","having",
@@ -12761,6 +12773,17 @@ const IRREGULAR = {
 };
 function stemEn(word) {
   word = word.toLowerCase().replace(/[^a-z']/g, "");
+  if (!word) return null;
+  // ⚠️ ПРИСВІЙНА ФОРМА (сесія 41, баг «baby's без перекладу»): "baby's" → "baby",
+  // "parents'" → "parents". Раніше апостроф ламав усі спроби стемінгу, і слово
+  // висіло в реченні як TTS-only без тултіпа. Список винятків — скорочення, де 's
+  // це is/has, а не присвійність (it's, he's, let's): там переклад бази збивав би.
+  if (/'s$/.test(word)) {
+    const base = word.slice(0, -2);
+    if (!["it","he","she","that","what","there","here","who","how","why","let","one","who","everybody"].includes(base)) word = base;
+  } else if (/s'$/.test(word)) {
+    word = word.slice(0, -1);
+  }
   if (!word) return null;
   if (HW_SKIP.has(word)) return null;
   if (EN_TO_UA.has(word)) return word;
