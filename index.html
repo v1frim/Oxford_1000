@@ -15268,6 +15268,12 @@ const HW_SKIP = new Set([
   "not","no","yes","very","too","also","just","only","even","still","yet"
 ]);
 const IRREGULAR = {
+  // ⚠️ ходові неправильні форми, додані в сесії 41: без них слово в прикладному
+  // реченні лишалось БЕЗ перекладу (hover), і приклади доводилось писати лише
+  // в теперішньому часі. Перевірено стендом — усі 17 тепер резолвляться в базу.
+  swept:"sweep", shone:"shine", sprang:"spring", dug:"dig", tore:"tear", torn:"tear",
+  sworn:"swear", shrank:"shrink", stung:"sting", crept:"creep", dealt:"deal",
+  dwelt:"dwell", forbade:"forbid", leapt:"leap", mown:"mow", sped:"speed", sunk:"sink",
   swore:"swear",
   was:"be",were:"be","been":"be",am:"be",is:"be",are:"be",
   had:"have",has:"have",
