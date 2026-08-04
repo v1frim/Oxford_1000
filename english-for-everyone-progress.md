@@ -34,7 +34,7 @@
   (прецеденти: pick up, drop off) та терміни, де складники покриваються hover'ом через `m.set`.
 
 ## Прогрес
-- **Остання опрацьована сторінка: 55** (з 402)
+- **Остання опрацьована сторінка: 57** (з 402)
 - **Наступна: 56** (непарні праві боки розворотів опрацьовуються разом із парними)
 
 > **🏥 МЕДИЧНИЙ БЛОК, стор. 48-55 — 4 розвороти одразу (сесія 40, +154 слова, WORDS 3256→3410).**
@@ -58,6 +58,21 @@
 > emergency room, intensive care unit, recovery room, ward, maternity ward, to discharge,
 > outpatient + відділення (cardiology, neurology, pediatrics, psychiatry, oncology, maternity,
 > physical therapy, ENT). Чекер витяг oxygen, surgical, intensive, unit, cancer, therapy, kit, length.
+> **23 Diet and nutrition (стор. 56-57, +38):** protein, carbohydrate (enAlt carb/carbs),
+> fiber (enAlt fibre), fat, saturated fat, unsaturated fat, calorie, vitamin, mineral, calcium,
+> cholesterol, **iron=залізо** (ОКРЕМИЙ іменниковий запис — наявний був лише `to iron`=прасувати),
+> gluten, lactose, dairy, legume, soy, sesame, celery, mustard, supplement(доповнення),
+> additive(домішка), vegan, balanced diet, processed food, convenience food(готова їжа),
+> superfood, detox, farmers' market, food intolerance, lactose intolerant, intolerant(нетерпимий),
+> to overeat, to go on a diet; +bean/olive/convenience/intolerance (чекер); produce +«сільсько-
+> господарські продукти» (uaAlt); saturated/unsaturated → m.set (складники).
+> ⚠️ **Ревізія GPT (прийнята):** `pulse` НЕ синонім `legume` (бобова рослина ≠ зернобобова
+> культура) — pulse поки пропущено взагалі; supplement/additive розведено глосами, щоб не
+> збіглись основні; convenience food = «готова їжа», а НЕ «напівфабрикати».
+> **Пропущено:** pescatarian, sulfite/sulphite, calorie-controlled diet, health food store /
+> organic food section / local produce (прозорі складені), 12 сполук «X allergy»,
+> моделі X-free / high-calorie / low-calorie (регулярні, пояснюються один раз).
+>
 > **22 The dentist and optician (стор. 54-55, +31):** filling, plaque, decay, cavity, extraction,
 > baby teeth, braces, dentures, drill, dental floss, dental hygienist, whitening, basin, probe,
 > dental, to floss, to rinse + оптика (retina, cornea, lens, eyeball, optometrist, nearsighted,
