@@ -1368,7 +1368,7 @@
       <button id="lh-btn">📚 Уроки LingoHut</button>
       <div id="songsess-wrap">
         <button id="songs-btn">🎵 Пісні англійською</button>
-        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +20 XP)">🎧 +<span id="songsess-count" style="display:none"></span></button>
+        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +30 XP)">🎧 +<span id="songsess-count" style="display:none"></span></button>
         <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
       </div>
     </div>
@@ -1494,12 +1494,12 @@
   </div>
   <div id="selfrev-wrap">
     <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив слова)">📚 Повторив<span id="selfrev-count" style="display:none"></span></button>
-    <button id="selfrev-plus" title="Відмітити повторення слів (+1 пункт «Плани», +15 XP)">+</button>
+    <button id="selfrev-plus" title="Відмітити повторення слів (+1 пункт «Плани», +30 XP)">+</button>
     <button id="selfrev-minus" title="Скасувати останнє повторення (лише сьогодні)">−</button>
   </div>
   <div id="movie-wrap">
     <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
-    <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +40 XP)">+</button>
+    <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +60 XP)">+</button>
     <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
   </div>
 </div>
@@ -13798,7 +13798,7 @@ function computeRetroXp() {
 }
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + 3·ΔВивчаю + 8·ΔЗнаю + Duolingo×30 + LingoHut(50/75/100)
-//          + GPT×15 + 🎧×20 + 🎬×40 + 📒пункти×15.
+//          + GPT×15 + 🎧×30 + 🎬×60 + 📒пункти×30 + 📖повторення×30 (ставки сесії 41).
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev) {
   let xp = 0;
   const d = days[date] || {};
@@ -15028,7 +15028,7 @@ function gptPointsByDate(gpt) {
 // і повинно давати»): 1 повторення = 1 пункт «Плани» + SELF_REVIEW_XP.
 // ⚠️ Оголошено ПЕРЕД thermo-функціями (як GPT/songsess) — інакше TDZ на старті.
 const SELF_REVIEW_KEY = "oxford_self_reviews_v1";   // {date: count}
-const SELF_REVIEW_XP = 15;                          // = MISTAKE_REVIEW_XP (пункт «📒 Помилки»)
+const SELF_REVIEW_XP = 30;                          // = MISTAKE_REVIEW_XP (пункт «📒 Помилки»); сесія 41: 15→30
 function loadSelfReviews() {
   try { return JSON.parse(localStorage.getItem(SELF_REVIEW_KEY) || "{}"); } catch(e) { return {}; }
 }
@@ -15356,10 +15356,10 @@ document.getElementById("lh-btn").addEventListener("click", () => {
 
 // ── DUOLINGO SESSION TRACKER ─────────────────────────────────────────────────
 const DUO_KEY = "oxford_duolingo_v1";
-const DUO_XP = 30;   // сесія 32: 25→30 (переоцінка активності; міграція formula_v9)
-const SONGSESS_XP = 20;        // 🎧 заняття піснями: сесія 39, було БЕЗ XP (міграція formula_v11)
-const MOVIE_XP = 40;           // 🎬 сеанс кіно: сесія 39, було БЕЗ XP (міграція formula_v11)
-const MISTAKE_REVIEW_XP = 15;  // 📒 XP за 1 ПУНКТ «Плани» = за закриття 15-ки слів (сесія 39).
+const DUO_XP = 25;   // сесія 32: 25→30; сесія 41: 30→25 (легше за гру при тому ж часі; formula_v15)
+const SONGSESS_XP = 30;        // 🎧 заняття піснями: сесія 39 БЕЗ XP→20; сесія 41: 20→30 (formula_v15)
+const MOVIE_XP = 60;           // 🎬 сеанс кіно: сесія 39 БЕЗ XP→40; сесія 41: 40→60 (formula_v15)
+const MISTAKE_REVIEW_XP = 30;  // 📒 XP за 1 ПУНКТ «Плани» = за закриття 15-ки слів (сесія 39; 15→30 у сесії 41).
                                // ⚠️ Нараховується РАЗОМ із пунктом, а не по 1 за слово: 7 закритих
                                // слів = 0 XP, 15-те слово замикає пункт і дає одразу +15.
                                // Залишок переноситься між днями (mistakeReviewPointsByDate).
@@ -16115,11 +16115,13 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
 // «Плани», тепер дають і XP — 🎧 заняття піснями 20, 🎬 сеанс кіно 40, 📒 **15 XP за
 // ПУНКТ** (тобто за закриття 15-ки слів; НЕ по 1 XP за слово — уточнення користувача
 // одразу після v11). Кіно заодно дає 2 пункти замість 1 (це не XP, рахується динамічно).
-// ⚠️ Прапор саме v12: v11 із правилом «+1 за слово» встиг потрапити в прод на кілька
-// хвилин, тож на пристрої, де він уже спрацював, потрібен новий перерахунок.
+// ⚠️ v15 (сесія 41) — перебалансування ставок під XP/хв: 🦉30→25, 🎧20→30, 🎬40→60,
+// 📒пункт 15→30, 📖повторення 15→30. Тіло НЕ мінялось (читає константи) — новий прапор
+// потрібен лише щоб перерахувати історичний total і per-day під нові ставки.
+// ⚠️ Історія: прапор v12 з'явився бо v11 із правилом «+1 за слово» встиг потрапити в прод.
 // Тіло як v10 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp), плюс нові
 // джерела в allDates. Ідемпотентна, прапор лише при успіху.
-if (!localStorage.getItem("oxford_xp_formula_v14")) {
+if (!localStorage.getItem("oxford_xp_formula_v15")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -16153,7 +16155,7 @@ if (!localStorage.getItem("oxford_xp_formula_v14")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
-    localStorage.setItem("oxford_xp_formula_v14", "1");
+    localStorage.setItem("oxford_xp_formula_v15", "1");
   } catch(e) {}
 }
 renderXpBar();
