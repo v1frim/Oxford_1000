@@ -11491,7 +11491,11 @@ function recordAnswer(userVal, status) {
     if (reviewRemaining) {
       reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
       if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
-        addXp(2);  // 2 XP per closed review word (= 1 repetition), NOT per answer
+        // ⚠️ 2 XP за закрите слово — ЛИШЕ post-game повторення (сесія 41, за запитом).
+        // Повторення з кнопки меню «📒 Помилки» платить ІНАКШЕ: 30 XP за пункт
+        // (кожні 15 закритих слів) = ті самі 2 XP/слово. Раніше воно отримувало
+        // обидва нарахування = подвійна оплата. НЕ повертати addXp(2) без умови.
+        if (!reviewFromMenu) addXp(2);   // 2 XP per closed review word (= 1 repetition), NOT per answer
         reviewRemaining.delete(currentWordIndex);
         // Only remove from today's mistakes if the word had no errors/skips this session.
         // A "tainted" word (any mistake in current review) must stay for further review.
@@ -13799,11 +13803,16 @@ function computeRetroXp() {
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + 3·ΔВивчаю + 8·ΔЗнаю + Duolingo×30 + LingoHut(50/75/100)
 //          + GPT×15 + 🎧×30 + 🎬×60 + 📒пункти×30 + 📖повторення×30 (ставки сесії 41).
-function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev) {
+function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev, mrWords) {
   let xp = 0;
   const d = days[date] || {};
   xp += (d.correct || 0);          // correct answers in regular games
-  xp += 2 * (d.reviewCorrect || 0); // each closed review word = 1 repetition = 2 XP
+  // ⚠️ 2 XP лише за POST-GAME закриті слова (сесія 41): слова, закриті через кнопку
+  // меню «📒 Помилки», оплачені пунктами (30 XP за 15) — інакше подвійний рахунок.
+  // mrWords = loadMistakeReviews() {date: закритих через меню}. Параметр ОПЦІЙНИЙ:
+  // старі блоки міграцій (v3…v15) кличуть без нього → відрахунку немає, стара поведінка.
+  const _mrW = (mrWords && mrWords[date]) || 0;
+  xp += 2 * Math.max(0, (d.reviewCorrect || 0) - _mrW); // each closed review word = 1 repetition = 2 XP
   const idx = hdates.indexOf(date);
   if (idx >= 0) {
     const cur  = history[date];
@@ -16115,13 +16124,16 @@ if (!localStorage.getItem("oxford_xp_formula_v10")) {
 // «Плани», тепер дають і XP — 🎧 заняття піснями 20, 🎬 сеанс кіно 40, 📒 **15 XP за
 // ПУНКТ** (тобто за закриття 15-ки слів; НЕ по 1 XP за слово — уточнення користувача
 // одразу після v11). Кіно заодно дає 2 пункти замість 1 (це не XP, рахується динамічно).
+// ⚠️ v16 (сесія 41) — 2 XP за закрите слово тепер ЛИШЕ за post-game повторення:
+// закриті через кнопку меню «📒 Помилки» оплачуються пунктами (30 XP за 15 слів),
+// раніше отримували ОБИДВА нарахування. Формула віднімає mrWords від reviewCorrect.
 // ⚠️ v15 (сесія 41) — перебалансування ставок під XP/хв: 🦉30→25, 🎧20→30, 🎬40→60,
 // 📒пункт 15→30, 📖повторення 15→30. Тіло НЕ мінялось (читає константи) — новий прапор
 // потрібен лише щоб перерахувати історичний total і per-day під нові ставки.
 // ⚠️ Історія: прапор v12 з'явився бо v11 із правилом «+1 за слово» встиг потрапити в прод.
 // Тіло як v10 (перерахунок з нуля зі СТАТИСТИКИ + актуальних SONGS[].xp), плюс нові
 // джерела в allDates. Ідемпотентна, прапор лише при успіху.
-if (!localStorage.getItem("oxford_xp_formula_v15")) {
+if (!localStorage.getItem("oxford_xp_formula_v16")) {
   try {
     const _days   = loadDays();
     const _hist   = loadMasteryHistory();
@@ -16131,7 +16143,8 @@ if (!localStorage.getItem("oxford_xp_formula_v15")) {
     const _gpt    = loadGptRequests();
     const _ss     = loadSongSessions();
     const _mv     = loadMovieSessions();
-    const _mrPts  = mistakeReviewPointsByDate(loadMistakeReviews());   // ПУНКТИ, не слова
+    const _mrWords = loadMistakeReviews();                              // СЛОВА, закриті через меню
+    const _mrPts  = mistakeReviewPointsByDate(_mrWords);                // ПУНКТИ, не слова
     const _sr     = loadSelfReviews();                                 // 📚 повторення (сесія 40)
     const _awarded = loadSongsXpAwarded();
     const _allDates = new Set([
@@ -16142,7 +16155,7 @@ if (!localStorage.getItem("oxford_xp_formula_v15")) {
     const _xpd = {};
     let _total = 0;
     _allDates.forEach(date => {
-      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts, _sr);
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts, _sr, _mrWords);
       if (v > 0) _xpd[date] = v;
       _total += v;
     });
@@ -16155,7 +16168,7 @@ if (!localStorage.getItem("oxford_xp_formula_v15")) {
     });
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
-    localStorage.setItem("oxford_xp_formula_v15", "1");
+    localStorage.setItem("oxford_xp_formula_v16", "1");
   } catch(e) {}
 }
 renderXpBar();
