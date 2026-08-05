@@ -28922,6 +28922,18 @@ function endGame(endedEarly) {
         newDayKey = recordDayStats(score, wrong, skipped, wordCount);
         checkThermoMilestones();
       }
+    } else if (timedPoolTag && timedPoolTag.indexOf("cefr:") === 0) {
+      // Гра за рівнями CEFR (сесія 42, за запитом після скарги «A1-гра закинула мене на
+      // вершину»): пул одного рівня НЕ порівнюваний зі звичайною грою по всьому словнику,
+      // тому в «Найкращі ігри» (топ-10) і «найкращу гру дня» вона НЕ входить і rank-вітання
+      // не показує. АЛЕ на відміну від «Знаю»: лишається в games-log і в рядку «остання гра»
+      // — з підписом рівня («🎓 A1») і БЕЗ номера місця (див. renderGameRow).
+      if (!endedEarly) {
+        newDayKey = recordDayStats(score, wrong, skipped, wordCount);
+        checkThermoMilestones();
+      }
+      updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
+      appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
     } else {
     const scoresWereFull = loadScores().length >= LB_LIMIT;
     newEntryId = saveScore({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
@@ -31764,11 +31776,21 @@ function renderCefrModal() {
 }
 function openCefrModal() { renderCefrModal(); document.getElementById("cefr-modal").classList.remove("hidden"); }
 function closeCefrModal() { document.getElementById("cefr-modal").classList.add("hidden"); }
+// Компактний підпис вибору для лідерборду: «A1», «A1+C2», «A1-B1» (суцільний діапазон ≥3).
+function cefrTagLabel(sel) {
+  const ls = CEFR_LEVELS.filter(L => sel.has(L)).map(L => (L === "none" ? "—" : L));
+  if (ls.length <= 2) return ls.join("+");
+  const idx = CEFR_LEVELS.filter(L => sel.has(L)).map(L => CEFR_LEVELS.indexOf(L));
+  const contiguous = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
+  return contiguous ? ls[0] + "-" + ls[ls.length - 1] : ls.join("+");
+}
 function startCefrGame() {
   const pool = cefrIndices([...cefrSel]);
   if (!pool.length) return;
   closeCefrModal();
-  pendingCatTag = null;        // рівні — не категорія mastery, тег лідерборду не ставимо
+  // Тег «cefr:<рівні>» — гра поза топ-10 (пул одного рівня легший за повний словник),
+  // але з підписом рівня в рядку «остання гра». Обробка — в endGame і renderGameRow.
+  pendingCatTag = "cefr:" + cefrTagLabel(cefrSel);
   pendingCatPool = pool;
   rmSelectedIdx = 0;
   updateRmSelection();
@@ -31954,7 +31976,11 @@ function renderTabGames() {
       "en-cloze": "Cloze"
     };
     const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові" };   // known не зберігається взагалі
-    const modeStr = (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
+    // Ігри за рівнями CEFR (сесія 42): підпис = рівень («🎓 A1», «🎓 A1-B1») замість напрямку,
+    // і БЕЗ номера місця — вони поза рейтингом, бо пул одного рівня легший за повний словник.
+    const isCefrGame = !!(s.tag && s.tag.indexOf("cefr:") === 0);
+    const modeStr = (isCefrGame ? "🎓 " + s.tag.slice(5) : null)
+      || (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
     const isLatestGame = !cls && latest && s.ts === latest.ts;
@@ -31963,7 +31989,7 @@ function renderTabGames() {
       + (isYesterdayGame ? " lb-yesterday-date" : "")
       + (isLatestGame ? " is-latest-game" : "");
     const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
-    return '<li class="' + klass + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед збережених ігор (повний лог — з моменту фічі)"' : '') + '>' +
+    return '<li class="' + klass + '"' + (rank && !isCefrGame ? ' data-rank="' + rank + '" title="місце серед збережених ігор (повний лог — з моменту фічі)"' : '') + '>' +
       '<span class="lb-score">' + s.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)' + poolStr + '</span>' +
       '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
@@ -33115,6 +33141,37 @@ renderLeaderboard();
         const best = day.reduce((a, b) => (b.score > a.score || (b.score === a.score &&
           (b.wrong + b.skipped) < (a.wrong + a.skipped))) ? b : a);
         localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify({ key: "2026-07-20", score: best.score,
+          wrong: best.wrong, skipped: best.skipped, mode: best.mode, ts: best.ts, wordCount: best.wordCount }));
+      } else localStorage.removeItem(LB_TODAY_BEST_KEY);
+    }
+    localStorage.setItem(FLAG, "1");
+  } catch (e) { /* не ставимо прапор — повтор на наступному завантаженні */ }
+})();
+// Одноразове прибирання ПЕРШОЇ CEFR-гри з рейтингу (сесія 42, за запитом): вона зіграна
+// ДО того, як рівневі ігри вивели з топ-10, і стала №1 із «легкого» пулу A1. Патерн той
+// самий, що oxford_fix_known_lb_v1. Ідентифікація: 05.08.2026 + tag відсутній + wordCount
+// уже нової бази (>=7700) + рахунок 16 при 3 помилках/пропусках.
+(function fixCefrLeaderboard() {
+  const FLAG = "oxford_fix_cefr_lb_v1";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    const isIt = e => e && !e.tag && e.score === 16 && ((e.wrong || 0) + (e.skipped || 0)) === 3 &&
+      (e.wordCount || 0) >= 7700 && tsToDayKey(e.ts) === "2026-08-05";
+    const scores = loadScores();
+    const i = scores.findIndex(isIt);
+    if (i >= 0) { scores.splice(i, 1); localStorage.setItem(LB_KEY, JSON.stringify(scores)); }
+    const log = loadGamesLog();
+    const j = log.findIndex(isIt);
+    if (j >= 0) { log.splice(j, 1); localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log)); }
+    const latest = loadLatest();
+    if (isIt(latest)) localStorage.removeItem(LB_LATEST_KEY);
+    const tb = loadTodayBest();
+    if (isIt(tb)) {
+      const day = loadGamesLog().filter(g => tsToDayKey(g.ts) === "2026-08-05");
+      if (day.length) {
+        const best = day.reduce((a, b) => (b.score > a.score || (b.score === a.score &&
+          (b.wrong + b.skipped) < (a.wrong + a.skipped))) ? b : a);
+        localStorage.setItem(LB_TODAY_BEST_KEY, JSON.stringify({ key: "2026-08-05", score: best.score,
           wrong: best.wrong, skipped: best.skipped, mode: best.mode, ts: best.ts, wordCount: best.wordCount }));
       } else localStorage.removeItem(LB_TODAY_BEST_KEY);
     }
