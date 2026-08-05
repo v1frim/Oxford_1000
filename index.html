@@ -33373,6 +33373,7 @@ function recordAnswer(userVal, status) {
     }
   } else {
     addDayMistake(currentWordIndex);
+    addDayWrong(currentWordIndex);           // архів дня (для 🔁 у «Прогресі по днях»)
     scheduleDue(currentWordIndex);           // борг на завтра (інтервальне повторення)
     // In review: mark this word so even a later 3-correct won't remove it from
     // today's mistakes. User wants tainted words to stay for further review.
@@ -33682,7 +33683,7 @@ function endGame(endedEarly) {
         newDayKey = recordDayStats(score, wrong, skipped, wordCount);
         checkThermoMilestones();
       }
-    } else if (timedPoolTag && timedPoolTag.indexOf("cefr:") === 0) {
+    } else if (timedPoolTag === "wrong" || (timedPoolTag && timedPoolTag.indexOf("cefr:") === 0)) {
       // Гра за рівнями CEFR (сесія 42, за запитом після скарги «A1-гра закинула мене на
       // вершину»): пул одного рівня НЕ порівнюваний зі звичайною грою по всьому словнику,
       // тому в «Найкращі ігри» (топ-10) і «найкращу гру дня» вона НЕ входить і rank-вітання
@@ -35626,7 +35627,7 @@ const BACKUP_KEYS = [
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
-  "oxford_self_reviews_v1","oxford_due_v1"
+  "oxford_self_reviews_v1","oxford_due_v1","oxford_day_wrong_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -36124,7 +36125,16 @@ function _progDeltaHtml(dk, dl, rev, dt, date) {
       (P ? ', пішло далі в «Знаю» ' + P : '') + ' · нетто ' + sgn(dl) : '';
     h += _pgCell("↗", sgn(dl), "prog-learning" + (lLog ? " prog-click" : ""), cellAttrs("l", lLog, t));
   }
-  if (rev > 0) h += _pgCell("🔁", "+" + rev, "lb-review");
+  // 🔁 — повторення помилок. Число = скільки РАЗІВ повторював, а в модалці —
+  // скільки РІЗНИХ слів не далось (сесія 44: «47 повторень, а слів менше»).
+  const wrongN = date ? dayWrongKeys(date).length : 0;
+  if (rev > 0 || wrongN) {
+    const tR = wrongN
+      ? (rev ? rev + " повторень · " : "") + wrongN + " слів того дня не далось — клікни, щоб переглянути чи зіграти"
+      : "";
+    h += _pgCell("🔁", rev > 0 ? "+" + rev : String(wrongN),
+                 "lb-review" + (wrongN ? " prog-click" : ""), cellAttrs("r", wrongN, tR));
+  }
   if (dt > 0) h += _pgCell("●", "+" + dt, "prog-new" + (added ? " prog-click" : ""), cellAttrs("t", added, ""));
   return h || '<span class="prog-none">—</span>';
 }
@@ -36307,7 +36317,8 @@ function renderMasteryStats() {
 const CAT_META = {
   known:    { label: "Знаю",   icon: "✓", color: "#7be07b" },
   learning: { label: "Вивчаю", icon: "↗", color: "#87b4ff" },
-  new:      { label: "Нові",   icon: "●", color: "#ffa94d" }
+  new:      { label: "Нові",   icon: "●", color: "#ffa94d" },
+  wrong:    { label: "Не дались", icon: "🔁", color: "#7fd1ff" }
 };
 // indices of words in a mastery category (same rule as renderMasteryStats)
 function categoryIndices(cat) {
@@ -36406,18 +36417,21 @@ function closeCategoryModal() {
 // Реюз #cat-modal: список EN—UA + TTS + «Грати ці слова» (кастомний пул catModalCustomPool).
 function openDayTransModal(date, cat) {
   // cat: "k"/"l" — лог переходів mastery; "t" — нові слова СЛОВНИКА за день (реєстр появи)
-  const words = cat === "t"
-    ? (wordsAddedByDate()[date] || [])
+  const words = cat === "t" ? (wordsAddedByDate()[date] || [])
+    : cat === "r" ? dayWrongKeys(date)                      // архів «не дались» (сесія 44)
     : ((loadMasteryTrans()[date] || {})[cat] || []);
   if (!words.length) return;
   const wordSet = new Set(words);
   const idxs = [];
   WORDS.forEach((w, i) => { if (wordSet.has(wordKey(w))) idxs.push(i); });
   if (!idxs.length) return;
-  const meta = cat === "k" ? CAT_META.known : cat === "t" ? CAT_META.new : CAT_META.learning;
+  const meta = cat === "k" ? CAT_META.known : cat === "t" ? CAT_META.new
+    : cat === "r" ? CAT_META.wrong : CAT_META.learning;
   catModalCat = null;
   catModalCustomPool = idxs;
-  catModalPoolTag = cat === "k" ? "known" : cat === "t" ? "new" : "learning";   // слова дня → той самий клас пулу
+  // слова дня → той самий клас пулу; «не дались» мають власний тег: пул із кількох
+  // конкретних слів не порівнюваний зі звичайною грою, тож він поза топ-10
+  catModalPoolTag = cat === "k" ? "known" : cat === "t" ? "new" : cat === "r" ? "wrong" : "learning";
   // ⚠️ Пари з однаковим EN (run бігти/керувати, fan фанат/вентилятор…) ділять mastery-ключ,
   // тож idxs містить ОБИДВА записи, а дельта в «Прогресі» рахує ключі. Групуємо рядки за
   // ключем (сенси через « / »), щоб рядок = СЛОВО (як дельта рахує ключі). Пул для гри —
@@ -36747,6 +36761,38 @@ function pickDueIndices() {
   return out;
 }
 
+// ── АРХІВ ПОМИЛОК ДНЯ (сесія 44, за запитом) ──────────────────────────────
+// `oxford_day_mistakes_v1` — це «відкритий борг»: слово ЗНИКАЄ звідти, щойно його
+// закрили повторенням. Тому історію «на чому я лажав 3 серпня» відновити було
+// нізвідки, і комірка 🔁 у «Прогресі по днях» лишалась єдиною неклікабельною.
+// Цей архів пишеться ПАРАЛЕЛЬНО і не чиститься ніколи; ключі в межах дня
+// унікальні (одне слово = один запис, скільки б разів на ньому не спіткнувся).
+const DAY_WRONG_KEY = "oxford_day_wrong_v1";
+function loadDayWrong() {
+  try { return JSON.parse(localStorage.getItem(DAY_WRONG_KEY)) || {}; } catch { return {}; }
+}
+function saveDayWrong(o) { localStorage.setItem(DAY_WRONG_KEY, JSON.stringify(o)); }
+function addDayWrong(idx) {
+  if (typeof idx !== "number" || !WORDS[idx]) return;
+  const wk = wordKey(WORDS[idx]), o = loadDayWrong(), dk = todayKey();
+  if (!o[dk]) o[dk] = [];
+  if (!o[dk].includes(wk)) { o[dk].push(wk); saveDayWrong(o); }
+}
+// скільки РІЗНИХ слів не далось того дня (комірка 🔁 показує кількість ПОВТОРЕНЬ)
+function dayWrongKeys(date) { return (loadDayWrong()[date] || []); }
+// Одноразовий засів архіву з відкритого боргу: історію повністю не відновити
+// (закриті слова вже стерті), але те, що ще висить, підхопимо.
+(function seedDayWrong() {
+  if (localStorage.getItem("oxford_daywrong_seed_v1")) return;
+  const src = loadDayMistakes(), dst = loadDayWrong();
+  for (const dk of Object.keys(src)) {
+    if (!dst[dk]) dst[dk] = [];
+    for (const wk of src[dk]) if (!dst[dk].includes(wk)) dst[dk].push(wk);
+  }
+  saveDayWrong(dst);
+  localStorage.setItem("oxford_daywrong_seed_v1", "1");
+})();
+
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
   catch { return {}; }
@@ -36893,10 +36939,10 @@ function renderTabGames() {
       "en-ant":   "Antonym",
       "en-cloze": "Cloze"
     };
-    const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові" };   // known не зберігається взагалі
+    const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові", wrong: "🔁 Не дались" };   // known не зберігається взагалі
     // Ігри за рівнями CEFR (сесія 42): підпис = рівень («🎓 A1», «🎓 A1-B1») замість напрямку,
     // і БЕЗ номера місця — вони поза рейтингом, бо пул одного рівня легший за повний словник.
-    const isCefrGame = !!(s.tag && s.tag.indexOf("cefr:") === 0);
+    const isCefrGame = !!(s.tag && (s.tag.indexOf("cefr:") === 0 || s.tag === "wrong"));   // обидва — поза рейтингом
     const modeStr = (isCefrGame ? "🎓 " + s.tag.slice(5) : null)
       || (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
@@ -38166,7 +38212,7 @@ renderLeaderboard();
   if (localStorage.getItem(FLAG)) return;
   try {
     const isEmpty = e => (e.score || 0) + (e.wrong || 0) + (e.skipped || 0) === 0;
-    const rated = e => e && !isEmpty(e) && !(e.tag === "known") && !(e.tag && e.tag.indexOf("cefr:") === 0);
+    const rated = e => e && !isEmpty(e) && !(e.tag === "known") && e.tag !== "wrong" && !(e.tag && e.tag.indexOf("cefr:") === 0);
     const byTs = new Map();
     loadGamesLog().filter(rated).forEach(g => byTs.set(g.ts, g));
     loadScores().filter(rated).forEach(s => byTs.set(s.ts, s));   // записи топу мають id — вони в пріоритеті
