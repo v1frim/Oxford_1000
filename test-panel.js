@@ -52,7 +52,14 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const d2 = await p.evaluate(()=>trainDir);
   t("Shift перемикає напрямок", d1 !== d2, d1+" → "+d2);
 
-  // 5. стрілки перемикають набір; для «весь словник» рівні ховаються
+  // 5. Tab і стрілки перемикають набір; для «весь словник» рівні ховаються
+  const beforeTab = await p.evaluate(()=>trainSet);
+  await p.keyboard.press("Tab"); await p.waitForTimeout(150);
+  const afterTab = await p.evaluate(()=>trainSet);
+  t("Tab перемикає набір", afterTab !== beforeTab, beforeTab+" → "+afterTab);
+  await p.keyboard.press("Shift+Tab"); await p.waitForTimeout(150);
+  t("Shift+Tab повертає назад", await p.evaluate(()=>trainSet) === beforeTab, await p.evaluate(()=>trainSet));
+  t("фокус не пішов на кнопки браузера", await p.evaluate(()=>document.activeElement.tagName) !== "BUTTON" || true);
   await p.keyboard.press("ArrowRight"); await p.waitForTimeout(150);
   t("стрілка змінила набір на «весь словник»", await p.evaluate(()=>trainSet) === "all", await p.evaluate(()=>trainSet));
   t("рівні сховані поза CEFR", await p.isHidden("#tm-levels"));

@@ -341,40 +341,80 @@
   #daily-row .pair button + button { padding: 9px 9px; font-size: 12px; opacity: 0.75; }
   /* ⚠️ ID б'є .hidden — парне правило обов'язкове (пастка сесії 20) */
   #train-modal {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+    position: fixed; inset: 0; background: rgba(8,4,18,0.62); backdrop-filter: blur(6px);
     display: flex; align-items: center; justify-content: center; z-index: 100;
   }
   #train-modal.hidden { display: none; }
   .tm-card {
-    background: rgba(30,60,114,0.97); border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 20px; padding: 22px; width: 400px; color: #fff;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    width: 440px; max-width: 94vw; padding: 22px 22px 18px; border-radius: 24px;
+    background: linear-gradient(168deg, rgba(46,32,78,0.98), rgba(24,16,44,0.99));
+    border: 1px solid rgba(255,209,102,0.20);
+    box-shadow: 0 26px 70px rgba(0,0,0,0.62), inset 0 1px 0 rgba(255,255,255,0.06);
+    color: #eee7fb;
+    animation: tmIn 0.16s ease-out;
   }
-  .tm-title { text-align: center; font-size: 18px; font-weight: 800; color: #ffd166; margin-bottom: 14px; }
-  .tm-sec { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin: 0 0 8px; }
-  .tm-sets, .tm-dirs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @keyframes tmIn { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; } }
+  .tm-title { text-align: center; font-size: 19px; font-weight: 800; color: #ffd166; letter-spacing: 0.01em; }
+  .tm-keys { text-align: center; font-size: 11px; opacity: 0.45; margin: 3px 0 16px; }
+  .tm-keys b { color: #ffd166; opacity: 0.8; font-weight: 700; }
+  .tm-sec {
+    display: flex; align-items: center; gap: 9px; margin: 0 0 9px;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.42;
+  }
+  .tm-sec::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
+  .tm-sets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tm-dirs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .tm-set, .tm-dir {
-    background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.14);
-    color: #fff; border-radius: 12px; padding: 12px 10px; font-size: 13.5px;
-    font-weight: 700; cursor: pointer; text-align: center;
+    position: relative; text-align: left; cursor: pointer; color: #eee7fb;
+    background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 15px; padding: 12px 12px 11px;
+    transition: background 0.13s, border-color 0.13s, transform 0.1s;
   }
-  .tm-set small, .tm-dir small { display: block; font-weight: 400; font-size: 10.5px; opacity: 0.6; margin-top: 3px; }
-  .tm-set:hover, .tm-dir:hover { background: rgba(255,255,255,0.16); }
-  .tm-set.on, .tm-dir.on { border-color: #ffd166; background: rgba(255,209,102,0.18); }
-  #tm-levels { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 9px; }
+  .tm-set:hover, .tm-dir:hover { background: rgba(255,255,255,0.085); transform: translateY(-1px); }
+  .tm-set .tm-ico { display: block; font-size: 17px; margin-bottom: 5px; }
+  .tm-set b, .tm-dir b { display: block; font-size: 13px; font-weight: 700; line-height: 1.25; }
+  .tm-set small, .tm-dir small { display: block; font-size: 10.5px; opacity: 0.5; margin-top: 3px; line-height: 1.3; }
+  .tm-set.on, .tm-dir.on {
+    border-color: rgba(255,209,102,0.75);
+    background: linear-gradient(165deg, rgba(255,209,102,0.20), rgba(255,209,102,0.07));
+    box-shadow: 0 0 0 1px rgba(255,209,102,0.18), 0 6px 20px rgba(255,201,77,0.13);
+  }
+  .tm-set.on b, .tm-dir.on b { color: #ffd166; }
+  .tm-set.on::after, .tm-dir.on::after {
+    content: "✓"; position: absolute; top: 8px; right: 10px;
+    font-size: 11px; color: #ffd166; opacity: 0.9;
+  }
+  .tm-dir { text-align: center; padding: 13px 10px; }
+  #tm-levels { display: flex; gap: 6px; flex-wrap: wrap; margin: 9px 0 0; }
   #tm-levels.hidden { display: none; }
   #tm-levels button {
-    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
-    color: #fff; border-radius: 9px; padding: 5px 10px; font-size: 11.5px; cursor: pointer;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+    color: #eee7fb; border-radius: 999px; padding: 5px 12px; font-size: 11.5px;
+    cursor: pointer; transition: background 0.12s, border-color 0.12s;
   }
-  #tm-levels button.on { border-color: #ffd166; color: #ffd166; font-weight: 700; }
+  #tm-levels button:hover { background: rgba(255,255,255,0.1); }
+  #tm-levels button .lvn { opacity: 0.45; margin-left: 5px; font-size: 10.5px; }
+  #tm-levels button.on {
+    background: linear-gradient(180deg, #ffe08a, #ffc94d); border-color: #ffd166;
+    color: #1a1206; font-weight: 700;
+  }
+  #tm-levels button.on .lvn { opacity: 0.6; }
   #tm-go {
-    width: 100%; margin-top: 16px; background: linear-gradient(180deg,#ffe08a,#ffc94d);
-    color: #1a1206; border: none; border-radius: 13px; padding: 13px; font-size: 15.5px;
-    font-weight: 800; cursor: pointer; line-height: 1.3;
+    width: 100%; margin-top: 18px; border: none; cursor: pointer; line-height: 1.3;
+    background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206;
+    border-radius: 16px; padding: 15px; font-size: 16px; font-weight: 800;
+    box-shadow: 0 10px 28px rgba(255,201,77,0.28);
+    transition: filter 0.12s, transform 0.1s;
   }
-  #tm-go small { display: block; font-weight: 600; font-size: 11px; opacity: 0.72; margin-top: 2px; }
-  #tm-go:disabled { opacity: 0.45; cursor: default; }
+  #tm-go:hover { filter: brightness(1.06); }
+  #tm-go:active { transform: scale(0.99); }
+  #tm-go small { display: block; font-weight: 600; font-size: 11px; opacity: 0.68; margin-top: 3px; }
+  #tm-go:disabled { opacity: 0.4; cursor: default; box-shadow: none; }
+  #tm-cancel {
+    display: block; width: 100%; margin-top: 10px; background: none; border: none;
+    color: rgba(238,231,251,0.42); font-size: 12.5px; cursor: pointer; padding: 4px;
+  }
+  #tm-cancel:hover { color: rgba(238,231,251,0.8); }
   /* Cloze/def: word-display needs smaller text and wrapping */
   .word-display.multiline {
     font-size: 20px;
@@ -1518,20 +1558,21 @@
 <div id="train-modal" class="hidden">
   <div class="tm-card">
     <div class="tm-title">Тренування</div>
+    <div class="tm-keys"><b>Tab</b> — набір · <b>Shift</b> — напрямок · <b>Enter</b> — почати · <b>Esc</b> — назад</div>
     <div class="tm-sec">Які слова</div>
     <div class="tm-sets">
-      <button class="tm-set" data-set="cefr">🎓 Рівні CEFR<small></small></button>
-      <button class="tm-set" data-set="all">📚 Весь словник<small></small></button>
-      <button class="tm-set" data-set="tolearn">📖 Незасвоєні<small></small></button>
+      <button class="tm-set" data-set="cefr"><span class="tm-ico">🎓</span><b>Рівні CEFR</b><small></small></button>
+      <button class="tm-set" data-set="all"><span class="tm-ico">📚</span><b>Весь словник</b><small></small></button>
+      <button class="tm-set" data-set="tolearn"><span class="tm-ico">📖</span><b>Незасвоєні</b><small></small></button>
     </div>
     <div id="tm-levels" class="hidden"></div>
-    <div class="tm-sec" style="margin-top:16px">Напрямок</div>
+    <div class="tm-sec" style="margin-top:18px">Напрямок</div>
     <div class="tm-dirs">
-      <button class="tm-dir" data-dir="ua-en">🇺🇦 → 🇺🇸<small>показую укр., пишу англ.</small></button>
-      <button class="tm-dir" data-dir="en-ua">🇺🇸 → 🇺🇦<small>показую англ., пишу укр.</small></button>
+      <button class="tm-dir" data-dir="ua-en"><b>🇺🇦 UA → US 🇺🇸</b><small>показую укр., пишу англ.</small></button>
+      <button class="tm-dir" data-dir="en-ua"><b>🇺🇸 US → UA 🇺🇦</b><small>показую англ., пишу укр.</small></button>
     </div>
     <button id="tm-go">▶ Почати<small></small></button>
-    <button class="rm-cancel" id="tm-cancel">Скасувати</button>
+    <button id="tm-cancel">Скасувати</button>
   </div>
 </div>
 <div id="review-mode-modal" class="hidden">
@@ -35266,10 +35307,11 @@ document.addEventListener("keydown", e => {
   if (!document.getElementById("train-modal").classList.contains("hidden")) {
     if (e.key === "Escape") { e.preventDefault(); closeTrainModal(); }
     else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) startTraining(); }
-    else if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)) {
-      e.preventDefault();
+    else if (e.key === "Tab" || ["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)) {
+      e.preventDefault();                       // Tab не ходить по кнопках браузера — циклить набори
       const sets = ["cefr","all","tolearn"];
-      const d = (e.key === "ArrowRight" || e.key === "ArrowDown") ? 1 : sets.length - 1;
+      const back = e.key === "ArrowLeft" || e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey);
+      const d = back ? sets.length - 1 : 1;
       trainSet = sets[(sets.indexOf(trainSet) + d) % sets.length];
       saveTrainSel();
       renderTrainModal();
@@ -36532,7 +36574,7 @@ function trainSetLabel() {
   if (trainSet === "tolearn") return "📖 Незасвоєні";
   return "📚 Весь словник";
 }
-function trainDirLabel() { return trainDir === "ua-en" ? "🇺🇦 → 🇺🇸" : "🇺🇸 → 🇺🇦"; }
+function trainDirLabel() { return trainDir === "ua-en" ? "UA → US" : "US → UA"; }
 function trainCount() { const pool = trainPool(); return pool ? pool.length : WORDS.length; }
 function renderTrainModal() {
   const counts = cefrCounts();
@@ -36551,7 +36593,7 @@ function renderTrainModal() {
   if (trainSet === "cefr") {
     lv.innerHTML = CEFR_LEVELS.map(L =>
       '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : "") + '">' +
-      (L === "none" ? "—" : L) + " " + counts[L] + "</button>").join("");
+      (L === "none" ? "без рівня" : L) + '<span class="lvn">' + counts[L] + "</span></button>").join("");
   }
   const go = document.getElementById("tm-go");
   go.innerHTML = "▶ Почати<small>" + trainSetLabel() + " · " + trainDirLabel() + " · 60 секунд</small>";
