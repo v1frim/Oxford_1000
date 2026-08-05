@@ -311,6 +311,7 @@
     white-space: nowrap;
   }
   .mode-btn.active { background: #ffd166; color: #1e3c72; }
+  #cefr-btn.active { background: #ffd166; color: #1e3c72; border-color: #ffd166; }
   /* Cloze/def: word-display needs smaller text and wrapping */
   .word-display.multiline {
     font-size: 20px;
@@ -32924,7 +32925,7 @@ let reviewFromMenu = false;   // true лише для повторення з к
 // валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
 // "tolearn" у циклі — лаунчер «📖 Незасвоєні»: Shift підсвічує кнопку, Enter/«Почати»
 // відкриває модалку напрямку (сесія 35).
-const ALL_MODES = ["ua-en", "en-ua", "tolearn", "en-def", "en-syn", "en-ant", "en-cloze"];
+const ALL_MODES = ["ua-en", "en-ua", "tolearn", "en-def", "en-syn", "en-ant", "en-cloze", "cefr"];
 const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
 const MODE_HINTS = {
   "ua-en":    "Перекладіть англійською:",
@@ -32948,11 +32949,14 @@ function setMode(m) {
   // "tolearn" — НЕ ігровий режим, а лаунчер «📖 Незасвоєні»: конкретний mode не чіпаємо
   // (гра з ним не стартує — Enter/«Почати» відкриють модалку, а confirmRmSelection
   // виставить справжній режим обраного напрямку).
-  if (m !== "tolearn") {
+  if (m !== "tolearn" && m !== "cefr") {
     mode = (m === "mix") ? (Math.random() < 0.5 ? "en-ua" : "ua-en") : m;
   }
   Object.entries(MODE_BTNS).forEach(([k,btn]) => btn.classList.toggle("active", k === selectedMode));
   btnToLearn.classList.toggle("active", selectedMode === "tolearn");
+  // «🎓 Рівні CEFR» — така сама зупинка-лаунчер у Shift-циклі (сесія 44): підсвічуємо
+  // кнопку, реальний mode виставить confirmRmSelection після вибору напрямку.
+  document.getElementById("cefr-btn").classList.toggle("active", selectedMode === "cefr");
 }
 
 function shuffle(arr) {
@@ -35012,8 +35016,10 @@ document.getElementById("end-btn").addEventListener("click", () => {
   endGame(timeLeft > 0);
 });
 document.getElementById("start-btn").addEventListener("click", () => {
-  // Обрано лаунчер «📖 Незасвоєні» (Shift-циклом) → «Почати» відкриває модалку напрямку
-  if (selectedMode === "tolearn") startToLearnGame(); else startGame();
+  // Обрано лаунчер (Shift-циклом) → «Почати» відкриває його модалку, а не гру
+  if (selectedMode === "tolearn") startToLearnGame();
+  else if (selectedMode === "cefr") openCefrModal();
+  else startGame();
 });
 function restoreProgressPanel() {
   if (localStorage.getItem("oxford_progress_open_v1") === "1") {
@@ -35279,8 +35285,10 @@ document.addEventListener("keydown", e => {
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (!startScreen.classList.contains("hidden")) {
-    // Лаунчер «📖 Незасвоєні» обрано Shift-циклом → Enter відкриває модалку напрямку
-    if (selectedMode === "tolearn") startToLearnGame(); else startGame();
+    // Лаунчер обрано Shift-циклом → Enter відкриває його модалку (напрямку / рівнів)
+    if (selectedMode === "tolearn") startToLearnGame();
+    else if (selectedMode === "cefr") openCefrModal();
+    else startGame();
     return;
   }
   if (!endScreen.classList.contains("hidden")) {
@@ -36450,7 +36458,7 @@ function startCefrGame() {
   updateRmSelection();
   document.getElementById("review-mode-modal").classList.remove("hidden");
 }
-document.getElementById("cefr-btn").addEventListener("click", openCefrModal);
+document.getElementById("cefr-btn").addEventListener("click", () => { setMode("cefr"); openCefrModal(); });
 document.getElementById("cefr-close").addEventListener("click", closeCefrModal);
 document.getElementById("cefr-play").addEventListener("click", startCefrGame);
 document.getElementById("cefr-modal").addEventListener("click", e => {
