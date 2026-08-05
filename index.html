@@ -750,6 +750,8 @@
   .correction .corr-label { opacity: 0.75; font-size: 13px; }
   .correction .corr-top { display: flex; align-items: center; gap: 8px; }
   .correction .corr-answer { font-weight: 700; font-size: 18px; color: #ffd166; flex: 1; }
+  /* уточнення відтінку значення в дужках (HINTS, сесія 44) */
+  .correction .corr-answer .ans-hint { font-weight: 400; font-size: 14px; font-style: italic; opacity: .62; }
   .correction .corr-example { font-size: 13px; opacity: 0.72; font-style: italic; margin-top: 5px; }
   .correction .corr-hint { font-size: 13px; opacity: 0.65; margin-top: 6px; }
   .speak-btn {
@@ -15319,6 +15321,136 @@ const TRANS = {
   "verily":"/ˈverəli/",
   "vestigially":"/veˈstɪdʒiəli/",
   "wistfully":"/ˈwɪstfəli/"
+};
+
+// ── HINTS: уточнення відтінку значення (сесія 44, за запитом користувача) ──
+// Один український глос часто має кілька англійських відповідників («складний» =
+// hard / difficult / complex / …). HINTS підказує, ЧИМ саме вони різняться.
+// Ключ = wordKey (перша форма `en`, з «to » для дієслів). Показується в дужках
+// ЛИШЕ у рядку правильної відповіді (після відповіді користувача), тож промпт
+// лишається чистим і нічого не підказує наперед.
+// Наповнюється групами: спершу глоси з 4+ відповідниками, далі 3, далі 2.
+const HINTS = {
+  "wonderful": "загальне захоплення",
+  "lovely": "милий і приємний",
+  "fine": "цілком добрий, годиться",
+  "delightful": "що дарує втіху",
+  "great": "класний, дуже добрий",
+  "magnificent": "величний, розкішний",
+  "superb": "найвищої якості",
+  "fabulous": "казково розкішний",
+  "hard": "важкий, потребує зусиль",
+  "difficult": "розумово важкий",
+  "complex": "із багатьох частин",
+  "challenging": "що кидає виклик",
+  "complicated": "заплутаний",
+  "intricate": "тонко переплетений",
+  "tricky": "із підступом",
+  "terrible": "дуже поганий",
+  "awful": "огидно поганий",
+  "appalling": "що шокує обуренням",
+  "atrocious": "жорстоко мерзенний",
+  "dreadful": "що наганяє жах",
+  "horrible": "бридкий і страшний",
+  "breathtaking": "аж дух перехоплює",
+  "captivating": "що полонить увагу",
+  "engaging": "що втягує в себе",
+  "exciting": "що збуджує азарт",
+  "fascinating": "до нестями цікавий",
+  "huge": "дуже великий за розміром",
+  "enormous": "понад звичну міру",
+  "immense": "неосяжний",
+  "vast": "широко розлогий",
+  "tremendous": "вражаюче потужний",
+  "rapid": "стрімкий за темпом",
+  "fast": "загальна швидкість",
+  "quick": "короткий у часі",
+  "speedy": "спішно виконаний",
+  "swift": "плавно-стрімкий",
+  "distinguished": "шанований за заслуги",
+  "outstanding": "вирізняється якістю",
+  "remarkable": "вартий уваги",
+  "prominent": "добре відомий, помітний",
+  "eminent": "визнаний авторитет",
+  "keep": "тримати в себе",
+  "save": "відкладати; рятувати",
+  "preserve": "уберігати від псування",
+  "retain": "утримувати надалі",
+  "win": "здобувати перемогу",
+  "defeat": "завдати комусь поразки",
+  "beat": "обіграти суперника",
+  "prevail": "брати гору зрештою",
+  "jump": "загальний стрибок",
+  "bound": "пружно стрибати вперед",
+  "hop": "підстрибувати дрібно",
+  "leap": "стрибати далеко й угору",
+  "empty": "без вмісту",
+  "blank": "незаповнений, чистий",
+  "hollow": "пустий усередині",
+  "void": "пустка; недійсний",
+  "nice": "загальне добре враження",
+  "pleasant": "що тішить відчуття",
+  "agreeable": "згідливо приємний",
+  "enjoyable": "від якого маєш втіху",
+  "strange": "незвичний, чужий",
+  "odd": "не такий, як усе",
+  "peculiar": "своєрідно химерний",
+  "weird": "моторошно дивний",
+  "dangerous": "загальна небезпека",
+  "hazardous": "шкідливий для здоров'я",
+  "perilous": "смертельно ризикований",
+  "unsafe": "ненадійний, без захисту",
+  "expensive": "висока ціна",
+  "costly": "дорого обходиться",
+  "dear": "любий, дорогий серцю",
+  "pricey": "розмовно дорогенький",
+  "spicy": "пекучий від прянощів",
+  "sharp": "гострий як лезо; різкий",
+  "hot": "пекучий на смак",
+  "acute": "різкий, загострений",
+  "strong": "сильний",
+  "robust": "витривало міцний",
+  "sturdy": "стійкий, не хитається",
+  "tough": "жорсткий, не рветься",
+  "bright": "світлий і сяйний",
+  "luminous": "що світиться сам",
+  "vivid": "насичений і виразний",
+  "vibrant": "живий, енергійний",
+  "loud": "загальна гучність",
+  "blaring": "різко ревучий",
+  "booming": "гуркітливо низький",
+  "thunderous": "як грім",
+  "exact": "дослівно той самий",
+  "precise": "чітко визначений",
+  "accurate": "без похибки",
+  "smart": "кмітливий, метикуватий",
+  "clever": "спритний на думку",
+  "intelligent": "із високим інтелектом",
+  "reasonable": "розважливий, помірний",
+  "calm": "без хвилювання",
+  "composed": "володіє собою",
+  "serene": "умиротворено ясний",
+  "untroubled": "якого ніщо не турбує",
+  "curious": "цікавиться всім",
+  "inquisitive": "допитується деталей",
+  "nosy": "пхає носа в чуже",
+  "questioning": "усе ставить під сумнів",
+  "obvious": "видно з першого погляду",
+  "apparent": "очевидний на позір",
+  "evident": "видимий із доказів",
+  "manifest": "явний і незаперечний",
+  "satisfied": "дістав, чого хотів",
+  "content": "спокійно вдоволений",
+  "delighted": "у захваті",
+  "pleased": "приємно втішений",
+  "ailing": "хирлявий, занепадає",
+  "diseased": "уражений хворобою",
+  "ill": "хворий, у поганому стані",
+  "sick": "нездужає; нудить",
+  "faultless": "без жодної помилки",
+  "flawless": "без вади",
+  "spotless": "бездоганно чистий",
+  "impeccable": "взірцевий у деталях",
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -31901,17 +32033,28 @@ function isCorrect(input) {
   return false;
 }
 
+// «difficult» → «difficult (розумово важкий)», якщо для слова є HINTS-уточнення.
+// Дужки парсить wrapEnWord і рендерить окремим блідим спаном.
+function withHint(en) {
+  const h = HINTS[en] || HINTS[String(en).toLowerCase()];
+  return h ? en + " (" + h + ")" : en;
+}
+
 function getCorrectAnswer() {
   if (mode === "ua-en") {
     const shownUa = getUa(currentWord);
     const ans = new Set();
     WORDS.forEach(w => {
-      if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(e));
+      if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(withHint(e)));
     });
-    (currentWord.enAlt || []).forEach(e => ans.add(e));
+    (currentWord.enAlt || []).forEach(e => ans.add(withHint(e)));
     return [...ans].join(" / ");
   } else if (mode === "en-ua") {
-    return [...getUa(currentWord), ...(currentWord.uaAlt || [])].join(" / ");
+    // підказка стосується САМЕ цієї картки, тож чіпляється до основного глоса
+    const h = HINTS[getEn(currentWord)[0]];
+    const main = getUa(currentWord);
+    const first = h ? [main[0] + " (" + h + ")", ...main.slice(1)] : main;
+    return [...first, ...(currentWord.uaAlt || [])].join(" / ");
   } else if (mode === "en-def" || mode === "en-cloze") {
     return getEn(currentWord).join(" / ");
   } else if (mode === "en-syn") {
@@ -31934,7 +32077,14 @@ function showCorrection(answer) {
   } else if (mode === "en-syn" || mode === "en-ant" || mode === "ua-en") {
     corrAnswerEl.innerHTML = wrapEnWord(answer);
   } else {
-    corrAnswerEl.textContent = answer; // en-ua: answer is UA text, no EN hover
+    // en-ua: текст український (без EN-hover), але дужку-підказку HINTS
+    // рендеримо окремим спаном — решта екранується.
+    corrAnswerEl.innerHTML = String(answer).split(" / ").map(part => {
+      const hm = part.trim().match(/^(.+?)\s*\(([^)]+)\)$/);
+      return hm && HINTS[getEn(currentWord)[0]] === hm[2]
+        ? esc(hm[1]) + ' <span class="ans-hint">(' + esc(hm[2]) + ')</span>'
+        : esc(part);
+    }).join(" / ");
   }
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
@@ -33739,7 +33889,11 @@ function wrapSentence(sentence) {
 // clickable (TTS) and hoverable (translation + IPA). Looks up IPA per word.
 function wrapEnWord(words) {
   return String(words).split(" / ").map(word => {
-    const w = word.trim();
+    // «difficult (розумово важкий)» → слово окремо, підказка окремо (HINTS, сесія 44).
+    // В `en` дужок немає в жодній картці, тож розбір однозначний.
+    const hm = word.trim().match(/^(.+?)\s*\(([^)]+)\)$/);
+    const hint = hm ? hm[2] : "";
+    const w = (hm ? hm[1] : word).trim();
     if (!w) return esc(word);
     const bare = w.replace(/^to /, "");
     // Prefer the full "to X" entry (its own clean sense) before the bare stem,
@@ -33752,7 +33906,8 @@ function wrapEnWord(words) {
     let attrs = ' class="hw"';
     if (trans) attrs += ' data-trans="' + esc(trans) + '"';
     if (ipa)   attrs += ' data-ipa="'   + esc(ipa)   + '"';
-    return '<span' + attrs + '>' + esc(w) + '</span>';
+    return '<span' + attrs + '>' + esc(w) + '</span>' +
+           (hint ? ' <span class="ans-hint">(' + esc(hint) + ')</span>' : '');
   }).join(' / ');
 }
 
