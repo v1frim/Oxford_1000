@@ -32903,6 +32903,7 @@ let shufflePos = 0;
 let activePool = null;
 let currentWordIndex = -1;
 let reviewRemaining = null;
+let dueThisGame = null;      // wordIndex-и боргових слів, підмішаних у поточну гру
 let reviewElapsed = 0;
 let reviewTotalPool = 0;
 let reviewDir = "en-ua";
@@ -33259,9 +33260,15 @@ function recordAnswer(userVal, status) {
     } else {
       addXp(1);
       updateMastery(masteryTargetIndex(userVal), true);   // ua-en: прогрес введеному слову
+      // підмішане боргове слово вгадане — борг закрито (одного разу досить)
+      if (dueThisGame && dueThisGame.has(currentWordIndex)) {
+        dueThisGame.delete(currentWordIndex);
+        clearDue(currentWordIndex);
+      }
     }
   } else {
     addDayMistake(currentWordIndex);
+    scheduleDue(currentWordIndex);           // борг на завтра (інтервальне повторення)
     // In review: mark this word so even a later 3-correct won't remove it from
     // today's mistakes. User wants tainted words to stay for further review.
     if (reviewTaintedIndices) reviewTaintedIndices.add(currentWordIndex);
@@ -33505,6 +33512,19 @@ function startGame(pool, opts) {
   }
   shuffledIndices = shuffle([...sourcePool]);
   shufflePos = 0;
+  // Борг за вчорашні помилки підмішується ЛИШЕ у звичайні (timed) ігри —
+  // у повтореннях помилок (activePool) він був би маслом масляним.
+  dueThisGame = new Set();
+  if (!activePool) {
+    const due = pickDueIndices();
+    for (const i of due) {
+      const at = Math.min(shuffledIndices.length, Math.floor(Math.random() * 12) + 1);
+      const cur = shuffledIndices.indexOf(i);
+      if (cur >= 0) shuffledIndices.splice(cur, 1);        // без дублів у пулі
+      shuffledIndices.splice(at, 0, i);
+      dueThisGame.add(i);
+    }
+  }
 
   modeHintEl.textContent = MODE_HINTS[mode] || "";
 
@@ -35499,7 +35519,7 @@ const BACKUP_KEYS = [
   "oxford_songs_status_v1","oxford_songs_xp_v1","oxford_song_sessions_v1",
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
-  "oxford_self_reviews_v1"
+  "oxford_self_reviews_v1","oxford_due_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -36490,6 +36510,69 @@ document.getElementById("cat-list").addEventListener("click", e => {
   const row = e.target.closest(".cat-row");
   if (row) speak(getEn(WORDS[+row.dataset.i])[0]);          // click word → TTS
 });
+
+// ── ІНТЕРВАЛЬНЕ ПОВТОРЕННЯ ПОМИЛОК (сесія 44, за запитом користувача) ──────
+// Помилився сьогодні → слово стає «боргом» на ЗАВТРА і рівно ОДИН раз
+// підмішується у звичайну гру. Відповів правильно — борг закрито («значить,
+// уже знаю»); помилився знову — борг переїжджає на наступний день.
+// ⚠️ Це НЕ замінює post-game повторення помилок (3 правильні підряд одразу
+// після гри) — борг працює ЗВЕРХУ, наступними днями.
+// РОЗКИД: у грі береться не більше DUE_MAX_PER_GAME слів, і кожне заходить
+// лише з імовірністю DUE_CHANCE — тому 4 боргові слова природно розтягуються
+// на кілька ігор (одне в першій, два в четвертій…), а не валяться всі одразу.
+// Щоб слово не загубилось назавжди, після DUE_FORCE_AFTER пропущених ігор
+// воно береться примусово.
+const DUE_KEY = "oxford_due_v1";     // { wordKey: {due:"YYYY-MM-DD", waited:N} }
+const DUE_MAX_PER_GAME  = 3;
+const DUE_CHANCE        = 0.35;
+const DUE_FORCE_AFTER   = 4;
+
+function loadDue() {
+  try { return JSON.parse(localStorage.getItem(DUE_KEY)) || {}; } catch { return {}; }
+}
+function saveDue(d) { localStorage.setItem(DUE_KEY, JSON.stringify(d)); }
+function tomorrowKey() {
+  const d = new Date(); d.setDate(d.getDate() + 1);
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+// помилка/пропуск → борг на завтра (waited скидається: відлік ігор починається заново)
+function scheduleDue(idx) {
+  if (typeof idx !== "number" || !WORDS[idx]) return;
+  const d = loadDue();
+  d[wordKey(WORDS[idx])] = { due: tomorrowKey(), waited: 0 };
+  saveDue(d);
+}
+function clearDue(idx) {
+  if (typeof idx !== "number" || !WORDS[idx]) return;
+  const d = loadDue(), wk = wordKey(WORDS[idx]);
+  if (d[wk]) { delete d[wk]; saveDue(d); }
+}
+// скільки слів чекає на підмішування ПРЯМО ЗАРАЗ (для плашки в меню)
+function dueNowKeys() {
+  const d = loadDue(), t = todayKey();
+  return Object.keys(d).filter(wk => (d[wk] || {}).due <= t && indexOfWordKey(wk) >= 0);
+}
+// вибір боргових слів для цієї гри + оновлення лічильника очікування
+function pickDueIndices() {
+  const d = loadDue(), t = todayKey(), out = [];
+  let changed = false;
+  for (const wk of Object.keys(d)) {
+    const rec = d[wk] || {};
+    if (!rec.due || rec.due > t) continue;
+    const i = indexOfWordKey(wk);
+    if (i < 0) { delete d[wk]; changed = true; continue; }   // слово зникло зі словника
+    const forced = (rec.waited || 0) >= DUE_FORCE_AFTER;
+    if (out.length < DUE_MAX_PER_GAME && (forced || Math.random() < DUE_CHANCE)) {
+      out.push(i);
+      rec.waited = 0;
+    } else {
+      rec.waited = (rec.waited || 0) + 1;
+    }
+    d[wk] = rec; changed = true;
+  }
+  if (changed) saveDue(d);
+  return out;
+}
 
 function loadDayMistakes() {
   try { return JSON.parse(localStorage.getItem(LB_DAY_MISTAKES_KEY)) || {}; }
