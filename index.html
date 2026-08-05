@@ -382,7 +382,15 @@
   }
   .tm-set:hover, .tm-dir:hover { background: rgba(255,255,255,0.085); transform: translateY(-1px); }
   .tm-set .tm-ico { display: block; font-size: 26px; line-height: 1; margin: 2px 0 8px; }
+  .tm-set { display: flex; flex-direction: column; }
   .tm-set b { display: block; font-size: 13px; font-weight: 700; line-height: 1.25; }
+  /* лічильник слів — окремим рядком унизу картки, щоб у трьох режимах він був на
+     одній лінії (сесія 44, за запитом) */
+  .tm-set .tm-cnt {
+    display: block; margin-top: auto; padding-top: 7px;
+    font-size: 11px; font-weight: 600; opacity: 0.62; white-space: nowrap;
+  }
+  .tm-set.on .tm-cnt { opacity: 0.8; }
   .tm-dir b { display: block; font-size: 15px; font-weight: 700; }
   .tm-set small, .tm-dir small { display: block; font-size: 10.5px; opacity: 0.5; margin-top: 3px; line-height: 1.3; }
   .tm-set.on, .tm-dir.on {
@@ -1572,9 +1580,9 @@
     <div class="tm-keys"><b>Tab</b> — набір · <b>Shift</b> — напрямок · <b>Enter</b> — почати · <b>Esc</b> — назад</div>
     <div class="tm-sec">Вибір режиму</div>
     <div class="tm-sets">
-      <button class="tm-set" data-set="cefr"><span class="tm-ico">🎓</span><b>Рівні CEFR</b><small></small></button>
-      <button class="tm-set" data-set="all"><span class="tm-ico">📚</span><b>Весь словник</b><small></small></button>
-      <button class="tm-set" data-set="tolearn"><span class="tm-ico">📖</span><b>Незасвоєні</b><small></small></button>
+      <button class="tm-set" data-set="cefr"><span class="tm-ico">🎓</span><b>Рівні CEFR</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
+      <button class="tm-set" data-set="all"><span class="tm-ico">📚</span><b>Весь словник</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
+      <button class="tm-set" data-set="tolearn"><span class="tm-ico">📖</span><b>Незасвоєні</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
     </div>
     <div id="tm-levels" class="hidden"></div>
     <div class="tm-sec" style="margin-top:18px">Напрямок</div>
@@ -36464,7 +36472,7 @@ function openDayTransModal(date, cat) {
   }
   document.getElementById("cat-title").innerHTML =
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + ' · ' + fmtProgressDate(date) + '</span>' +
-    '<span class="cat-cnt">' + rows.length + ' слів' + netNote + '</span>';
+    '<span class="cat-cnt">' + plWords(rows.length) + netNote + '</span>';
   const listEl = document.getElementById("cat-list");
   listEl.innerHTML = rows.map(g =>
     '<div class="cat-row" data-i="' + g[0] + '">' +
@@ -36600,17 +36608,25 @@ function trainSetLabel() {
   return "📚 Весь словник";
 }
 function trainDirLabel() { return trainDir === "ua-en" ? "UA → US" : "US → UA"; }
+// «1 слово · 904 слова · 8646 слів» — відмінок за останніми цифрами (сесія 44:
+// раніше скрізь писалось тупо «слів», що для 8562 і 904 неграмотно).
+function plWords(n) {
+  const d1 = n % 10, d100 = n % 100;
+  if (d1 === 1 && d100 !== 11) return n + " слово";
+  if (d1 >= 2 && d1 <= 4 && (d100 < 10 || d100 >= 20)) return n + " слова";
+  return n + " слів";
+}
 function trainCount() { const pool = trainPool(); return pool ? pool.length : WORDS.length; }
 function renderTrainModal() {
   const counts = cefrCounts();
   document.querySelectorAll(".tm-set").forEach(b => {
     const k = b.dataset.set;
     b.classList.toggle("on", k === trainSet);
-    const sub = b.querySelector("small");
-    if (!sub) return;
-    if (k === "cefr")    sub.textContent = "обрано " + cefrTagLabel(cefrSel) + " · " + cefrIndices([...cefrSel]).length;
-    if (k === "all")     sub.textContent = WORDS.length + " слів";
-    if (k === "tolearn") sub.textContent = "вивчаю + нові · " + toLearnIndices().length + " слів";
+    const note = b.querySelector(".tm-note"), cnt = b.querySelector(".tm-cnt");
+    if (!note || !cnt) return;
+    if (k === "cefr")    { note.textContent = "обрано " + cefrTagLabel(cefrSel); cnt.textContent = plWords(cefrIndices([...cefrSel]).length); }
+    if (k === "all")     { note.textContent = "усі рівні разом";                 cnt.textContent = plWords(WORDS.length); }
+    if (k === "tolearn") { note.textContent = "вивчаю + нові";                   cnt.textContent = plWords(toLearnIndices().length); }
   });
   document.querySelectorAll(".tm-dir").forEach(b => b.classList.toggle("on", b.dataset.dir === trainDir));
   const lv = document.getElementById("tm-levels");
@@ -36666,11 +36682,7 @@ function renderDueBanner() {
   if (!el) return;
   const n = dueNowKeys().length;
   el.classList.toggle("hidden", !n);
-  if (n) {
-    const word = (n % 10 === 1 && n % 100 !== 11) ? "слово"
-      : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? "слова" : "слів";
-    el.textContent = "🔁 На повторенні " + n + " " + word + " — підмішаю їх у найближчі ігри";
-  }
+  if (n) el.textContent = "🔁 На повторенні " + plWords(n) + " — підмішаю їх у найближчі ігри";
 }
 
 // Сесія 44: окремих кнопки й модалки «🎓 Рівні CEFR» більше НЕМА — рівні стали

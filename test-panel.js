@@ -56,6 +56,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("три набори слів", (await p.$$(".tm-set")).length === 3);
   t("два напрямки, без «Випадкового»", (await p.$$(".tm-dir")).length === 2);
   t("рядок рівнів видно для CEFR", await p.isVisible("#tm-levels"));
+  // лічильники — окремим рядком унизу картки, з правильним відмінком (сесія 44)
+  const cnts = await p.$$eval(".tm-set .tm-cnt", es => es.map(e => e.textContent));
+  t("у кожній картці є лічильник слів", cnts.length === 3 && cnts.every(c => /\d+ (слово|слова|слів)/.test(c)), cnts.join(" | "));
+  const plural = await p.evaluate(() => [1,2,904,1567,8562,8646,11,21].map(n => plWords(n)));
+  t("відмінок за числом", plural.join(",") === "1 слово,2 слова,904 слова,1567 слів,8562 слова,8646 слів,11 слів,21 слово", plural.join(" · "));
 
   // 4. Shift перемикає напрямок
   const d1 = await p.evaluate(()=>trainDir);
