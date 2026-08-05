@@ -132,6 +132,11 @@
   .lb-list li:nth-child(1)::before { content: "🥇"; opacity: 1; font-size: 16px; }
   .lb-list li:nth-child(2)::before { content: "🥈"; opacity: 1; font-size: 16px; }
   .lb-list li:nth-child(3)::before { content: "🥉"; opacity: 1; font-size: 16px; }
+  /* Вкладка 🎓 (сесія 43): рядки — рекорди РІЗНИХ пулів (рівнів), а не місця в одному
+     рейтингу, тож без медалей і без нумерації; ліворуч — шапочка. ⚠️ Правила стоять ДО
+     .lb-today/.lb-latest::before, щоб ті рядки лишили свої «★»/«ост». */
+  .lb-list.lb-cefr li:nth-child(-n+3) { background: transparent; }
+  .lb-list.lb-cefr li::before { content: "🎓"; opacity: 0.75; font-size: 13px; }
   .lb-score { font-weight: 700; color: #ffd166; }
   .lb-detail { opacity: 0.7; font-size: 12px; }
   .lb-pool { font-size: 10px; opacity: 0.65; }
@@ -1482,6 +1487,7 @@
   <div class="lb-header">
     <div class="lb-tabs">
       <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
+      <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -28935,8 +28941,12 @@ function endGame(endedEarly) {
       updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
       appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
     } else {
+    // Порожня гра (жодної відповіді — старт і одразу вихід) у рейтинг НЕ йде: сесія 43,
+    // саме така гра зайняла вільний слот у топ-10 і показувалась 10-м місцем із «0».
+    // Статистика дня рахується як завжди — гра відбулась, просто рейтингувати нічого.
+    const emptyGame = score + wrong + skipped === 0;
     const scoresWereFull = loadScores().length >= LB_LIMIT;
-    newEntryId = saveScore({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+    newEntryId = emptyGame ? null : saveScore({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
       // milestone-вітання тепер за пунктами «термометра» (а не за к-стю ігор):
@@ -28952,9 +28962,11 @@ function endGame(endedEarly) {
         enqueueMilestone({ icon: "🏆", text: rank + " місце!", sub: rank <= 3 ? "У топ-3 найкращих ігор!" : "У топ-10 найкращих ігор!", type: "rank", sfx: sfxRank });
       }
     }
-    updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
-    updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
-    appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+    if (!emptyGame) {
+      updateTodayBest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+      updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+      appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag || undefined });
+    }
     }
   } else {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
@@ -30584,7 +30596,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["games", "days", "xpdays", "streaks", "ach"];
+    const tabs = ["games", "cefr", "days", "xpdays", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -32019,6 +32031,62 @@ function renderTabGames() {
   }
   lbListEl.innerHTML = html;
 }
+// ── Вкладка 🎓 «Рекорди за рівнями CEFR» (сесія 43, за запитом) ────────────────
+// CEFR-ігри свідомо поза «Найкращими іграми» (пул одного рівня легший за повний словник),
+// тож у них ВЛАСНИЙ рейтинг. Ключ порівняння — мітка вибору («A1», «A1-B1», «—»): кожен
+// набір рівнів = окремий пул, тому один рядок = рекорд ЦЬОГО пулу, а не місце в спільному
+// топі. Сховище нове НЕ заводимо — усе рахується з games-log (там CEFR-ігри з сесії 42).
+function renderTabCefr() {
+  lbTitleEl.textContent = "Рекорди за рівнями CEFR";
+  const games = loadGamesLog().filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
+  if (!games.length) {
+    lbListEl.innerHTML = "";
+    lbEmptyEl.textContent = "Зіграй «🎓 Рівні CEFR» — тут з'являться рекорди по кожному рівню.";
+    lbEmptyEl.classList.remove("hidden");
+    return;
+  }
+  lbEmptyEl.classList.add("hidden");
+  const today = todayKey();
+  const isBetter = (a, b) => b.score > a.score || (b.score === a.score && (b.wrong + b.skipped) < (a.wrong + a.skipped));
+  const best = new Map();     // мітка рівнів → найкраща гра цим пулом
+  const count = new Map();    // мітка рівнів → скільки ігор зіграно
+  games.forEach(g => {
+    const k = g.tag.slice(5);
+    count.set(k, (count.get(k) || 0) + 1);
+    if (!best.has(k) || isBetter(best.get(k), g)) best.set(k, g);
+  });
+  // порядок рядків — за рівнями (A1…C2, «—»), комбінації йдуть одразу за своїм першим рівнем
+  const levelOrder = k => {
+    const head = String(k).split(/[-+]/)[0];
+    const i = CEFR_LEVELS.indexOf(head === "—" ? "none" : head);
+    return i < 0 ? CEFR_LEVELS.length : i;
+  };
+  const renderCefrRow = (g, label, cls, isExtra) => {
+    const isTodayGame = tsToDayKey(g.ts) === today;
+    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(g.ts));
+    const klass = (cls || "") + (isTodayGame ? " is-today-game" : "") + (isYesterdayGame ? " lb-yesterday-date" : "");
+    const n = count.get(label) || 0;
+    const gamesStr = (!isExtra && n > 1) ? '<span class="lb-games">' + n + " " + plural(n, "гра", "ігри", "ігор") + "</span>" : "";
+    const poolStr = g.wordCount ? ' <span class="lb-pool">· ' + fmtPool(g.wordCount) + '</span>' : '';
+    return '<li class="' + klass + '" title="' + (isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
+      '<span class="lb-score">' + g.score + '</span>' +
+      '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)' + poolStr + '</span>' +
+      gamesStr +
+      '<span class="lb-mode">🎓 ' + label + ' · ' + fmtDate(g.ts) + '</span>' +
+    '</li>';
+  };
+  // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
+  const last = games.reduce((a, b) => (b.ts > a.ts ? b : a));
+  let html = [...best.keys()]
+    .sort((a, b) => levelOrder(a) - levelOrder(b) || String(a).localeCompare(String(b)))
+    .map(k => renderCefrRow(best.get(k), k, best.get(k).ts === last.ts ? "is-latest-game" : ""))
+    .join("");
+  // під рискою — остання CEFR-гра, якщо вона сама не є рекордом (як «ост» у «Найкращих іграх»)
+  if (![...best.values()].some(g => g.ts === last.ts)) {
+    html += '<li class="lb-sep"></li>' + renderCefrRow(last, last.tag.slice(5), "lb-latest", true);
+  }
+  lbListEl.innerHTML = html;
+}
 function renderTabDays() {
   lbTitleEl.textContent = "Найкращі ігрові дні";
   const days = loadDays();
@@ -32177,10 +32245,13 @@ function renderLeaderboard(newGameId, newDayKey) {
   document.getElementById("lb-title").classList.remove("hidden");
   document.getElementById("lb-list").classList.toggle("hidden", achActive);
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
-  // reset схований і на «XP-днях»: вони виводяться з XP-історії (oxford_xp_day_v1), не з лідерборд-сховища
-  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays") ? "hidden" : "";
+  // reset схований і на «XP-днях» (виводяться з oxford_xp_day_v1, не з лідерборд-сховища),
+  // і на «🎓 CEFR» (рахуються з games-log, який годує ще й «Точність» — чистити його звідси не можна)
+  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "cefr") ? "hidden" : "";
+  lbListEl.classList.toggle("lb-cefr", lbActiveTab === "cefr");   // без медалей/нумерації — рядки з різних пулів
   if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); lbTitleEl.textContent = "Досягнення"; renderAchievements(); }
   else if (lbActiveTab === "games") renderTabGames();
+  else if (lbActiveTab === "cefr") renderTabCefr();
   else if (lbActiveTab === "days") renderTabDays();
   else if (lbActiveTab === "xpdays") renderTabXpDays();
   else renderTabStreaks();
@@ -33175,6 +33246,31 @@ renderLeaderboard();
           wrong: best.wrong, skipped: best.skipped, mode: best.mode, ts: best.ts, wordCount: best.wordCount }));
       } else localStorage.removeItem(LB_TODAY_BEST_KEY);
     }
+    localStorage.setItem(FLAG, "1");
+  } catch (e) { /* не ставимо прапор — повтор на наступному завантаженні */ }
+})();
+// Відновлення 10-го місця в «Найкращих іграх» (сесія 43, за скаргою). Ланцюжок подій:
+// A1-гра на 16 стала №1 і ВИТІСНИЛА тодішнє 10-те місце → міграція сесії 42 прибрала ту
+// A1-гру → у топі лишилось 9 → вільний слот зайняла порожня гра (0 очок, 0 відповідей —
+// старт і одразу вихід). Обидві дірки закриває перебудова топ-10 з games-log:
+// лог веде ВСІ звичайні ігри з сесії 33, тож витіснена гра там є.
+// Ідемпотентно (прапор + дедуп за ts); порожні ігри більше не потрапляють у рейтинг — див. endGame.
+(function refillLeaderboard() {
+  const FLAG = "oxford_fix_lb_refill_v1";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    const isEmpty = e => (e.score || 0) + (e.wrong || 0) + (e.skipped || 0) === 0;
+    const rated = e => e && !isEmpty(e) && !(e.tag === "known") && !(e.tag && e.tag.indexOf("cefr:") === 0);
+    const byTs = new Map();
+    loadGamesLog().filter(rated).forEach(g => byTs.set(g.ts, g));
+    loadScores().filter(rated).forEach(s => byTs.set(s.ts, s));   // записи топу мають id — вони в пріоритеті
+    const merged = [...byTs.values()]
+      .sort((a, b) => b.score - a.score || (a.wrong + a.skipped) - (b.wrong + b.skipped))
+      .slice(0, LB_LIMIT)
+      .map((e, i) => e.id ? e : { ...e, id: "r" + i + "-" + String(e.ts).slice(-6) });
+    localStorage.setItem(LB_KEY, JSON.stringify(merged));
+    const tb = loadTodayBest();
+    if (tb && isEmpty(tb)) localStorage.removeItem(LB_TODAY_BEST_KEY);   // «найкраща гра дня» = порожня
     localStorage.setItem(FLAG, "1");
   } catch (e) { /* не ставимо прапор — повтор на наступному завантаженні */ }
 })();
