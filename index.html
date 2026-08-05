@@ -315,30 +315,40 @@
   /* ── ПЕРЕБУДОВА ЦЕНТРАЛЬНОЇ ПАНЕЛІ (сесія 44, за запитом) ──────────────
      Головна кнопка → модалка «Тренування» (набір × напрямок); під нею ряд
      щоденних активностей і дрібний ряд English-only. Бічні панелі не чіпані. */
-  #start-btn { font-size: 19px; font-weight: 800; padding: 16px 18px; line-height: 1.25; }
+  #start-btn { font-size: 18px; font-weight: 800; padding: 14px 16px; line-height: 1.25; }
   #start-sub { display: block; font-size: 12.5px; font-weight: 600; opacity: 0.75; margin-top: 4px; }
   #due-banner {
-    margin: 10px 0 0; padding: 9px 12px; border-radius: 12px; cursor: pointer;
+    margin: 8px 0 0; padding: 8px 12px; border-radius: 12px;
     background: rgba(120,190,255,0.13); border: 1px solid rgba(140,200,255,0.35);
     color: #a8d4ff; font-size: 12.5px; text-align: center;
   }
   #due-banner:hover { background: rgba(120,190,255,0.22); }
   #due-banner.hidden { display: none; }
   .panel-lab {
-    font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: rgba(255,255,255,0.45); text-align: center; margin: 16px 0 8px;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.42); text-align: center; margin: 12px 0 6px;
   }
-  #daily-row, #eng-row { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
-  #daily-row > button, #daily-row > div { flex: 1 1 auto; }
+  /* Сітка 3×2 замість flex-wrap: інакше кнопки розпирало на всю ширину і ряд
+     розсипався на чотири поверхи, а «Пісні» затискало між сусідами (сесія 44). */
+  /* 6 колонок зі спанами: пари з лічильником («🦉 2 −», «🎧+ 1 −») потребують
+     удвічі більше місця, інакше підпис ріжеться в «Duoling…»/«♫…» (сесія 44). */
+  #daily-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  #daily-row > * { min-width: 0; }
+  #duo-wrap, #songsess-wrap { grid-column: span 3; }
+  #lh-btn, #expr-btn, #movie-wrap { grid-column: span 2; }
+  #eng-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
   #daily-row button, #eng-row button {
-    background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.12);
-    color: #fff; border-radius: 12px; padding: 9px 12px; font-size: 12.5px;
+    width: 100%; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.11);
+    color: #fff; border-radius: 12px; padding: 9px 6px; font-size: 12px;
     font-weight: 600; cursor: pointer; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+    transition: background 0.13s;
   }
-  #daily-row button:hover, #eng-row button:hover { background: rgba(255,255,255,0.18); }
-  #eng-row button { font-size: 11.5px; padding: 7px 11px; background: rgba(255,255,255,0.05); font-weight: 500; }
+  #daily-row button:hover, #eng-row button:hover { background: rgba(255,255,255,0.17); }
+  #eng-row button { font-size: 11.5px; padding: 7px 5px; background: rgba(255,255,255,0.045); font-weight: 500; }
   #daily-row .pair { display: flex; gap: 3px; align-items: stretch; }
-  #daily-row .pair button + button { padding: 9px 9px; font-size: 12px; opacity: 0.75; }
+  #daily-row .pair > button:first-child { flex: 1 1 auto; min-width: 0; }
+  #daily-row .pair > button + button { flex: 0 0 auto; width: auto; padding: 9px 8px; font-size: 11.5px; opacity: 0.7; }
   /* ⚠️ ID б'є .hidden — парне правило обов'язкове (пастка сесії 20) */
   #train-modal {
     position: fixed; inset: 0; background: rgba(8,4,18,0.62); backdrop-filter: blur(6px);
@@ -1487,12 +1497,12 @@
         <button id="duo-btn">🦉 Duolingo<span id="duo-count" style="display:none"></span></button>
         <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
       </div>
-      <button id="lh-btn">📚 LingoHut</button>
       <div id="songsess-wrap" class="pair">
         <button id="songs-btn">🎵 Пісні</button>
         <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +30 XP)">🎧+<span id="songsess-count" style="display:none"></span></button>
         <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
       </div>
+      <button id="lh-btn">📚 LingoHut</button>
       <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази</button>
       <div id="movie-wrap" class="pair">
         <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
@@ -37823,7 +37833,7 @@ function renderMovieBtn() {
   if (!movieUnlocked()) {
     const known = countKnownWords();
     btn.classList.add("mv-locked");
-    btn.innerHTML = '🔒 Кіно <span class="mv-lock">у «Знаю» ' + known + '/' + MOVIE_UNLOCK_KNOWN + '</span>';
+    btn.innerHTML = '🔒 Кіно <span class="mv-lock">' + known + '/' + MOVIE_UNLOCK_KNOWN + '</span>';
     btn.title = 'Розблокується, коли у «Знаю» буде ' + MOVIE_UNLOCK_KNOWN + ' слів (зараз ' + known + '). Грай — і кіно відкриється!';
     plus.style.display = "none";
     minus.style.display = "none";

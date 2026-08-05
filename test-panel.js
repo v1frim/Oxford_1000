@@ -33,6 +33,17 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   for (const id of ["btn-en-def","btn-en-syn","btn-en-ant","btn-en-cloze"])
     t("English-only: #"+id, await p.isVisible("#"+id));
   t("старих кнопок напрямку нема", await p.$("#btn-ua-en") === null && await p.$("#cefr-btn") === null);
+  // ряд «Щодня» має лягати рівно у два ряди й нічого не обрізати (сесія 44)
+  const layout = await p.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem("oxford_duolingo_v1") || "{}");
+    s[duoToday()] = 2; localStorage.setItem("oxford_duolingo_v1", JSON.stringify(s)); renderDuoBtn();
+    const rows = new Set([...document.querySelectorAll("#daily-row > *")].map(e => Math.round(e.getBoundingClientRect().top)));
+    const cut = [...document.querySelectorAll("#daily-row button, #eng-row button")]
+      .filter(e => e.scrollWidth > e.clientWidth + 1).map(e => e.textContent.trim());
+    return { rows: rows.size, cut };
+  });
+  t("ряд «Щодня» у два ряди", layout.rows === 2, String(layout.rows));
+  t("жодна кнопка не обрізана", layout.cut.length === 0, layout.cut.join(" | "));
 
   // 2. кіно: поріг 1500 і замок
   const mv = await p.evaluate(() => ({ lim: MOVIE_UNLOCK_KNOWN, txt: document.getElementById("movie-btn").textContent }));
