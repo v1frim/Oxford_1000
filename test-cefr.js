@@ -65,9 +65,10 @@ function chromePath() {
   const sets = await page.$$eval(".tm-set", bs => bs.map(b => b.dataset.set));
   t("CEFR перший у списку наборів", sets[0] === "cefr", sets.join(","));
   t("рядок рівнів видно", await page.isVisible("#tm-levels"));
-  const chips = await page.$$eval("#tm-levels button", bs => bs.map(b => b.textContent));
+  // число рівня живе окремим спаном .lvn (сесія 44, редизайн модалки)
+  const chips = await page.$$eval("#tm-levels button", bs => bs.map(b => +b.querySelector(".lvn").textContent));
   t("7 рівнів (A1-C2 + без рівня)", chips.length === 7, String(chips.length));
-  const sum = chips.reduce((a, c) => a + (+c.trim().split(" ").pop()), 0);
+  const sum = chips.reduce((a, c) => a + c, 0);
   const words = await page.evaluate(() => WORDS.length);
   t("сума лічильників = WORDS", sum === words, sum + " vs " + words);
 
