@@ -312,6 +312,69 @@
   }
   .mode-btn.active { background: #ffd166; color: #1e3c72; }
   #cefr-btn.active { background: #ffd166; color: #1e3c72; border-color: #ffd166; }
+  /* ── ПЕРЕБУДОВА ЦЕНТРАЛЬНОЇ ПАНЕЛІ (сесія 44, за запитом) ──────────────
+     Головна кнопка → модалка «Тренування» (набір × напрямок); під нею ряд
+     щоденних активностей і дрібний ряд English-only. Бічні панелі не чіпані. */
+  #start-btn { font-size: 19px; font-weight: 800; padding: 16px 18px; line-height: 1.25; }
+  #start-sub { display: block; font-size: 12.5px; font-weight: 600; opacity: 0.75; margin-top: 4px; }
+  #due-banner {
+    margin: 10px 0 0; padding: 9px 12px; border-radius: 12px; cursor: pointer;
+    background: rgba(120,190,255,0.13); border: 1px solid rgba(140,200,255,0.35);
+    color: #a8d4ff; font-size: 12.5px; text-align: center;
+  }
+  #due-banner:hover { background: rgba(120,190,255,0.22); }
+  #due-banner.hidden { display: none; }
+  .panel-lab {
+    font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); text-align: center; margin: 16px 0 8px;
+  }
+  #daily-row, #eng-row { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
+  #daily-row > button, #daily-row > div { flex: 1 1 auto; }
+  #daily-row button, #eng-row button {
+    background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.12);
+    color: #fff; border-radius: 12px; padding: 9px 12px; font-size: 12.5px;
+    font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  #daily-row button:hover, #eng-row button:hover { background: rgba(255,255,255,0.18); }
+  #eng-row button { font-size: 11.5px; padding: 7px 11px; background: rgba(255,255,255,0.05); font-weight: 500; }
+  #daily-row .pair { display: flex; gap: 3px; align-items: stretch; }
+  #daily-row .pair button + button { padding: 9px 9px; font-size: 12px; opacity: 0.75; }
+  /* ⚠️ ID б'є .hidden — парне правило обов'язкове (пастка сесії 20) */
+  #train-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; z-index: 100;
+  }
+  #train-modal.hidden { display: none; }
+  .tm-card {
+    background: rgba(30,60,114,0.97); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px; padding: 22px; width: 400px; color: #fff;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .tm-title { text-align: center; font-size: 18px; font-weight: 800; color: #ffd166; margin-bottom: 14px; }
+  .tm-sec { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin: 0 0 8px; }
+  .tm-sets, .tm-dirs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tm-set, .tm-dir {
+    background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.14);
+    color: #fff; border-radius: 12px; padding: 12px 10px; font-size: 13.5px;
+    font-weight: 700; cursor: pointer; text-align: center;
+  }
+  .tm-set small, .tm-dir small { display: block; font-weight: 400; font-size: 10.5px; opacity: 0.6; margin-top: 3px; }
+  .tm-set:hover, .tm-dir:hover { background: rgba(255,255,255,0.16); }
+  .tm-set.on, .tm-dir.on { border-color: #ffd166; background: rgba(255,209,102,0.18); }
+  #tm-levels { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 9px; }
+  #tm-levels.hidden { display: none; }
+  #tm-levels button {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+    color: #fff; border-radius: 9px; padding: 5px 10px; font-size: 11.5px; cursor: pointer;
+  }
+  #tm-levels button.on { border-color: #ffd166; color: #ffd166; font-weight: 700; }
+  #tm-go {
+    width: 100%; margin-top: 16px; background: linear-gradient(180deg,#ffe08a,#ffc94d);
+    color: #1a1206; border: none; border-radius: 13px; padding: 13px; font-size: 15.5px;
+    font-weight: 800; cursor: pointer; line-height: 1.3;
+  }
+  #tm-go small { display: block; font-weight: 600; font-size: 11px; opacity: 0.72; margin-top: 2px; }
+  #tm-go:disabled { opacity: 0.45; cursor: default; }
   /* Cloze/def: word-display needs smaller text and wrapping */
   .word-display.multiline {
     font-size: 20px;
@@ -1375,36 +1438,34 @@
         </div>
       </div>
     </div>
-    <div class="mode-select">
-      <div class="mode-group">
-        <div class="mode-group-label">Переклад</div>
-        <div class="mode-btns">
-          <button id="btn-ua-en" class="mode-btn active">🇺🇦 → 🇺🇸</button>
-          <button id="btn-en-ua" class="mode-btn">🇺🇸 → 🇺🇦</button>
-          <button id="btn-tolearn" class="mode-btn" title="Грати слова, які ти ще вивчаєш або ще не бачив (Вивчаю + Нові), з вибором напрямку">📖 Незасвоєні</button>
-        </div>
-      </div>
-      <div class="mode-group">
-        <div class="mode-group-label">English only</div>
-        <div class="mode-btns">
-          <button id="btn-en-def" class="mode-btn">📖 Def</button>
-          <button id="btn-en-syn" class="mode-btn">🔁 Syn</button>
-          <button id="btn-en-ant" class="mode-btn">↔ Ant</button>
-          <button id="btn-en-cloze" class="mode-btn">📝 Cloze</button>
-        </div>
-      </div>
-    </div>
-    <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази і сленг</button>
-    <button id="cefr-btn" title="Грати слова обраних рівнів CEFR (A1-C2 + слова без рівня)">🎓 Рівні CEFR</button>
-    <button id="start-btn">Почати</button>
+    <button id="start-btn">▶ Тренування · 60 сек<span id="start-sub"></span></button>
+    <div id="due-banner" class="hidden" title="Клік — повторити помилки окремою грою просто зараз"></div>
     <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки</button>
-    <div id="extra-btns">
-      <button id="lh-btn">📚 Уроки LingoHut</button>
-      <div id="songsess-wrap">
-        <button id="songs-btn">🎵 Пісні англійською</button>
-        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +30 XP)">🎧 +<span id="songsess-count" style="display:none"></span></button>
+    <div class="panel-lab">Щодня</div>
+    <div id="daily-row">
+      <div id="duo-wrap" class="pair">
+        <button id="duo-btn">🦉 Duolingo<span id="duo-count" style="display:none"></span></button>
+        <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
+      </div>
+      <button id="lh-btn">📚 LingoHut</button>
+      <div id="songsess-wrap" class="pair">
+        <button id="songs-btn">🎵 Пісні</button>
+        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +30 XP)">🎧+<span id="songsess-count" style="display:none"></span></button>
         <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
       </div>
+      <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази</button>
+      <div id="movie-wrap" class="pair">
+        <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
+        <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +60 XP)">+</button>
+        <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
+      </div>
+    </div>
+    <div class="panel-lab">English only · на потім</div>
+    <div id="eng-row">
+      <button id="btn-en-def" class="mode-btn">📖 Def</button>
+      <button id="btn-en-syn" class="mode-btn">🔁 Syn</button>
+      <button id="btn-en-ant" class="mode-btn">↔ Ant</button>
+      <button id="btn-en-cloze" class="mode-btn">📝 Cloze</button>
     </div>
   </div>
 
@@ -1454,13 +1515,31 @@
     <button id="restart-btn">🏠 На головну</button>
   </div>
 </div>
+<div id="train-modal" class="hidden">
+  <div class="tm-card">
+    <div class="tm-title">Тренування</div>
+    <div class="tm-sec">Які слова</div>
+    <div class="tm-sets">
+      <button class="tm-set" data-set="cefr">🎓 Рівні CEFR<small></small></button>
+      <button class="tm-set" data-set="all">📚 Весь словник<small></small></button>
+      <button class="tm-set" data-set="tolearn">📖 Незасвоєні<small></small></button>
+    </div>
+    <div id="tm-levels" class="hidden"></div>
+    <div class="tm-sec" style="margin-top:16px">Напрямок</div>
+    <div class="tm-dirs">
+      <button class="tm-dir" data-dir="ua-en">🇺🇦 → 🇺🇸<small>показую укр., пишу англ.</small></button>
+      <button class="tm-dir" data-dir="en-ua">🇺🇸 → 🇺🇦<small>показую англ., пишу укр.</small></button>
+    </div>
+    <button id="tm-go">▶ Почати<small></small></button>
+    <button class="rm-cancel" id="tm-cancel">Скасувати</button>
+  </div>
+</div>
 <div id="review-mode-modal" class="hidden">
   <div class="rm-card">
     <div class="rm-title">Напрямок перекладу</div>
     <div class="rm-btns">
       <button class="rm-btn" data-dir="en-ua">🇺🇸 → 🇺🇦 &nbsp;Англ. → Укр.</button>
       <button class="rm-btn" data-dir="ua-en">🇺🇦 → 🇺🇸 &nbsp;Укр. → Англ.</button>
-      <button class="rm-btn" data-dir="random">🔀 &nbsp;Випадковий</button>
     </div>
     <button class="rm-cancel" id="rm-cancel">Скасувати</button>
   </div>
@@ -1473,17 +1552,6 @@
     </div>
     <div class="cat-list" id="cat-list"></div>
     <button class="cat-play" id="cat-play"></button>
-  </div>
-</div>
-<div id="cefr-modal" class="hidden">
-  <div class="cat-card">
-    <div class="cat-head">
-      <div class="cat-title">🎓 Рівні CEFR</div>
-      <button class="cat-close" id="cefr-close" title="Esc">✕</button>
-    </div>
-    <div class="cat-list" id="cefr-list"></div>
-    <div class="cefr-hint">Позначені рівні гратимуться разом. Вибір запам'ятовується.</div>
-    <button class="cat-play" id="cefr-play"></button>
   </div>
 </div>
 <aside class="leaderboard hidden" id="leaderboard">
@@ -1529,10 +1597,6 @@
   <button id="progress-btn">📈 Прогрес по днях</button>
   <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
   <button id="import-btn">📂 Відновити</button>
-  <div id="duo-wrap">
-    <button id="duo-btn">🦉 Duolingo<span id="duo-count" style="display:none"></span></button>
-    <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
-  </div>
   <div id="gpt-wrap">
     <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
     <button id="gpt-plus" title="Додати запит GPT (+1, +15 XP)">+</button>
@@ -1542,11 +1606,6 @@
     <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив слова)">📚 Повторив<span id="selfrev-count" style="display:none"></span></button>
     <button id="selfrev-plus" title="Відмітити повторення слів (+1 пункт «Плани», +30 XP)">+</button>
     <button id="selfrev-minus" title="Скасувати останнє повторення (лише сьогодні)">−</button>
-  </div>
-  <div id="movie-wrap">
-    <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
-    <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +60 XP)">+</button>
-    <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
   </div>
 </div>
 
@@ -32876,9 +32935,6 @@ const listEl         = document.getElementById("results-list");
 const modeHintEl     = document.getElementById("mode-hint");
 const tabAll         = document.getElementById("tab-all");
 const tabBad         = document.getElementById("tab-bad");
-const btnUaEn        = document.getElementById("btn-ua-en");
-const btnEnUa        = document.getElementById("btn-en-ua");
-const btnToLearn     = document.getElementById("btn-tolearn");
 const btnEnDef       = document.getElementById("btn-en-def");
 const btnEnSyn       = document.getElementById("btn-en-syn");
 const btnEnAnt       = document.getElementById("btn-en-ant");
@@ -32912,7 +32968,7 @@ let pendingCatPool = null;   // пул гри по категорії (Знаю/
 let pendingCatTag = null;    // тег пулу ("known"/"learning"/"new") — підпис у лідерборді; known → взагалі НЕ в рейтинг
 let timedPoolTag = null;     // тег ПОТОЧНОЇ timed-гри по пулу (виставляє startGame з opts.tag)
 let rmSelectedIdx = 0;
-const RM_DIRS = ["en-ua", "ua-en", "random"];
+const RM_DIRS = ["en-ua", "ua-en"];   // «Випадковий» прибрано (сесія 44): не смикати розкладку посеред гри
 let reviewCorrectCounts = null;
 let reviewTaintedIndices = null;   // words that had any mistake/skip during current review
 const REVIEW_REQUIRED_CORRECT = 3;
@@ -32926,8 +32982,9 @@ let reviewFromMenu = false;   // true лише для повторення з к
 // валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
 // "tolearn" у циклі — лаунчер «📖 Незасвоєні»: Shift підсвічує кнопку, Enter/«Почати»
 // відкриває модалку напрямку (сесія 35).
-const ALL_MODES = ["ua-en", "en-ua", "tolearn", "en-def", "en-syn", "en-ant", "en-cloze", "cefr"];
-const MODE_BTNS  = { "ua-en": btnUaEn, "en-ua": btnEnUa, "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
+// Сесія 44: кнопок напрямку/лаунчерів на старті більше НЕМА — набір і напрямок
+// обираються в модалці «Тренування». Підсвічувати лишилось тільки English-only.
+const MODE_BTNS  = { "en-def": btnEnDef, "en-syn": btnEnSyn, "en-ant": btnEnAnt, "en-cloze": btnEnCloze };
 const MODE_HINTS = {
   "ua-en":    "Перекладіть англійською:",
   "en-ua":    "Перекладіть українською:",
@@ -32954,10 +33011,6 @@ function setMode(m) {
     mode = (m === "mix") ? (Math.random() < 0.5 ? "en-ua" : "ua-en") : m;
   }
   Object.entries(MODE_BTNS).forEach(([k,btn]) => btn.classList.toggle("active", k === selectedMode));
-  btnToLearn.classList.toggle("active", selectedMode === "tolearn");
-  // «🎓 Рівні CEFR» — така сама зупинка-лаунчер у Shift-циклі (сесія 44): підсвічуємо
-  // кнопку, реальний mode виставить confirmRmSelection після вибору напрямку.
-  document.getElementById("cefr-btn").classList.toggle("active", selectedMode === "cefr");
 }
 
 function shuffle(arr) {
@@ -35036,10 +35089,7 @@ document.getElementById("end-btn").addEventListener("click", () => {
   endGame(timeLeft > 0);
 });
 document.getElementById("start-btn").addEventListener("click", () => {
-  // Обрано лаунчер (Shift-циклом) → «Почати» відкриває його модалку, а не гру
-  if (selectedMode === "tolearn") startToLearnGame();
-  else if (selectedMode === "cefr") openCefrModal();
-  else startGame();
+  openTrainModal();
 });
 function restoreProgressPanel() {
   if (localStorage.getItem("oxford_progress_open_v1") === "1") {
@@ -35059,6 +35109,7 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   renderThermo();
   renderLeaderboard();
   updateReviewTodayBtn();
+  renderStartSub(); renderDueBanner();
   saveMasterySnapshot();
   renderMasteryStats();
   updateBackupLabel();
@@ -35148,13 +35199,9 @@ document.addEventListener("mouseover", e => {
   if (!e.target.closest(".hw")) hwTip.style.display = "none";
 });
 
-btnUaEn.addEventListener("click",    () => setMode("ua-en"));
-btnEnUa.addEventListener("click",    () => setMode("en-ua"));
-btnToLearn.addEventListener("click", startToLearnGame);
-btnEnDef.addEventListener("click",   () => setMode("en-def"));
-btnEnSyn.addEventListener("click",   () => setMode("en-syn"));
-btnEnAnt.addEventListener("click",   () => setMode("en-ant"));
-btnEnCloze.addEventListener("click", () => setMode("en-cloze"));
+// English-only: клік = одразу гра (кнопка «Почати» тепер веде в модалку «Тренування»)
+[["en-def",btnEnDef],["en-syn",btnEnSyn],["en-ant",btnEnAnt],["en-cloze",btnEnCloze]]
+  .forEach(([m,btn]) => btn.addEventListener("click", () => { setMode(m); startGame(); }));
 
 // ── «Чисті» натискання модифікаторів: Shift = цикл режимів, Alt = «Прогрес по днях» ──
 // Діють на KEYUP і ЛИШЕ якщо модифікатор натиснуто БЕЗ інших клавіш (сесія 35): системні
@@ -35190,7 +35237,6 @@ document.addEventListener("keyup", e => {
     if (!doToggle || !startScreen || startScreen.classList.contains("hidden")) return;
     // Модалки поверх меню перехоплюють клавіші (як і раніше в основному keydown-обробнику)
     if (!document.getElementById("cat-modal").classList.contains("hidden")) return;
-    if (!document.getElementById("cefr-modal").classList.contains("hidden")) return;
     if (!document.getElementById("review-mode-modal").classList.contains("hidden")) return;
     e.preventDefault();
     document.getElementById("progress-btn").click();
@@ -35201,23 +35247,33 @@ document.addEventListener("keyup", e => {
   pendingShiftCode = null;
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
-  const dir = code === "ShiftLeft" ? 1 : ALL_MODES.length - 1;
-  let next = ALL_MODES[(ALL_MODES.indexOf(selectedMode) + dir) % ALL_MODES.length];
-  // «Незасвоєні» з порожнім пулом (усе засвоєно) — мертвий лаунчер (Enter/«Почати»
-  // мовчки нічого не зроблять): пропускаємо цю зупинку циклу.
-  if (next === "tolearn" && !toLearnIndices().length) {
-    next = ALL_MODES[(ALL_MODES.indexOf(next) + dir) % ALL_MODES.length];
+  // Сесія 44: циклу режимів більше нема (кнопок теж). Shift на меню відкриває
+  // «Тренування», а у відкритій модалці — перемикає напрямок перекладу.
+  if (!document.getElementById("train-modal").classList.contains("hidden")) {
+    trainDir = trainDir === "ua-en" ? "en-ua" : "ua-en";
+    saveTrainSel();
+    renderTrainModal();
+    return;
   }
-  setMode(next);
+  openTrainModal();
 });
 // Alt+Tab / втрата фокуса вікна: keyup модифікатора може не долетіти — скидаємо стан
 window.addEventListener("blur", () => { pendingShiftCode = null; pendingAltToggle = false; });
 
 document.addEventListener("keydown", e => {
-  // Модалка рівнів CEFR перехоплює Esc (закрити) / Enter (грати), поки відкрита
-  if (!document.getElementById("cefr-modal").classList.contains("hidden")) {
-    if (e.key === "Escape") { e.preventDefault(); closeCefrModal(); }
-    else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) startCefrGame(); }
+  // Модалка «Тренування»: Esc — закрити, Enter — почати, ←→/↑↓ — інший набір слів
+  // (напрямок перемикає Shift, див. трекер «чистих» модифікаторів вище).
+  if (!document.getElementById("train-modal").classList.contains("hidden")) {
+    if (e.key === "Escape") { e.preventDefault(); closeTrainModal(); }
+    else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) startTraining(); }
+    else if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)) {
+      e.preventDefault();
+      const sets = ["cefr","all","tolearn"];
+      const d = (e.key === "ArrowRight" || e.key === "ArrowDown") ? 1 : sets.length - 1;
+      trainSet = sets[(sets.indexOf(trainSet) + d) % sets.length];
+      saveTrainSel();
+      renderTrainModal();
+    }
     return;
   }
   // Category words modal intercepts Esc (close) / Enter (play) while open
@@ -35305,10 +35361,7 @@ document.addEventListener("keydown", e => {
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (!startScreen.classList.contains("hidden")) {
-    // Лаунчер обрано Shift-циклом → Enter відкриває його модалку (напрямку / рівнів)
-    if (selectedMode === "tolearn") startToLearnGame();
-    else if (selectedMode === "cefr") openCefrModal();
-    else startGame();
+    openTrainModal();
     return;
   }
   if (!endScreen.classList.contains("hidden")) {
@@ -35321,6 +35374,7 @@ document.addEventListener("keydown", e => {
     renderLbTotals();
     renderThermo();
     updateReviewTodayBtn();
+    renderStartSub(); renderDueBanner();
     saveMasterySnapshot();
     renderMasteryStats();
     renderXpBar();
@@ -35636,6 +35690,7 @@ function handleImportClick() {
       Object.entries(obj).forEach(([k, v]) => localStorage.setItem(k, v));
       renderLeaderboard();
       updateReviewTodayBtn();
+      renderStartSub(); renderDueBanner();
       renderMasteryStats();
       renderXpBar();
       if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
@@ -36440,24 +36495,6 @@ let cefrSel = (() => {
   return new Set(["B1", "B2"]);   // дефолт: цільова зона користувача
 })();
 function saveCefrSel() { try { localStorage.setItem(CEFR_SEL_KEY, JSON.stringify([...cefrSel])); } catch (e) {} }
-function renderCefrModal() {
-  const counts = cefrCounts();
-  document.getElementById("cefr-list").innerHTML = CEFR_LEVELS.map(L => {
-    const on = cefrSel.has(L);
-    return '<div class="cefr-row' + (on ? " on" : "") + '" data-lv="' + L + '">' +
-      '<div class="cefr-box">' + (on ? "✓" : "") + "</div>" +
-      '<div class="cefr-name">' + (L === "none" ? "—" : L) + "</div>" +
-      '<div class="cefr-desc">' + CEFR_META[L] + "</div>" +
-      '<div class="cefr-count">' + counts[L] + "</div></div>";
-  }).join("");
-  const total = CEFR_LEVELS.reduce((s, L) => s + (cefrSel.has(L) ? counts[L] : 0), 0);
-  const btn = document.getElementById("cefr-play");
-  btn.textContent = total ? "▶ Грати ці слова (" + total + ")" : "Оберіть хоча б один рівень";
-  btn.disabled = !total;
-  btn.style.background = total ? "#ffd166" : "rgba(255,255,255,0.2)";
-}
-function openCefrModal() { renderCefrModal(); document.getElementById("cefr-modal").classList.remove("hidden"); }
-function closeCefrModal() { document.getElementById("cefr-modal").classList.add("hidden"); }
 // Компактний підпис вибору для лідерборду: «A1», «A1+C2», «A1-B1» (суцільний діапазон ≥3).
 function cefrTagLabel(sel) {
   const ls = CEFR_LEVELS.filter(L => sel.has(L)).map(L => (L === "none" ? "—" : L));
@@ -36466,30 +36503,113 @@ function cefrTagLabel(sel) {
   const contiguous = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
   return contiguous ? ls[0] + "-" + ls[ls.length - 1] : ls.join("+");
 }
-function startCefrGame() {
-  const pool = cefrIndices([...cefrSel]);
-  if (!pool.length) return;
-  closeCefrModal();
-  // Тег «cefr:<рівні>» — гра поза топ-10 (пул одного рівня легший за повний словник),
-  // але з підписом рівня в рядку «остання гра». Обробка — в endGame і renderGameRow.
-  pendingCatTag = "cefr:" + cefrTagLabel(cefrSel);
-  pendingCatPool = pool;
-  rmSelectedIdx = 0;
-  updateRmSelection();
-  document.getElementById("review-mode-modal").classList.remove("hidden");
+// ── МОДАЛКА «ТРЕНУВАННЯ» (сесія 44, за запитом користувача) ────────────────
+// Замість плаского ряду кнопок-режимів: один екран із ДВОМА осями —
+// «які слова» (набір) × «напрямок». Раніше вони стояли в одному ряду й тому
+// здавались дублями; тепер набір і напрямок обираються незалежно.
+// Порядок наборів — за частотою гри користувача: CEFR → весь словник → незасвоєні.
+// Категорії (Знаю/Вивчаю/Нові) сюди СВІДОМО не винесені — лишились клікабельними
+// бейджами вгорі (рішення користувача, сесія 44).
+const TRAIN_KEY = "oxford_train_sel_v1";
+let trainSet = "cefr", trainDir = "ua-en";
+(() => {
+  try {
+    const o = JSON.parse(localStorage.getItem(TRAIN_KEY));
+    if (o && ["cefr","all","tolearn"].includes(o.set)) trainSet = o.set;
+    if (o && ["ua-en","en-ua"].includes(o.dir)) trainDir = o.dir;
+  } catch (e) {}
+})();
+function saveTrainSel() {
+  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir })); } catch (e) {}
 }
-document.getElementById("cefr-btn").addEventListener("click", () => { setMode("cefr"); openCefrModal(); });
-document.getElementById("cefr-close").addEventListener("click", closeCefrModal);
-document.getElementById("cefr-play").addEventListener("click", startCefrGame);
-document.getElementById("cefr-modal").addEventListener("click", e => {
-  if (e.target.id === "cefr-modal") { closeCefrModal(); return; }   // клік по фону закриває
-  const row = e.target.closest(".cefr-row");
-  if (!row) return;
-  const L = row.dataset.lv;
+function trainPool() {
+  if (trainSet === "cefr")    return cefrIndices([...cefrSel]);
+  if (trainSet === "tolearn") return toLearnIndices();
+  return null;                       // «весь словник» = звичайна гра без пулу
+}
+function trainSetLabel() {
+  if (trainSet === "cefr")    return "🎓 " + cefrTagLabel(cefrSel);
+  if (trainSet === "tolearn") return "📖 Незасвоєні";
+  return "📚 Весь словник";
+}
+function trainDirLabel() { return trainDir === "ua-en" ? "🇺🇦 → 🇺🇸" : "🇺🇸 → 🇺🇦"; }
+function trainCount() { const pool = trainPool(); return pool ? pool.length : WORDS.length; }
+function renderTrainModal() {
+  const counts = cefrCounts();
+  document.querySelectorAll(".tm-set").forEach(b => {
+    const k = b.dataset.set;
+    b.classList.toggle("on", k === trainSet);
+    const sub = b.querySelector("small");
+    if (!sub) return;
+    if (k === "cefr")    sub.textContent = "обрано " + cefrTagLabel(cefrSel) + " · " + cefrIndices([...cefrSel]).length;
+    if (k === "all")     sub.textContent = WORDS.length + " слів";
+    if (k === "tolearn") sub.textContent = "вивчаю + нові · " + toLearnIndices().length;
+  });
+  document.querySelectorAll(".tm-dir").forEach(b => b.classList.toggle("on", b.dataset.dir === trainDir));
+  const lv = document.getElementById("tm-levels");
+  lv.classList.toggle("hidden", trainSet !== "cefr");
+  if (trainSet === "cefr") {
+    lv.innerHTML = CEFR_LEVELS.map(L =>
+      '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : "") + '">' +
+      (L === "none" ? "—" : L) + " " + counts[L] + "</button>").join("");
+  }
+  const go = document.getElementById("tm-go");
+  go.innerHTML = "▶ Почати<small>" + trainSetLabel() + " · " + trainDirLabel() + " · 60 секунд</small>";
+  go.disabled = !trainCount();
+  renderStartSub();
+}
+// підпис під головною кнопкою меню: чим гратимеш, якщо просто тиснути Enter
+function renderStartSub() {
+  const el = document.getElementById("start-sub");
+  if (el) el.textContent = trainSetLabel() + " · " + trainDirLabel();
+}
+function openTrainModal() { renderTrainModal(); document.getElementById("train-modal").classList.remove("hidden"); }
+function closeTrainModal() { document.getElementById("train-modal").classList.add("hidden"); }
+function startTraining() {
+  const pool = trainPool();
+  if (pool && !pool.length) return;                 // порожній набір — нічого робити
+  saveTrainSel();
+  closeTrainModal();
+  setMode(trainDir);
+  // Тег «cefr:<рівні>» лишає гру поза топ-10, але з підписом рівня (правило сесії 43)
+  if (pool) startGame(pool, { timed: true, tag: trainSet === "cefr" ? "cefr:" + cefrTagLabel(cefrSel) : null });
+  else startGame();
+}
+document.querySelectorAll(".tm-set").forEach(b =>
+  b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
+document.querySelectorAll(".tm-dir").forEach(b =>
+  b.addEventListener("click", () => { trainDir = b.dataset.dir; saveTrainSel(); renderTrainModal(); }));
+document.getElementById("tm-levels").addEventListener("click", e => {
+  const b = e.target.closest("button[data-lv]");
+  if (!b) return;
+  const L = b.dataset.lv;
   if (cefrSel.has(L)) cefrSel.delete(L); else cefrSel.add(L);
+  if (!cefrSel.size) cefrSel.add(L);                // хоча б один рівень має лишитись
   saveCefrSel();
-  renderCefrModal();
+  renderTrainModal();
 });
+document.getElementById("tm-go").addEventListener("click", startTraining);
+document.getElementById("tm-cancel").addEventListener("click", closeTrainModal);
+document.getElementById("train-modal").addEventListener("click", e => {
+  if (e.target.id === "train-modal") closeTrainModal();      // клік по фону закриває
+});
+// Плашка «на повторенні N слів» — суто інформаційна: борг підмішується сам.
+function renderDueBanner() {
+  const el = document.getElementById("due-banner");
+  if (!el) return;
+  const n = dueNowKeys().length;
+  el.classList.toggle("hidden", !n);
+  if (n) {
+    const word = (n % 10 === 1 && n % 100 !== 11) ? "слово"
+      : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? "слова" : "слів";
+    el.textContent = "🔁 На повторенні " + n + " " + word + " — підмішаю їх у найближчі ігри";
+  }
+}
+
+// Сесія 44: окремих кнопки й модалки «🎓 Рівні CEFR» більше НЕМА — рівні стали
+// чипсами всередині модалки «Тренування» (renderTrainModal / #tm-levels).
+// Живими лишились лише дані й хелпери: CEFR_DATA, cefrSel, cefrIndices,
+// cefrCounts, cefrTagLabel (останній потрібен ще й лідерборду).
 
 document.getElementById("mastery-stats").addEventListener("click", e => {
   const badge = e.target.closest(".ms-badge[data-cat]");
@@ -37651,7 +37771,7 @@ function getTotalMovieSessions() {
 }
 // 🔒 Кіно заблоковане до 500 слів у «Знаю» (за запитом: без бази кіно фруструє;
 // заблокована кнопка = жива ціль — лічильник N/500 оновлюється з mastery).
-const MOVIE_UNLOCK_KNOWN = 500;
+const MOVIE_UNLOCK_KNOWN = 1500;   // сесія 44: 500 =пів рівня A1, замало для фільму
 const MOVIE_UNLOCKED_KEY = "oxford_movie_unlocked_v1";   // прапор одноразового вітання
 function movieUnlocked() { return countKnownWords() >= MOVIE_UNLOCK_KNOWN; }
 function renderMovieBtn() {
@@ -38014,6 +38134,7 @@ renderThermo();
 checkThermoMilestones();   // виставити базову планку milestone'ів = поточні пункти (без вітань на старті)
 checkAchievements(false);
 updateReviewTodayBtn();
+renderStartSub(); renderDueBanner();
 saveMasterySnapshot();
 renderMasteryStats();
 // Retroactive XP: initialize on first run

@@ -6,7 +6,7 @@
 // Якщо playwright-core стоїть в іншій теці — передай її через PW_CORE:
 //   PW_CORE=/шлях/до/node_modules/playwright-core node test-cefr.js
 //
-// 30 перевірок: модалка вибору рівнів, лічильники, пул гри, підписи тегів,
+// ~30 перевірок: вибір рівнів у модалці «Тренування», лічильники, пул гри, підписи тегів,
 // правила лідерборду для CEFR-ігор + одноразова міграція oxford_fix_cefr_lb_v1.
 // У verify.sh НЕ входить (потрібен зовнішній драйвер) — ганяти вручну після
 // змін у блоці CEFR або в лідерборді.
@@ -57,61 +57,46 @@ function chromePath() {
   await page.reload();
   await page.waitForTimeout(1200);
 
-  t("кнопка #cefr-btn видима", await page.isVisible("#cefr-btn"));
-  await page.click("#cefr-btn");
-  t("модалка відкрилась", await page.isVisible("#cefr-modal"));
-
-  const rows = await page.$$eval(".cefr-row", (rs) => rs.map((r) => ({
-    lv: r.dataset.lv,
-    on: r.classList.contains("on"),
-    n: +r.querySelector(".cefr-count").textContent,
-  })));
-  t("7 рядків рівнів", rows.length === 7, "маємо " + rows.length);
-  const sum = rows.reduce((s, r) => s + r.n, 0);
+  // 1. рівні живуть у модалці «Тренування» (сесія 44: окремої кнопки/модалки CEFR нема)
+  t("старої кнопки #cefr-btn нема", await page.$("#cefr-btn") === null);
+  t("старої модалки #cefr-modal нема", await page.$("#cefr-modal") === null);
+  await page.click("#start-btn");
+  t("модалка «Тренування» відкрилась", await page.isVisible("#train-modal"));
+  const sets = await page.$$eval(".tm-set", bs => bs.map(b => b.dataset.set));
+  t("CEFR перший у списку наборів", sets[0] === "cefr", sets.join(","));
+  t("рядок рівнів видно", await page.isVisible("#tm-levels"));
+  const chips = await page.$$eval("#tm-levels button", bs => bs.map(b => b.textContent));
+  t("7 рівнів (A1-C2 + без рівня)", chips.length === 7, String(chips.length));
+  const sum = chips.reduce((a, c) => a + (+c.trim().split(" ").pop()), 0);
   const words = await page.evaluate(() => WORDS.length);
   t("сума лічильників = WORDS", sum === words, sum + " vs " + words);
-  const on = rows.filter((r) => r.on).map((r) => r.lv).join(",");
-  t("дефолт B1+B2 позначені", on === "B1,B2", on);
 
-  const expectSel = rows.filter((r) => r.on).reduce((s, r) => s + r.n, 0);
-  const label = await page.textContent("#cefr-play");
-  t("лічильник на кнопці = сумі обраних", label.includes(String(expectSel)), label);
-
-  await page.click('.cefr-row[data-lv="A1"]');
-  const label2 = await page.textContent("#cefr-play");
-  const a1 = rows.find((r) => r.lv === "A1").n;
-  t("тогл A1 змінив лічильник", label2.includes(String(expectSel + a1)), label2);
+  // 2. тогл рівня зберігається, пул відповідає вибору
+  await page.click('#tm-levels button[data-lv="C2"]');
   const stored = await page.evaluate(() => localStorage.getItem("oxford_cefr_sel_v1"));
-  t("вибір збережено в localStorage", stored && stored.includes("A1"), String(stored));
-
-  for (const lv of ["A1", "B1", "B2"]) await page.click('.cefr-row[data-lv="' + lv + '"]');
-  t("кнопка блокується без вибору", await page.isDisabled("#cefr-play"));
-
-  // пул рівня: беремо C2 — там найменше слів
-  await page.click('.cefr-row[data-lv="C2"]');
+  t("вибір рівнів збережено", !!stored && stored.includes("C2"), String(stored));
   const poolCheck = await page.evaluate(() => {
+    cefrSel = new Set(["C2"]);
     const pool = cefrIndices([...cefrSel]);
-    return { n: pool.length, allC2: pool.every((i) => cefrLevelOf(WORDS[i]) === "C2") };
+    return { n: pool.length, allC2: pool.every(i => cefrLevelOf(WORDS[i]) === "C2") };
   });
   t("пул = слова обраного рівня", poolCheck.allC2 && poolCheck.n > 0, JSON.stringify(poolCheck));
 
-  // Esc перевіряємо ДО старту гри — під час гри меню сховане
+  // 3. Esc закриває; гра стартує з обраного набору й напрямку
   await page.keyboard.press("Escape");
-  t("Esc закриває модалку рівнів", await page.isHidden("#cefr-modal"));
-  await page.click("#cefr-btn");
-  t("модалка відкривається повторно", await page.isVisible("#cefr-modal"));
-
-  await page.click("#cefr-play");
-  t("модалка напрямку відкрилась", await page.isVisible("#review-mode-modal"));
-  await page.keyboard.press("Enter");
-  await page.waitForTimeout(400);
-  t("гра стартувала", await page.isVisible("#game"));
-  const inGame = await page.evaluate(() => ({
-    lvl: typeof currentWord === "object" ? cefrLevelOf(currentWord) : "?",
-    activePool: activePool,
-  }));
-  t("слово в грі — з обраного рівня", inGame.lvl === "C2", JSON.stringify(inGame));
-  t("гра НЕ review (mastery оновлюється)", inGame.activePool === null, JSON.stringify(inGame));
+  t("Esc закриває «Тренування»", await page.isHidden("#train-modal"));
+  const started = await page.evaluate(() => {
+    trainSet = "cefr"; trainDir = "ua-en"; cefrSel = new Set(["C2"]);
+    startTraining();
+    const r = { lvl: typeof currentWord === "object" ? cefrLevelOf(currentWord) : "?",
+                tag: timedPoolTag, m: mode, activePool };
+    endGame(true);
+    return r;
+  });
+  t("слово в грі — з обраного рівня", started.lvl === "C2", JSON.stringify(started));
+  t("тег рівня для лідерборду", started.tag === "cefr:C2", String(started.tag));
+  t("напрямок узято з модалки", started.m === "ua-en", String(started.m));
+  t("гра НЕ review (mastery оновлюється)", started.activePool === null);
 
   // підписи тегів
   const labels = await page.evaluate(() => ({
@@ -185,14 +170,11 @@ function chromePath() {
 
   // тег ставиться при старті гри
   const tag = await page.evaluate(() => {
-    cefrSel = new Set(["A1", "A2"]);
-    startCefrGame();
-    const t = pendingCatTag;
-    document.getElementById("review-mode-modal").classList.add("hidden");
-    pendingCatPool = null; pendingCatTag = null;
-    return t;
+    trainSet = "cefr"; cefrSel = new Set(["A1", "A2"]);
+    startTraining();
+    const t = timedPoolTag; endGame(true); return t;
   });
-  t("startCefrGame ставить тег рівнів", tag === "cefr:A1+A2", String(tag));
+  t("гра за рівнями ставить тег", tag === "cefr:A1+A2", String(tag));
 
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
