@@ -43,8 +43,16 @@ function chromePath() {
   const data = await page.evaluate(() => ({
     n: Object.keys(HINTS).length,
     difficult: HINTS["difficult"],
-    // усі ключі HINTS мають існувати як картки, інакше підказка мертва
-    orphans: Object.keys(HINTS).filter((k) => !WORDS.some((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === k)),
+    // Усі ключі HINTS мають існувати як картки, інакше підказка мертва. Ключ буває
+    // голий («difficult») або складений «en:ua» («tip:порада», сесія 45).
+    // ⚠️ Голий ключ слова з ДВОМА картками теж сирота: `hintFor` його ігнорує.
+    orphans: Object.keys(HINTS).filter((k) => {
+      const en1 = (w) => (Array.isArray(w.en) ? w.en[0] : w.en);
+      const ua1 = (w) => (Array.isArray(w.ua) ? w.ua[0] : w.ua);
+      if (k.includes(":")) return !WORDS.some((w) => en1(w) + ":" + ua1(w) === k);
+      const cards = WORDS.filter((w) => en1(w) === k);
+      return cards.length !== 1;
+    }),
   }));
   t("HINTS наповнений", data.n > 0, String(data.n));
   t("немає ключів-сиріт", data.orphans.length === 0, data.orphans.slice(0, 5).join(","));
@@ -98,6 +106,40 @@ function chromePath() {
     return el ? el.textContent : "";
   });
   t("промпт без дужок-підказок", !/\(/.test(prompt), prompt);
+
+  // ── СЕСІЯ 45: підказка належить КАРТЦІ, а не англійському слову ──────────────
+  // Слова-пари (tip=чайові/порада, hot=гарячий/гострий…) ключуються «en:ua»;
+  // голий ключ для них ігнорується, бо підказка одного сенсу на другому бреше.
+  const card = await page.evaluate(() => {
+    const set = (en, ua, dir) => {
+      const i = WORDS.findIndex(w => getEn(w)[0] === en && getUa(w)[0] === ua);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = dir;
+      currentShown = dir === "en-ua" ? getEn(currentWord)[0] : getUa(currentWord)[0];
+      return getCorrectAnswer();
+    };
+    return {
+      tipPorada:  set("tip","порада","en-ua"),
+      tipChaiovi: set("tip","чайові","en-ua"),
+      hotHostryi: set("hot","гострий","en-ua"),
+      hotGaryachyi: set("hot","гарячий","en-ua"),
+      coolKrutyi: set("cool","крутий","en-ua"),
+      coolProkh:  set("cool","прохолодний","en-ua"),
+      uaEnPorada: set("tip","порада","ua-en"),
+      uaEnChaiovi:set("tip","чайові","ua-en"),
+      bareIgnored: hintFor("tip", "неіснуючий глос"),   // пара без точного ключа → порожньо
+      plainStill:  hintFor("difficult", "складний"),    // непарне слово працює як раніше
+    };
+  });
+  t("US→UA: «порада» отримує свою підказку", /порада \(практична підказка\)/.test(card.tipPorada), card.tipPorada);
+  t("US→UA: «чайові» БЕЗ чужої підказки", !/\(/.test(card.tipChaiovi), card.tipChaiovi);
+  t("US→UA: «гострий» отримує свою підказку", /пекучий на смак/.test(card.hotHostryi), card.hotHostryi);
+  t("US→UA: «гарячий» БЕЗ чужої підказки", !/\(/.test(card.hotGaryachyi), card.hotGaryachyi);
+  t("US→UA: «крутий» БЕЗ «приємно прохолодний»", !/прохолодн/.test(card.coolKrutyi), card.coolKrutyi);
+  t("US→UA: «прохолодний» свою підказку зберіг", /приємно прохолодний/.test(card.coolProkh), card.coolProkh);
+  t("UA→US: «порада» → tip з підказкою", /tip \(практична підказка\)/.test(card.uaEnPorada), card.uaEnPorada);
+  t("UA→US: «чайові» → tip без підказки", /^tip$/.test(card.uaEnChaiovi.trim()), card.uaEnChaiovi);
+  t("голий ключ слова-пари ігнорується", card.bareIgnored === "", card.bareIgnored);
+  t("непарне слово підказку не втратило", card.plainStill.length > 0, card.plainStill);
 
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
