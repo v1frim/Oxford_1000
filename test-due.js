@@ -78,6 +78,77 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("у повторенні борг не підмішується", inReview === 0, String(inReview));
 
+  // ── СЕСІЯ 45: борг — ЄДИНИЙ механізм повернення помилок ────────────────────
+  // 7. кнопки «📒 Помилки» і механіки пунктів «15 закритих = 1» більше нема
+  const gone = await p.evaluate(() => ({
+    btn:  !!document.getElementById("review-today-btn"),
+    upd:  typeof updateReviewTodayBtn,
+    rec:  typeof recordMistakeReviews,
+    load: typeof loadMistakeReviews,          // читач історії — МАЄ лишитись
+  }));
+  t("кнопки «📒 Помилки» нема в DOM", gone.btn === false);
+  t("updateReviewTodayBtn видалено", gone.upd === "undefined", gone.upd);
+  t("recordMistakeReviews видалено", gone.rec === "undefined", gone.rec);
+  t("loadMistakeReviews (історія) лишився", gone.load === "function", gone.load);
+
+  // 8. Пробіл на старт-екрані більше нічого не запускає
+  const spaceNoop = await p.evaluate(() => {
+    document.getElementById("start-screen").classList.remove("hidden");
+    document.getElementById("game").classList.add("hidden");
+    return document.getElementById("game").classList.contains("hidden");
+  });
+  await p.keyboard.press(" ");
+  await p.waitForTimeout(150);
+  const stillMenu = await p.evaluate(() => document.getElementById("game").classList.contains("hidden"));
+  t("Пробіл на старт-екрані не стартує повторення", spaceNoop && stillMenu);
+
+  // 9. одноразовий засів: старий «відкритий борг» помилок → борг (due = сьогодні)
+  await p.evaluate(() => {
+    localStorage.removeItem("oxford_due_seed_v1");
+    localStorage.setItem("oxford_due_v1", "{}");
+    localStorage.setItem("oxford_day_mistakes_v1", JSON.stringify({ "2000-01-02": [wordKey(WORDS[7])] }));
+  });
+  await p.reload(); await p.waitForTimeout(800);
+  const seeded = await p.evaluate(() => {
+    const d = JSON.parse(localStorage.getItem("oxford_due_v1"));
+    return { rec: d[wordKey(WORDS[7])], today: todayKey(), flag: localStorage.getItem("oxford_due_seed_v1"), dueNow: dueNowKeys().length };
+  });
+  t("стара помилка стала боргом", !!seeded.rec, JSON.stringify(seeded.rec));
+  t("засів ставить due = сьогодні", seeded.rec && seeded.rec.due === seeded.today, JSON.stringify(seeded.rec));
+  t("слово одразу в черзі на підмішування", seeded.dueNow === 1, String(seeded.dueNow));
+  t("прапор засіву виставлено", seeded.flag === "1", String(seeded.flag));
+
+  // 10. засів одноразовий і не чіпає слова, що вже в борзі (на завтра)
+  const reseed = await p.evaluate(() => {
+    localStorage.setItem("oxford_due_v1", JSON.stringify({ [wordKey(WORDS[8])]: { due: tomorrowKey(), waited: 0 } }));
+    localStorage.setItem("oxford_day_mistakes_v1", JSON.stringify({ [todayKey()]: [wordKey(WORDS[8])] }));
+    seedDueFromMistakes();                                    // прапор уже стоїть → no-op
+    const d1 = JSON.parse(localStorage.getItem("oxford_due_v1"));
+    localStorage.removeItem("oxford_due_seed_v1");
+    seedDueFromMistakes();                                    // навіть без прапора не зсуває наявний борг
+    const d2 = JSON.parse(localStorage.getItem("oxford_due_v1"));
+    return { first: d1[wordKey(WORDS[8])].due, second: d2[wordKey(WORDS[8])].due, tomorrow: tomorrowKey() };
+  });
+  t("повторний засів не зсуває наявний борг", reseed.first === reseed.tomorrow && reseed.second === reseed.tomorrow, JSON.stringify(reseed));
+
+  // 11. вгадане боргове слово чиститься і з «відкритого боргу» помилок
+  const drained = await p.evaluate(() => {
+    const wk = wordKey(WORDS[4]);
+    localStorage.setItem("oxford_due_v1", JSON.stringify({ [wk]: { due: "2000-01-01", waited: 9 } }));
+    localStorage.setItem("oxford_day_mistakes_v1", JSON.stringify({ "2000-01-01": [wk] }));
+    startGame();
+    const injected = dueThisGame && dueThisGame.has(4);
+    currentWordIndex = 4; currentWord = WORDS[4]; currentShown = getEn(WORDS[4])[0];
+    recordAnswer(getUa(WORDS[4])[0], "correct");              // «вгадав» боргове слово
+    const out = { injected, due: Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length,
+                  mistakes: allDayMistakeKeys().length };
+    endGame(true);
+    return out;
+  });
+  t("боргове слово підмішалось (drain)", drained.injected === true);
+  t("вгадане слово знято з боргу", drained.due === 0, String(drained.due));
+  t("вгадане слово знято з «відкритого боргу» помилок", drained.mistakes === 0, String(drained.mistakes));
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");

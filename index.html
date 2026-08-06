@@ -256,25 +256,9 @@
     font-size: 17px;
     padding: 11px 24px;
   }
-  #review-today-btn {
-    margin-top: 14px;
-    background: #87b4ff;
-    color: #1e3c72;
-    font-size: 15px;
-    padding: 10px 22px;
-  }
-  /* Прогрес «N/15» до пункту «Плани» — навмисно тьмяний і відокремлений тонкою
-     рискою: можна підглянути, але не мозолить очі (за запитом користувача, сесія 31). */
-  #review-today-btn .rt-prog {
-    margin-left: 10px;
-    padding-left: 10px;
-    border-left: 1px solid rgba(30, 60, 114, 0.22);
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(30, 60, 114, 0.5);
-    letter-spacing: 0.01em;
-    vertical-align: middle;
-  }
+  /* Сесія 45: кнопка «📒 Помилки (N)» (`#review-today-btn`) і її лічильник «N/15»
+     ПРИБРАНІ разом із механікою «15 закритих = 1 пункт» — помилки тепер повертає
+     в ігри лише борг (`oxford_due_v1`). Не відновлювати. */
   .skip {
     margin-top: 12px;
     font-size: 15px;
@@ -322,7 +306,6 @@
     background: rgba(120,190,255,0.13); border: 1px solid rgba(140,200,255,0.35);
     color: #a8d4ff; font-size: 12.5px; text-align: center;
   }
-  #due-banner:hover { background: rgba(120,190,255,0.22); }
   #due-banner.hidden { display: none; }
   .panel-lab {
     font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
@@ -1498,8 +1481,7 @@
       </div>
     </div>
     <button id="start-btn">▶ Тренування · 60 сек<span id="start-sub"></span></button>
-    <div id="due-banner" class="hidden" title="Клік — повторити помилки окремою грою просто зараз"></div>
-    <button id="review-today-btn" class="hidden" title="Пробіл">📒 Повторити помилки</button>
+    <div id="due-banner" class="hidden" title="Помилкові слова підмішуються в наступні ігри самі"></div>
     <div class="panel-lab">Щодня</div>
     <div id="daily-row">
       <div id="duo-wrap" class="pair">
@@ -33035,8 +33017,8 @@ const REVIEW_REQUIRED_CORRECT = 3;
 let waitingForLastAnswer = false;
 let awaitingAfterWrong = false;
 let correctionTimer = null;
-let reviewFromMenu = false;   // true лише для повторення з кнопки «📒 Помилки» в меню
-                              // (це джерело дає пункти «Плани»; post-game «Повторити помилки» — ні)
+// ⚠️ Сесія 45: `reviewFromMenu` ВИДАЛЕНО разом із кнопкою «📒 Помилки» — джерело
+// повторення лишилось одне (post-game), тож розрізняти більше нічого.
 
 // Shift-цикл режимів (без "mix" — Мікс-кнопку замінено на «📖 Незасвоєні»; "mix" лишається
 // валідним внутрішнім значенням для вибору «Випадковий» у модалці напрямку).
@@ -33358,11 +33340,10 @@ function recordAnswer(userVal, status) {
     if (reviewRemaining) {
       reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
       if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
-        // ⚠️ 2 XP за закрите слово — ЛИШЕ post-game повторення (сесія 41, за запитом).
-        // Повторення з кнопки меню «📒 Помилки» платить ІНАКШЕ: 30 XP за пункт
-        // (кожні 15 закритих слів) = ті самі 2 XP/слово. Раніше воно отримувало
-        // обидва нарахування = подвійна оплата. НЕ повертати addXp(2) без умови.
-        if (!reviewFromMenu) addXp(2);   // 2 XP per closed review word (= 1 repetition), NOT per answer
+        // 2 XP за закрите слово повторення (= 1 повторення), НЕ за кожну відповідь.
+        // ⚠️ Сесія 45: умова `!reviewFromMenu` знята — меню-повторення (яке платило
+        // пунктами «Плани») більше не існує, тож подвійної оплати не буває.
+        addXp(2);
         reviewRemaining.delete(currentWordIndex);
         // Only remove from today's mistakes if the word had no errors/skips this session.
         // A "tainted" word (any mistake in current review) must stay for further review.
@@ -33377,6 +33358,11 @@ function recordAnswer(userVal, status) {
       if (dueThisGame && dueThisGame.has(currentWordIndex)) {
         dueThisGame.delete(currentWordIndex);
         clearDue(currentWordIndex);
+        // ⚠️ Сесія 45: разом із боргом закриваємо слово і у «відкритому боргу»
+        // `oxford_day_mistakes_v1`. Без цього список нікуди не дівався б: кнопки
+        // «📒 Помилки», яка його розгрібала, більше немає, і він ріс би вічно
+        // (а вітання «✨ Усі помилки закриті» не спрацювало б уже ніколи).
+        removeDayMistake(currentWordIndex);
       }
     }
   } else {
@@ -33735,16 +33721,9 @@ function endGame(endedEarly) {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
     recordReviewStats(wordsReviewed);
-    if (reviewFromMenu) {
-      // лише повторення з кнопки «📒 Помилки» в меню (не post-game) → пункти «Плани»
-      // Сесія 39: XP нараховуємо ЗА ПУНКТ (15 закритих слів), а не за кожне слово —
-      // рахуємо, скільки пунктів додалось після запису, і платимо за них.
-      const _mrPtsBefore = _totalMistakePoints();
-      recordMistakeReviews(wordsReviewed);
-      const _gainedPts = _totalMistakePoints() - _mrPtsBefore;
-      if (_gainedPts > 0) addXp(_gainedPts * MISTAKE_REVIEW_XP);
-    }
-    checkThermoMilestones();               // новий пункт міг перетнути межу плану (🎯/💪)
+    // ⚠️ Сесія 45: блок нарахування пунктів «Плани» за 15 закритих слів ВИДАЛЕНО
+    // разом із кнопкою меню — повторення більше не дає ні пунктів, ні XP-за-пункт.
+    checkThermoMilestones();               // база milestone'ів (пунктів звідси вже не додається)
     if (wordsReviewed > 0) {
       const secsPerWord = Math.round(reviewElapsed / wordsReviewed);
       summaryEl.textContent +=
@@ -33801,7 +33780,6 @@ function startReview() {
   // повернеться по завершенні повторення (setMode(selectedMode) у displayEndScreen).
   reviewDir = "random";
   mode = "en-ua";   // конкретний старт; nextWord перевипадковлює напрям щослова (reviewDir="random")
-  reviewFromMenu = false;   // post-game повторення НЕ дає пунктів «Плани» (за запитом)
   startGame(failedIndices);
 }
 
@@ -35169,7 +35147,6 @@ document.getElementById("restart-btn").addEventListener("click", () => {
   document.getElementById("lb-totals").classList.remove("hidden");
   renderThermo();
   renderLeaderboard();
-  updateReviewTodayBtn();
   renderStartSub(); renderDueBanner();
   saveMasterySnapshot();
   renderMasteryStats();
@@ -35189,12 +35166,6 @@ document.getElementById("progress-btn").addEventListener("click", () => {
   updateLayoutAlign();
 });
 document.getElementById("review-btn").addEventListener("click", startReview);
-document.getElementById("review-today-btn").addEventListener("click", () => {
-  const mistakes = allDayMistakeKeys().map(indexOfWordKey).filter(i => i >= 0);
-  if (mistakes.length === 0) return;
-  reviewFromMenu = true;   // це джерело (кнопка меню) дає пункти «Плани» за закриті слова
-  showReviewModeModal(mistakes);
-});
 document.getElementById("review-mode-modal").addEventListener("click", e => {
   const btn = e.target.closest(".rm-btn");
   if (btn) {
@@ -35412,14 +35383,6 @@ document.addEventListener("keydown", e => {
       return;
     }
   }
-  if (e.key === " " && !startScreen.classList.contains("hidden")) {
-    const todayBtn = document.getElementById("review-today-btn");
-    if (todayBtn && !todayBtn.classList.contains("hidden")) {
-      e.preventDefault();
-      todayBtn.click();
-      return;
-    }
-  }
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (!startScreen.classList.contains("hidden")) {
@@ -35435,7 +35398,6 @@ document.addEventListener("keydown", e => {
     renderLeaderboard();
     renderLbTotals();
     renderThermo();
-    updateReviewTodayBtn();
     renderStartSub(); renderDueBanner();
     saveMasterySnapshot();
     renderMasteryStats();
@@ -35751,7 +35713,6 @@ function handleImportClick() {
       const obj = JSON.parse(await file.text());
       Object.entries(obj).forEach(([k, v]) => localStorage.setItem(k, v));
       renderLeaderboard();
-      updateReviewTodayBtn();
       renderStartSub(); renderDueBanner();
       renderMasteryStats();
       renderXpBar();
@@ -36772,6 +36733,27 @@ function pickDueIndices() {
   if (changed) saveDue(d);
   return out;
 }
+// Одноразовий засів боргу зі старого «відкритого боргу» помилок (сесія 45).
+// Кнопки «📒 Помилки» більше немає, тож слова, що висіли в `oxford_day_mistakes_v1`
+// з попередніх днів, інакше лишились би без жодного шляху назад у гру. Тут вони
+// стають звичайним боргом і підмішуються за загальним правилом.
+// ⚠️ due = СЬОГОДНІ (не завтра): це прострочені помилки минулих днів, чекати їм нема
+// чого. Слова, що вже в боргу (сьогоднішні помилки — `scheduleDue` поставив їх на
+// завтра), НЕ чіпаємо — інакше засів підтягнув би їх на день раніше.
+// ⚠️ Викликається з init-послідовності ПІСЛЯ `sanitizeDayMistakes()` (а не IIFE тут):
+// санація нормалізує ключі «to X»↔«X», інакше засів мовчки пропустив би перейменовані.
+function seedDueFromMistakes() {
+  if (localStorage.getItem("oxford_due_seed_v1")) return;
+  const d = loadDue(), t = todayKey();
+  let changed = false;
+  for (const wk of allDayMistakeKeys()) {
+    if (d[wk] || indexOfWordKey(wk) < 0) continue;
+    d[wk] = { due: t, waited: 0 };
+    changed = true;
+  }
+  if (changed) saveDue(d);
+  localStorage.setItem("oxford_due_seed_v1", "1");
+}
 
 // ── АРХІВ ПОМИЛОК ДНЯ (сесія 44, за запитом) ──────────────────────────────
 // `oxford_day_mistakes_v1` — це «відкритий борг»: слово ЗНИКАЄ звідти, щойно його
@@ -36835,7 +36817,10 @@ function removeDayMistake(idx) {
   if (changed) saveDayMistakes(m);
 }
 // Усі унікальні невиправлені помилкові слова за ВСІ дні (сьогодні + раніше).
-// Кнопка повторення працює з цим агрегованим пулом, а не з одним днем.
+// ⚠️ Сесія 45: кнопки «📒 Помилки», яка грала цим пулом, більше НЕМА. Пул лишився
+// як «відкритий борг» для вітання «✨ Усі помилки закриті» і для одноразового засіву
+// боргу; розгрібається сам — через `removeDayMistake` при вгаданому борговому слові
+// та post-game повторення.
 function allDayMistakeKeys() {
   const m = loadDayMistakes();
   const seen = new Set();
@@ -36844,9 +36829,8 @@ function allDayMistakeKeys() {
 }
 // Санація збережених помилок (виклик на старті): ключ, що більше не резолвиться
 // у WORDS (перейменування en при розділенні сенсів bare↔"to X", видалені дублі),
-// нормалізується до чинного ключа або ВИДАЛЯЄТЬСЯ. Інакше — «вічна» помилка:
-// бейдж «📒 Помилки (N)» її рахує, а старт повторення відфільтровує (i<0) і
-// мовчки нічого не робить. Після санації бейдж і старт завжди узгоджені.
+// нормалізується до чинного ключа або ВИДАЛЯЄТЬСЯ. Інакше — «вічна» помилка, яку
+// нічим не закрити (сесія 45: ще й засів боргу мовчки пропустив би її).
 function sanitizeDayMistakes() {
   const m = loadDayMistakes();
   let changed = false;
@@ -36873,32 +36857,9 @@ function isYesterdayKey(key) {
   d.setDate(d.getDate() - 1);
   return key === d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 }
-function pickReviewDay() {
-  const m = loadDayMistakes();
-  const today = todayKey();
-  if (m[today] && m[today].length > 0) return { key: today, list: m[today], label: "за сьогодні" };
-  const older = Object.keys(m).filter(k => k !== today && m[k].length > 0).sort();
-  if (older.length === 0) return null;
-  const recent = older[older.length - 1];
-  const label = isYesterdayKey(recent) ? "за вчора" : "за " + fmtDayKey(recent);
-  return { key: recent, list: m[recent], label };
-}
-function updateReviewTodayBtn() {
-  const btn = document.getElementById("review-today-btn");
-  if (!btn) return;
-  const keys = allDayMistakeKeys().filter(k => indexOfWordKey(k) >= 0);   // усі невиправлені помилки за всі дні (лише резолвні — та сама умова, що при старті повторення)
-  if (keys.length === 0) {
-    btn.classList.add("hidden");
-  } else {
-    btn.classList.remove("hidden");
-    const closed = Object.values(loadMistakeReviews()).reduce((s, n) => s + n, 0);
-    const prog = closed % 15;   // прогрес у поточній 15-ці до наступного пункту «Плани»
-    // «N/15» загорнуто в .rt-prog — тьмяний, відокремлений рискою лічильник (не нав'язливий,
-    // але можна підглянути). Основне «📒 Помилки (N)» лишається помітним.
-    btn.innerHTML = "📒 Помилки (" + keys.length + ")<span class=\"rt-prog\">" + prog + "/15</span>";
-    btn.title = "Пробіл · закрито " + prog + "/15 слів до наступного пункту «Плани»";
-  }
-}
+// ⚠️ Сесія 45: `updateReviewTodayBtn` (бейдж «📒 Помилки (N) · N/15») і `pickReviewDay`
+// (вибір дня «за сьогодні / за вчора») ВИДАЛЕНІ разом із кнопкою й механікою пунктів.
+// Відкриті помилки більше не мають окремого входу в меню — їх повертає в ігри борг.
 function tsToDayKey(ts) {
   const d = new Date(ts);
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -37309,26 +37270,21 @@ function renderLbTotals() {
   renderMovieBtn();   // 🔒/🎬 — лічильник розблокування живе з mastery (звуть усі точки зміни)
 }
 
-// ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» (за запитом користувача) ───────────────
-// Кожне «пройдене» (закрите 3× поспіль) слово під час повторення помилок З КНОПКИ
-// «📒 Помилки» в меню рахується тут (post-game «Повторити помилки» — НЕ рахує, за
-// запитом користувача — `reviewFromMenu`). За кожні 15
-// таких слів +1 пункт у термометр; залишок (<15) переноситься вперед через дні
-// (кумулятивний «лічильник» 0.x пункта). Окремий від reviewCorrect ключ → правило
-// діє ВІД ЗАПУСКУ фічі, без ретро-зсуву історичних пунктів / місячної ачівки.
+// ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» — ⚠️ ФІЧА ЗАКРИТА В СЕСІЇ 45 ───────────
+// Було: кожне закрите (3× поспіль) слово в повторенні З КНОПКИ «📒 Помилки» рахувалось,
+// і за кожні 15 таких слів капав +1 пункт «Плани» (+30 XP за пункт).
+// Стало: кнопки немає, помилкові слова повертає в ігри лише борг (`oxford_due_v1`) —
+// окремо їх рахувати нема потреби (пряме рішення користувача).
+// ⚠️ ЧОМУ КЛЮЧ І ЧИТАЧІ ЛИШИЛИСЬ: `oxford_mistake_reviews_v1` більше НЕ ПОПОВНЮЄТЬСЯ
+// (писати нікому — `recordMistakeReviews`/`saveMistakeReviews`/`_totalMistakePoints`
+// видалені), але вже зароблені пункти й XP лишаються в історії. Прибрати читання —
+// означало б заднім числом обнулити пункти минулих днів, місячну ачівку і XP-перерахунок
+// (`computeDayStatsXp` з `mrPts`/`mrWords`). Тож дані ЗАМОРОЖЕНІ, а не стерті.
+// НЕ «чистити» ці читачі як мертвий код і НЕ прибирати ключ із BACKUP_KEYS.
 // ⚠️ const/функції — ДО init-викликів renderThermo/checkThermoMilestones нижче (TDZ).
-const MISTAKE_REVIEWS_KEY = "oxford_mistake_reviews_v1";   // {date: closedWordCount}
+const MISTAKE_REVIEWS_KEY = "oxford_mistake_reviews_v1";   // {date: closedWordCount} — заморожена історія
 function loadMistakeReviews() {
   try { return JSON.parse(localStorage.getItem(MISTAKE_REVIEWS_KEY) || "{}"); } catch(e) { return {}; }
-}
-function saveMistakeReviews(obj) { localStorage.setItem(MISTAKE_REVIEWS_KEY, JSON.stringify(obj)); }
-// Зарахувати N закритих слів повторення до сьогодні (UTC-дата, як термометр/GPT).
-function recordMistakeReviews(count) {
-  if (!count || count <= 0) return;
-  const mr = loadMistakeReviews();
-  const key = new Date().toISOString().slice(0, 10);
-  mr[key] = (mr[key] || 0) + count;
-  saveMistakeReviews(mr);
 }
 // {date: count} → {date: пунктів, що «випадають» саме цього дня}. 1 пункт за кожні
 // 15 пройдених слів, рахується КУМУЛЯТИВНО через усі дні: залишок < 15 переноситься
@@ -37343,15 +37299,6 @@ function mistakeReviewPointsByDate(mr) {
     if (p) out[d] = p;
   }
   return out;
-}
-
-// Скільки пунктів «Плани» за помилки зароблено ВСЬОГО за історію (для нарахування XP
-// у endGame: платимо за приріст, а не за кожне слово). Еквівалент floor(усі слова / 15).
-function _totalMistakePoints() {
-  const mr = loadMistakeReviews();
-  let sum = 0;
-  Object.values(mr).forEach(n => { sum += n || 0; });
-  return Math.floor(sum / 15);
 }
 
 // GPT-запити → пункти з ПЕРЕНЕСЕННЯМ залишку між днями (сесія 34, за запитом):
@@ -38238,13 +38185,13 @@ renderLeaderboard();
     localStorage.setItem(FLAG, "1");
   } catch (e) { /* не ставимо прапор — повтор на наступному завантаженні */ }
 })();
-sanitizeDayMistakes();        // нормалізація/чистка осиротілих ключів помилок (бейдж ↔ старт)
+sanitizeDayMistakes();        // нормалізація/чистка осиротілих ключів помилок
+seedDueFromMistakes();        // сесія 45: старий «відкритий борг» помилок → у борг (одноразово)
 updateWordsAddedRegistry();   // реєстр появи слів у словнику (для клікабельної «+N ●»)
 renderLbTotals();
 renderThermo();
 checkThermoMilestones();   // виставити базову планку milestone'ів = поточні пункти (без вітань на старті)
 checkAchievements(false);
-updateReviewTodayBtn();
 renderStartSub(); renderDueBanner();
 saveMasterySnapshot();
 renderMasteryStats();
