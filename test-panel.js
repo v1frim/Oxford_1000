@@ -111,6 +111,41 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("плашка боргу показується", !banner.hidden && /повторенні 1 слово/.test(banner.txt), banner.txt);
 
+  // 10. ЄДИНА ВИСОТА + КОЛЬОРИ ряду «Щодня» (сесія 45, за запитом).
+  // Ловить рецидив легасі-стилів із лівої панелі: саме `margin:0 0 10px` у #expr-btn
+  // розпирав grid-ряд до 44 px, а кольори з голого ID програвали `#daily-row button`.
+  await p.reload(); await p.waitForTimeout(900);
+  const look = await p.evaluate(() => {
+    // всі лічильники видимі — «повний» стан ряду
+    localStorage.setItem("oxford_duolingo_v1", JSON.stringify({ [todayKey()]: 2 }));
+    localStorage.setItem("oxford_song_sessions_v1", JSON.stringify({ [todayKey()]: 1 }));
+    return true;
+  });
+  await p.reload(); await p.waitForTimeout(1100);
+  const row = await p.evaluate(() => {
+    const vis = [...document.querySelectorAll("#daily-row button")]
+      .filter(b => b.getBoundingClientRect().height > 0);
+    const hs = vis.map(b => Math.round(b.getBoundingClientRect().height));
+    const bg = id => getComputedStyle(document.getElementById(id)).backgroundColor;
+    const col = id => getComputedStyle(document.getElementById(id)).color;
+    const el = document.getElementById("daily-row");
+    return {
+      n: vis.length, hs, uniq: [...new Set(hs)].length,
+      overflow: el.scrollWidth > el.clientWidth,
+      exprMargin: getComputedStyle(document.getElementById("expr-btn")).marginBottom,
+      songs: bg("songs-btn"), expr: bg("expr-btn"), lh: bg("lh-btn"),
+      duo: col("duo-btn"), movie: col("movie-btn"),
+    };
+  });
+  t("усі кнопки ряду однакової висоти", row.uniq === 1, JSON.stringify(row.hs));
+  t("ряд не переповнений по ширині", row.overflow === false);
+  t("легасі-margin у #expr-btn не воскрес", row.exprMargin === "0px", row.exprMargin);
+  t("Пісні фіолетові", /200, 155, 255/.test(row.songs), row.songs);
+  t("Вирази фіолетові", /200, 155, 255/.test(row.expr), row.expr);
+  t("LingoHut синій", /135, 180, 255/.test(row.lh), row.lh);
+  t("Duolingo зелений", /127, 221, 64/.test(row.duo), row.duo);
+  t("Кіно в оранжевій темі (навіть під локом)", /255, (169|201)/.test(row.movie), row.movie);
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ помилки консолі:\n - " + errs.slice(0,4).join("\n - ") : "✅ 0 помилок консолі");

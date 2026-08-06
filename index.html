@@ -326,8 +326,33 @@
     font-weight: 600; cursor: pointer; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis;
     transition: background 0.13s;
+    /* ⚠️ `margin: 0` — НЕ косметика (сесія 45). Кнопки переїхали в цей ряд у сесії 44,
+       але їхні старі стилі з лівої панелі лишились, і в `#expr-btn` серед них був
+       `margin: 0 0 10px`. Grid тягне ВСІ комірки ряду під найвищу, тож через ті 10 px
+       увесь ряд ставав 44 px замість 34 — а «завищеними» виглядали сусіди (LingoHut,
+       Кіно), бо вони просто розтягувались. НЕ прибирати. */
+    margin: 0;
   }
   #daily-row button:hover, #eng-row button:hover { background: rgba(255,255,255,0.17); }
+  /* Кольори за темами (сесія 45, за запитом «розфарбувати»). ⚠️ Селектор ОБОВ'ЯЗКОВО
+     в контексті ряду: голий `#songs-btn` (0,1,0,0) програє правилу `#daily-row button`
+     (0,1,0,1) — саме тому фіолетовий Пісень/Виразів і синій LingoHut «зникли» після
+     переїзду в сесії 44, лишились тільки `#duo-btn`/`#movie-btn` з `!important`.
+     Палітра — з розділу «Візуальна система кольорів» handoff'а. */
+  #daily-row #songs-btn, #daily-row #songsess-plus, #daily-row #expr-btn {
+    background: rgba(200,155,255,0.13); border-color: rgba(200,155,255,0.34); color: #c89bff;
+  }
+  #daily-row #songs-btn:hover, #daily-row #songsess-plus:hover, #daily-row #expr-btn:hover {
+    background: rgba(200,155,255,0.26); border-color: rgba(200,155,255,0.6); color: #dcc0ff;
+  }
+  /* «−» тьмяний, як у Duolingo/Кіно: це службова кнопка, а не частина теми */
+  #daily-row #songsess-minus { background: rgba(200,155,255,0.09); border-color: rgba(200,155,255,0.26); color: rgba(255,255,255,0.4); }
+  #daily-row #lh-btn {
+    background: rgba(135,180,255,0.13); border-color: rgba(135,180,255,0.34); color: #87b4ff;
+  }
+  #daily-row #lh-btn:hover {
+    background: rgba(135,180,255,0.26); border-color: rgba(135,180,255,0.6); color: #a9c9ff;
+  }
   #eng-row button { font-size: 11.5px; padding: 7px 5px; background: rgba(255,255,255,0.045); font-weight: 500; }
   #daily-row .pair { display: flex; gap: 3px; align-items: stretch; }
   #daily-row .pair > button:first-child { flex: 1 1 auto; min-width: 0; }
@@ -632,8 +657,11 @@
   #movie-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   /* Лок — СОЛІДНА темна підкладка (прозора вимивалась на світлих фазах доби, як ліві
      кнопки в сесії 33); текст тьмяний, але читабельний; лічильник-ціль — оранжевий акцент. */
-  #movie-btn.mv-locked { background: linear-gradient(0deg, rgba(120,130,150,0.08), rgba(120,130,150,0.08)), rgba(10,14,30,0.92) !important; border-color: rgba(255,255,255,0.18) !important; color: rgba(255,255,255,0.55) !important; cursor: default !important; }
-  #movie-btn.mv-locked:hover { background: linear-gradient(0deg, rgba(120,130,150,0.12), rgba(120,130,150,0.12)), rgba(10,14,30,0.95) !important; color: rgba(255,255,255,0.7) !important; }
+  /* ⚠️ Сесія 45: лок став ПРИТЛУМЛЕНО-ОРАНЖЕВИМ, а не сіро-нейтральним — щоб кнопка
+     читалась як «кіно, але поки закрито», а не як мертвий елемент чужої теми.
+     Підкладка лишається СОЛІДНОЮ (див. коментар вище) — це вимога світлих фаз доби. */
+  #movie-btn.mv-locked { background: linear-gradient(0deg, rgba(255,169,77,0.10), rgba(255,169,77,0.10)), rgba(10,14,30,0.92) !important; border-color: rgba(255,169,77,0.26) !important; color: rgba(255,201,143,0.7) !important; cursor: default !important; }
+  #movie-btn.mv-locked:hover { background: linear-gradient(0deg, rgba(255,169,77,0.16), rgba(255,169,77,0.16)), rgba(10,14,30,0.95) !important; color: rgba(255,201,143,0.9) !important; }
   .mv-lock { font-size: 10px; margin-left: 4px; font-weight: 600; color: rgba(255,169,77,0.75); background: rgba(255,169,77,0.08); border-radius: 10px; padding: 0 6px; }
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
@@ -1034,20 +1062,15 @@
   .lh-cell.done:hover { background:rgba(123,224,123,0.35); }
   .lh-cell.locked { background:rgba(123,224,123,0.08); border-color:rgba(123,224,123,0.2); color:rgba(123,224,123,0.4); cursor:default; opacity:0.6; }
   .lh-cell.locked:hover { background:rgba(123,224,123,0.08); color:rgba(123,224,123,0.4); }
-  #extra-btns { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:14px; }
-  #lh-btn { padding:7px 20px; background:rgba(135,180,255,0.12); border:1px solid rgba(135,180,255,0.3); color:#87b4ff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
-  #lh-btn:hover { background:rgba(135,180,255,0.22); }
-  #expr-btn { display:block; width:100%; margin:0 0 10px; padding:12px 20px; background:linear-gradient(135deg, rgba(200,155,255,0.22), rgba(200,155,255,0.12)); border:1px solid rgba(200,155,255,0.42); color:#e6d3ff; border-radius:14px; cursor:pointer; font-size:15px; font-weight:600; transition:background 0.15s, transform 0.1s; }
-  #expr-btn:hover { background:linear-gradient(135deg, rgba(200,155,255,0.32), rgba(200,155,255,0.18)); }
-  #expr-btn:active { transform:scale(0.99); }
-  #songs-btn { padding:7px 20px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
-  #songs-btn:hover { background:rgba(200,155,255,0.22); }
-  #songsess-wrap { display:flex; gap:4px; align-items:center; }
-  #songsess-plus { padding:7px 14px; background:rgba(200,155,255,0.12); border:1px solid rgba(200,155,255,0.3); color:#c89bff; border-radius:12px; cursor:pointer; font-size:12px; transition:background 0.15s; }
-  #songsess-plus:hover { background:rgba(200,155,255,0.22); }
+  /* ⚠️ Сесія 45: тут лежали стилі #extra-btns / #lh-btn / #expr-btn / #songs-btn /
+     #songsess-* з часів, коли ці кнопки жили в лівій панелі. Після переїзду в
+     `#daily-row` (сесія 44) вони МЕРТВІ: геометрію задає правило ряду, а колір із
+     голого ID програє `#daily-row button` за специфічністю. Один із них при цьому
+     тихо шкодив — `margin:0 0 10px` у #expr-btn розпирав увесь ряд до 44 px.
+     Видалені; кольори й геометрія тепер в одному місці — у блоці `#daily-row`.
+     `#extra-btns` як контейнера в розмітці давно немає. */
   #songsess-count { display:inline-block; background:rgba(200,155,255,0.22); color:#c89bff; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
-  #songsess-minus { padding:7px 10px; background:rgba(200,155,255,0.10); border:1px solid rgba(200,155,255,0.28); color:rgba(255,255,255,0.4); border-radius:12px; cursor:pointer; font-size:12px; transition:all 0.15s; }
-  #songsess-minus:hover { color:#ff6b6b; border-color:rgba(255,107,107,0.4); }
+  #songsess-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   .prog-songsess { font-size: 12px; color: #c89bff; opacity: 0.95; font-weight: 600; margin-left: 5px; }
 
   /* ── Розділ «Пісні» — повноекранний overlay ───────────────────────────── */
