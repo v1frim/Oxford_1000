@@ -147,13 +147,20 @@ function chromePath() {
      JSON.stringify(after.todayBest));
   t("прапор міграції виставлено", after.flag === "1");
 
-  // підпис рівня і відсутність номера місця для CEFR-рядка
-  await page.evaluate(([ts, day]) => {
+  // Підпис рівня і відсутність номера місця для CEFR-рядка.
+  // ⚠️ ДАТА ТУТ ЖИВА, а не пінована TODAY="2026-08-05" (сесія 45, фікс гнилої перевірки):
+  // рядок «остання гра» рендериться ЛИШЕ коли `latest.key === todayKey()`, тож із
+  // фіксованою датою обидві перевірки проходили рівно один день і потім давали null.
+  // Пінування лишається доречним ВИЩЕ — там тестується міграція `oxford_fix_cefr_lb_v1`,
+  // яка сама зашита на 05.08.2026. Ключ беремо з `todayKey()` САМОЇ ГРИ, а не рахуємо в
+  // Node: так він гарантовано збігається з тим, що порівнює `renderLeaderboard`
+  // (локальні частини дати, не UTC).
+  await page.evaluate(() => {
     localStorage.setItem("oxford_latest_v1", JSON.stringify({
-      key: day, score: 16, wrong: 2, skipped: 1, mode: "en-ua", ts: ts + 60000,
+      key: todayKey(), score: 16, wrong: 2, skipped: 1, mode: "en-ua", ts: Date.now(),
       wordCount: 7789, tag: "cefr:A1",
     }));
-  }, [tsToday, TODAY]);
+  });
   await page.reload();
   await page.waitForTimeout(1200);
   const row = await page.evaluate(() => {
