@@ -33143,8 +33143,19 @@ function isCorrect(input) {
   if (mode === "en-ua") {
     // uaAlt — додаткові ПРИЙНЯТНІ переклади, які НЕ показуються як підказка в ua-en
     // (напр. town приймає «місто», але «місто» лишається промптом лише для city).
-    return getUa(currentWord).some(u => normUa(u) === inp)
-      || (currentWord.uaAlt || []).some(u => normUa(u) === inp);
+    if (getUa(currentWord).some(u => normUa(u) === inp)) return true;
+    if ((currentWord.uaAlt || []).some(u => normUa(u) === inp)) return true;
+    // ⚠️ ПАРИ З ОДНАКОВИМ EN (сесія 45, за запитом — привід «match»): 23 слова мають
+    // по дві картки (match=матч/сірник, bank, light, fine, tip, cool…). Промпт у цьому
+    // напрямку — САМЕ АНГЛІЙСЬКЕ СЛОВО, тож він фізично не каже, який сенс питають:
+    // на «match» відповідь «матч» правильна, хоч би яка картка випала. Тому приймаємо
+    // глос (ua + uaAlt) БУДЬ-ЯКОГО запису з тим самим ключем-словом.
+    // ⚠️ ЧОГО ЦЕ НЕ ЛАМАЄ: ua-en НЕ зачеплено (там промпт український — «сірник» і далі
+    // вимагає match, сенси лишаються розведеними); mastery теж — пара ділить один
+    // `wordKey`, тож streak іде в те саме місце; WORDS не чіпали, панель правильної
+    // відповіді показує сенс показаної картки і не засмічується чужим глосом.
+    return sameKeyWords(wordKey(currentWord)).some(w => w !== currentWord &&
+      (getUa(w).some(u => normUa(u) === inp) || (w.uaAlt || []).some(u => normUa(u) === inp)));
   } else if (mode === "ua-en") {
     const shownUa = getUa(currentWord);
     // enAlt — прямі прийнятні англ. відповіді (слова-синоніми), які НЕ показуються
@@ -35575,6 +35586,22 @@ function indexOfWordKey(key) {
     WORDS.forEach((w, i) => getEn(w).forEach(e => { if (!_keyIdx.has(e)) _keyIdx.set(e, i); }));
   }
   return _keyIdx.has(key) ? _keyIdx.get(key) : -1;
+}
+// Усі записи з ТИМ САМИМ ключем-словом (23 пари з однаковим en: match=матч/сірник,
+// bank=банк/берег…). ⚠️ `_keyIdx` вище тут не годиться — він тримає ЛИШЕ перший індекс
+// на ключ. Потрібно для `isCorrect` en-ua: промпт-англійське слово не розрізняє сенсів
+// пари, тож приймаються глоси обох карток (сесія 45). Мемоізація: словник за сесію
+// не змінюється.
+let _sameKeyIdx = null;
+function sameKeyWords(key) {
+  if (!_sameKeyIdx) {
+    _sameKeyIdx = new Map();
+    WORDS.forEach(w => {
+      const k = wordKey(w), a = _sameKeyIdx.get(k);
+      if (a) a.push(w); else _sameKeyIdx.set(k, [w]);
+    });
+  }
+  return _sameKeyIdx.get(key) || [];
 }
 // One-time fix: раніше mastery/помилки зберігались за ПОЗИЦІЄЮ слова в WORDS, тому
 // вставка нового слова в середину масиву зсувала всі індекси й «передавала» прогрес
