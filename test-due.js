@@ -131,6 +131,45 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("повторний засів не зсуває наявний борг", reseed.first === reseed.tomorrow && reseed.second === reseed.tomorrow, JSON.stringify(reseed));
 
+  // 10b. ⚠️ ПОМИЛКА В ПОВТОРЕННІ НЕ СТАВИТЬ БОРГ (фікс сесії 45).
+  // Було навпаки: кожна затинка в дрилі «3 правильні поспіль» лізла в чергу.
+  const fromReview = await p.evaluate(() => {
+    localStorage.setItem("oxford_due_v1", "{}");
+    localStorage.setItem("oxford_day_mistakes_v1", "{}");
+    startGame([1, 2], {});                       // activePool → режим повторення
+    currentWordIndex = 1; currentWord = WORDS[1]; currentShown = getEn(WORDS[1])[0];
+    recordAnswer("хибна відповідь", "wrong");
+    const afterReview = Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length;
+    endGame(true);
+    startGame();                                 // звичайна timed-гра
+    currentWordIndex = 2; currentWord = WORDS[2]; currentShown = getEn(WORDS[2])[0];
+    recordAnswer("хибна відповідь", "wrong");
+    const afterGame = Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length;
+    endGame(true);
+    return { afterReview, afterGame };
+  });
+  t("помилка в ПОВТОРЕННІ не ставить борг", fromReview.afterReview === 0, String(fromReview.afterReview));
+  t("помилка у звичайній грі борг ставить", fromReview.afterGame === 1, String(fromReview.afterGame));
+
+  // 10c. одноразовий ремонт: у борзі лишається тільки те, що досі відкрита помилка
+  await p.evaluate(() => {
+    localStorage.removeItem("oxford_due_fix_v1");
+    localStorage.setItem("oxford_due_v1", JSON.stringify({
+      [wordKey(WORDS[10])]: { due: "2000-01-01", waited: 0 },   // відкрита помилка — лишиться
+      [wordKey(WORDS[11])]: { due: "2000-01-01", waited: 0 },   // сміття з повторення — піде
+    }));
+    localStorage.setItem("oxford_day_mistakes_v1", JSON.stringify({ "2000-01-03": [wordKey(WORDS[10])] }));
+  });
+  await p.reload(); await p.waitForTimeout(900);
+  const repaired = await p.evaluate(() => ({
+    keys: Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))),
+    kept: wordKey(WORDS[10]), dropped: wordKey(WORDS[11]),
+    flag: localStorage.getItem("oxford_due_fix_v1"),
+  }));
+  t("ремонт лишив відкриту помилку", repaired.keys.includes(repaired.kept), JSON.stringify(repaired.keys));
+  t("ремонт прибрав сміття з повторень", !repaired.keys.includes(repaired.dropped), JSON.stringify(repaired.keys));
+  t("прапор ремонту виставлено", repaired.flag === "1", String(repaired.flag));
+
   // 11. вгадане боргове слово чиститься і з «відкритого боргу» помилок
   const drained = await p.evaluate(() => {
     const wk = wordKey(WORDS[4]);

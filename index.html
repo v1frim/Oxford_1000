@@ -33423,7 +33423,13 @@ function recordAnswer(userVal, status) {
   } else {
     addDayMistake(currentWordIndex);
     addDayWrong(currentWordIndex);           // архів дня (для 🔁 у «Прогресі по днях»)
-    scheduleDue(currentWordIndex);           // борг на завтра (інтервальне повторення)
+    // ⚠️ БОРГ СТАВИТЬ ЛИШЕ ЗВИЧАЙНА ГРА (фікс сесії 45, за скаргою «на повторенні 35 слів»).
+    // Було без умови — і кожна затинка в сесії ПОВТОРЕННЯ теж ставила борг. А в повторенні
+    // слово ганяється, доки не даси 3 правильні поспіль, тож 3-4 затинки на одному слові
+    // норма: черга роздувалась дрилом, а не помилками з ігор. Той самий захист, що рядком
+    // нижче в `updateMastery` — його тут просто забули. Правило користувача: підмішуються
+    // саме ПОМИЛКОВІ слова (те, що потрапляло в «📒 Помилки»), а не те, що вже дрилиться.
+    if (!reviewRemaining) scheduleDue(currentWordIndex);   // борг на завтра
     // In review: mark this word so even a later 3-correct won't remove it from
     // today's mistakes. User wants tainted words to stay for further review.
     if (reviewTaintedIndices) reviewTaintedIndices.add(currentWordIndex);
@@ -36825,6 +36831,21 @@ function seedDueFromMistakes() {
   if (changed) saveDue(d);
   localStorage.setItem("oxford_due_seed_v1", "1");
 }
+// Одноразовий РЕМОНТ боргу після бага «борг ставився і в повтореннях» (сесія 45).
+// У користувача черга роздулась до 35 слів, хоча відкритих помилок була жменя.
+// Відрізнити «сміття з дрилу» від справжніх помилок заднім числом НЕМА ЯК (архіви
+// `oxford_day_wrong_v1` і `oxford_day_mistakes_v1` пишуться в обох режимах), тож
+// зводимо борг до інваріанта, який і мав бути: **у борзі лише те, що досі є
+// ВІДКРИТОЮ помилкою**. Побічно це знімає й слова, закриті в post-game повторенні.
+function fixDuePollutedByReview() {
+  if (localStorage.getItem("oxford_due_fix_v1")) return;
+  const open = new Set(allDayMistakeKeys());
+  const d = loadDue();
+  let changed = false;
+  for (const wk of Object.keys(d)) if (!open.has(wk)) { delete d[wk]; changed = true; }
+  if (changed) saveDue(d);
+  localStorage.setItem("oxford_due_fix_v1", "1");
+}
 
 // ── АРХІВ ПОМИЛОК ДНЯ (сесія 44, за запитом) ──────────────────────────────
 // `oxford_day_mistakes_v1` — це «відкритий борг»: слово ЗНИКАЄ звідти, щойно його
@@ -38258,6 +38279,7 @@ renderLeaderboard();
 })();
 sanitizeDayMistakes();        // нормалізація/чистка осиротілих ключів помилок
 seedDueFromMistakes();        // сесія 45: старий «відкритий борг» помилок → у борг (одноразово)
+fixDuePollutedByReview();     // сесія 45: чистка боргу від слів, наставлених повтореннями
 updateWordsAddedRegistry();   // реєстр появи слів у словнику (для клікабельної «+N ●»)
 renderLbTotals();
 renderThermo();
