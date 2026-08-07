@@ -33404,6 +33404,14 @@ function recordAnswer(userVal, status) {
         // A "tainted" word (any mistake in current review) must stay for further review.
         if (!reviewTaintedIndices.has(currentWordIndex)) {
           removeDayMistake(currentWordIndex);
+          // ⚠️ БОРГ = ПОМИЛКИ, НЕВІДПРАЦЬОВАНІ ПІСЛЯ POST-GAME ПОВТОРЕННЯ (правило
+          // користувача, сесія 45 — воно СКАСОВУЄ формулювання сесії 44 «борг працює
+          // зверху повторення»). Зіграв «12 (3/15)» → 3 помилки; пройшов їх у
+          // повтореннях і на двох не спіткнувся жодного разу → ці двоє на завтра НЕ
+          // їдуть, борг знімається тут. Третє, де знову затнувся, лишається tainted →
+          // лишається і в помилках дня, і в борзі. Не пішов у повторення взагалі →
+          // жодне не закрилось, усі три їдуть на завтра. НЕ повертати «борг зверху».
+          clearDue(currentWordIndex);
         }
       }
     } else {

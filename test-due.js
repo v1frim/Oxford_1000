@@ -170,6 +170,44 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("ремонт прибрав сміття з повторень", !repaired.keys.includes(repaired.dropped), JSON.stringify(repaired.keys));
   t("прапор ремонту виставлено", repaired.flag === "1", String(repaired.flag));
 
+  // 10d. ПРАВИЛО КОРИСТУВАЧА: борг = помилки, невідпрацьовані в post-game повторенні.
+  // Сценарій «12 (3/15)»: три помилки в грі → повторення → на двох жодної затинки
+  // (борг знімається), на третьому знову помилка (борг лишається на завтра).
+  const afterDrill = await p.evaluate(() => {
+    const [A, B, C] = [20, 21, 22];
+    localStorage.setItem("oxford_day_mistakes_v1", "{}");
+    localStorage.setItem("oxford_due_v1", "{}");
+    startGame();                                        // звичайна гра: 3 помилки
+    [A, B, C].forEach(i => {
+      currentWordIndex = i; currentWord = WORDS[i]; currentShown = getEn(WORDS[i])[0];
+      recordAnswer("хиба", "wrong");
+    });
+    const afterGame = Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length;
+    endGame(true);
+
+    startGame([A, B, C]);                               // post-game повторення
+    const drill = (i, clean) => {
+      currentWordIndex = i; currentWord = WORDS[i]; currentShown = getEn(WORDS[i])[0];
+      if (!clean) recordAnswer("хиба", "wrong");        // затинка → tainted
+      for (let k = 0; k < 3; k++) {
+        currentWordIndex = i; currentWord = WORDS[i]; currentShown = getEn(WORDS[i])[0];
+        recordAnswer(getUa(WORDS[i])[0], "correct");
+      }
+    };
+    drill(A, true); drill(B, true); drill(C, false);
+    const due = JSON.parse(localStorage.getItem("oxford_due_v1"));
+    endGame(true);
+    return { afterGame, keys: Object.keys(due),
+             A: wordKey(WORDS[A]), B: wordKey(WORDS[B]), C: wordKey(WORDS[C]) };
+  });
+  t("3 помилки в грі → 3 борги", afterDrill.afterGame === 3, String(afterDrill.afterGame));
+  t("чисто закриті в повторенні борг знімають",
+    !afterDrill.keys.includes(afterDrill.A) && !afterDrill.keys.includes(afterDrill.B),
+    JSON.stringify(afterDrill.keys));
+  t("слово із затинкою лишається на завтра",
+    afterDrill.keys.includes(afterDrill.C), JSON.stringify(afterDrill.keys));
+  t("на завтра поїхало рівно одне", afterDrill.keys.length === 1, JSON.stringify(afterDrill.keys));
+
   // 11. вгадане боргове слово чиститься і з «відкритого боргу» помилок
   const drained = await p.evaluate(() => {
     const wk = wordKey(WORDS[4]);
