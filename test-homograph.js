@@ -75,6 +75,29 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("пара ділить один wordKey і бачить обидві картки", sameKey === true);
 
+  // 7. ВЗАЄМНІ ПАРИ-СИНОНІМИ через enAlt (сесія 45). Патерн `idle`↔`lazy`: обидва слова
+  // визнають глос одне одного в uaAlt і стоять поруч у SYNS → у UA→US приймаються обидва.
+  // ⚠️ Це НЕ загальний дозвіл на синоніми: перевірки-контролі нижче мусять лишатись ❌,
+  // інакше ми відтворили б витік сесії 30 (на «розкішний» проходили wonderful/lovely).
+  const mutual = await p.evaluate(() => {
+    const ask = (en, input) => {
+      const i = WORDS.findIndex(w => getEn(w)[0] === en);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en"; currentShown = getUa(currentWord)[0];
+      return isCorrect(input);
+    };
+    const pairs = [["cry","sob"],["sob","cry"],["slow","sluggish"],["sluggish","slow"],
+      ["clear","lucid"],["lucid","clear"],["shy","timid"],["timid","shy"],["want","wish"],
+      ["reply","answer"],["famous","celebrated"],["silly","stupid"],["colossal","huge"],
+      ["lazy","idle"],["idle","lazy"]];
+    return {
+      bad: pairs.filter(([a, b]) => !ask(a, b)).map(([a, b]) => a + "←" + b),
+      leaks: [["beautiful","gorgeous"],["dark","gloomy"],["big","great"],["clear","transparent"],
+              ["slow","gradual"],["angry","furious"]].filter(([a, b]) => ask(a, b)).map(([a, b]) => a + "←" + b),
+    };
+  });
+  t("взаємні пари-синоніми приймаються в UA→US", mutual.bad.length === 0, mutual.bad.join(", "));
+  t("не-синоніми НЕ протікають (межа сесії 30)", mutual.leaks.length === 0, mutual.leaks.join(", "));
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
