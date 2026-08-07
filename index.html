@@ -33182,7 +33182,15 @@ function isCorrect(input) {
     // вимагає match, сенси лишаються розведеними); mastery теж — пара ділить один
     // `wordKey`, тож streak іде в те саме місце; WORDS не чіпали, панель правильної
     // відповіді показує сенс показаної картки і не засмічується чужим глосом.
-    return sameKeyWords(wordKey(currentWord)).some(w => w !== currentWord &&
+    // ⚠️ І ПАРИ «X» / «to X» (сесія 45, привід «mean»): 43 слова мають окремі картки
+    // `mean = підлий` і `to mean = означати`, `book = книга` і `to book = бронювати`.
+    // Промптом стоїть ГОЛЕ слово — воно не каже, чи питають іменник/прикметник, чи
+    // дієслово, тож приймаємо й глоси дієслівної картки.
+    // ⚠️ НАВПАКИ НЕ РОБИМО, і це не недогляд: промпт «to mean» САМ повідомляє частину
+    // мови, тому там сенси лишаються розведеними («книга» на «to book» — помилка).
+    const k = wordKey(currentWord);
+    const sibs = /^to /.test(k) ? sameKeyWords(k) : sameKeyWords(k).concat(sameKeyWords("to " + k));
+    return sibs.some(w => w !== currentWord &&
       (getUa(w).some(u => normUa(u) === inp) || (w.uaAlt || []).some(u => normUa(u) === inp)));
   } else if (mode === "ua-en") {
     const shownUa = getUa(currentWord);

@@ -75,6 +75,33 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("пара ділить один wordKey і бачить обидві картки", sameKey === true);
 
+  // 6b. ПАРИ «X» / «to X» (сесія 45, привід «mean»): промпт-ГОЛЕ слово не каже частини
+  // мови → приймає обидві картки; промпт «to X» каже → лишається розведеним.
+  const toPairs = await p.evaluate(() => {
+    const ask = (en, ua, input) => {
+      const i = WORDS.findIndex(w => getEn(w)[0] === en && getUa(w)[0] === ua);
+      if (i < 0) return "НЕМА " + en + "=" + ua;
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "en-ua"; currentShown = getEn(currentWord)[0];
+      return isCorrect(input);
+    };
+    return {
+      meanVerb:  ask("mean", "підлий", "означати"),      // голе «mean» → приймає дієслово
+      meanOwn:   ask("mean", "підлий", "підлий"),
+      bookVerb:  ask("book", "книга", "бронювати"),
+      watchVerb: ask("watch", "годинник", "спостерігати"),
+      toMeanNoun: ask("to mean", "означати", "підлий"),  // «to mean» → НЕ приймає прикметник
+      toBookNoun: ask("to book", "бронювати", "книга"),
+      alien:     ask("mean", "підлий", "щедрий"),         // чужий глос як і був — помилка
+    };
+  });
+  t("голе «mean» приймає «означати»", toPairs.meanVerb === true);
+  t("голе «mean» приймає власний глос", toPairs.meanOwn === true);
+  t("голе «book» приймає «бронювати»", toPairs.bookVerb === true);
+  t("голе «watch» приймає «спостерігати»", toPairs.watchVerb === true);
+  t("«to mean» НЕ приймає «підлий» (частина мови названа)", toPairs.toMeanNoun === false);
+  t("«to book» НЕ приймає «книга»", toPairs.toBookNoun === false);
+  t("чужий глос на «mean» не проходить", toPairs.alien === false);
+
   // 7. ВЗАЄМНІ ПАРИ-СИНОНІМИ через enAlt (сесія 45). Патерн `idle`↔`lazy`: обидва слова
   // визнають глос одне одного в uaAlt і стоять поруч у SYNS → у UA→US приймаються обидва.
   // ⚠️ Це НЕ загальний дозвіл на синоніми: перевірки-контролі нижче мусять лишатись ❌,
