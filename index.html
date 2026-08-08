@@ -33179,6 +33179,14 @@ function nextWord() {
   answerEl.focus();
 }
 
+// «рахунок (до сплати)» → «рахунок». Дужка в основному глосі — це ДИСПЛЕЙНА підказка
+// (патерн сесії 35, `transfer = перевести (гроші)`), а не частина перекладу.
+// ⚠️ НАВІЩО (сесія 45, привід «bill»): у UA→US картки шукаються перехресно за ТОЧНИМ
+// збігом ua-глосів, тож картка з дужкою була невидима під голим промптом — на «рахунок»
+// не проходив `bill`, на «центр» — `centre`, на «програма» — `programme`. Гола форма в
+// `uaAlt` тут не рятує: uaAlt свідомо не працює в цьому напрямку (правило gorgeous).
+// Таких «невидимих» карток було 17 із 22 із дужками.
+const uaBare = u => String(u).replace(/\s*\([^)]*\)/g, "").trim();
 function isCorrect(input) {
   const normUa = s => s.toLowerCase().trim().replace(/г/g, "ґ");
   const inp = normUa(input);
@@ -33222,12 +33230,15 @@ function isCorrect(input) {
     return sibs.some(w => w !== currentWord &&
       (getUa(w).some(u => normUa(u) === inp) || (w.uaAlt || []).some(u => normUa(u) === inp)));
   } else if (mode === "ua-en") {
-    const shownUa = getUa(currentWord);
+    // ⚠️ порівнюємо ГОЛІ глоси (`uaBare`): інакше картка з дисплейною дужкою
+    // («рахунок (до сплати)») невидима під голим промптом «рахунок» — див. коментар
+    // біля `uaBare`. Сам промпт користувач бачить із дужкою, це навмисно.
+    const shownUa = getUa(currentWord).map(uaBare);
     // enAlt — прямі прийнятні англ. відповіді (слова-синоніми), які НЕ показуються
     // як промпт (напр. на «ледачий»/idle проходить lazy). НЕ впливає на en-ua.
     if ((currentWord.enAlt || []).some(e => normEn(e) === inpNorm)) return true;
     return WORDS.some(w =>
-      getUa(w).some(u => shownUa.includes(u)) &&
+      getUa(w).some(u => shownUa.includes(uaBare(u))) &&
       getEn(w).some(e => normEn(e) === inpNorm)
     );
   } else if (mode === "en-def" || mode === "en-cloze") {
@@ -33262,18 +33273,21 @@ function hintFor(en, ua) {
 // «difficult» → «difficult (розумово важкий)», якщо для картки є HINTS-уточнення.
 // Дужки парсить wrapEnWord і рендерить окремим блідим спаном.
 function withHint(en, ua) {
-  const h = hintFor(en, ua);
+  // Фолбек на дисплейну дужку самого глоса: у списку відповідей UA→US картка
+  // «рахунок (до сплати)» інакше стояла б голим «bill» поруч із поясненими
+  // «account (рахунок у банку)» і «score (рахунок у грі)» (сесія 45).
+  const h = hintFor(en, ua) || (ua ? (String(ua).match(/\(([^)]+)\)/) || [])[1] || "" : "");
   return h ? en + " (" + h + ")" : en;
 }
 
 function getCorrectAnswer() {
   if (mode === "ua-en") {
-    const shownUa = getUa(currentWord);
+    const shownUa = getUa(currentWord).map(uaBare);   // те саме правило, що в isCorrect
     const ans = new Set();
     WORDS.forEach(w => {
       // ⚠️ підказку беремо за КАРТКОЮ (en+ua), а не за голим en — інакше слово-пара
       // тягне сюди уточнення чужого сенсу (сесія 45)
-      if (getUa(w).some(u => shownUa.includes(u))) getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0])));
+      if (getUa(w).some(u => shownUa.includes(uaBare(u)))) getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0])));
     });
     (currentWord.enAlt || []).forEach(e => ans.add(withHint(e)));
     return [...ans].join(" / ");

@@ -153,6 +153,32 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("взаємні пари-синоніми приймаються в UA→US", mutual.bad.length === 0, mutual.bad.join(", "));
   t("не-синоніми НЕ протікають (межа сесії 30)", mutual.leaks.length === 0, mutual.leaks.join(", "));
 
+  // 8. ДИСПЛЕЙНА ДУЖКА В ГЛОСІ не ховає картку в UA→US (сесія 45, привід «bill»).
+  // «рахунок (до сплати)» мусить знаходитись під голим промптом «рахунок»; так само
+  // британські варіанти centre/programme/tinned під «центр»/«програма»/«консервований».
+  const paren = await p.evaluate(() => {
+    const set = en => { const i = WORDS.findIndex(w => getEn(w)[0] === en); if (i < 0) return false;
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en"; currentShown = getUa(currentWord)[0]; return true; };
+    const ask = (en, input) => set(en) ? isCorrect(input) : "НЕМА " + en;
+    set("score");
+    return {
+      bill: ask("score", "bill"), centre: ask("center", "centre"),
+      programme: ask("program", "programme"), pair: ask("couple", "pair"),
+      own: ask("score", "score"),
+      alienReceipt: ask("score", "receipt"), alienMiddle: ask("center", "middle"),
+      panel: (() => { set("score"); return getCorrectAnswer(); })(),
+      selfPrompt: ask("bill", "bill"),
+    };
+  });
+  t("«рахунок» приймає bill (глос із дужкою)", paren.bill === true);
+  t("«центр» приймає centre", paren.centre === true);
+  t("«програма» приймає programme", paren.programme === true);
+  t("«пара» приймає pair", paren.pair === true);
+  t("власне слово як і було", paren.own === true && paren.selfPrompt === true);
+  t("чужі слова не проходять", paren.alienReceipt === false && paren.alienMiddle === false,
+    JSON.stringify([paren.alienReceipt, paren.alienMiddle]));
+  t("панель показує bill із поясненням", /bill \(до сплати\)/.test(paren.panel), paren.panel);
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
