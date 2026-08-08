@@ -205,13 +205,27 @@ const DAY = 86400000;
 
   // перемикання назад на «Найкращі ігри» знімає режим 🎓
   const back = await page.evaluate(() => {
+    const el = document.getElementById("lb-title");
+    lbActiveTab = "games"; renderLeaderboard();
+    const games = { title: el.textContent, sub: !!el.querySelector(".lb-title-sub"), tip: el.title };
+    lbActiveTab = "days"; renderLeaderboard();
+    const days = { title: el.textContent, sub: !!el.querySelector(".lb-title-sub"), tip: el.title };
     lbActiveTab = "games"; renderLeaderboard();
     return { cls: document.getElementById("lb-list").classList.contains("lb-cefr"),
-      title: document.getElementById("lb-title").textContent,
+      title: el.textContent, games, days,
       reset: getComputedStyle(document.getElementById("lb-reset")).visibility };
   });
-  t("повернення на «Найкращі ігри» знімає .lb-cefr", !back.cls && back.title === "Найкращі ігри", JSON.stringify(back));
+  t("повернення на «Найкращі ігри» знімає .lb-cefr",
+    !back.cls && back.title.startsWith("Найкращі ігри"), JSON.stringify(back.title));
   t("кнопка очищення повертається", back.reset === "visible", back.reset);
+  // Уточнення «· весь словник» (сесія 45): підпис і tooltip є на вкладці ігор…
+  t("заголовок ігор має підпис «весь словник»",
+    back.games.sub && /весь словник/.test(back.games.title), back.games.title);
+  t("заголовок ігор має tooltip з поясненням",
+    /CEFR/.test(back.games.tip) && /Знаю/.test(back.games.tip), back.games.tip);
+  // …і НЕ «переїжджають» на сусідню вкладку (через це й заведено setLbTitle)
+  t("на сусідній вкладці підпису немає", !back.days.sub, back.days.title);
+  t("на сусідній вкладці tooltip знято", back.days.tip === "", back.days.tip);
 
   // вкладка є в Tab-циклі і в розмітці
   const tabsOk = await page.evaluate(() => !!document.querySelector('.lb-tab[data-tab="cefr"]'));

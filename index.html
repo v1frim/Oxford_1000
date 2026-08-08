@@ -100,6 +100,9 @@
   .lb-tab:hover { background: rgba(255,255,255,0.20); }
   .lb-tab.active { background: #ffd166; color: #1e3c72; border-color: #ffd166; }
   .lb-title { font-size: 13px; opacity: 0.7; margin-bottom: 10px; text-align: center; }
+  /* Уточнення «· весь словник» біля назви вкладки — тьмяніше за сам заголовок,
+     щоб пояснювало, але не сперечалось із ним за увагу (сесія 45). */
+  .lb-title-sub { margin-left: 5px; font-size: 11.5px; opacity: 0.62; font-weight: 400; }
   .lb-reset {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255,255,255,0.18);
@@ -35494,6 +35497,13 @@ const leaderboardEl = document.getElementById("leaderboard");
 const lbListEl = document.getElementById("lb-list");
 const lbEmptyEl = document.getElementById("lb-empty");
 const lbTitleEl = document.getElementById("lb-title");
+// Заголовок вкладки лідерборду. ⚠️ ЧЕРЕЗ ХЕЛПЕР, а не textContent: у «Найкращих іграх»
+// є підпис-уточнення (span) і tooltip, а сусідні вкладки, ставлячи лише текст, tooltip
+// НЕ знімали б — він «переїжджав» би на чужу вкладку (сесія 45).
+function setLbTitle(html, tip) {
+  lbTitleEl.innerHTML = html;
+  if (tip) lbTitleEl.title = tip; else lbTitleEl.removeAttribute("title");
+}
 let lbActiveTab = "games";
 let lbNewGameId = null;
 let lbNewDayKey = null;
@@ -37005,7 +37015,13 @@ function computeStreaks(days) {
   return streaks.sort((a, b) => b.length - a.length || (b.ongoing - a.ongoing));
 }
 function renderTabGames() {
-  lbTitleEl.textContent = "Найкращі ігри";
+  // ⚠️ Уточнення «· весь словник» (сесія 45, за запитом): вкладка показує ЛИШЕ звичайні
+  // ігри по всьому словнику. Ігри за рівнями CEFR (свій рейтинг на вкладці 🎓), пулом
+  // «Знаю» (easy-режим, поза рейтингом узагалі) і «не дались» сюди не потрапляють —
+  // без підпису це виглядало як «усі мої ігри», і незрозуміло, чому свіжої гри немає.
+  setLbTitle("Найкращі ігри<span class=\"lb-title-sub\">· весь словник</span>",
+    "Лише звичайні ігри по всьому словнику. Ігри за рівнями CEFR — на вкладці 🎓; " +
+    "ігри пулом «Знаю» і «не дались» у рейтинг не входять.");
   const scores = loadScores();
   const todayBest = loadTodayBest();
   const latest = loadLatest();
@@ -37070,7 +37086,7 @@ function renderTabGames() {
 // набір рівнів = окремий пул, тому один рядок = рекорд ЦЬОГО пулу, а не місце в спільному
 // топі. Сховище нове НЕ заводимо — усе рахується з games-log (там CEFR-ігри з сесії 42).
 function renderTabCefr() {
-  lbTitleEl.textContent = "Рекорди за рівнями CEFR";
+  setLbTitle("Рекорди за рівнями CEFR");
   const games = loadGamesLog().filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
   if (!games.length) {
     lbListEl.innerHTML = "";
@@ -37121,7 +37137,7 @@ function renderTabCefr() {
   lbListEl.innerHTML = html;
 }
 function renderTabDays() {
-  lbTitleEl.textContent = "Найкращі ігрові дні";
+  setLbTitle("Найкращі ігрові дні");
   const days = loadDays();
   const today = todayKey();
   const todayEntry = days[today] ? { key: today, ...days[today] } : null;
@@ -37180,7 +37196,7 @@ function xpDayNoSongs() {
   return out;
 }
 function renderTabXpDays() {
-  lbTitleEl.textContent = "Найкращі XP-дні";
+  setLbTitle("Найкращі XP-дні");
   const xpMap = xpDayNoSongs();
   const days = loadDays();
   const duo = loadDuoSessions();
@@ -37231,7 +37247,7 @@ function renderTabXpDays() {
   lbListEl.innerHTML = html;
 }
 function renderTabStreaks() {
-  lbTitleEl.textContent = "Серії днів підряд";
+  setLbTitle("Серії днів підряд");
   const days = loadDays();
   const allStreaks = computeStreaks(days);
   const top = allStreaks.slice(0, LB_LIMIT);
@@ -37282,7 +37298,7 @@ function renderLeaderboard(newGameId, newDayKey) {
   // і на «🎓 CEFR» (рахуються з games-log, який годує ще й «Точність» — чистити його звідси не можна)
   document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "cefr") ? "hidden" : "";
   lbListEl.classList.toggle("lb-cefr", lbActiveTab === "cefr");   // без медалей/нумерації — рядки з різних пулів
-  if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); lbTitleEl.textContent = "Досягнення"; renderAchievements(); }
+  if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); setLbTitle("Досягнення"); renderAchievements(); }
   else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "cefr") renderTabCefr();
   else if (lbActiveTab === "days") renderTabDays();
