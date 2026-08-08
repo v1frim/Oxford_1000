@@ -102,6 +102,34 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("«to book» НЕ приймає «книга»", toPairs.toBookNoun === false);
   t("чужий глос на «mean» не проходить", toPairs.alien === false);
 
+  // 6c. НЕПРАВИЛЬНІ ФОРМИ (сесія 45, привід «saw»): промпт-форма приймає глоси базового
+  // слова; базове слово НЕ приймає глоси форми (воно однозначне).
+  const irr = await p.evaluate(() => {
+    const set = en => { const i = WORDS.findIndex(w => getEn(w)[0] === en); if (i < 0) return false;
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "en-ua"; currentShown = getEn(currentWord)[0]; return true; };
+    const ask = (en, input) => set(en) ? isCorrect(input) : "НЕМА " + en;
+    return {
+      sawBase: ask("saw", "бачити"), sawOwn: ask("saw", "пилка"),
+      roseBase: ask("rose", "зростати"), spokeBase: ask("spoke", "говорити"),
+      teethBase: ask("teeth", "зуб"),
+      pastForm: ask("saw", "бачив"),        // морфології немає — свідомо
+      backwards: ask("see", "пилка"),       // односторонньо
+      backwards2: ask("rise", "троянда"),
+      alien: ask("saw", "стілець"),
+      hint: (() => { set("saw"); return getCorrectAnswer(); })(),
+    };
+  });
+  t("«saw» приймає глос базового see", irr.sawBase === true);
+  t("«saw» приймає власний глос", irr.sawOwn === true);
+  t("«rose» приймає глос базового rise", irr.roseBase === true);
+  t("«spoke» приймає глос базового speak", irr.spokeBase === true);
+  t("«teeth» приймає глос базового tooth", irr.teethBase === true);
+  t("форма минулого «бачив» НЕ проходить (морфології немає)", irr.pastForm === false);
+  t("базове «see» НЕ приймає «пилка» (односторонньо)", irr.backwards === false);
+  t("базове «rise» НЕ приймає «троянда»", irr.backwards2 === false);
+  t("чужий глос на «saw» не проходить", irr.alien === false);
+  t("«saw» має підказку про форму see", /не форма see/.test(irr.hint), irr.hint);
+
   // 7. ВЗАЄМНІ ПАРИ-СИНОНІМИ через enAlt (сесія 45). Патерн `idle`↔`lazy`: обидва слова
   // визнають глос одне одного в uaAlt і стоять поруч у SYNS → у UA→US приймаються обидва.
   // ⚠️ Це НЕ загальний дозвіл на синоніми: перевірки-контролі нижче мусять лишатись ❌,

@@ -16620,6 +16620,12 @@ const HINTS = {
   "fabled": "оспіваний у переказах",
   "ostensibly": "на позір, удавано",
   "utter": "повний і безумовний",
+  "saw": "інструмент, не форма see",
+  "rose": "квітка, не форма rise",
+  "spoke": "деталь колеса, не форма speak",
+  "rung": "сходинка драбини, не форма ring",
+  "broke": "розмовне, не форма break",
+  "running": "іменник «біг», не форма run",
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -33192,7 +33198,17 @@ function isCorrect(input) {
     // ⚠️ НАВПАКИ НЕ РОБИМО, і це не недогляд: промпт «to mean» САМ повідомляє частину
     // мови, тому там сенси лишаються розведеними («книга» на «to book» — помилка).
     const k = wordKey(currentWord);
-    const sibs = /^to /.test(k) ? sameKeyWords(k) : sameKeyWords(k).concat(sameKeyWords("to " + k));
+    let sibs = /^to /.test(k) ? sameKeyWords(k) : sameKeyWords(k).concat(sameKeyWords("to " + k));
+    // ⚠️ І НЕПРАВИЛЬНІ ФОРМИ (сесія 45, привід «saw»): 37 карток є ще й формою іншого
+    // слова — `saw` = пилка й водночас минулий час від `see`, `rose` = троянда й форма
+    // `rise`, `spoke` = спиця, `rung` = щабель, `teeth` ⟵ `tooth`. Промптом стоїть така
+    // форма, тож глоси БАЗОВОГО слова теж приймаємо (мапу `IRREGULAR` уже маємо — досі
+    // вона працювала лише на ховер). ⚠️ ОДНОСТОРОННЬО: промпт `see` НЕ приймає «пилка»,
+    // бо він однозначний. ⚠️ Це НЕ дає української морфології: приймається глос як він
+    // є в словнику («бачити»), а не «бачив» — форми минулого часу глосами не бувають
+    // (правило сесії 40). Саме тому в пари ще й HINTS-підказка «не форма see».
+    const bare = k.replace(/^to /, ""), base = IRREGULAR[bare];
+    if (base && base !== bare) sibs = sibs.concat(sameKeyWords(base), sameKeyWords("to " + base));
     return sibs.some(w => w !== currentWord &&
       (getUa(w).some(u => normUa(u) === inp) || (w.uaAlt || []).some(u => normUa(u) === inp)));
   } else if (mode === "ua-en") {
