@@ -171,8 +171,11 @@ const DAY = 86400000;
   t("рекорд A1 = найкраща гра пулу (16)", body[0] && body[0].score === "16" && /A1 ·/.test(body[0].mode),
     JSON.stringify(body[0]));
   t("лічильник ігор рівня", body[0] && /2 ігри/.test(body[0].games || ""), String(body[0] && body[0].games));
-  t("порядок рівнів: A1 → A1-B2 → B1 → —",
-    body.slice(0, 4).every((r, i) => ["🎓 A1", "🎓 A1-B2", "🎓 B1", "🎓 —"][i] === r.mode.split(" · ")[0]),
+  // ⚠️ Сесія 45 змінила правило: сортуємо за СКЛАДНІСТЮ набору (найвищий рівень у
+  // ньому), а не за першим рівнем мітки. Тому `A1-B2` тепер після `B1`: пул із B2-словами
+  // важчий за чистий B1, хоч мітка й починається з A1. Було: A1 → A1-B2 → B1 → —.
+  t("порядок рівнів: A1 → B1 → A1-B2 → — (за складністю)",
+    body.slice(0, 4).every((r, i) => ["🎓 A1", "🎓 B1", "🎓 A1-B2", "🎓 —"][i] === r.mode.split(" · ")[0]),
     JSON.stringify(body.map(r => r.mode)));
   t("медалей немає (перший рядок без золотого тла)", body[0] && /rgba\(0, 0, 0, 0\)|transparent/.test(body[0].bg),
     String(body[0] && body[0].bg));
@@ -243,6 +246,42 @@ const DAY = 86400000;
   }));
   t("порожній стан вкладки 🎓", emptyState.shown && /Рівні CEFR/.test(emptyState.hint) && emptyState.list === "",
     JSON.stringify(emptyState.hint));
+
+  // ── 🎓: порядок ЗА СКЛАДНІСТЮ + сума по всіх іграх набору (сесія 45) ──────────
+  // Рахунки навмисно НЕ збігаються зі складністю (C2 має 9, B2+C2 — 8), тож якщо
+  // сортування зіскочить назад на «за рекордом», перевірка це побачить.
+  const diff = await page.evaluate(() => {
+    const now = Date.now(), day = 864e5;
+    const mk = (tag, score, wrong, skipped, d) => ({ score, wrong, skipped, mode: "en-ua",
+      ts: now - d * day, wordCount: 8600, tag: "cefr:" + tag });
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([
+      mk("C2", 9, 5, 1, 3), mk("A1", 18, 1, 0, 2), mk("A1+A2", 16, 1, 0, 1),
+      mk("B1-C1", 11, 4, 1, 4), mk("A2", 13, 2, 1, 5), mk("A1", 15, 2, 0, 6),
+      mk("A1+A2", 12, 3, 1, 7), mk("—", 7, 6, 1, 9), mk("B2+C2", 8, 5, 2, 10),
+    ]));
+    lbActiveTab = "cefr"; renderLeaderboard();
+    const rows = [...document.querySelectorAll("#lb-list li")].filter(li => !li.className.includes("lb-sep"));
+    return {
+      order: rows.map(li => li.querySelector(".lb-mode").textContent.replace(/^🎓\s*/, "").split("·")[0].trim()),
+      scores: rows.map(li => +li.querySelector(".lb-score").textContent),
+      a1: (() => { const li = rows.find(r => /A1 /.test(r.querySelector(".lb-mode").textContent));
+        return { games: li.querySelector(".lb-games") && li.querySelector(".lb-games").textContent,
+                 sum: li.querySelector(".lb-games-sum") && li.querySelector(".lb-games-sum").textContent }; })(),
+      // ⚠️ мітку беремо ТОЧНО: /A2 ·/ ловило б і «A1+A2 ·», де ігор дві й сума є
+      single: (() => { const li = rows.find(r =>
+          r.querySelector(".lb-mode").textContent.replace(/^🎓\s*/, "").split("·")[0].trim() === "A2");
+        return !!(li && li.querySelector(".lb-games-sum")); })(),
+    };
+  });
+  t("🎓 порядок — від найлегшого набору до найважчого",
+    JSON.stringify(diff.order) === JSON.stringify(["A1", "A1+A2", "A2", "B1-C1", "B2+C2", "C2", "—"]),
+    JSON.stringify(diff.order));
+  t("🎓 сортує складність, а не рекорд", diff.scores.join(",") !== [...diff.scores].sort((x, y) => y - x).join(","),
+    JSON.stringify(diff.scores));
+  t("🎓 «—» (без рівня) стоїть останнім", diff.order[diff.order.length - 1] === "—", JSON.stringify(diff.order));
+  t("🎓 сума по всіх іграх набору", diff.a1.sum === "· 33 (3/36)", JSON.stringify(diff.a1));
+  t("🎓 лічильник ігор лишився", /2 ігри/.test(diff.a1.games || ""), String(diff.a1.games));
+  t("🎓 на одній грі суми немає (дублювала б рекорд)", diff.single === false);
 
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));

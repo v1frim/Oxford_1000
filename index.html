@@ -147,6 +147,9 @@
   .lb-total { opacity: 0.6; }
   .lb-mode { margin-left: auto; font-size: 11px; opacity: 0.55; }
   .lb-games { font-size: 11px; opacity: 0.7; }
+  /* Сума по всіх іграх набору поруч із їх кількістю (🎓, сесія 45) — ще тьмяніша за
+     сам лічильник: це довідка, а не заголовок рядка. */
+  .lb-games-sum { font-size: 11px; opacity: 0.5; margin-left: 4px; }
   .lb-review { font-size: 11px; color: #87b4ff; opacity: 0.85; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   #lb-totals { position: fixed; bottom: 18px; right: 18px; background: rgba(12,32,68,0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 12px 16px; min-width: 190px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); z-index: 200; }
@@ -37139,23 +37142,49 @@ function renderTabCefr() {
   const isBetter = (a, b) => b.score > a.score || (b.score === a.score && (b.wrong + b.skipped) < (a.wrong + a.skipped));
   const best = new Map();     // мітка рівнів → найкраща гра цим пулом
   const count = new Map();    // мітка рівнів → скільки ігор зіграно
+  const agg = new Map();      // мітка рівнів → сума по ВСІХ іграх цим пулом (сесія 45)
   games.forEach(g => {
     const k = g.tag.slice(5);
     count.set(k, (count.get(k) || 0) + 1);
+    const a = agg.get(k) || { score: 0, bad: 0, total: 0 };
+    const bad = (g.wrong || 0) + (g.skipped || 0);
+    a.score += g.score; a.bad += bad; a.total += g.score + bad;
+    agg.set(k, a);
     if (!best.has(k) || isBetter(best.get(k), g)) best.set(k, g);
   });
-  // порядок рядків — за рівнями (A1…C2, «—»), комбінації йдуть одразу за своїм першим рівнем
-  const levelOrder = k => {
-    const head = String(k).split(/[-+]/)[0];
-    const i = CEFR_LEVELS.indexOf(head === "—" ? "none" : head);
-    return i < 0 ? CEFR_LEVELS.length : i;
+  // ⚠️ ПОРЯДОК РЯДКІВ — ЗА СКЛАДНІСТЮ НАБОРУ, а не за рахунком (сесія 45, за запитом:
+  // «вверху найлегші, далі до найважчих комбінацій»). Ключ сортування:
+  //   1) НАЙВИЩИЙ рівень у наборі — пул із C2 важкий, хоч би що ще в ньому було;
+  //   2) найнижчий — чистий A2 важчий за мішанку A1+A2, бо в мішанці половина слів легкі;
+  //   3) ширина набору.
+  // Мітка буває «A1», «A1+A2», «A1-B1» (суцільний діапазон, див. cefrTagLabel) і «—»
+  // (слова без рівня) — «—» це індекс "none" у CEFR_LEVELS, тобто завжди в кінці.
+  const diffOrder = k => {
+    const s = String(k);
+    let idx = [];
+    if (s.includes("-")) {
+      const [a, b] = s.split("-").map(x => CEFR_LEVELS.indexOf(x));
+      if (a >= 0 && b >= a) for (let i = a; i <= b; i++) idx.push(i);
+    } else {
+      idx = s.split("+").map(x => CEFR_LEVELS.indexOf(x === "—" ? "none" : x)).filter(i => i >= 0);
+    }
+    if (!idx.length) return [99, 99, 0];
+    return [Math.max(...idx), Math.min(...idx), idx.length];
   };
   const renderCefrRow = (g, label, cls, isExtra) => {
     const isTodayGame = tsToDayKey(g.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(g.ts));
     const klass = (cls || "") + (isTodayGame ? " is-today-game" : "") + (isYesterdayGame ? " lb-yesterday-date" : "");
     const n = count.get(label) || 0;
-    const gamesStr = (!isExtra && n > 1) ? '<span class="lb-games">' + n + " " + plural(n, "гра", "ігри", "ігор") + "</span>" : "";
+    // Поруч із кількістю ігор — сума по ВСІХ іграх цього набору, як у «Найкращих
+    // ігрових днях» (сесія 45, за запитом). Показуємо лише коли ігор >1: на одній
+    // грі сума дослівно дублювала б рахунок рекорду ліворуч.
+    const a = agg.get(label);
+    const sumStr = (!isExtra && n > 1 && a)
+      ? '<span class="lb-games-sum">· ' + a.score + ' (<span class="lb-bad">' + a.bad +
+        '</span>/<span class="lb-total">' + a.total + '</span>)</span>' : "";
+    const gamesStr = (!isExtra && n > 1)
+      ? '<span class="lb-games">' + n + " " + plural(n, "гра", "ігри", "ігор") + "</span>" + sumStr : "";
     const poolStr = g.wordCount ? ' <span class="lb-pool">· ' + fmtPool(g.wordCount) + '</span>' : '';
     return '<li class="' + klass + '" title="' + (isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
       '<span class="lb-score">' + g.score + '</span>' +
@@ -37167,7 +37196,8 @@ function renderTabCefr() {
   // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
   const last = games.reduce((a, b) => (b.ts > a.ts ? b : a));
   let html = [...best.keys()]
-    .sort((a, b) => levelOrder(a) - levelOrder(b) || String(a).localeCompare(String(b)))
+    .sort((a, b) => { const x = diffOrder(a), y = diffOrder(b);
+      return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || String(a).localeCompare(String(b)); })
     .map(k => renderCefrRow(best.get(k), k, best.get(k).ts === last.ts ? "is-latest-game" : ""))
     .join("");
   // під рискою — остання CEFR-гра, якщо вона сама не є рекордом (як «ост» у «Найкращих іграх»)
