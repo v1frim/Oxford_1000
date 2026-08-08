@@ -3482,7 +3482,7 @@ const WORDS = [
   {en:"graduation",ua:["випускний","випуск"],uaAlt:["закінчення навчання"]},
   {en:"damp",ua:"вологий",uaAlt:["сирий","мокрий"]},
   {en:"video",ua:"відео",uaAlt:["ролик","відеозапис"]},
-  {en:"chip",ua:["шматочок","чіп"],uaAlt:["фішка","тріска"]},
+  {en:"chip",ua:["відколотий шматочок","чіп"],uaAlt:["шматочок","скол","щербина","фішка","тріска"]},
   {en:"friendship",ua:"дружба",uaAlt:["приязнь"]},
   {en:"pancake",ua:"млинець"},
   {en:"antibiotic",ua:"антибіотик"},
@@ -9392,7 +9392,10 @@ const WORDS = [
   {en:"venomously",ua:"отруйно злобно"},
   {en:"verily",ua:"воістину"},
   {en:"vestigially",ua:"як рудимент"},
-  {en:"wistfully",ua:"сумовито-мрійливо"}
+  {en:"wistfully",ua:"сумовито-мрійливо"},
+  // ── Сесія 45: чипси й фрі (прогалина побутової лексики) ──
+  {en:"chips",ua:"чипси"},
+  {en:"fries",ua:"картопля фрі",uaAlt:["фрі"],enAlt:["french fries"]}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -15448,7 +15451,9 @@ const TRANS = {
   "venomously":"/ˈvenəməsli/",
   "verily":"/ˈverəli/",
   "vestigially":"/veˈstɪdʒiəli/",
-  "wistfully":"/ˈwɪstfəli/"
+  "wistfully":"/ˈwɪstfəli/",
+  "chips":"/ˈtʃɪps/",
+  "fries":"/ˈfraɪz/"
 };
 
 // ── HINTS: уточнення відтінку значення (сесія 44, за запитом користувача) ──
@@ -16626,6 +16631,7 @@ const HINTS = {
   "rung": "сходинка драбини, не форма ring",
   "broke": "розмовне, не форма break",
   "running": "іменник «біг», не форма run",
+  "chips": "у Британії — картопля фрі",
 };
 
 // ── EXAMPLE SENTENCES ──────────────────────────────────────────────────────
@@ -18657,7 +18663,7 @@ const EXAMPLES = {
   "graduation":"After graduation she found a good job.",
   "damp":"The walls of the old house were damp.",
   "video":"We watched a funny video online.",
-  "chip":"There were chocolate chips in the cookie.",
+  "chip":"There is a chip in this cup.",
   "friendship":"Their friendship lasted fifty years.",
   "pancake":"We eat pancakes for breakfast.",
   "antibiotic":"Antibiotics fight infections.",
@@ -24323,7 +24329,9 @@ const EXAMPLES = {
   "venomously":"She replied venomously.",
   "verily":"Verily, this is a strange story.",
   "vestigially":"The wings remain vestigially.",
-  "wistfully":"He looked wistfully at the old photo."
+  "wistfully":"He looked wistfully at the old photo.",
+  "chips":"She opened a bag of chips.",
+  "fries":"I ate fries for lunch."
 };
 
 const EXAMPLES_UA = {
@@ -26354,7 +26362,7 @@ const EXAMPLES_UA = {
   "graduation":"Після випуску вона знайшла хорошу роботу.",
   "damp":"Стіни старого будинку були вологими.",
   "video":"Ми подивилися смішне відео онлайн.",
-  "chip":"У печиві були шматочки шоколаду.",
+  "chip":"На цій чашці є скол.",
   "friendship":"Їхня дружба тривала п'ятдесят років.",
   "pancake":"Ми їмо млинці на сніданок.",
   "antibiotic":"Антибіотики борються з інфекціями.",
@@ -32020,7 +32028,9 @@ const EXAMPLES_UA = {
   "venomously":"Вона отруйно злобно відповіла.",
   "verily":"Воістину, це дивна історія.",
   "vestigially":"Крила лишаються як рудимент.",
-  "wistfully":"Він сумовито-мрійливо подивився на старе фото."
+  "wistfully":"Він сумовито-мрійливо подивився на старе фото.",
+  "chips":"Вона відкрила пачку чипсів.",
+  "fries":"Я з'їв картоплю фрі на обід."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
