@@ -35154,14 +35154,85 @@ function stemEn(word) {
     EN_TO_UA.set(key, getUa(w).slice());
   }));
 })();
+// ── ФРАЗОВИЙ ХОВЕР (сесія 45, за запитом: «work out разом це тренування, а тут цього
+// не вказано») ────────────────────────────────────────────────────────────────────
+// `wrapSentence` розбирала речення ПОСЛІВНО, тож у 533 реченнях багатослівний ключ,
+// який словник знає цілком, показувався частинами: «worked» → «працювати, робота»,
+// а «out» — узагалі без перекладу (частки в HW_SKIP). Тепер спершу пробуємо збіг
+// фрази (2-4 слова), і лише потім падаємо на послівний розбір.
+//
+// ⚠️ СПИСОК-ВИНЯТОК. Частка деяких фразових дієслів збігається з ПРИЙМЕННИКОМ місця,
+// і тоді склейка бреше. Ці випадки знайдені прогоном по всьому корпусу прикладів —
+// НЕ здогадка: «The horses sleep in the barn» (спить у стайні, а не «проспав»),
+// «Cars wait on the forecourt», «He ran out the door», «Nougat sticks to the teeth»,
+// «The rook moves in straight lines», «The lace goes through each eyelet»,
+// «He held on tenaciously». Автоматично відрізнити ці два читання не можна (спроба
+// «частка + артикль = буквально» ламається на «put on your jacket»), тож фрази нижче
+// НЕ склеюємо ніде. Якщо колись з'явиться нове хибне спрацювання — дописати сюди.
+const PHRASE_HOVER_SKIP = new Set([
+  "sleep in", "wait on", "run out", "stick to", "move in", "go through", "hold on",
+]);
+let _phraseIdx = null;
+function phraseIndex() {
+  if (_phraseIdx) return _phraseIdx;
+  _phraseIdx = new Map();          // перше слово фрази → [{parts, key}], довші спершу
+  for (const key of EN_TO_UA.keys()) {
+    if (!key.includes(" ")) continue;
+    const bare = key.replace(/^to /, "");
+    if (PHRASE_HOVER_SKIP.has(bare)) continue;
+    const parts = bare.split(" ");
+    if (parts.length < 2 || parts.length > 4) continue;
+    const arr = _phraseIdx.get(parts[0]) || [];
+    arr.push({ parts, key });
+    _phraseIdx.set(parts[0], arr);
+  }
+  for (const arr of _phraseIdx.values()) arr.sort((a, b) => b.parts.length - a.parts.length);
+  return _phraseIdx;
+}
 function wrapSentence(sentence) {
-  return String(sentence).replace(/([A-Za-z']+)|([^A-Za-z']+)/g, (m, word, other) => {
-    if (other !== undefined) return esc(other);
-    const lower = word.toLowerCase().replace(/[^a-z]/g, "");
-    const stem = stemEn(word);
-    if (stem) {
+  const idx = phraseIndex();
+  const toks = String(sentence).match(/([A-Za-z']+)|([^A-Za-z']+)/g) || [];
+  const isWord = t => /^[A-Za-z']+$/.test(t);
+  let out = "";
+  for (let i = 0; i < toks.length; i++) {
+    const token = toks[i];
+    if (!isWord(token)) { out += esc(token); continue; }
+    // ⚠️ `lower` — БЕЗ апострофів, точно як було до фразового ховера: від нього
+    // залежить HW_SKIP-гілка нижче («Let's» → «lets» → підсвічується як TTS-only).
+    const lower = token.toLowerCase().replace(/[^a-z]/g, "");
+    const lowPh = token.toLowerCase().replace(/[^a-z']/g, "");   // для фраз («Adam's apple»)
+    const stem = stemEn(token);
+    // 1) фраза: перше слово як є або через стем («worked out» → «work out»),
+    //    решта — буквально, і між словами має бути РІВНО один пробіл
+    let hit = null;
+    for (const head of (stem && stem !== lowPh ? [lowPh, stem] : [lowPh])) {
+      for (const cand of (idx.get(head) || [])) {
+        let j = i, k = 0, ok = true, last = i;
+        while (k < cand.parts.length) {
+          if (j >= toks.length || !isWord(toks[j])) { ok = false; break; }
+          const w = toks[j].toLowerCase().replace(/[^a-z']/g, "");
+          const want = cand.parts[k];
+          if (!(k === 0 ? (w === want || stemEn(toks[j]) === want) : w === want)) { ok = false; break; }
+          last = j; k++; j++;
+          if (k < cand.parts.length) { if (toks[j] !== " ") { ok = false; break; } j++; }
+        }
+        if (ok) { hit = { cand, last }; break; }
+      }
+      if (hit) break;
+    }
+    if (hit) {
+      const trans = (EN_TO_UA.get(hit.cand.key) || []).join(", ");
+      out += '<span class="hw" data-trans="' + esc(trans) + '" data-phrase="1">' +
+             esc(toks.slice(i, hit.last + 1).join("")) + '</span>';
+      i = hit.last;
+      continue;
+    }
+    // 2) далі — ТА САМА послівна логіка, що була раніше
+    out += (word => {
+    const stem2 = stem;
+    if (stem2) {
       // Has translation
-      const trans = EN_TO_UA.get(stem).join(", ");
+      const trans = EN_TO_UA.get(stem2).join(", ");
       return '<span class="hw" data-trans="' + esc(trans) + '">' + esc(word) + '</span>';
     }
     // TTS-only: wrap real content words that have no translation in our dict
@@ -35170,7 +35241,9 @@ function wrapSentence(sentence) {
       return '<span class="hw">' + esc(word) + '</span>';
     }
     return esc(word);
-  });
+    })(token);
+  }
+  return out;
 }
 
 // Wraps one or more EN answer words (joined by " / ") so each is individually
@@ -35353,7 +35426,11 @@ document.addEventListener("mouseover", e => {
   }
   hwTip.style.display = "block";
   // Position: above the word, centered, clamped to viewport
-  const r = hw.getBoundingClientRect();
+  // ⚠️ Фразові спани («worked out», сесія 45) можуть переноситись на два рядки, а
+  // getBoundingClientRect() дає тоді ОБ'ЄДНАНИЙ прямокутник на всю ширину контейнера —
+  // тултіп зʼїжджав би далеко вбік. Тому беремо перший фрагмент рядка, якщо їх кілька.
+  const rects = hw.getClientRects();
+  const r = rects.length > 1 ? rects[0] : hw.getBoundingClientRect();
   const tw = hwTip.offsetWidth, th = hwTip.offsetHeight;
   let left = r.left + r.width / 2 - tw / 2;
   let top  = r.top - th - 6;
