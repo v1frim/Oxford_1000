@@ -9398,7 +9398,9 @@ const WORDS = [
   {en:"wistfully",ua:"сумовито-мрійливо"},
   // ── Сесія 45: чипси й фрі (прогалина побутової лексики) ──
   {en:"chips",ua:"чипси"},
-  {en:"fries",ua:"картопля фрі",uaAlt:["фрі"],enAlt:["french fries"]}
+  {en:"fries",ua:"картопля фрі",uaAlt:["фрі"],enAlt:["french fries"]},
+  // ── Сесія 45: кондиціонер (сусідня прогалина до cooler) ──
+  {en:"air conditioner",ua:"кондиціонер"}
 ];
 // ── END WORD BANK ──────────────────────────────────────────────────────────
 
@@ -15456,7 +15458,8 @@ const TRANS = {
   "vestigially":"/veˈstɪdʒiəli/",
   "wistfully":"/ˈwɪstfəli/",
   "chips":"/ˈtʃɪps/",
-  "fries":"/ˈfraɪz/"
+  "fries":"/ˈfraɪz/",
+  "air conditioner":"/ˈɛr kənˌdɪʃənər/"
 };
 
 // ── HINTS: уточнення відтінку значення (сесія 44, за запитом користувача) ──
@@ -24334,7 +24337,8 @@ const EXAMPLES = {
   "vestigially":"The wings remain vestigially.",
   "wistfully":"He looked wistfully at the old photo.",
   "chips":"She opened a bag of chips.",
-  "fries":"I ate fries for lunch."
+  "fries":"I ate fries for lunch.",
+  "air conditioner":"The air conditioner keeps the room cool."
 };
 
 const EXAMPLES_UA = {
@@ -32033,7 +32037,8 @@ const EXAMPLES_UA = {
   "vestigially":"Крила лишаються як рудимент.",
   "wistfully":"Він сумовито-мрійливо подивився на старе фото.",
   "chips":"Вона відкрила пачку чипсів.",
-  "fries":"Я з'їв картоплю фрі на обід."
+  "fries":"Я з'їв картоплю фрі на обід.",
+  "air conditioner":"Кондиціонер тримає кімнату прохолодною."
 };
 
 // ── EN→EN MODE DATA ──────────────────────────────────────────────────────────
@@ -33982,6 +33987,9 @@ const EN_TO_UA = (() => {
   m.set("brace",       ["фіксатор", "розпірка"]); // компонент neck brace
   m.set("compressions",["натискання"]);   // компонент chest compressions
   m.set("hygienist",   ["гігієніст"]);      // компонент dental hygienist
+  // компонент «air conditioner» (сесія 45): без цього стемер зводив conditioner →
+  // condition і ховер у реченні про кондиціонер показував «умова, стан»
+  m.set("conditioner", ["кондиціонер"]);
   m.set("easier",      ["легший", "простіший"]);  // стемер не зводить порівняльний ступінь
   m.set("jumper",      ["светр"]);
   m.set("tank",        ["бак", "танк"]);        // компонент tank top
