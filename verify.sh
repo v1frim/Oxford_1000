@@ -11,4 +11,7 @@ const re=/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g;let m;
 while((m=re.exec(h))){try{new Function(m[1]);}catch(e){console.log("❌ SYNTAX: "+e.message);process.exit(1);}}
 console.log("✅ синтаксис");' || exit 1
 node loadtest.js || exit 1
+# Рівні CEFR для НОВИХ слів (сесія 46): без цього слово мовчки падає в кошик
+# «без рівня» і ніколи не трапляється в грі «🎓 Рівні» за своїм рівнем.
+node check-cefr.js || exit 1
 echo "✅ усе чисто — можна комітити"
