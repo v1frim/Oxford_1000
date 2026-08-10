@@ -2284,6 +2284,26 @@ C1 1846 · C2 972). Кожне нове слово в словнику зсув�
     «чек на оплату». ⚠️ «чек» саме в `uaAlt`, а не в `ua`: промптом у UA→US стають лише
     значення `ua`, інакше був би конфлікт із `receipt` (у нього «чек» — основний глос).
   - **Новий тест:** `test-cefr-solo.js` (33 перевірки, браузерний).
+  - **+155 карток «тіло й здоров'я»** (WORDS 8658 → **8813**) за xlsx користувача (384
+    позиції, 182 вже були). Розділи: голова/обличчя, рот і зуби, шкіра, кінцівки, тулуб,
+    кістки й м'язи, внутрішні органи, кров та імунітет, сечостатева система, функції тіла,
+    симптоми, у лікаря. **+18 реплік у `EXPRESSIONS`** (111 разом) — «It hurts here»,
+    «The pain comes and goes», «How serious is it?»: це розмовні конструкції, у WORDS їм
+    не місце за правилом розподілу.
+    ⚠️ **Свідомо ВІДКИНУТО (не повертати без запиту):** 8 надто вузьких термінів (uvula,
+    perineum, glans, phalanx, flexor, extensor, antigen, microbiome), 12 прозорих складанок
+    (upper/lower body, body part, internal organ, front tooth, upper/lower jaw, armpit hair,
+    body hair, back of the hand, inner thigh, upper back), 9 дублів у іншому написанні
+    (tooth/teeth, foot/feet, moustache, Adam's apple, esophagus, diarrhea, uterus/womb,
+    bacteria, chills) — з них `baby tooth` пішов у `enAlt` до наявного `baby teeth`.
+    ⚠️ **Чотири глоси переписані через колізію з НЕсинонімами:** `upper arm` → «верхня
+    частина руки» («плече» зайняте shoulder), `lower back` → «нижня частина спини»
+    («поперек» — це прислівник across!), `belly` → «живіт (розмовно)» (abdomen),
+    `sense of taste` → «смакове відчуття» (taste).
+    ⚠️ Складники багатослівних карток (tract, duct, canine, pectoral, lymph, circulatory,
+    fallopian, menstrual, throbbing, shortness, marrow, achilles, pubic, clot) закриті
+    через `m.set` — окремими картками вони не потрібні. `swollen` і `hormone` натомість
+    додані повними картками (самостійні слова).
   - **+7 карток (WORDS 8650 → 8657)** — верхні щаблі «сходів синонімів» зі скріна
     користувача (good/big/happy/sad/smart/angry × A1-C2): `superlative` (C2),
     `exultant` (C2), `heartbroken` (C1), `despondent` (C2), `erudite` (C2),
