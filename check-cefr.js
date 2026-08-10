@@ -23,7 +23,10 @@ const ROOT = __dirname;
 const FILE = path.join(ROOT, "index.html");
 
 // Свідомо без рівня CEFR: власні назви, бренди, назви свят/країн.
-const ALLOW = new Set([]);
+// Після великого розподілу сесії 46 кошик «без рівня» = рівно цей список.
+const ALLOW = new Set([
+  "new year", "christmas", "easter", "halloween", "thanksgiving",
+]);
 
 function blocks(html) {
   const L = html.split("\n");
