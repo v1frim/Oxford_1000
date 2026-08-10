@@ -418,20 +418,30 @@
     font-size: 11px; color: #ffd166; opacity: 0.9;
   }
   .tm-dir { padding: 15px 10px; font-size: 15px; letter-spacing: 0.02em; }
-  #tm-levels { display: flex; gap: 6px; flex-wrap: wrap; margin: 9px 0 0; }
+  #tm-levels, #tm-solo { display: flex; gap: 6px; flex-wrap: wrap; margin: 9px 0 0; }
   #tm-levels.hidden { display: none; }
-  #tm-levels button {
+  #tm-levels button, #tm-solo button {
     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
     color: #eee7fb; border-radius: 999px; padding: 5px 12px; font-size: 11.5px;
     cursor: pointer; transition: background 0.12s, border-color 0.12s;
   }
-  #tm-levels button:hover { background: rgba(255,255,255,0.1); }
-  #tm-levels button .lvn { opacity: 0.45; margin-left: 5px; font-size: 10.5px; }
-  #tm-levels button.on {
+  #tm-levels button:hover, #tm-solo button:hover { background: rgba(255,255,255,0.1); }
+  #tm-levels button .lvn, #tm-solo button .lvn { opacity: 0.45; margin-left: 5px; font-size: 10.5px; }
+  #tm-levels button.on, #tm-solo button.on {
     background: linear-gradient(180deg, #ffe08a, #ffc94d); border-color: #ffd166;
     color: #1a1206; font-weight: 700;
   }
-  #tm-levels button.on .lvn { opacity: 0.6; }
+  #tm-levels button.on .lvn, #tm-solo button.on .lvn { opacity: 0.6; }
+  /* Другий ряд чипсів: один рівень, лише слова поза «Знаю» (сесія 46, за запитом) */
+  #tm-solo-wrap { margin-top: 14px; }
+  #tm-solo-h {
+    font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: #b9a8e0; opacity: 0.75;
+  }
+  #tm-solo-h .soloh-ico { font-size: 12.5px; }
+  #tm-solo button .lvp { margin-left: 6px; font-size: 10.5px; color: #7be07b; font-weight: 700; }
+  #tm-solo button.on .lvp { color: #1a5c1a; }
+  #tm-solo button.full { opacity: 0.45; }
   #tm-go {
     width: 100%; margin-top: 18px; border: none; cursor: pointer; line-height: 1.3;
     background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206;
@@ -1596,6 +1606,10 @@
       <button class="tm-set" data-set="tolearn"><span class="tm-ico">📖</span><b>Незасвоєні</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
     </div>
     <div id="tm-levels" class="hidden"></div>
+    <div id="tm-solo-wrap">
+      <div id="tm-solo-h"><span class="soloh-ico">📖</span> Один рівень — лише невивчені</div>
+      <div id="tm-solo"></div>
+    </div>
     <div class="tm-sec" style="margin-top:18px">Напрямок</div>
     <div class="tm-dirs">
       <button class="tm-dir" data-dir="ua-en"><b>UA → US</b></button>
@@ -35513,7 +35527,7 @@ document.addEventListener("keydown", e => {
     else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) startTraining(); }
     else if (e.key === "Tab" || ["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)) {
       e.preventDefault();                       // Tab не ходить по кнопках браузера — циклить набори
-      const sets = ["cefr","all","tolearn"];
+      const sets = TRAIN_SETS;
       const back = e.key === "ArrowLeft" || e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey);
       const d = back ? sets.length - 1 : 1;
       trainSet = sets[(sets.indexOf(trainSet) + d) % sets.length];
@@ -36783,25 +36797,60 @@ function cefrTagLabel(sel) {
 // Категорії (Знаю/Вивчаю/Нові) сюди СВІДОМО не винесені — лишились клікабельними
 // бейджами вгорі (рішення користувача, сесія 44).
 const TRAIN_KEY = "oxford_train_sel_v1";
-let trainSet = "cefr", trainDir = "ua-en";
+const TRAIN_SETS = ["cefr", "all", "tolearn", "cefrsolo"];
+let trainSet = "cefr", trainDir = "ua-en", cefrSolo = "A1";
 (() => {
   try {
     const o = JSON.parse(localStorage.getItem(TRAIN_KEY));
-    if (o && ["cefr","all","tolearn"].includes(o.set)) trainSet = o.set;
+    if (o && TRAIN_SETS.includes(o.set)) trainSet = o.set;
     if (o && ["ua-en","en-ua"].includes(o.dir)) trainDir = o.dir;
+    if (o && CEFR_LEVELS.includes(o.solo)) cefrSolo = o.solo;
   } catch (e) {}
 })();
 function saveTrainSel() {
-  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir })); } catch (e) {}
+  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir, solo: cefrSolo })); } catch (e) {}
 }
+// ── «Один рівень — лише невивчені» (сесія 46, за запитом користувача) ───────
+// Окремий набір `cefrsolo`: РІВНО ОДИН рівень CEFR, і з нього беруться тільки
+// слова поза «Знаю» (Вивчаю + Нові, тобто streak < 3 — той самий критерій, що в
+// toLearnIndices). Сенс: у звичайному «🎓 Рівні CEFR» шафл тягне весь рівень, тож
+// приблизно половина відповідей іде у слова, які вже засвоєні; тут пул сам
+// «тане» в міру вивчення. Мультивибір сюди СВІДОМО не заводимо — вибір лише один.
+function cefrSoloIndices(L) {
+  const m = loadMastery();
+  const out = [];
+  for (let i = 0; i < WORDS.length; i++) {
+    if (cefrLevelOf(WORDS[i]) !== L) continue;
+    if (!(mStreak(m[wordKey(WORDS[i])]) >= 3)) out.push(i);
+  }
+  return out;
+}
+// {рівень: {known, total}} — для відсотка вивченого на чипсах
+function cefrKnownStats() {
+  const m = loadMastery(), st = {};
+  CEFR_LEVELS.forEach(L => (st[L] = { known: 0, total: 0 }));
+  for (let i = 0; i < WORDS.length; i++) {
+    const s = st[cefrLevelOf(WORDS[i])];
+    s.total++;
+    if (mStreak(m[wordKey(WORDS[i])]) >= 3) s.known++;
+  }
+  return st;
+}
+const cefrLvName = L => (L === "none" ? "без рівня" : L);
+// Мітка для лідерборду: «A1 📖» — окремий рядок від звичайного «A1», бо пул без
+// уже вивчених слів помітно важчий і рахунки не порівнювані (та сама логіка, що
+// вивела CEFR-ігри з топ-10 у сесії 43).
+const cefrSoloTagLabel = L => (L === "none" ? "—" : L) + " 📖";
 function trainPool() {
-  if (trainSet === "cefr")    return cefrIndices([...cefrSel]);
-  if (trainSet === "tolearn") return toLearnIndices();
+  if (trainSet === "cefr")     return cefrIndices([...cefrSel]);
+  if (trainSet === "cefrsolo") return cefrSoloIndices(cefrSolo);
+  if (trainSet === "tolearn")  return toLearnIndices();
   return null;                       // «весь словник» = звичайна гра без пулу
 }
 function trainSetLabel() {
-  if (trainSet === "cefr")    return "🎓 " + cefrTagLabel(cefrSel);
-  if (trainSet === "tolearn") return "📖 Незасвоєні";
+  if (trainSet === "cefr")     return "🎓 " + cefrTagLabel(cefrSel);
+  if (trainSet === "cefrsolo") return "🎓 " + cefrLvName(cefrSolo) + " · лише невивчені";
+  if (trainSet === "tolearn")  return "📖 Незасвоєні";
   return "📚 Весь словник";
 }
 function trainDirLabel() { return trainDir === "ua-en" ? "UA → US" : "US → UA"; }
@@ -36831,8 +36880,19 @@ function renderTrainModal() {
   if (trainSet === "cefr") {
     lv.innerHTML = CEFR_LEVELS.map(L =>
       '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : "") + '">' +
-      (L === "none" ? "без рівня" : L) + '<span class="lvn">' + counts[L] + "</span></button>").join("");
+      cefrLvName(L) + '<span class="lvn">' + counts[L] + "</span></button>").join("");
   }
+  // Другий ряд: один рівень, лише слова поза «Знаю». Число на чипсі — скільки
+  // слів залишилось грати (пул), відсоток — скільки рівня вже в «Знаю».
+  const st = cefrKnownStats();
+  document.getElementById("tm-solo").innerHTML = CEFR_LEVELS.map(L => {
+    const s = st[L], left = s.total - s.known;
+    const pc = s.total ? Math.round((s.known / s.total) * 100) : 0;
+    const on = trainSet === "cefrsolo" && cefrSolo === L;
+    return '<button data-solo="' + L + '" class="' + (on ? "on" : "") + (left ? "" : " full") + '"' +
+      ' title="' + cefrLvName(L) + ": " + s.known + " з " + s.total + ' у «Знаю» · грати ' + plWords(left) + '">' +
+      cefrLvName(L) + '<span class="lvp">' + pc + '%</span><span class="lvn">' + left + "</span></button>";
+  }).join("");
   const go = document.getElementById("tm-go");
   go.innerHTML = "▶ Почати<small>" + trainSetLabel() + " · " + trainDirLabel() + " · 60 секунд</small>";
   go.disabled = !trainCount();
@@ -36852,13 +36912,26 @@ function startTraining() {
   closeTrainModal();
   setMode(trainDir);
   // Тег «cefr:<рівні>» лишає гру поза топ-10, але з підписом рівня (правило сесії 43)
-  if (pool) startGame(pool, { timed: true, tag: trainSet === "cefr" ? "cefr:" + cefrTagLabel(cefrSel) : null });
+  const tag = trainSet === "cefr"     ? "cefr:" + cefrTagLabel(cefrSel)
+            : trainSet === "cefrsolo" ? "cefr:" + cefrSoloTagLabel(cefrSolo)
+            : null;
+  if (pool) startGame(pool, { timed: true, tag: tag });
   else startGame();
 }
 document.querySelectorAll(".tm-set").forEach(b =>
   b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
 document.querySelectorAll(".tm-dir").forEach(b =>
   b.addEventListener("click", () => { trainDir = b.dataset.dir; saveTrainSel(); renderTrainModal(); }));
+// Другий ряд чипсів: клік = і вибір набору «один рівень», і вибір самого рівня.
+// Повторний клік по активному НЕ знімає вибір — у цьому наборі рівень завжди рівно один.
+document.getElementById("tm-solo").addEventListener("click", e => {
+  const b = e.target.closest("button[data-solo]");
+  if (!b) return;
+  trainSet = "cefrsolo";
+  cefrSolo = b.dataset.solo;
+  saveTrainSel();
+  renderTrainModal();
+});
 document.getElementById("tm-levels").addEventListener("click", e => {
   const b = e.target.closest("button[data-lv]");
   if (!b) return;
@@ -37250,7 +37323,11 @@ function renderTabCefr() {
   // Мітка буває «A1», «A1+A2», «A1-B1» (суцільний діапазон, див. cefrTagLabel) і «—»
   // (слова без рівня) — «—» це індекс "none" у CEFR_LEVELS, тобто завжди в кінці.
   const diffOrder = k => {
-    const s = String(k);
+    // «A1 📖» (набір «один рівень — лише невивчені», сесія 46) сортується поруч зі
+    // своїм рівнем, але ОКРЕМИМ рядком: пул без засвоєних слів важчий, рахунки
+    // не порівнювані. Маркер зрізаємо перед розбором і кладемо в 4-й ключ.
+    const solo = /\s*📖$/.test(String(k)) ? 1 : 0;
+    const s = String(k).replace(/\s*📖$/, "");
     let idx = [];
     if (s.includes("-")) {
       const [a, b] = s.split("-").map(x => CEFR_LEVELS.indexOf(x));
@@ -37258,8 +37335,8 @@ function renderTabCefr() {
     } else {
       idx = s.split("+").map(x => CEFR_LEVELS.indexOf(x === "—" ? "none" : x)).filter(i => i >= 0);
     }
-    if (!idx.length) return [99, 99, 0];
-    return [Math.max(...idx), Math.min(...idx), idx.length];
+    if (!idx.length) return [99, 99, 0, solo];
+    return [Math.max(...idx), Math.min(...idx), idx.length, solo];
   };
   const renderCefrRow = (g, label, cls, isExtra) => {
     const isTodayGame = tsToDayKey(g.ts) === today;
@@ -37287,7 +37364,7 @@ function renderTabCefr() {
   const last = games.reduce((a, b) => (b.ts > a.ts ? b : a));
   let html = [...best.keys()]
     .sort((a, b) => { const x = diffOrder(a), y = diffOrder(b);
-      return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || String(a).localeCompare(String(b)); })
+      return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || x[3] - y[3] || String(a).localeCompare(String(b)); })
     .map(k => renderCefrRow(best.get(k), k, best.get(k).ts === last.ts ? "is-latest-game" : ""))
     .join("");
   // під рискою — остання CEFR-гра, якщо вона сама не є рекордом (як «ост» у «Найкращих іграх»)
