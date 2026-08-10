@@ -438,9 +438,12 @@
     font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase;
     color: #b9a8e0; opacity: 0.75;
   }
-  /* Обидва ряди видно завжди, але неактивний притьмарений — інакше дві жовті
-     позначки одночасно й незрозуміло, який набір реально піде в гру. */
-  #tm-levels.idle { opacity: 0.45; }
+  /* Рівень, зайнятий протилежним рядом: погашений і не клікається */
+  #tm-levels button.taken, #tm-solo button.taken {
+    opacity: 0.3; border-style: dashed; cursor: default;
+  }
+  #tm-levels button.taken:hover, #tm-solo button.taken:hover { background: rgba(255,255,255,0.05); }
+  #tm-solo-wrap.hidden { display: none; }
   #tm-solo-h .soloh-ico { font-size: 12.5px; }
   #tm-solo button .lvp { margin-left: 6px; font-size: 10.5px; color: #7be07b; font-weight: 700; }
   #tm-solo button.on .lvp { color: #1a5c1a; }
@@ -1610,7 +1613,7 @@
     </div>
     <div id="tm-levels" class="hidden"></div>
     <div id="tm-solo-wrap">
-      <div id="tm-solo-h"><span class="soloh-ico">📖</span> Один рівень — лише невивчені</div>
+      <div id="tm-solo-h"><span class="soloh-ico">📖</span> Ті самі рівні — лише невивчені слова</div>
       <div id="tm-solo"></div>
     </div>
     <div class="tm-sec" style="margin-top:18px">Напрямок</div>
@@ -36800,31 +36803,61 @@ function cefrTagLabel(sel) {
 // Категорії (Знаю/Вивчаю/Нові) сюди СВІДОМО не винесені — лишились клікабельними
 // бейджами вгорі (рішення користувача, сесія 44).
 const TRAIN_KEY = "oxford_train_sel_v1";
-const TRAIN_SETS = ["cefr", "all", "tolearn", "cefrsolo"];
-let trainSet = "cefr", trainDir = "ua-en", cefrSolo = "A1";
+const TRAIN_SETS = ["cefr", "all", "tolearn"];
+let trainSet = "cefr", trainDir = "ua-en";
 (() => {
   try {
     const o = JSON.parse(localStorage.getItem(TRAIN_KEY));
     if (o && TRAIN_SETS.includes(o.set)) trainSet = o.set;
     if (o && ["ua-en","en-ua"].includes(o.dir)) trainDir = o.dir;
-    if (o && CEFR_LEVELS.includes(o.solo)) cefrSolo = o.solo;
   } catch (e) {}
 })();
 function saveTrainSel() {
-  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir, solo: cefrSolo })); } catch (e) {}
+  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir })); } catch (e) {}
 }
-// ── «Один рівень — лише невивчені» (сесія 46, за запитом користувача) ───────
-// Окремий набір `cefrsolo`: РІВНО ОДИН рівень CEFR, і з нього беруться тільки
-// слова поза «Знаю» (Вивчаю + Нові, тобто streak < 3 — той самий критерій, що в
-// toLearnIndices). Сенс: у звичайному «🎓 Рівні CEFR» шафл тягне весь рівень, тож
-// приблизно половина відповідей іде у слова, які вже засвоєні; тут пул сам
-// «тане» в міру вивчення. Мультивибір сюди СВІДОМО не заводимо — вибір лише один.
-function cefrSoloIndices(L) {
-  const m = loadMastery();
+// ── ДВА РЯДИ ЧИПСІВ = ОДИН ВИБІР (сесія 46, за запитом користувача) ────────
+// Набір «🎓 Рівні CEFR» має два ряди: верхній — рівень ЦІЛКОМ, нижній (📖) — той
+// самий рівень, але тільки слова поза «Знаю» (streak < 3, критерій toLearnIndices).
+// Правила, які просив користувач:
+//   • обидва ряди — ОДИН спільний вибір, пул = об'єднання (можна «A1 📖 + A2 + B1»);
+//   • один рівень не може бути в обох рядах одночасно — щойно обрано A1, чипс
+//     «A1 📖» гасне (клас `.taken`, клік не працює), і навпаки;
+//   • кількість рівнів НЕ обмежена (користувач скасував ліміт 3 одразу після того,
+//     як його запропонував) — гаснуть ЛИШЕ протилежності, більше нічого;
+//   • хоча б один рівень має лишитись обраним.
+// Навіщо 📖-варіант: у повному пулі шафл тягне і вже засвоєні слова, тож близько
+// половини відповідей витрачається намарно; 📖-пул сам тане в міру вивчення.
+const CEFR_SOLO_KEY = "oxford_cefr_solo_v1";
+let cefrSoloSel = (() => {
+  try {
+    const r = JSON.parse(localStorage.getItem(CEFR_SOLO_KEY));
+    if (Array.isArray(r)) return new Set(r.filter(x => CEFR_LEVELS.includes(x)));
+  } catch (e) {}
+  return new Set();
+})();
+function saveCefrSoloSel() {
+  try { localStorage.setItem(CEFR_SOLO_KEY, JSON.stringify([...cefrSoloSel])); } catch (e) {}
+}
+(() => {                      // нормалізація збереженого стану: перетин рядів неможливий
+  cefrSoloSel.forEach(L => { if (cefrSel.has(L)) cefrSoloSel.delete(L); });
+  if (!cefrSel.size && !cefrSoloSel.size) cefrSel.add("A1");
+})();
+const cefrPickCount = () => cefrSel.size + cefrSoloSel.size;
+function cefrPickLevel(L, solo) {
+  const own = solo ? cefrSoloSel : cefrSel, other = solo ? cefrSel : cefrSoloSel;
+  if (other.has(L)) return;                          // протилежність зайнята — чипс погашено
+  if (own.has(L)) { if (cefrPickCount() > 1) own.delete(L); }   // хоча б один лишається
+  else own.add(L);
+  saveCefrSel(); saveCefrSoloSel();
+}
+// Пул = усі слова «повних» рівнів + невивчені слова 📖-рівнів
+function cefrMixedIndices() {
+  const m = cefrSoloSel.size ? loadMastery() : null;
   const out = [];
   for (let i = 0; i < WORDS.length; i++) {
-    if (cefrLevelOf(WORDS[i]) !== L) continue;
-    if (!(mStreak(m[wordKey(WORDS[i])]) >= 3)) out.push(i);
+    const L = cefrLevelOf(WORDS[i]);
+    if (cefrSel.has(L)) { out.push(i); continue; }
+    if (m && cefrSoloSel.has(L) && !(mStreak(m[wordKey(WORDS[i])]) >= 3)) out.push(i);
   }
   return out;
 }
@@ -36840,19 +36873,22 @@ function cefrKnownStats() {
   return st;
 }
 const cefrLvName = L => (L === "none" ? "без рівня" : L);
-// Мітка для лідерборду: «A1 📖» — окремий рядок від звичайного «A1», бо пул без
-// уже вивчених слів помітно важчий і рахунки не порівнювані (та сама логіка, що
-// вивела CEFR-ігри з топ-10 у сесії 43).
-const cefrSoloTagLabel = L => (L === "none" ? "—" : L) + " 📖";
+// Мітка змішаного вибору: «A1 📖+A2+B1». Якщо 📖-рівнів нема — віддаємо РІВНО стару
+// мітку cefrTagLabel (зі стисканням суцільного діапазону в «A1-B1»), щоб історичні
+// рядки у вкладці 🎓 не роз'їхалися на два. 📖-набір окремим рядком свідомо: пул без
+// засвоєних слів важчий, рахунки з повним рівнем не порівнювані (логіка сесії 43).
+function cefrMixLabel() {
+  if (!cefrSoloSel.size) return cefrTagLabel(cefrSel);
+  return CEFR_LEVELS.filter(L => cefrSel.has(L) || cefrSoloSel.has(L))
+    .map(L => (L === "none" ? "—" : L) + (cefrSoloSel.has(L) ? " 📖" : "")).join("+");
+}
 function trainPool() {
-  if (trainSet === "cefr")     return cefrIndices([...cefrSel]);
-  if (trainSet === "cefrsolo") return cefrSoloIndices(cefrSolo);
+  if (trainSet === "cefr")     return cefrMixedIndices();
   if (trainSet === "tolearn")  return toLearnIndices();
   return null;                       // «весь словник» = звичайна гра без пулу
 }
 function trainSetLabel() {
-  if (trainSet === "cefr")     return "🎓 " + cefrTagLabel(cefrSel);
-  if (trainSet === "cefrsolo") return "🎓 " + cefrLvName(cefrSolo) + " · лише невивчені";
+  if (trainSet === "cefr")     return "🎓 " + cefrMixLabel();
   if (trainSet === "tolearn")  return "📖 Незасвоєні";
   return "📚 Весь словник";
 }
@@ -36873,33 +36909,36 @@ function renderTrainModal() {
     b.classList.toggle("on", k === trainSet);
     const note = b.querySelector(".tm-note"), cnt = b.querySelector(".tm-cnt");
     if (!note || !cnt) return;
-    if (k === "cefr")    { note.textContent = "обрано " + cefrTagLabel(cefrSel); cnt.textContent = plWords(cefrIndices([...cefrSel]).length); }
+    if (k === "cefr")    { note.textContent = "обрано " + cefrMixLabel();        cnt.textContent = plWords(cefrMixedIndices().length); }
     if (k === "all")     { note.textContent = "усі рівні разом";                 cnt.textContent = plWords(WORDS.length); }
     if (k === "tolearn") { note.textContent = "вивчаю + нові";                   cnt.textContent = plWords(toLearnIndices().length); }
   });
   document.querySelectorAll(".tm-dir").forEach(b => b.classList.toggle("on", b.dataset.dir === trainDir));
+  // Обидва ряди чипсів — один спільний вибір, тому живуть/ховаються разом.
+  // `.taken` — рівень зайнято протилежним рядом: чипс погашено й не клікається.
   const lv = document.getElementById("tm-levels");
-  // Ряд мультивибору лишається видимим і в наборі «один рівень» (сесія 46, за
-  // правкою користувача: «старі рівні не повинні зникати») — щоб було видно й
-  // готовий мультивибір, і одиничні рівні поруч, без перемикань наосліп.
-  lv.classList.toggle("hidden", trainSet !== "cefr" && trainSet !== "cefrsolo");
-  lv.classList.toggle("idle", trainSet === "cefrsolo");
-  if (!lv.classList.contains("hidden")) {
+  const soloWrap = document.getElementById("tm-solo-wrap");
+  const showLv = trainSet === "cefr";
+  lv.classList.toggle("hidden", !showLv);
+  soloWrap.classList.toggle("hidden", !showLv);
+  if (showLv) {
     lv.innerHTML = CEFR_LEVELS.map(L =>
-      '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : "") + '">' +
+      '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : cefrSoloSel.has(L) ? "taken" : "") + '"' +
+      (cefrSoloSel.has(L) ? ' title="рівень уже обрано нижче — лише невивчені слова"' : '') + '>' +
       cefrLvName(L) + '<span class="lvn">' + counts[L] + "</span></button>").join("");
+    // Другий ряд: ті самі рівні, але тільки слова поза «Знаю». Число на чипсі —
+    // скільки слів залишилось грати, відсоток — скільки рівня вже в «Знаю».
+    const st = cefrKnownStats();
+    document.getElementById("tm-solo").innerHTML = CEFR_LEVELS.map(L => {
+      const s = st[L], left = s.total - s.known;
+      const pc = s.total ? Math.round((s.known / s.total) * 100) : 0;
+      const cls = cefrSoloSel.has(L) ? "on" : cefrSel.has(L) ? "taken" : (left ? "" : "full");
+      const title = cefrSel.has(L) ? "рівень уже обрано вище — цілком"
+        : cefrLvName(L) + ": " + s.known + " з " + s.total + " у «Знаю» · грати " + plWords(left);
+      return '<button data-solo="' + L + '" class="' + cls + '" title="' + title + '">' +
+        cefrLvName(L) + '<span class="lvp">' + pc + '%</span><span class="lvn">' + left + "</span></button>";
+    }).join("");
   }
-  // Другий ряд: один рівень, лише слова поза «Знаю». Число на чипсі — скільки
-  // слів залишилось грати (пул), відсоток — скільки рівня вже в «Знаю».
-  const st = cefrKnownStats();
-  document.getElementById("tm-solo").innerHTML = CEFR_LEVELS.map(L => {
-    const s = st[L], left = s.total - s.known;
-    const pc = s.total ? Math.round((s.known / s.total) * 100) : 0;
-    const on = trainSet === "cefrsolo" && cefrSolo === L;
-    return '<button data-solo="' + L + '" class="' + (on ? "on" : "") + (left ? "" : " full") + '"' +
-      ' title="' + cefrLvName(L) + ": " + s.known + " з " + s.total + ' у «Знаю» · грати ' + plWords(left) + '">' +
-      cefrLvName(L) + '<span class="lvp">' + pc + '%</span><span class="lvn">' + left + "</span></button>";
-  }).join("");
   const go = document.getElementById("tm-go");
   go.innerHTML = "▶ Почати<small>" + trainSetLabel() + " · " + trainDirLabel() + " · 60 секунд</small>";
   go.disabled = !trainCount();
@@ -36919,9 +36958,7 @@ function startTraining() {
   closeTrainModal();
   setMode(trainDir);
   // Тег «cefr:<рівні>» лишає гру поза топ-10, але з підписом рівня (правило сесії 43)
-  const tag = trainSet === "cefr"     ? "cefr:" + cefrTagLabel(cefrSel)
-            : trainSet === "cefrsolo" ? "cefr:" + cefrSoloTagLabel(cefrSolo)
-            : null;
+  const tag = trainSet === "cefr" ? "cefr:" + cefrMixLabel() : null;
   if (pool) startGame(pool, { timed: true, tag: tag });
   else startGame();
 }
@@ -36929,27 +36966,18 @@ document.querySelectorAll(".tm-set").forEach(b =>
   b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
 document.querySelectorAll(".tm-dir").forEach(b =>
   b.addEventListener("click", () => { trainDir = b.dataset.dir; saveTrainSel(); renderTrainModal(); }));
-// Другий ряд чипсів: клік = і вибір набору «один рівень», і вибір самого рівня.
-// Повторний клік по активному НЕ знімає вибір — у цьому наборі рівень завжди рівно один.
-document.getElementById("tm-solo").addEventListener("click", e => {
-  const b = e.target.closest("button[data-solo]");
-  if (!b) return;
-  trainSet = "cefrsolo";
-  cefrSolo = b.dataset.solo;
+// Обидва ряди ведуть в один і той самий вибір; клік по будь-якому чипсу заодно
+// повертає набір «Рівні CEFR» (зручно, коли зараз активний «Весь словник»).
+const onLevelChip = (attr, solo) => e => {
+  const b = e.target.closest("button[data-" + attr + "]");
+  if (!b || b.classList.contains("taken")) return;   // погашений = зайнятий іншим рядом
+  trainSet = "cefr";
   saveTrainSel();
+  cefrPickLevel(b.dataset[attr === "lv" ? "lv" : "solo"], solo);
   renderTrainModal();
-});
-document.getElementById("tm-levels").addEventListener("click", e => {
-  const b = e.target.closest("button[data-lv]");
-  if (!b) return;
-  const L = b.dataset.lv;
-  trainSet = "cefr";          // клік по мультивибірному ряду = повернення в набір «Рівні CEFR»
-  saveTrainSel();
-  if (cefrSel.has(L)) cefrSel.delete(L); else cefrSel.add(L);
-  if (!cefrSel.size) cefrSel.add(L);                // хоча б один рівень має лишитись
-  saveCefrSel();
-  renderTrainModal();
-});
+};
+document.getElementById("tm-levels").addEventListener("click", onLevelChip("lv", false));
+document.getElementById("tm-solo").addEventListener("click", onLevelChip("solo", true));
 document.getElementById("tm-go").addEventListener("click", startTraining);
 document.getElementById("tm-cancel").addEventListener("click", closeTrainModal);
 document.getElementById("train-modal").addEventListener("click", e => {
@@ -37332,11 +37360,12 @@ function renderTabCefr() {
   // Мітка буває «A1», «A1+A2», «A1-B1» (суцільний діапазон, див. cefrTagLabel) і «—»
   // (слова без рівня) — «—» це індекс "none" у CEFR_LEVELS, тобто завжди в кінці.
   const diffOrder = k => {
-    // «A1 📖» (набір «один рівень — лише невивчені», сесія 46) сортується поруч зі
-    // своїм рівнем, але ОКРЕМИМ рядком: пул без засвоєних слів важчий, рахунки
-    // не порівнювані. Маркер зрізаємо перед розбором і кладемо в 4-й ключ.
-    const solo = /\s*📖$/.test(String(k)) ? 1 : 0;
-    const s = String(k).replace(/\s*📖$/, "");
+    // Маркер 📖 (рівень грався без уже засвоєних слів, сесія 46) стоїть при КОЖНОМУ
+    // такому рівню мітки: «A1 📖», «A1 📖+B1». Сортується поруч зі своїм рівнем, але
+    // ОКРЕМИМ рядком: пул без засвоєних слів важчий, рахунки не порівнювані.
+    // Маркери зрізаємо перед розбором і кладемо ознаку в 4-й ключ.
+    const solo = /📖/.test(String(k)) ? 1 : 0;
+    const s = String(k).replace(/\s*📖/g, "");
     let idx = [];
     if (s.includes("-")) {
       const [a, b] = s.split("-").map(x => CEFR_LEVELS.indexOf(x));
