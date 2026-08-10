@@ -127,15 +127,34 @@ function chromePath() {
     set: trainSet, solo: cefrSolo,
     onSolo: [...document.querySelectorAll("#tm-solo button.on")].map(b => b.dataset.solo),
     onSets: [...document.querySelectorAll(".tm-set.on")].map(b => b.dataset.set),
-    levelsHidden: document.getElementById("tm-levels").classList.contains("hidden"),
+    levelsVisible: !document.getElementById("tm-levels").classList.contains("hidden"),
+    levelChips: document.querySelectorAll("#tm-levels button").length,
+    levelsIdle: document.getElementById("tm-levels").classList.contains("idle"),
     stored: JSON.parse(localStorage.getItem("oxford_train_sel_v1") || "{}"),
   }));
   t("клік по чипсу вмикає набір «один рівень»", sel.set === "cefrsolo", sel.set);
   t("активний рівно один чипс", sel.onSolo.length === 1 && sel.onSolo[0] === "B2", sel.onSolo.join(","));
   t("картки основного набору погасли", sel.onSets.length === 0, sel.onSets.join(","));
-  t("мультивибірний ряд CEFR схований", sel.levelsHidden);
+  t("мультивибірний ряд CEFR лишається на місці", sel.levelsVisible);
+  t("у ньому всі 7 рівнів", sel.levelChips === 7, String(sel.levelChips));
+  t("неактивний ряд притьмарений", sel.levelsIdle);
   t("вибір збережено в localStorage", sel.stored.set === "cefrsolo" && sel.stored.solo === "B2",
     JSON.stringify(sel.stored));
+  // клік по мультивибірному ряду повертає набір «Рівні CEFR»
+  await page.click('#tm-levels button[data-lv="C1"]');
+  const back = await page.evaluate(() => ({
+    set: trainSet, sel: [...cefrSel],
+    onSolo: document.querySelectorAll("#tm-solo button.on").length,
+    onSets: [...document.querySelectorAll(".tm-set.on")].map(b => b.dataset.set),
+  }));
+  t("клік по «старому» ряду повертає набір CEFR", back.set === "cefr", back.set);
+  t("рівень додався в мультивибір", back.sel.includes("C1"), back.sel.join(","));
+  t("чипс «один рівень» погас", back.onSolo === 0, String(back.onSolo));
+  t("картка «Рівні CEFR» знову активна", back.onSets.join(",") === "cefr", back.onSets.join(","));
+  t("ряд CEFR більше не притьмарений",
+    await page.evaluate(() => !document.getElementById("tm-levels").classList.contains("idle")));
+  await page.click('#tm-solo button[data-solo="B2"]');
+
   // повторний клік по активному не знімає вибір
   await page.click('#tm-solo button[data-solo="B2"]');
   t("повторний клік лишає рівень обраним",
