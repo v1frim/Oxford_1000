@@ -656,15 +656,9 @@
   #duo-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
   #duo-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   #gpt-wrap { display: flex; gap: 4px; width: 100%; }
-  #selfrev-wrap { display: flex; gap: 4px; width: 100%; }
-  #selfrev-plus { padding:5px 10px !important; color:#87b4ff !important; }
-  #selfrev-plus:hover { color:#a9c9ff !important; border-color:rgba(135,180,255,0.6) !important; background:rgba(135,180,255,0.18) !important; }
-  #selfrev-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
-  #selfrev-minus:hover { color:#ff6b6b !important; border-color:rgba(255,107,107,0.4) !important; }
   #gpt-btn { background: rgba(45,212,191,0.12) !important; border-color: rgba(45,212,191,0.35) !important; color: #2dd4bf !important; }
   #gpt-btn:hover { background: rgba(45,212,191,0.24) !important; color: #5ee9d6 !important; border-color: rgba(45,212,191,0.6) !important; }
   #gpt-count { display:inline-block; background:rgba(45,212,191,0.22); color:#2dd4bf; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
-  #selfrev-count { display:inline-block; background:rgba(135,180,255,0.22); color:#87b4ff; border-radius:10px; padding:0 6px; font-size:10px; font-weight:700; margin-left:4px; }
   #gpt-plus { padding:5px 10px !important; color:#2dd4bf !important; }
   #gpt-plus:hover { color:#5ee9d6 !important; border-color:rgba(45,212,191,0.6) !important; background:rgba(45,212,191,0.18) !important; }
   #gpt-minus { padding:5px 10px !important; color:rgba(255,255,255,0.4) !important; }
@@ -1692,11 +1686,6 @@
     <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
     <button id="gpt-plus" title="Додати запит GPT (+1, +15 XP)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
-  </div>
-  <div id="selfrev-wrap">
-    <button id="selfrev-btn" title="Відкрити список «Вивчаю» (перегляд не рахується — тисни «+», коли повторив слова)">📚 Повторив<span id="selfrev-count" style="display:none"></span></button>
-    <button id="selfrev-plus" title="Відмітити повторення слів (+1 пункт «Плани», +30 XP)">+</button>
-    <button id="selfrev-minus" title="Скасувати останнє повторення (лише сьогодні)">−</button>
   </div>
 </div>
 
@@ -39877,7 +39866,6 @@ function renderLbTotals() {
     row("🎵", "Пісень вивчено", learnedSongs + " / " + SONGS.length, "#c89bff") +
     row("🎧", "Пісні англійською", getTotalSongSessions(), "#c89bff") +
     row("🎬", "Кіно англійською", getTotalMovieSessions(), "#ffa94d") +
-    row("📖", "Повторення слів", getTotalSelfReviews(), "#87b4ff") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
       '<div class="lb-subhead">🌡️ Плани · поточне</div>' +
@@ -39943,20 +39931,24 @@ function gptPointsByDate(gpt) {
 }
 
 // Сирі пункти за конкретний день (гра / Duolingo / LingoHut / пісні / GPT / помилки).
-// ── 📚 Повторення слів (сесія 40, за запитом) ───────────────────────────────
-// Користувач часто просто переглядає список «Вивчаю» і повторює слова про себе —
-// ця робота ніде не фіксувалась. Тепер її можна відмітити вручну кнопкою «+».
-// ⚠️ Ставка = як у пункта «📒 Помилки» (рішення користувача: «це аналог, стільки ж
-// і повинно давати»): 1 повторення = 1 пункт «Плани» + SELF_REVIEW_XP.
-// ⚠️ Оголошено ПЕРЕД thermo-функціями (як GPT/songsess) — інакше TDZ на старті.
-const SELF_REVIEW_KEY = "oxford_self_reviews_v1";   // {date: count}
+// ── 📚 ПОВТОРЕННЯ СЛІВ — ⚠️ ФІЧА ЗАКРИТА В СЕСІЇ 47 ──────────────────────────
+// Було (сесія 40): кнопка «📚 Повторив» під 🤖 GPT — відкривала список «Вивчаю», а «+»
+// вручну відмічав повторення (1 пункт «Плани» + SELF_REVIEW_XP), «−» скасовував.
+// Стало: кнопки немає, рядка «Повторення слів» у #lb-totals немає (пряме рішення
+// користувача: автозарахування (15/15 помилок) давно нема, лишалось тільки ручне —
+// такий лічильник нічого не міряє).
+// ⚠️ ЧОМУ КЛЮЧ І ЧИТАЧІ ЛИШИЛИСЬ (як з `oxford_mistake_reviews_v1` у сесії 45):
+// `oxford_self_reviews_v1` більше НЕ ПОПОВНЮЄТЬСЯ (`saveSelfReviews`/`countSelfReview`/
+// `renderSelfRevBtn`/`getTotalSelfReviews` видалені), але вже зароблені пункти й XP
+// лишаються в історії. Прибрати читання — означало б заднім числом обнулити пункти
+// минулих днів, місячну ачівку, рекорди й XP-перерахунок (`computeDayStatsXp` із `selfRev`).
+// Дані ЗАМОРОЖЕНІ, а не стерті: 📖N у «Прогресі по днях» за старі дні лишається.
+// НЕ «чистити» ці читачі як мертвий код і НЕ прибирати ключ із BACKUP_KEYS.
+// ⚠️ const/функції — ДО thermo-функцій нижче (як GPT/songsess), інакше TDZ на старті.
+const SELF_REVIEW_KEY = "oxford_self_reviews_v1";   // {date: count} — заморожена історія
 const SELF_REVIEW_XP = 30;                          // = MISTAKE_REVIEW_XP (пункт «📒 Помилки»); сесія 41: 15→30
 function loadSelfReviews() {
   try { return JSON.parse(localStorage.getItem(SELF_REVIEW_KEY) || "{}"); } catch(e) { return {}; }
-}
-function saveSelfReviews(obj) { localStorage.setItem(SELF_REVIEW_KEY, JSON.stringify(obj)); }
-function getTotalSelfReviews() {
-  return Object.values(loadSelfReviews()).reduce((sum, n) => sum + n, 0);
 }
 
 function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, selfRev) {
@@ -40479,36 +40471,6 @@ function renderMovieBtn() {
   plus.style.display = "";
   minus.style.display = count > 0 ? "" : "none";
 }
-function renderSelfRevBtn() {
-  const count = loadSelfReviews()[gptToday()] || 0;
-  const countEl = document.getElementById("selfrev-count");
-  countEl.textContent = count || "";
-  countEl.style.display = count > 0 ? "inline-block" : "none";
-  document.getElementById("selfrev-minus").style.display = count > 0 ? "" : "none";
-}
-// delta +1 / −1. «−» симетрично знімає стільки ж XP (як у GPT-кнопки).
-function countSelfReview(delta) {
-  const sr = loadSelfReviews();
-  const today = gptToday();
-  const cur = sr[today] || 0;
-  if (delta < 0 && cur <= 0) return;            // скасовувати можна лише сьогоднішні
-  if (cur + delta <= 0) delete sr[today]; else sr[today] = cur + delta;
-  saveSelfReviews(sr);
-  addXp(delta * SELF_REVIEW_XP);
-  renderSelfRevBtn();
-  renderXpBar();
-  renderThermo();
-  renderLbTotals();
-  renderProgressPanel();
-  checkThermoMilestones();
-  checkAchievements(true);
-}
-// ⚠️ Головна кнопка — ЛИШЕ відкриває список «Вивчаю» (навігація ≠ підрахунок, як у GPT/кіно):
-// переглянув слова → сам вирішуєш, чи це було повторення, і тиснеш «+».
-document.getElementById("selfrev-btn").addEventListener("click", () => openCategoryModal("learning"));
-document.getElementById("selfrev-plus").addEventListener("click", () => countSelfReview(1));
-document.getElementById("selfrev-minus").addEventListener("click", () => countSelfReview(-1));
-
 document.getElementById("movie-btn").addEventListener("click", () => {
   if (!movieUnlocked()) return;   // 🔒 ще заблоковано
   window.open("https://2sub.movie/", "_blank", "noopener");
@@ -40717,7 +40679,6 @@ function renderAchVariantA() {
 renderDuoBtn();
 renderSongSessBtn();
 renderGptBtn();
-renderSelfRevBtn();
 renderMovieBtn();
 
 renderLeaderboard();
