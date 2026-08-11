@@ -1,5 +1,6 @@
-// Тест розділу «Вирази і сленг» (сесія 47): XP за картки, два напрямки з окремими
-// статусами, виключення «Вивчено» з колоди, вкладки статусів із лічильниками.
+// Тест розділу «Вирази і сленг» (сесія 47): XP за картки, пункти «Плани» (12 карток =
+// 1 пункт), два напрямки з окремими статусами, виключення «Вивчено» з колоди,
+// вкладки статусів із лічильниками, значок 💬 у «Прогресі по днях».
 // Запуск: npm i playwright-core && node test-expr.js
 const fs = require("fs"), path = require("path");
 const PAGE = "file://" + path.join(__dirname, "index.html");
@@ -154,6 +155,51 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     return gone.filter(w => EXPR_BANK.some(x => x.en.toLowerCase() === w));
   });
   t("прості слова прибрані з «Виразів»", plain.length === 0, plain.join(", "));
+
+  // ── 15. Пункти «Плани»: 12 пройдених карток = 1 пункт, із перенесенням залишку ──
+  const pts = await p.evaluate(() => {
+    const every = EXPR_POINT_EVERY;
+    const mk = o => exprPointsByDate(o);
+    return {
+      every,
+      none:  mk({ "2026-01-01": { r: 11, k: 0 } })["2026-01-01"],
+      one:   mk({ "2026-01-01": { r: 12, k: 0 } })["2026-01-01"],
+      two:   mk({ "2026-01-01": { r: 25, k: 0 } })["2026-01-01"],
+      // перенесення: 7 + 7 = 14 → пункт випадає ДРУГОГО дня, не першого
+      carry: mk({ "2026-01-01": { r: 7, k: 0 }, "2026-01-02": { r: 7, k: 0 } }),
+      // «знаю» саме по собі пунктів НЕ дає — рахуємо лише пройдені картки (r)
+      knowOnly: mk({ "2026-01-01": { r: 0, k: 20 } })["2026-01-01"]
+    };
+  });
+  t("поріг пункту = 12 карток", pts.every === 12, String(pts.every));
+  t("11 карток — ще нуль пунктів", pts.none === undefined, String(pts.none));
+  t("12 карток = 1 пункт", pts.one === 1, String(pts.one));
+  t("25 карток = 2 пункти", pts.two === 2, String(pts.two));
+  t("залишок переноситься на наступний день", pts.carry["2026-01-01"] === undefined && pts.carry["2026-01-02"] === 1, JSON.stringify(pts.carry));
+  t("«знаю» без показів пунктів не дає", pts.knowOnly === undefined, String(pts.knowOnly));
+
+  // пункт реально доходить до термометра
+  const thermo = await p.evaluate(() => {
+    const log = { "2026-01-01": { r: 24, k: 0 } };
+    const ex = exprPointsByDate(log);
+    return thermoRawForDate("2026-01-01", {}, {}, {}, {}, {}, {}, {}, {}, ex);
+  });
+  t("thermoRawForDate бачить пункти за вирази", thermo === 2, String(thermo));
+  const thermoOld = await p.evaluate(() => thermoRawForDate("2026-01-01", {}, {}, {}, {}, {}, {}, {}, {}));
+  t("без параметра — стара поведінка (0 пунктів)", thermoOld === 0, String(thermoOld));
+
+  // ── 16. Значок 💬 у «Прогресі по днях» ─────────────────────────────────────
+  const prog = await p.evaluate(() => {
+    const html = _progMetaHtml(0, 0, 0, 0, 0, 0, 0, 17);
+    return { withExpr: html, without: _progMetaHtml(0, 0, 0, 0, 0, 0, 0, 0) };
+  });
+  t("💬 з'являється в рядку прогресу", /💬/.test(prog.withExpr) && /17/.test(prog.withExpr) && /prog-expr/.test(prog.withExpr), prog.withExpr);
+  t("без карток значка нема", prog.without === "", prog.without);
+  const progLive = await p.evaluate(() => {
+    renderProgressPanel();
+    return document.querySelector("#prog-list .prog-expr") !== null;
+  });
+  t("сьогоднішній рядок показує 💬 після тренування", progLive);
 
   console.log((bad.length ? "❌ " + bad.length + " помилок:\n" + bad.map(x=>"   • "+x).join("\n") + "\n" : "") +
               "✅ " + ok.length + " перевірок пройдено");
