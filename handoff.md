@@ -791,8 +791,9 @@ function getLhXp(n) { return n <= 35 ? 50 : n <= 70 ? 75 : 100; }
   Пояснено користувачу, він у курсі. НЕ прибирати сідінг — без нього перший запуск штампує
   ВСЮ базу сьогоднішнім днем.
 
-**Хелпер `_progMetaHtml(games, lh, duo, songs, songSess, gpt)`** — span-и meta в порядку (сесія 26):
-ігри · 🦉Duolingo · 📚LingoHut · 🤖GPT · 🎧занять · 🎵пісень (сесія 23: +songs +songSess; сесія 25: +gpt).
+**Хелпер `_progMetaHtml(games, lh, duo, songs, songSess, gpt, movies)`** — span-и meta в порядку (сесія 26):
+ігри · 🦉Duolingo · 📚LingoHut · 🤖GPT · 🎬кіно · 🎧занять · 🎵пісень (сесія 23: +songs +songSess;
+сесія 25: +gpt; сесія 36: +movies). ⚠️ Параметр `selfRev` (📖) БУВ і ЗНЯТИЙ у сесії 47 — не повертати.
 Викор. і денними, і згрупованими рядками.
 **`_progAggregate(dates, history, allDates, days)`** — повертає `{dk, dl, dt, games, rev, duo, lh, songs, songSess}`.
 
@@ -897,8 +898,10 @@ CEFR, пулом «Знаю» і «не дались» у неї не потра
   і `loadSelfReviews()` — дані ЗАМОРОЖЕНІ, а не стерті. Читає їх увесь історичний тракт:
   `thermoRawForDate` (останній параметр `selfRev`, усі 8 викликів), carry-in, місячна ачівка,
   avg/день, `bestMonthPoints`/`computeRecords`, `computeDayStatsXp` (+параметр selfRev, прапор
-  `oxford_xp_formula_v14`) і **📖N у «Прогресі по днях»** (`_progMetaHtml`+`_progAggregate`,
-  клас `.prog-selfrev` синій #87b4ff — за старі дні лишається видимим).
+  `oxford_xp_formula_v14`). ⚠️ **📖N у «Прогресі по днях» ТЕЖ ПРИБРАНО** (той самий запит,
+  окремим кроком: «не потрібна інфа») — з `_progMetaHtml`/`_progAggregate` знято параметр
+  `selfRev`, клас `.prog-selfrev` видалено. Тобто в UI сліду НЕМА ЖОДНОГО, читається лише
+  всередині розрахунку пунктів/XP.
   Прибрати ці читачі = заднім числом обнулити пункти минулих днів і XP. НЕ «чистити» як мертвий код.
   ⚠️ Історична довідка (щоб не «виправляли» назад): значки були РІЗНІ свідомо — 📚 на кнопці,
   📖 у прогресі/статистиці (бо 📚 в рядку прогресу = УРОКИ LINGOHUT); формулювання «САМОСТІЙНЕ
@@ -2285,8 +2288,12 @@ B2 2521 · C1 1991 · C2 977 — уже з партіями «тіло» і «б
     у сесії 45.** Лишились `SELF_REVIEW_KEY` (у BACKUP_KEYS), `SELF_REVIEW_XP` і
     `loadSelfReviews()`; увесь історичний тракт читає їх далі (`thermoRawForDate` з
     параметром `selfRev` — усі 8 викликів, carry-in, місячна ачівка, avg/день,
-    `bestMonthPoints`/`computeRecords`, `computeDayStatsXp`, 📖N у «Прогресі по днях»).
+    `bestMonthPoints`/`computeRecords`, `computeDayStatsXp`) — але вже НІДЕ не показує.
     Прибрати читачі = заднім числом обнулити пункти й XP минулих днів. НЕ чистити як мертвий код.
+  - **Другим кроком, за тим самим запитом, прибрано й історичний значок 📖N у «Прогресі
+    по днях»** («не потрібна інфа»): з `_progMetaHtml`/`_progAggregate` знято параметр
+    `selfRev`, видалено клас `.prog-selfrev`. **У UI не лишилось ЖОДНОГО сліду фічі**;
+    `loadSelfReviews()` живе тільки всередині розрахунку пунктів «Плани» та XP.
   - Перевірено: `loadtest.js` + `test-panel.js` (43), `test-due.js` (31), `test-cefr.js` (28),
     `test-hints.js` (21), `test-wrong.js` (14) — усі зелені, 0 помилок консолі (це й доводить,
     що не лишилось звертань до видалених `#selfrev-*`).

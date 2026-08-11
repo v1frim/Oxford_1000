@@ -682,7 +682,6 @@
   .gt-link.gpt { margin-left: 0; color: #2dd4bf; border-color: rgba(45,212,191,0.4); }
   .gt-link.gpt:hover { background: rgba(45,212,191,0.18); }
   .prog-gpt { font-size: 12px; color: #2dd4bf; opacity: 0.95; font-weight: 600; margin-left: 5px; }
-  .prog-selfrev { font-size: 12px; color: #87b4ff; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-row { display: flex; align-items: baseline; justify-content: space-between; padding: 8px 4px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 8px; }
   .prog-row:last-child { border-bottom: none; }
   .prog-date { color: rgba(255,255,255,0.68); font-size: 13px; flex: 1 1 auto; min-width: 0; }
@@ -38579,28 +38578,25 @@ function _progAggregate(dates, history, allDates, days) {
   const firstIdx = allDates.indexOf(dates[0]);
   const prev = firstIdx > 0 ? history[allDates[firstIdx-1]] : {k:0,l:0,t:WORDS.length};
   const last = history[dates[dates.length-1]] || prev;
-  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0, selfRev = 0;
+  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0;
   const duoSessions = loadDuoSessions();
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
   const movieSessions = loadMovieSessions();
-  const selfReviews = loadSelfReviews();
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; selfRev += selfReviews[d] || 0; }
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; }
   const dateSet = new Set(dates);
   const lh    = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const songs = Object.values(loadSongsXpAwarded()).filter(v => dateSet.has(v)).length;
   const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
-  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt, movies, selfRev };
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt, movies };
 }
-function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev) {
+function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies) {
   let h = "";
   if (games > 0) h += _pgCell("🎮", games, "prog-games");
   if (duo > 0)   h += _pgCell("🦉", duo, "prog-duo");
   if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
   if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
   if (movies > 0) h += _pgCell("🎬", movies, "prog-movie");
-  // ⚠️ НЕ 📚 — той значок у цьому ж рядку означає уроки LingoHut (сесія 40)
-  if (selfRev > 0) h += _pgCell("📖", selfRev, "prog-selfrev");
   if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
   if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
   return h;
@@ -38633,7 +38629,6 @@ function renderProgressPanel() {
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
   const movieSessions = loadMovieSessions();
-  const selfReviews = loadSelfReviews();
   const recentCount = 7;
   const recentDates = [...allDates].reverse().slice(0, recentCount); // newest first
 
@@ -38650,8 +38645,7 @@ function renderProgressPanel() {
     const songSess = songSessions[date] || 0;
     const gpt = gptRequests[date] || 0;
     const movies = movieSessions[date] || 0;
-    const selfRev = selfReviews[date] || 0;
-    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev);
+    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt, date);
     const xpGain = getDayXpGain(date);
@@ -38667,9 +38661,9 @@ function renderProgressPanel() {
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
-      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt, movies, selfRev} = _progAggregate(groups[k], history, allDates, days);
+      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt, movies} = _progAggregate(groups[k], history, allDates, days);
       return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) + '</span>' +
-        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, selfRev) + '</span>' +
+        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies) + '</span>' +
         '<span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
@@ -39934,15 +39928,17 @@ function gptPointsByDate(gpt) {
 // ── 📚 ПОВТОРЕННЯ СЛІВ — ⚠️ ФІЧА ЗАКРИТА В СЕСІЇ 47 ──────────────────────────
 // Було (сесія 40): кнопка «📚 Повторив» під 🤖 GPT — відкривала список «Вивчаю», а «+»
 // вручну відмічав повторення (1 пункт «Плани» + SELF_REVIEW_XP), «−» скасовував.
-// Стало: кнопки немає, рядка «Повторення слів» у #lb-totals немає (пряме рішення
-// користувача: автозарахування (15/15 помилок) давно нема, лишалось тільки ручне —
-// такий лічильник нічого не міряє).
-// ⚠️ ЧОМУ КЛЮЧ І ЧИТАЧІ ЛИШИЛИСЬ (як з `oxford_mistake_reviews_v1` у сесії 45):
+// Стало: ЖОДНОГО сліду в UI — немає кнопки, немає рядка «Повторення слів» у #lb-totals,
+// немає значка 📖 у «Прогресі по днях» (пряме рішення користувача: автозарахування
+// (15/15 помилок) давно нема, лишалось тільки ручне — такий лічильник нічого не міряє;
+// про історичний 📖 окремо: «не потрібна інфа»).
+// ⚠️ ЧОМУ КЛЮЧ І ЧИТАЧІ ВСЕ Ж ЛИШИЛИСЬ (як з `oxford_mistake_reviews_v1` у сесії 45):
 // `oxford_self_reviews_v1` більше НЕ ПОПОВНЮЄТЬСЯ (`saveSelfReviews`/`countSelfReview`/
-// `renderSelfRevBtn`/`getTotalSelfReviews` видалені), але вже зароблені пункти й XP
-// лишаються в історії. Прибрати читання — означало б заднім числом обнулити пункти
-// минулих днів, місячну ачівку, рекорди й XP-перерахунок (`computeDayStatsXp` із `selfRev`).
-// Дані ЗАМОРОЖЕНІ, а не стерті: 📖N у «Прогресі по днях» за старі дні лишається.
+// `renderSelfRevBtn`/`getTotalSelfReviews` видалені) і НІДЕ НЕ ПОКАЗУЄТЬСЯ, але вже
+// зароблені пункти й XP лишаються в історії. Прибрати читання — означало б заднім числом
+// обнулити пункти минулих днів, місячну ачівку, рекорди й XP-перерахунок
+// (`computeDayStatsXp` із `selfRev`), тобто зсунути підсумки за старі дні.
+// Дані ЗАМОРОЖЕНІ й НЕВИДИМІ, а не стерті: рахунок збігається, показника просто нема.
 // НЕ «чистити» ці читачі як мертвий код і НЕ прибирати ключ із BACKUP_KEYS.
 // ⚠️ const/функції — ДО thermo-функцій нижче (як GPT/songsess), інакше TDZ на старті.
 const SELF_REVIEW_KEY = "oxford_self_reviews_v1";   // {date: count} — заморожена історія
