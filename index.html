@@ -49768,6 +49768,41 @@ const corrAnswerEl   = document.getElementById("correction-answer");
 function getEn(w) { return Array.isArray(w.en) ? w.en : [w.en]; }
 function getUa(w) { return Array.isArray(w.ua) ? w.ua : [w.ua]; }
 
+// ── ІНДЕКСИ СЛОВНИКА (сесія 48) ───────────────────────────────────────────────
+// Навіщо: `isCorrect`/`getCorrectAnswer` у режимі UA→EN сканували ВЕСЬ масив WORDS
+// на КОЖНУ відповідь із нормалізацією рядків. На 12 500 картках це ~26 мс на
+// відповідь, і цифра росла лінійно з кожною новою партією (замір сесії 48).
+// Тепер той самий пошук іде через Map, побудований один раз на завантаження.
+// ⚠️ WORDS за сесію не змінюється — та сама умова, на якій уже живуть `_keyIdx`
+// і `_sameKeyIdx`. Якщо колись з'явиться правка словника «на льоту», ці кеші
+// треба буде скидати разом із ними.
+// ⚠️ Ключі індексів мусять збігатися з формулами на місці виклику ЗНАК У ЗНАК:
+// `uaBare(u)` БЕЗ зміни регістру (порівняння було чутливе до регістру) і
+// `en.toLowerCase().replace(/^to\s+/,"").trim()` — інакше зміниться поведінка гри.
+let _uaBareIdx = null, _enNormIdx = null;
+function _buildWordIdx() {
+  _uaBareIdx = new Map();
+  _enNormIdx = new Map();
+  const push = (map, key, w) => { const a = map.get(key); if (a) { if (a[a.length - 1] !== w) a.push(w); } else map.set(key, [w]); };
+  for (const w of WORDS) {
+    for (const u of getUa(w)) push(_uaBareIdx, uaBare(u), w);
+    for (const e of getEn(w)) push(_enNormIdx, String(e).toLowerCase().replace(/^to\s+/, "").trim(), w);
+  }
+}
+function wordsByUaBare(k) { if (!_uaBareIdx) _buildWordIdx(); return _uaBareIdx.get(k) || []; }
+function wordsByEnNorm(k) { if (!_enNormIdx) _buildWordIdx(); return _enNormIdx.get(k) || []; }
+// Унікальні ключі-слова (wordKey) одним масивом — для лічильників «Знаю/Вивчаю/Нові»,
+// які раніше щоразу перебирали WORDS із побудовою Set (26 мс на кожен рендер меню).
+let _uniqKeys = null;
+function uniqueWordKeys() {
+  if (!_uniqKeys) {
+    const seen = new Set();
+    _uniqKeys = [];
+    for (const w of WORDS) { const k = getEn(w)[0]; if (!seen.has(k)) { seen.add(k); _uniqKeys.push(k); } }
+  }
+  return _uniqKeys;
+}
+
 let mode = "ua-en";          // ПОТОЧНИЙ конкретний напрям (у міксі перевипадковлюється щослова)
 let selectedMode = "ua-en";  // ОБРАНИЙ режим: ua-en/en-ua/mix/en-def…; "mix" → напрям випадковий
 let score = 0;
@@ -49971,10 +50006,9 @@ function isCorrect(input) {
     // enAlt — прямі прийнятні англ. відповіді (слова-синоніми), які НЕ показуються
     // як промпт (напр. на «ледачий»/idle проходить lazy). НЕ впливає на en-ua.
     if ((currentWord.enAlt || []).some(e => normEn(e) === inpNorm)) return true;
-    return WORDS.some(w =>
-      getUa(w).some(u => shownUa.includes(uaBare(u))) &&
-      getEn(w).some(e => normEn(e) === inpNorm)
-    );
+    // Через індекс: кандидатів беремо за введеним англійським словом (їх одиниці),
+    // а не перебираємо весь словник. Логіка збігу — та сама, що була.
+    return wordsByEnNorm(inpNorm).some(w => getUa(w).some(u => shownUa.includes(uaBare(u))));
   } else if (mode === "en-def" || mode === "en-cloze") {
     // Answer is the English word itself
     return getEn(currentWord).some(e => normEn(e) === inpNorm);
@@ -50018,11 +50052,13 @@ function getCorrectAnswer() {
   if (mode === "ua-en") {
     const shownUa = getUa(currentWord).map(uaBare);   // те саме правило, що в isCorrect
     const ans = new Set();
-    WORDS.forEach(w => {
-      // ⚠️ підказку беремо за КАРТКОЮ (en+ua), а не за голим en — інакше слово-пара
-      // тягне сюди уточнення чужого сенсу (сесія 45)
-      if (getUa(w).some(u => shownUa.includes(uaBare(u)))) getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0])));
-    });
+    // ⚠️ підказку беремо за КАРТКОЮ (en+ua), а не за голим en — інакше слово-пара
+    // тягне сюди уточнення чужого сенсу (сесія 45)
+    const seenW = new Set();
+    shownUa.forEach(k => wordsByUaBare(k).forEach(w => {
+      if (seenW.has(w)) return; seenW.add(w);
+      getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0])));
+    }));
     (currentWord.enAlt || []).forEach(e => ans.add(withHint(e)));
     return [...ans].join(" / ");
   } else if (mode === "en-ua") {
@@ -53316,15 +53352,11 @@ function saveMasterySnapshot() {
   // й модалки категорій: осиротілі ключі mastery (перейменоване слово лишає streak
   // у сховищі) в знімок НЕ потрапляють. Дельти ✓/↗ у «Прогресі» тепер звіряються
   // з бейджами один в один.
-  const seen = new Set();
   let known = 0, learning = 0;
-  WORDS.forEach(w => {
-    const wk = wordKey(w);
-    if (seen.has(wk)) return;
-    seen.add(wk);
+  for (const wk of uniqueWordKeys()) {
     const st = mStreak(m[wk]);
     if (st >= 3) known++; else if (st !== undefined) learning++;
-  });
+  }
   const today = new Date().toISOString().slice(0, 10);
   const history = loadMasteryHistory();
   // t = ЗАПИСИ бази (WORDS.length, 3242), НЕ унікальні ключі — дельта «+N ●» в прогресі
@@ -53532,16 +53564,13 @@ function renderMasteryStats() {
   // mastery (перейменоване слово лишає streak у сховищі). K+L+N = унікальні ключі
   // структурно; модалки категорій групують так само → числа завжди збігаються.
   const m = loadMastery();
-  const seen = new Set();
   let known = 0, learning = 0, novel = 0;
-  WORDS.forEach(w => {
-    const k = wordKey(w);
-    if (seen.has(k)) return;
-    seen.add(k);
+  const keys = uniqueWordKeys();          // мемоізований список — див. коментар біля індексів
+  for (const k of keys) {
     const s = mStreak(m[k]);
     if (s >= 3) known++; else if (s !== undefined) learning++; else novel++;
-  });
-  const uniqueWords = seen.size;
+  }
+  const uniqueWords = keys.length;
 
   const history = loadMasteryHistory();
   const allDates = Object.keys(history).sort();
