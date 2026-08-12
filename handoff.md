@@ -1355,9 +1355,9 @@ glossary та сленгом. Остання додана — «Bryce Savage —
 ## Розділ «Вирази і сленг» (сесія 32; XP + два напрямки + чистка — сесія 47)
 
 Окремий тренажер **флеш-карток** для ідіом/виразів і сленгу. Об'єднує `EXPRESSIONS`
-(ідіоми/вирази) + `slang` з УСІХ пісень у єдиний банк. **683 картки** (126 ідіом + 557 сленгу;
-дедуп за `en`, ігнор регістру). ⚠️ Було 696 — сесія 47 прибрала 13 простих слів із пісенного
-`slang` (див. «Чистка сленгу» нижче).
+(ідіоми/вирази) + `slang` з УСІХ пісень у єдиний банк. **702 картки** (145 ідіом + 557 сленгу;
+дедуп за `en`, ігнор регістру). ⚠️ Було 696 → 683 (сесія 47 прибрала 13 простих слів із
+пісенного `slang`, див. «Чистка сленгу» нижче) → 702 (+19 із xlsx «Одяг і зовнішність»).
 
 - **Вхід:** кнопка **`#expr-btn` «💬 Вирази і сленг»** — у ряду «Щодня» (`#daily-row`).
   Ховається під час гри разом зі стартовим екраном.
@@ -2368,7 +2368,7 @@ B2 2521 · C1 1991 · C2 977 — уже з партіями «тіло» і «б
 
 ## Версія документа
 - Створено: 2026-05-26
-- Останнє оновлення: 2026-08-11 (сесія 47; WORDS 9172, EXPRESSIONS 135)
+- Останнє оновлення: 2026-08-11 (сесія 47; WORDS 9172 → **9537**, EXPRESSIONS 135 → **154**)
 - Зміни сесії 47: **🗑 ЗАКРИТО ФІЧУ «📚 Повторив» (трекер повторень слів).**
   Привід (слова користувача): «повторення ми робили такими, що вони зараховуються, коли
   виходить 15 з 15 слів (помилкових), але зараз цього немає і можна це добавляти лише
@@ -2388,6 +2388,54 @@ B2 2521 · C1 1991 · C2 977 — уже з партіями «тіло» і «б
     по днях»** («не потрібна інфа»): з `_progMetaHtml`/`_progAggregate` знято параметр
     `selfRev`, видалено клас `.prog-selfrev`. **У UI не лишилось ЖОДНОГО сліду фічі**;
     `loadSelfReviews()` живе тільки всередині розрахунку пунктів «Плани» та XP.
+- Зміни сесії 47 (продовження): **👕 ВЕЛИКА ПАРТІЯ «ОДЯГ І ЗОВНІШНІСТЬ» — +365 карток
+  і +19 виразів (WORDS 9172 → 9537, EXPRESSIONS 135 → 154).** xlsx користувача,
+  701 позиція, 19 розділів. Розкладка: **284 вже були** в словнику, **8 пішли в `enAlt`**,
+  **409 справді нові** → 5 партій (82 / 75 / 84 / 54+12 виразів / 70+5 виразів).
+  - **Правила, за якими розводились глоси** (щоб UA→US лишався однозначним): `formal wear`
+    → «офіційний одяг» (бо «офіційний» = formal), `trendy` → «трендовий» («модний» =
+    fashionable), `jumpsuit` → «суцільний комбінезон» («комбінезон» = overalls),
+    `underpants` → «чоловічі труси» («труси» = panties), `gemstone` → «дорогоцінний камінь»
+    («дорогоцінний» = precious), `linen` → «лляна тканина» («льон» = flax), `crease` →
+    «залом» («складка» = pleat), `dial` → «шкала приладу» («циферблат» віддано watch face),
+    `scruffy` → «недоглянутий» («неохайний» = messy), `headband` → «пов'язка для волосся»
+    («обруч» = hula hoop), `good-looking` → «гарний на вигляд» («гарний» = beautiful).
+  - **⚠️ 9 ПОЗИЦІЙ СВІДОМО НЕ ДОДАНО — не «забули», не додавати наступного разу:**
+    - `used`, `washed`, `worn`, `looks`, `roots`, `layers`, `fitting` — **картка перебила б
+      hover для форми базового слова**, яке вже є в WORDS (use / wash / wear / look / root /
+      layer / fit). Це та сама пастка, що `checked`/`spotted` у сесії 45.
+      ⚠️ Критерій, за яким РЕШТУ дієприкметників ДОДАНО (`torn`, `ripped`, `stained`,
+      `stretched`, `damaged`, `faded`, `embroidered`, `distressed`): там значення форми
+      **збігається** зі значенням дієслова, тож hover нічого не втрачає. У `used`
+      («уживаний» vs «використовував») воно розходиться — звідси й різниця.
+    - `pair of shoes` — прозора фраза (сума слів).
+    - `item of clothing` — теж прозора, пішла в `enAlt` до `garment`.
+  - **Пари BrE/AmE й синоніми — ОДНА картка + `enAlt`, не дві:** sneakers +trainers,
+    high heels +heels, pumps +court shoes, sliders +slides, pantsuit +trouser suit,
+    clothes shop +clothing store, shoe shop +shoe store, changing room +fitting room,
+    shop assistant +sales associate, wrinkled +creased, viscose +rayon, elastane +spandex,
+    microfiber +microfibre, waist bag +fanny pack, keychain +key ring, watch strap
+    +watch band, snap fastener +press stud, costume jewelry +costume jewellery,
+    turtleneck +roll-neck, fringe +bangs.
+  - **⚠️ БРИТАНСЬКІ НАПИСАННЯ — ЛИШЕ в `enAlt`, основне американське** (`solid-colored`,
+    `matching colors`, `contrasting colors`, `microfiber`, `costume jewelry`): у словнику
+    ключ `color`, тож BrE-форма основною зламала б hover.
+  - **19 позицій пішли у EXPRESSIONS, а не в WORDS** (за правилом розподілу): готові репліки
+    з примірочної («Can I try this on?», «It does not suit me.», «The sleeves are too long.»),
+    сталі звороти (`in stock`, `out of stock`, `missing a button`, `to break in shoes`,
+    `to tie your shoelaces`) і дієслівні колокації догляду (`to cut your hair`,
+    `to grow a beard`, `to apply makeup`, `to remove makeup`, `to put on perfume`).
+  - **~40 складників багатослівних карток пішли в `m.set`** (hover, не окремі ігрові слова):
+    mid/mini/midi/maxi, puffer, varsity, sheepskin, attire, detachable, lightweight,
+    bridesmaid, johns, resistant, Chelsea/Derby/Oxford (гео-назви моделей взуття),
+    breathable, crossbody, duffel, elastic, eyeglass, fastener, faux, geometric, merino,
+    signet, tote, trouser, washable, buzz, coily, foam, hourglass, lotion, salon, shaven,
+    straightener, upright.
+  - **Складники, що варті окремої картки, зроблено картками одразу** (`fleece`, `skinny`,
+    `waterproof`) — вони й далі трапляються у файлі окремими позиціями.
+  - `turtleneck` файл дає ДВІЧІ (як «водолазку» і як «високий комір») — це одна картка,
+    другий сенс дописано в `uaAlt`.
+  - CEFR по всіх партіях: A2 +59, B1 +166, B2 +136, C1 +4.
 - Зміни сесії 47 (продовження): **💬 РОЗДІЛ «ВИРАЗИ І СЛЕНГ» — XP, ДВА НАПРЯМКИ, ЧИСТКА.**
   Повний опис і всі правила — розділ «Розділ «Вирази і сленг»» вище. Коротко, чотири запити:
   - **⚡ XP:** +1 за показ картки, +3 за «✓ Знаю» (лише за перехід у «вивчено» і лише
