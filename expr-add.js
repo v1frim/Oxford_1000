@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// expr-add.js — вставка партії виразів у блок EXPRESSIONS всередині index.html.
+// expr-add.js — вставка партії виразів у блок EXPRESSIONS всередині dict.js.
 //
 // Навіщо: нова лексика розподіляється між ДВОМА тренажерами (правило сесії 37):
 // окремі слова й назви-предмети → WORDS (add-batch.js), а ідіоми, сталі звороти
@@ -14,7 +14,7 @@
 // Дублі за полем `en` пропускаються. ⚠️ ПІСЛЯ вставки — ./verify.sh.
 
 const fs = require("fs");
-const P = require("path").join(__dirname, "index.html");
+const P = require("path").join(__dirname, "dict.js");   // дані живуть у dict.js (сесія 48)
 const D = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const q = s => JSON.stringify(s);
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// hints-add.js — вставка уточнень відтінку значення в блок HINTS у index.html.
+// hints-add.js — вставка уточнень відтінку значення в блок HINTS у dict.js.
 //
 // Навіщо: один український глос часто має кілька англійських відповідників
 // («складний» = hard / difficult / complex / …). HINTS показує в дужках, ЧИМ вони
@@ -17,7 +17,7 @@
 // (нові дописуються в кінець блоку, згруповані за партіями).
 
 const fs = require("fs");
-const P = require("path").join(__dirname, "index.html");
+const P = require("path").join(__dirname, "dict.js");   // дані живуть у dict.js (сесія 48)
 const force = process.argv.includes("--force");
 const batch = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 

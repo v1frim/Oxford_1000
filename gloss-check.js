@@ -14,7 +14,7 @@
 //   candidates.json = [{"en":"game","ua":["гра"],"uaAlt":["забава"]}, ...]
 
 const fs=require("fs");
-const LINES=fs.readFileSync(require("path").join(__dirname,"index.html"),"utf8").split("\n");
+const LINES=(fs.readFileSync(require("path").join(__dirname,"dict.js"),"utf8")+"\n"+fs.readFileSync(require("path").join(__dirname,"index.html"),"utf8")).split("\n");
 function slice(sRe,eRe,l){const s=LINES.findIndex(x=>sRe.test(x));for(let i=s+1;i<LINES.length;i++)if(eRe.test(LINES[i]))return LINES.slice(s,i+1).join("\n");throw Error(l);}
 const W=new Function(slice(/^const WORDS = \[$/,/^\];$/,"W")+"\nreturn WORDS;")();
 const msetSrc=slice(/^const EN_TO_UA = \(\(\) => \{$/,/^\}\)\(\);$/,"E");

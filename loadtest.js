@@ -19,6 +19,7 @@ const vm = require("vm");
 const ROOT = __dirname;
 const HTML = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 const SONGS = fs.readFileSync(path.join(ROOT, "songs.js"), "utf8");
+const DICT = fs.readFileSync(path.join(ROOT, "dict.js"), "utf8");   // дані винесені з index.html (сесія 48)
 
 // найбільший inline-скрипт без src = головний
 const scripts = [...HTML.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
@@ -147,6 +148,7 @@ sandbox.globalThis = sandbox;
 const ctx = vm.createContext(sandbox);
 try {
   vm.runInContext(SONGS, ctx, { filename: "songs.js" });
+  vm.runInContext(DICT, ctx, { filename: "dict.js" });
 } catch (e) {
   console.log("❌ LOADTEST (songs.js): " + e.message);
   process.exit(1);

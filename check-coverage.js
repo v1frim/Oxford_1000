@@ -18,7 +18,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const HTML = fs.readFileSync(path.join(__dirname, "index.html"), "utf8");
+const HTML = fs.readFileSync(path.join(__dirname, "dict.js"), "utf8") + "\n" + fs.readFileSync(path.join(__dirname, "index.html"), "utf8");
 const LINES = HTML.split("\n");
 
 // Імена людей, які свідомо НЕ перекладаємо (TTS-only — це ок).

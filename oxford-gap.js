@@ -21,7 +21,7 @@
 const fs = require("fs");
 const path = require("path");
 const ROOT = __dirname;
-const LINES = fs.readFileSync(path.join(ROOT, "index.html"), "utf8").split("\n");
+const LINES = (fs.readFileSync(path.join(ROOT, "dict.js"), "utf8") + "\n" + fs.readFileSync(path.join(ROOT, "index.html"), "utf8")).split("\n");
 const OX = JSON.parse(fs.readFileSync(path.join(ROOT, "oxford-cefr.json"), "utf8"));
 
 function slice(startRe, endRe, label) {

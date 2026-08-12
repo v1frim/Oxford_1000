@@ -20,7 +20,7 @@ const path = require("path");
 const { execSync } = require("child_process");
 
 const ROOT = __dirname;
-const FILE = path.join(ROOT, "index.html");
+const FILE = path.join(ROOT, "dict.js");   // дані живуть у dict.js (сесія 48)
 
 // Свідомо без рівня CEFR: власні назви, бренди, назви свят/країн.
 // Після великого розподілу сесії 46 кошик «без рівня» = рівно цей список.
@@ -67,7 +67,7 @@ if (process.argv.includes("--stats")) {
 // ── вартовий: тільки те, що додалося відносно HEAD ────────────────────
 let old = null;
 try {
-  old = blocks(execSync("git show HEAD:index.html", { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 }).toString());
+  old = blocks(execSync("git show HEAD:dict.js", { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 }).toString());
 } catch (e) {
   console.log("ℹ️  CEFR: HEAD недоступний — пропускаю перевірку нових слів");
   process.exit(0);

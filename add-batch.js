@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// add-batch.js — вставка партії нових слів у index.html одним проходом.
+// add-batch.js — вставка партії нових слів у dict.js одним проходом.
 //
 // Додає записи в УСІ чотири блоки (WORDS + TRANS + EXAMPLES + EXAMPLES_UA)
 // і, за потреби, дописує enAlt до вже наявних карток (брит./амер. варіанти).
@@ -11,7 +11,7 @@
 //
 // ⚠️ ПІСЛЯ вставки ОБОВ'ЯЗКОВО ./verify.sh (coverage + синтаксис + стенд).
 
-const fs=require("fs"),P=require("path").join(__dirname,"index.html");
+const fs=require("fs"),P=require("path").join(__dirname,"dict.js");   // дані живуть у dict.js (сесія 48)
 const D=JSON.parse(fs.readFileSync(process.argv[2],"utf8"));
 let L=fs.readFileSync(P,"utf8").split("\n");
 const q=s=>JSON.stringify(s);            // безпечне екранування

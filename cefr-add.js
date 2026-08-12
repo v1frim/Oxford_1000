@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// cefr-add.js — дописує ключі нових карток у блок CEFR_DATA всередині index.html.
+// cefr-add.js — дописує ключі нових карток у блок CEFR_DATA всередині dict.js.
 //
 // Навіщо: CEFR_DATA згенеровано один раз (сесія 42, gen-cefr.js), і кожна нова
 // партія без цього кроку падає в кошик «без рівня» у грі «🎓 Рівні».
@@ -14,7 +14,7 @@
 // список тримається відсортованим.
 
 const fs = require("fs");
-const P = require("path").join(__dirname, "index.html");
+const P = require("path").join(__dirname, "dict.js");   // дані живуть у dict.js (сесія 48)
 const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
 
 const batch = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));

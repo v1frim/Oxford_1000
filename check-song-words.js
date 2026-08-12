@@ -22,7 +22,7 @@ const ROOT = __dirname;
 const NAME = process.argv[2] || "";
 if (!NAME) { console.log("Вкажи фрагмент назви пісні: node check-song-words.js \"Lit\""); process.exit(1); }
 
-const LINES = fs.readFileSync(path.join(ROOT, "index.html"), "utf8").split("\n");
+const LINES = (fs.readFileSync(path.join(ROOT, "dict.js"), "utf8") + "\n" + fs.readFileSync(path.join(ROOT, "index.html"), "utf8")).split("\n");
 function sb(s, e) {
   const i = LINES.findIndex(l => s.test(l));
   if (i === -1) throw new Error("blk start: " + s);
