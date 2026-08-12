@@ -9,12 +9,12 @@
 
 Українсько-англійський словниковий тренажер на основі одного HTML-файлу.
 
-- **Файл:** `/home/user/Oxford_1000/index.html` (**~2.9 МБ**, сесія 47) + `songs.js`
+- **Файл:** `/home/user/Oxford_1000/index.html` (**~3.3 МБ**, сесія 48) + `songs.js`
   (дані пісень, ~415 КБ, див. розділ «Пісні»). ⚠️ «~350 КБ» у старих записах — застаріле
   число з ранніх сесій; файл виріс разом зі словником, для пошуку по ньому користуйся
   `grep -n`, а не читанням цілком.
-- **Обсяг даних (сесія 47):** `WORDS` **10518** (рубіж 10 000 пройдено), `EXPRESSIONS` **502**, `EXAMPLES` 10515,
-  банк «Вирази і сленг» 1050 карток, пісень 41.
+- **Обсяг даних (сесія 48):** `WORDS` **10993**, `EXPRESSIONS` **549**, `EXAMPLES` 10990,
+  банк «Вирази і сленг» 1097 карток, пісень 41.
 - **Розгортання:** GitHub Pages → https://v1frim.github.io/Oxford_1000/
 - **Git репо:** v1frim/Oxford_1000 (публічний)
 - **Технології:** Single-file HTML/CSS/JS, без фреймворків, без build-step
@@ -72,6 +72,7 @@
 | `loadtest.js` | виконує inline-скрипт під мок-DOM — ловить TDZ/ReferenceError |
 | `gloss-check.js` | чи вільний укр. глос для кандидата (`⛔осн` / `~alt`) |
 | `add-batch.js` | вставка партії слів у WORDS+TRANS+EXAMPLES+EXAMPLES_UA + enAlt |
+| `expr-add.js` | **вставка партії у `EXPRESSIONS`** (сесія 48; дублі за `en` пропускає) |
 | `cefr-add.js` | дописує ключі партії в `CEFR_DATA` (рівень для гри 🎓) |
 | `hints-add.js` | дописує уточнення в `HINTS` (звіряє ключі з WORDS; голий ключ слова-пари відхиляє — потрібен «en:ua») |
 | `test-cefr-solo.js` | 33 перевірки 📖-ряду чипсів (сесія 46) |
@@ -2409,7 +2410,60 @@ B2 2521 · C1 1991 · C2 977 — уже з партіями «тіло» і «б
 
 ## Версія документа
 - Створено: 2026-05-26
-- Останнє оновлення: 2026-08-11 (сесія 47; WORDS 9172 → **10518**, EXPRESSIONS 135 → **502**)
+- Останнє оновлення: 2026-08-12 (сесія 48; WORDS 10518 → **10993**, EXPRESSIONS 502 → **549**)
+- Зміни сесії 48: **🚗 ВОСЬМА ПАРТІЯ — «АВТОМОБІЛЬ, ВОДІННЯ ТА ДОРОГА»: +475 карток
+  і +47 виразів (WORDS 10518 → 10993, EXPRESSIONS 502 → 549).** xlsx користувача,
+  **685 позицій, 16 розділів.** Розкладка: **160 уже були (23% — НАЙНИЖЧЕ покриття з
+  усіх файлів; для порівняння «Робота» 42%, «Сім'я» 35%)**, **34 частково збігались**,
+  **489 нові** → 14 партій. Покрито всі 685.
+  - **CEFR:**
+
+    | Рівень | п.1-3 | п.4-6 | п.7-9 | п.10-12 | п.13-14 | Разом |
+    |---|---|---|---|---|---|---|
+    | B1 | 58 | 21 | 23 | 24 | 14 | **140** |
+    | B2 | 67 | 20 | 21 | 16 | 5 | **129** |
+    | C1 | 34 | 51 | 35 | 48 | 38 | **206** |
+    | **Карток** | 159 | 92 | 79 | 88 | 57 | **475** |
+
+    A1/A2/C2 — жодної: тема технічна, найлегші позиції (`car`, `road`, `wheel`) уже були.
+  - **🆕 Новий інструмент у репо: `expr-add.js`** — вставка партії у `EXPRESSIONS` (раніше
+    вирази дописувались вручну). Формат `[{en,ua,note,tag}]`, дублі за `en` пропускає.
+  - **⚠️ УРОК ПРО enAlt ПОВТОРИВСЯ (той самий, що в «Роботі»): аналізатор пропонує enAlt
+    за збігом ОДНОГО слова, і майже чверть пропозицій хибні.** Перевірено очима, відхилено
+    й зроблено ОКРЕМИМИ картками: `bodywork` (наявний `body` = тіло), `rocker panel`
+    (`sill` = підвіконня), `brake disc` (`rotor` = ротор), `coil spring` (`spring` =
+    весна/пружина), `hard shoulder` (`shoulder` = плече), `repair shop` (`garage` = гараж),
+    `deductible` (`excess` = надлишок), `down payment` (`deposit` = завдаток),
+    `dashboard` (`dash` = тире). **Ніколи не приймати enAlt-пропозицію без погляду на глос
+    наявної картки.**
+  - **Розподіл WORDS ↔ EXPRESSIONS за правилом сесії 37:** іменникові вузли й фразові
+    дієслова (`to buckle up`, `to pull over`, `to skid`, `to conk out`) → картки;
+    колокації «дієслово + об'єкт» (`to apply the brakes`, `to run a red light`,
+    `to exchange details`, `to book a service`) → 47 виразів. Прийменники винесені в ноти:
+    crash **INTO**, skid **OFF** the road, stuck **IN** traffic, keep **TO** the right.
+  - **Абревіатури основною формою** (патерн сесії 47): `SUV`, `ECU`, `RPM`, `VIN`, `CV joint`,
+    `TPMS` — повні назви в `enAlt`. У технічній мові скорочення частіше за розгорнуту форму.
+  - **21 enAlt-доповнення до наявних карток** (брит./амер. пари): automobile←car,
+    saloon←sedan, people carrier←minivan, splash guard←mudguard, number plate←licence plate,
+    turn signal←indicator, gear lever←gearshift, parking brake←handbrake, gas pedal←accelerator,
+    safety belt←seat belt, reverse gear←reverse, headlamp←headlight, GPS navigation←satnav,
+    freeway←motorway, crosswalk←pedestrian crossing, traffic circle←roundabout,
+    road construction←roadworks, slip road←ramp, tailback←traffic jam, line of traffic←queue,
+    traffic lights/traffic signal←traffic light, give way←to yield.
+  - **Слова-опори з прикладів окремими картками (+15):** wagon (→ m.set), gauge, to glow,
+    coil, displacement, fumes, gasket, exhaust, adaptive, daytime, to beep, amber, sobriety,
+    flap, to squeak, reflective, roadside, unlimited. Решта складників багатослівних карток
+    пішла в `m.set`: panoramic, fob, infotainment, injector, catalytic, lug, xenon,
+    prohibitory, oncoming, multi, valet, octane, misfire, conk, diagnostic, aftermarket.
+  - **Омоніми українською розведено** (клас «позичених» глосів): `coupe` → «дводверне купе»
+    (купе поїзда = compartment), `rental agreement` → «договір прокату авто» (договір
+    оренди = lease), `instrument panel` → «щиток приладів» (панель приладів = dashboard),
+    `off-road vehicle` → «авто для бездоріжжя» (позашляховик = SUV).
+  - **HINTS:** нова група зі спільним глосом лише одна — «необмежений» = unlimited /
+    unrestricted; обидві картки отримали підказки. Решта 9 «груп без підказки» у перевірці —
+    успадковані пари, не з цієї сесії.
+  - Конвеєр щоразу: `gloss-check` → `add-batch`/`expr-add` → `cefr-add` (+ переніс рівнів)
+    → `./verify.sh` до чистого ✅. 14 партій, 14 комітів, усі перевірки зелені.
 - Зміни сесії 47: **🗑 ЗАКРИТО ФІЧУ «📚 Повторив» (трекер повторень слів).**
   Привід (слова користувача): «повторення ми робили такими, що вони зараховуються, коли
   виходить 15 з 15 слів (помилкових), але зараз цього немає і можна це добавляти лише
