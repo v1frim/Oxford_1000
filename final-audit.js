@@ -12,7 +12,7 @@ const norm=s=>String(s).toLowerCase().replace(/[‘’]/g,"'").replace(/^to\s+/,
 const arr=x=>Array.isArray(x)?x:[x];
 const have=new Set(); W.forEach(w=>{arr(w.en).forEach(e=>have.add(norm(e)));(w.enAlt||[]).forEach(e=>have.add(norm(e)))});
 const expr=new Set(E.map(e=>norm(e.en)));
-const SKIP=new Set(["natural world","natural beauty","cloudy weather","rain cloud","blue sky","extreme heat","average temperature","weather forecast","wind direction","wind speed","wind damage","dust storm","storm shelter","dry climate","tropical climate","seasonal change","climate zone","seasonal rains","water level","wild animal","sandy beach","pebble beach","water pollution","soil pollution","chemical waste","pine forest","poisonous plant","rescue team","sea current","evacuation route","vegetable field","sheep flock","field boundary","fertile land","natural light","changing landscape"].map(norm));
+const SKIP=new Set(["Could I have a receipt?", "administrative appeal process", "date of birth", "document number", "fill out a form", "formal administrative complaint", "full name", "means", "notary", "official document", "place of birth", "queue", "to apply for a visa", "to call the police", "to collect a document", "to file a tax return", "to file for divorce", "to get married", "to give evidence / testify", "to give notice", "to make a will", "to meet a deadline", "to report a crime", "to submit an application", "to wait in line / queue"].map(norm));
 const raw=JSON.parse(fs.readFileSync(process.argv[2],"utf8"));
 let ok=0,miss=[];
 for(const r of raw){
