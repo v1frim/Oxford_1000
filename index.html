@@ -2877,9 +2877,26 @@ function nextWord() {
 // Таких «невидимих» карток було 17 із 22 із дужками.
 const uaBare = u => String(u).replace(/\s*\([^)]*\)/g, "").trim();
 function isCorrect(input) {
+  // ⚠️ ДЕФІС ≡ ПРОБІЛ в українській відповіді (сесія 50, привід «бізнес план»).
+  // За правописом «бізнес-план» справді пишеться через дефіс, але це орфографічна
+  // пастка, а не перевірка словника: переклад користувач знав. Той самий дух, що
+  // й наявне `г → ґ` — не карати за написання там, де сенс вгаданий.
+  // ⚠️ ЛИШЕ УКРАЇНСЬКИЙ БІК, і це НЕ недогляд: по англійському таке зведення дало б
+  // 19 реальних злиттів, де дефіс і розрізняє сенс — `pick up`/`pick-up`,
+  // `check in`/`check-in`, `take off`/`take-off`, `warm up`/`warm-up`. НЕ поширювати
+  // на `normEn`. По укр. глосах злиттів рівно 0 (перевірено на всіх 13684 картках,
+  // із них 152 мають дефіс: веб-сайт, штаб-квартира, вагон-ресторан…).
+  // ⚠️ ТОМУ ЗВЕДЕННЯ ЖИВЕ В ОКРЕМОМУ `normUaSoft`, а не в `normUa`: з `normUa`
+  // будується `inp`, а з нього — `inpNorm` для АНГЛІЙСЬКОЇ гілки, тож дописане прямо
+  // в `normUa` правило протікає в ua-en і там pick-up починає приймати «pick up»
+  // (зловлено перевіркою в `test-homograph.js` — не «спрощувати» назад в одну функцію).
+  // Індекси `_uaBareIdx`/`_enNormIdx` normUaSoft не годує, тож правило «ключі індексів
+  // знак у знак» (сесія 48) теж не порушене.
   const normUa = s => s.toLowerCase().trim().replace(/г/g, "ґ");
+  const normUaSoft = s => normUa(s).replace(/[-\s]+/g, " ");
   const inp = normUa(input);
   if (inp === "") return false;
+  const inpSoft = normUaSoft(input);
   // Normalize "to X" / "X" so user can type either form for verb entries
   const normEn = s => s.toLowerCase().replace(/^to\s+/, "").trim();
   const inpNorm = normEn(inp);
@@ -2887,8 +2904,8 @@ function isCorrect(input) {
   if (mode === "en-ua") {
     // uaAlt — додаткові ПРИЙНЯТНІ переклади, які НЕ показуються як підказка в ua-en
     // (напр. town приймає «місто», але «місто» лишається промптом лише для city).
-    if (getUa(currentWord).some(u => normUa(u) === inp)) return true;
-    if ((currentWord.uaAlt || []).some(u => normUa(u) === inp)) return true;
+    if (getUa(currentWord).some(u => normUaSoft(u) === inpSoft)) return true;
+    if ((currentWord.uaAlt || []).some(u => normUaSoft(u) === inpSoft)) return true;
     // ⚠️ ПАРИ З ОДНАКОВИМ EN (сесія 45, за запитом — привід «match»): 23 слова мають
     // по дві картки (match=матч/сірник, bank, light, fine, tip, cool…). Промпт у цьому
     // напрямку — САМЕ АНГЛІЙСЬКЕ СЛОВО, тож він фізично не каже, який сенс питають:
@@ -2917,7 +2934,7 @@ function isCorrect(input) {
     const bare = k.replace(/^to /, ""), base = IRREGULAR[bare];
     if (base && base !== bare) sibs = sibs.concat(sameKeyWords(base), sameKeyWords("to " + base));
     return sibs.some(w => w !== currentWord &&
-      (getUa(w).some(u => normUa(u) === inp) || (w.uaAlt || []).some(u => normUa(u) === inp)));
+      (getUa(w).some(u => normUaSoft(u) === inpSoft) || (w.uaAlt || []).some(u => normUaSoft(u) === inpSoft)));
   } else if (mode === "ua-en") {
     // ⚠️ порівнюємо ГОЛІ глоси (`uaBare`): інакше картка з дисплейною дужкою
     // («рахунок (до сплати)») невидима під голим промптом «рахунок» — див. коментар

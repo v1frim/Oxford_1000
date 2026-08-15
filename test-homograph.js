@@ -179,6 +179,54 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     JSON.stringify([paren.alienReceipt, paren.alienMiddle]));
   t("панель показує bill із поясненням", /bill \(до сплати\)/.test(paren.panel), paren.panel);
 
+  // 9. ДЕФІС ≡ ПРОБІЛ в українській відповіді (сесія 50, привід «бізнес план»).
+  // ⚠️ Правило СВІДОМО ОДНОСТОРОННЄ — лише `normUa`. По англійському боку таке
+  // зведення дало б 19 злиттів, де дефіс і розрізняє сенс (pick up ≠ pick-up,
+  // check-in, take-off, warm-up), тому `normEn` лишається строгим. Тест падає
+  // і якщо правило звузити назад, і якщо його поширити на англійську.
+  const hyph = await p.evaluate(() => {
+    const setEnUa = en => { const i = WORDS.findIndex(w => getEn(w)[0] === en);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "en-ua"; currentShown = getEn(currentWord)[0]; };
+    const setUaEn = (en, ua) => { const i = WORDS.findIndex(w => getEn(w)[0] === en && getUa(w)[0] === ua);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en"; currentShown = getUa(currentWord)[0]; };
+    const o = {};
+    setEnUa("business plan");
+    o.space = isCorrect("бізнес план"); o.hyphen = isCorrect("бізнес-план");
+    o.dbl = isCorrect("бізнес  план");  o.alien = isCorrect("бізнес звіт");
+    setEnUa("website");
+    o.web = isCorrect("веб сайт"); o.webOwn = isCorrect("веб-сайт");
+    setUaEn("pick-up", "звукознімач");
+    o.enStrict = isCorrect("pick up"); o.enOwn = isCorrect("pick-up");
+    return o;
+  });
+  t("US→UA: «бізнес план» без дефіса зараховано", hyph.space === true);
+  t("US→UA: «бізнес-план» як і був", hyph.hyphen === true);
+  t("US→UA: подвійний пробіл теж", hyph.dbl === true);
+  t("US→UA: чужий глос «бізнес звіт» НЕ проходить", hyph.alien === false);
+  t("US→UA: «веб сайт» ≡ «веб-сайт»", hyph.web === true && hyph.webOwn === true);
+  t("⚠️ UA→US: pick-up НЕ приймає «pick up» (дефіс розрізняє сенс)", hyph.enStrict === false);
+  t("UA→US: pick-up приймає себе", hyph.enOwn === true);
+
+  // 10. TRIM картки machine (сесія 50, патерн «розлитих сенсів» сесії 36): глос «машина»
+  // переїхав у uaAlt — через нього `car` потрапляв у список правильних відповідей
+  // на промпт «механізм», хоча car ніяк не механізм.
+  const mach = await p.evaluate(() => {
+    const i = WORDS.findIndex(w => getEn(w)[0] === "machine");
+    currentWordIndex = i; currentWord = WORDS[i];
+    const o = {};
+    mode = "ua-en"; currentShown = getUa(currentWord)[0];
+    o.prompt = currentShown; o.panel = getCorrectAnswer(); o.self = isCorrect("machine");
+    mode = "en-ua"; currentShown = getEn(currentWord)[0];
+    o.uaAltOk = isCorrect("машина"); o.mainOk = isCorrect("механізм");
+    return o;
+  });
+  t("machine: промпт у UA→US = «механізм»", mach.prompt === "механізм", mach.prompt);
+  t("machine: car БІЛЬШЕ НЕ в списку відповідей", !/\bcar\b/.test(mach.panel), mach.panel);
+  t("machine: mechanism у списку лишився", /mechanism/.test(mach.panel), mach.panel);
+  t("machine: власна відповідь як і була", mach.self === true);
+  t("machine: US→UA «машина» приймається з uaAlt", mach.uaAltOk === true);
+  t("machine: US→UA «механізм» приймається", mach.mainOk === true);
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
