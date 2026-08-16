@@ -970,10 +970,6 @@
     text-align: center;
     box-shadow: 0 0 50px rgba(255,209,102,0.35), 0 10px 30px rgba(0,0,0,0.5);
   }
-  .ms-box.cleared {
-    border-color: #7be07b;
-    box-shadow: 0 0 50px rgba(123,224,123,0.35), 0 10px 30px rgba(0,0,0,0.5);
-  }
   .ms-box.nudge {
     border-color: #87b4ff;
     box-shadow: 0 0 30px rgba(135,180,255,0.25), 0 8px 22px rgba(0,0,0,0.45);
@@ -994,7 +990,6 @@
   .ms-box.nudge .ms-icon { font-size: 34px; margin-bottom: 6px; }
   .ms-text { font-size: 22px; font-weight: 700; color: #ffd166; }
   .ms-box.nudge .ms-text { font-size: 16px; color: #87b4ff; }
-  .ms-box.cleared .ms-text { color: #7be07b; }
   .ms-sub  { font-size: 13px; opacity: 0.65; color: #fff; margin-top: 5px; }
   /* Свято рівня — окремий вигляд: шеврон із номером замість емодзі */
   .ms-box.levelup .ms-icon {
@@ -3181,8 +3176,11 @@ function recordAnswer(userVal, status) {
         clearDue(currentWordIndex);
         // ⚠️ Сесія 45: разом із боргом закриваємо слово і у «відкритому боргу»
         // `oxford_day_mistakes_v1`. Без цього список нікуди не дівався б: кнопки
-        // «📒 Помилки», яка його розгрібала, більше немає, і він ріс би вічно
-        // (а вітання «✨ Усі помилки закриті» не спрацювало б уже ніколи).
+        // «📒 Помилки», яка його розгрібала, більше немає, і він ріс би вічно.
+        // ⚠️ Сесія 50: вітання «✨ Усі помилки закриті» (другий читач цього списку)
+        // теж прибрано, тож живих читачів у ключа не лишилось — але сам ключ і цей
+        // виклик ЗБЕРІГАЄМО: він у BACKUP_KEYS, а обидві одноразові міграції боргу
+        // (`seedDueFromMistakes`, `fixDuePollutedByReview`) читають саме його.
         removeDayMistake(currentWordIndex);
       }
     }
@@ -3292,12 +3290,6 @@ function sfxMilestone() {
   _beep(784,  0.24, 0.10, 0.18);
   _beep(1047, 0.36, 0.25, 0.20);
 }
-function sfxCleared() {
-  // Satisfying 3-note resolve: E5 → A5 → E6
-  _beep(659,  0,    0.12, 0.16);
-  _beep(880,  0.15, 0.12, 0.18);
-  _beep(1319, 0.30, 0.40, 0.20);
-}
 function sfxNudge() {
   // Gentle 2-note chime: E5 → G5
   _beep(659, 0,    0.08, 0.14);
@@ -3333,7 +3325,7 @@ function showMilestone(icon, text, sub, type, color, color2) {
   icEl.textContent = icon;
   txtEl.textContent = text;
   ov.querySelector(".ms-sub").textContent  = sub || "";
-  box.className = "ms-box" + (type === "cleared" ? " cleared" : type === "nudge" ? " nudge" : type === "achievement" ? " achievement" : type === "levelup" ? " levelup" : "");
+  box.className = "ms-box" + (type === "nudge" ? " nudge" : type === "achievement" ? " achievement" : type === "levelup" ? " levelup" : "");
   // Achievement & level-up milestones carry a tier/league colour applied inline.
   if ((type === "achievement" || type === "levelup") && color) {
     box.style.borderColor = color;
@@ -3556,10 +3548,10 @@ function endGame(endedEarly) {
       summaryEl.textContent +=
         " · ~" + secsPerWord + " " + (secsPerWord === 1 ? "сек" : "сек") + "/слово";
     }
-    // Усі помилки (за всі дні) закриті? (review тепер працює з агрегованим пулом)
-    if (allDayMistakeKeys().length === 0) {
-      enqueueMilestone({ icon: "✨", text: "Усі помилки закриті!", sub: "Так тримати!", type: "cleared", sfx: sfxCleared });
-    }
+    // ⚠️ Сесія 50: вітання «✨ Усі помилки закриті» ВИДАЛЕНО за запитом користувача —
+    // помилкові слова замішуються самі наступного дня («борг»), тож «закрити всі»
+    // більше не подія, за яку варто вітати. НЕ повертати (тип milestone'а `cleared`,
+    // `sfxCleared` і CSS `.ms-box.cleared` прибрані разом із ним).
   }
   checkAchievements(true);
   renderLeaderboard(newEntryId, newDayKey);
@@ -7228,10 +7220,13 @@ function removeDayMistake(idx) {
   if (changed) saveDayMistakes(m);
 }
 // Усі унікальні невиправлені помилкові слова за ВСІ дні (сьогодні + раніше).
-// ⚠️ Сесія 45: кнопки «📒 Помилки», яка грала цим пулом, більше НЕМА. Пул лишився
-// як «відкритий борг» для вітання «✨ Усі помилки закриті» і для одноразового засіву
-// боргу; розгрібається сам — через `removeDayMistake` при вгаданому борговому слові
-// та post-game повторення.
+// ⚠️ Сесія 45: кнопки «📒 Помилки», яка грала цим пулом, більше НЕМА.
+// ⚠️ Сесія 50: вітання «✨ Усі помилки закриті» теж прибрано за запитом користувача,
+// тож ЖИВИХ читачів у функції не лишилось — її кличуть лише дві ОДНОРАЗОВІ міграції
+// боргу (`seedDueFromMistakes`, `fixDuePollutedByReview`), обидві під прапорцем.
+// НЕ чистити як мертвий код: на новому пристрої (відновлення з бекапу) прапорців
+// немає, і міграції відпрацюють знову. Пул розгрібається сам — через
+// `removeDayMistake` при вгаданому борговому слові та post-game повторення.
 function allDayMistakeKeys() {
   const m = loadDayMistakes();
   const seen = new Set();
