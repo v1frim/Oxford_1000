@@ -9137,7 +9137,7 @@ const WORDS = [
   {en:"twins",ua:"близнюки"},
   {en:"identical twins",ua:"однояйцеві близнюки"},
   {en:"fraternal twins",ua:"різнояйцеві близнюки"},
-  {en:"only child",ua:"єдина дитина в сім'ї"},
+  {en:"only child",ua:"єдина дитина в сім'ї",uaAlt:["єдина дитина","одна дитина в сім'ї"]},
   {en:"eldest child",ua:"найстарша дитина"},
   {en:"youngest child",ua:"наймолодша дитина"},
   {en:"middle child",ua:"середня дитина"},
