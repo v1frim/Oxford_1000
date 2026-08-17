@@ -141,6 +141,26 @@ function chromePath() {
   t("голий ключ слова-пари ігнорується", card.bareIgnored === "", card.bareIgnored);
   t("непарне слово підказку не втратило", card.plainStill.length > 0, card.plainStill);
 
+  // ⚠️ ДУЖКИ В ТЕКСТІ ПІДКАЗКИ (сесія 50, привід «jealousy»). Гра рендерить підказку
+  // САМА ЯК дужку і розбирає її регексом `^(.+?)\s*\(([^)]+)\)$`. Дужка всередині
+  // підказки дає «jealousy (страх утратити своє (ревнощі))» — регекс не матчиться,
+  // весь рядок падає в ОДИН спан: підказка не тьмяніє, слово втрачає hover/IPA/озвучку.
+  // Регекс розширити не можна (мусить брати ОСТАННЮ групу), тому інваріант — на даних.
+  // Вхід стереже `hints-add.js`; тут ловимо ручні правки dict.js.
+  const hp = await page.evaluate(() => {
+    const bad = Object.entries(HINTS).filter(([, v]) => /[()]/.test(v)).map(([k, v]) => k + " → " + v);
+    // і рендер: підказка мусить жити в окремому тьмяному спані
+    const i = WORDS.findIndex(w => (Array.isArray(w.en) ? w.en[0] : w.en) === "jealousy");
+    currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en";
+    currentShown = (Array.isArray(currentWord.ua) ? currentWord.ua[0] : currentWord.ua);
+    const html = wrapEnWord(getCorrectAnswer());
+    return { bad, html, nested: /\([^)]*\(/.test(getCorrectAnswer()) };
+  });
+  t("жодна підказка НЕ містить дужок", hp.bad.length === 0, hp.bad.join(" | "));
+  t("«ревнощі»: підказка не вкладена в дужку", hp.nested === false);
+  t("«ревнощі»: слово окремим .hw-спаном", /<span class="hw"[^>]*>jealousy<\/span>/.test(hp.html), hp.html);
+  t("«ревнощі»: підказка окремим .ans-hint", /<span class="ans-hint">\(страх утратити своє\)<\/span>/.test(hp.html), hp.html);
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errors.length ? "❌ помилки консолі:\n - " + errors.slice(0, 5).join("\n - ") : "✅ 0 помилок консолі");

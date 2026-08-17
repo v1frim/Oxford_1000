@@ -45,14 +45,30 @@ const cardKeys = new Set(W.map((w) => en1(w) + ":" + ua1(w)));
 const pairs = new Set();
 { const seen = new Set(); W.forEach((w) => { const k = en1(w); if (seen.has(k)) pairs.add(k); seen.add(k); }); }
 
-const lines = [], skipped = [], unknown = [], deadPair = [];
+const lines = [], skipped = [], unknown = [], deadPair = [], parens = [];
 for (const [k, v] of Object.entries(batch)) {
+  // ⚠️ ДУЖКИ В САМІЙ ПІДКАЗЦІ ЗАБОРОНЕНІ (сесія 50, привід «jealousy»).
+  // Гра рендерить підказку ЯК дужку: `withHint` віддає «слово (підказка)», а розбирає
+  // це регексом `^(.+?)\s*\(([^)]+)\)$` — і в `wrapEnWord`, і в гілці en-ua
+  // `showCorrection`. Дужка всередині підказки дає вкладеність
+  // «jealousy (страх утратити своє (ревнощі))», регекс НЕ матчиться, і весь рядок
+  // падає в один спан: підказка не тьмяніє, слово втрачає hover, IPA та озвучку,
+  // а клік читає англійським голосом український текст.
+  // Розширити регекс не можна: він мусить чіплятися за ОСТАННЮ групу (глос із
+  // дисплейною дужкою + підказка), а це з вкладеністю несумісно. Тому чистимо ВХІД.
+  // Замість дужок — тире: «спечений у духовці — тісто, запіканка», «розм. — бадьорий».
+  if (/[()]/.test(v)) { parens.push(k); continue; }
   if (k.includes(":")) {
     if (!cardKeys.has(k)) { unknown.push(k); continue; }
   } else if (!keys.has(k)) { unknown.push(k); continue; }
   else if (pairs.has(k)) { deadPair.push(k); continue; }   // голий ключ слова-пари ніколи не покажеться
   if (have.has(k) && !force) { skipped.push(k); continue; }
   lines.push('  ' + JSON.stringify(k) + ': ' + JSON.stringify(v) + ',');
+}
+if (parens.length) {
+  console.error("❌ дужки в тексті підказки ламають рендер (вкладена дужка) — заміни на тире: " +
+    parens.map((k) => k + " → " + JSON.stringify(batch[k])).join(", "));
+  process.exit(1);
 }
 if (deadPair.length) {
   console.error("❌ слово має дві картки — потрібен ключ «en:ua»: " +
@@ -64,6 +80,13 @@ if (unknown.length) {
   process.exit(1);
 }
 
+// ⚠️ Нічого додавати — НЕ переписувати файл (сесія 50). Інакше рядок `insert` нижче
+// дописує кому й порожній рядок у кінець блоку HINTS на кожен «порожній» прогін
+// (усі ключі — дублі). Синтаксис від цього не падає, тож помітити важко.
+if (!lines.length) {
+  console.log("додано підказок: 0" + (skipped.length ? " | вже були: " + skipped.join(", ") : ""));
+  process.exit(0);
+}
 const insert = block.replace(/,?\s*$/, "") + (block.trim().endsWith("{") ? "\n" : ",\n") + lines.join("\n");
 fs.writeFileSync(P, html.slice(0, start) + insert + html.slice(end));
 console.log("додано підказок: " + lines.length + (skipped.length ? " | вже були: " + skipped.join(", ") : ""));
