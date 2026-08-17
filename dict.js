@@ -4510,7 +4510,7 @@ const WORDS = [
   {en:"cooking",ua:"готування",uaAlt:["куховарство"]},
   {en:"cot",ua:"дитяче ліжечко",uaAlt:["розкладачка"]},
   {en:"cottage",ua:"котедж",uaAlt:["дачний будиночок"]},
-  {en:"couch",ua:"кушетка",uaAlt:["диван","софа"]},
+  {en:"couch",ua:"диван",uaAlt:["софа"]},
   {en:"courtyard",ua:"внутрішній двір"},
   {en:"crib",ua:"колиска",uaAlt:["дитяче ліжечко"]},
   {en:"crockery",ua:"столовий посуд",uaAlt:["череп'яний посуд"]},
@@ -25353,7 +25353,9 @@ const HINTS = {
   "update": "свіжа версія чи новина",
   "renewal": "продовження або відродження",
   "pointless": "без сенсу робити",
-  "to confiscate": "офіційно відібрати на місці"
+  "to confiscate": "офіційно відібрати на місці",
+  "couch": "розм. — частіше в амер.",
+  "sofa": "звичайне слово — і брит., і амер.",
 };
 const EXAMPLES = {
   "commit":"He did not commit the crime.","fifth":"He finished in fifth place.","swear":"I swear I will tell the truth.","trigger":"He pulled the trigger.","winner":"The winner of the race was very happy.","wristband":"She has a blue wristband on her arm.",
@@ -29865,7 +29867,7 @@ const EXAMPLES = {
   "cooking":"Cooking for a big family is hard work.",
   "cot":"The baby sleeps in a cot.",
   "cottage":"They spent the summer in a small cottage.",
-  "couch":"He fell asleep on the couch.",
+  "couch":"We watched a movie on the couch.",
   "courtyard":"Children played in the courtyard.",
   "crib":"The crib stands near the window.",
   "crockery":"She washed the crockery after dinner.",
@@ -42600,7 +42602,7 @@ const EXAMPLES_UA = {
   "cooking":"Готування для великої родини — важка робота.",
   "cot":"Немовля спить у дитячому ліжечку.",
   "cottage":"Вони провели літо в маленькому котеджі.",
-  "couch":"Він заснув на дивані.",
+  "couch":"Ми дивилися фільм на дивані.",
   "courtyard":"Діти гралися у внутрішньому дворі.",
   "crib":"Колиска стоїть біля вікна.",
   "crockery":"Вона помила столовий посуд після вечері.",
