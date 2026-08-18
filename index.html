@@ -45,8 +45,16 @@
      зсуваємо групу праворуч, щоб центральна картка лишалась по центру екрана. */
   @media (min-width: 1500px) {
     .layout.shift-right { margin-left: 222px; }
-    /* прогрес (440) ширший за лідерборд (420): +20 справа → картка знову по центру екрана */
+    /* ⚠️ ФОРМУЛА, А НЕ МАГІЧНЕ ЧИСЛО: margin-right = ширина прогресу − ширина лідерборду.
+       Лейаут центрується в (vw − margin-right), тож така компенсація повертає центр
+       КАРТКИ рівно на центр екрана. Було 20 (440−420), стало 80 (500−420).
+       ⚠️ Міняєш ширину `#progress-panel` — ОБОВ'ЯЗКОВО перерахуй тут, інакше вся
+       трійця з'їде вбік. Перевіряє `test-panel.js` (центр картки == центр екрана). */
     .layout.balance-center { margin-right: 20px; }
+  }
+  /* Пара до ширини 500px вище: 500 − 420 = 80 */
+  @media (min-width: 1900px) {
+    .layout.balance-center { margin-right: 80px; }
   }
   .card {
     background: rgba(12, 32, 68, 0.58);
@@ -154,8 +162,13 @@
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   #lb-totals { position: fixed; bottom: 18px; right: 18px; background: rgba(12,32,68,0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 12px 16px; min-width: 190px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); z-index: 200; }
   .lb-totals-title { font-size: 10px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; color: #fff; }
-  .lb-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; font-size: 12px; gap: 20px; }
-  .lb-stat-label { opacity: 0.5; color: #fff; }
+  /* ⚠️ gap 20 → 10 і лейбл, що вміє стискатись (сесія 50, за скаргою «точність за
+     останні 300 з % ледь не накладаються»). Значення тримає свою ширину (flex:0 0 auto),
+     лейбл віддає простір першим. Ширину самої панелі НЕ чіпаємо: вона fixed right,
+     тож будь-яке розширення з'їдає і без того вузькі 41px до лідерборду. */
+  .lb-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; font-size: 12px; gap: 10px; }
+  .lb-stat-label { opacity: 0.5; color: #fff; flex: 1 1 auto; min-width: 0; }
+  .lb-stat-row .lb-stat-val { flex: 0 0 auto; }
   .lb-stat-val { font-weight: 600; }
   /* Блок «Плани» — ЗМІННІ (не накопичувальні) значення: відокремлений пунктирною рискою + голубувато-оранжева картка */
   .lb-variable { margin-top: 9px; padding: 7px 9px 4px; border-radius: 10px; background: rgba(255,169,77,0.09); border: 1px solid rgba(255,169,77,0.22); border-top: 1px dashed rgba(255,169,77,0.55); }
@@ -1480,9 +1493,23 @@
   .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
   /* — Прогрес по днях: комірки «значок зверху / число знизу», розділені напівпрозорими рисками — */
-  /* ширше за лідерборд (420) на 20px — щоб насичені місячні рядки не переносились;
-     правило «прогрес і лідерборд однакової ширини» СКАСОВАНО за запитом (сесія 32) */
+  /* ⚠️ ШИРИНА 500px (сесія 50, за запитом «місячним рядкам ледь місця вистачає»).
+     Було 440 (сесія 32), до того 420. Правило «прогрес і лідерборд однакової ширини»
+     СКАСОВАНО ще в сесії 32.
+     ⚠️ ЧОМУ САМЕ 500 І ЧОМУ ЦЕ БЕЗПЕЧНО (заміряно в Chromium на 1920px):
+     поки центральна картка тримається по центру екрана, УВЕСЬ приріст ширини йде
+     ВЛІВО — правий край лейауту не рухається, тож вузький просвіт до «Загальної
+     статистики» (41px) не з'їдається. Ліворуч запас обмежують `#bottom-left-btns`
+     (правий край 183px): при 500 лейаут починається з 206px, тобто 23px чистими.
+     Стеля ≈513; більше — кнопки почнуть перекриватись, коли панель високa. */
   #progress-panel { width: 440px; }
+  /* ⚠️ 500px ЛИШЕ на широких екранах. Заміряно: щільний місячний рядок (143 ігри,
+     +10273 нових) переноситься на другий поверх при 440-490 і вміщається рівно з 500 —
+     проміжних варіантів немає, комірка стрибає цілком. Але при 500 лейаут потребує
+     1418px + 80 компенсації, і нижче ~1884px його лівий край заходить під
+     `#bottom-left-btns`, а близько 1500 взагалі переноситься й ламає центрування.
+     Тому поріг 1900: ширше — комфортні місячні рядки, вужче — стара геометрія 440. */
+  @media (min-width: 1900px) { #progress-panel { width: 500px; } }
   .prog-row { align-items: center; }
   .prog-date { flex: 0 0 auto; min-width: 52px; }
   .prog-cells { display: flex; flex: 1 1 auto; align-items: center; flex-wrap: wrap; min-width: 0; row-gap: 3px; }
@@ -7691,7 +7718,7 @@ function renderLbTotals() {
     row("✅", "Правильних", correct, "#7be07b") +
     row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +
     row("🎯", "Точність · весь час", accAllHtml, "") +
-    row("📈", "Точність · останні 300", accRecHtml, "") +
+    row("📈", "Точність · ост. 300", accRecHtml, "")   // скорочено: повний підпис не вміщався поруч зі значенням +
     row("🔁", "Повторень", review, "#87b4ff") +
     row("🦉", "Duolingo", getTotalDuoSessions(), "#7fdd40") +
     row("📚", "Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +

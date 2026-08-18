@@ -146,6 +146,44 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("Duolingo зелений", /127, 221, 64/.test(row.duo), row.duo);
   t("Кіно в оранжевій темі (навіть під локом)", /255, (169|201)/.test(row.movie), row.movie);
 
+  // ── ГЕОМЕТРІЯ ЛЕЙАУТУ (сесія 50, за запитом «розширити прогрес, але центр не зсувати») ──
+  // ⚠️ ГОЛОВНИЙ ІНВАРІАНТ: центр центральної картки == центр екрана, коли видно ОБИДВІ
+  // бічні панелі. Тримається компенсацією `.layout.balance-center { margin-right }`,
+  // яка МУСИТЬ дорівнювати (ширина прогресу − ширина лідерборду). Розійдуться — трійця
+  // з'їде вбік, і це помітно лише оком, тож перевіряємо числом.
+  for (const vw of [1920, 1600]) {
+    const pg = await b.newPage({ viewport: { width: vw, height: 1000 } });
+    await pg.goto(PAGE); await pg.waitForTimeout(900);
+    const geo = await pg.evaluate(() => {
+      document.getElementById("progress-panel").classList.remove("hidden");
+      renderProgressPanel(); updateLayoutAlign();
+      const r = s => { const e = document.querySelector(s); const b = e.getBoundingClientRect();
+        return { l: b.left, r: b.right, w: Math.round(b.width) }; };
+      const card = r(".card"), prog = r("#progress-panel"), lb = r(".leaderboard:not(#progress-panel)");
+      // щільний місячний рядок реальними числами користувача — саме він переносився
+      const li = document.createElement("div"); li.className = "prog-row prog-group";
+      li.innerHTML = '<span class="prog-date">Серпень</span><span class="prog-cells">' +
+        _progMetaHtml(143, 6, 1, 0, 9, 0, 9, 15) + '</span>' + _progDeltaHtml(246, 393, 443, 10273);
+      document.getElementById("prog-list").appendChild(li);
+      const cells = li.querySelector(".prog-cells");
+      const mr = parseInt(getComputedStyle(document.querySelector(".layout")).marginRight) || 0;
+      return { vw: innerWidth, cardCenter: Math.round((card.l + card.r) / 2),
+        viewCenter: Math.round(innerWidth / 2), progW: prog.w, lbW: lb.w, mr,
+        monthWrapped: cells.getBoundingClientRect().height > 34 };
+    });
+    t(`центр картки == центр екрана (${vw}px)`, geo.cardCenter === geo.viewCenter,
+      "картка " + geo.cardCenter + " vs екран " + geo.viewCenter);
+    t(`компенсація == різниця ширин панелей (${vw}px)`, geo.mr === geo.progW - geo.lbW,
+      "margin-right " + geo.mr + " vs " + geo.progW + "−" + geo.lbW);
+    if (vw >= 1900) {
+      t("широкий екран: панель прогресу 500px", geo.progW === 500, String(geo.progW));
+      t("щільний місячний рядок НЕ переноситься", geo.monthWrapped === false);
+    } else {
+      t("вузький екран: стара ширина 440px", geo.progW === 440, String(geo.progW));
+    }
+    await pg.close();
+  }
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ помилки консолі:\n - " + errs.slice(0,4).join("\n - ") : "✅ 0 помилок консолі");
