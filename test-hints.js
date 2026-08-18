@@ -161,6 +161,25 @@ function chromePath() {
   t("«ревнощі»: слово окремим .hw-спаном", /<span class="hw"[^>]*>jealousy<\/span>/.test(hp.html), hp.html);
   t("«ревнощі»: підказка окремим .ans-hint", /<span class="ans-hint">\(страх утратити своє\)<\/span>/.test(hp.html), hp.html);
 
+  // ⚠️ ТАВТОЛОГІЧНІ ПІДКАЗКИ (сесія 50, привід «fortunately = на щастя (на щастя)»).
+  // Правило HINTS: підказка пишеться ЛИШЕ коли за той самий укр. глос конкурує інше
+  // англ. слово. Немає конкурента → підказки не має бути взагалі; є → вона мусить
+  // РОЗРІЗНЯТИ, а не переписувати глос. Вхід стереже `hints-add.js`, тут — ручні правки.
+  const taut = await page.evaluate(() => {
+    const arr = (x) => (Array.isArray(x) ? x : [x]);
+    const norm = (x) => String(x).replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
+    const byKey = new Map();
+    WORDS.forEach((w) => { const k = arr(w.en)[0]; if (!byKey.has(k)) byKey.set(k, w); });
+    const bad = [];
+    for (const [k, hint] of Object.entries(HINTS)) {
+      const gloss = k.includes(":") ? k.split(":").slice(1).join(":")
+                                    : (byKey.get(k) || {}).ua;
+      if (gloss && norm(arr(gloss)[0]) === norm(hint)) bad.push(k + " → " + hint);
+    }
+    return bad;
+  });
+  t("жодна підказка не дублює власний глос", taut.length === 0, taut.slice(0, 6).join(" | "));
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errors.length ? "❌ помилки консолі:\n - " + errors.slice(0, 5).join("\n - ") : "✅ 0 помилок консолі");

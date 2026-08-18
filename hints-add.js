@@ -45,7 +45,8 @@ const cardKeys = new Set(W.map((w) => en1(w) + ":" + ua1(w)));
 const pairs = new Set();
 { const seen = new Set(); W.forEach((w) => { const k = en1(w); if (seen.has(k)) pairs.add(k); seen.add(k); }); }
 
-const lines = [], skipped = [], unknown = [], deadPair = [], parens = [];
+const lines = [], skipped = [], unknown = [], deadPair = [], parens = [], tautology = [];
+const inplace = [];   // --force: заміна НА МІСЦІ, а не дописування дубля в кінець
 for (const [k, v] of Object.entries(batch)) {
   // ⚠️ ДУЖКИ В САМІЙ ПІДКАЗЦІ ЗАБОРОНЕНІ (сесія 50, привід «jealousy»).
   // Гра рендерить підказку ЯК дужку: `withHint` віддає «слово (підказка)», а розбирає
@@ -58,12 +59,34 @@ for (const [k, v] of Object.entries(batch)) {
   // дисплейною дужкою + підказка), а це з вкладеністю несумісно. Тому чистимо ВХІД.
   // Замість дужок — тире: «спечений у духовці — тісто, запіканка», «розм. — бадьорий».
   if (/[()]/.test(v)) { parens.push(k); continue; }
+  // ⚠️ ПІДКАЗКА, ЩО ДОСЛІВНО ПОВТОРЮЄ ГЛОС — ЗАБОРОНЕНА (сесія 50, привід
+  // «fortunately = на щастя (на щастя)»). Користувач: «у дужках я розумію що це
+  // підказка того, що саме мається на увазі, але в даному випадку це вже просто
+  // дублювання тексту». Правило HINTS і так каже писати підказку ЛИШЕ коли за той
+  // самий глос конкурує інше англ. слово; якщо конкурента нема — підказки не має
+  // бути взагалі, а якщо є — вона мусить РОЗРІЗНЯТИ, а не переписувати глос.
+  {
+    const g = k.includes(":") ? k.split(":").slice(1).join(":")
+                              : (W.find((w) => en1(w) === k) || {}).ua;
+    const norm = (x) => String(Array.isArray(x) ? x[0] : x)
+      .replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
+    if (g && norm(g) === norm(v)) { tautology.push(k + " = " + norm(g)); continue; }
+  }
   if (k.includes(":")) {
     if (!cardKeys.has(k)) { unknown.push(k); continue; }
   } else if (!keys.has(k)) { unknown.push(k); continue; }
   else if (pairs.has(k)) { deadPair.push(k); continue; }   // голий ключ слова-пари ніколи не покажеться
   if (have.has(k) && !force) { skipped.push(k); continue; }
+  // ⚠️ --force РАНІШЕ ДОПИСУВАВ ДУБЛЬ У КІНЕЦЬ БЛОКУ (сесія 50). Синтаксис не падав
+  // (у JS-літералі виграє останній ключ), тож помітити було важко — я побачив лише
+  // тому, що перерахував рядки блоку. Тепер наявний ключ переписується на місці.
+  if (have.has(k)) { inplace.push([k, v]); continue; }
   lines.push('  ' + JSON.stringify(k) + ': ' + JSON.stringify(v) + ',');
+}
+if (tautology.length) {
+  console.error("❌ підказка дослівно повторює глос — це «цвях (цвях)», а не підказка: " +
+    tautology.join(", ") + "\n   якщо за глос НЕ конкурує інше англ. слово — підказка тут взагалі не потрібна");
+  process.exit(1);
 }
 if (parens.length) {
   console.error("❌ дужки в тексті підказки ламають рендер (вкладена дужка) — заміни на тире: " +
@@ -80,13 +103,21 @@ if (unknown.length) {
   process.exit(1);
 }
 
-// ⚠️ Нічого додавати — НЕ переписувати файл (сесія 50). Інакше рядок `insert` нижче
-// дописує кому й порожній рядок у кінець блоку HINTS на кожен «порожній» прогін
-// (усі ключі — дублі). Синтаксис від цього не падає, тож помітити важко.
-if (!lines.length) {
-  console.log("додано підказок: 0" + (skipped.length ? " | вже були: " + skipped.join(", ") : ""));
-  process.exit(0);
+// ⚠️ УСІ ЗМІНИ — ЛИШЕ В МЕЖАХ БЛОКУ HINTS. Ключі на кшталт "funny"/"belief" є ще
+// й у TRANS/EXAMPLES, тож заміна по всьому файлу зрізає саме їх. Я так і зробив
+// уручну в сесії 50 — і знищив три транскрипції, довелось відкочувати dict.js.
+let out = block;
+for (const [k, v] of inplace) {
+  const re = new RegExp('("' + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + '"\\s*:\\s*)"[^"]*"');
+  if (!re.test(out)) { console.error("❌ не знайшов ключ у блоці HINTS: " + k); process.exit(1); }
+  out = out.replace(re, (m, p1) => p1 + JSON.stringify(v));
 }
-const insert = block.replace(/,?\s*$/, "") + (block.trim().endsWith("{") ? "\n" : ",\n") + lines.join("\n");
-fs.writeFileSync(P, html.slice(0, start) + insert + html.slice(end));
-console.log("додано підказок: " + lines.length + (skipped.length ? " | вже були: " + skipped.join(", ") : ""));
+// ⚠️ Нових ключів нема — файл усе одно перезаписуємо, якщо були заміни на місці.
+// Але БЕЗ дописування коми: інакше кожен «порожній» прогін лишав кому й порожній
+// рядок у кінці блоку (синтаксис не падає, тож слід накопичувався непомітно).
+if (lines.length) {
+  out = out.replace(/,?\s*$/, "") + (out.trim().endsWith("{") ? "\n" : ",\n") + lines.join("\n");
+}
+if (out !== block) fs.writeFileSync(P, html.slice(0, start) + out + html.slice(end));
+console.log("додано: " + lines.length + " | переписано на місці: " + inplace.length +
+  (skipped.length ? " | вже були: " + skipped.join(", ") : ""));
