@@ -160,10 +160,14 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       const r = s => { const e = document.querySelector(s); const b = e.getBoundingClientRect();
         return { l: b.left, r: b.right, w: Math.round(b.width) }; };
       const card = r(".card"), prog = r("#progress-panel"), lb = r(".leaderboard:not(#progress-panel)");
-      // щільний місячний рядок реальними числами користувача — саме він переносився
+      // ⚠️ РЕАЛЬНИЙ місячний рядок користувача (серпень 2026), а не вигаданий:
+      // 143 ігри, 6 Duolingo, 1 урок LingoHut, 9 кіно, 15 виразів + дельти з +10273.
+      // Сигнатура: _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr).
+      // ⚠️ Не «згущуй» цей рядок зайвими лічильниками — синтетично щільний рядок вимагає
+      // 500px, і тест почне вимагати ширини, якої реальні дані не потребують (я так і зробив).
       const li = document.createElement("div"); li.className = "prog-row prog-group";
       li.innerHTML = '<span class="prog-date">Серпень</span><span class="prog-cells">' +
-        _progMetaHtml(143, 6, 1, 0, 9, 0, 9, 15) + '</span>' + _progDeltaHtml(246, 393, 443, 10273);
+        _progMetaHtml(143, 1, 6, 0, 0, 0, 9, 15) + '</span>' + _progDeltaHtml(246, 393, 443, 10273);
       document.getElementById("prog-list").appendChild(li);
       const cells = li.querySelector(".prog-cells");
       const mr = parseInt(getComputedStyle(document.querySelector(".layout")).marginRight) || 0;
@@ -175,12 +179,23 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       "картка " + geo.cardCenter + " vs екран " + geo.viewCenter);
     t(`компенсація == різниця ширин панелей (${vw}px)`, geo.mr === geo.progW - geo.lbW,
       "margin-right " + geo.mr + " vs " + geo.progW + "−" + geo.lbW);
-    if (vw >= 1900) {
-      t("широкий екран: панель прогресу 500px", geo.progW === 500, String(geo.progW));
+    if (vw >= 1860) {
+      t("широкий екран: панель прогресу 480px", geo.progW === 480, String(geo.progW));
       t("щільний місячний рядок НЕ переноситься", geo.monthWrapped === false);
     } else {
       t("вузький екран: стара ширина 440px", geo.progW === 440, String(geo.progW));
     }
+    // ⚠️ ПОВНОТА «Загальної статистики» (сесія 50). Привід: я дописав коментар `//`
+    // У КІНЦІ рядка всередині конкатенації `row(...) + row(...) + …` — він з'їв
+    // завершальний «+», і панель ТИХО обірвалась на сьомому рядку. Ні перевірка
+    // синтаксису, ні `loadtest.js` цього не бачать: код валідний, просто коротший.
+    const totals = await pg.evaluate(() => {
+      const e = document.getElementById("lb-totals");
+      return { rows: e.querySelectorAll(".lb-stat-row").length, html: e.textContent };
+    });
+    t(`«Загальна статистика» не обірвана (${vw}px)`, totals.rows >= 16, "рядків " + totals.rows);
+    for (const label of ["Досвід", "Кіно англійською", "Уроки LingoHut", "Пісень вивчено"])
+      t(`статистика містить «${label}» (${vw}px)`, totals.html.includes(label));
     await pg.close();
   }
 
