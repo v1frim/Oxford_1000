@@ -8502,7 +8502,7 @@ const WORDS = [
   {en:"dry cleaning",ua:"хімчистка"},
   {en:"to mend",ua:"зашивати",uaAlt:["лагодити","латати"]},
   {en:"clothes shop",ua:"магазин одягу",enAlt:["clothing store"]},
-  {en:"shoe shop",ua:"магазин взуття",enAlt:["shoe store"]},
+  {en:"shoe shop",ua:"магазин взуття",uaAlt:["взуттєвий магазин"],enAlt:["shoe store"]},
   {en:"changing room",ua:"примірочна",enAlt:["fitting room"]},
   {en:"shop assistant",ua:"продавець-консультант",enAlt:["sales associate","sales assistant"]},
   {en:"size chart",ua:"таблиця розмірів",enAlt:["size guide"]},
