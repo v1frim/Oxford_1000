@@ -458,7 +458,7 @@ const WORDS = [
   // Сімейна лексика з Family Vocabulary (сесія 32)
   {en:"mom",ua:"мама",uaAlt:["мати"],enAlt:["mother","mum"]},{en:"dad",ua:"тато",uaAlt:["батько"]},{en:"kid",ua:"дитина",uaAlt:["малюк"]},
   {en:"sibling",ua:"брат або сестра"},{en:"spouse",ua:"член подружжя",uaAlt:["чоловік або дружина"]},
-  {en:"grandparents",ua:"бабуся й дідусь",uaAlt:["дідусь і бабуся"]},
+  {en:"grandparents",ua:"бабуся й дідусь",uaAlt:["дідусь і бабуся","бабуся і дідусь","бабуся та дідусь","дідусь та бабуся"]},
   {en:"grandson",ua:"онук"},{en:"granddaughter",ua:["онука","онучка"]},
   {en:"great-grandmother",ua:"прабабуся"},{en:"great-grandfather",ua:["прадідусь","прадід"]},
   {en:"great-grandson",ua:"правнук"},{en:"great-granddaughter",ua:["правнучка","правнука"]},
