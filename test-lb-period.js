@@ -356,7 +356,7 @@ function chromePath() {
   const labels = await page.evaluate(() =>
     [...document.querySelectorAll("#lb-list li .lb-mode")].map((e) => e.textContent));
   t("пул «не дались» підписаний 🔁, а не голим 🎓",
-    labels.some((l) => /🔁 Не дались/.test(l)) && !labels.some((l) => /^🎓 ·/.test(l)),
+    labels.some((l) => /^🔁 ·/.test(l)) && !labels.some((l) => /^🎓 ·/.test(l)),
     labels.join(" | "));
   t("CEFR-гра підписана рівнем", labels.some((l) => /🎓 A1/.test(l)), labels.join(" | "));
   t("пул «Вивчаю» підписаний своїм значком", labels.some((l) => /↗ Вивчаю/.test(l)), labels.join(" | "));
