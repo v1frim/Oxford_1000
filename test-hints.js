@@ -51,7 +51,12 @@ function chromePath() {
       const ua1 = (w) => (Array.isArray(w.ua) ? w.ua[0] : w.ua);
       if (k.includes(":")) return !WORDS.some((w) => en1(w) + ":" + ua1(w) === k);
       const cards = WORDS.filter((w) => en1(w) === k);
-      return cards.length !== 1;
+      if (cards.length === 1) return false;
+      // ⚠️ Ключ-варіант з `enAlt` теж живий (сесія 51): у UA→US `getCorrectAnswer`
+      // проганяє enAlt через той самий `withHint(e)`, тож «donut (спрощене амер.
+      // написання)» рендериться поруч із «doughnut». Сиротою він не є.
+      if (cards.length === 0) return !WORDS.some((w) => (w.enAlt || []).includes(k));
+      return true;
     }),
   }));
   t("HINTS наповнений", data.n > 0, String(data.n));
@@ -84,6 +89,24 @@ function chromePath() {
   t("US→UA: підказка після основного глоса", enUa.ans.startsWith("складний (розумово важкий)"), enUa.ans);
   t("US→UA: підказка окремим спаном", enUa.hints === 1, String(enUa.hints));
   t("US→UA: uaAlt лишились у рядку", enUa.text.includes("важкий"), enUa.text);
+
+  // 3b. enAlt-варіант дістає СВОЮ підказку (сесія 51, привід «пончик = doughnut / donut»).
+  // Панель UA→US показує і enAlt-синоніми, і `getCorrectAnswer` жене їх через той самий
+  // `withHint(e)` — тож голий ключ HINTS для варіанта робочий. Позначаємо амер./брит.
+  const alt = await page.evaluate(() => {
+    const idx = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === "doughnut");
+    currentWordIndex = idx; currentWord = WORDS[idx]; mode = "ua-en";
+    const ans = getCorrectAnswer();
+    showCorrection(ans);
+    const el = document.getElementById("correction-answer");
+    return { ans, hints: el.querySelectorAll(".ans-hint").length,
+             words: [...el.querySelectorAll("span.hw")].map((x) => x.textContent) };
+  });
+  t("enAlt: варіант має власну підказку", alt.ans.includes("donut (спрощене амер. написання)"), alt.ans);
+  t("enAlt: основне слово теж підписане", alt.ans.includes("doughnut (повне написання"), alt.ans);
+  t("enAlt: обидві підказки окремими спанами", alt.hints === 2, String(alt.hints));
+  t("enAlt: слова лишились клікабельні без дужки",
+    alt.words.includes("doughnut") && alt.words.includes("donut"), alt.words.join("|"));
 
   // 4. слово без підказки — рядок як раніше
   const plain = await page.evaluate(() => {

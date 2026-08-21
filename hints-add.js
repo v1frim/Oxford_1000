@@ -42,6 +42,13 @@ const keys = new Set(W.map(en1));
 // (tip=чайові/порада, hot=гарячий/гострий…) це ЄДИНИЙ робочий вид ключа: голий
 // `hintFor` там ігнорує, бо підказка одного сенсу на другій картці бреше (сесія 45).
 const cardKeys = new Set(W.map((w) => en1(w) + ":" + ua1(w)));
+// ⚠️ КЛЮЧ-ВАРІАНТ З `enAlt` (сесія 51). У UA→US панель відповіді показує і enAlt-синоніми
+// («пончик = doughnut / donut»), і `getCorrectAnswer` проганяє їх через той самий
+// `withHint(e)` — тобто голий ключ HINTS для enAlt-варіанта РОБОЧИЙ, просто досі
+// не використовувався. Приймаємо такі ключі, щоб можна було позначити «амер./брит.».
+// Варіант, що САМ є карткою, сюди не потрапляє — там працює звичайна логіка ключа.
+const altOwner = new Map();   // enAlt-варіант → картка-власник (для перевірки тавтології)
+W.forEach((w) => (w.enAlt || []).forEach((a) => { if (!keys.has(a)) altOwner.set(a, w); }));
 const pairs = new Set();
 { const seen = new Set(); W.forEach((w) => { const k = en1(w); if (seen.has(k)) pairs.add(k); seen.add(k); }); }
 
@@ -67,15 +74,15 @@ for (const [k, v] of Object.entries(batch)) {
   // бути взагалі, а якщо є — вона мусить РОЗРІЗНЯТИ, а не переписувати глос.
   {
     const g = k.includes(":") ? k.split(":").slice(1).join(":")
-                              : (W.find((w) => en1(w) === k) || {}).ua;
+                              : ((W.find((w) => en1(w) === k) || altOwner.get(k) || {}).ua);
     const norm = (x) => String(Array.isArray(x) ? x[0] : x)
       .replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
     if (g && norm(g) === norm(v)) { tautology.push(k + " = " + norm(g)); continue; }
   }
   if (k.includes(":")) {
     if (!cardKeys.has(k)) { unknown.push(k); continue; }
-  } else if (!keys.has(k)) { unknown.push(k); continue; }
-  else if (pairs.has(k)) { deadPair.push(k); continue; }   // голий ключ слова-пари ніколи не покажеться
+  } else if (!keys.has(k) && !altOwner.has(k)) { unknown.push(k); continue; }
+  else if (keys.has(k) && pairs.has(k)) { deadPair.push(k); continue; }   // голий ключ слова-пари ніколи не покажеться
   if (have.has(k) && !force) { skipped.push(k); continue; }
   // ⚠️ --force РАНІШЕ ДОПИСУВАВ ДУБЛЬ У КІНЕЦЬ БЛОКУ (сесія 50). Синтаксис не падав
   // (у JS-літералі виграє останній ключ), тож помітити було важко — я побачив лише

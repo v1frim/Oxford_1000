@@ -25346,6 +25346,8 @@ const HINTS = {
   "sofa": "звичайне слово — і брит., і амер.",
   "chest": "уся грудна клітка",
   "breast": "одна молочна залоза; у птиці — грудка",
+  "doughnut": "повне написання — і брит., і амер.",
+  "donut": "спрощене амер. написання",
 };
 const EXAMPLES = {
   "commit":"He did not commit the crime.","fifth":"He finished in fifth place.","swear":"I swear I will tell the truth.","trigger":"He pulled the trigger.","winner":"The winner of the race was very happy.","wristband":"She has a blue wristband on her arm.",
