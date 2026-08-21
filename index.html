@@ -5554,9 +5554,15 @@ document.addEventListener("keyup", e => {
   const code = pendingShiftCode;
   pendingShiftCode = null;
   if (!code) return;
-  if (startScreen.classList.contains("hidden")) return;
+  // ⚠️ Працює і в МЕНЮ, і на ЕКРАНІ РЕЗУЛЬТАТІВ (сесія 51, за запитом: «тут shift після
+  // гри наче не активний»). Лідерборд на фіналі видно, тож гортати період там доречно.
+  // ⚠️ Під час самої ГРИ обидва екрани сховані — і ця гілка мовчить, тому ігровий
+  // Shift (озвучити слово) лишається недоторканим. НЕ спрощувати до «якщо не гра».
+  const onMenu = !startScreen.classList.contains("hidden");
+  const onEnd = !endScreen.classList.contains("hidden");
+  if (!onMenu && !onEnd) return;
   // У ВІДКРИТІЙ модалці «Тренування» Shift перемикає напрямок перекладу (сесія 44).
-  if (!document.getElementById("train-modal").classList.contains("hidden")) {
+  if (onMenu && !document.getElementById("train-modal").classList.contains("hidden")) {
     trainDir = trainDir === "ua-en" ? "en-ua" : "ua-en";
     saveTrainSel();
     renderTrainModal();

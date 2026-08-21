@@ -302,6 +302,42 @@ function chromePath() {
     await page.evaluate(() => lbPeriod) === perBeforeModal, perBeforeModal);
   await page.keyboard.press("Escape"); await page.waitForTimeout(150);
 
+  // 13. Shift працює і НА ЕКРАНІ РЕЗУЛЬТАТІВ (сесія 51, за запитом), а під час самої
+  // гри — НІ (там Shift озвучує слово, чіпати цю роль не можна).
+  await page.evaluate(() => {
+    const now = Date.now();
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(
+      [{ score: 12, wrong: 1, skipped: 0, mode: "en-ua", ts: now, wordCount: 13700 }]));
+    localStorage.setItem("oxford_lb_period_v1", "d7");
+  });
+  await page.reload(); await page.waitForTimeout(900);
+  await openTab("period");
+
+  // під час гри Shift період НЕ чіпає
+  await page.evaluate(() => {
+    startScreen.classList.add("hidden");
+    endScreen.classList.add("hidden");
+    gameEl.classList.remove("hidden");
+  });
+  await page.keyboard.press("Shift"); await page.waitForTimeout(150);
+  t("під час гри Shift період не гортає", await page.evaluate(() => lbPeriod) === "d7",
+    await page.evaluate(() => lbPeriod));
+
+  // на екрані результатів — гортає
+  await page.evaluate(() => {
+    gameEl.classList.add("hidden");
+    endScreen.classList.remove("hidden");
+  });
+  await page.keyboard.press("Shift"); await page.waitForTimeout(150);
+  t("на екрані результатів Shift гортає вперед",
+    await page.evaluate(() => lbPeriod) === "d30", await page.evaluate(() => lbPeriod));
+  await page.keyboard.down("ShiftRight"); await page.keyboard.up("ShiftRight");
+  await page.waitForTimeout(150);
+  t("на екрані результатів правий Shift гортає назад",
+    await page.evaluate(() => lbPeriod) === "d7", await page.evaluate(() => lbPeriod));
+  t("чипси на фіналі перемальовані",
+    await page.evaluate(() => (document.querySelector("#lb-period-chips .lb-chip.active") || {}).textContent) === "7 днів");
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");
   await browser.close();
