@@ -140,13 +140,16 @@ function chromePath() {
   await openTab("period");
   t("назад на 🕒 чипси видно", !(await read()).chipsHidden);
 
-  // 9. Tab-цикл містить нову вкладку
-  const cycle = await page.evaluate(async () => {
-    document.querySelector('.lb-tab[data-tab="cefr"]').click();
+  // 9. Порядок вкладок і Tab-цикл (сесія 51: 🕒 стоїть ПЕРЕД 🏆, за запитом)
+  const order = await page.evaluate(() =>
+    [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
+  t("🕒 — перша вкладка, 🏆 — друга", order[0] === "period" && order[1] === "games", order.join(","));
+  const cycle = await page.evaluate(() => {
+    document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
     return lbActiveTab;
   });
-  t("Tab із 🎓 веде на 🕒", cycle === "period", cycle);
+  t("Tab із 🕒 веде на 🏆", cycle === "games", cycle);
 
   // 10. кап топ-10 і порожній період
   await page.evaluate(() => {
@@ -159,8 +162,64 @@ function chromePath() {
   await page.reload(); await page.waitForTimeout(900);
   await openTab("period");
   v = await read();
-  t("показано не більше 10 рядків", v.rows.length === 10, String(v.rows.length));
+  // ⚠️ Рахуємо саме РЕЙТИНГОВІ рядки: `.lb-sep` і рядок «ост» під рискою в кап не входять
+  // (той самий устрій, що в «Найкращих іграх»).
+  const topRows = await page.evaluate(() =>
+    document.querySelectorAll("#lb-list li:not(.lb-sep):not(.lb-latest)").length);
+  t("показано не більше 10 рейтингових рядків", topRows === 10, String(topRows));
   t("підсумок рахує ВСІ ігри періоду, не 10", /^25 ігор/.test(v.sum), v.sum);
+
+  // 10б. ОСТАННЯ ГРА ПЕРІОДУ під рискою (сесія 51). У цьому засіві найновіша гра має
+  // найгірший рахунок (score 0, ts найбільший), тож у топ-10 вона не потрапляє.
+  const tail = await page.evaluate(() => {
+    const lis = [...document.querySelectorAll("#lb-list li")];
+    const sep = lis.findIndex(li => li.classList.contains("lb-sep"));
+    const last = lis[lis.length - 1];
+    return { sep, cls: last.className, rank: last.getAttribute("data-rank"),
+             title: last.getAttribute("title"), text: last.textContent, n: lis.length };
+  });
+  t("є риска-роздільник перед останньою грою", tail.sep === 10, String(tail.sep));
+  t("рядок останньої гри має клас lb-latest", /lb-latest/.test(tail.cls), tail.cls);
+  t("номер місця — за період, не глобальний", tail.rank === "25", String(tail.rank));
+  t("tooltip пояснює, що місце за період", /за цей період/.test(tail.title || ""), String(tail.title));
+
+  // 10в. якщо остання гра ВЖЕ в топ-10 — дубля під рискою НЕ додаємо, лише підсвітка
+  await page.evaluate(() => {
+    const now = Date.now();
+    const log = Array.from({ length: 6 }, (_, i) =>
+      ({ score: 5 + i, wrong: 0, skipped: 0, mode: "en-ua", ts: now - (5 - i) * 60000, wordCount: 13700 }));
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
+    const best = log[log.length - 1];
+    localStorage.setItem("oxford_latest_v1", JSON.stringify(
+      Object.assign({ key: new Date().toISOString().slice(0, 10) }, best)));
+  });
+  await page.reload(); await page.waitForTimeout(900);
+  await openTab("period");
+  const inTop = await page.evaluate(() => {
+    const lis = [...document.querySelectorAll("#lb-list li")];
+    return { n: lis.length, sep: lis.some(li => li.classList.contains("lb-sep")),
+             hi: lis.filter(li => li.classList.contains("is-latest-game")).length };
+  });
+  t("остання гра в топі — без дубля під рискою", inTop.n === 6 && !inTop.sep, JSON.stringify(inTop));
+  t("остання гра в топі підсвічена синьою рискою", inTop.hi === 1, String(inTop.hi));
+
+  // 10г. остання гра CEFR теж дістає номер місця (rankAnyPool), хоч на 🏆 його б не було
+  await page.evaluate(() => {
+    const now = Date.now();
+    const log = Array.from({ length: 11 }, (_, i) =>
+      ({ score: 20 - i, wrong: 0, skipped: 0, mode: "en-ua", ts: now - (20 - i) * 60000, wordCount: 13700 }));
+    log.push({ score: 2, wrong: 3, skipped: 0, mode: "en-ua", ts: now, wordCount: 13700, tag: "cefr:A1" });
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
+    localStorage.removeItem("oxford_latest_v1");
+  });
+  await page.reload(); await page.waitForTimeout(900);
+  await openTab("period");
+  const cefrTail = await page.evaluate(() => {
+    const last = [...document.querySelectorAll("#lb-list li")].pop();
+    return { rank: last.getAttribute("data-rank"), text: last.textContent };
+  });
+  t("остання CEFR-гра має номер місця за період", cefrTail.rank === "12", String(cefrTail.rank));
+  t("остання CEFR-гра підписана своїм пулом", /🎓 A1/.test(cefrTail.text), cefrTail.text);
 
   await page.evaluate(() => { localStorage.setItem("oxford_games_log_v1", "[]"); });
   await page.reload(); await page.waitForTimeout(900);
@@ -188,6 +247,47 @@ function chromePath() {
   t("чипси не ріжуться підписом", !box.cut);
   t("чипси не виїжджають за колонку", !box.overflow, String(box.width));
   t("чипси лягають максимум у 2 ряди", box.rows <= 2, String(box.rows));
+
+  // 12. Shift у МЕНЮ гортає період, а НЕ відкриває «Тренування» (сесія 51, за запитом).
+  await page.evaluate(() => {
+    const now = Date.now();
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(
+      [{ score: 12, wrong: 1, skipped: 0, mode: "en-ua", ts: now, wordCount: 13700 }]));
+    localStorage.setItem("oxford_lb_period_v1", "d7");
+  });
+  await page.reload(); await page.waitForTimeout(900);
+  await openTab("games");                       // навмисно з ЧУЖОЇ вкладки
+  await page.keyboard.press("Shift"); await page.waitForTimeout(150);
+  let st = await page.evaluate(() => ({ tab: lbActiveTab, per: lbPeriod,
+    modal: !document.getElementById("train-modal").classList.contains("hidden") }));
+  t("Shift не відкриває «Тренування» з меню", st.modal === false);
+  t("перший Shift лише переводить на 🕒", st.tab === "period" && st.per === "d7", JSON.stringify(st));
+
+  await page.keyboard.press("Shift"); await page.waitForTimeout(150);
+  st = await page.evaluate(() => ({ per: lbPeriod, active: document.querySelector("#lb-period-chips .lb-chip.active").textContent }));
+  t("другий Shift гортає період уперед", st.per === "d30", JSON.stringify(st));
+  t("активний чипс перемалювався", st.active === "30 днів", st.active);
+
+  const stored = await page.evaluate(() => localStorage.getItem("oxford_lb_period_v1"));
+  t("гортання зберігається у localStorage", stored === "d30", String(stored));
+
+  // коло замикається: d30 → month → g100 → g500 → d7
+  const seq = [];
+  for (let i = 0; i < 4; i++) {
+    await page.keyboard.press("Shift"); await page.waitForTimeout(120);
+    seq.push(await page.evaluate(() => lbPeriod));
+  }
+  t("цикл іде вперед і замикається", seq.join(",") === "month,g100,g500,d7", seq.join(","));
+
+  // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
+  await page.keyboard.press("Enter"); await page.waitForTimeout(200);
+  t("Enter відкриває «Тренування»", await page.isVisible("#train-modal"));
+  const dir1 = await page.evaluate(() => trainDir);
+  await page.keyboard.press("Shift"); await page.waitForTimeout(150);
+  const dir2 = await page.evaluate(() => trainDir);
+  t("Shift у модалці перемикає напрямок", dir1 !== dir2, dir1 + " → " + dir2);
+  t("період у модалці НЕ гортається", await page.evaluate(() => lbPeriod) === "d7");
+  await page.keyboard.press("Escape"); await page.waitForTimeout(150);
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");

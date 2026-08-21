@@ -50,7 +50,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("поріг кіно = 1500", mv.lim === 1500, String(mv.lim));
   t("кнопка кіно показує прогрес", /1500/.test(mv.txt), mv.txt);
 
-  // 3. модалка «Тренування» відкривається кнопкою, Shift і Enter
+  // 3. модалка «Тренування» відкривається кнопкою або Enter
+  //    (⚠️ Shift її БІЛЬШЕ НЕ відкриває — сесія 51: у меню він гортає період вкладки 🕒)
   await p.click("#start-btn"); await p.waitForTimeout(200);
   t("модалка відкрилась кліком", await p.isVisible("#train-modal"));
   t("три набори слів", (await p.$$(".tm-set")).length === 3);

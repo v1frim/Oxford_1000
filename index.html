@@ -1693,9 +1693,9 @@
 <aside class="leaderboard hidden" id="leaderboard">
   <div class="lb-header">
     <div class="lb-tabs">
+      <button class="lb-tab" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
       <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
-      <button class="lb-tab" data-tab="period" title="Рекорди за останній період">🕒</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -5517,7 +5517,7 @@ document.addEventListener("mouseover", e => {
 // перемикати режим чи ховати панель. Скасовує дію: (а) інший модифікатор уже затиснутий
 // на момент натискання, (б) БУДЬ-ЯКА інша клавіша між натисканням і відпусканням —
 // ловимо і keydown, і keyup, бо PrtSc у Windows шле ЛИШЕ keyup.
-let pendingShiftCode = null;   // e.code «чистого» Shift (ShiftLeft/ShiftRight → напрям циклу)
+let pendingShiftCode = null;   // e.code «чистого» Shift (лишився як маркер «Shift був чистий»)
 let pendingAltToggle = false;  // Alt натиснуто «чисто» → на keyup тогл панелі прогресу
 document.addEventListener("keydown", e => {
   // ⚠️ e.repeat НЕ озброює: авто-повтор затиснутого модифікатора не має «воскрешати»
@@ -5555,15 +5555,41 @@ document.addEventListener("keyup", e => {
   pendingShiftCode = null;
   if (!code) return;
   if (startScreen.classList.contains("hidden")) return;
-  // Сесія 44: циклу режимів більше нема (кнопок теж). Shift на меню відкриває
-  // «Тренування», а у відкритій модалці — перемикає напрямок перекладу.
+  // У ВІДКРИТІЙ модалці «Тренування» Shift перемикає напрямок перекладу (сесія 44).
   if (!document.getElementById("train-modal").classList.contains("hidden")) {
     trainDir = trainDir === "ua-en" ? "en-ua" : "ua-en";
     saveTrainSel();
     renderTrainModal();
     return;
   }
-  openTrainModal();
+  // ⚠️ Модалки поверх меню перехоплюють клавіші — Shift у них мовчить
+  // (той самий захист, що вже стоїть на Alt-тоглі вище).
+  if (!document.getElementById("cat-modal").classList.contains("hidden")) return;
+  if (!document.getElementById("review-mode-modal").classList.contains("hidden")) return;
+  // ⚠️ СЕСІЯ 51, ЗА ЗАПИТОМ: у меню Shift БІЛЬШЕ НЕ ВІДКРИВАЄ «Тренування».
+  // Дослівно: «зроби так, щоб ігри саме включалися за допомогою Enter, а вже коли
+  // відкрився цей другий слайд з вибором напрямку, то цей самий напрямок переключався
+  // би за допомогою Shift. А в основному меню вже за допомогою того ж самого Shift
+  // переключалися би ці самі періоди в лідерборді». Тобто одна клавіша, дві ролі,
+  // розведені за станом: меню → період, модалка → напрямок. Гру відкриває Enter/клік.
+  // НЕ повертати `openTrainModal()` сюди.
+  if (leaderboardEl.classList.contains("hidden")) return;
+  // ⚠️ ПЕРШИЙ Shift із чужої вкладки лише ПЕРЕВОДИТЬ на 🕒 і НЕ гортає: інакше період
+  // мінявся б наосліп, поки на екрані інший рейтинг. Той самий патерн «спершу сфокусуй,
+  // потім дій», що в Tab із відкритим меню LingoHut (сесія 12).
+  if (lbActiveTab !== "period") {
+    document.querySelector('.lb-tab[data-tab="period"]').click();
+    return;
+  }
+  // ⚠️ ОБИДВА Shift'и гортають УПЕРЕД, хоч `pendingShiftCode` і зберігає e.code.
+  // Пробував розвести (лівий — назад, правий — уперед) і відкинув: звичне натискання
+  // саме ЛІВОГО Shift давало б рух назад, тобто перше знайомство з фічею показувало б
+  // список задом наперед. Періодів усього п'ять — коло замикається швидше, ніж треба
+  // згадувати, який Shift у який бік.
+  const at = LB_PERIODS.findIndex(pr => pr.id === lbPeriod);
+  lbPeriod = LB_PERIODS[((at < 0 ? 0 : at) + 1) % LB_PERIODS.length].id;
+  localStorage.setItem(LB_PERIOD_KEY, lbPeriod);
+  renderTabPeriod();
 });
 // Alt+Tab / втрата фокуса вікна: keyup модифікатора може не долетіти — скидаємо стан
 window.addEventListener("blur", () => { pendingShiftCode = null; pendingAltToggle = false; });
@@ -5629,7 +5655,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["games", "cefr", "period", "days", "xpdays", "streaks", "ach"];
+    const tabs = ["period", "games", "cefr", "days", "xpdays", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -7378,7 +7404,12 @@ function renderGameRow(s, cls, rank, ctx) {
       + (isYesterdayGame ? " lb-yesterday-date" : "")
       + (isLatestGame ? " is-latest-game" : "");
     const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
-    return '<li class="' + klass + '"' + (rank && !isCefrGame ? ' data-rank="' + rank + '" title="місце серед збережених ігор (повний лог — з моменту фічі)"' : '') + '>' +
+    // ⚠️ За замовчуванням номер місця НЕ показуємо для CEFR-ігор і «не дались» — вони
+    // поза загальним рейтингом (сесія 42). Вкладка 🕒 просить `rankAnyPool`: там рейтинг
+    // ВНУТРІШНІЙ (у межах періоду), тож місце осмислене для будь-якого пулу.
+    const showRank = rank && (!isCefrGame || (ctx && ctx.rankAnyPool));
+    const rankTip = (ctx && ctx.rankTitle) || "місце серед збережених ігор (повний лог — з моменту фічі)";
+    return '<li class="' + klass + '"' + (showRank ? ' data-rank="' + rank + '" title="' + rankTip + '"' : '') + '>' +
       '<span class="lb-score">' + s.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)' + poolStr + '</span>' +
       '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
@@ -7596,8 +7627,20 @@ function renderTabPeriod() {
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  const ctx = { latest: loadLatest(), today: todayKey() };
-  lbListEl.innerHTML = games.slice(0, 10).map(g => renderGameRow(g, "", null, ctx)).join("");
+  // ⚠️ `rankAnyPool` — номер місця показуємо навіть CEFR-рядкам: тут рейтинг ВНУТРІШНІЙ,
+  // у межах періоду, а не спільний топ, з якого CEFR свідомо виключений (сесія 42).
+  const ctx = { latest: loadLatest(), today: todayKey(),
+                rankAnyPool: true, rankTitle: "місце за цей період" };
+  let html = games.slice(0, 10).map(g => renderGameRow(g, "", null, ctx)).join("");
+  // ⚠️ ОСТАННЯ ГРА ПЕРІОДУ — окремим рядком під рискою (сесія 51, за запитом: «останній
+  // результат у рекордах за період також варто показувати, як це у інших категоріях»).
+  // Патерн 1-в-1 як у «Найкращих іграх»: якщо гра вже в топі — вона просто підсвічена
+  // синьою рискою (`is-latest-game` ставить сам renderGameRow), дубля НЕ додаємо.
+  // Номер місця — саме в межах періоду, тому беремо позицію у ВЖЕ відсортованому списку.
+  const newest = games.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null);
+  const at = newest ? games.findIndex(g => g.ts === newest.ts) : -1;
+  if (at >= 10) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", at + 1, ctx);
+  lbListEl.innerHTML = html;
 }
 
 function renderTabDays() {
