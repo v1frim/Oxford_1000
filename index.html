@@ -7399,8 +7399,16 @@ function renderGameRow(s, cls, rank, ctx) {
     const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові", wrong: "🔁 Не дались" };   // known не зберігається взагалі
     // Ігри за рівнями CEFR (сесія 42): підпис = рівень («🎓 A1», «🎓 A1-B1») замість напрямку,
     // і БЕЗ номера місця — вони поза рейтингом, бо пул одного рівня легший за повний словник.
-    const isCefrGame = !!(s.tag && (s.tag.indexOf("cefr:") === 0 || s.tag === "wrong"));   // обидва — поза рейтингом
-    const modeStr = (isCefrGame ? "🎓 " + s.tag.slice(5) : null)
+    // ⚠️ ДВА РІЗНІ ПОНЯТТЯ, які до сесії 51 були однією змінною — і це був БАГ.
+    // «Поза рейтингом» — це і CEFR-ігри, і пул «не дались»; а от ПІДПИС у них різний.
+    // Старий код брав `"🎓 " + s.tag.slice(5)` для ОБОХ, і для тегу `wrong` це давало
+    // `"wrong".slice(5)` === "" → у рейтингу висів голий «🎓 ·  20.08» без рівня,
+    // хоча в `LB_TAG_LABELS` уже лежало правильне «🔁 Не дались». Помітив користувач:
+    // «🎓 цей значок означає, так розумію, що це були повторення, тож чому не вказувати
+    // саме значок повторень?». НЕ зливати ці два прапорці назад в один.
+    const isCefr = !!(s.tag && s.tag.indexOf("cefr:") === 0);
+    const outOfRank = isCefr || s.tag === "wrong";
+    const modeStr = (isCefr ? "🎓 " + s.tag.slice(5) : null)
       || (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
@@ -7413,7 +7421,7 @@ function renderGameRow(s, cls, rank, ctx) {
     // ⚠️ За замовчуванням номер місця НЕ показуємо для CEFR-ігор і «не дались» — вони
     // поза загальним рейтингом (сесія 42). Вкладка 🕒 просить `rankAnyPool`: там рейтинг
     // ВНУТРІШНІЙ (у межах періоду), тож місце осмислене для будь-якого пулу.
-    const showRank = rank && (!isCefrGame || (ctx && ctx.rankAnyPool));
+    const showRank = rank && (!outOfRank || (ctx && ctx.rankAnyPool));
     const rankTip = (ctx && ctx.rankTitle) || "місце серед збережених ігор (повний лог — з моменту фічі)";
     return '<li class="' + klass + '"' + (showRank ? ' data-rank="' + rank + '" title="' + rankTip + '"' : '') + '>' +
       '<span class="lb-score">' + s.score + '</span>' +

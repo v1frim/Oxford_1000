@@ -338,6 +338,30 @@ function chromePath() {
   t("чипси на фіналі перемальовані",
     await page.evaluate(() => (document.querySelector("#lb-period-chips .lb-chip.active") || {}).textContent) === "7 днів");
 
+  // 14. ПІДПИСИ ПУЛІВ (сесія 51, баг знайшов користувач: «🎓 цей значок означає, так
+  // розумію, що це були повторення»). Тег `wrong` («не дались») до фіксу йшов тією ж
+  // гілкою, що CEFR, і давав `"wrong".slice(5)` === "" → голий «🎓 ·  дата».
+  await page.evaluate(() => {
+    const now = Date.now();
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([
+      { score: 9, wrong: 0, skipped: 0, mode: "en-ua", ts: now - 4e5, wordCount: 13700, tag: "wrong" },
+      { score: 8, wrong: 0, skipped: 0, mode: "en-ua", ts: now - 3e5, wordCount: 13700, tag: "cefr:A1" },
+      { score: 7, wrong: 0, skipped: 0, mode: "en-ua", ts: now - 2e5, wordCount: 13700, tag: "learning" },
+      { score: 6, wrong: 0, skipped: 0, mode: "en-ua", ts: now - 1e5, wordCount: 13700 },
+    ]));
+    localStorage.setItem("oxford_lb_period_v1", "d7");
+  });
+  await page.reload(); await page.waitForTimeout(900);
+  await openTab("period");
+  const labels = await page.evaluate(() =>
+    [...document.querySelectorAll("#lb-list li .lb-mode")].map((e) => e.textContent));
+  t("пул «не дались» підписаний 🔁, а не голим 🎓",
+    labels.some((l) => /🔁 Не дались/.test(l)) && !labels.some((l) => /^🎓 ·/.test(l)),
+    labels.join(" | "));
+  t("CEFR-гра підписана рівнем", labels.some((l) => /🎓 A1/.test(l)), labels.join(" | "));
+  t("пул «Вивчаю» підписаний своїм значком", labels.some((l) => /↗ Вивчаю/.test(l)), labels.join(" | "));
+  t("звичайна гра підписана напрямком", labels.some((l) => /US→UA|UA→US/.test(l)), labels.join(" | "));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");
   await browser.close();
