@@ -1694,8 +1694,8 @@
   <div class="lb-header">
     <div class="lb-tabs">
       <button class="lb-tab" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
-      <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
+      <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -5581,13 +5581,13 @@ document.addEventListener("keyup", e => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     return;
   }
-  // ⚠️ ОБИДВА Shift'и гортають УПЕРЕД, хоч `pendingShiftCode` і зберігає e.code.
-  // Пробував розвести (лівий — назад, правий — уперед) і відкинув: звичне натискання
-  // саме ЛІВОГО Shift давало б рух назад, тобто перше знайомство з фічею показувало б
-  // список задом наперед. Періодів усього п'ять — коло замикається швидше, ніж треба
-  // згадувати, який Shift у який бік.
+  // ⚠️ ЛІВИЙ Shift — УПЕРЕД, ПРАВИЙ — НАЗАД (сесія 51, прямий вибір користувача).
+  // Саме для цього `pendingShiftCode` і зберігає `e.code`, а не просто прапорець.
+  // ⚠️ Порядок не «інтуїтивний зліва-направо», а практичний: лівий Shift під рукою,
+  // тож основний рух (вперед по списку) віддано йому. Не «виправляти» на дзеркальний.
+  const step = code === "ShiftRight" ? LB_PERIODS.length - 1 : 1;
   const at = LB_PERIODS.findIndex(pr => pr.id === lbPeriod);
-  lbPeriod = LB_PERIODS[((at < 0 ? 0 : at) + 1) % LB_PERIODS.length].id;
+  lbPeriod = LB_PERIODS[((at < 0 ? 0 : at) + step) % LB_PERIODS.length].id;
   localStorage.setItem(LB_PERIOD_KEY, lbPeriod);
   renderTabPeriod();
 });
@@ -5655,7 +5655,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "games", "cefr", "days", "xpdays", "streaks", "ach"];
+    const tabs = ["period", "cefr", "games", "days", "xpdays", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();

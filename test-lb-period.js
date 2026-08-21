@@ -143,13 +143,14 @@ function chromePath() {
   // 9. Порядок вкладок і Tab-цикл (сесія 51: 🕒 стоїть ПЕРЕД 🏆, за запитом)
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
-  t("🕒 — перша вкладка, 🏆 — друга", order[0] === "period" && order[1] === "games", order.join(","));
+  t("порядок вкладок: 🕒 · 🎓 · 🏆 · далі як було",
+    order.slice(0, 3).join(",") === "period,cefr,games", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
     return lbActiveTab;
   });
-  t("Tab із 🕒 веде на 🏆", cycle === "games", cycle);
+  t("Tab із 🕒 веде на 🎓", cycle === "cefr", cycle);
 
   // 10. кап топ-10 і порожній період
   await page.evaluate(() => {
@@ -277,16 +278,28 @@ function chromePath() {
     await page.keyboard.press("Shift"); await page.waitForTimeout(120);
     seq.push(await page.evaluate(() => lbPeriod));
   }
-  t("цикл іде вперед і замикається", seq.join(",") === "month,g100,g500,d7", seq.join(","));
+  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "month,g100,g500,d7", seq.join(","));
+
+  // ⚠️ ПРАВИЙ Shift — назад (сесія 51, прямий вибір користувача). Playwright'ів
+  // `press("Shift")` шле саме ShiftLeft, тож правий тиснемо явно через down/up.
+  const back = [];
+  for (let i = 0; i < 2; i++) {
+    await page.keyboard.down("ShiftRight"); await page.keyboard.up("ShiftRight");
+    await page.waitForTimeout(120);
+    back.push(await page.evaluate(() => lbPeriod));
+  }
+  t("правий Shift гортає назад", back.join(",") === "g500,g100", back.join(","));
 
   // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
+  const perBeforeModal = await page.evaluate(() => lbPeriod);
   await page.keyboard.press("Enter"); await page.waitForTimeout(200);
   t("Enter відкриває «Тренування»", await page.isVisible("#train-modal"));
   const dir1 = await page.evaluate(() => trainDir);
   await page.keyboard.press("Shift"); await page.waitForTimeout(150);
   const dir2 = await page.evaluate(() => trainDir);
   t("Shift у модалці перемикає напрямок", dir1 !== dir2, dir1 + " → " + dir2);
-  t("період у модалці НЕ гортається", await page.evaluate(() => lbPeriod) === "d7");
+  t("період у модалці НЕ гортається",
+    await page.evaluate(() => lbPeriod) === perBeforeModal, perBeforeModal);
   await page.keyboard.press("Escape"); await page.waitForTimeout(150);
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
