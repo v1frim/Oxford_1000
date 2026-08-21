@@ -158,6 +158,16 @@
   /* Сума по всіх іграх набору поруч із їх кількістю (🎓, сесія 45) — ще тьмяніша за
      сам лічильник: це довідка, а не заголовок рядка. */
   .lb-games-sum { font-size: 11px; opacity: 0.5; margin-left: 4px; }
+  /* Чипси вибору періоду на вкладці 🕒 (сесія 51) */
+  .lb-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 8px; align-items: center; }
+  .lb-chip {
+    font: inherit; font-size: 11.5px; padding: 3px 9px; border-radius: 999px; cursor: pointer;
+    background: rgba(255,255,255,0.08); color: #dfe8f7;
+    border: 1px solid rgba(255,255,255,0.18); transition: background .15s, border-color .15s;
+  }
+  .lb-chip:hover { background: rgba(255,255,255,0.18); }
+  .lb-chip.active { background: #ffd166; color: #1e3c72; border-color: #ffd166; font-weight: 600; }
+  .lb-per-sum { flex: 1 0 100%; font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .lb-review { font-size: 11px; color: #87b4ff; opacity: 0.85; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   #lb-totals { position: fixed; bottom: 18px; right: 18px; background: rgba(12,32,68,0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 12px 16px; min-width: 190px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); z-index: 200; }
@@ -1685,6 +1695,7 @@
     <div class="lb-tabs">
       <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
+      <button class="lb-tab" data-tab="period" title="Рекорди за останній період">🕒</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -1693,6 +1704,7 @@
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
   </div>
   <div class="lb-title" id="lb-title">Топ-10 ігор</div>
+  <div class="lb-chips hidden" id="lb-period-chips"></div>
   <ol class="lb-list" id="lb-list"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
   <div id="ach-screen" class="hidden"></div>
@@ -5617,7 +5629,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["games", "cefr", "days", "xpdays", "streaks", "ach"];
+    const tabs = ["games", "cefr", "period", "days", "xpdays", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -6971,6 +6983,13 @@ function plWords(n) {
   if (d1 >= 2 && d1 <= 4 && (d100 < 10 || d100 >= 20)) return n + " слова";
   return n + " слів";
 }
+// Той самий патерн, що plWords: «1 гра · 3 ігри · 12 ігор». Потрібен підсумку вкладки 🕒.
+function plGames(n) {
+  const d1 = n % 10, d100 = n % 100;
+  if (d1 === 1 && d100 !== 11) return n + " гра";
+  if (d1 >= 2 && d1 <= 4 && (d100 < 10 || d100 >= 20)) return n + " гри";
+  return n + " ігор";
+}
 function trainCount() { const pool = trainPool(); return pool ? pool.length : WORDS.length; }
 function renderTrainModal() {
   const counts = cefrCounts();
@@ -7330,19 +7349,12 @@ function computeStreaks(days) {
   streaks.forEach(s => { s.ongoing = s.end === today; });
   return streaks.sort((a, b) => b.length - a.length || (b.ongoing - a.ongoing));
 }
-function renderTabGames() {
-  // ⚠️ Уточнення «· весь словник» (сесія 45, за запитом): вкладка показує ЛИШЕ звичайні
-  // ігри по всьому словнику. Ігри за рівнями CEFR (свій рейтинг на вкладці 🎓), пулом
-  // «Знаю» (easy-режим, поза рейтингом узагалі) і «не дались» сюди не потрапляють —
-  // без підпису це виглядало як «усі мої ігри», і незрозуміло, чому свіжої гри немає.
-  setLbTitle("Найкращі ігри<span class=\"lb-title-sub\">· весь словник</span>",
-    "Лише звичайні ігри по всьому словнику. Ігри за рівнями CEFR — на вкладці 🎓; " +
-    "ігри пулом «Знаю» і «не дались» у рейтинг не входять.");
-  const scores = loadScores();
-  const todayBest = loadTodayBest();
-  const latest = loadLatest();
-  const today = todayKey();
-  const renderGameRow = (s, cls, rank) => {
+// ⚠️ Винесено з `renderTabGames` у сесії 51 — той самий рядок гри малює тепер і вкладка
+// 🕒 «За останній період». Логіка НЕ мінялась; `ctx` лише передає вже обчислені
+// `latest`/`today`, щоб не читати localStorage на кожен рядок (без ctx рахує сам).
+function renderGameRow(s, cls, rank, ctx) {
+  const latest = ctx && "latest" in ctx ? ctx.latest : loadLatest();
+  const today = (ctx && ctx.today) || todayKey();
     const LB_MODE_LABELS = {
       "ua-en":    "UA→US",
       "en-ua":    "US→UA",
@@ -7371,7 +7383,20 @@ function renderTabGames() {
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)' + poolStr + '</span>' +
       '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
     '</li>';
-  };
+}
+function renderTabGames() {
+  // ⚠️ Уточнення «· весь словник» (сесія 45, за запитом): вкладка показує ЛИШЕ звичайні
+  // ігри по всьому словнику. Ігри за рівнями CEFR (свій рейтинг на вкладці 🎓), пулом
+  // «Знаю» (easy-режим, поза рейтингом узагалі) і «не дались» сюди не потрапляють —
+  // без підпису це виглядало як «усі мої ігри», і незрозуміло, чому свіжої гри немає.
+  setLbTitle("Найкращі ігри<span class=\"lb-title-sub\">· весь словник</span>",
+    "Лише звичайні ігри по всьому словнику. Ігри за рівнями CEFR — на вкладці 🎓; " +
+    "ігри пулом «Знаю» і «не дались» у рейтинг не входять.");
+  const scores = loadScores();
+  const todayBest = loadTodayBest();
+  const latest = loadLatest();
+  const today = todayKey();
+  const ctx = { latest, today };
   const hasTodayBest = todayBest && todayBest.key === today;
   const hasLatest = latest && latest.key === today;
   if (scores.length === 0 && !hasTodayBest && !hasLatest) {
@@ -7381,15 +7406,15 @@ function renderTabGames() {
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  let html = scores.map(s => renderGameRow(s, s.id === lbNewGameId ? "is-new" : "")).join("");
+  let html = scores.map(s => renderGameRow(s, s.id === lbNewGameId ? "is-new" : "", null, ctx)).join("");
   const extra = [];
   // спільний рейтинг: обидва extra-рядки ранжуються в ОДНОМУ списку → без дублів номерів
   const ranks = gameRanks([hasTodayBest ? todayBest : null, hasLatest ? latest : null].filter(Boolean));
   if (hasTodayBest && !scores.some(s => s.ts === todayBest.ts)) {
-    extra.push(renderGameRow(todayBest, "lb-today", (ranks.get(todayBest.ts) || {}).rank));
+    extra.push(renderGameRow(todayBest, "lb-today", (ranks.get(todayBest.ts) || {}).rank, ctx));
   }
   if (hasLatest && !scores.some(s => s.ts === latest.ts) && (!hasTodayBest || latest.ts !== todayBest.ts)) {
-    extra.push(renderGameRow(latest, "lb-latest", (ranks.get(latest.ts) || {}).rank));
+    extra.push(renderGameRow(latest, "lb-latest", (ranks.get(latest.ts) || {}).rank, ctx));
   }
   if (extra.length) {
     html += '<li class="lb-sep"></li>' + extra.join("");
@@ -7484,6 +7509,97 @@ function renderTabCefr() {
   }
   lbListEl.innerHTML = html;
 }
+// ── Вкладка 🕒 «Рекорди за останній період» (сесія 51, за запитом) ─────────────
+// Привід користувача: «є лідерборд за весь час по всім іграм та за весь час по рівням
+// CEFR, але я через це не бачу результати за останній період». Вкладки 🏆 і 🎓 показують
+// рекорди ЗА ВСЮ ІСТОРІЮ, тож свіжа форма в них тоне: гра, гірша за торішній рекорд,
+// просто не з'являється ніде.
+//
+// ⚠️ ЧОМУ БЕЗ НОВОГО СХОВИЩА: усе рахується з `oxford_games_log_v1` — там лежить КОЖНА
+// зіграна гра з полем `ts` (сесія 33), тож і часові вікна, і «останні N ігор» беруться
+// з одного джерела. Заводити ще один ключ означало б дублювати дані й розсинхронити їх.
+// ⚠️ Наслідок, який треба пам'ятати: лог ведеться З МОМЕНТУ ФІЧІ (сесія 33), а ігри
+// пулом «Знаю» в нього не пишуться взагалі — тобто вкладка не бачить їх і бачити не може.
+//
+// ⚠️ ЧОМУ СЮДИ ВХОДЯТЬ І CEFR-ІГРИ, на відміну від 🏆. Вкладка 🏆 їх виключає свідомо
+// (пул одного рівня легший за повний словник — правило сесії 42). Але тут питання інше:
+// не «який мій абсолютний рекорд», а «як я граю останнім часом», а грає користувач саме
+// рівнями. Виключити їх означало б показати порожню вкладку. Тому беремо всі ігри логу,
+// а КОЖЕН рядок підписаний своїм пулом («🎓 A1», «↗ Вивчаю») — той самий `renderGameRow`.
+// Порівнювати рядки різних пулів між собою не варто, і про це каже tooltip заголовка.
+const LB_PERIOD_KEY = "oxford_lb_period_v1";   // ⚠️ UI-налаштування → СВІДОМО не в BACKUP_KEYS
+const LB_PERIODS = [
+  { id: "d7",    label: "7 днів",     sub: "останні 7 днів",     kind: "days",  n: 7 },
+  { id: "d30",   label: "30 днів",    sub: "останні 30 днів",    kind: "days",  n: 30 },
+  { id: "month", label: "Цей місяць", sub: "календарний місяць", kind: "month" },
+  { id: "g100",  label: "100 ігор",   sub: "останні 100 ігор",   kind: "games", n: 100 },
+  { id: "g500",  label: "500 ігор",   sub: "останні 500 ігор",   kind: "games", n: 500 },
+];
+let lbPeriod = (() => {
+  const saved = localStorage.getItem(LB_PERIOD_KEY);
+  return LB_PERIODS.some(p => p.id === saved) ? saved : "d30";
+})();
+
+// Ігри періоду, вже відсортовані за силою результату (рахунок ↓, помилки ↑, час ↑) —
+// той самий порядок, що в `gameRanks`, щоб рейтинги не розходились між вкладками.
+function lbPeriodGames(periodId) {
+  const per = LB_PERIODS.find(p => p.id === periodId) || LB_PERIODS[1];
+  let games = loadGamesLog().slice();
+  if (per.kind === "days") {
+    // ⚠️ Вікно рахується від ПОЧАТКУ дня N-1 день тому, а не «мінус N×24 год»:
+    // інакше вранці з вікна випадала б учорашня вечірня гра, і список «стрибав» би
+    // протягом дня. Порівнюємо ключі днів — та сама валюта, що в решті статистики.
+    const from = new Date();
+    from.setHours(0, 0, 0, 0);
+    from.setDate(from.getDate() - (per.n - 1));
+    const fromKey = tsToDayKey(from.getTime());
+    games = games.filter(g => tsToDayKey(g.ts) >= fromKey);
+  } else if (per.kind === "month") {
+    const m = todayKey().slice(0, 7);
+    games = games.filter(g => tsToDayKey(g.ts).slice(0, 7) === m);
+  } else {
+    games.sort((a, b) => a.ts - b.ts);
+    games = games.slice(-per.n);
+  }
+  games.sort((a, b) => b.score - a.score || (a.wrong + a.skipped) - (b.wrong + b.skipped) || a.ts - b.ts);
+  return { per, games };
+}
+
+function renderTabPeriod() {
+  const { per, games } = lbPeriodGames(lbPeriod);
+  setLbTitle('Рекорди за період<span class="lb-title-sub">· ' + per.sub + '</span>',
+    "Найкращі ігри за обраний період — з журналу всіх ігор. Сюди входять і ігри за " +
+    "рівнями CEFR (кожен рядок підписаний своїм пулом), бо питання тут «як я граю зараз», " +
+    "а не «який мій абсолютний рекорд». Ігри пулом «Знаю» в журнал не пишуться взагалі.");
+
+  const chipsEl = document.getElementById("lb-period-chips");
+  const total = games.length;
+  const sum = games.reduce((a, g) => a + g.score, 0);
+  const answered = games.reduce((a, g) => a + g.score + g.wrong + g.skipped, 0);
+  // ⚠️ Кома в дробовій частині — та сама конвенція, що в «Точності» (сесія 36):
+  // відсоток рухається повільно, тож десяткова частина показує зміну.
+  const pct = p => p.toFixed(1).replace(".", ",") + "%";
+  const summary = total
+    ? '<div class="lb-per-sum">' + plGames(total) + " · сер. " +
+      (sum / total).toFixed(1).replace(".", ",") + " · точність " +
+      (answered ? pct(sum / answered * 100) : "—") + "</div>"
+    : "";
+  chipsEl.innerHTML = LB_PERIODS.map(p =>
+    '<button class="lb-chip' + (p.id === lbPeriod ? " active" : "") + '" data-per="' + p.id + '">' +
+    p.label + "</button>").join("") + summary;
+  chipsEl.classList.remove("hidden");
+
+  if (!total) {
+    lbListEl.innerHTML = "";
+    lbEmptyEl.textContent = "За цей період ігор ще немає — обери ширше вікно або зіграй.";
+    lbEmptyEl.classList.remove("hidden");
+    return;
+  }
+  lbEmptyEl.classList.add("hidden");
+  const ctx = { latest: loadLatest(), today: todayKey() };
+  lbListEl.innerHTML = games.slice(0, 10).map(g => renderGameRow(g, "", null, ctx)).join("");
+}
+
 function renderTabDays() {
   setLbTitle("Найкращі ігрові дні");
   const days = loadDays();
@@ -7644,11 +7760,15 @@ function renderLeaderboard(newGameId, newDayKey) {
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
   // reset схований і на «XP-днях» (виводяться з oxford_xp_day_v1, не з лідерборд-сховища),
   // і на «🎓 CEFR» (рахуються з games-log, який годує ще й «Точність» — чистити його звідси не можна)
-  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "cefr") ? "hidden" : "";
+  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "cefr" || lbActiveTab === "period") ? "hidden" : "";
   lbListEl.classList.toggle("lb-cefr", lbActiveTab === "cefr");   // без медалей/нумерації — рядки з різних пулів
+  // ⚠️ Ховаємо ТУТ, а показує сам renderTabPeriod: інакше ряд чипсів висів би над
+  // чужими вкладками (та сама пастка, що з `title` заголовка до setLbTitle, сесія 45).
+  if (lbActiveTab !== "period") document.getElementById("lb-period-chips").classList.add("hidden");
   if (achActive) { document.getElementById("lb-empty").classList.add("hidden"); setLbTitle("Досягнення"); renderAchievements(); }
   else if (lbActiveTab === "games") renderTabGames();
   else if (lbActiveTab === "cefr") renderTabCefr();
+  else if (lbActiveTab === "period") renderTabPeriod();
   else if (lbActiveTab === "days") renderTabDays();
   else if (lbActiveTab === "xpdays") renderTabXpDays();
   else renderTabStreaks();
@@ -8045,6 +8165,16 @@ document.querySelectorAll(".lb-tab").forEach(btn => {
     lbActiveTab = btn.dataset.tab;
     renderLeaderboard();
   });
+});
+
+// Делегований клік по чипсах періоду: контейнер перемальовується innerHTML,
+// тож слухач вішаємо на нього, а не на кнопки (патерн #lb-records-btn).
+document.getElementById("lb-period-chips").addEventListener("click", (e) => {
+  const chip = e.target.closest(".lb-chip");
+  if (!chip) return;
+  lbPeriod = chip.dataset.per;
+  localStorage.setItem(LB_PERIOD_KEY, lbPeriod);
+  renderTabPeriod();
 });
 
 document.getElementById("lb-reset").addEventListener("click", () => {
