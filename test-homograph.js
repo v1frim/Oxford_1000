@@ -207,6 +207,34 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("⚠️ UA→US: pick-up НЕ приймає «pick up» (дефіс розрізняє сенс)", hyph.enStrict === false);
   t("UA→US: pick-up приймає себе", hyph.enOwn === true);
 
+  // 9б. КОМА В ГЛОСІ НЕ ОБОВ'ЯЗКОВА (сесія 52). 47 карток мають глос виду
+  // «кран, що протікає» / «той, хто вижив», і жодна не мала безкомового варіанта
+  // в uaAlt — тобто промах на одному розділовому знаку коштував усієї відповіді.
+  // ⚠️ Правило живе в `normUaSoft`, тобто ЛИШЕ в US→UA — те саме розведення, що з
+  // дефісом у сесії 50. Тест падає і якщо правило прибрати, і якщо воно протече
+  // в англійську гілку.
+  const comma = await p.evaluate(() => {
+    const setEnUa = en => { const i = WORDS.findIndex(w => getEn(w)[0] === en);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "en-ua"; currentShown = getEn(currentWord)[0]; };
+    const setUaEn = (en, ua) => { const i = WORDS.findIndex(w => getEn(w)[0] === en && getUa(w)[0] === ua);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en"; currentShown = getUa(currentWord)[0]; };
+    const o = {};
+    setEnUa("leaking tap");
+    o.noComma = isCorrect("кран що протікає");   // без коми — має пройти
+    o.withComma = isCorrect("кран, що протікає"); // з комою — як і був
+    o.alien = isCorrect("кран що гуде");          // чужий глос — не проходить
+    setEnUa("survivor");
+    o.surv = isCorrect("той хто вижив") && isCorrect("той, хто вижив");
+    setUaEn("pick-up", "звукознімач");
+    o.enStrict = isCorrect("pick up");             // англійський бік лишився строгим
+    return o;
+  });
+  t("US→UA: «кран що протікає» без коми зараховано", comma.noComma === true);
+  t("US→UA: варіант із комою працює як і раніше", comma.withComma === true);
+  t("US→UA: чужий глос «кран що гуде» НЕ проходить", comma.alien === false);
+  t("US→UA: «той хто вижив» ≡ «той, хто вижив»", comma.surv === true);
+  t("⚠️ правило коми НЕ протекло в UA→US (pick-up строгий)", comma.enStrict === false);
+
   // 10. TRIM картки machine (сесія 50, патерн «розлитих сенсів» сесії 36): глос «машина»
   // переїхав у uaAlt — через нього `car` потрапляв у список правильних відповідей
   // на промпт «механізм», хоча car ніяк не механізм.
