@@ -50,6 +50,10 @@ const ALLOW = new Set(["programmer", "programmers", "sombrero", "sombreros",
 // тому широкі правила тут безпечні: обидві форми лежать в одному записі.
 const RULES = [
   [/our\b/g, "or"], [/ours\b/g, "ors"], [/ise\b/g, "ize"], [/ising\b/g, "izing"],
+  // ⚠️ СЛІПА ПЛЯМА, знайдена в сесії 51 уже ПІСЛЯ чистки: `ise\b` не матчить
+  // «personalised»/«itemised» — там на кінці `ised`, а не `ise`. Через це чотири
+  // британські ключі спокійно пройшли повз вартового. Форми дописані окремо.
+  [/ised\b/g, "ized"], [/ises\b/g, "izes"], [/isers\b/g, "izers"], [/iser\b/g, "izer"],
   [/isation\b/g, "ization"], [/re\b/g, "er"], [/res\b/g, "ers"],
   [/(defen|offen|licen|preten)ce\b/g, "$1se"],      // ⚠️ вузько: широке ce→se ламає practice
   [/lling/g, "ling"], [/lled\b/g, "led"], [/ae/g, "e"], [/oeu/g, "eu"],
@@ -74,7 +78,7 @@ const BRIT_LEX = [
   ["licence", "license"], ["pretence", "pretense"], ["aluminium", "aluminum"],
   ["jewellery", "jewelry"], ["storey", "story"], ["grey", "gray"], ["kerb", "curb"],
   ["plough", "plow"], ["mould", "mold"], ["smoulder", "smolder"], ["moustache", "mustache"],
-  ["pyjamas", "pajamas"], ["programme", "program"], ["fulfilment", "fulfillment"],
+  ["pyjamas", "pajamas"], ["programme", "program"], ["sulphur", "sulfur"], ["fulfilment", "fulfillment"],
   ["enrolment", "enrollment"], ["instalment", "installment"], ["skilful", "skillful"],
   ["wilful", "willful"], ["draught", "draft"], ["gaol", "jail"], ["tyre", "tire"],
   ["snorkelling", "snorkeling"], ["watercolour", "watercolor"], ["sabre", "saber"],

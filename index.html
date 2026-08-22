@@ -3009,13 +3009,71 @@ function hintFor(en, ua) {
   if (sameKeyWords(en).length > 1) return "";
   return HINTS[en] || HINTS[String(en).toLowerCase()] || "";
 }
+// ── АВТОПОЗНАЧКА «амер. / брит.» у списку відповідей (сесія 51, за запитом) ───────
+// Користувач: «якщо є 2 варіанти відповідей, то варто уточняти, який з них американський,
+// а який британський». Робити це ДАНИМИ означало б дописати ~140 однакових підказок у
+// HINTS і підтримувати їх руками. Замість цього позначка ОБЧИСЛЮЄТЬСЯ з самої пари.
+//
+// ⚠️ ЧОМУ ХИБНИХ СПРАЦЮВАНЬ НЕМА ЗА ПОБУДОВОЮ: правило застосовується до основного `en`
+// і спрацьовує, ЛИШЕ якщо результат ДОСЛІВНО дорівнює наявному `enAlt`. Тобто `doctor`
+// ніколи не стане «doctour» — такого enAlt просто не існує. Саме тому правила можна
+// тримати широкими, не боячись `-or`-слів на кшталт four/tour/flour.
+const BRIT_SPELL_RULES = [
+  [/or\b/g, "our"], [/ors\b/g, "ours"], [/ize\b/g, "ise"], [/izes\b/g, "ises"],
+  [/ized\b/g, "ised"], [/izing\b/g, "ising"], [/ization\b/g, "isation"], [/izer\b/g, "iser"],
+  [/er\b/g, "re"], [/ers\b/g, "res"], [/se\b/g, "ce"], [/ling/g, "lling"], [/led\b/g, "lled"],
+];
+// Нерегулярні пари, які жодним суфіксним правилом не виводяться.
+// ⚠️ СЮДИ НЕ КЛАСТИ: `whiskey`/`whisky` (це не US/GB, а ірландське проти шотландського),
+// `pantyhose`/`tights` (різні слова, не написання), `dialog`/`dialogue` (в амер. нормі
+// живі обидва), `donut`/`doughnut` (у них своє, змістовніше пояснення в HINTS).
+const BRIT_IRREGULAR = {
+  jewelry: "jewellery", aluminum: "aluminium", mustache: "moustache", pajamas: "pyjamas",
+  gray: "grey", tire: "tyre", curb: "kerb", plow: "plough", mold: "mould",
+  molding: "moulding", moldy: "mouldy", story: "storey", check: "cheque",
+  program: "programme", catalog: "catalogue", math: "maths", airplane: "aeroplane",
+  jail: "gaol", draft: "draught", skillful: "skilful", fulfillment: "fulfilment",
+  enrollment: "enrolment", sulfur: "sulphur",
+};
+// чи `brit` — британське написання від американського `amer` (працює й на фразах)
+function isBritSpelling(amer, brit) {
+  if (!amer || !brit || amer === brit) return false;
+  const tok = amer.split(" ");
+  if (BRIT_IRREGULAR[amer] === brit) return true;
+  if (tok.length > 1 && tok.map(t => BRIT_IRREGULAR[t] || t).join(" ") === brit) return true;
+  for (const [re, rep] of BRIT_SPELL_RULES) {
+    if (amer.replace(re, rep) === brit) return true;
+    if (tok.length > 1 && tok.map(t => BRIT_IRREGULAR[t] || t.replace(re, rep)).join(" ") === brit) return true;
+  }
+  return false;
+}
+// Яку позначку показати біля конкретного слова в списку відповідей поточної картки.
+// ⚠️ Перевернутий випадок теж покритий: у `cheque` (брит.) основним стоїть саме британське
+// написання — свідомий виняток, бо амер. `check` зайняте дієсловом «перевіряти».
+function spellingRegion(word) {
+  const main = getEn(currentWord)[0];
+  for (const a of (currentWord.enAlt || [])) {
+    if (isBritSpelling(main, a)) {
+      if (word === main) return "амер.";
+      if (word === a) return "брит.";
+    } else if (isBritSpelling(a, main)) {
+      if (word === main) return "брит.";
+      if (word === a) return "амер.";
+    }
+  }
+  return "";
+}
+
 // «difficult» → «difficult (розумово важкий)», якщо для картки є HINTS-уточнення.
 // Дужки парсить wrapEnWord і рендерить окремим блідим спаном.
-function withHint(en, ua) {
+function withHint(en, ua, region, ignoreBareHint) {
   // Фолбек на дисплейну дужку самого глоса: у списку відповідей UA→US картка
   // «рахунок (до сплати)» інакше стояла б голим «bill» поруч із поясненими
   // «account (рахунок у банку)» і «score (рахунок у грі)» (сесія 45).
-  const h = hintFor(en, ua) || (ua ? (String(ua).match(/\(([^)]+)\)/) || [])[1] || "" : "");
+  // ⚠️ `region` («амер.»/«брит.») — ОСТАННІЙ у черзі: змістовна підказка важливіша за
+  // позначку норми, а рендер уміє лише ОДНУ дужку на слово (регекс бере останню групу).
+  const h = (ignoreBareHint ? "" : hintFor(en, ua))
+    || (ua ? (String(ua).match(/\(([^)]+)\)/) || [])[1] || "" : "") || region || "";
   return h ? en + " (" + h + ")" : en;
 }
 
@@ -3028,9 +3086,14 @@ function getCorrectAnswer() {
     const seenW = new Set();
     shownUa.forEach(k => wordsByUaBare(k).forEach(w => {
       if (seenW.has(w)) return; seenW.add(w);
-      getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0])));
+      getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0], w === currentWord ? spellingRegion(e) : "")));
     }));
-    (currentWord.enAlt || []).forEach(e => ans.add(withHint(e)));
+    // ⚠️ ГОЛИЙ КЛЮЧ HINTS БЕРЕМО ЛИШЕ ЯКЩО enAlt НЕ Є ВЛАСНОЮ КАРТКОЮ. Інакше на варіант
+    // протікає підказка ЧУЖОГО слова: `cheque` показував «check (звірити швидко)» — а це
+    // пояснення дієслова «перевіряти», а не позначка норми. Той самий клас витоку, що
+    // між картками-парами в сесії 45. Для `donut` (картки нема) підказка законна й лишається.
+    (currentWord.enAlt || []).forEach(e =>
+      ans.add(withHint(e, null, spellingRegion(e), sameKeyWords(e).length > 0)));
     return [...ans].join(" / ");
   } else if (mode === "en-ua") {
     // підказка стосується САМЕ цієї картки, тож чіпляється до основного глоса

@@ -108,6 +108,55 @@ function chromePath() {
   t("enAlt: слова лишились клікабельні без дужки",
     alt.words.includes("doughnut") && alt.words.includes("donut"), alt.words.join("|"));
 
+  // 3в. АВТОПОЗНАЧКА «амер./брит.» (сесія 51). Обчислюється з пари, а не з даних:
+  // правило застосовується до основного `en` і спрацьовує, лише якщо результат дослівно
+  // дорівнює наявному `enAlt` — тому широкі суфіксні правила не чіпають four/tour/doctor.
+  const reg = await page.evaluate(() => {
+    const out = {};
+    const say = (q) => {
+      const i = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === q);
+      if (i < 0) return "НЕМА";
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en";
+      return getCorrectAnswer();
+    };
+    out.jewelry = say("jewelry");
+    out.cheque = say("cheque");
+    out.doughnut = say("doughnut");
+    out.math = say("math");
+    // ⚠️ Правило САМЕ ПО СОБІ перетворює будь-яке «-or» на «-our» — гарантію дає не воно,
+    // а те, що результат мусить ДОСЛІВНО збігтися з наявним `enAlt`. Тому перевіряємо
+    // не абстрактні рядки, а РЕАЛЬНІ пари словника: жоден лексичний синонім не позначений.
+    out.negative = ["youngster:youth", "idle:lazy", "math:mathematics", "correct:right"]
+      .filter((pair) => { const [a, b] = pair.split(":"); return isBritSpelling(a, b) || isBritSpelling(b, a); });
+    out.marked = WORDS.reduce((n, w) => {
+      const m = Array.isArray(w.en) ? w.en[0] : w.en;
+      return n + (w.enAlt || []).filter((a) => isBritSpelling(m, a) || isBritSpelling(a, m)).length;
+    }, 0);
+    // рендер: дві підказки окремими спанами, слова лишились клікабельні
+    const i = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === "jewelry");
+    currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en";
+    showCorrection(getCorrectAnswer());
+    const el = document.getElementById("correction-answer");
+    out.spans = el.querySelectorAll(".ans-hint").length;
+    out.words = [...el.querySelectorAll("span.hw")].map((x) => x.textContent);
+    return out;
+  });
+  t("амер./брит. підписані обидва варіанти",
+    reg.jewelry === "jewelry (амер.) / jewellery (брит.)", reg.jewelry);
+  t("перевернута пара `cheque` підписана правильно",
+    reg.cheque === "cheque (брит.) / check (амер.)", reg.cheque);
+  t("чужа підказка на enAlt НЕ протікає", !/звірити/.test(reg.cheque), reg.cheque);
+  t("явна підказка сильніша за автопозначку",
+    /повне написання/.test(reg.doughnut) && !/\(амер\.\)/.test(reg.doughnut), reg.doughnut);
+  t("несписаний синонім лишається без позначки",
+    /mathematics/.test(reg.math) && !/mathematics \(/.test(reg.math), reg.math);
+  t("лексичні синоніми НЕ позначаються як брит./амер.",
+    reg.negative.length === 0, reg.negative.join(", "));
+  t("позначку дістає весь клас пар, а не одна картка", reg.marked > 100, String(reg.marked));
+  t("позначки — окремими блідими спанами", reg.spans === 2, String(reg.spans));
+  t("слова лишились клікабельні без дужки",
+    reg.words.includes("jewelry") && reg.words.includes("jewellery"), reg.words.join("|"));
+
   // 4. слово без підказки — рядок як раніше
   const plain = await page.evaluate(() => {
     const idx = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === "resin");
