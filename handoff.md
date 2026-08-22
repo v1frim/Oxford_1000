@@ -19,9 +19,9 @@
   `add-batch.js`, `cefr-add.js`, `hints-add.js`, `expr-add.js`, `gloss-check.js`,
   `check-coverage.js`, `check-cefr.js`, `oxford-gap.js`, `check-song-words.js`.
   Новий блок даних — теж у `dict.js`. Обидва файли великі: шукай `grep -n`, не читай цілком.
-- **Обсяг даних (сесія 51):** `WORDS` **13715**, `EXPRESSIONS` **1293**, `HINTS` **1383**,
-  `EXAMPLES` 13713, банк «Вирази і сленг» ~1840 карток, пісень 41.
-  Рівні: A1 932 · A2 1379 · B1 3315 · B2 3951 · C1 3156 · C2 977 · без рівня 5 (власні назви).
+- **Обсяг даних (сесія 52):** `WORDS` **13743**, `EXPRESSIONS` **1293**, `HINTS` **1383**,
+  `EXAMPLES` 13741, банк «Вирази і сленг» ~1840 карток, пісень 41.
+  Рівні: A1 932 · A2 1382 · B1 3317 · B2 3960 · C1 3168 · C2 979 · без рівня 5 (власні назви).
 - **Розгортання:** GitHub Pages → https://v1frim.github.io/Oxford_1000/
 - **Git репо:** v1frim/Oxford_1000 (публічний)
 - **Технології:** HTML/CSS/JS без фреймворків і без build-step. ⚠️ **«Single-file» більше НЕ актуально** — у сесії 48 дані винесені в `dict.js` заради швидкості (браузер не кешує байткод inline-скриптів). Логіка й далі вся в одному inline-скрипті `index.html`.
@@ -2313,6 +2313,35 @@ down`, `to loosen up`) лишаються у WORDS, як і раніше.
 `uaAlt` не діє, тож «щодня» не тягне на `everyday`), а `HINTS["everyday"]` тепер
 пояснює різницю. Окрему картку `every day` НЕ додавали: «щодня» стало б її основним
 глосом, і тоді відповідь `daily` у UA→EN перестала б зараховуватись.
+
+**⚠️ `cefr-add.js` НЕ ВМІВ У C2 (баг, полагоджено в сесії 52).** Регулярка рядка рівня
+вимагала хвіст `",` — а `C2` у `CEFR_DATA` ОСТАННІЙ, тож його рядок закінчується просто на
+`"`. Через це будь-яка партія з C2-словами падала з «не знайшов рядок C2 у CEFR_DATA», і
+`cefr-batch.js` обривався на пів-дорозі (перші рівні вже записані, C2 — ні). Полагоджено
+на `",?` в обох регулярках. Якщо колись переставиш порядок ключів у `CEFR_DATA` — пастка
+переїде на новий останній рівень, а не зникне.
+
+**📚 ПАРТІЯ «ШКІЛЬНІ ТА УНІВЕРСИТЕТСЬКІ ПРЕДМЕТИ» (сесія 52, за запитом).** Привід — урок
+LingoHut «Шкільні предмети»: користувач спитав, чи всі предмети покриті. Аудит ~200 позицій
+показав, що предметне ядро вже було (math, physics, chemistry, biology, history, geography,
+literature, art, music, philosophy, psychology, sociology, economics, engineering…), бракувало
+28 позицій — їх і додано: 19 окремих слів (calculus, geology, genetics, physiology,
+linguistics, anthropology, pedagogy, dentistry, criminology, neuroscience, robotics,
+vocabulary, bachelor, dean, alumni, elective, jurisprudence, philology) + компаунди
+(computer science, political science, social studies, international relations, data science,
+public health, high school, middle school, elementary school, fine arts).
+- **`ethics` пішло `enAlt` до наявної картки `ethic`** («етика» вже був її основним глосом) —
+  за правилом «перед enAlt дивись ГЛОС наявної картки»; окрема картка дала б два записи на
+  один глос.
+- **`public health` = «громадське здоров'я», НЕ «охорона здоров'я»** — останнє зайняте
+  карткою `healthcare`.
+- **Американська система шкіл:** `elementary school` / `middle school` / `high school`
+  основними, британські `primary school` / `secondary school` — в `enAlt` (норма сесії 51).
+- **Мови (English, Ukrainian, French…) СВІДОМО не додані** — власні назви, їм місце в
+  `EN_TO_UA`, а не карткою. `informatics`, `gymnasium`, `headmaster`, `rector` теж пропущені
+  як британізми/європеїзми на користь `computer science`, `high school`, `principal`.
+- Підказок `HINTS` не знадобилось: скрипт-перевірка показала, що жоден новий глос не
+  ділиться з іншою карткою.
 
 **⚠️ ФОРМАТ ЗВІТУ ПРО ДОДАНУ ПАРТІЮ (сесія 47, прямий запит: «роби так і надалі»):**
 у звіті користувачу ЗАВЖДИ давай **розкладку доданих карток по рівнях CEFR** (скільки слів

@@ -22,14 +22,16 @@ const level = String(process.argv[3] || "").toUpperCase();
 if (!LEVELS.includes(level)) { console.error("рівень має бути одним із " + LEVELS.join("/")); process.exit(1); }
 
 const html = fs.readFileSync(P, "utf8");
-const lineRe = new RegExp('^(  ' + level + ': ")([^"]*)(",)$', "m");
+// ⚠️ хвіст `,` НЕобов'язковий: C2 — ОСТАННІЙ ключ у CEFR_DATA, тож його рядок
+// закінчується просто на `"`. Без `,?` скрипт падав «не знайшов рядок C2» (сесія 52).
+const lineRe = new RegExp('^(  ' + level + ': ")([^"]*)(",?)$', "m");
 const m = html.match(lineRe);
 if (!m) { console.error("не знайшов рядок " + level + " у CEFR_DATA"); process.exit(1); }
 
 // усі рівні разом — щоб не дублювати ключ, який уже має мітку
 const all = new Map();
 for (const L of LEVELS) {
-  const mm = html.match(new RegExp('^(  ' + L + ': ")([^"]*)(",)$', "m"));
+  const mm = html.match(new RegExp('^(  ' + L + ': ")([^"]*)(",?)$', "m"));
   if (mm) for (const w of mm[2].split("|")) if (w) all.set(w, L);
 }
 
