@@ -226,6 +226,60 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("вгадане слово знято з боргу", drained.due === 0, String(drained.due));
   t("вгадане слово знято з «відкритого боргу» помилок", drained.mistakes === 0, String(drained.mistakes));
 
+  // ── АНТИ-ПОВТОР (сесія 52, скарга «три рази підряд одне й те саме слово») ──
+  // Звичайна гра йде шафлом без повернення, тож повтор можливий лише на СТИКУ проходів,
+  // і на малих пулах це майже норма: до фіксу симуляція давала сусідній повтор у 70%
+  // ігор при пулі з 3 слів. Тест ганяє РЕАЛЬНИЙ nextWord у браузері.
+  const rep = await p.evaluate(() => {
+    const out = {};
+    const drive = (pool, draws) => {
+      startGame(pool, { timed: true });
+      const seq = [currentWordIndex];
+      for (let i = 1; i < draws; i++) { nextWord(); seq.push(currentWordIndex); }
+      return seq;
+    };
+    const maxRun = a => { let m = 1, c = 1;
+      for (let i = 1; i < a.length; i++) { c = a[i] === a[i-1] ? c + 1 : 1; if (c > m) m = c; } return m; };
+    out.worst = {};
+    for (const n of [2, 3, 4, 5, 8]) {
+      const pool = [...Array(n).keys()];
+      let worst = 1, periodic = 0;
+      // ⚠️ Ознака жорсткої каруселі — ПЕРІОДИЧНІСТЬ (a[i] === a[i-n] для всіх i), а не
+      // кількість різних послідовностей: карусель на пулі 3 дає аж 6 послідовностей
+      // (за перестановками стартового шафлу) і слабкий поріг «різних > 3» проходить.
+      // На цьому я вже спіткнувся — перша версія перевірки регресію Б не ловила.
+      for (let t = 0; t < 60; t++) {
+        const s = drive(pool, 12);
+        worst = Math.max(worst, maxRun(s));
+        if (s.every((x, i) => i < n || x === s[i - n])) periodic++;
+      }
+      out.worst[n] = worst;
+      if (n === 3) out.periodic3 = periodic;      // жорстка карусель дала б 60 із 60
+    }
+    // рівномірність: кожне слово пулу має траплятись, а не одне й те саме
+    const cnt = {};
+    for (let t = 0; t < 40; t++) drive([0,1,2,3,4], 10).forEach(x => (cnt[x] = (cnt[x] || 0) + 1));
+    out.spread = Object.keys(cnt).length;
+    // режим ПОВТОРЕНЬ: 3 слова в черзі — сусідніх повторів бути не має
+    startGame([0, 1, 2], {});
+    const rseq = [currentWordIndex];
+    for (let i = 1; i < 15; i++) { nextWord(); rseq.push(currentWordIndex); }
+    out.reviewWorst = maxRun(rseq);
+    // ⚠️ одне слово в черзі — повтор НЕМИНУЧИЙ: закрити його можна лише трьома
+    // правильними поспіль. Тест фіксує саме цю межу, щоб її не «полагодили».
+    startGame([7], {});
+    const one = [currentWordIndex];
+    for (let i = 1; i < 4; i++) { nextWord(); one.push(currentWordIndex); }
+    out.singleAllSame = one.every(x => x === one[0]);
+    return out;
+  });
+  for (const n of [2, 3, 4, 5, 8])
+    t("звичайна гра, пул " + n + ": жодного сусіднього повтору", rep.worst[n] === 1, "найдовша серія " + rep.worst[n]);
+  t("пул 3 НЕ став жорсткою каруселлю", rep.periodic3 < 30, "періодичних прогонів: " + rep.periodic3 + "/60");
+  t("усі слова пулу трапляються", rep.spread === 5, "різних слів: " + rep.spread);
+  t("повторення, 3 слова в черзі: без сусідніх повторів", rep.reviewWorst === 1, "найдовша серія " + rep.reviewWorst);
+  t("⚠️ повторення, ОДНЕ слово в черзі: повтор лишається (правило 3 поспіль)", rep.singleAllSame === true);
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");

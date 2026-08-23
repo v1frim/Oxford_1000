@@ -2768,6 +2768,26 @@ let records = [];
 let currentFilter = "all";
 let shuffledIndices = [];
 let shufflePos = 0;
+// ── АНТИ-ПОВТОР (сесія 52, за скаргою «три рази підряд одне й те саме слово») ──
+// Звичайна гра йде шафлом БЕЗ повернення, тож у межах проходу повторів нема — але на
+// СТИКУ проходів слово з кінця може одразу випасти на початку наступного. На малих
+// пулах це не рідкість, а норма: симуляція дала 2 підряд у 70% ігор при пулі з 3 слів
+// і в 94% при пулі з 2. У повтореннях гірше: там вибір випадковий, і старий захист
+// глушив лише НЕГАЙНИЙ повтор.
+// ⚠️ Вікно НАВМИСНО вужче за пул (poolSize − 2): якби воно дорівнювало poolSize − 1,
+// на пулі з 3 слів вийшла б жорстка карусель A→B→C→A→B→C, тобто рівно та
+// передбачуваність, якої користувач просив уникнути. Тепер: пул 2 — чергування (інакше
+// ніяк), пул 3 — заборонений лише сусідній повтор, порядок далі випадковий, пул 5+ —
+// вікно 3.
+const REPEAT_WINDOW = 3;
+let recentIndices = [];
+function repeatWindow(poolSize) {
+  return poolSize > 1 ? Math.min(REPEAT_WINDOW, Math.max(1, poolSize - 2)) : 0;
+}
+function rememberShown(i) {
+  recentIndices.push(i);
+  if (recentIndices.length > REPEAT_WINDOW) recentIndices.shift();
+}
 let activePool = null;
 let currentWordIndex = -1;
 let reviewRemaining = null;
@@ -2838,11 +2858,15 @@ function nextWord() {
   if (reviewRemaining) {
     if (reviewRemaining.size === 0) { endGame(); return; }
     const indices = [...reviewRemaining];
-    let pick = indices[Math.floor(Math.random() * indices.length)];
-    if (indices.length > 1 && pick === currentWordIndex) {
-      pick = indices[(indices.indexOf(pick) + 1) % indices.length];
-    }
-    currentWordIndex = pick;
+    // ⚠️ Було: випадковий вибір + зсув на сусіда, якщо збігся з поточним — тобто захист
+    // лише від НЕГАЙНОГО повтору. Тепер відсіюємо всі слова з вікна; коли свіжих не
+    // лишилось (у черзі одне слово), беремо як є — закрити слово можна лише трьома
+    // правильними поспіль, тож там повтор НЕМИНУЧИЙ за правилами гри.
+    const rwin = repeatWindow(indices.length);
+    const rrecent = rwin ? recentIndices.slice(-rwin) : [];
+    const fresh = indices.filter(x => !rrecent.includes(x));
+    const from = fresh.length ? fresh : indices;
+    currentWordIndex = from[Math.floor(Math.random() * from.length)];
     if (reviewDir === "random") mode = Math.random() < 0.5 ? "en-ua" : "ua-en";
   } else {
     if (shufflePos >= shuffledIndices.length) {
@@ -2850,9 +2874,27 @@ function nextWord() {
       shuffledIndices = shuffle([...shuffledIndices]);
       shufflePos = 0;
     }
+    // Слово зі стику проходів міняємо місцями з найближчим «свіжим» у ЦЬОМУ ж проході:
+    // перестановка всередині масиву лишає його перестановкою пулу, тож властивість
+    // «у межах проходу кожне слово рівно раз» не ламається.
+    const win = repeatWindow(shuffledIndices.length);
+    if (win) {
+      const recent = recentIndices.slice(-win);
+      if (recent.includes(shuffledIndices[shufflePos])) {
+        for (let off = 1; shufflePos + off < shuffledIndices.length; off++) {
+          if (!recent.includes(shuffledIndices[shufflePos + off])) {
+            const tmp = shuffledIndices[shufflePos];
+            shuffledIndices[shufflePos] = shuffledIndices[shufflePos + off];
+            shuffledIndices[shufflePos + off] = tmp;
+            break;
+          }
+        }
+      }
+    }
     currentWordIndex = shuffledIndices[shufflePos++];
     if (selectedMode === "mix") mode = Math.random() < 0.5 ? "en-ua" : "ua-en";
   }
+  rememberShown(currentWordIndex);
   currentWord = WORDS[currentWordIndex];
   wordDisplay.classList.remove("multiline");
   modeHintEl.textContent = MODE_HINTS[mode] || "";   // оновлюємо щослова — для міксу та випадкових повторень
@@ -3542,6 +3584,7 @@ function startGame(pool, opts) {
   }
   shuffledIndices = shuffle([...sourcePool]);
   shufflePos = 0;
+  recentIndices = [];   // анти-повтор рахується в межах ОДНІЄЇ гри
   // Борг за вчорашні помилки підмішується ЛИШЕ у звичайні (timed) ігри —
   // у повтореннях помилок (activePool) він був би маслом масляним.
   dueThisGame = new Set();
