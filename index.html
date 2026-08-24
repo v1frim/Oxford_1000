@@ -3098,6 +3098,76 @@ function isBritSpelling(amer, brit) {
   }
   return false;
 }
+// ── ДРУГИЙ ШАР: БРИТАНСЬКІ ЛЕКСЕМИ (сесія 53, за запитом) ────────────────────────
+// Правила написання вище виводять `theater→theatre`, але НЕ виводять `A&E` з
+// `emergency room` чи `bonnet` з `hood`: це РІЗНІ СЛОВА, а не різне написання одного.
+// Такі пари не обчислюються нізвідки — лише списком, тож ось він.
+//
+// ⚠️ МІТКА З'ЯВЛЯЄТЬСЯ, ЛИШЕ КОЛИ НА КАРТЦІ ПРИСУТНІ ОБИДВІ СТОРОНИ ПАРИ. Саме це
+// рятує від багатозначності, і саме тому тут пари, а не два списки слів:
+// `hood` дістає «амер.» на картці «капот» (поруч стоїть `bonnet`) і МОВЧИТЬ на картці
+// «капюшон»; `tap` — «брит.» поруч із `faucet` і мовчить на картці «постукувати»;
+// `torch` мовчить на «смолоскипі», `jelly` — тільки поруч із `gelatin dessert`.
+// Плоским списком слів усі ці картки позначались би хибно.
+const LEX_PAIRS = [
+  // побут, дім, місто
+  ["sidewalk", "pavement"], ["mailbox", "letterbox"], ["trash", "rubbish"],
+  ["garbage", "rubbish"], ["trash can", "dustbin"], ["garbage can", "dustbin"],
+  ["trash can", "litter bin"], ["garbage bag", "bin bag"], ["flashlight", "torch"],
+  ["headlamp", "head torch"], ["plastic wrap", "cling film"], ["faucet", "tap"],
+  ["leaking faucet", "leaking tap"], ["apartment building", "block of flats"],
+  ["studio apartment", "studio flat"], ["first floor", "ground floor"],
+  ["downtown", "city centre"], ["zip code", "postcode"],
+  // транспорт і дорога
+  ["hood", "bonnet"], ["trunk lid", "boot lid"], ["windshield", "windscreen"],
+  ["windshield wiper", "windscreen wiper"], ["turn signal", "indicator"],
+  ["license plate", "number plate"], ["dead battery", "flat battery"],
+  ["jumper cables", "jump leads"], ["side mirror", "wing mirror"],
+  ["gasoline", "petrol"], ["gasoline car", "petrol car"],
+  ["unleaded gasoline", "unleaded petrol"], ["gas station", "petrol station"],
+  ["parking lot", "car park"], ["highway", "motorway"], ["freeway", "motorway"],
+  ["overpass", "flyover"], ["traffic circle", "roundabout"],
+  ["T-intersection", "T-junction"], ["railroad", "railway"],
+  ["bus terminal", "coach station"], ["one-way ticket", "single ticket"],
+  ["round-trip ticket", "return ticket"],
+  // їжа
+  ["cilantro", "coriander"], ["zucchini", "courgette"], ["arugula", "rocket salad"],
+  ["eggplant", "aubergine"], ["green onion", "spring onion"],
+  ["cotton candy", "candy floss"], ["takeout", "takeaway"], ["takeout", "take-away"],
+  // одяг, діти, медицина
+  ["sneaker", "trainer"], ["sneakers", "trainers"], ["vest", "waistcoat"],
+  ["rubber boots", "wellies"], ["rubber boots", "wellingtons"],
+  ["diaper", "nappy"], ["pacifier", "dummy"], ["stroller", "pram"],
+  ["emergency room", "A&E"], ["operating room", "theatre"],
+  ["doctor's office", "doctor's surgery"], ["drugstore", "chemist's"],
+  // дозвілля, послуги, робота
+  ["movie theater", "cinema"], ["thrift store", "charity shop"],
+  ["vacation rental", "holiday rental"], ["overhead bin", "overhead locker"],
+  ["rental agent", "letting agent"], ["counterclockwise", "anticlockwise"],
+  ["résumé", "cv"],
+];
+// ⚠️ ПАРИ, ДЕ ЛІВА СТОРОНА ЖИВЕ В ОБОХ НОРМАХ: мітку дістає ЛИШЕ британське слово.
+// «pharmacy (амер.)» або «lawyer (амер.)» було б просто неправдою — це нейтральні
+// слова, які американець і британець вживають однаково; регіональна тут лише права.
+const LEX_BRIT_ONLY = [
+  ["lawyer", "solicitor"], ["sweater", "jumper"], ["cookie", "biscuit"],
+  ["braid", "plait"], ["bathrobe", "dressing gown"], ["truck", "lorry"],
+  ["adhesive bandage", "plaster"], ["gelatin dessert", "jelly"],
+  ["intercity bus", "coach"], ["fuel dispenser", "petrol pump"],
+  ["building manager", "caretaker"], ["package tour", "package holiday"],
+  ["train station", "railway station"],
+];
+// `all` — усі англійські варіанти ЦІЄЇ картки (основний + enAlt).
+function lexemeRegion(word, all) {
+  for (const [us, gb] of LEX_PAIRS) {
+    if (!all.includes(us) || !all.includes(gb)) continue;
+    if (word === us) return "амер.";
+    if (word === gb) return "брит.";
+  }
+  for (const [neutral, gb] of LEX_BRIT_ONLY)
+    if (word === gb && all.includes(neutral) && all.includes(gb)) return "брит.";
+  return "";
+}
 // Яку позначку показати біля конкретного слова в списку відповідей поточної картки.
 // ⚠️ Перевернутий випадок теж покритий: у `cheque` (брит.) основним стоїть саме британське
 // написання — свідомий виняток, бо амер. `check` зайняте дієсловом «перевіряти».
@@ -3112,7 +3182,8 @@ function spellingRegion(word) {
       if (word === a) return "амер.";
     }
   }
-  return "";
+  // написання нічого не дало → пробуємо словниковий шар (A&E, bonnet, chemist's…)
+  return lexemeRegion(word, [main, ...(currentWord.enAlt || [])]);
 }
 
 // «difficult» → «difficult (розумово важкий)», якщо для картки є HINTS-уточнення.

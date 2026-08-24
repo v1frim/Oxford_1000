@@ -157,6 +157,48 @@ function chromePath() {
   t("слова лишились клікабельні без дужки",
     reg.words.includes("jewelry") && reg.words.includes("jewellery"), reg.words.join("|"));
 
+  // 3г. СЛОВНИКОВИЙ ШАР ПОЗНАЧКИ (сесія 53). Написання не виводить `A&E` з
+  // `emergency room` — це різні слова, тож пари лежать списком. Гарантію від
+  // багатозначності дає вимога, щоб ОБИДВА слова пари стояли на ОДНІЙ картці.
+  const lex = await page.evaluate(() => {
+    const out = {};
+    const say = (q) => {
+      const i = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === q);
+      if (i < 0) return "НЕМА";
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en";
+      return getCorrectAnswer();
+    };
+    out.er = say("emergency room");
+    out.bonnet = say("bonnet");
+    out.lawyer = say("lawyer");
+    out.trash = say("trash");
+    out.hood = say("hood");       // картка «капюшон» — пари немає, мовчимо
+    out.torch = say("torch");     // картка «смолоскип» — те саме
+    const has = (a, b) => WORDS.some((w) => {
+      const all = [Array.isArray(w.en) ? w.en[0] : w.en, ...(w.enAlt || [])];
+      return all.includes(a) && all.includes(b);
+    });
+    out.dead = [...LEX_PAIRS, ...LEX_BRIT_ONLY].filter(([a, b]) => !has(a, b)).map((x) => x.join("|"));
+    out.cards = WORDS.filter((w) => {
+      const m = Array.isArray(w.en) ? w.en[0] : w.en;
+      const all = [m, ...(w.enAlt || [])];
+      return all.some((x) => lexemeRegion(x, all));
+    }).length;
+    return out;
+  });
+  t("A&E підписано як брит., emergency room — як амер.",
+    lex.er === "emergency room (амер.) / A&E (брит.)", lex.er);
+  t("bonnet/hood підписані з обох боків",
+    lex.bonnet === "bonnet (брит.) / hood (амер.)", lex.bonnet);
+  t("нейтральне слово не стає «амер.»: lawyer / solicitor (брит.)",
+    lex.lawyer === "lawyer / solicitor (брит.)", lex.lawyer);
+  t("три варіанти підписані кожен своєю нормою",
+    lex.trash === "trash (амер.) / rubbish (брит.) / garbage (амер.)", lex.trash);
+  t("`hood` без пари (картка «капюшон») мітки НЕ дістає", !/\(амер\.\)/.test(lex.hood), lex.hood);
+  t("`torch` без пари (картка «смолоскип») мітки НЕ дістає", !/\(брит\.\)/.test(lex.torch), lex.torch);
+  t("мертвих пар у списку немає", lex.dead.length === 0, lex.dead.join(", "));
+  t("словниковий шар покриває десятки карток", lex.cards >= 70, String(lex.cards));
+
   // 4. слово без підказки — рядок як раніше
   const plain = await page.evaluate(() => {
     const idx = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === "resin");
