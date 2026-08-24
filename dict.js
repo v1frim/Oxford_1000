@@ -12912,7 +12912,7 @@ const WORDS = [
   {en:"data science",ua:"наука про дані"},
   {en:"public health",ua:"громадське здоров'я"},
   {en:"high school",ua:"старша школа",enAlt:["secondary school"]},
-  {en:"middle school",ua:"середня школа"},
+  {en:"middle school",ua:"середня школа",enAlt:["secondary school"]},
   {en:"elementary school",ua:"початкова школа",enAlt:["primary school"]},
   {en:"fine arts",ua:"образотворче мистецтво"},
   // ── Зведення пар-дублів: американська форма основною (сесія 52) ──
@@ -25443,6 +25443,10 @@ const HINTS = {
   "football": "звичайний футбол; в амер. так називають американський футбол",
   "advertising": "реклама як галузь; уся сфера",
   "advertisement": "одне рекламне оголошення",
+  "secondary school": "брит. — уся школа після початкової, і середня, і старша",
+  "middle school": "амер. — 6-8 класи",
+  "high school": "амер. — 9-12 класи",
+  "elementary school": "амер. — 1-5 класи",
 };
 const EXAMPLES = {
   "to waste":"Don't waste food or water.",
