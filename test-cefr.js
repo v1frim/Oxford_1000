@@ -163,6 +163,10 @@ function chromePath() {
   });
   await page.reload();
   await page.waitForTimeout(1200);
+  // ⚠️ СЕСІЯ 53: лідерборд тепер відкривається на 🕒 «Рекорди за період», тож рядок
+  // «остання гра» з `oxford_latest_v1` треба шукати ПІСЛЯ явного переходу на 🏆.
+  await page.evaluate(() => document.querySelector('.lb-tab[data-tab="games"]').click());
+  await page.waitForTimeout(120);
   const row = await page.evaluate(() => {
     const li = [...document.querySelectorAll("#lb-list li")].find((x) => x.className.includes("lb-latest"));
     return li ? { mode: li.querySelector(".lb-mode").textContent, rank: li.getAttribute("data-rank") } : null;

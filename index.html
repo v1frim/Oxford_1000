@@ -1693,9 +1693,9 @@
 <aside class="leaderboard hidden" id="leaderboard">
   <div class="lb-header">
     <div class="lb-tabs">
-      <button class="lb-tab" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
+      <button class="lb-tab active" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
       <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
-      <button class="lb-tab active" data-tab="games" title="Найкращі ігри">🏆</button>
+      <button class="lb-tab" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -5849,7 +5849,12 @@ function setLbTitle(html, tip) {
   lbTitleEl.innerHTML = html;
   if (tip) lbTitleEl.title = tip; else lbTitleEl.removeAttribute("title");
 }
-let lbActiveTab = "games";
+// ⚠️ СЕСІЯ 53, ЗА ЗАПИТОМ: лідерборд відкривається на 🕒 «Рекорди за період», а не на
+// 🏆 «Найкращі ігри». Дослівно: «хотілось би, щоб відкривало воно, показувало рекорди за
+// останній час». Абсолютний топ роками не рухається, тож стартовий екран показував мертвий
+// список; «за період» відповідає на «як я граю зараз» і сам підмальовує останню гру окремим
+// рядком. Мусить збігатися з класом `active` на кнопці `.lb-tab[data-tab="period"]` у розмітці.
+let lbActiveTab = "period";
 let lbNewGameId = null;
 let lbNewDayKey = null;
 
