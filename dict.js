@@ -9107,7 +9107,7 @@ const WORDS = [
   {en:"group chat",ua:"груповий чат"},
   {en:"online reaction",ua:"реакція в соцмережі"},
   {en:"read receipt",ua:"підтвердження прочитання"},
-  {en:"typo",ua:"друкарська помилка"},
+  {en:"typo",ua:"друкарська помилка",uaAlt:["описка","помилка набору"]},
   {en:"formal tone",ua:"офіційний тон"},
   {en:"informal tone",ua:"неформальний тон"},
   {en:"sarcasm",ua:"сарказм"},
