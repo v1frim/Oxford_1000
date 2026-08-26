@@ -174,6 +174,8 @@ function chromePath() {
     out.trash = say("trash");
     out.hood = say("hood");       // картка «капюшон» — пари немає, мовчимо
     out.torch = say("torch");     // картка «смолоскип» — те саме
+    out.rope = say("jump rope");
+    out.fav = say("favorite");    // -or- ВСЕРЕДИНІ слова (сесія 53)
     const has = (a, b) => WORDS.some((w) => {
       const all = [Array.isArray(w.en) ? w.en[0] : w.en, ...(w.enAlt || [])];
       return all.includes(a) && all.includes(b);
@@ -197,7 +199,11 @@ function chromePath() {
   t("`hood` без пари (картка «капюшон») мітки НЕ дістає", !/\(амер\.\)/.test(lex.hood), lex.hood);
   t("`torch` без пари (картка «смолоскип») мітки НЕ дістає", !/\(брит\.\)/.test(lex.torch), lex.torch);
   t("мертвих пар у списку немає", lex.dead.length === 0, lex.dead.join(", "));
-  t("словниковий шар покриває десятки карток", lex.cards >= 70, String(lex.cards));
+  t("jump rope / skipping rope підписані",
+    lex.rope === "jump rope (амер.) / skipping rope (брит.)", lex.rope);
+  t("-or- усередині слова теж дає позначку (favorite/favourite)",
+    /favorite \(амер\.\)/.test(lex.fav) && /favourite \(брит\.\)/.test(lex.fav), lex.fav);
+  t("словниковий шар покриває пів сотні тем", lex.cards >= 190, String(lex.cards));
 
   // 4. слово без підказки — рядок як раніше
   const plain = await page.evaluate(() => {

@@ -3073,6 +3073,14 @@ const BRIT_SPELL_RULES = [
   [/or\b/g, "our"], [/ors\b/g, "ours"], [/ize\b/g, "ise"], [/izes\b/g, "ises"],
   [/ized\b/g, "ised"], [/izing\b/g, "ising"], [/ization\b/g, "isation"], [/izer\b/g, "iser"],
   [/er\b/g, "re"], [/ers\b/g, "res"], [/se\b/g, "ce"], [/ling/g, "lling"], [/led\b/g, "lled"],
+  // ⚠️ СЕСІЯ 53: те саме ВСЕРЕДИНІ слова. `\b` після «or» вимагає кінця слова, тож
+  // `favorite`/`favourite`, `neighborhood`, `colorful`, `armory`, `savory` не виводились
+  // і мовчки лишались без позначки. Глобальна заміна без межі це закриває, і вона так само
+  // безпечна: результат усе одно мусить ДОСЛІВНО дорівнювати наявному enAlt.
+  [/or/g, "our"], [/er/g, "re"], [/iz/g, "is"], [/yz/g, "ys"], [/sulf/g, "sulph"],
+  // ⚠️ Кінець ФРАЗИ, а не кожного слова: `pace per kilometer` → глобальне `er\b`
+  // ламало ще й «per» («pace pre kilometre»), тож пара не сходилась.
+  [/er$/, "re"], [/or$/, "our"],
 ];
 // Нерегулярні пари, які жодним суфіксним правилом не виводяться.
 // ⚠️ СЮДИ НЕ КЛАСТИ: `whiskey`/`whisky` (це не US/GB, а ірландське проти шотландського),
@@ -3085,6 +3093,18 @@ const BRIT_IRREGULAR = {
   program: "programme", catalog: "catalogue", math: "maths", airplane: "aeroplane",
   jail: "gaol", draft: "draught", skillful: "skilful", fulfillment: "fulfilment",
   enrollment: "enrolment", sulfur: "sulphur",
+  // ⚠️ СЕСІЯ 53. Медичні -ae-/-oe- (грецькі корені) — цілий клас, який не виводиться
+  // нічим, крім списку. Решта — одиночні пари, де британська форма подвоює приголосну
+  // або міняє префікс.
+  diarrhea: "diarrhoea", hemorrhage: "haemorrhage", hemoglobin: "haemoglobin",
+  pediatrics: "paediatrics", anesthetist: "anaesthetist", encyclopedia: "encyclopaedia",
+  fetus: "foetus", disk: "disc", yogurt: "yoghurt", chili: "chilli",
+  licorice: "liquorice", judgment: "judgement", judgmental: "judgemental",
+  installment: "instalment", artifact: "artefact", counselor: "counsellor",
+  councilor: "councillor", jeweler: "jeweller", traveler: "traveller",
+  skeptical: "sceptical", carburetor: "carburettor", inquire: "enquire",
+  inquiry: "enquiry", snowplow: "snowplough", specialty: "speciality",
+  spoiled: "spoilt", unspoiled: "unspoilt", likable: "likeable", lasagna: "lasagne",
 };
 // чи `brit` — британське написання від американського `amer` (працює й на фразах)
 function isBritSpelling(amer, brit) {
@@ -3145,6 +3165,60 @@ const LEX_PAIRS = [
   ["vacation rental", "holiday rental"], ["overhead bin", "overhead locker"],
   ["rental agent", "letting agent"], ["counterclockwise", "anticlockwise"],
   ["résumé", "cv"],
+  // ── ДОБІР СЕСІЇ 53 (привід: `jump rope / skipping rope` без позначки) ──────────
+  // Перший список збирався грепом за словником британізмів, тож ловив лише те, що я
+  // згадав. Тут — суцільний перегляд УСІХ 772 пар `enAlt`, які не покриті написанням.
+  // дім і побут
+  ["thumbtack", "drawing pin"], ["clothespin", "clothes peg"], ["dish towel", "tea towel"],
+  ["oven mitt", "oven glove"], ["baking sheet", "baking tray"], ["meat grinder", "mincer"],
+  ["range hood", "extractor hood"], ["power outage", "power cut"],
+  ["curtain rod", "curtain rail"], ["drywall", "plasterboard"], ["baseboard", "skirting board"],
+  ["nightstand", "bedside table"], ["bathroom sink", "basin"], ["row house", "terraced house"],
+  ["countertop", "worktop"], ["dumpster", "skip"], ["sandbox", "sandpit"],
+  ["wrench", "spanner"], ["laundromat", "launderette"],
+  // одяг, взуття, дрібниці
+  ["pants", "trousers"], ["pantyhose", "tights"], ["panties", "knickers"],
+  ["overalls", "dungarees"], ["cargo pants", "cargo trousers"], ["turtleneck", "roll-neck"],
+  ["pantsuit", "trouser suit"], ["pumps", "court shoes"], ["tuxedo", "dinner jacket"],
+  ["backpack", "rucksack"], ["zipper", "zip fastening"], ["snap", "popper"],
+  ["spandex", "elastane"], ["nail polish", "nail varnish"], ["plush toy", "soft toy"],
+  ["zipper", "zip"],
+  ["jump rope", "skipping rope"], ["dollhouse", "doll's house"],
+  // авто й дорога
+  ["gas pedal", "accelerator"], ["fender", "mudguard"], ["muffler", "silencer"],
+  ["sedan", "saloon"], ["station wagon", "estate car"], ["minivan", "people carrier"],
+  ["gearshift", "gear lever"], ["parking brake", "handbrake"], ["oil pan", "sump"],
+  ["rocker panel", "sill"], ["stabilizer bar", "anti-roll bar"], ["lug nut", "wheel nut"],
+  ["spare tire", "spare wheel"], ["hydroplaning", "aquaplaning"],
+  ["backup camera", "reversing camera"], ["low beam", "dipped beam"],
+  ["high beam", "main beam"], ["taillight", "rear light"], ["backup light", "reversing light"],
+  ["beltway", "ring road"], ["median", "central reservation"], ["exit ramp", "slip road"],
+  ["railroad crossing", "level crossing"], ["yield sign", "give-way sign"],
+  ["yellow light", "amber light"], ["drunk driving", "drink-driving"],
+  ["traffic violation", "traffic offence"], ["bike path", "cycle path"],
+  ["car rental", "car hire"], ["rental car", "hire car"], ["taxi stand", "taxi rank"],
+  // місто, крамниці, послуги
+  ["bookstore", "bookshop"], ["hardware store", "DIY store"], ["ATM", "cash machine"],
+  ["lost and found", "lost property office"], ["bulletin board", "notice board"],
+  ["campground", "campsite"], ["carry-on bag", "cabin bag"],
+  // школа, робота, гроші
+  ["elementary school", "primary school"], ["middle school", "secondary school"],
+  ["high school", "secondary school"], ["report card", "school report"],
+  ["labor union", "trade union"], ["pay stub", "payslip"],
+  ["flextime", "flexitime"], ["one-on-one", "one-to-one"],
+  ["sole proprietor", "sole trader"], ["fiscal year", "financial year"],
+  ["checking account", "current account"], ["deductible", "excess"],
+  ["polling place", "polling station"],
+  // медицина, спорт, їжа
+  ["physical therapy", "physiotherapy"], ["physical therapist", "physiotherapist"],
+  ["baby teeth", "milk teeth"], ["nearsighted", "short-sighted"],
+  ["farsighted", "long-sighted"], ["push-up", "press-up"], ["bobsled", "bobsleigh"],
+  ["bowling pin", "skittle"], ["track and field", "athletics"], ["checkers", "draughts"],
+  ["sideline", "touchline"], ["canned", "tinned"], ["ground meat", "minced meat"],
+  ["whole-wheat bread", "wholemeal bread"],
+  // решта
+  ["mom", "mum"], ["antenna", "aerial"], ["streetcar", "tram"],
+  ["upscale", "upmarket"], ["road construction", "roadworks"],
 ];
 // ⚠️ ПАРИ, ДЕ ЛІВА СТОРОНА ЖИВЕ В ОБОХ НОРМАХ: мітку дістає ЛИШЕ британське слово.
 // «pharmacy (амер.)» або «lawyer (амер.)» було б просто неправдою — це нейтральні
@@ -3156,6 +3230,17 @@ const LEX_BRIT_ONLY = [
   ["intercity bus", "coach"], ["fuel dispenser", "petrol pump"],
   ["building manager", "caretaker"], ["package tour", "package holiday"],
   ["train station", "railway station"],
+  // добір сесії 53
+  ["currency exchange", "bureau de change"], ["traffic jam", "tailback"],
+  ["ramp", "slip road"], ["office building", "office block"], ["glasses", "spectacles"],
+  ["allowance", "pocket money"], ["living room", "sitting room"],
+  ["drying rack", "clothes airer"], ["snap fastener", "press stud"],
+  ["grilled sandwich", "toastie"], ["vehicle inspection", "MOT test"],
+  ["roadway", "carriageway"], ["illegal dumping", "fly-tipping"],
+  ["shopping bag", "carrier bag"], ["industrial area", "industrial estate"],
+  ["residential complex", "housing estate"], ["baggage storage", "left-luggage office"],
+  ["voter list", "electoral register"], ["GPS navigation", "satnav"],
+  ["sunscreen", "sun cream"],
 ];
 // `all` — усі англійські варіанти ЦІЄЇ картки (основний + enAlt).
 function lexemeRegion(word, all) {
