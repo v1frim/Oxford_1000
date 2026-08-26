@@ -5051,7 +5051,7 @@ const WORDS = [
   {en:"individual",ua:["індивідуальний","особа"],uaAlt:["окремий","особистий"]},
   {en:"introduction",ua:"вступ",uaAlt:["знайомство","представлення"]},
   {en:"laughter",ua:"сміх"},
-  {en:"lifestyle",ua:"спосіб життя"},
+  {en:"lifestyle",ua:"спосіб життя",enAlt:["life style"]},
   {en:"mind",ua:["розум","свідомість"],uaAlt:["думка","заперечувати"]},
   {en:"mobile",ua:"мобільний"},
   {en:"particular",ua:"конкретний",uaAlt:["особливий","прискіпливий"]},
