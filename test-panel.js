@@ -200,6 +200,50 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── «СЕР./ДЕНЬ» ДІЛИТЬСЯ НА КАЛЕНДАРНІ ДНІ (сесія 53, за вибором користувача) ──
+  // Було `if (pts > 0) { sum += pts; n++; }`: день без активності не потрапляв ні в суму,
+  // ні в дільник, бо `dates` збирається з КЛЮЧІВ сховищ. Показник читався як «скільки роблю,
+  // коли сідаю за гру», хоча підпис обіцяє «на день». Тут стережемо саме дільник.
+  // ⚠️ Дата ЖИВА, не пінована: перевіряємо ТОТОЖНІСТЬ (сума ÷ минулі дні), а не конкретне
+  // число. Єдиний слабкий день у році — 1-ше, коли минув рівно один день і обидва дільники
+  // збігаються; хибного провалу це не дає, лише слабшу перевірку.
+  {
+    const pg = await b.newPage();
+    await pg.goto(PAGE); await pg.waitForTimeout(900);
+    const av = await pg.evaluate(() => {
+      const shift = (n) => { const d = new Date(Date.now() - n * 86400000);
+        return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") +
+               "-" + String(d.getDate()).padStart(2, "0"); };
+      const dayNum = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) / 86400000;
+      const today = todayKey(), old = shift(10);
+      // лишаємо рівно два активні дні: чистимо решту джерел пунктів
+      ["oxford_duolingo_v1", "oxford_song_sessions_v1", "oxford_gpt_requests_v1",
+       "oxford_movie_sessions_v1", "oxford_lh_done_v1", "oxford_expr_xp_v1",
+       "oxford_mistake_reviews_v1", "oxford_self_reviews_v1"].forEach(k => localStorage.removeItem(k));
+      localStorage.setItem("oxford_days_v1", JSON.stringify({
+        [today]: { correct: 40, wrong: 0, skipped: 0, games: 2 },
+        [old]:   { correct: 40, wrong: 0, skipped: 0, games: 2 },
+      }));
+      const raw = d => thermoRawForDate(d, loadDays(), loadDuoSessions(), loadLhDone(),
+        loadSongSessions(), loadGptRequests(), mistakeReviewPointsByDate(loadMistakeReviews()),
+        loadMovieSessions(), loadSelfReviews(), exprPointsByDate(loadExprXpLog()));
+      return { month: thermoPointsThisMonth(), avgM: avgThermoPerDay(true),
+               avgAll: avgThermoPerDay(false), elapsed: +today.slice(8, 10),
+               span: dayNum(today) - dayNum(old) + 1, total: raw(today) + raw(old),
+               ptsOld: raw(old) };
+    });
+    const near = (a, c) => Math.abs(a - c) < 1e-9;
+    t("є з чим рахувати (два активні дні дали пункти)", av.total > 0 && av.ptsOld > 0,
+      JSON.stringify(av));
+    t("«міс.» = пункти місяця ÷ минулі дні",
+      near(av.avgM, av.month / av.elapsed), JSON.stringify(av));
+    t("«всього» = усі пункти ÷ дні від першого активного дня",
+      near(av.avgAll, av.total / av.span), JSON.stringify(av));
+    t("дільник — НЕ кількість активних днів",
+      av.span > 2 && !near(av.avgAll, av.total / 2), JSON.stringify(av));
+    await pg.close();
+  }
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ помилки консолі:\n - " + errs.slice(0,4).join("\n - ") : "✅ 0 помилок консолі");
