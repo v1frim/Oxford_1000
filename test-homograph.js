@@ -255,6 +255,25 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("machine: US→UA «машина» приймається з uaAlt", mach.uaAltOk === true);
   t("machine: US→UA «механізм» приймається", mach.mainOk === true);
 
+  // ── У ≡ В НА ПОЧАТКУ СЛОВА (сесія 53, привід `downward` ← «вниз») ──────────────
+  // «Униз» і «вниз» — та сама форма (чергування за милозвучністю), тож карати за
+  // вибір варіанта нема за що. Але у/в буває й СМИСЛОРОЗРІЗНЮВАЛЬНИМ, і саме ці два
+  // випадки (заміряні по всьому словнику) правило мусить лишити помилкою.
+  t("US→UA: вчиняти ← «учиняти»", await ask("commit","вчиняти","en-ua","учиняти") === true);
+  t("US→UA: вперед ← «уперед»",  await ask("forward","вперед","en-ua","уперед") === true);
+  t("US→UA: униз ← «вниз»",      await ask("downward","униз","en-ua","вниз") === true);
+  t("US→UA: власний глос не постраждав",
+    await ask("forward","вперед","en-ua","вперед") === true);
+  // ⚠️ ВИНЯТКИ: тут у/в розрізняє СЛОВА, і зведення було б хибним зарахуванням
+  t("invest ← «укладати» НЕ зараховано (вкладати ≠ укладати)",
+    await ask("invest","інвестувати","en-ua","укладати") === false);
+  t("invest ← «вкладати» зараховано як і було",
+    await ask("invest","інвестувати","en-ua","вкладати") === true);
+  t("character ← «удача» НЕ зараховано (вдача ≠ удача)",
+    await ask("character","характер","en-ua","удача") === false);
+  t("character ← «вдача» зараховано як і було",
+    await ask("character","характер","en-ua","вдача") === true);
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
