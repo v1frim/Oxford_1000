@@ -6756,13 +6756,24 @@ function _progDeltaHtml(dk, dl, rev, dt, date) {
     const t = kLog ? 'У «Знаю» пішло ' + P + (R ? ', випало назад у «Вивчаю» ' + R : '') + ' · нетто ' + sgn(dk) : '';
     h += _pgCell("✓", sgn(dk), "prog-known" + (kLog ? " prog-click" : ""), cellAttrs("k", kLog, t));
   }
-  if (dl || lLog) {
-    const parts = [];
-    if (F) parts.push('нових ' + F);
-    if (R) parts.push('випали зі «Знаю» ' + R);
-    const t = lLog ? 'У «Вивчаю» ввійшло ' + lLog + (parts.length ? ' (' + parts.join(', ') + ')' : '') +
-      (P ? ', пішло далі в «Знаю» ' + P : '') + ' · нетто ' + sgn(dl) : '';
-    h += _pgCell("↗", sgn(dl), "prog-learning" + (lLog ? " prog-click" : ""), cellAttrs("l", lLog, t));
+  // ⚠️ ↗ ПОКАЗУЄ БРУТТО ВХОДУ, А НЕ НЕТТО (сесія 53, вибір користувача — варіант B).
+  // Було `sgn(dl)`, тобто нетто-зміна категорії. «Вивчаю» — ТРАНЗИТНА категорія:
+  // наповнюється з «Нові», спорожняється в «Знаю». Тож щойно темп випуску перевищить
+  // темп набору, нетто стає стабільно ВІД'ЄМНИМ — і день, коли ти закрив купу слів,
+  // виглядає як провал. Тепер у комірці `F` = скільки слів УПЕРШЕ зайшло в роботу.
+  // ⚠️ `F = dl + dk` — це не оцінка, а ТОЧНА рівність моделі переходів:
+  //   dl = F + R − P   (увійшли нові + повернулись зі «Знаю» − пішли в «Знаю»)
+  //   dk = P − R
+  //   ⇒ dl + dk = F, і R/P взаємно скорочуються.
+  // Тому число рахується зі знімків і однаково правильне для денних і для групових
+  // рядків — лог переходів для нього НЕ потрібен (а він ще й диз'юнктний: слово, що за
+  // день пройшло Нові→Знаю, з `l`-списку прибирається, тож `lLog` тут недорахував би).
+  // ⚠️ Нетто НЕ ЗНИКЛО — воно в тултіпі, разом із розкладом потоків.
+  if (F || lLog || dl) {
+    const parts = ['пішло далі в «Знаю» ' + P];
+    if (R) parts.push('випало зі «Знаю» назад ' + R);
+    const t = 'Уперше в роботі ' + F + ' · ' + parts.join(' · ') + ' · нетто категорії ' + sgn(dl);
+    h += _pgCell("↗", "+" + F, "prog-learning" + (lLog ? " prog-click" : ""), cellAttrs("l", lLog, t));
   }
   // 🔁 — повторення помилок. Число = скільки РАЗІВ повторював, а в модалці —
   // скільки РІЗНИХ слів не далось (сесія 44: «47 повторень, а слів менше»).
@@ -6930,7 +6941,11 @@ function renderMasteryStats() {
 
   const deltaK = mkDelta('ms-known', dk !== 0 ? (dk > 0 ? '+' : '') + dk + ' ✓' : '');
   const deltaLParts = [];
-  if (hasDeltas && dl !== 0) deltaLParts.push((dl > 0 ? '+' : '') + dl + ' ↗');
+  // ⚠️ Те саме брутто, що в «Прогресі по днях» (сесія 53): F = dl + dk — скільки слів
+  // уперше зайшло в роботу. Нетто `dl` тут НЕ показуємо, інакше два екрани дали б
+  // різні числа за той самий день. Пояснення рівності — біля `_progDeltaHtml`.
+  const dlIn = Math.max(0, dl + dk);
+  if (hasDeltas && dlIn !== 0) deltaLParts.push('+' + dlIn + ' ↗');
   if (rev > 0) deltaLParts.push('🔁 +' + rev);
   const deltaL = mkDelta('ms-learning', deltaLParts.join('  '));
   const deltaN = mkDelta('ms-new', hasDeltas && dt > 0 ? '+' + dt + ' ●' : '');
@@ -7089,12 +7104,17 @@ function openDayTransModal(date, cat) {
     const hi = hd.indexOf(date);
     if (hi >= 0) {
       const prevSnap = hi > 0 ? hist[hd[hi - 1]] : { k: 0, l: 0 };
-      const net = cat === "k" ? hist[date].k - prevSnap.k : hist[date].l - prevSnap.l;
-      if (net !== rows.length) {
+      const dl = hist[date].l - prevSnap.l, dk = hist[date].k - prevSnap.k;
+      const net = cat === "k" ? dk : dl;
+      // ⚠️ Порівнюємо з тим, ЩО СТОЇТЬ У КОМІРЦІ (сесія 53): для ↗ це вже брутто входу
+      // `F = dl + dk`, а не нетто. Інакше заголовок модалки сперечався б із коміркою,
+      // з якої його відкрили.
+      const shown = cat === "l" ? Math.max(0, dl + dk) : dk;
+      if (shown !== rows.length) {
         const expl = cat === "l"
-          ? 'Комірка ↗ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' того ж дня пішли далі в «Знаю» (або випали й повернулись)'
+          ? 'Комірка ↗ показує, скільки слів УПЕРШЕ зайшло в роботу: ' + shown + '. У списку ' + rows.length + ' — ті, що на кінець дня ще лишались у «Вивчаю» · нетто категорії ' + (net > 0 ? "+" : "") + net
           : 'Комірка ✓ показує нетто-зміну категорії: ' + rows.length + ' увійшло, ' + Math.max(0, rows.length - net) + ' випало назад у «Вивчаю»';
-        netNote = ' <span title="' + expl + '" style="opacity:.65">(у прогресі ' + (net > 0 ? "+" : "") + net + ')</span>';
+        netNote = ' <span title="' + expl + '" style="opacity:.65">(у комірці ' + (shown > 0 ? "+" : "") + shown + ')</span>';
       }
     }
   }

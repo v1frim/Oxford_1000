@@ -244,6 +244,38 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── ↗ У «ПРОГРЕСІ» = БРУТТО ВХОДУ, НЕ НЕТТО (сесія 53, вибір користувача) ──────
+  // «Вивчаю» — транзитна категорія: наповнюється з «Нові», спорожняється в «Знаю».
+  // Нетто через це стає від'ємним саме тоді, коли день був продуктивний. Сценарій нижче
+  // якраз такий: закрив у «Знаю» 5, узяв нових 3 → нетто −2, а в комірці має стояти +3.
+  {
+    const pg = await b.newPage();
+    await pg.goto(PAGE); await pg.waitForTimeout(900);
+    const cells = await pg.evaluate(() => {
+      const d = (n) => { const x = new Date(Date.now() - n * 86400000);
+        return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") +
+               "-" + String(x.getDate()).padStart(2, "0"); };
+      // ⚠️ БЕЗ reload: `saveMasterySnapshot()` на старті перезаписав би СЬОГОДНІШНІЙ
+      // запис реальними (порожніми) лічильниками й з'їв би сценарій. Тому сіємо два
+      // МИНУЛІ дні й одразу перемальовуємо панель.
+      localStorage.setItem("oxford_mastery_history_v1", JSON.stringify({
+        [d(2)]: { k: 10, l: 20, t: 100 },
+        [d(1)]: { k: 15, l: 18, t: 100 },      // dk +5, dl −2 → F = 3
+      }));
+      document.getElementById("progress-panel").classList.remove("hidden");
+      renderProgressPanel();
+      const row = document.querySelector("#prog-list .prog-row");
+      const get = cls => { const e = row.querySelector("." + cls); return e ? e.querySelector(".pgc-v").textContent : null; };
+      return { known: get("prog-known"), learning: get("prog-learning"),
+               tip: (row.querySelector(".prog-learning") || {}).title || "" };
+    });
+    t("↗ показує брутто входу, а не нетто", cells.learning === "+3", String(cells.learning));
+    t("↗ не від'ємне навіть коли категорія зменшилась", !/-/.test(cells.learning || ""), String(cells.learning));
+    t("✓ лишилось нетто", cells.known === "+5", String(cells.known));
+    t("нетто нікуди не зникло — воно в тултіпі", /нетто категорії -2/.test(cells.tip), cells.tip);
+    await pg.close();
+  }
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ помилки консолі:\n - " + errs.slice(0,4).join("\n - ") : "✅ 0 помилок консолі");
