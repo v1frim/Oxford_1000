@@ -8360,7 +8360,7 @@ const WORDS = [
   {en:"baseball cap",ua:"бейсболка"},
   {en:"woolly hat",ua:"тепла в'язана шапка"},
   {en:"bucket hat",ua:"панама"},
-  {en:"sun hat",ua:"капелюх від сонця"},
+  {en:"sun hat",ua:"капелюх від сонця",uaAlt:["сонцезахисний капелюх","панамка"]},
   {en:"balaclava",ua:"балаклава"},
   {en:"headscarf",ua:"хустка на голову"},
   {en:"shawl",ua:"шаль"},
