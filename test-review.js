@@ -16,29 +16,33 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.goto(PAGE); await p.evaluate(()=>localStorage.clear()); await p.reload(); await p.waitForTimeout(1100);
   const ok=[],bad=[]; const t=(n,c,x="")=>(c?ok:bad).push(n+(x?" — "+x:""));
 
-  // 1. План: кожне слово дістає обидва напрямки, розкладом 2+1
+  // 1. План: у кожного слова обидва напрямки, і третій крок — гарантія
   const plan = await p.evaluate(() => {
-    const pool = [0,1,2,3,4,5];
+    const pool = Array.from({ length: 200 }, (_, i) => i);
     const pl = buildReviewDirPlan(pool);
     return pool.map(i => pl[i]);
   });
-  t("план на кожне слово має 3 кроки", plan.every(x => x.length === 3), JSON.stringify(plan));
-  t("у кожному плані ОБИДВА напрямки",
-    plan.every(x => x.includes("en-ua") && x.includes("ua-en")), JSON.stringify(plan));
-  t("розклад саме 2+1, а не 3+0",
+  t("план на кожне слово має 3 кроки", plan.every(x => x.length === 3), JSON.stringify(plan[0]));
+  t("у кожному плані є ОБИДВА напрямки",
+    plan.every(x => x.includes("en-ua") && x.includes("ua-en")),
+    JSON.stringify(plan.filter(x => new Set(x).size === 1).slice(0, 3)));
+  // ⚠️ Наслідок, а не окреме правило: три слоти + обидва напрямки = завжди 2+1
+  t("у трійці завжди 2+1, а не 3+0",
     plan.every(x => { const n = x.filter(d => d === "en-ua").length; return n === 1 || n === 2; }),
-    JSON.stringify(plan));
-  t("основний напрямок чергується між словами",
-    plan.every((x, i) => x.filter(d => d === (i % 2 ? "ua-en" : "en-ua")).length === 2),
-    JSON.stringify(plan));
-
-  // 2. Порядок усередині трійки НЕ фіксований (інакше меншість завжди третя)
-  const orders = await p.evaluate(() => {
-    const seen = new Set();
-    for (let k = 0; k < 60; k++) seen.add(buildReviewDirPlan([7])[7].join(","));
-    return [...seen];
-  });
-  t("порядок кроків перемішується", orders.length > 1, orders.join(" | "));
+    JSON.stringify(plan[0]));
+  // ⚠️ ГОЛОВНЕ ПРАВИЛО (уточнення користувача): третій крок примусовий ЛИШЕ тоді,
+  // коли перші два збіглися; інакше він вільний.
+  t("збіглися перші два → третій обов'язково інший",
+    plan.filter(x => x[0] === x[1]).every(x => x[2] !== x[0]),
+    JSON.stringify(plan.filter(x => x[0] === x[1] && x[2] === x[0]).slice(0, 3)));
+  // 2. Перші два кроки — ЧЕСНА монетка: на великій вибірці мають трапитись усі 4 пари
+  const pairs = new Set(plan.map(x => x[0] + "," + x[1]));
+  t("перші два кроки не примусові — усі 4 комбінації трапляються",
+    pairs.size === 4, [...pairs].join(" | "));
+  const freeThird = plan.filter(x => x[0] !== x[1]);
+  t("коли перші два різні — третій теж вільний",
+    new Set(freeThird.map(x => x[2])).size === 2,
+    JSON.stringify(freeThird.slice(0, 3)));
 
   // 3. Живий прогін: напрямок береться з плану за лічильником ПРАВИЛЬНИХ
   const live = await p.evaluate(() => {
