@@ -12296,7 +12296,7 @@ const WORDS = [
   {en:"edible plant",ua:"їстівна рослина"},
   {en:"wasp",ua:"оса"},
   {en:"beetle",ua:"жук"},
-  {en:"snail",ua:"равлик"},
+  {en:"snail",ua:"равлик",uaAlt:["слимак"]},
   {en:"wild boar",ua:"дикий кабан"},
   {en:"hedgehog",ua:"їжак"},
   {en:"hawk",ua:"яструб"},
