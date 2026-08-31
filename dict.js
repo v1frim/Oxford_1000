@@ -25509,6 +25509,8 @@ const HINTS = {
   "derelict": "покинутий і зруйнований",
   "run-down": "занепалий, але ще вживаний",
   "elevator": "амер.; брит. — lift",
+  "ad": "розм. скорочення від advertisement",
+  "advert": "брит. скорочення від advertisement",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
