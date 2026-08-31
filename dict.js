@@ -9178,7 +9178,7 @@ const WORDS = [
   {en:"family gathering",ua:"сімейна зустріч"},
   {en:"family reunion",ua:"зустріч великої родини після розлуки"},
   {en:"quality time",ua:"якісно проведений час разом"},
-  {en:"to take care of",ua:"піклуватися про",uaAlt:["доглядати за"]},
+  {en:"to take care of",ua:"піклуватися про",uaAlt:["доглядати за","дбати про","піклуватися","доглядати"],enAlt:["to care for","to look after"]},
   // ── Сім'я, партія 2/3: знайомство й флірт, розвиток стосунків, розрив (сесія 47) ──
   {en:"physical attraction",ua:"фізичний потяг"},
   {en:"flirting",ua:"флірт"},
@@ -25511,6 +25511,8 @@ const HINTS = {
   "elevator": "амер.; брит. — lift",
   "ad": "розм. скорочення від advertisement",
   "advert": "брит. скорочення від advertisement",
+  "to take care of": "практично: годувати, доглядати",
+  "to care about": "емоційно: небайдуже, переживати",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
