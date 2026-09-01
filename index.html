@@ -9120,8 +9120,14 @@ function renderAchVariantA() {
       const rec = a.record();    // рекорд за весь час
       const cur = claimedLvl > 0 ? ACH_LEAGUES[claimedLvl-1] : ACH_NOLEAGUE;
       const goal = claimedLvl < 5 ? a.thresholds[claimedLvl] : a.thresholds[4];
-      const pct = Math.min(100, Math.max(0, Math.round(mp / goal * 100)));
-      const count = claimedLvl < 5 ? fmtAchNum(mp) + ' / ' + fmtAchNum(goal) : '👑 ' + fmtAchNum(mp);
+      // ⚠️ НАЙВИЩА ЛІГА = 100% І ПОКАЗ ЗДОБУТОГО (сесія 54, скарга користувача):
+      // доти смужка рахувалась як `поточне / останній поріг`, тож у «Пунктів за місяць»
+      // на початку місяця вона падала майже в нуль (10 п. з 300 = 3%), хоч Королівська
+      // ліга вже здобута НАЗАВЖДИ. І в лічильнику стояло «👑 10» — поточне значення
+      // замість того, чим ачівку взято. Тепер: повна смужка + рекорд (не нижче порога).
+      const pct = claimedLvl >= 5 ? 100 : Math.min(100, Math.max(0, Math.round(mp / goal * 100)));
+      const count = claimedLvl < 5 ? fmtAchNum(mp) + ' / ' + fmtAchNum(goal)
+        : '👑 ' + fmtAchNum(Math.max(rec || 0, a.thresholds[4]));
       const lgPart = claimedLvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
         : (claimedLvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
       const curLabel = a.isMonth ? 'цей місяць' : 'зараз';
@@ -9135,7 +9141,9 @@ function renderAchVariantA() {
     const next = lvl < 5 ? ACH_LEAGUES[lvl] : null;
     const base = lvl > 0 ? a.thresholds[lvl-1] : 0;
     const goal = lvl < 5 ? a.thresholds[lvl] : a.thresholds[4];
-    const pct = Math.min(100, Math.max(0, Math.round((v - base) / (goal - base) * 100)));
+    // На 5-й лізі base === goal → ділення 0/0 давало NaN і порожню смужку (той самий
+    // клас, що вище): фіксуємо 100% явно.
+    const pct = lvl >= 5 ? 100 : Math.min(100, Math.max(0, Math.round((v - base) / (goal - base) * 100)));
     const count = next ? fmtAchNum(v) + ' / ' + fmtAchNum(goal) : '👑 ' + fmtAchNum(v);
     const desc = lvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
       : (lvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
