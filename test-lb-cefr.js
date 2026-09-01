@@ -175,7 +175,7 @@ const DAY = 86400000;
   // ньому), а не за першим рівнем мітки. Тому `A1-B2` тепер після `B1`: пул із B2-словами
   // важчий за чистий B1, хоч мітка й починається з A1. Було: A1 → A1-B2 → B1 → —.
   t("порядок рівнів: A1 → B1 → A1-B2 → — (за складністю)",
-    body.slice(0, 4).every((r, i) => ["🎓 A1", "🎓 B1", "🎓 A1-B2", "🎓 —"][i] === r.mode.split(" · ")[0]),
+    body.slice(0, 4).every((r, i) => ["A1", "B1", "A1-B2", "—"][i] === r.mode.split(" · ")[0]),
     JSON.stringify(body.map(r => r.mode)));
   t("медалей немає (перший рядок без золотого тла)", body[0] && /rgba\(0, 0, 0, 0\)|transparent/.test(body[0].bg),
     String(body[0] && body[0].bg));
@@ -203,7 +203,7 @@ const DAY = 86400000;
     JSON.stringify(extra));
   t("«ост»-рядок без лічильника ігор", !extra.games, JSON.stringify(extra));
   t("рекорд A1 не змінився після слабкої гри",
-    extra.rows === 6 && extra.mode.startsWith("🎓 A1"), JSON.stringify(extra));
+    extra.rows === 6 && extra.mode.startsWith("A1"), JSON.stringify(extra));
   t("кнопка очищення схована на вкладці 🎓", tab.resetHidden === "hidden", tab.resetHidden);
 
   // перемикання назад на «Найкращі ігри» знімає режим 🎓

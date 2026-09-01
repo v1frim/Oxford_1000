@@ -157,7 +157,10 @@
   .lb-games { font-size: 11px; opacity: 0.7; }
   /* Сума по всіх іграх набору поруч із їх кількістю (🎓, сесія 45) — ще тьмяніша за
      сам лічильник: це довідка, а не заголовок рядка. */
-  .lb-games-sum { font-size: 11px; opacity: 0.5; margin-left: 4px; }
+  .lb-games-sum { font-size: 11px; opacity: 0.5; }
+  /* 📖-набір (лише невивчені слова) — зеленим рівнем замість емодзі: рядок вкладки 🎓
+     і так на межі переносу, кожні 18px на вагу золота (сесія 54, скарга користувача). */
+  .cefr-solo { color: #7ee787; font-weight: 700; }
   /* Чипси вибору періоду на вкладці 🕒 (сесія 51) */
   .lb-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 8px; align-items: center; }
   .lb-chip {
@@ -7892,6 +7895,12 @@ function renderTabCefr() {
     if (!idx.length) return [99, 99, 0, solo];
     return [Math.max(...idx), Math.min(...idx), idx.length, solo];
   };
+  // ⚠️ ПОКАЗ мітки ≠ її ЗБЕРЕЖЕНЕ значення (сесія 54). У `games log` тег лежить як
+  // «cefr:A1 📖+A2» — міняти його не можна, інакше історичні рядки роз'їдуться на
+  // окремі ключі. Тому 📖 замінюємо ЛИШЕ на екрані: рівень стає зеленим (та сама
+  // інформація, але без емодзі, яке з'їдало ~18px у й так тісному рядку).
+  const cefrLabelHtml = (label) => esc(String(label))
+    .replace(/([A-C][12]|—)\s*📖/g, '<span class="cefr-solo" title="лише невивчені слова">$1</span>');
   const renderCefrRow = (g, label, cls, isExtra) => {
     const isTodayGame = tsToDayKey(g.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(g.ts));
@@ -7911,7 +7920,7 @@ function renderTabCefr() {
       '<span class="lb-score">' + g.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)' + poolStr + '</span>' +
       gamesStr +
-      '<span class="lb-mode">🎓 ' + label + ' · ' + fmtDate(g.ts) + '</span>' +
+      '<span class="lb-mode">' + cefrLabelHtml(label) + ' · ' + fmtDate(g.ts) + '</span>' +
     '</li>';
   };
   // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
