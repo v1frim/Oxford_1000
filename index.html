@@ -9130,8 +9130,10 @@ function renderAchVariantA() {
         : '👑 ' + fmtAchNum(Math.max(rec || 0, a.thresholds[4]));
       const lgPart = claimedLvl === 0 ? 'До ліги «' + ACH_LEAGUES[0].name + '»'
         : (claimedLvl < 5 ? cur.label + ' ліга' : 'Найвища ліга — ' + cur.label + ' 👑');
-      const curLabel = a.isMonth ? 'цей місяць' : 'зараз';
-      const desc = lgPart + ' · ' + curLabel + ': ' + mp + ' ' + a.unit + ' · рекорд: ' + rec + ' ' + a.unit;
+      // ⚠️ ПОТОЧНЕ ЗНАЧЕННЯ В ОПИСІ НЕ ДУБЛЮЄМО (сесія 54, за запитом): воно вже стоїть
+      // у лічильнику праворуч («7 / 60»), а рядок опису через це не вміщався й обрізався
+      // на «· р…». Лишається ліга + рекорд за весь час.
+      const desc = lgPart + ' · рекорд: ' + rec + ' ' + a.unit;
       return achCardHtml({ icon:a.icon, title:a.name, lvl:claimedLvl, pct, count, desc,
         c:cur.color, c2:cur.color2, glow:cur.color, shimmer: claimedLvl >= 3 });
     }
