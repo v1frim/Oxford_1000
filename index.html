@@ -3357,7 +3357,24 @@ function getCorrectAnswer() {
     const h = hintFor(getEn(currentWord)[0], getUa(currentWord)[0]);
     const main = getUa(currentWord);
     const first = h ? [main[0] + " (" + h + ")", ...main.slice(1)] : main;
-    return [...first, ...(currentWord.uaAlt || [])].join(" / ");
+    // ⚠️ ПЕРЕСТАНОВКИ СЛІВ У ПАНЕЛЬ НЕ ПУСКАЄМО (сесія 54, привід `grandparents`):
+    // «бабуся й дідусь / дідусь і бабуся / бабуся і дідусь / бабуся та дідусь /
+    // дідусь та бабуся» — це ОДИН варіант у п'яти обгортках, він забивав рядок і
+    // ховав справді інші відповіді. Приймаються всі (uaAlt не чіпаємо) — ховається
+    // лише ПОКАЗ. Ключ: слова за абеткою без сполучників і/й/та.
+    const permKey = (x) => String(x).toLowerCase().replace(/\([^)]*\)/g, "")
+      .split(/[\s,]+/).filter(w => w && !/^(і|й|та|and|or|або)$/.test(w)).sort().join("|");
+    const seenPerm = new Set();
+    const uniq = [...first, ...(currentWord.uaAlt || [])].filter((x) => {
+      const k = permKey(x);
+      if (!k) return true;
+      if (seenPerm.has(k)) return false;
+      seenPerm.add(k); return true;
+    });
+    // …і показуємо щонайбільше 3 варіанти: довгий рядок синонімів однаково не
+    // читається, а всі вони лишаються прийнятними відповідями (сесія 54).
+    const CAP = 3;
+    return uniq.length > CAP ? uniq.slice(0, CAP).join(" / ") + " …" : uniq.join(" / ");
   } else if (mode === "en-def" || mode === "en-cloze") {
     return getEn(currentWord).join(" / ");
   } else if (mode === "en-syn") {
