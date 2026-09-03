@@ -6662,7 +6662,7 @@ const WORDS = [
   {en:"complexity",ua:"складність",uaAlt:["заплутаність"]},
   {en:"composition",ua:"композиція",uaAlt:["склад","твір"]},
   {en:"confirmation",ua:"підтвердження",uaAlt:["затвердження"]},
-  {en:"consciousness",ua:"притомність",uaAlt:["свідомість","усвідомлення"]},
+  {en:"consciousness",ua:["свідомість","притомність"],uaAlt:["усвідомлення","самосвідомість"]},
   {en:"consultation",ua:"консультація",uaAlt:["нарада","обговорення"]},
   {en:"contractor",ua:"підрядник",uaAlt:["виконавець робіт"]},
   {en:"contributor",ua:"дописувач",uaAlt:["учасник","жертводавець"]},
@@ -25569,6 +25569,7 @@ const HINTS = {
   "guardian": "законний опікун дитини; переносно — захисник",
   "fry": "на пательні в олії",
   "order total": "сума до сплати в кошику",
+  "consciousness": "свідомість як стан; ще й притомність",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
