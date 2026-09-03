@@ -11156,7 +11156,7 @@ const WORDS = [
   {en:"verified purchase",ua:"підтверджена покупка"},
   {en:"verified buyer",ua:"підтверджений покупець"},
   {en:"review score",ua:"оцінка за відгуками"},
-  {en:"positive review",ua:"позитивний відгук"},
+  {en:"positive review",ua:"позитивний відгук",enAlt:["positive feedback","good review"],uaAlt:["схвальний відгук","гарний відгук","позитивна рецензія"]},
   {en:"negative review",ua:"негативний відгук"},
   {en:"mixed reviews",ua:"неоднозначні відгуки",uaAlt:["змішані відгуки"]},
   {en:"buyer recommendation",ua:"рекомендація покупця"},
@@ -25564,6 +25564,8 @@ const HINTS = {
   "wintry": "по-зимовому холодний",
   "fencing": "спорт; ще й огорожа та її встановлення",
   "rainfall": "СКІЛЬКИ дощу випало, а не сам дощ",
+  "positive review": "публічний — на сайті чи маркетплейсі",
+  "feedback": "відповідь на чиюсь роботу, часто приватна",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
