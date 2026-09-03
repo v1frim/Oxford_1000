@@ -7786,7 +7786,7 @@ function renderGameRow(s, cls, rank, ctx) {
     // саме значок повторень?». НЕ зливати ці два прапорці назад в один.
     const isCefr = !!(s.tag && s.tag.indexOf("cefr:") === 0);
     const outOfRank = isCefr || s.tag === "wrong";
-    const modeStr = (isCefr ? "🎓 " + s.tag.slice(5) : null)
+    const modeStr = (isCefr ? "🎓 " + cefrLabelHtml(s.tag.slice(5)) : null)
       || (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(s.ts));
@@ -7849,6 +7849,14 @@ function renderTabGames() {
 // тож у них ВЛАСНИЙ рейтинг. Ключ порівняння — мітка вибору («A1», «A1-B1», «—»): кожен
 // набір рівнів = окремий пул, тому один рядок = рекорд ЦЬОГО пулу, а не місце в спільному
 // топі. Сховище нове НЕ заводимо — усе рахується з games-log (там CEFR-ігри з сесії 42).
+// ⚠️ ПОКАЗ мітки CEFR ≠ її ЗБЕРЕЖЕНЕ значення (сесія 54). У `games log` тег лежить як
+// «cefr:A1 📖+A2» — міняти його не можна, інакше історичні рядки роз'їдуться на окремі
+// ключі. Тому 📖 замінюємо ЛИШЕ на екрані: рівень стає зеленим (та сама інформація, але
+// без емодзі, яке з'їдало ~18px у й так тісному рядку).
+// ⚠️ ОДИН хелпер на ВСІ вкладки: спершу він жив усередині renderTabCefr, і на 🕒/🏆
+// мітка лишалась зі старим 📖 — розбіжність помітив користувач.
+const cefrLabelHtml = (label) => esc(String(label))
+  .replace(/([A-C][12]|—)\s*📖/g, '<span class="cefr-solo" title="лише невивчені слова">$1</span>');
 function renderTabCefr() {
   setLbTitle("Рекорди за рівнями CEFR");
   const games = loadGamesLog().filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
@@ -7897,12 +7905,6 @@ function renderTabCefr() {
     if (!idx.length) return [99, 99, 0, solo];
     return [Math.max(...idx), Math.min(...idx), idx.length, solo];
   };
-  // ⚠️ ПОКАЗ мітки ≠ її ЗБЕРЕЖЕНЕ значення (сесія 54). У `games log` тег лежить як
-  // «cefr:A1 📖+A2» — міняти його не можна, інакше історичні рядки роз'їдуться на
-  // окремі ключі. Тому 📖 замінюємо ЛИШЕ на екрані: рівень стає зеленим (та сама
-  // інформація, але без емодзі, яке з'їдало ~18px у й так тісному рядку).
-  const cefrLabelHtml = (label) => esc(String(label))
-    .replace(/([A-C][12]|—)\s*📖/g, '<span class="cefr-solo" title="лише невивчені слова">$1</span>');
   const renderCefrRow = (g, label, cls, isExtra) => {
     const isTodayGame = tsToDayKey(g.ts) === today;
     const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(g.ts));
