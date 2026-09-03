@@ -25567,6 +25567,7 @@ const HINTS = {
   "positive review": "публічний — на сайті чи маркетплейсі",
   "feedback": "відповідь на чиюсь роботу, часто приватна",
   "guardian": "законний опікун дитини; переносно — захисник",
+  "fry": "на пательні в олії",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
