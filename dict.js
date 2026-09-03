@@ -10958,7 +10958,7 @@ const WORDS = [
   {en:"contact details",ua:"контактні дані"},
   {en:"delivery option",ua:"варіант доставки",uaAlt:["спосіб доставки"]},
   {en:"order summary",ua:"підсумок замовлення"},
-  {en:"order total",ua:"загальна сума замовлення"},
+  {en:"order total",ua:"загальна сума замовлення",enAlt:["order amount","total amount of the order"]},
   {en:"order confirmation",ua:"підтвердження замовлення"},
   {en:"confirmation email",ua:"лист-підтвердження"},
   {en:"order status",ua:"статус замовлення"},
@@ -25568,6 +25568,7 @@ const HINTS = {
   "feedback": "відповідь на чиюсь роботу, часто приватна",
   "guardian": "законний опікун дитини; переносно — захисник",
   "fry": "на пательні в олії",
+  "order total": "сума до сплати в кошику",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
