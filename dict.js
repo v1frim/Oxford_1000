@@ -25579,6 +25579,8 @@ const HINTS = {
   "seasickness": "іменник — назва стану; про людину — seasick",
   "flirt": "людина, а не дія — сам флірт це flirting",
   "flirting": "сама дія; людина, яка фліртує — flirt",
+  "wafer": "тонка хрустка пластинка — вафельний ріжок, облатка",
+  "waffle": "товста м'яка, з комірками — бельгійська",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
@@ -34311,7 +34313,7 @@ const EXAMPLES = {
   "caramel":"The caramel became hard as it cooled.",
   "chewing gum":"Chewing gum after a meal helps the teeth.",
   "cracker":"He ate a cracker with cheese.",
-  "wafer":"The ice cream came with a thin wafer.",
+  "wafer":"The ice cream came with a crunchy wafer.",
   "sponge cake":"A sponge cake is light and airy.",
   "sorbet":"Lemon sorbet is served between courses.",
   "jelly":"The children asked for red jelly.",
@@ -47154,7 +47156,7 @@ const EXAMPLES_UA = {
   "caramel":"Карамель затверділа, коли охолола.",
   "chewing gum":"Жувальна гумка після їжі допомагає зубам.",
   "cracker":"Він з'їв крекер із сиром.",
-  "wafer":"Морозиво подали з тонкою вафлею.",
+  "wafer":"Морозиво подали з хрумкою вафлею.",
   "sponge cake":"Бісквіт легкий і повітряний.",
   "sorbet":"Лимонний сорбет подають між стравами.",
   "jelly":"Діти попросили червоне желе.",
