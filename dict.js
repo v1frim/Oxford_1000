@@ -2039,7 +2039,7 @@ const WORDS = [
   {en:"convenience",ua:"зручність",uaAlt:["вигода"]},
   {en:"intolerance",ua:"непереносимість",uaAlt:["нетерпимість"]},
   // базові слова, які зловив check-coverage на прикладах пілоту
-  {en:"gate",ua:"ворота",uaAlt:["хвіртка","вихід на посадку"]},
+  {en:"gate",ua:"ворота",uaAlt:["хвіртка","вихід на посадку","гейт"]},
   {en:"statue",ua:"статуя",uaAlt:["пам'ятник","скульптура"]},
   {en:"to pile",ua:"складати купою",uaAlt:["громадити","накладати"]},
   {en:"sink",ua:"раковина",uaAlt:["мийка"]},
@@ -11322,7 +11322,7 @@ const WORDS = [
   {en:"security checkpoint",ua:"пункт контролю безпеки"},
   {en:"passport control",ua:"паспортний контроль"},
   {en:"airport lounge",ua:"бізнес-зала аеропорту",uaAlt:["бізнес-зал аеропорту"]},
-  {en:"gate number",ua:"номер виходу на посадку"},
+  {en:"gate number",ua:"номер виходу на посадку",uaAlt:["номер гейта","номер гейту","номер виходу"]},
   {en:"boarding area",ua:"зона посадки"},
   {en:"jet bridge",ua:"телескопічний трап",enAlt:["air bridge"]},
   {en:"airport shuttle",ua:"шатл аеропорту"},
