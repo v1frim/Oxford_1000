@@ -9732,7 +9732,7 @@ const WORDS = [
   {en:"anti-lock braking system",ua:"антиблокувальна система гальм",enAlt:["ABS"],uaAlt:["антиблокувальна гальмівна система"]},
   {en:"braking distance",ua:"гальмівний шлях"},
   {en:"stopping distance",ua:"зупинний шлях"},
-  {en:"steering",ua:"кермове керування"},
+  {en:"steering",ua:"кермове керування",uaAlt:["рульове керування","кермування","рульова система"]},
   {en:"steering system",ua:"кермова система"},
   {en:"power steering",ua:"підсилювач керма"},
   {en:"steering rack",ua:"кермова рейка",uaAlt:["рульова рейка"]},
