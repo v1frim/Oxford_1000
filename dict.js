@@ -3284,7 +3284,7 @@ const WORDS = [
   {en:"petrol station",ua:"заправна станція",enAlt:["gas station"],uaAlt:["заправка","АЗС"]},
   {en:"playground",ua:"дитячий майданчик"},
   {en:"police officer",ua:"поліцейський",enAlt:["policeman"]},
-  {en:"police station",ua:"відділок поліції",uaAlt:["відділення поліції","поліцейський відділок"]},
+  {en:"police station",ua:"відділок поліції",uaAlt:["відділення поліції","поліцейський відділок","поліцейська дільниця","дільниця поліції"]},
   {en:"postcard",ua:"поштова листівка"},
   {en:"postmark",ua:"поштовий штемпель"},
   {en:"power station",ua:"електростанція"},
