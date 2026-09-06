@@ -12360,7 +12360,7 @@ const WORDS = [
   {en:"trail marker",ua:"позначка маршруту"},
   {en:"waymark",ua:"маршрутна мітка"},
   {en:"topographic map",ua:"топографічна карта"},
-  {en:"compass point",ua:"сторона світу"},
+  {en:"compass point",ua:"сторона світу",enAlt:["cardinal direction","cardinal point"]},
   {en:"bearing",ua:"азимут",uaAlt:["напрямок за компасом"]},
   {en:"dead end",ua:"глухий кут",uaAlt:["тупик"]},
   {en:"outdoor activity",ua:"заняття на природі"},
