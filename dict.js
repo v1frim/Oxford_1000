@@ -2571,7 +2571,7 @@ const WORDS = [
   {en:"paparazzi",ua:"папараці"},
   {en:"papaya",ua:"папайя"},
   {en:"parachuting",ua:"парашутний спорт"},
-  {en:"paragliding",ua:"параглайдинг"},
+  {en:"paragliding",ua:"параглайдинг",uaAlt:["парапланеризм","політ на параплані"]},
   {en:"parasailing",ua:"парасейлінг"},
   {en:"parkour",ua:"паркур"},
   {en:"parsnip",ua:"пастернак"},
