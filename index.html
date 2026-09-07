@@ -3530,10 +3530,11 @@ function recordAnswer(userVal, status) {
     if (reviewRemaining) {
       reviewCorrectCounts[currentWordIndex] = (reviewCorrectCounts[currentWordIndex] || 0) + 1;
       if (reviewCorrectCounts[currentWordIndex] >= REVIEW_REQUIRED_CORRECT) {
-        // 2 XP за закрите слово повторення (= 1 повторення), НЕ за кожну відповідь.
-        // ⚠️ Сесія 45: умова `!reviewFromMenu` знята — меню-повторення (яке платило
-        // пунктами «Плани») більше не існує, тож подвійної оплати не буває.
-        addXp(2);
+        // ⚠️ СЕСІЯ 55: XP за закрите слово повторення ВИДАЛЕНО за запитом («нехай
+        // таймер тікає і ні на що це не впливає»). Було `addXp(2)`. Разом із ним
+        // прибрано `recordReviewStats` — джерело й журнал знімаються ТІЛЬКИ разом,
+        // інакше live-XP не відтворюється й зникає на першій же міграції formula_vN.
+        // НЕ повертати щось одне з двох.
         reviewRemaining.delete(currentWordIndex);
         // Only remove from today's mistakes if the word had no errors/skips this session.
         // A "tainted" word (any mistake in current review) must stay for further review.
@@ -3924,7 +3925,10 @@ function endGame(endedEarly) {
   } else {
     setMode(selectedMode);   // повернути режим гри, обраний користувачем (мікс повторення не «прилипає»)
     const wordsReviewed = reviewTotalPool - (reviewRemaining ? reviewRemaining.size : 0);
-    recordReviewStats(wordsReviewed);
+    // ⚠️ СЕСІЯ 55: `recordReviewStats(wordsReviewed)` ПРИБРАНО за запитом — повторення
+    // більше не пише `reviewCorrect` у `oxford_days_v1`, тож не дає ні XP, ні пунктів,
+    // ні приросту в «Повтореннях». Рядок «~N сек/слово» нижче ЛИШАЄТЬСЯ (за запитом:
+    // таймер має тікати, просто нічого не фіксувати).
     // ⚠️ Сесія 45: блок нарахування пунктів «Плани» за 15 закритих слів ВИДАЛЕНО
     // разом із кнопкою меню — повторення більше не дає ні пунктів, ні XP-за-пункт.
     checkThermoMilestones();               // база milestone'ів (пунктів звідси вже не додається)
@@ -6139,14 +6143,11 @@ function recordDayStats(correct, wrong, skipped, wordCount) {
   localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
   return key;
 }
-function recordReviewStats(correct) {
-  if (correct === 0) return;
-  const days = loadDays();
-  const key = todayKey();
-  if (!days[key]) days[key] = { correct: 0, wrong: 0, skipped: 0, games: 0 };
-  days[key].reviewCorrect = (days[key].reviewCorrect || 0) + correct;
-  localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
-}
+// ⚠️ СЕСІЯ 55: `recordReviewStats` ВИДАЛЕНО (за запитом) — єдиний писач `reviewCorrect`.
+// Поле ЗАМОРОЖЕНЕ, не стерте: усі читачі лишаються на місці (`computeRetroXp`,
+// `computeDayStatsXp`, «Повторень» у `#lb-totals`, ачівка `review`, «Прогрес по днях»,
+// рекорди). Прибрати їх = заднім числом обнулити XP і статистику минулих днів.
+// Той самий патерн, що з `oxford_mistake_reviews_v1` (сесія 45) і `oxford_self_reviews_v1` (47).
 function plural(n, one, few, many) {
   const m10 = n % 10, m100 = n % 100;
   if (m10 === 1 && m100 !== 11) return one;
