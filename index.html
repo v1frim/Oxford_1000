@@ -4000,7 +4000,12 @@ const EN_TO_UA = (() => {
   const m = new Map();
   WORDS.forEach(w => {
     const enList = getEn(w);
-    const uaList = getUa(w);
+    // ⚠️ Ховер бере `ua` + `uaAlt` (сесія 55). `getUa` віддає лише `ua` — і через це
+    // сенс, що лежить в `uaAlt`, зникав із тултіпа: у «Potatoes are stored…» слово
+    // `store` показувало саме «магазин», бо «зберігати» в цій картці — uaAlt.
+    // Скан знайшов 115 таких речень. ⚠️ На ЗАРАХУВАННЯ це не впливає: EN_TO_UA живить
+    // лише ховер і переклад речень; `isCorrect` читає ua/uaAlt/enAlt напряму.
+    const uaList = getUa(w).concat(w.uaAlt || []);
     enList.forEach(en => {
       const key = en.toLowerCase();
       if (!m.has(key)) m.set(key, []);

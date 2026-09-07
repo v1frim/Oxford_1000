@@ -29,7 +29,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
              sentence: EXAMPLES["slim"] };
   });
   t("«worked out» склеєно в один спан", slim.n === 1 && slim.text === "worked out", JSON.stringify(slim));
-  t("показує значення фрази, а не «працювати»", slim.trans === "тренуватися", String(slim.trans));
+  // ⚠️ Сесія 55: ховер бере ua + uaAlt, тож рядок = «тренуватися, займатися спортом, …».
+  // Перевіряємо НАМІР — значення фрази стоїть першим і «працювати» (глос work) не протікає.
+  t("показує значення фрази, а не «працювати»",
+    /^тренуватися(,|$)/.test(slim.trans || "") && !/працювати/.test(slim.trans || ""), String(slim.trans));
 
   // 2. інші типові фрази: дієслівні, іменникові, багатослівна картка
   const others = await p.evaluate(() => {
