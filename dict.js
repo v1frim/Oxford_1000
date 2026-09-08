@@ -2565,7 +2565,7 @@ const WORDS = [
   {en:"outbox",ua:"вихідні повідомлення"},
   {en:"overfishing",ua:"надмірний вилов риби"},
   {en:"paella",ua:"паелья"},
-  {en:"paintballing",ua:"пейнтбол"},
+  {en:"paintballing",ua:"пейнтбол",enAlt:["paintball"]},
   {en:"paleontologist",ua:"палеонтолог"},
   {en:"paneer",ua:"панір"},
   {en:"paparazzi",ua:"папараці"},
