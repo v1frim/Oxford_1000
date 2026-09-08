@@ -255,6 +255,44 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("machine: US→UA «машина» приймається з uaAlt", mach.uaAltOk === true);
   t("machine: US→UA «механізм» приймається", mach.mainOk === true);
 
+  // ── СПОЛУЧНИК «Й / І / ТА» НЕОБОВ'ЯЗКОВИЙ (сесія 56, привід «квиток туди-назад») ──
+  // Три сполучники взаємозамінні за милозвучністю, тож вимагати саме той варіант, що
+  // лежить у даних, — орфографічна пастка. Правило живе в `normUaSoft` (лише US→UA) і
+  // діє ТІЛЬКИ на окреме слово у фразі 3+ слів, де після викидання лишається 2+.
+  const conj = await p.evaluate(() => {
+    const setEnUa = en => { const i = WORDS.findIndex(w => getEn(w)[0] === en);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "en-ua"; currentShown = getEn(currentWord)[0]; };
+    const setUaEn = (en, ua) => { const i = WORDS.findIndex(w => getEn(w)[0] === en && getUa(w)[0] === ua);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en"; currentShown = getUa(currentWord)[0]; };
+    const o = {};
+    setEnUa("return ticket");
+    o.dash = isCorrect("квиток туди-назад");     // привід сесії
+    o.i    = isCorrect("квиток туди і назад");
+    o.ta   = isCorrect("квиток туди та назад");
+    o.own  = isCorrect("квиток туди й назад");   // еталон як і був
+    o.alien = isCorrect("квиток в один бік");    // чужий сенс — не проходить
+    setEnUa("grandparents");
+    o.gp = isCorrect("бабуся та дідусь") && isCorrect("бабуся дідусь");
+    o.gpOrder = isCorrect("бабуся дід");         // порядок слів правило НЕ скасовує…
+    o.gpOrderOwn = isCorrect("дідусь бабуся");   // …а наявні в даних порядки працюють
+    setEnUa("nor");
+    o.norOwn = isCorrect("і не");                // 2 слова — правило не чіпає
+    o.norBare = isCorrect("не");                 // і «не» саме по собі НЕ приймається
+    setUaEn("pick-up", "звукознімач");
+    o.enStrict = isCorrect("pick up");           // англійський бік лишився строгим
+    return o;
+  });
+  t("US→UA: «квиток туди-назад» зараховано", conj.dash === true);
+  t("US→UA: «туди і назад» ≡ «туди та назад» ≡ «туди й назад»",
+    conj.i === true && conj.ta === true && conj.own === true);
+  t("US→UA: чужий глос «квиток в один бік» НЕ проходить", conj.alien === false);
+  t("US→UA: grandparents ← «бабуся та дідусь» / «бабуся дідусь»", conj.gp === true);
+  t("⚠️ порядок слів правило НЕ скасовує («бабуся дід» ✗, «дідусь бабуся» ✓)",
+    conj.gpOrder === false && conj.gpOrderOwn === true);
+  t("⚠️ `nor` = «і не» лишилось (2 слова — не чіпаємо)", conj.norOwn === true);
+  t("⚠️ голе «не» на `nor` НЕ проходить (сполучник не викинуто)", conj.norBare === false);
+  t("⚠️ правило сполучника НЕ протекло в UA→US (pick-up строгий)", conj.enStrict === false);
+
   // ── У ≡ В НА ПОЧАТКУ СЛОВА (сесія 53, привід `downward` ← «вниз») ──────────────
   // «Униз» і «вниз» — та сама форма (чергування за милозвучністю), тож карати за
   // вибір варіанта нема за що. Але у/в буває й СМИСЛОРОЗРІЗНЮВАЛЬНИМ, і саме ці два
