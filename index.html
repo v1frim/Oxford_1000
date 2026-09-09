@@ -6199,15 +6199,27 @@ function loadLatest() {
 // ── ЛОГ УСІХ ІГОР (сесія 33) — для реального місця «останньої гри» в історії ────
 // Раніше зберігався лише топ-10: точне місце гри поза топом було невідоме.
 // Лог пишеться З МОМЕНТУ фічі (стара історія поза топ-10 втрачена — місце рахується
-// серед ЗБЕРЕЖЕНИХ ігор: топ-10 + лог). ~70 байт/гра, кап 5000 (≈350 КБ максимум).
+// серед ЗБЕРЕЖЕНИХ ігор: топ-10 + лог). ~90-100 байт/гра.
+// ⚠️ КАП 5000 → 20000 (сесія 57, за запитом; ≈2 МБ проти ≈0,5 МБ). Привід: вкладка 🕒
+// дістала вікно «За весь час», і кап робив цю назву напівправдою. Стеля потрібна лише
+// як страховка від квоти localStorage (~5 МБ у Safari, ~10 МБ у Chrome/Firefox — і її
+// ділять УСІ ключі гри); при темпі 5-8 ігор/день 20000 це ~7 років.
+// ⚠️ Головне тут — НЕ саме число, а try/catch: `setItem` без нього кидав би виняток
+// рівно в момент завершення гри (лог пишеться в `endGame`), забираючи з собою запис
+// денної статистики. Тепер при переповненні квоти лог ріжеться вдвічі й пробує ще раз,
+// тож найгірший сценарій — «частина старих ігор зникла», а не «гра не дорахувалась».
 const GAMES_LOG_KEY = "oxford_games_log_v1";
+const GAMES_LOG_MAX = 20000;
 function loadGamesLog() {
   try { return JSON.parse(localStorage.getItem(GAMES_LOG_KEY)) || []; } catch { return []; }
 }
 function appendGamesLog(game) {
   const log = loadGamesLog();
   log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag });
-  localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-5000)));
+  for (let keep = Math.min(log.length, GAMES_LOG_MAX); ; keep = Math.floor(keep / 2)) {
+    try { localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-keep))); return; }
+    catch (e) { if (keep <= 100) return; }        // квота вичерпана — ріжемо й пробуємо ще
+  }
 }
 // Точність за останні ~N відповідей: ідемо логом ігор від найновіших назад, накопичуючи
 // correct(=score)+wrong+skipped, доки не набереться ≥N (остання гра входить цілком).

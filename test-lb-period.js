@@ -372,6 +372,48 @@ function chromePath() {
   t("пул «Вивчаю» підписаний своїм значком", labels.some((l) => /↗ Вивчаю/.test(l)), labels.join(" | "));
   t("звичайна гра підписана напрямком", labels.some((l) => /US→UA|UA→US/.test(l)), labels.join(" | "));
 
+  // 14. КАП ЖУРНАЛУ ІГОР (сесія 57): 20000 записів + запис, стійкий до квоти.
+  const cap = await page.evaluate(() => {
+    const now = Date.now(), log = [];
+    for (let i = 0; i < GAMES_LOG_MAX; i++)
+      log.push({ score: i % 30, wrong: 0, skipped: 0, mode: "en-ua", ts: now - (GAMES_LOG_MAX - i) * 1000, wordCount: 13700 });
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
+    const oldestBefore = log[0].ts;
+    appendGamesLog({ score: 42, wrong: 0, skipped: 0, mode: "en-ua", ts: now, wordCount: 13700 });
+    const after = JSON.parse(localStorage.getItem("oxford_games_log_v1"));
+    return { max: GAMES_LOG_MAX, len: after.length,
+             newestKept: after[after.length - 1].score === 42,
+             oldestDropped: after[0].ts !== oldestBefore };
+  });
+  t("кап журналу = 20000", cap.max === 20000, String(cap.max));
+  t("понад кап журнал не росте", cap.len === 20000, String(cap.len));
+  t("свіжа гра лишається, найстаріша випадає",
+    cap.newestKept && cap.oldestDropped, JSON.stringify(cap));
+
+  // ⚠️ Квота: раніше `setItem` без try/catch кидав би виняток рівно в `endGame` і забирав
+  // із собою денну статистику. Підміняємо Storage.prototype.setItem, щоб відтворити відмову.
+  const quota = await page.evaluate(() => {
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(
+      Array.from({ length: 400 }, (_, i) => ({ score: i % 30, wrong: 0, skipped: 0,
+        mode: "en-ua", ts: Date.now() - (400 - i) * 1000, wordCount: 13700 }))));
+    const orig = Storage.prototype.setItem;
+    let refused = 0;
+    Storage.prototype.setItem = function (k, v) {
+      // відмовляємо, доки лог не схудне до чверті — імітація вичерпаної квоти
+      if (k === "oxford_games_log_v1" && v.length > 12000) { refused++; throw new DOMException("full", "QuotaExceededError"); }
+      return orig.call(this, k, v);
+    };
+    let threw = false;
+    try { appendGamesLog({ score: 7, wrong: 0, skipped: 0, mode: "en-ua", ts: Date.now(), wordCount: 13700 }); }
+    catch (e) { threw = true; }
+    Storage.prototype.setItem = orig;
+    const after = JSON.parse(localStorage.getItem("oxford_games_log_v1"));
+    return { threw, refused, len: after.length, kept: after[after.length - 1].score === 7 };
+  });
+  t("переповнена квота не валить запис гри", quota.threw === false && quota.refused > 0, JSON.stringify(quota));
+  t("при відмові квоти лог ріжеться, а гра пишеться",
+    quota.len > 0 && quota.len < 401 && quota.kept, JSON.stringify(quota));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");
   await browser.close();
