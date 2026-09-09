@@ -226,6 +226,55 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("вгадане слово знято з боргу", drained.due === 0, String(drained.due));
   t("вгадане слово знято з «відкритого боргу» помилок", drained.mistakes === 0, String(drained.mistakes));
 
+  // 12. ГАРАНТІЯ «У 5-Й ГРІ ТОЧНО» (сесія 57, скарга «зіграно 6 ігор, а слово все висить»).
+  // Було: сам ФАКТ підмішування скидав `waited` у нуль. Слово, підмішане в хвіст першої
+  // дюжини і не показане до кінця 60 секунд, починало відлік заново — і примусове
+  // підмішування не наставало ніколи. Тепер лічильник росте в КОЖНІЙ грі.
+  const guarantee = await p.evaluate(() => {
+    const wk = wordKey(WORDS[6]);
+    localStorage.setItem("oxford_due_v1", JSON.stringify({ [wk]: { due: "2000-01-01", waited: 0 } }));
+    const games = [];
+    for (let g = 0; g < 5; g++) games.push(pickDueIndices().includes(6));
+    return { fifth: games[4], games };
+  });
+  t("5-та гра бере боргове слово безумовно", guarantee.fifth === true, JSON.stringify(guarantee.games));
+
+  const noReset = await p.evaluate(() => {
+    const wk = wordKey(WORDS[7]);
+    localStorage.setItem("oxford_due_v1", JSON.stringify({ [wk]: { due: "2000-01-01", waited: 0 } }));
+    for (let g = 0; g < 3; g++) pickDueIndices();
+    return JSON.parse(localStorage.getItem("oxford_due_v1"))[wk].waited;
+  });
+  t("підмішування НЕ скидає лічильник очікування", noReset === 3, String(noReset));
+
+  // 13. примусове слово стає в ПЕРШІ питання черги — 60 секунд не завжди докручують
+  // до 12-го слова, і саме на цьому борг зависав.
+  const upfront = await p.evaluate(() => {
+    const wk = wordKey(WORDS[9]), spots = [];
+    for (let g = 0; g < 12; g++) {
+      localStorage.setItem("oxford_due_v1", JSON.stringify({ [wk]: { due: "2000-01-01", waited: 9 } }));
+      startGame();
+      spots.push(shuffledIndices.indexOf(9));
+      endGame(true);
+    }
+    return { max: Math.max(...spots), min: Math.min(...spots) };
+  });
+  t("примусове слово стоїть у перших питаннях",
+    upfront.max <= 4 && upfront.min >= 1, JSON.stringify(upfront));
+
+  // 14. ліміт DUE_MAX_PER_GAME віддається прострочeним, а не випадково взятим:
+  // інакше слово, що відчекало свої 4 гри, могло не влізти в трійку через сусіда.
+  const priority = await p.evaluate(() => {
+    const d = {};
+    for (const i of [0,1,2,3]) d[wordKey(WORDS[i])] = { due: "2000-01-01", waited: 9 };   // прострочені
+    for (const i of [4,5])     d[wordKey(WORDS[i])] = { due: "2000-01-01", waited: 0 };   // свіжі
+    localStorage.setItem("oxford_due_v1", JSON.stringify(d));
+    const picked = pickDueIndices();
+    return { picked, allForced: picked.every(i => i <= 3) };
+  });
+  t("ліміт трьох віддається прострочeним словам",
+    priority.picked.length === 3 && priority.allForced, JSON.stringify(priority.picked));
+
   // ── АНТИ-ПОВТОР (сесія 52, скарга «три рази підряд одне й те саме слово») ──
   // Звичайна гра йде шафлом без повернення, тож повтор можливий лише на СТИКУ проходів,
   // і на малих пулах це майже норма: до фіксу симуляція давала сусідній повтор у 70%

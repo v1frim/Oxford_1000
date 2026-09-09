@@ -3839,9 +3839,14 @@ function startGame(pool, opts) {
   // у повтореннях помилок (activePool) він був би маслом масляним.
   dueThisGame = new Set();
   if (!activePool) {
-    const due = pickDueIndices();
+    const forcedNow = new Set();
+    const due = pickDueIndices(forcedNow);
     for (const i of due) {
-      const at = Math.min(shuffledIndices.length, Math.floor(Math.random() * 12) + 1);
+      // Звичайне боргове слово — будь-де в першій дюжині. ПРИМУСОВЕ (відчекало свої
+      // DUE_FORCE_AFTER ігор) — у перші питання: 60 секунд не завжди докручують до
+      // 12-го слова, і саме на цьому борг зависав назавжди (фікс сесії 57).
+      const span = forcedNow.has(i) ? 4 : 12;
+      const at = Math.min(shuffledIndices.length, Math.floor(Math.random() * span) + 1);
       const cur = shuffledIndices.indexOf(i);
       if (cur >= 0) shuffledIndices.splice(cur, 1);        // без дублів у пулі
       shuffledIndices.splice(at, 0, i);
@@ -7550,8 +7555,9 @@ document.getElementById("cat-list").addEventListener("click", e => {
 // РОЗКИД: у грі береться не більше DUE_MAX_PER_GAME слів, і кожне заходить
 // лише з імовірністю DUE_CHANCE — тому 4 боргові слова природно розтягуються
 // на кілька ігор (одне в першій, два в четвертій…), а не валяться всі одразу.
-// Щоб слово не загубилось назавжди, після DUE_FORCE_AFTER пропущених ігор
-// воно береться примусово.
+// Щоб слово не загубилось назавжди, після DUE_FORCE_AFTER ігор, у яких воно так
+// і не спрацювало, воно береться ПРИМУСОВО — і не в хвіст черги, а в перші
+// питання (див. `forcedNow` у startGame): інакше «примусово» нічого не гарантує.
 const DUE_KEY = "oxford_due_v1";     // { wordKey: {due:"YYYY-MM-DD", waited:N} }
 const DUE_MAX_PER_GAME  = 3;
 const DUE_CHANCE        = 0.35;
@@ -7582,24 +7588,41 @@ function dueNowKeys() {
   const d = loadDue(), t = todayKey();
   return Object.keys(d).filter(wk => (d[wk] || {}).due <= t && indexOfWordKey(wk) >= 0);
 }
-// вибір боргових слів для цієї гри + оновлення лічильника очікування
-function pickDueIndices() {
+// вибір боргових слів для цієї гри + оновлення лічильника очікування.
+// `forcedOut` (необов'язковий Set) заповнюється тими, що взяті ПРИМУСОВО — startGame
+// ставить їх у перші питання черги, а не будь-куди в першу дюжину.
+function pickDueIndices(forcedOut) {
   const d = loadDue(), t = todayKey(), out = [];
   let changed = false;
+  const ready = [];                                          // { wk, rec, i, forced }
   for (const wk of Object.keys(d)) {
     const rec = d[wk] || {};
     if (!rec.due || rec.due > t) continue;
     const i = indexOfWordKey(wk);
     if (i < 0) { delete d[wk]; changed = true; continue; }   // слово зникло зі словника
-    const forced = (rec.waited || 0) >= DUE_FORCE_AFTER;
-    if (out.length < DUE_MAX_PER_GAME && (forced || Math.random() < DUE_CHANCE)) {
-      out.push(i);
-      rec.waited = 0;
-    } else {
-      rec.waited = (rec.waited || 0) + 1;
-    }
-    d[wk] = rec; changed = true;
+    ready.push({ wk, rec, i, forced: (rec.waited || 0) >= DUE_FORCE_AFTER });
   }
+  // ⚠️ ДВА ПРОХОДИ: спершу примусові, потім випадкові. Одним проходом слово, яке вже
+  // відчекало свої DUE_FORCE_AFTER ігор, могло не влізти в ліміт DUE_MAX_PER_GAME
+  // через випадково взяте слово, що стоїть раніше за ключем — і гарантія «у 5-й грі
+  // точно буде» падала мовчки, щойно в борзі більше трьох слів.
+  for (const pass of [true, false]) {
+    for (const r of ready) {
+      if (r.forced !== pass) continue;
+      if (out.length >= DUE_MAX_PER_GAME) break;
+      if (pass || Math.random() < DUE_CHANCE) {
+        out.push(r.i);
+        if (pass && forcedOut) forcedOut.add(r.i);
+      }
+    }
+  }
+  // ⚠️ ЛІЧИЛЬНИК ОЧІКУВАННЯ РОСТЕ В КОЖНІЙ ГРІ — навіть у тій, куди слово підмішалось
+  // (фікс сесії 57, скарга «6 ігор, а слово все висить»). Було `rec.waited = 0` на сам
+  // ФАКТ вибору: слово, підмішане в хвіст першої дюжини і не показане до кінця 60 секунд,
+  // скидало відлік — і черга ніколи не доходила до примусового підмішування, скільки б
+  // ігор не зіграв. Спрацьоване слово йде з черги САМО: вгадав → clearDue, схибив або
+  // пропустив → scheduleDue (waited=0, due=завтра). Тож рахувати треба ІГРИ, а не вибори.
+  for (const r of ready) { r.rec.waited = (r.rec.waited || 0) + 1; d[r.wk] = r.rec; changed = true; }
   if (changed) saveDue(d);
   return out;
 }
