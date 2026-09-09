@@ -9637,7 +9637,7 @@ const WORDS = [
   {en:"rear seat",ua:"заднє сидіння",enAlt:["back seat"]},
   {en:"seat-belt buckle",ua:"замок ременя безпеки",uaAlt:["пряжка ременя безпеки","застібка ременя безпеки"]},
   {en:"child seat",ua:"дитяче автокрісло",enAlt:["car seat"]},
-  {en:"floor mat",ua:"автомобільний килимок"},
+  {en:"floor mat",ua:"автомобільний килимок",enAlt:["car mat","car floor mat"]},
   {en:"sun visor",ua:"сонцезахисний козирок"},
   {en:"interior light",ua:"салонне освітлення",uaAlt:["плафон"],enAlt:["dome light"]},
   {en:"climate control",ua:"клімат-контроль"},
@@ -25583,6 +25583,7 @@ const HINTS = {
   "prisoner": "за вироком суду, у в'язниці; заручник — hostage",
   "on time": "за розкладом, не із запізненням; встигнути до строку — in time",
   "to pull out": "про авто — виїхати з місця в рух; також витягати щось або вийти з угоди",
+  "floor mat": "у салон авто; car rug — це плед на коліна, не килимок",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
