@@ -8014,10 +8014,14 @@ const LB_PERIODS = [
   { id: "d30",   label: "30 днів",    sub: "останні 30 днів",    kind: "days",  n: 30 },
   { id: "month", label: "Цей місяць", sub: "календарний місяць", kind: "month" },
   { id: "g100",  label: "100 ігор",   sub: "останні 100 ігор",   kind: "games", n: 100 },
-  { id: "g500",  label: "500 ігор",   sub: "останні 500 ігор",   kind: "games", n: 500 },
+  // ⚠️ Сесія 57, за запитом: замість вікна «500 ігор» — увесь журнал. Вікно на 500 ігор
+  // при 422 зіграних нічого не відсікало, тобто чип уже показував «за весь час», лише
+  // під назвою, що обіцяла обмеження. `oxford_games_log_v1` тримає останні 5000 ігор.
+  { id: "all",   label: "За весь час", sub: "усі ігри журналу",  kind: "all" },
 ];
 let lbPeriod = (() => {
   const saved = localStorage.getItem(LB_PERIOD_KEY);
+  if (saved === "g500") return "all";                 // міграція: вікно 500 ігор → весь час
   return LB_PERIODS.some(p => p.id === saved) ? saved : "d30";
 })();
 
@@ -8038,10 +8042,11 @@ function lbPeriodGames(periodId) {
   } else if (per.kind === "month") {
     const m = todayKey().slice(0, 7);
     games = games.filter(g => tsToDayKey(g.ts).slice(0, 7) === m);
-  } else {
+  } else if (per.kind === "games") {
     games.sort((a, b) => a.ts - b.ts);
     games = games.slice(-per.n);
   }
+  // kind === "all" — журнал беремо як є, без відсікання
   games.sort((a, b) => b.score - a.score || (a.wrong + a.skipped) - (b.wrong + b.skipped) || a.ts - b.ts);
   return { per, games };
 }

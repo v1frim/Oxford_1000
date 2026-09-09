@@ -116,21 +116,31 @@ function chromePath() {
   t("7 днів: гра 20-денної давнини випала", !v.rows.some((r) => /^20/.test(r)), v.rows.join(" | "));
   t("7 днів: заголовок оновився", /останні 7 днів/.test(v.title), v.title);
 
-  // 6. «500 ігор» — рахунок, а не час: давня гра повертається
-  await page.click('#lb-period-chips .lb-chip[data-per="g500"]');
+  // 6. «За весь час» (сесія 57, замінив вікно «500 ігор») — журнал без відсікання
+  await page.click('#lb-period-chips .lb-chip[data-per="all"]');
   await page.waitForTimeout(120);
   v = await read();
-  t("500 ігор: усі 7 ігор журналу", v.rows.length === 7, String(v.rows.length));
-  t("500 ігор: давня гра на 30 — перша", /^30/.test(v.rows[0]), v.rows[0]);
+  t("за весь час: усі 7 ігор журналу", v.rows.length === 7, String(v.rows.length));
+  t("за весь час: давня гра на 30 — перша", /^30/.test(v.rows[0]), v.rows[0]);
+  t("за весь час: заголовок оновився", /усі ігри журналу/.test(v.title), v.title);
 
   // 7. персист вибору між перезавантаженнями
   await page.reload();
   await page.waitForTimeout(900);
   await openTab("period");
   v = await read();
-  t("вибір періоду переживає reload", v.active === "500 ігор", String(v.active));
+  t("вибір періоду переживає reload", v.active === "За весь час", String(v.active));
   const inBackup = await page.evaluate(() => BACKUP_KEYS.includes("oxford_lb_period_v1"));
   t("ключ періоду НЕ в BACKUP_KEYS (UI-налаштування)", inBackup === false);
+
+  // 7б. МІГРАЦІЯ старого збереженого вибору (сесія 57): у localStorage лежить "g500",
+  // якого в LB_PERIODS уже немає — без міграції вкладка мовчки падала б на «30 днів».
+  await page.evaluate(() => localStorage.setItem("oxford_lb_period_v1", "g500"));
+  await page.reload();
+  await page.waitForTimeout(900);
+  await openTab("period");
+  v = await read();
+  t("старий вибір «500 ігор» мігрує на «За весь час»", v.active === "За весь час", String(v.active));
 
   // 8. чипси не течуть на чужі вкладки
   await openTab("games");
@@ -272,13 +282,13 @@ function chromePath() {
   const stored = await page.evaluate(() => localStorage.getItem("oxford_lb_period_v1"));
   t("гортання зберігається у localStorage", stored === "d30", String(stored));
 
-  // коло замикається: d30 → month → g100 → g500 → d7
+  // коло замикається: d30 → month → g100 → all → d7
   const seq = [];
   for (let i = 0; i < 4; i++) {
     await page.keyboard.press("Shift"); await page.waitForTimeout(120);
     seq.push(await page.evaluate(() => lbPeriod));
   }
-  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "month,g100,g500,d7", seq.join(","));
+  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "month,g100,all,d7", seq.join(","));
 
   // ⚠️ ПРАВИЙ Shift — назад (сесія 51, прямий вибір користувача). Playwright'ів
   // `press("Shift")` шле саме ShiftLeft, тож правий тиснемо явно через down/up.
@@ -288,7 +298,7 @@ function chromePath() {
     await page.waitForTimeout(120);
     back.push(await page.evaluate(() => lbPeriod));
   }
-  t("правий Shift гортає назад", back.join(",") === "g500,g100", back.join(","));
+  t("правий Shift гортає назад", back.join(",") === "all,g100", back.join(","));
 
   // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
   const perBeforeModal = await page.evaluate(() => lbPeriod);
