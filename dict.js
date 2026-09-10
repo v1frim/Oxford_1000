@@ -25590,6 +25590,7 @@ const HINTS = {
   "lift": "фізично підняти щось важке; ліфт — теж lift у брит.",
   "to elevate": "книжне — підняти вище або підвищити статус",
   "in time": "встигнути до строку, із запасом; точно за розкладом — on time",
+  "crossroads": "завжди з -s, навіть про одне місце; crossroad без -s — бічна дорога до головної",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
