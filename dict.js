@@ -9219,7 +9219,7 @@ const WORDS = [
   {en:"emotional abuse",ua:"емоційне насильство",uaAlt:["психологічне насильство"]},
   {en:"domestic violence",ua:"домашнє насильство"},
   {en:"infidelity",ua:"подружня невірність"},
-  {en:"cheating",ua:"зрада у стосунках"},
+  {en:"cheating",ua:"зрада у стосунках",uaAlt:["зрада","невірність","обман","шахрайство","списування"]},
   {en:"breakup",ua:"розрив стосунків",uaAlt:["розставання"]},
   {en:"heartbreak",ua:"душевний біль після розриву"},
   {en:"to grow apart",ua:"емоційно віддалитися",uaAlt:["емоційно віддалятися","віддалитися"]},
@@ -25624,6 +25624,7 @@ const HINTS = {
   "kindergarten": "дитячий садок; children's garden не кажуть",
   "marital status": "сімейний стан в анкеті; family status не кажуть",
   "dead end": "глухий кут вулиці або переговорів; deaf corner не кажуть",
+  "cheating": "у стосунках зрада, на іспиті списування, у грі шахрайство",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
