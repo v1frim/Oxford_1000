@@ -8368,7 +8368,7 @@ const WORDS = [
   {en:"eyeglass frame",ua:"оправа окулярів",uaAlt:["оправа для окулярів"]},
   {en:"shoulder bag",ua:"сумка через плече",uaAlt:["наплічна сумка"]},
   {en:"crossbody bag",ua:"сумка крос-боді"},
-  {en:"tote bag",ua:"сумка-тоут"},
+  {en:"tote bag",ua:"сумка-тоут",uaAlt:["сумка-шопер","шопер"]},
   {en:"duffel bag",ua:"дорожня спортивна сумка",uaAlt:["баул"]},
   {en:"waist bag",ua:"поясна сумка",enAlt:["fanny pack"],uaAlt:["бананка"]},
   {en:"coin purse",ua:"гаманець для монет",uaAlt:["монетниця","гаманець для дрібняків"]},
@@ -11387,7 +11387,7 @@ const WORDS = [
   {en:"restricted goods",ua:"товари з обмеженнями"},
   {en:"personal belongings",ua:"особисті речі"},
   // ── Подорожі, партія 2: слова-опори (сесія 48) ──
-  {en:"belongings",ua:"особисті пожитки"},
+  {en:"belongings",ua:"особисті пожитки",uaAlt:["особисті речі","речі","майно"]},
   {en:"to confiscate",ua:"вилучати",uaAlt:["конфіскувати"]},
   // ── Подорожі, партія 3A: літак, переліт, затримки й скасування (сесія 48) ──
   {en:"direct flight",ua:"прямий рейс"},
@@ -25625,6 +25625,10 @@ const HINTS = {
   "marital status": "сімейний стан в анкеті; family status не кажуть",
   "dead end": "глухий кут вулиці або переговорів; deaf corner не кажуть",
   "cheating": "у стосунках зрада, на іспиті списування, у грі шахрайство",
+  "shopper": "людина, що робить покупки; сумка-шопер це tote bag",
+  "tote bag": "простора сумка з ручками, у нас її звуть шопером",
+  "belongings": "особисті речі людини, не нерухомість",
+  "vegetable garden": "грядки з овочами; garden це радше сад, backyard — задній двір",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
