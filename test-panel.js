@@ -276,6 +276,36 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── ПЕРЕНОС ДОВГОЇ ВІДПОВІДІ В РЯДКУ ПОМИЛКИ (сесія 58, за запитом) ──────────
+  // `.row .mark` має `white-space: nowrap` заради «✓» і «пропущено»; для рядка помилки
+  // це означало, що «твоя: той, хто тужить за домом ✗» їхала одним рядком за межі картки.
+  {
+    const pg = await b.newPage({ viewport: { width: 430, height: 900 } });
+    await pg.goto(PAGE); await pg.waitForTimeout(1000);
+    const box = await pg.evaluate(() => {
+      records = [{ shown: "homesick", correct: "той, що сумує за домом",
+                   user: "той, хто тужить за домом", status: "wrong",
+                   enWord: "homesick", uaWord: "той, що сумує за домом", mode: "en-ua" }];
+      currentFilter = "all";
+      document.getElementById("start-screen").classList.add("hidden");
+      document.getElementById("end-screen").classList.remove("hidden");
+      renderList();
+      const row = document.querySelector(".row.wrong");
+      const mark = row.querySelector(".mark");
+      const lh = parseFloat(getComputedStyle(mark).lineHeight) || 18;
+      return { ws: getComputedStyle(mark).whiteSpace,
+               lines: Math.round(mark.getBoundingClientRect().height / lh),
+               overflow: row.scrollWidth > row.clientWidth + 1,
+               listOverflow: listEl.scrollWidth > listEl.clientWidth + 1,
+               text: mark.textContent };
+    });
+    t("перенос у рядку помилки дозволено", box.ws !== "nowrap", box.ws);
+    t("довга відповідь лягла в кілька рядків", box.lines >= 2, JSON.stringify(box));
+    t("рядок помилки не вилазить за картку", !box.overflow && !box.listOverflow, JSON.stringify(box));
+    t("«✗» тримається останнього слова", /домом\u00a0✗$/.test(box.text), JSON.stringify(box.text));
+    await pg.close();
+  }
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ помилки консолі:\n - " + errs.slice(0,4).join("\n - ") : "✅ 0 помилок консолі");

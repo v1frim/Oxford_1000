@@ -913,6 +913,12 @@
   .row.wrong   { background: rgba(255, 107, 107, 0.20); }
   .row.skipped { background: rgba(255, 255, 255, 0.10); }
   .row .mark { white-space: nowrap; opacity: 0.95; font-weight: 600; }
+  /* ⚠️ ВІДПОВІДЬ КОРИСТУВАЧА В РЯДКУ ПОМИЛКИ МУСИТЬ ПЕРЕНОСИТИСЬ (сесія 58, за запитом).
+     `.mark` тримає nowrap заради «✓» і «пропущено», але «твоя: той, хто тужить за домом»
+     довша за піврядка — з nowrap вона вилазила за межі картки. Тут перекриваємо саме для
+     помилкового рядка; «✗» не лишається сиротою, бо в renderList його приклеєно до
+     останнього слова нерозривним пробілом. Ліва половина рядка переносилась і доти. */
+  .row.wrong .mark { white-space: normal; overflow-wrap: anywhere; }
   .empty { padding: 24px; opacity: 0.7; }
 
   /* correction panel */
@@ -5759,7 +5765,7 @@ function renderList() {
     } else if (r.status === "wrong") {
       return '<div class="row wrong">' +
              '<div class="row-left"><span>' + pair + '</span>' + exHtml + '</div>' +
-             '<div class="row-right">' + spk + '<div class="row-right-text"><span class="mark">твоя: ' + esc(r.user) + ' ✗</span>' + exUaHtml + '</div></div>' +
+             '<div class="row-right">' + spk + '<div class="row-right-text"><span class="mark">твоя: ' + esc(r.user) + '&nbsp;✗</span>' + exUaHtml + '</div></div>' +
              '</div>';
     } else {
       return '<div class="row skipped">' +
