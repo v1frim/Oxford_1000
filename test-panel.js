@@ -276,6 +276,52 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── ПОРОЖНІ ДНІ Й РОЗДІЛЬНИК «ПРОПУСК» У «ПРОГРЕСІ» (сесія 58, варіант C) ─────
+  // Знімок пишеться при кожному відкритті сторінки, тож день «зайшов, але не грав»
+  // давав рядок із самими прочерками, а день «не заходив» не давав нічого. Тепер
+  // порожні дні не рендеряться, а календарна дірка між показаними днями підписана.
+  {
+    const pg = await b.newPage();
+    await pg.goto(PAGE); await pg.waitForTimeout(900);
+    const gaps = await pg.evaluate(() => {
+      const d = (n) => { const x = new Date(Date.now() - n * 86400000);
+        return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") +
+               "-" + String(x.getDate()).padStart(2, "0"); };
+      localStorage.clear();
+      localStorage.setItem("oxford_mastery_history_v1", JSON.stringify({
+        [d(7)]: { k: 10, l: 20, t: 100 },
+        [d(6)]: { k: 11, l: 21, t: 100 },
+        // d(5) знімка НЕМАЄ — того дня сайт не відкривали
+        [d(4)]: { k: 12, l: 22, t: 100 },
+        [d(3)]: { k: 12, l: 22, t: 100 },   // ЗАХОДИВ, але нічого не робив → порожній
+        [d(2)]: { k: 13, l: 23, t: 100 },
+        [d(1)]: { k: 14, l: 24, t: 100 },
+      }));
+      localStorage.setItem("oxford_days_v1", JSON.stringify({
+        [d(1)]: { correct: 9, wrong: 1, skipped: 0, games: 2 },
+        [d(2)]: { correct: 9, wrong: 1, skipped: 0, games: 1 },
+      }));
+      document.getElementById("progress-panel").classList.remove("hidden");
+      renderProgressPanel();
+      // беремо лише ДЕННИЙ блок: до першого заголовка секції «Місяці»
+      const nodes = [];
+      for (const e of document.querySelectorAll("#prog-list > div")) {
+        if (e.classList.contains("prog-section")) break;
+        if (e.classList.contains("prog-gap")) { nodes.push("GAP:" + e.textContent); continue; }
+        nodes.push(e.querySelector(".prog-date").textContent.trim());
+      }
+      return { nodes, fmt3: fmtProgressDate(d(3)), fmt5: fmtProgressDate(d(5)) };
+    });
+    t("порожній день не отримує рядка", !gaps.nodes.includes(gaps.fmt3), JSON.stringify(gaps));
+    t("день без знімка теж не отримує рядка", !gaps.nodes.includes(gaps.fmt5), JSON.stringify(gaps));
+    t("дірка підписана роздільником", gaps.nodes.filter(x => /^GAP/.test(x)).length === 2,
+      JSON.stringify(gaps.nodes));
+    t("роздільник рахує календарні дні з відмінюванням",
+      gaps.nodes.filter(x => /^GAP:⋯ пропуск 1 день$/.test(x)).length === 2,
+      JSON.stringify(gaps.nodes.filter(x => /^GAP/.test(x))));
+    await pg.close();
+  }
+
   // ── ПЕРЕНОС ДОВГОЇ ВІДПОВІДІ В РЯДКУ ПОМИЛКИ (сесія 58, за запитом) ──────────
   // `.row .mark` має `white-space: nowrap` заради «✓» і «пропущено»; для рядка помилки
   // це означало, що «твоя: той, хто тужить за домом ✗» їхала одним рядком за межі картки.

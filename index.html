@@ -759,6 +759,10 @@
   .prog-none    { opacity: 0.35; font-size: 13px; }
   .prog-xp      { color: #ffd166; font-size: 12px; opacity: 0.95; font-weight: 600; margin-left: 5px; }
   .prog-section { font-size: 11px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 4px 4px; }
+  /* Роздільник «⋯ пропуск N днів» (сесія 58): порожні дні більше не займають рядок,
+     але сама пауза лишається видимою — тьмяніша за дані, без рамки й без цифр праворуч. */
+  .prog-gap { font-size: 11px; opacity: 0.34; text-align: center; padding: 4px 4px 5px;
+              letter-spacing: 0.04em; }
   .prog-row.prog-group .prog-date { font-size: 12px; }
   .prog-row.prog-group .prog-known, .prog-row.prog-group .prog-learning { font-size: 12px; }
   #review-mode-modal {
@@ -6839,6 +6843,17 @@ function _progGroupBy(dates, keyFn) {
 function _pgCell(ic, val, cls, attrs) {
   return '<span class="pgc ' + (cls || "") + '"' + (attrs || "") + '><span class="pgc-ic">' + ic + '</span><span class="pgc-v">' + val + '</span></span>';
 }
+// Рядок-роздільник «⋯ пропуск N днів» між двома показаними днями (сесія 58).
+// `older` і `newer` — ISO-дати показаних рядків; рахуємо КАЛЕНДАРНУ дірку між ними,
+// тобто і дні без знімка, і дні, коли заходив, але нічого не робив.
+function _progGapHtml(older, newer) {
+  const days = Math.round((Date.parse(newer) - Date.parse(older)) / 86400000) - 1;
+  if (days < 1) return "";
+  const word = plural(days, "день", "дні", "днів");
+  return '<div class="prog-gap" title="Днів поспіль без занять: ' + days + '">⋯ пропуск ' +
+    days + ' ' + word + '</div>';
+}
+
 function _progDeltaHtml(dk, dl, rev, dt, date) {
   // date (лише денні рядки): якщо лог переходів має слова за цей день — комірка
   // ✓/↗ клікабельна (список слів дня EN—UA). Групові рядки date не передають.
@@ -6957,10 +6972,21 @@ function renderProgressPanel() {
   const movieSessions = loadMovieSessions();
   const exprLog = loadExprXpLog();
   const recentCount = 7;
-  const recentDates = [...allDates].reverse().slice(0, recentCount); // newest first
 
   // ── Recent days ──
-  let html = recentDates.map(date => {
+  // ⚠️ СІМ ДНІВ З АКТИВНІСТЮ, А НЕ СІМ ЗНІМКІВ (сесія 58, за вибором користувача —
+  // варіант C). Знімок `oxford_mastery_history_v1` пишеться при КОЖНОМУ відкритті
+  // сторінки, тож день, коли просто зайшов глянути статистику, давав порожній рядок
+  // із «—», а день, коли не заходив узагалі, не давав нічого. Виходило, що два
+  // однакові для користувача дні («не грав») виглядали по-різному — скарга дослівно:
+  // «за 11 число відмітка є, а 13-го навіть немає». Тепер порожні дні не рендеряться,
+  // а розрив між сусідніми рядками підписується окремим рядком-роздільником.
+  // ⚠️ Дельти рахуються від попереднього ЗНІМКА (`allDates`), а не від показаного
+  // рядка — тому приховані дні нічого не крадуть: усе, що сталося в них, лишається
+  // в дельті наступного дня. День, у який словник виріс (dt ≠ 0), активним лишається.
+  const rowItems = [];
+  for (const date of [...allDates].reverse()) {          // newest first
+    if (rowItems.length >= recentCount) break;
     const idx = allDates.indexOf(date);
     const cur = history[date];
     const prev = idx > 0 ? history[allDates[idx-1]] : {k:0,l:0,t:WORDS.length};
@@ -6975,13 +7001,22 @@ function renderProgressPanel() {
     const expr = (exprLog[date] && exprLog[date].r) || 0;
     const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
-    const dh = _progDeltaHtml(cur.k - prev.k, cur.l - prev.l, rev, dt, date);
+    const dk = cur.k - prev.k, dl = cur.l - prev.l;
     const xpGain = getDayXpGain(date);
+    // «Порожній день» = ані сесії, ані XP, ані руху категорій, ані зміни словника.
+    // Саме такий рядок і показував самі прочерки.
+    if (!(games || lh || duo || songs || songSess || gpt || movies || expr ||
+          xpGain > 0 || rev || dk !== 0 || dl !== 0 || dt !== 0)) continue;
+    const dh = _progDeltaHtml(dk, dl, rev, dt, date);
     const xpHtml = xpGain > 0 ? _pgCell("⚡", "+" + xpGain, "prog-xp") : '';
-    return '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + '</span>' +
-      '<span class="prog-cells">' + metaHtml + xpHtml + '</span>' +
-      '<span class="prog-delta">' + dh + '</span></div>';
-  }).join("");
+    rowItems.push({ date,
+      html: '<div class="prog-row"><span class="prog-date">' + fmtProgressDate(date) + '</span>' +
+        '<span class="prog-cells">' + metaHtml + xpHtml + '</span>' +
+        '<span class="prog-delta">' + dh + '</span></div>' });
+  }
+  // Роздільник між несусідніми днями: показаний рядок i-1 новіший за i.
+  let html = rowItems.map((it, i) =>
+    (i > 0 ? _progGapHtml(it.date, rowItems[i-1].date) : "") + it.html).join("");
 
   // ── Згортки: місяці (повні суми, новіші згори). «Загалом / За весь час» прибрано
   // (сесія 28) — дублювало «Загальну статистику». Місяць навмисно НАКЛАДАЄТЬСЯ на
