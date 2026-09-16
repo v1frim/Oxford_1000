@@ -2859,7 +2859,7 @@ const WORDS = [
   {en:"courthouse",ua:"будівля суду"},
   {en:"courtroom",ua:"зал суду"},
   {en:"crayfish",ua:"рак річковий"},
-  {en:"crepe",ua:"млинець тонкий",enAlt:["crêpe"]},
+  {en:"crepe",ua:"млинець тонкий",enAlt:["crêpe"],uaAlt:["млинець","тонкий млинець"]},
   {en:"croissant",ua:"круасан"},
   {en:"crossbar",ua:"поперечина"},
   {en:"crossroads",ua:"роздоріжжя"},
@@ -25627,6 +25627,8 @@ const HINTS = {
   "tote bag": "простора сумка з ручками, у нас її звуть шопером",
   "vegetable garden": "грядки з овочами; garden це радше сад, backyard — задній двір",
   "personal belongings": "особисті речі людини, не нерухомість; коротко просто belongings",
+  "crepe": "тонкий французький, згортають у трубочку чи конверт",
+  "pancake": "товстий американський, подають стосом із сиропом",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
