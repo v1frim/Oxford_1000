@@ -240,7 +240,7 @@ const WORDS = [
   {en:"wall",ua:"стіна"},{en:"floor",ua:"підлога",uaAlt:["поверх"],enAlt:["storey"]},{en:"roof",ua:"дах"},
   {en:"table",ua:"стіл",uaAlt:["таблиця"]},{en:"chair",ua:"стілець",uaAlt:["крісло"]},{en:"bed",ua:"ліжко",uaAlt:["постіль","грядка"]},
   {en:"sofa",ua:"диван",uaAlt:["канапа"]},{en:"lamp",ua:"лампа",uaAlt:["світильник"]},{en:"book",ua:"книга",uaAlt:["книжка","бронювати"]},
-  {en:"pen",ua:"ручка",uaAlt:["авторучка"]},{en:"pencil",ua:"олівець"},{en:"paper",ua:"папір",uaAlt:["газета","стаття"]},
+  {en:"pen",ua:"ручка",uaAlt:["авторучка"]},{en:"pencil",ua:"олівець"},{en:"paper",ua:"папір",uaAlt:["газета","стаття","наукова стаття","документ"]},
   {en:"letter",ua:"лист",uaAlt:["літера"]},{en:"phone",ua:"телефон",uaAlt:["телефонувати"]},{en:"computer",ua:"комп'ютер"},
   {en:"screen",ua:"екран",uaAlt:["ширма","екранувати"]},{en:"camera",ua:"камера",uaAlt:["фотоапарат"]},{en:"television",ua:"телевізор",uaAlt:["телебачення"],enAlt:["tv"]},
   {en:"key",ua:"ключ",uaAlt:["клавіша","ключовий"]},{en:"bag",ua:"сумка",uaAlt:["пакет","мішок","торба"]},{en:"box",ua:"коробка",uaAlt:["ящик","скринька"]},
@@ -3408,7 +3408,7 @@ const WORDS = [
   {en:"centripetal force",ua:"доцентрова сила"},
   {en:"concave lens",ua:"угнута лінза",uaAlt:["увігнута лінза"]},
   {en:"convex lens",ua:"опукла лінза"},
-  {en:"journal",ua:"науковий журнал",uaAlt:["щоденник"]},
+  {en:"journal",ua:"науковий журнал",uaAlt:["щоденник","фаховий журнал","наукове видання"]},
   {en:"kingdom",ua:"королівство",uaAlt:["царство"]},
   {en:"laboratory",ua:"лабораторія",enAlt:["lab"]},
   {en:"laser",ua:"лазер"},
@@ -25629,6 +25629,9 @@ const HINTS = {
   "personal belongings": "особисті речі людини, не нерухомість; коротко просто belongings",
   "crepe": "тонкий французький, згортають у трубочку чи конверт",
   "pancake": "товстий американський, подають стосом із сиропом",
+  "journal": "фахове чи наукове видання, ще й щоденник; журнал для читання — magazine",
+  "paper": "матеріал для письма; ще газета і наукова стаття",
+  "magazine": "журнал для читання — мод, новин, хобі; фаховий — journal",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
