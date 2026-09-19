@@ -857,6 +857,15 @@
   }
   .cat-close:hover { color: #fff; }
   .cat-list { overflow-y: auto; flex: 1; margin: 0 -6px; padding: 0 6px 2px; min-height: 60px; }
+  /* Чипси «Усі / З помилками» над списком категорії (сесія 58, за запитом). */
+  .cat-filter { display: flex; gap: 6px; margin: 0 0 8px; }
+  .cat-filter.hidden { display: none; }
+  .cat-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+              color: rgba(255,255,255,0.72); border-radius: 999px; padding: 4px 11px;
+              font-size: 12.5px; font-family: inherit; cursor: pointer; }
+  .cat-chip:hover { background: rgba(255,255,255,0.1); }
+  .cat-chip.on { background: rgba(255,209,102,0.16); border-color: rgba(255,209,102,0.5); color: #ffd166; }
+  .cat-chip .cc-n { opacity: 0.5; margin-left: 4px; font-size: 11px; }
   .cat-row {
     display: flex; justify-content: space-between; gap: 12px;
     padding: 7px 9px; border-radius: 8px; cursor: pointer; font-size: 14px;
@@ -1712,6 +1721,7 @@
       <div class="cat-title" id="cat-title"></div>
       <button class="cat-close" id="cat-close" title="Esc">✕</button>
     </div>
+    <div class="cat-filter hidden" id="cat-filter"></div>
     <div class="cat-list" id="cat-list"></div>
     <button class="cat-play" id="cat-play"></button>
   </div>
@@ -7153,10 +7163,24 @@ function modeValidPool() {
 }
 let catModalCat = null;
 let catModalCustomPool = null;   // кастомний пул для модалки «слова дня» (клік ✓/↗ у прогресі)
+// ⚠️ ФІЛЬТР «ЛИШЕ З ПОМИЛКАМИ» в модалці категорії (сесія 58, за запитом: «щоб можна
+// було вибирати між усіма словами і тими, де була допущена помилка»). Живе між
+// відкриттям модалки й грою, тож `openCategoryModal` СКИДАЄ його щоразу — інакше
+// вчорашній вибір тихо звужував би пул наступного відкриття.
+let catModalErrOnly = false;
+
 function openCategoryModal(cat) {
+  if (!CAT_META[cat]) return;
+  catModalCat = cat;
+  catModalErrOnly = false;      // кожне відкриття починається з «Усі»
+  renderCategoryModal();
+  document.getElementById("cat-modal").classList.remove("hidden");
+}
+
+function renderCategoryModal() {
+  const cat = catModalCat;
   const meta = CAT_META[cat];
   if (!meta) return;
-  catModalCat = cat;
   catModalCustomPool = null;
   catModalPoolTag = cat;   // "known"/"learning"/"new" — тег для лідерборда
   const idxs = categoryIndices(cat);
@@ -7190,14 +7214,30 @@ function openCategoryModal(cat) {
           '<span class="ct-c">✓' + t.c + '</span><span class="ct-w">✗' + t.w + '</span></span>'
       : '';
   };
+  // ⚠️ «З помилками» = ✗ лічильника > 0, тобто слово хоч раз завалили у ЗВИЧАЙНІЙ грі
+  // (лічильники свідомо не чіпають повторення — правило сесії 40). Для «Нові» таких
+  // не буває за означенням, тож ряд чипсів там просто не показується.
+  const errRows = rows.filter(g => tallyOf(g).w > 0);
+  if (catModalErrOnly && !errRows.length) catModalErrOnly = false;   // нема що фільтрувати
+  const shown = catModalErrOnly ? errRows : rows;
+  const filterEl = document.getElementById("cat-filter");
+  filterEl.classList.toggle("hidden", !errRows.length);
+  if (errRows.length) {
+    const chip = (on, key, label, n) =>
+      '<button class="cat-chip' + (on ? " on" : "") + '" data-err="' + key + '">' +
+      label + ' <span class="cc-n">' + n + '</span></button>';
+    filterEl.innerHTML = chip(!catModalErrOnly, "0", "Усі", rows.length) +
+      chip(catModalErrOnly, "1", "З помилками", errRows.length);
+  }
   const sortNote = cat === "learning" && rows.some(g => { const t = tallyOf(g); return t.c || t.w; })
     ? ' · спершу проблемні' : '';
   document.getElementById("cat-title").innerHTML =
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + '</span>' +
-    '<span class="cat-cnt">' + rows.length + ' слів' + sortNote + '</span>';
+    // plWords — щоб не виходило «2 слів» після фільтра (той самий хелпер, що в слів дня)
+    '<span class="cat-cnt">' + plWords(shown.length) + sortNote + '</span>';
   const listEl = document.getElementById("cat-list");
-  listEl.innerHTML = rows.length
-    ? rows.map(g =>
+  listEl.innerHTML = shown.length
+    ? shown.map(g =>
         '<div class="cat-row" data-i="' + g[0] + '">' +
           '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
           '<span class="cat-ua">' + esc(g.map(i => getUa(WORDS[i]).join(", ")).join(" / ")) + '</span>' +
@@ -7205,16 +7245,23 @@ function openCategoryModal(cat) {
         '</div>').join("")
     : '<div class="cat-empty">Тут поки порожньо</div>';
   listEl.scrollTop = 0;
+  // ⚠️ Відфільтрований пул іде як catModalCustomPool — той самий шлях, що в слів дня,
+  // тож `startCategoryGame` бере саме його. І тег міняється на «wrong»: підмножина
+  // категорії не порівнювана зі звичайною грою, тож вона ПОЗА топ-10 (те саме правило,
+  // що для пулів «не дались» і CEFR — сесії 42, 44).
+  if (catModalErrOnly) {
+    catModalCustomPool = shown.flat();
+    catModalPoolTag = "wrong";
+  }
   // Гра по категорії тепер завжди переклад (вибір напрямку в модалці) —
   // перетин із modeValidPool() активного режиму більше не потрібен.
-  const playable = rows.length;
+  const playable = shown.length;
   const playBtn = document.getElementById("cat-play");
   playBtn.disabled = playable === 0;
   playBtn.textContent = playable
     ? "▶ Грати ці слова (" + playable + ")"
     : "Тут поки порожньо";
   playBtn.style.background = meta.color;
-  document.getElementById("cat-modal").classList.remove("hidden");
 }
 let catModalPoolTag = null;   // тег пулу відкритої модалки (категорія або слова дня)
 function closeCategoryModal() {
@@ -7239,6 +7286,8 @@ function openDayTransModal(date, cat) {
     : cat === "r" ? CAT_META.wrong : CAT_META.learning;
   catModalCat = null;
   catModalCustomPool = idxs;
+  // ряд чипсів «Усі / З помилками» — лише для категорій: тут пул і так вузький
+  document.getElementById("cat-filter").classList.add("hidden");
   // слова дня → той самий клас пулу; «не дались» мають власний тег: пул із кількох
   // конкретних слів не порівнюваний зі звичайною грою, тож він поза топ-10
   catModalPoolTag = cat === "k" ? "known" : cat === "t" ? "new" : cat === "r" ? "wrong" : "learning";
@@ -7610,6 +7659,14 @@ document.getElementById("mastery-stats").addEventListener("click", e => {
   if (badge) openCategoryModal(badge.dataset.cat);
 });
 document.getElementById("cat-close").addEventListener("click", closeCategoryModal);
+// Чипси «Усі / З помилками» (сесія 58): перемикають ФІЛЬТР і перемальовують модалку —
+// список, лічильник у заголовку, підпис кнопки й сам пул гри йдуть з одного рендеру.
+document.getElementById("cat-filter").addEventListener("click", e => {
+  const b = e.target.closest(".cat-chip");
+  if (!b || !catModalCat) return;
+  catModalErrOnly = b.dataset.err === "1";
+  renderCategoryModal();
+});
 // Клік по клікабельній ✓/↗ комірці «Прогресу по днях» → модалка слів дня (EN—UA + гра)
 document.getElementById("prog-list").addEventListener("click", e => {
   const cell = e.target.closest(".pgc.prog-click");

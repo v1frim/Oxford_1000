@@ -276,6 +276,49 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── ФІЛЬТР «УСІ / З ПОМИЛКАМИ» в модалці категорії (сесія 58, за запитом) ────
+  {
+    const pg = await b.newPage();
+    await pg.goto(PAGE); await pg.waitForTimeout(900);
+    const f = await pg.evaluate(() => {
+      const m = {};                       // 6 слів у «Знаю», з них 2 з помилками
+      for (let i = 0; i < 6; i++) m[wordKey(WORDS[i])] = { s: 3, c: 4, w: i < 2 ? 2 : 0 };
+      localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(m));
+      openCategoryModal("known");
+      const snap = () => ({
+        rows: document.querySelectorAll("#cat-list .cat-row").length,
+        btn: document.getElementById("cat-play").textContent,
+        on: [...document.querySelectorAll(".cat-chip")].map(c => c.classList.contains("on")),
+        pool: catModalCustomPool ? catModalCustomPool.length : null,
+        tag: catModalPoolTag,
+        hidden: document.getElementById("cat-filter").classList.contains("hidden"),
+      });
+      const all = snap();
+      document.querySelector('.cat-chip[data-err="1"]').click();
+      const err = snap();
+      // повторне відкриття мусить скинути фільтр
+      openCategoryModal("known");
+      const again = snap();
+      // у слів дня ряду чипсів бути не повинно
+      localStorage.setItem("oxford_mastery_trans_v1",
+        JSON.stringify({ "2026-09-19": { k: [wordKey(WORDS[0])] } }));
+      openDayTransModal("2026-09-19", "k");
+      return { all, err, again, dayHidden: document.getElementById("cat-filter").classList.contains("hidden") };
+    });
+    t("чипси показані, коли є слова з помилками", !f.all.hidden && f.all.on[0] === true,
+      JSON.stringify(f.all));
+    t("«Усі» дає повний список і пул категорії",
+      f.all.rows === 6 && /\(6\)/.test(f.all.btn) && f.all.pool === null && f.all.tag === "known",
+      JSON.stringify(f.all));
+    t("«З помилками» звужує список, кнопку і пул",
+      f.err.rows === 2 && /\(2\)/.test(f.err.btn) && f.err.pool === 2, JSON.stringify(f.err));
+    t("відфільтрований пул іде поза топ-10 — тег wrong", f.err.tag === "wrong", f.err.tag);
+    t("повторне відкриття скидає фільтр на «Усі»",
+      f.again.rows === 6 && f.again.on[0] === true, JSON.stringify(f.again));
+    t("у слів дня ряду чипсів немає", f.dayHidden === true);
+    await pg.close();
+  }
+
   // ── РІВЕНЬ CEFR У СПИСКУ СЛІВ ДНЯ (сесія 58, за запитом) ────────────────────
   {
     const pg = await b.newPage();
