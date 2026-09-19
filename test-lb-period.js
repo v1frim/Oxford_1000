@@ -276,19 +276,19 @@ function chromePath() {
 
   await page.keyboard.press("Shift"); await page.waitForTimeout(150);
   st = await page.evaluate(() => ({ per: lbPeriod, active: document.querySelector("#lb-period-chips .lb-chip.active").textContent }));
-  t("другий Shift гортає період уперед", st.per === "d30", JSON.stringify(st));
-  t("активний чипс перемалювався", st.active === "30 днів", st.active);
+  t("другий Shift гортає період уперед", st.per === "month", JSON.stringify(st));
+  t("активний чипс перемалювався", st.active === "Цей місяць", st.active);
 
   const stored = await page.evaluate(() => localStorage.getItem("oxford_lb_period_v1"));
-  t("гортання зберігається у localStorage", stored === "d30", String(stored));
+  t("гортання зберігається у localStorage", stored === "month", String(stored));
 
-  // коло замикається: d30 → month → g100 → all → d7
+  // коло замикається (порядок сесії 58): month → d30 → g300 → all → d7
   const seq = [];
   for (let i = 0; i < 4; i++) {
     await page.keyboard.press("Shift"); await page.waitForTimeout(120);
     seq.push(await page.evaluate(() => lbPeriod));
   }
-  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "month,g100,all,d7", seq.join(","));
+  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "d30,g300,all,d7", seq.join(","));
 
   // ⚠️ ПРАВИЙ Shift — назад (сесія 51, прямий вибір користувача). Playwright'ів
   // `press("Shift")` шле саме ShiftLeft, тож правий тиснемо явно через down/up.
@@ -298,7 +298,7 @@ function chromePath() {
     await page.waitForTimeout(120);
     back.push(await page.evaluate(() => lbPeriod));
   }
-  t("правий Shift гортає назад", back.join(",") === "all,g100", back.join(","));
+  t("правий Shift гортає назад", back.join(",") === "all,g300", back.join(","));
 
   // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
   const perBeforeModal = await page.evaluate(() => lbPeriod);
@@ -340,7 +340,7 @@ function chromePath() {
   });
   await page.keyboard.press("Shift"); await page.waitForTimeout(150);
   t("на екрані результатів Shift гортає вперед",
-    await page.evaluate(() => lbPeriod) === "d30", await page.evaluate(() => lbPeriod));
+    await page.evaluate(() => lbPeriod) === "month", await page.evaluate(() => lbPeriod));
   await page.keyboard.down("ShiftRight"); await page.keyboard.up("ShiftRight");
   await page.waitForTimeout(150);
   t("на екрані результатів правий Shift гортає назад",
