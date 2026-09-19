@@ -12159,7 +12159,7 @@ const WORDS = [
   {en:"thunder shower",ua:"грозовий дощ"},
   {en:"rainy season",ua:"сезон дощів"},
   {en:"pool of water",ua:"скупчення води"},
-  {en:"moisture",ua:"волога"},
+  {en:"moisture",ua:"волога",uaAlt:["вологість"]},
   {en:"dampness",ua:"вогкість"},
   {en:"rain gauge",ua:"дощомір",uaAlt:["опадомір"]},
   {en:"soaked",ua:"промоклий наскрізь"},
@@ -25642,6 +25642,8 @@ const HINTS = {
   "panama hat": "солом'яний капелюх із крисами; українська «панама» — це bucket hat",
   "to come across as": "про враження, яке хтось справляє: he came across as rude",
   "to come across": "натрапити випадково; про враження — to come across as",
+  "moisture": "сама волога — у повітрі, ґрунті, на поверхні; показник у відсотках — humidity",
+  "humidity": "вологість повітря як показник; сама волога — moisture",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
