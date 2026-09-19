@@ -864,6 +864,16 @@
   .cat-row:hover { background: rgba(255,255,255,0.09); }
   .cat-en { font-weight: 600; white-space: nowrap; }
   .cat-ua { opacity: 0.6; text-align: right; }
+  /* Рівень CEFR біля слова у списку слів дня (сесія 58, за запитом). Обгортка потрібна
+     тому, що `.cat-row` — space-between: без неї мітка поїхала б у середину рядка,
+     між англійським словом і перекладом. Кольори — три сходинки, як у грі «🎓 Рівні». */
+  .cat-left { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
+  .cat-lvl { flex: 0 0 auto; font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
+             padding: 1px 5px; border-radius: 5px; background: rgba(255,255,255,0.07); }
+  .cat-lvl.lv-A1, .cat-lvl.lv-A2 { color: #7be07b; }
+  .cat-lvl.lv-B1, .cat-lvl.lv-B2 { color: #8fd3ff; }
+  .cat-lvl.lv-C1, .cat-lvl.lv-C2 { color: #c89bff; }
+  .cat-lvl.lv-none { color: rgba(255,255,255,0.45); }
   /* Лічильники відповідей на слово (сесія 40): ✓правильних / ✗помилок у звичайній грі */
   .cat-tally { flex: 0 0 auto; font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0.85; }
   .cat-tally .ct-c { color: #7be07b; }
@@ -7271,11 +7281,22 @@ function openDayTransModal(date, cat) {
     '<span style="color:' + meta.color + '">' + meta.icon + ' ' + meta.label + ' · ' + fmtProgressDate(date) + '</span>' +
     '<span class="cat-cnt">' + plWords(rows.length) + netNote + '</span>';
   const listEl = document.getElementById("cat-list");
-  listEl.innerHTML = rows.map(g =>
-    '<div class="cat-row" data-i="' + g[0] + '">' +
-      '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
+  // ⚠️ РІВЕНЬ CEFR БІЛЯ КОЖНОГО СЛОВА (сесія 58, за запитом). Бере `cefrLevelOf` —
+  // той самий хелпер, що й гра «🎓 Рівні», тож мітка ніколи не розійдеться з пулом
+  // рівня. Слова поза списками CEFR (наш тематичний шар) дають "none" → показуємо «—»:
+  // це свідомий окремий стан, а не сміття, і ховати його не можна — інакше список
+  // мовчки брехав би, що рівень є в усіх.
+  listEl.innerHTML = rows.map(g => {
+    const lvl = cefrLevelOf(WORDS[g[0]]);
+    return '<div class="cat-row" data-i="' + g[0] + '">' +
+      '<span class="cat-left">' +
+        '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
+        '<span class="cat-lvl lv-' + lvl + '" title="' + esc(CEFR_META[lvl] || "") + '">' +
+          (lvl === "none" ? "—" : lvl) + '</span>' +
+      '</span>' +
       '<span class="cat-ua">' + esc(g.map(i => getUa(WORDS[i]).join(", ")).join(" / ")) + '</span>' +
-    '</div>').join("");
+    '</div>';
+  }).join("");
   listEl.scrollTop = 0;
   const playBtn = document.getElementById("cat-play");
   playBtn.disabled = false;

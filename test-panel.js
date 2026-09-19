@@ -276,6 +276,37 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── РІВЕНЬ CEFR У СПИСКУ СЛІВ ДНЯ (сесія 58, за запитом) ────────────────────
+  {
+    const pg = await b.newPage();
+    await pg.goto(PAGE); await pg.waitForTimeout(900);
+    const lv = await pg.evaluate(() => {
+      const d = "2026-09-19";
+      const pick = (want) => { for (let i = 0; i < WORDS.length; i++)
+        if (cefrLevelOf(WORDS[i]) === want) return wordKey(WORDS[i]); return null; };
+      const keys = ["A1", "B2", "none"].map(pick).filter(Boolean);
+      localStorage.setItem("oxford_mastery_trans_v1", JSON.stringify({ [d]: { k: keys } }));
+      openDayTransModal(d, "k");
+      const rows = [...document.querySelectorAll("#cat-list .cat-row")];
+      return {
+        badges: rows.map(r => (r.querySelector(".cat-lvl") || {}).textContent),
+        // мітка мусить збігатися з тим, що дає cefrLevelOf грі «🎓 Рівні»
+        sameAsGame: rows.every(r => {
+          const el = r.querySelector(".cat-lvl"); if (!el) return false;
+          const want = cefrLevelOf(WORDS[+r.dataset.i]);
+          return el.textContent === (want === "none" ? "—" : want);
+        }),
+        overflow: rows.some(r => r.scrollWidth > r.clientWidth + 1),
+      };
+    });
+    t("кожне слово дня має мітку рівня", lv.badges.length >= 2 && lv.badges.every(Boolean),
+      JSON.stringify(lv.badges));
+    t("мітка збігається з cefrLevelOf — джерелом гри 🎓", lv.sameAsGame, JSON.stringify(lv));
+    t("слово поза списками CEFR показує «—»", lv.badges.includes("—"), JSON.stringify(lv.badges));
+    t("рядок із міткою не переповнюється", !lv.overflow, JSON.stringify(lv));
+    await pg.close();
+  }
+
   // ── ПОРОЖНІ ДНІ Й РОЗДІЛЬНИК «ПРОПУСК» У «ПРОГРЕСІ» (сесія 58, варіант C) ─────
   // Знімок пишеться при кожному відкритті сторінки, тож день «зайшов, але не грав»
   // давав рядок із самими прочерками, а день «не заходив» не давав нічого. Тепер
