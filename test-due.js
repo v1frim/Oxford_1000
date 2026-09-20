@@ -315,10 +315,36 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     for (let t = 0; t < 40; t++) drive([0,1,2,3,4], 10).forEach(x => (cnt[x] = (cnt[x] || 0) + 1));
     out.spread = Object.keys(cnt).length;
     // режим ПОВТОРЕНЬ: 3 слова в черзі — сусідніх повторів бути не має
-    startGame([0, 1, 2], {});
-    const rseq = [currentWordIndex];
-    for (let i = 1; i < 15; i++) { nextWord(); rseq.push(currentWordIndex); }
-    out.reviewWorst = maxRun(rseq);
+    // ⚠️ ПОВТОРЕННЯ: ЖОДНИХ СУСІДНІХ ПОВТОРІВ, ПОКИ В ЧЕРЗІ БІЛЬШЕ ОДНОГО СЛОВА
+    // (пряма домовленість із користувачем; перепитано в сесії 60 після «juicy двічі
+    // підряд» — там черга вже звузилась до одного слова, див. перевірку `shrink` нижче).
+    // Найвужчий випадок — ДВА слова: repeatWindow(2) = 1, тобто заборонено рівно
+    // негайний повтор. Женемо кілька пулів по 200 прогонів, бо дефект імовірнісний.
+    out.reviewWorst = {};
+    for (const n of [2, 3, 5, 8]) {
+      const pool = [...Array(n).keys()].map(i => i + 50);
+      let worst = 1;
+      for (let t = 0; t < 200; t++) {
+        startGame(pool, {});
+        const rseq = [currentWordIndex];
+        for (let i = 1; i < 25; i++) { nextWord(); rseq.push(currentWordIndex); }
+        worst = Math.max(worst, maxRun(rseq));
+        endGame(true);
+      }
+      out.reviewWorst[n] = worst;
+    }
+    // ⚠️ А ОСЬ ЩОЙНО ЧЕРГА ЗВУЗИЛАСЬ ДО ОДНОГО — повтор з'являється, і це правильно.
+    // Саме цей сценарій користувач побачив у грі: 5 слів × 3 правильні = 15, останнє
+    // слово добивалось підряд, бо інші вже закриті.
+    startGame([70, 71], {});
+    for (let k = 0; k < 3; k++) {
+      currentWordIndex = 70; currentWord = WORDS[70]; currentShown = getEn(WORDS[70])[0];
+      recordAnswer(getUa(WORDS[70])[0], "correct");          // закрили перше слово
+    }
+    const tail = [];
+    for (let i = 0; i < 6; i++) { nextWord(); tail.push(currentWordIndex); }
+    out.shrink = { left: reviewRemaining.size, allSame: tail.every(x => x === 71) };
+    endGame(true);
     // ⚠️ одне слово в черзі — повтор НЕМИНУЧИЙ: закрити його можна лише трьома
     // правильними поспіль. Тест фіксує саме цю межу, щоб її не «полагодили».
     startGame([7], {});
@@ -331,7 +357,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     t("звичайна гра, пул " + n + ": жодного сусіднього повтору", rep.worst[n] === 1, "найдовша серія " + rep.worst[n]);
   t("пул 3 НЕ став жорсткою каруселлю", rep.periodic3 < 30, "періодичних прогонів: " + rep.periodic3 + "/60");
   t("усі слова пулу трапляються", rep.spread === 5, "різних слів: " + rep.spread);
-  t("повторення, 3 слова в черзі: без сусідніх повторів", rep.reviewWorst === 1, "найдовша серія " + rep.reviewWorst);
+  for (const n of [2, 3, 5, 8])
+    t("повторення, " + n + " слів у черзі: без сусідніх повторів (200 прогонів)",
+      rep.reviewWorst[n] === 1, "найдовша серія " + rep.reviewWorst[n]);
+  t("черга звузилась до одного слова → повтор повертається",
+    rep.shrink.left === 1 && rep.shrink.allSame === true, JSON.stringify(rep.shrink));
   t("⚠️ повторення, ОДНЕ слово в черзі: повтор лишається (правило 3 поспіль)", rep.singleAllSame === true);
 
   console.log("✅ " + ok.length + " перевірок пройдено");
