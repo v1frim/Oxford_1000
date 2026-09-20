@@ -21,11 +21,12 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const before = loadSeen(); const after = bumpSeen();
     return { before, after, stored: localStorage.getItem("oxford_seen_v1"),
       fns: [typeof buildSchedQueue, typeof schedStats, typeof seedSchedForKnown, typeof schedTouch].every(x => x === "function"),
-      iv: SCHED_IV, floor: SCHED_DAY_FLOOR, quota: SCHED_NEW_PER_GAME, backup: BACKUP_KEYS.includes("oxford_seen_v1"),
+      iv: SCHED_IV, floor: SCHED_DAY_FLOOR, quota: SCHED_NEW_PER_GAME, span: SCHED_QUOTA_SPAN, backup: BACKUP_KEYS.includes("oxford_seen_v1"),
       rnd: Array.from({length: 300}, () => schedRand([100, 200])) };
   });
   t("лічильник показів стартує з 0 і росте", h.before === 0 && h.after === 1 && h.stored === "1", JSON.stringify([h.before, h.after, h.stored]));
   t("функції планувальника на місці", h.fns);
+  t("вікно вставки квоти = 5 (гра на 9 слів мусить дійти до квотового)", h.span === 5, String(h.span));
   t("інтервали: 100-200 / 200-400 / 300-500 / 1500-2500", JSON.stringify(h.iv) === JSON.stringify({wrong:[100,200],s1:[200,400],s2:[300,500],rev:[1500,2500]}), JSON.stringify(h.iv));
   t("підлога 2 дні, квота 2 на гру", h.floor === 2 && h.quota === 2);
   t("oxford_seen_v1 у BACKUP_KEYS", h.backup);
@@ -95,7 +96,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(m));
     const pool = []; for (let i = 10; i <= 40; i++) pool.push(i);            // 20..40 — свіжі
     const out = buildSchedQueue(pool);
-    const head = out.slice(0, 10);
+    const head = out.slice(0, SCHED_QUOTA_SPAN);
     return { out, has: i => out.includes(i), head,
       freshInHead: head.filter(i => i >= 20).length, oldInHead: head.includes(19),
       uniq: new Set(out.map(i => wordKey(WORDS[i]))).size === out.length,
@@ -106,8 +107,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("показане сьогодні — НЕ в черзі", !q.out.includes(16));
   t("показане вчора — НЕ в черзі", !q.out.includes(17));
   t("показане позавчора — у черзі", q.out.includes(18));
-  t("квота: старе «Вивчаю» без розкладу — у перших 10", q.oldInHead, JSON.stringify(q.head));
-  t("квота: справді нове слово — у перших 10", q.freshInHead >= 1, JSON.stringify(q.head));
+  t("квота: старе «Вивчаю» без розкладу — у перших 5", q.oldInHead, JSON.stringify(q.head));
+  t("квота: справді нове слово — у перших 5", q.freshInHead >= 1, JSON.stringify(q.head));
   t("черга ≤ 40 і без дублів ключів", q.out.length <= 40 && q.uniq, String(q.out.length));
   t("schedStats: на сьогодні 6 (5 прострочених + позавчорашнє), ревізій 0, у роботі 10 (усі записи зі streak<3)",
     q.stats.due === 6 && q.stats.rev === 0 && q.stats.active === 10, JSON.stringify(q.stats));

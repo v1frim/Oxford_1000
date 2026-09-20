@@ -6360,6 +6360,13 @@ const SCHED_IV = { wrong: [100, 200], s1: [200, 400], s2: [300, 500], rev: [1500
 const SCHED_DAY_FLOOR = 2;        // показане в день D доступне з D+2
 const SCHED_NEW_PER_GAME = 2;     // квота: 1 старе «Вивчаю» без розкладу + 1 справді нове
 const SCHED_QUEUE_LEN = 40;       // черга на гру (60 с ≈ 12-15 відповідей, із запасом)
+// ⚠️ КВОТОВІ СЛОВА — У ПЕРШІ 5 ПОЗИЦІЙ, НЕ В ПЕРШІ 10 (сесія 60, за спостереженням із гри).
+// Черга довга (40), а 60 секунд дають 9-15 відповідей — при вставці в перші 10 приблизно
+// кожна десята гра закінчувалась ДО квотового слова, і темп нових слів мовчки падав нижче
+// домовлених «2-3 на гру». Та сама пастка, що з примусовим боргом у сесії 57: «гарантовано
+// в черзі» ≠ «гарантовано показане». Ширше за 5 робити не варто — з 5 позицій порядок
+// лишається невгадуваним, вужче (0-2) зробило б нові слова передбачувано першими.
+const SCHED_QUOTA_SPAN = 5;
 let schedThisGame = false;        // чи поточна гра йде планувальником (opts.sched)
 function loadSeen() { const v = parseInt(localStorage.getItem(SEEN_KEY), 10); return isNaN(v) ? 0 : v; }
 function bumpSeen() { const v = loadSeen() + 1; localStorage.setItem(SEEN_KEY, String(v)); return v; }
@@ -6420,7 +6427,7 @@ function buildSchedQueue(pool) {
   while (q.length < SCHED_QUEUE_LEN && (old.length || fresh.length)) {
     q.push(pickRand(old.length ? old : fresh));
   }
-  for (const i of quota) q.splice(Math.min(q.length, Math.floor(Math.random() * 10)), 0, i);
+  for (const i of quota) q.splice(Math.min(q.length, Math.floor(Math.random() * SCHED_QUOTA_SPAN)), 0, i);
   if (!q.length) return shuffle([...pool]);   // усе показане сьогодні/вчора (крихітний пул) — грати як раніше
   return q;
 }
