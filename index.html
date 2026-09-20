@@ -6398,9 +6398,14 @@ function buildSchedQueue(pool) {
     if (w !== undefined) quota.push(w);
   }
   const q = shuffle(due.slice(0, SCHED_QUEUE_LEN).map(x => x.i));
+  // ⚠️ ДОБІР ЧЕРГИ БЕРЕ СПЕРШУ СТАРЕ «ВИВЧАЮ», І ЛИШЕ ПОТІМ СПРАВДІ НОВЕ — інакше квота
+  // втрачає сенс. Було 50/50, і поки планів ще немає (перші дні після релізу фічі) гра
+  // тягла ~6 нових слів за раунд = ~60 на день при стелі пропускної здатності ~20:
+  // система захлинулась би рівно тим, проти чого фіча й робилась. Нові заходять ТІЛЬКИ
+  // через квотові слоти вище. Падіння на `fresh` лишається для чистого словника, де
+  // старого «Вивчаю» ще немає взагалі — там інакше нема чим грати.
   while (q.length < SCHED_QUEUE_LEN && (old.length || fresh.length)) {
-    const src = (old.length && fresh.length) ? (Math.random() < 0.5 ? old : fresh) : (old.length ? old : fresh);
-    q.push(pickRand(src));
+    q.push(pickRand(old.length ? old : fresh));
   }
   for (const i of quota) q.splice(Math.min(q.length, Math.floor(Math.random() * 10)), 0, i);
   if (!q.length) return shuffle([...pool]);   // усе показане сьогодні/вчора (крихітний пул) — грати як раніше

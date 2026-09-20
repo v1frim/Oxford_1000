@@ -112,6 +112,18 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("schedStats: на сьогодні 6 (5 прострочених + позавчорашнє), ревізій 0, у роботі 10 (усі записи зі streak<3)",
     q.stats.due === 6 && q.stats.rev === 0 && q.stats.active === 10, JSON.stringify(q.stats));
 
+  // 7b. ⚠️ коли планів ще нема, черга добивається СТАРИМ «Вивчаю», а нових рівно квота
+  const quotaOnly = await p.evaluate(() => {
+    const m = {}, pool = [];
+    for (let i = 800; i < 860; i++) { pool.push(i); m[wordKey(WORDS[i])] = { s: 1, c: 1, w: 0 }; }   // 60 старих без розкладу
+    for (let i = 860; i < 920; i++) pool.push(i);                                                    // 60 справді нових
+    localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(m));
+    const runs = [];
+    for (let g = 0; g < 8; g++) { const out = buildSchedQueue(pool); runs.push(out.filter(i => i >= 860).length); }
+    return { runs, max: Math.max(...runs) };
+  });
+  t("поки планів нема, нових у черзі рівно квота (1 з 2 слотів)", quotaOnly.max <= 1, JSON.stringify(quotaOnly.runs));
+
   // 8. найзатриманіші першими: 60 прострочених, черга 40 → беруться 40 найдавніших
   const late = await p.evaluate(() => {
     const m = {}, seen = loadSeen(), pool = [];
