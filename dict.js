@@ -9418,7 +9418,7 @@ const WORDS = [
   {en:"shipment",ua:"партія вантажу",uaAlt:["відправлення"]},
   {en:"tracking number",ua:"номер відстеження",uaAlt:["трек-номер","номер для відстеження"]},
   {en:"to restock",ua:"поповнити запаси",uaAlt:["поповнювати запаси"]},
-  {en:"branding",ua:"брендинг"},
+  {en:"branding",ua:"брендинг",uaAlt:["брендування","розбудова бренду"]},
   {en:"brand awareness",ua:"впізнаваність бренду"},
   {en:"brand identity",ua:"фірмовий образ",uaAlt:["ідентичність бренду"]},
   {en:"content strategy",ua:"контент-стратегія"},
@@ -12190,7 +12190,7 @@ const WORDS = [
   {en:"thunderclap",ua:"удар грому"},
   {en:"storm front",ua:"грозовий фронт"},
   {en:"typhoon",ua:"тайфун"},
-  {en:"cyclone",ua:"тропічний циклон"},
+  {en:"cyclone",ua:"тропічний циклон",uaAlt:["циклон"]},
   {en:"storm surge",ua:"штормовий нагін води"},
   {en:"gusty",ua:"поривчастий"},
   {en:"temperate climate",ua:"помірний клімат"},
@@ -25645,6 +25645,9 @@ const HINTS = {
   "moisture": "сама волога — у повітрі, ґрунті, на поверхні; показник у відсотках — humidity",
   "humidity": "вологість повітря як показник; сама волога — moisture",
   "fond of": "теплі почуття, не обов'язково романтичні; be fond of somebody or something",
+  "cyclone": "тропічний шторм рівня урагану чи тайфуна; циклон на карті погоди — low-pressure system",
+  "low-pressure system": "область низького тиску на карті погоди; тропічний циклон — cyclone",
+  "quiz": "коротка перевірка знань або гра з питаннями; велике опитування людей — survey",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
