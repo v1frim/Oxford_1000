@@ -102,15 +102,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("CEFR-гра має тег рівня", /^cefr:/.test(String(tagged)), String(tagged));
 
-  // 9. плашка боргу з'являється, коли є що повторювати
+  // 9. плашка під кнопкою старту (сесія 60: план показів по набору, а не борг)
   await p.reload(); await p.waitForTimeout(900);
   const banner = await p.evaluate(() => {
-    localStorage.setItem("oxford_due_v1", JSON.stringify({ [wordKey(WORDS[0])]: { due: "2000-01-01", waited: 0 } }));
+    localStorage.setItem("oxford_word_mastery_v1", JSON.stringify({ [wordKey(WORDS[0])]: { s: 1, c: 1, w: 0, n: 0, d: "2000-01-01", r: 0 } }));
+    localStorage.setItem("oxford_seen_v1", "10");
     renderDueBanner();
     const el = document.getElementById("due-banner");
     return { hidden: el.classList.contains("hidden"), txt: el.textContent };
   });
-  t("плашка боргу показується", !banner.hidden && /повторенні 1 слово/.test(banner.txt), banner.txt);
+  t("плашка плану показується", !banner.hidden && /На сьогодні 1 слово · ревізій 0 · у роботі 1/.test(banner.txt), banner.txt);
 
   // 10. ЄДИНА ВИСОТА + КОЛЬОРИ ряду «Щодня» (сесія 45, за запитом).
   // Ловить рецидив легасі-стилів із лівої панелі: саме `margin:0 0 10px` у #expr-btn

@@ -1,4 +1,8 @@
 // Тест інтервального повторення помилок (борг за помилку, сесія 44).
+// ⚠️ СЕСІЯ 60: борг ЗАМОРОЖЕНО — його замінив планувальник показів (test-sched.js).
+// Функції борг-у лишились (патерн «заморожено, не стерто»), тож функціональні перевірки
+// живі, а сценарні («підмішалось у гру», «помилка ставить борг») перевернуті: тепер
+// вони стережуть, що борг НЕ втручається в гру. НЕ «лагодити» їх назад.
 // Запуск: npm i playwright-core && node test-due.js   (або PW_CORE=... node test-due.js)
 const fs = require("fs"), path = require("path");
 const PAGE = "file://" + path.join(__dirname, "index.html");
@@ -58,15 +62,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   // 5. правильна відповідь у грі закриває борг (1 підмішування досить)
   const cleared = await p.evaluate(() => {
     localStorage.setItem("oxford_due_v1", JSON.stringify({ [wordKey(WORDS[3])]: { due: "2000-01-01", waited: 9 } }));
-    startGame();                                        // звичайна гра — борг підмішується
+    startGame(null, { sched: true });                   // звичайна гра — борг БІЛЬШЕ НЕ підмішується (сесія 60)
     const injected = dueThisGame && dueThisGame.has(3);
+    const inQueue = shuffledIndices.includes(3) && !(mSched(loadMastery()[wordKey(WORDS[3])]).n <= loadSeen());
     clearDue(3);
     const left = Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length;
     endGame(true);
-    return { injected, left };
+    return { injected, inQueue, left };
   });
-  t("боргове слово підмішалось у гру", cleared.injected === true);
-  t("правильна відповідь закриває борг", cleared.left === 0, String(cleared.left));
+  t("борг НЕ підмішується у гру (заморожено, сесія 60)", cleared.injected === false);
+  t("clearDue досі чистить запис", cleared.left === 0, String(cleared.left));
 
   // 6. у повторенні помилок борг НЕ підмішується
   const inReview = await p.evaluate(() => {
@@ -149,7 +154,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     return { afterReview, afterGame };
   });
   t("помилка в ПОВТОРЕННІ не ставить борг", fromReview.afterReview === 0, String(fromReview.afterReview));
-  t("помилка у звичайній грі борг ставить", fromReview.afterGame === 1, String(fromReview.afterGame));
+  t("помилка у звичайній грі борг НЕ ставить (заморожено, сесія 60)", fromReview.afterGame === 0, String(fromReview.afterGame));
 
   // 10c. одноразовий ремонт: у борзі лишається тільки те, що досі відкрита помилка
   await p.evaluate(() => {
@@ -184,6 +189,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     });
     const afterGame = Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length;
     endGame(true);
+    // сесія 60: гра боргу не ставить — сіємо руками, щоб перевірити зняття в повторенні
+    const seedDue = {}; [A, B, C].forEach(i => seedDue[wordKey(WORDS[i])] = { due: tomorrowKey(), waited: 0 });
+    localStorage.setItem("oxford_due_v1", JSON.stringify(seedDue));
 
     startGame([A, B, C]);                               // post-game повторення
     const drill = (i, clean) => {
@@ -200,7 +208,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     return { afterGame, keys: Object.keys(due),
              A: wordKey(WORDS[A]), B: wordKey(WORDS[B]), C: wordKey(WORDS[C]) };
   });
-  t("3 помилки в грі → 3 борги", afterDrill.afterGame === 3, String(afterDrill.afterGame));
+  t("3 помилки в грі → 0 боргів (заморожено, сесія 60)", afterDrill.afterGame === 0, String(afterDrill.afterGame));
   t("чисто закриті в повторенні борг знімають",
     !afterDrill.keys.includes(afterDrill.A) && !afterDrill.keys.includes(afterDrill.B),
     JSON.stringify(afterDrill.keys));
@@ -213,18 +221,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const wk = wordKey(WORDS[4]);
     localStorage.setItem("oxford_due_v1", JSON.stringify({ [wk]: { due: "2000-01-01", waited: 9 } }));
     localStorage.setItem("oxford_day_mistakes_v1", JSON.stringify({ "2000-01-01": [wk] }));
-    startGame();
+    startGame(null, { sched: true });
     const injected = dueThisGame && dueThisGame.has(4);
     currentWordIndex = 4; currentWord = WORDS[4]; currentShown = getEn(WORDS[4])[0];
-    recordAnswer(getUa(WORDS[4])[0], "correct");              // «вгадав» боргове слово
-    const out = { injected, due: Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length,
-                  mistakes: allDayMistakeKeys().length };
+    recordAnswer(getUa(WORDS[4])[0], "correct");
+    const out = { injected, due: Object.keys(JSON.parse(localStorage.getItem("oxford_due_v1"))).length };
     endGame(true);
     return out;
   });
-  t("боргове слово підмішалось (drain)", drained.injected === true);
-  t("вгадане слово знято з боргу", drained.due === 0, String(drained.due));
-  t("вгадане слово знято з «відкритого боргу» помилок", drained.mistakes === 0, String(drained.mistakes));
+  t("боргове слово НЕ підмішується (заморожено, сесія 60)", drained.injected === false);
+  t("старий запис боргу лишається мертвими даними, гра його не чіпає", drained.due === 1, String(drained.due));
 
   // 12. ГАРАНТІЯ «У 5-Й ГРІ ТОЧНО» (сесія 57, скарга «зіграно 6 ігор, а слово все висить»).
   // Було: сам ФАКТ підмішування скидав `waited` у нуль. Слово, підмішане в хвіст першої
@@ -253,14 +259,13 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const wk = wordKey(WORDS[9]), spots = [];
     for (let g = 0; g < 12; g++) {
       localStorage.setItem("oxford_due_v1", JSON.stringify({ [wk]: { due: "2000-01-01", waited: 9 } }));
-      startGame();
-      spots.push(shuffledIndices.indexOf(9));
+      startGame(null, { sched: true });
+      spots.push(dueThisGame.size);
       endGame(true);
     }
-    return { max: Math.max(...spots), min: Math.min(...spots) };
+    return { max: Math.max(...spots) };
   });
-  t("примусове слово стоїть у перших питаннях",
-    upfront.max <= 4 && upfront.min >= 1, JSON.stringify(upfront));
+  t("примусовий борг більше не вставляється в чергу (заморожено, сесія 60)", upfront.max === 0, JSON.stringify(upfront));
 
   // 14. ліміт DUE_MAX_PER_GAME віддається прострочeним, а не випадково взятим:
   // інакше слово, що відчекало свої 4 гри, могло не влізти в трійку через сусіда.

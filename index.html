@@ -1611,7 +1611,7 @@
       </div>
     </div>
     <button id="start-btn">▶ Тренування · 60 сек<span id="start-sub"></span></button>
-    <div id="due-banner" class="hidden" title="Помилкові слова підмішуються в наступні ігри самі"></div>
+    <div id="due-banner" class="hidden" title="План показів для обраного набору: скільки слів чекає повторення сьогодні, скільки з них — ревізії вже вивчених, і скільки слів зараз у роботі (Вивчаю)"></div>
     <div class="panel-lab">Щодня</div>
     <div id="daily-row">
       <div id="duo-wrap" class="pair">
@@ -3578,6 +3578,9 @@ function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
   records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex, mode });
+  // Сесія 60: лічильник показів для планувальника — ЛИШЕ звичайна гра (як mastery).
+  // Бамп ДО updateMastery: план наступного показу рахується від цього показу включно.
+  if (!reviewRemaining) bumpSeen();
   if (status === "correct") {
     score++; scoreEl.textContent = score;
     if (reviewRemaining) {
@@ -3605,7 +3608,9 @@ function recordAnswer(userVal, status) {
       }
     } else {
       addXp(1);
-      updateMastery(masteryTargetIndex(userVal), true);   // ua-en: прогрес введеному слову
+      const mTarget = masteryTargetIndex(userVal);
+      updateMastery(mTarget, true);                        // ua-en: прогрес введеному слову
+      if (mTarget !== currentWordIndex) schedTouch(currentWordIndex);   // показану картку — не завтра
       // підмішане боргове слово вгадане — борг закрито (одного разу досить)
       if (dueThisGame && dueThisGame.has(currentWordIndex)) {
         dueThisGame.delete(currentWordIndex);
@@ -3629,7 +3634,12 @@ function recordAnswer(userVal, status) {
     // норма: черга роздувалась дрилом, а не помилками з ігор. Той самий захист, що рядком
     // нижче в `updateMastery` — його тут просто забули. Правило користувача: підмішуються
     // саме ПОМИЛКОВІ слова (те, що потрапляло в «📒 Помилки»), а не те, що вже дрилиться.
-    if (!reviewRemaining) scheduleDue(currentWordIndex);   // борг на завтра
+    // ⚠️ СЕСІЯ 60: БОРГ ЗАМОРОЖЕНО. Було `if (!reviewRemaining) scheduleDue(currentWordIndex)`.
+    // Помилку тепер повертає планувальник (n = seen + 100..200 показів, і не раніше
+    // післязавтра — підлога SCHED_DAY_FLOOR), а борг повертав її ЗАВТРА — це суперечило
+    // прямому проханню «щоб сьогодні й завтра слово більше не попадалось». Функції
+    // scheduleDue/clearDue/pickDueIndices і міграції засіву ЛИШАЮТЬСЯ (патерн «заморожено,
+    // не стерто»: ключ у BACKUP_KEYS, старі записи нікому не шкодять). НЕ повертати виклик.
     // In review: mark this word so even a later 3-correct won't remove it from
     // today's mistakes. User wants tainted words to stay for further review.
     if (reviewTaintedIndices) reviewTaintedIndices.add(currentWordIndex);
@@ -3867,27 +3877,18 @@ function startGame(pool, opts) {
   } else {
     sourcePool = [...Array(WORDS.length).keys()];
   }
-  shuffledIndices = shuffle([...sourcePool]);
+  // Сесія 60: набори модалки «Тренування» (opts.sched) ідуть ПЛАНУВАЛЬНИКОМ показів —
+  // черга з прострочених слів + 2 квотові. Категорійні ігри, слова дня, «з помилками»
+  // й English-only лишаються повним шафлом заданого пулу (він і так вузький).
+  schedThisGame = !!opts.sched && !activePool;
+  shuffledIndices = schedThisGame ? buildSchedQueue(sourcePool) : shuffle([...sourcePool]);
   shufflePos = 0;
   recentIndices = [];   // анти-повтор рахується в межах ОДНІЄЇ гри
-  // Борг за вчорашні помилки підмішується ЛИШЕ у звичайні (timed) ігри —
-  // у повтореннях помилок (activePool) він був би маслом масляним.
+  // ⚠️ СЕСІЯ 60: БОРГ БІЛЬШЕ НЕ ПІДМІШУЄТЬСЯ (заморожено; див. recordAnswer). Було:
+  // `pickDueIndices(forcedNow)` + вставка в першу дюжину / перші 4 позиції для примусових.
+  // Помилки повертає планувальник за лічильником показів. `dueThisGame` лишається
+  // порожнім Set-ом — його читає гілка correct у recordAnswer, чистити її не треба.
   dueThisGame = new Set();
-  if (!activePool) {
-    const forcedNow = new Set();
-    const due = pickDueIndices(forcedNow);
-    for (const i of due) {
-      // Звичайне боргове слово — будь-де в першій дюжині. ПРИМУСОВЕ (відчекало свої
-      // DUE_FORCE_AFTER ігор) — у перші питання: 60 секунд не завжди докручують до
-      // 12-го слова, і саме на цьому борг зависав назавжди (фікс сесії 57).
-      const span = forcedNow.has(i) ? 4 : 12;
-      const at = Math.min(shuffledIndices.length, Math.floor(Math.random() * span) + 1);
-      const cur = shuffledIndices.indexOf(i);
-      if (cur >= 0) shuffledIndices.splice(cur, 1);        // без дублів у пулі
-      shuffledIndices.splice(at, 0, i);
-      dueThisGame.add(i);
-    }
-  }
 
   modeHintEl.textContent = MODE_HINTS[mode] || "";
 
@@ -6320,6 +6321,127 @@ function saveMastery(m) { localStorage.setItem(MASTERY_KEY, JSON.stringify(m)); 
 // Будь-яке нове читання mastery — через mStreak(), НЕ через голе значення.
 function mStreak(v) { return (v !== null && typeof v === "object") ? v.s : v; }
 function mTally(v) { return (v !== null && typeof v === "object") ? { c: v.c || 0, w: v.w || 0 } : { c: 0, w: 0 }; }
+// ── ПЛАНУВАЛЬНИК ПОКАЗІВ (сесія 60, за запитом «щоб слова підкидались дозовано») ──
+// Привід: після додавання B1 пул виріс до 5269 слів, гра брала перші ~12 слів
+// шафлу всього пулу — повторна зустріч зі словом наставала через ~350 ігор, тобто
+// нічого не закріплювалось, точність упала 61% → 34%. Тепер кожне слово має
+// ПЛАН наступного показу в ПОКАЗАХ (не в днях — ігри різної довжини):
+//   помилка → через 100-200 показів · streak 1 → 200-400 · streak 2 → 300-500 ·
+//   «Знаю» (streak 3) → ревізія через 1500-2500, кожна успішна ревізія ПОДВОЮЄ інтервал.
+// Плюс підлога в днях: показане сьогодні не трапиться ні сьогодні, ні завтра.
+// Інтервал ЗАВЖДИ рахується від показу, на який щойно відповіли (не накопичується).
+// ⚠️ Запис mastery розширено до {s,c,w,n,d,r} БЕЗ міграції (як c/w у сесії 40):
+//   n — номер показу, з якого слово знову доступне (null = без розкладу);
+//   d — день останнього показу (YYYY-MM-DD); r — успішних ревізій поспіль.
+// ⚠️ Лічильник показів `oxford_seen_v1` росте ЛИШЕ у звичайній (timed, не review) грі —
+//   симетрично mastery. Повторення після раунду ні seen, ні n/d не чіпає.
+// ⚠️ Розмір «колоди» НЕ задається — його задають інтервали (симуляція: ~230 слів у
+//   роботі на стаціонарі, 20-30 закриттів у «Знаю» на день при 10 іграх/день).
+// ⚠️ Квота SCHED_NEW_PER_GAME = 2 — це ВЕРХНЯ межа пропускної здатності при 10 іграх/день
+//   (3 на гру = 30 нових/день перевантажувало систему в симуляції: закриття падали до 1-6).
+//   Один слот бере старе «Вивчаю» без розкладу (завал до сесії 60), другий — справді нове.
+// ⚠️ Борг `oxford_due_v1` (сесії 44-57) при цьому ЗАМОРОЖЕНО — він повертав помилку
+//   ЗАВТРА, а користувач попросив «не сьогодні й не завтра». Див. recordAnswer/startGame.
+const SEEN_KEY = "oxford_seen_v1";
+const SCHED_IV = { wrong: [100, 200], s1: [200, 400], s2: [300, 500], rev: [1500, 2500] };
+const SCHED_DAY_FLOOR = 2;        // показане в день D доступне з D+2
+const SCHED_NEW_PER_GAME = 2;     // квота: 1 старе «Вивчаю» без розкладу + 1 справді нове
+const SCHED_QUEUE_LEN = 40;       // черга на гру (60 с ≈ 12-15 відповідей, із запасом)
+let schedThisGame = false;        // чи поточна гра йде планувальником (opts.sched)
+function loadSeen() { const v = parseInt(localStorage.getItem(SEEN_KEY), 10); return isNaN(v) ? 0 : v; }
+function bumpSeen() { const v = loadSeen() + 1; localStorage.setItem(SEEN_KEY, String(v)); return v; }
+function mSched(v) {
+  return (v !== null && typeof v === "object")
+    ? { n: (typeof v.n === "number" ? v.n : null), d: v.d || null, r: v.r || 0 }
+    : { n: null, d: null, r: 0 };
+}
+function dayDiff(a, b) {   // a − b у днях, обидва YYYY-MM-DD (локальні дати з todayKey)
+  const u = k => Date.UTC(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10));
+  return Math.round((u(a) - u(b)) / 86400000);
+}
+function schedRand(iv) { return Math.floor(iv[0] + Math.random() * (iv[1] - iv[0] + 1)); }
+function schedDayOk(sch, today) { return !sch.d || dayDiff(today, sch.d) >= SCHED_DAY_FLOOR; }
+// ua-en: прогрес іде ВВЕДЕНОМУ слову (сесія 37), але показана картка теж була показана —
+// штампуємо їй день, щоб вона не повернулась завтра. n/r не чіпаємо.
+function schedTouch(idx) {
+  const m = loadMastery(), key = wordKey(WORDS[idx]), rec = m[key];
+  if (rec === undefined) return;
+  const sch = mSched(rec), t = mTally(rec);
+  m[key] = { s: mStreak(rec), c: t.c, w: t.w, n: sch.n, d: todayKey(), r: sch.r };
+  saveMastery(m);
+}
+// Черга гри за планом. Порядок: (1) прострочені (n ≤ seen), найзатриманіші першими,
+// перемішані; (2) добір старим «Вивчаю» без розкладу та новими навпереміш, якщо
+// прострочених менше за чергу; (3) два квотові слова — у перші 10 позицій.
+// «Знаю»-слова беруться ЛИШЕ прострочені (ревізія) — тож у 📖-пулах (без «Знаю»)
+// ревізій не буває за означенням, а повний чипс рівня = вивчення + ревізії.
+function buildSchedQueue(pool) {
+  const m = loadMastery(), seen = loadSeen(), today = todayKey();
+  const due = [], old = [], fresh = [], usedKeys = new Set();
+  for (const i of pool) {
+    const key = wordKey(WORDS[i]);
+    if (usedKeys.has(key)) continue;          // пари з однаковим en ділять запис — один показ на ключ
+    usedKeys.add(key);
+    const rec = m[key];
+    if (rec === undefined) { fresh.push(i); continue; }
+    const sch = mSched(rec);
+    if (!schedDayOk(sch, today)) continue;    // показане сьогодні/вчора — не сьогодні
+    if (sch.n === null) { if (mStreak(rec) < 3) old.push(i); continue; }
+    if (sch.n <= seen) due.push({ i: i, late: seen - sch.n });
+  }
+  due.sort((a, b) => b.late - a.late);
+  const pickRand = arr => arr.length ? arr.splice(Math.floor(Math.random() * arr.length), 1)[0] : undefined;
+  const quota = [];
+  for (let k = 0; k < SCHED_NEW_PER_GAME; k++) {
+    const first = k % 2 === 0 ? old : fresh, second = k % 2 === 0 ? fresh : old;
+    let w = pickRand(first); if (w === undefined) w = pickRand(second);
+    if (w !== undefined) quota.push(w);
+  }
+  const q = shuffle(due.slice(0, SCHED_QUEUE_LEN).map(x => x.i));
+  while (q.length < SCHED_QUEUE_LEN && (old.length || fresh.length)) {
+    const src = (old.length && fresh.length) ? (Math.random() < 0.5 ? old : fresh) : (old.length ? old : fresh);
+    q.push(pickRand(src));
+  }
+  for (const i of quota) q.splice(Math.min(q.length, Math.floor(Math.random() * 10)), 0, i);
+  if (!q.length) return shuffle([...pool]);   // усе показане сьогодні/вчора (крихітний пул) — грати як раніше
+  return q;
+}
+// Статистика планувальника для плашки під кнопкою старту (по поточному набору).
+function schedStats(pool) {
+  const m = loadMastery(), seen = loadSeen(), today = todayKey(), keys = new Set();
+  let due = 0, rev = 0, active = 0;
+  for (const i of pool) {
+    const key = wordKey(WORDS[i]);
+    if (keys.has(key)) continue;
+    keys.add(key);
+    const rec = m[key];
+    if (rec === undefined) continue;
+    const st = mStreak(rec), sch = mSched(rec);
+    if (st < 3) active++;
+    if (sch.n === null || sch.n > seen || !schedDayOk(sch, today)) continue;
+    if (st >= 3) rev++; else due++;
+  }
+  return { due: due, rev: rev, active: active };
+}
+// Одноразовий засів ревізій для «Знаю»-слів, здобутих ДО планувальника: без n вони
+// ніколи б не повернулись на перевірку. Розкидаємо на перші ~4000 показів (~35 днів).
+// «Вивчаю» без n СВІДОМО не чіпаємо — їх бере квотовий слот «старе» (рішення користувача:
+// «починаємо все як спочатку, Вивчаю розгребеться по ходу»).
+function seedSchedForKnown() {
+  if (localStorage.getItem("oxford_sched_seed_v1")) return;
+  const m = loadMastery(), seen = loadSeen();
+  let changed = false;
+  for (const key of Object.keys(m)) {
+    const rec = m[key];
+    if (mStreak(rec) >= 3 && mSched(rec).n === null) {
+      const t = mTally(rec);
+      m[key] = { s: 3, c: t.c, w: t.w, n: seen + Math.floor(Math.random() * 4000), d: null, r: 0 };
+      changed = true;
+    }
+  }
+  if (changed) saveMastery(m);
+  localStorage.setItem("oxford_sched_seed_v1", "1");
+}
 // mastery та помилки днів використовують канонічну EN-форму слова як ключ (а НЕ
 // позицію в масиві) — щоб додавання нових слів не зсувало чужий прогрес.
 function wordKey(w) { return getEn(w)[0]; }
@@ -6369,7 +6491,7 @@ const BACKUP_KEYS = [
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
   "oxford_self_reviews_v1","oxford_due_v1","oxford_day_wrong_v1",
-  "oxford_expr_status_ua_v1","oxford_expr_xp_v1"
+  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -6799,17 +6921,26 @@ function updateMastery(wordIndex, correct) {
   // помилкою) вони НЕ скидаються ніколи — саме вони показують, які слова реально збивають.
   // Пропуск приходить сюди як correct=false, тож рахується в w (як і в бейджі «✗N»).
   if (correct) tally.c++; else tally.w++;
-  const setStreak = s => { m[key] = { s: s, c: tally.c, w: tally.w }; };
+  // Сесія 60: разом зі streak пишемо план наступного показу (n), день показу (d) і
+  // лічильник ревізій (r). Інтервал — від ЦЬОГО показу, попередній не накопичується.
+  const sch = mSched(rec), seen = loadSeen(), today = todayKey();
+  const setStreak = (s, iv, r) => { m[key] = { s: s, c: tally.c, w: tally.w, n: seen + schedRand(iv), d: today, r: r }; };
   if (correct) {
     const next = Math.min((prev !== undefined ? prev : 0) + 1, 3);
-    setStreak(next);
+    if (prev >= 3) {
+      // успішна РЕВІЗІЯ «Знаю»-слова: streak лишається 3, інтервал подвоюється щоразу
+      const mul = Math.pow(2, sch.r + 1);
+      setStreak(3, [SCHED_IV.rev[0] * mul, SCHED_IV.rev[1] * mul], sch.r + 1);
+    } else {
+      setStreak(next, next === 1 ? SCHED_IV.s1 : next === 2 ? SCHED_IV.s2 : SCHED_IV.rev, 0);
+    }
     // Transition: Нові → Вивчаю (only the genuine first encounter; a word reset to
     // streak 0 is already "Вивчаю", so re-reaching 1 must NOT re-award +3)
     if (prev === undefined && next === 1) { addXp(3); recordMasteryTrans("l", key); }
     // Transition: Вивчаю → Знаю
     else if ((prev === 1 || prev === 2) && next === 3) { addXp(5); recordMasteryTrans("k", key); }
   } else {
-    setStreak(0);
+    setStreak(0, SCHED_IV.wrong, 0);   // помилка/пропуск (і провалена ревізія): у роботу, r скидається
     // Transition: Нові → Вивчаю through a wrong/skipped first encounter.
     // The word still entered "Вивчаю" for the first time. User counts this as progress
     // (they then spend time studying the new word), so award the same +3 as a correct
@@ -7610,6 +7741,7 @@ function renderTrainModal() {
 function renderStartSub() {
   const el = document.getElementById("start-sub");
   if (el) el.textContent = trainSetLabel() + " · " + trainDirLabel();
+  renderDueBanner();   // плашка рахується по поточному набору — оновлюємо разом із підписом
 }
 function openTrainModal() { renderTrainModal(); document.getElementById("train-modal").classList.remove("hidden"); }
 function closeTrainModal() { document.getElementById("train-modal").classList.add("hidden"); }
@@ -7621,8 +7753,8 @@ function startTraining() {
   setMode(trainDir);
   // Тег «cefr:<рівні>» лишає гру поза топ-10, але з підписом рівня (правило сесії 43)
   const tag = trainSet === "cefr" ? "cefr:" + cefrMixLabel() : null;
-  if (pool) startGame(pool, { timed: true, tag: tag });
-  else startGame();
+  if (pool) startGame(pool, { timed: true, tag: tag, sched: true });
+  else startGame(null, { sched: true });
 }
 document.querySelectorAll(".tm-set").forEach(b =>
   b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
@@ -7645,13 +7777,15 @@ document.getElementById("tm-cancel").addEventListener("click", closeTrainModal);
 document.getElementById("train-modal").addEventListener("click", e => {
   if (e.target.id === "train-modal") closeTrainModal();      // клік по фону закриває
 });
-// Плашка «на повторенні N слів» — суто інформаційна: борг підмішується сам.
+// Плашка під кнопкою старту (сесія 60: замість «на повторенні N» боргу — план показів
+// по ПОТОЧНОМУ набору). Ім'я функції історичне, кличуть три місця — не перейменовував.
 function renderDueBanner() {
   const el = document.getElementById("due-banner");
   if (!el) return;
-  const n = dueNowKeys().length;
-  el.classList.toggle("hidden", !n);
-  if (n) el.textContent = "🔁 На повторенні " + plWords(n) + " — підмішаю їх у найближчі ігри";
+  const pool = trainPool() || [...Array(WORDS.length).keys()];
+  const st = schedStats(pool);
+  el.classList.toggle("hidden", !pool.length);
+  el.textContent = "🔁 На сьогодні " + plWords(st.due) + " · ревізій " + st.rev + " · у роботі " + st.active;
 }
 
 // Сесія 44: окремих кнопки й модалки «🎓 Рівні CEFR» більше НЕМА — рівні стали
@@ -9455,6 +9589,7 @@ renderLeaderboard();
 sanitizeDayMistakes();        // нормалізація/чистка осиротілих ключів помилок
 seedDueFromMistakes();        // сесія 45: старий «відкритий борг» помилок → у борг (одноразово)
 fixDuePollutedByReview();     // сесія 45: чистка боргу від слів, наставлених повтореннями
+seedSchedForKnown();          // сесія 60: ревізії для «Знаю»-слів, здобутих до планувальника (одноразово)
 updateWordsAddedRegistry();   // реєстр появи слів у словнику (для клікабельної «+N ●»)
 renderLbTotals();
 renderThermo();
