@@ -9081,7 +9081,7 @@ const WORDS = [
   {en:"to quarrel",ua:"сваритися",uaAlt:["посваритися"]},
   {en:"verbal abuse",ua:"словесні образи",uaAlt:["вербальне насильство"]},
   {en:"personal attack",ua:"перехід на особистості",uaAlt:["особисті нападки"]},
-  {en:"heated argument",ua:"гаряча суперечка",uaAlt:["запекла суперечка"]},
+  {en:"heated argument",ua:"гаряча суперечка",uaAlt:["запекла суперечка","палка суперечка","гостра суперечка","бурхлива суперечка"]},
   {en:"to antagonize",ua:"налаштовувати проти себе",enAlt:["antagonise"],uaAlt:["налаштувати проти себе"]},
   {en:"deception",ua:"обман"},
   {en:"gossip",ua:"плітки",uaAlt:["пліткувати"]},
