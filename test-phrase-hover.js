@@ -105,6 +105,45 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("фразовий спан лишається .hw (клік = TTS, наведення = тултіп)", tts.hasClass === true);
   t("озвучиться саме фраза", tts.text === "turn on", String(tts.text));
 
+  // ── НЕПРАВИЛЬНА ФОРМА ЯК ПЕРШЕ СЛОВО ФРАЗИ (сесія 60, привід «broke out») ──
+  // `stemEn` віддає форму як є, коли вона сама є карткою (`broke` = «без грошей») або
+  // лежить у HW_SKIP (`had` → null), тож фраза шукалась під «broke»/«had». Тепер до
+  // голів пошуку додається база з IRREGULAR.
+  const irr = await p.evaluate(() => {
+    // ⚠️ у реченні може бути КІЛЬКА фраз («heated argument» іде раніше за «broke out»),
+    // тому шукаємо спан за текстом, а не перший-ліпший [data-phrase].
+    const one = (s, want) => { const d = document.createElement("div"); d.innerHTML = wrapSentence(s);
+      const all = [...d.querySelectorAll("[data-phrase]")];
+      const sp = want ? all.find(x => x.textContent === want) : all[0];
+      return { text: sp && sp.textContent, trans: sp && sp.dataset.trans, full: d.textContent,
+               all: all.map(x => x.textContent) }; };
+    return {
+      out:  one("A heated argument broke out at the table.", "broke out"),
+      down: one("The machine broke down again.", "broke down"),
+      had:  one("He had to pay a parking fine.", "had to"),
+      ranOf: one("We ran out of milk this morning."),
+      ran:  one("He ran out the door."),
+      base: one("Do not break the vase."),
+    };
+  });
+  t("«broke out» склеюється у фразу", irr.out.text === "broke out", JSON.stringify(irr.out.all));
+  t("«broke out» показує переклад картки, а не «зламав»",
+    /спалахнути/.test(String(irr.out.trans)), String(irr.out.trans));
+  t("речення з «broke out» не втратило ані символу",
+    irr.out.full === "A heated argument broke out at the table.", irr.out.full);
+  t("«broke down» теж склеюється", irr.down.text === "broke down", String(irr.down.text));
+  t("«had to» склеюється (форма лежить у HW_SKIP, стем дає null)",
+    irr.had.text === "had to", String(irr.had.text));
+  t("речення з «had to» ціле", irr.had.full === "He had to pay a parking fine.", irr.had.full);
+  // ⚠️ PHRASE_HOVER_SKIP мусить діяти й на неправильні форми: «run out» у списку-винятку
+  // саме через буквальне «He ran out the door». А трислівна картка «run out of» у списку
+  // НЕ стоїть і склеювалась ще до сесії 60 (stemEn: ran → run) — це правильна поведінка.
+  t("буквальне «ran out» НЕ склеюється — список-виняток сильніший",
+    irr.ran.text === undefined || irr.ran.text === null, JSON.stringify(irr.ran.all));
+  t("трислівне «ran out of» склеюється як було", irr.ranOf.text === "ran out of", JSON.stringify(irr.ranOf.all));
+  t("одиночне дієслово фразою не стає",
+    irr.base.text === undefined || irr.base.text === null, JSON.stringify(irr.base.all));
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");

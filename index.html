@@ -5692,17 +5692,30 @@ function wrapSentence(sentence) {
     const lower = token.toLowerCase().replace(/[^a-z]/g, "");
     const lowPh = token.toLowerCase().replace(/[^a-z']/g, "");   // для фраз («Adam's apple»)
     const stem = stemEn(token);
-    // 1) фраза: перше слово як є або через стем («worked out» → «work out»),
-    //    решта — буквально, і між словами має бути РІВНО один пробіл
+    // ⚠️ НЕПРАВИЛЬНА ФОРМА ЯК ПЕРШЕ СЛОВО ФРАЗИ (сесія 60, привід «broke out»).
+    // `stemEn` віддає форму як є, коли вона САМА є ключем словника (`broke` = «без
+    // грошей», окрема картка) або коли вона в `HW_SKIP` (`had` → null). Тому фраза
+    // шукалась під «broke»/«had», а індекс тримає її під «break»/«have» — і
+    // «A heated argument broke out» розпадалось послівно, показуючи «зламав». Тепер
+    // до голів пошуку додається база з `IRREGULAR`. Замір по всіх 13793 прикладах:
+    // рівно 27 нових склейок, 5 фраз (had to ×20, having to, broke down/up/out) —
+    // усі правильні, хибних нуль. Список-виняток `PHRASE_HOVER_SKIP` діє як діяв
+    // (він відсікає фрази ще на рівні індексу, тож «ran out» не склеїться).
+    const irrBase = IRREGULAR[lowPh];
+    // 1) фраза: перше слово як є, через стем («worked out» → «work out») або через
+    //    базу неправильного дієслова; решта — буквально, між словами РІВНО один пробіл
     let hit = null;
-    for (const head of (stem && stem !== lowPh ? [lowPh, stem] : [lowPh])) {
+    const heads = [lowPh];
+    if (stem && stem !== lowPh) heads.push(stem);
+    if (irrBase && !heads.includes(irrBase)) heads.push(irrBase);
+    for (const head of heads) {
       for (const cand of (idx.get(head) || [])) {
         let j = i, k = 0, ok = true, last = i;
         while (k < cand.parts.length) {
           if (j >= toks.length || !isWord(toks[j])) { ok = false; break; }
           const w = toks[j].toLowerCase().replace(/[^a-z']/g, "");
           const want = cand.parts[k];
-          if (!(k === 0 ? (w === want || stemEn(toks[j]) === want) : w === want)) { ok = false; break; }
+          if (!(k === 0 ? (w === want || stemEn(toks[j]) === want || IRREGULAR[w] === want) : w === want)) { ok = false; break; }
           last = j; k++; j++;
           if (k < cand.parts.length) { if (toks[j] !== " ") { ok = false; break; } j++; }
         }
