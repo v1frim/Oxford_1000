@@ -144,6 +144,31 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("одиночне дієслово фразою не стає",
     irr.base.text === undefined || irr.base.text === null, JSON.stringify(irr.base.all));
 
+  // ── ПРИСЛІВНИКОВІ ЗВОРОТИ З «at» (сесія 60, привід «at once — це одразу, а тут окремо»)
+  // Послівний ховер вводив в оману: once = «один раз», least = «найменший». Звороти стали
+  // картками; у `at once` ДВА сенси, і другий («одночасно») приходить у тултіп з uaAlt —
+  // ховер бере ua + uaAlt із сесії 55, окремого m.set не треба.
+  const atx = await p.evaluate(() => {
+    const ph = (s, want) => { const d = document.createElement("div"); d.innerHTML = wrapSentence(s);
+      const sp = [...d.querySelectorAll("[data-phrase]")].find(x => x.textContent.toLowerCase() === want);
+      return { trans: sp ? sp.dataset.trans : null, full: d.textContent === s }; };
+    return {
+      now:  ph("A debit card takes money at once.", "at once"),
+      both: ph("A bilateral movement uses both arms at once.", "at once"),
+      all:  ph("I don't like this song at all.", "at all"),
+      first:ph("At first the job seemed easy.", "at first"),
+      least:ph("Sleep at least seven hours a night.", "at least"),
+      last: ph("At last the rain stopped.", "at last"),
+    };
+  });
+  t("«at once» склеюється і дає «одразу»", /одразу/.test(String(atx.now.trans)), String(atx.now.trans));
+  t("«both arms at once» — у тултіпі є «одночасно»", /одночасно/.test(String(atx.both.trans)), String(atx.both.trans));
+  t("«at all» → «зовсім», не «весь»", /зовсім/.test(String(atx.all.trans)), String(atx.all.trans));
+  t("«At first» з великої склеюється → «спочатку»", /спочатку/.test(String(atx.first.trans)), String(atx.first.trans));
+  t("«at least» → «принаймні», не «найменший»", /принаймні/.test(String(atx.least.trans)), String(atx.least.trans));
+  t("«At last» → «нарешті», не «останній»", /нарешті/.test(String(atx.last.trans)), String(atx.last.trans));
+  t("усі шість речень збережено знак у знак", Object.values(atx).every(x => x.full));
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
