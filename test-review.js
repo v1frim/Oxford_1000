@@ -85,6 +85,49 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const normal = await p.evaluate(() => { startGame(); return reviewDirPlan; });
   t("у звичайній грі план скинуто", normal === null, JSON.stringify(normal));
 
+  // ── 6. XP ЗА ПОВТОРЕННЯ ПОВЕРНУТО (сесія 60, прямий запит) ──────────────────────────
+  // «по закінченню раунду я ще окремо приділяю час на повторення, і не зараховувати цей
+  // час було би неправильно». Сесія 55 знімала і +2 XP, і журнал `reviewCorrect` — тепер
+  // обидва назад. Головна перевірка — ІНВАРІАНТ ПАРИ: живий XP за повторення мусить
+  // дорівнювати 2 × записаному `reviewCorrect`, інакше перерахунок formula_vN його з'їсть.
+  const xp = await p.evaluate(() => {
+    const today = todayKey();
+    const days0 = JSON.parse(localStorage.getItem("oxford_days_v1") || "{}");
+    const rc0 = (days0[today] || {}).reviewCorrect || 0;
+    const xp0 = loadXp(), day0 = getDayXpGain(today);
+    const hit = i => { currentWordIndex = i; currentWord = WORDS[i]; currentShown = getEn(WORDS[i])[0];
+                       recordAnswer(getUa(WORDS[i])[0], "correct"); };
+    const miss = i => { currentWordIndex = i; currentWord = WORDS[i]; currentShown = getEn(WORDS[i])[0];
+                        recordAnswer("хиба", "wrong"); };
+    setMode("en-ua");
+    startGame([300, 301, 302], {});                 // post-game повторення, 3 слова
+    // 300 — чисто закрите; 301 — із затинкою, але теж закрите (tainted); 302 — лише 2 правильні
+    hit(300); hit(300); const afterTwo = loadXp() - xp0; hit(300);
+    const afterClose = loadXp() - xp0;
+    miss(301); hit(301); hit(301); hit(301);
+    hit(302); hit(302);
+    const liveXp = loadXp() - xp0;
+    endGame(true);
+    const days1 = JSON.parse(localStorage.getItem("oxford_days_v1") || "{}");
+    const rc1 = (days1[today] || {}).reviewCorrect || 0;
+    // порожнє повторення нічого не пише
+    startGame([303], {}); endGame(true);
+    const days2 = JSON.parse(localStorage.getItem("oxford_days_v1") || "{}");
+    return { afterTwo, afterClose, liveXp, dRc: rc1 - rc0, dayXp: getDayXpGain(today) - day0,
+             rc2: (days2[today] || {}).reviewCorrect || 0, rc1,
+             mastery: loadMastery()[wordKey(WORDS[300])] };
+  });
+  t("дві правильні ще не закривають слово — XP 0", xp.afterTwo === 0, String(xp.afterTwo));
+  t("третя правильна закриває слово — рівно +2 XP", xp.afterClose === 2, String(xp.afterClose));
+  t("слово із затинкою, закрите трьома правильними, теж +2", xp.liveXp === 4, "усього " + xp.liveXp);
+  t("незакрите слово (2 з 3) XP не дає", xp.liveXp === 4, "усього " + xp.liveXp);
+  t("endGame записав reviewCorrect = 2 закриті слова", xp.dRc === 2, String(xp.dRc));
+  t("⚠️ ІНВАРІАНТ ПАРИ: живий XP == 2 × reviewCorrect", xp.liveXp === 2 * xp.dRc,
+    xp.liveXp + " vs 2×" + xp.dRc);
+  t("денний XP (⚡ у «Прогресі») виріс на ті самі 4", xp.dayXp === 4, String(xp.dayXp));
+  t("повторення без закритих слів нічого не пише", xp.rc2 === xp.rc1, xp.rc1 + " → " + xp.rc2);
+  t("повторення НЕ чіпає mastery (streak лишається за грою)", xp.mastery === undefined, JSON.stringify(xp.mastery));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n - " + bad.join("\n - ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
   await b.close(); process.exit(bad.length || errs.length ? 1 : 0);
