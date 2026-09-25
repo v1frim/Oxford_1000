@@ -195,13 +195,51 @@ function chromePath() {
     log.push({ score: 3, wrong: 1, skipped: 0, mode: "ua-en", ts, wordCount: 8650, tag: "cefr:A2" });
     localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
     lbTab = "cefr"; renderTabCefr();
-    return [...document.querySelectorAll("#lb-list .lb-mode")].map(e => e.textContent.trim());
+    // ⚠️ Сесія 54 (за скаргою користувача) замінила емодзі 📖 у мітці рядка на ЗЕЛЕНИЙ
+    // рівень — `<span class="cefr-solo">A1</span>`: рядок вкладки 🎓 і так на межі переносу.
+    // Тож у textContent емодзі НЕМА; маркер 📖-рівня відтворюємо з класу. Тест не оновили в
+    // сесії 54 і він був червоним аж до сесії 60 — ловив не регресію, а власну застарілість.
+    return [...document.querySelectorAll("#lb-list .lb-mode")].map(e => {
+      const c = e.cloneNode(true);
+      c.querySelectorAll(".cefr-solo").forEach(sp => { sp.textContent = sp.textContent + " 📖"; });
+      return c.textContent.trim();
+    });
   });
   t("«A1 📖» окремим рядком одразу після «A1»",
-    /🎓 A1 ·/.test(sorted[0] || "") && /🎓 A1 📖 ·/.test(sorted[1] || ""), JSON.stringify(sorted));
+    /A1 ·/.test(sorted[0] || "") && !/📖/.test(sorted[0] || "") && /A1 📖 ·/.test(sorted[1] || ""), JSON.stringify(sorted));
   t("змішана мітка сортується за найвищим рівнем у наборі",
-    sorted.findIndex(x => /A1 📖\+B1/.test(x)) > sorted.findIndex(x => /🎓 A2 ·/.test(x)),
+    sorted.findIndex(x => /A1 📖\+B1/.test(x)) > sorted.findIndex(x => /A2 ·/.test(x)),
     JSON.stringify(sorted));
+  t("📖-рівень показано зеленим, а не емодзі (правило сесії 54)", await page.evaluate(() => {
+    const m = [...document.querySelectorAll("#lb-list .lb-mode")];
+    return m.some(e => e.querySelector(".cefr-solo")) && !m.some(e => /📖/.test(e.textContent));
+  }));
+
+  // ── СІТКА ЧИПСІВ (сесія 60, «щоби C1, C2 і без рівня були під A1-B2, а не скакали») ──
+  // Було flex-wrap: місце переносу залежало від ширини чисел у чипсах. Тепер сітка на 4
+  // колонки, «без рівня» — на дві. Перевіряємо на кількох ширинах вікна.
+  for (const w of [1920, 1366, 800]) {
+    await page.setViewportSize({ width: w, height: 1000 });
+    await page.evaluate(() => { trainSet = "cefr"; openTrainModal(); });
+    await page.waitForTimeout(150);
+    const g = await page.evaluate(() => {
+      const row = id => [...document.querySelectorAll("#" + id + " button")].map(b => {
+        const r = b.getBoundingClientRect();
+        return { k: b.dataset.lv || b.dataset.solo, x: Math.round(r.left), y: Math.round(r.top), clip: b.scrollWidth > b.clientWidth + 1 };
+      });
+      return { lv: row("tm-levels"), so: row("tm-solo") };
+    });
+    const x = (a, k) => a.find(c => c.k === k).x;
+    const rows = a => new Set(a.map(c => c.y)).size;
+    t(w + "px: обидва ряди рівно по 2 рядки", rows(g.lv) === 2 && rows(g.so) === 2, rows(g.lv) + "/" + rows(g.so));
+    t(w + "px: C1 під A1, C2 під A2, «без рівня» під B1",
+      x(g.lv, "C1") === x(g.lv, "A1") && x(g.lv, "C2") === x(g.lv, "A2") && x(g.lv, "none") === x(g.lv, "B1") &&
+      x(g.so, "C1") === x(g.so, "A1") && x(g.so, "C2") === x(g.so, "A2") && x(g.so, "none") === x(g.so, "B1"));
+    t(w + "px: колонки «повних» і «📖» збігаються", g.lv.every((c, i) => c.x === g.so[i].x));
+    t(w + "px: жоден чипс не обрізаний", ![...g.lv, ...g.so].some(c => c.clip),
+      [...g.lv, ...g.so].filter(c => c.clip).map(c => c.k).join(","));
+    await page.evaluate(() => closeTrainModal());
+  }
 
   console.log(bad.length ? "❌ ПОМИЛКИ:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   if (errors.length) console.log("⚠️  консоль:\n  " + errors.slice(0, 8).join("\n  "));
