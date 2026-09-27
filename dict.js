@@ -9024,7 +9024,7 @@ const WORDS = [
   {en:"petty",ua:"дріб'язковий"},
   {en:"unpredictable",ua:"непередбачуваний"},
   {en:"well-behaved",ua:"вихований",uaAlt:["чемний","слухняний","що добре поводиться"],enAlt:["well behaved"]},
-  {en:"badly behaved",ua:"невихований",uaAlt:["той, що погано поводиться","погано вихований","що погано поводиться","неслухняний"],enAlt:["badly-behaved","ill-behaved"]},
+  {en:"badly behaved",ua:["невихований","неслухняний"],uaAlt:["погано вихований","що погано поводиться","той, що погано поводиться"],enAlt:["badly-behaved","ill-behaved"]},
   {en:"well-mannered",ua:"чемний"},
   {en:"ill-mannered",ua:"невихований і грубий",uaAlt:["нечемний"]},
   {en:"disruptive",ua:"той, що заважає",uaAlt:["деструктивний"]},
