@@ -54,7 +54,13 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     for (let i = 0; i < 4; i++) d[wordKey(WORDS[i])] = { due: "2000-01-01", waited: 0 };
     localStorage.setItem("oxford_due_v1", JSON.stringify(d));
     const seen = new Set();
-    for (let g = 0; g < 8; g++) pickDueIndices().forEach(i => seen.add(i));
+    // ⚠️ Вибране слово ЗНІМАЄМО з боргу (clearDue), як у реальній грі: показане слово йде
+    // з черги саме — вгадав → clearDue, схибив → новий запис на завтра. Без цього тест був
+    // ІМОВІРНІСНО ЧЕРВОНИМ (~12%, спіймано в сесії 60 на 3 з 25 прогонів): після 4 ігор усі
+    // чотири слова ставали примусовими, і ліміт 3/гру щоразу забирали ті самі перші три за
+    // ключем — четверте, яке монетка не взяла в іграх 1-4, «губилось». Функція тут ні до чого
+    // (ідентична з сесії 57); неправдивою була модель, а не гарантія.
+    for (let g = 0; g < 8; g++) pickDueIndices().forEach(i => { seen.add(i); clearDue(i); });
     return seen.size;
   });
   t("жодне слово не загубилось за 8 ігор", forced === 4, String(forced));

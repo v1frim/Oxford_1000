@@ -427,6 +427,21 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     await pg.close();
   }
 
+  // ── СЕРІЇ ДНІВ: нічия за довжиною → більше ігор, потім більше відповідей (сесія 60) ──
+  // Скарга: три серії по «1 день», і сьогоднішня з 2 іграми стояла вище за ту, де 4 гри —
+  // бо поточна серія вигравала будь-яку нічию автоматично.
+  const streaks = await p.evaluate(() => {
+    const dk = o => { const d = new Date(); d.setDate(d.getDate() + o);
+      return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
+    const days = {}, put = (k, g, c) => days[k] = { correct: c, wrong: 0, skipped: 0, games: g };
+    put(dk(0), 2, 20); put(dk(-2), 2, 19); put(dk(-15), 4, 32); put(dk(-30), 1, 5); put(dk(-29), 1, 5);
+    return computeStreaks(days).map(s => [s.length, s.games, s.words, !!s.ongoing]);
+  });
+  t("серії: довша завжди вище", streaks[0][0] === 2, JSON.stringify(streaks));
+  t("серії: при нічиїй за днями вище та, де більше ігор (поточна переваги не має)",
+    streaks[1][1] === 4 && streaks[2][3] === true, JSON.stringify(streaks));
+  t("серії: при нічиїй за іграми вище та, де більше відповідей", streaks[2][2] === 20 && streaks[3][2] === 19, JSON.stringify(streaks));
+
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
   console.log(errs.length ? "❌ помилки консолі:\n - " + errs.slice(0,4).join("\n - ") : "✅ 0 помилок консолі");

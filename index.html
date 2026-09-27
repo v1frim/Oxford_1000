@@ -8125,8 +8125,27 @@ function computeStreaks(days) {
   }
   streaks.push(current);
   const today = todayKey();
-  streaks.forEach(s => { s.ongoing = s.end === today; });
-  return streaks.sort((a, b) => b.length - a.length || (b.ongoing - a.ongoing));
+  streaks.forEach(s => {
+    s.ongoing = s.end === today;
+    // ігри й відповіді серії — рахуються тут, щоб ними можна було сортувати (рендер читає готові)
+    s.games = 0; s.words = 0;
+    for (let d = new Date(s.start); d <= new Date(s.end); d.setDate(d.getDate() + 1)) {
+      const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+      const x = days[k];
+      if (!x) continue;
+      s.games += x.games || 0;
+      s.words += (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0);
+    }
+  });
+  // ⚠️ НІЧИЯ ЗА ДОВЖИНОЮ → БІЛЬШЕ ІГОР, ПОТІМ БІЛЬШЕ ВІДПОВІДЕЙ (сесія 60, за скаргою: три
+  // серії по «1 день», і сьогоднішня з 2 іграми стояла над учорашньою з 4). Було
+  // `b.ongoing - a.ongoing` — поточна серія вигравала будь-яку нічию автоматично. Тепер
+  // вона не має переваги й підіймається сама, щойно ігор стане більше. Останній ключ —
+  // новіша серія вище (стабільний порядок при повній рівності).
+  // Рекорд (`bestStreakLength`) і поточна (`currentStreakLength`) від порядку не залежать:
+  // перший бере лише ДОВЖИНУ [0], друга шукає через find.
+  return streaks.sort((a, b) => b.length - a.length || b.games - a.games || b.words - a.words ||
+    (a.end < b.end ? 1 : a.end > b.end ? -1 : 0));
 }
 // ⚠️ Винесено з `renderTabGames` у сесії 51 — той самий рядок гри малює тепер і вкладка
 // 🕒 «За останній період». Логіка НЕ мінялась; `ctx` лише передає вже обчислені
@@ -8550,12 +8569,7 @@ function renderTabStreaks() {
     const period = s.length === 1
       ? fmtDayKey(s.start)
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
-    let games = 0, totalWords = 0;
-    for (let d = new Date(s.start); d <= new Date(s.end); d.setDate(d.getDate() + 1)) {
-      const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-      games += (days[k] && days[k].games) || 0;
-      if (days[k]) totalWords += (days[k].correct || 0) + (days[k].wrong || 0) + (days[k].skipped || 0);
-    }
+    const games = s.games, totalWords = s.words;   // пораховано в computeStreaks
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
     const wordsStr = totalWords > 0 ? '<span class="lb-games">(' + totalWords + ')</span>' : "";
     return '<li class="' + cls + '">' +
