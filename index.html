@@ -974,6 +974,9 @@
   .correction .corr-answer { font-weight: 700; font-size: 18px; color: #ffd166; flex: 1; }
   /* уточнення відтінку значення в дужках (HINTS, сесія 44) */
   .correction .corr-answer .ans-hint { font-weight: 400; font-size: 14px; font-style: italic; opacity: .62; }
+  /* Власна картка промпту в UA→US — першою й виділена, синоніми-сусіди приглушено (сесія 61) */
+  .ans-own { font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .ans-other { opacity: .6; }
   .correction .corr-example { font-size: 13px; opacity: 0.72; font-style: italic; margin-top: 5px; }
   .correction .corr-hint { font-size: 13px; opacity: 0.65; margin-top: 6px; }
   .speak-btn {
@@ -3411,13 +3414,28 @@ function withHint(en, ua, region, ignoreBareHint) {
   return h ? en + " (" + h + ")" : en;
 }
 
+// Скільки перших частин рядка відповіді UA→US належить ВЛАСНІЙ картці промпту (сесія 61).
+// 0 — якщо глос не ділить жодна інша картка: виділяти тоді нема з чим порівнювати
+// (`goalkeeper` / `goalie` — одна картка, enAlt — не сусід).
+function ownAnswerCount() {
+  if (mode !== "ua-en" || !currentWord) return 0;
+  const others = new Set();
+  getUa(currentWord).map(uaBare).forEach(k => wordsByUaBare(k).forEach(w => { if (w !== currentWord) others.add(w); }));
+  return others.size ? getEn(currentWord).length : 0;
+}
 function getCorrectAnswer() {
   if (mode === "ua-en") {
     const shownUa = getUa(currentWord).map(uaBare);   // те саме правило, що в isCorrect
     const ans = new Set();
     // ⚠️ підказку беремо за КАРТКОЮ (en+ua), а не за голим en — інакше слово-пара
     // тягне сюди уточнення чужого сенсу (сесія 45)
-    const seenW = new Set();
+    // ⚠️ ВЛАСНА КАРТКА ПРОМПТУ — ПЕРШОЮ (сесія 61, за запитом). Раніше порядок був
+    // словниковий: на «складний» від `complex` рядок починався з `hard`, і з нього не було
+    // видно, КОТРА з семи карток отримала штраф за помилку (штраф іде саме показаній).
+    // Решта карток зі спільним глосом ідуть далі як «теж правильно»; виділення —
+    // `ownAnswerCount` + `wrapEnWord(…, own)`.
+    const seenW = new Set([currentWord]);
+    getEn(currentWord).forEach(e => ans.add(withHint(e, getUa(currentWord)[0], spellingRegion(e))));
     shownUa.forEach(k => wordsByUaBare(k).forEach(w => {
       if (seenW.has(w)) return; seenW.add(w);
       getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0], w === currentWord ? spellingRegion(e) : "")));
@@ -3493,7 +3511,7 @@ function showCorrection(answer) {
   if ((mode === "en-def" || mode === "en-cloze") && uaWord) {
     corrAnswerEl.innerHTML = wrapSentence(answer) + " — " + esc(uaWord);
   } else if (mode === "en-syn" || mode === "en-ant" || mode === "ua-en") {
-    corrAnswerEl.innerHTML = wrapEnWord(answer);
+    corrAnswerEl.innerHTML = wrapEnWord(answer, mode === "ua-en" ? ownAnswerCount() : 0);
   } else {
     // en-ua: текст український (без EN-hover), але дужку-підказку HINTS
     // рендеримо окремим спаном — решта екранується.
@@ -3616,7 +3634,7 @@ function masteryTargetIndex(userVal) {
 function recordAnswer(userVal, status) {
   const enWord = mode === "en-ua" ? currentShown : getEn(currentWord)[0];
   const uaWord = getUa(currentWord)[0];
-  records.push({ shown: currentShown, correct: getCorrectAnswer(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex, mode });
+  records.push({ shown: currentShown, correct: getCorrectAnswer(), own: ownAnswerCount(), user: userVal, status, enWord, uaWord, wordIndex: currentWordIndex, mode });
   // Сесія 60: лічильник показів для планувальника — ЛИШЕ звичайна гра (як mastery).
   // Бамп ДО updateMastery: план наступного показу рахується від цього показу включно.
   if (!reviewRemaining) bumpSeen();
@@ -5794,8 +5812,16 @@ function wrapSentence(sentence) {
 
 // Wraps one or more EN answer words (joined by " / ") so each is individually
 // clickable (TTS) and hoverable (translation + IPA). Looks up IPA per word.
-function wrapEnWord(words) {
-  return String(words).split(" / ").map(word => {
+// `own` (сесія 61): скільки перших частин — власна картка промпту. Вони йдуть у `.ans-own`,
+// решта — у `.ans-other` (приглушено). Обгортка ЗОВНІШНЯ, тож порядок атрибутів
+// `class="hw"` → `data-trans` у внутрішньому спані не змінюється (на ньому тримаються тести).
+function wrapEnWord(words, own) {
+  own = own || 0;
+  return String(words).split(" / ").map((word, idx) => wrapOnePart(word, own ? (idx < own ? "ans-own" : "ans-other") : ""))
+    .join(' / ');
+}
+function wrapOnePart(word, cls) {
+  const inner = (word => {
     // «difficult (розумово важкий)» → слово окремо, підказка окремо (HINTS, сесія 44).
     // В `en` дужок немає в жодній картці, тож розбір однозначний.
     const hm = word.trim().match(/^(.+?)\s*\(([^)]+)\)$/);
@@ -5815,7 +5841,10 @@ function wrapEnWord(words) {
     if (ipa)   attrs += ' data-ipa="'   + esc(ipa)   + '"';
     return '<span' + attrs + '>' + esc(w) + '</span>' +
            (hint ? ' <span class="ans-hint">(' + esc(hint) + ')</span>' : '');
-  }).join(' / ');
+  })(word);
+  if (!cls) return inner;
+  const tip = cls === "ans-own" ? ' title="картка цього промпту — прогрес і штраф ідуть саме їй"' : ' title="теж правильно — синонім з окремою карткою"';
+  return '<span class="' + cls + '"' + tip + '>' + inner + '</span>';
 }
 
 function renderList() {
@@ -5839,7 +5868,7 @@ function renderList() {
     } else if (r.mode === "en-syn" || r.mode === "en-ant") {
       pair = wrapSentence(r.shown) + " = " + wrapSentence(r.correct);
     } else if (r.mode === "ua-en") {
-      pair = esc(r.shown) + " = " + wrapEnWord(r.correct);
+      pair = esc(r.shown) + " = " + wrapEnWord(r.correct, r.own || 0);
     } else if (r.mode === "en-ua") {
       pair = wrapEnWord(r.shown) + " = " + esc(r.correct);
     } else {
