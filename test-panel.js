@@ -60,6 +60,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   // лічильники — окремим рядком унизу картки, з правильним відмінком (сесія 44)
   const cnts = await p.$$eval(".tm-set .tm-cnt", es => es.map(e => e.textContent));
   t("у кожній картці є лічильник слів", cnts.length === 3 && cnts.every(c => /\d+ (слово|слова|слів)/.test(c)), cnts.join(" | "));
+  // ⚠️ сесія 61: «Весь словник» = унікальні слова, те саме число, що тотал-бейдж меню
+  const allCnt = await p.evaluate(() => ({ modal: document.querySelector('.tm-set[data-set="all"] .tm-cnt').textContent,
+    words: uniqueWordKeys().length, cards: WORDS.length, want: plWords(uniqueWordKeys().length) }));
+  t("«Весь словник» у модалці = слова з меню, а не картки", allCnt.modal === allCnt.want && allCnt.words < allCnt.cards,
+    JSON.stringify(allCnt));
   const plural = await p.evaluate(() => [1,2,904,1567,8562,8646,11,21].map(n => plWords(n)));
   t("відмінок за числом", plural.join(",") === "1 слово,2 слова,904 слова,1567 слів,8562 слова,8646 слів,11 слів,21 слово", plural.join(" · "));
 

@@ -7648,10 +7648,25 @@ function cefrIndices(levels) {
   for (let i = 0; i < WORDS.length; i++) if (set.has(cefrLevelOf(WORDS[i]))) out.push(i);
   return out;
 }
+// ⚠️ ЛІЧИЛЬНИКИ МОДАЛКИ «ТРЕНУВАННЯ» — У СЛОВАХ, НЕ В КАРТКАХ (сесія 61, за запитом «чому
+// в меню 13753 слова, а весь словник — 13776»). Різниця — 23 слова з ДВОМА картками (run,
+// match, bank, fan, tip…): прогрес у пари спільний, тож меню рахує слово раз. Правило те саме,
+// що в модалках категорій із сесії 39: число = СЛОВА, пул гри = УСІ картки (обидва сенси
+// тренуються). Рівень CEFR береться за wordKey, тож обидві картки пари завжди одного рівня.
+function uniqueCount(indices) {
+  const seen = new Set();
+  for (const i of indices) seen.add(wordKey(WORDS[i]));
+  return seen.size;
+}
 function cefrCounts() {
-  const c = {};
+  const c = {}, seen = new Set();
   CEFR_LEVELS.forEach(L => (c[L] = 0));
-  for (let i = 0; i < WORDS.length; i++) c[cefrLevelOf(WORDS[i])]++;
+  for (let i = 0; i < WORDS.length; i++) {
+    const k = wordKey(WORDS[i]);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    c[cefrLevelOf(WORDS[i])]++;
+  }
   return c;
 }
 const CEFR_SEL_KEY = "oxford_cefr_sel_v1";
@@ -7739,12 +7754,15 @@ function cefrMixedIndices() {
 }
 // {рівень: {known, total}} — для відсотка вивченого на чипсах
 function cefrKnownStats() {
-  const m = loadMastery(), st = {};
+  const m = loadMastery(), st = {}, seen = new Set();
   CEFR_LEVELS.forEach(L => (st[L] = { known: 0, total: 0 }));
   for (let i = 0; i < WORDS.length; i++) {
+    const k = wordKey(WORDS[i]);
+    if (seen.has(k)) continue;            // пара з однаковим en — одне слово (див. uniqueCount)
+    seen.add(k);
     const s = st[cefrLevelOf(WORDS[i])];
     s.total++;
-    if (mStreak(m[wordKey(WORDS[i])]) >= 3) s.known++;
+    if (mStreak(m[k]) >= 3) s.known++;
   }
   return st;
 }
@@ -7792,9 +7810,9 @@ function renderTrainModal() {
     b.classList.toggle("on", k === trainSet);
     const note = b.querySelector(".tm-note"), cnt = b.querySelector(".tm-cnt");
     if (!note || !cnt) return;
-    if (k === "cefr")    { note.textContent = "обрано " + cefrMixLabel();        cnt.textContent = plWords(cefrMixedIndices().length); }
-    if (k === "all")     { note.textContent = "усі рівні разом";                 cnt.textContent = plWords(WORDS.length); }
-    if (k === "tolearn") { note.textContent = "вивчаю + нові";                   cnt.textContent = plWords(toLearnIndices().length); }
+    if (k === "cefr")    { note.textContent = "обрано " + cefrMixLabel();        cnt.textContent = plWords(uniqueCount(cefrMixedIndices())); }
+    if (k === "all")     { note.textContent = "усі рівні разом";                 cnt.textContent = plWords(uniqueWordKeys().length); }
+    if (k === "tolearn") { note.textContent = "вивчаю + нові";                   cnt.textContent = plWords(uniqueCount(toLearnIndices())); }
   });
   document.querySelectorAll(".tm-dir").forEach(b => b.classList.toggle("on", b.dataset.dir === trainDir));
   // Обидва ряди чипсів — один спільний вибір, тому живуть/ховаються разом.

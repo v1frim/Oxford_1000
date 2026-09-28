@@ -72,9 +72,9 @@ function chromePath() {
   const fresh = await page.$$eval("#tm-solo button", bs => bs.map(b => ({
     pc: b.querySelector(".lvp").textContent, n: +b.querySelector(".lvn").textContent })));
   t("на чистому старті всюди 0%", fresh.every(x => x.pc === "0%"), JSON.stringify(fresh.map(x => x.pc)));
-  const words = await page.evaluate(() => WORDS.length);
+  const words = await page.evaluate(() => uniqueWordKeys().length);   // сесія 61: слова, не картки
   const soloSum = fresh.reduce((a, x) => a + x.n, 0);
-  t("сума залишків = WORDS, поки нічого не вивчено", soloSum === words, soloSum + " vs " + words);
+  t("сума залишків = унікальні слова, поки нічого не вивчено", soloSum === words, soloSum + " vs " + words);
 
   await page.evaluate(() => {
     const m = {}, a1 = [];
@@ -91,9 +91,11 @@ function chromePath() {
   // 20 пар-омонімів (run/fair/bank) ділять запис — слів виходить трохи більше.
   const exp = await page.evaluate(() => {
     const m = JSON.parse(localStorage.getItem("oxford_word_mastery_v1"));
-    let known = 0, total = 0;
+    let known = 0, total = 0; const seen = new Set();
     for (let i = 0; i < WORDS.length; i++) {
       if (cefrLevelOf(WORDS[i]) !== "A1") continue;
+      if (seen.has(wordKey(WORDS[i]))) continue;   // сесія 61: пара з однаковим en = одне слово
+      seen.add(wordKey(WORDS[i]));
       total++;
       const v = m[wordKey(WORDS[i])];
       if ((v && typeof v === "object" ? v.s : v) >= 3) known++;

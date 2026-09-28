@@ -69,8 +69,9 @@ function chromePath() {
   const chips = await page.$$eval("#tm-levels button", bs => bs.map(b => +b.querySelector(".lvn").textContent));
   t("7 рівнів (A1-C2 + без рівня)", chips.length === 7, String(chips.length));
   const sum = chips.reduce((a, c) => a + c, 0);
-  const words = await page.evaluate(() => WORDS.length);
-  t("сума лічильників = WORDS", sum === words, sum + " vs " + words);
+  // ⚠️ сесія 61: чипси рахують СЛОВА (унікальні ключі), не картки — як бейджі меню
+  const words = await page.evaluate(() => uniqueWordKeys().length);
+  t("сума лічильників = унікальні слова (як у меню)", sum === words, sum + " vs " + words);
 
   // 2. тогл рівня зберігається, пул відповідає вибору
   await page.click('#tm-levels button[data-lv="C2"]');
