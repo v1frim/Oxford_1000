@@ -371,7 +371,7 @@ const WORDS = [
   {en:"busy",ua:"зайнятий"},{en:"ready",ua:"готовий"},{en:"same",ua:"однаковий",uaAlt:["той самий","такий самий"]},
   {en:"different",ua:["різний","інший"],uaAlt:["відмінний"]},{en:"similar",ua:"схожий",uaAlt:["подібний"]},{en:"special",ua:"особливий",uaAlt:["спеціальний"]},
   {en:"common",ua:"звичайний",uaAlt:["поширений","спільний","загальний"],enAlt:["normal"]},{en:"rare",ua:"рідкісний",uaAlt:["рідкий"]},{en:"popular",ua:"популярний"},
-  {en:"famous",ua:"відомий",uaAlt:["знаменитий"],enAlt:["celebrated","renowned"]},{en:"secret",ua:"секретний",uaAlt:["таємниця","таємний"]},{en:"public",ua:"публічний",uaAlt:["громадський","державний"]},
+  {en:"famous",ua:"відомий",uaAlt:["знаменитий"],enAlt:["celebrated","renowned"]},{en:"secret",ua:"секретний",uaAlt:["таємниця","таємний","секрет"]},{en:"public",ua:"публічний",uaAlt:["громадський","державний"]},
   {en:"private",ua:"приватний",uaAlt:["особистий","рядовий"],enAlt:["personal"]},{en:"local",ua:"місцевий",uaAlt:["локальний"]},{en:"national",ua:"національний",uaAlt:["державний"]},
   {en:"international",ua:"міжнародний"},{en:"natural",ua:"природний",uaAlt:["натуральний"]},{en:"artificial",ua:"штучний"},
   {en:"fresh",ua:"свіжий"},{en:"frozen",ua:"заморожений",uaAlt:["замерзлий"]},{en:"raw",ua:"сирий",uaAlt:["необроблений"]},
