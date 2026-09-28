@@ -1042,11 +1042,6 @@
     text-align: center;
     box-shadow: 0 0 50px rgba(255,209,102,0.35), 0 10px 30px rgba(0,0,0,0.5);
   }
-  .ms-box.nudge {
-    border-color: #87b4ff;
-    box-shadow: 0 0 30px rgba(135,180,255,0.25), 0 8px 22px rgba(0,0,0,0.45);
-    padding: 18px 36px;
-  }
   .ms-box.rank {
     border-color: #c89bff;
     box-shadow: 0 0 55px rgba(200,155,255,0.45), 0 10px 30px rgba(0,0,0,0.5);
@@ -1113,9 +1108,7 @@
     .ms-fx, .ms-flash { display: none; }
     .ms-box[class*="plan-"], .ms-box[class*="plan-"] .ms-icon, .ms-box.plan-5 .ms-text { animation: none !important; }
   }
-  .ms-box.nudge .ms-icon { font-size: 34px; margin-bottom: 6px; }
   .ms-text { font-size: 22px; font-weight: 700; color: #ffd166; }
-  .ms-box.nudge .ms-text { font-size: 16px; color: #87b4ff; }
   .ms-sub  { font-size: 13px; opacity: 0.65; color: #fff; margin-top: 5px; }
   /* Свято рівня — окремий вигляд: шеврон із номером замість емодзі */
   .ms-box.levelup .ms-icon {
@@ -3871,11 +3864,6 @@ function sfxPlan(tier) {
   _beep(131, 1.24, 1.0, 0.22, "sine"); _beep(65, 1.24, 1.0, 0.2, "sine");
   for (let i = 0; i < 10; i++) _beep(2000 + Math.random() * 2600, 1.4 + i * 0.08, 0.1, 0.05);
 }
-function sfxNudge() {
-  // Gentle 2-note chime: E5 → G5
-  _beep(659, 0,    0.08, 0.14);
-  _beep(784, 0.12, 0.14, 0.14);
-}
 function sfxRank() {
   // Triumphant fanfare: G5 → C6 → E6 → G6, with a sparkle tail
   _beep(784,  0,    0.09, 0.17);
@@ -3935,7 +3923,7 @@ function showMilestone(icon, text, sub, type, color, color2, tier) {
   ov.querySelector(".ms-sub").textContent  = sub || "";
   // ⚠️ `rank` теж отримує свій клас: його CSS (фіолетова рамка, хитання кубка) існував, але
   // клас не ставився — рекорди виглядали як звичайний план (знайдено в сесії 61).
-  box.className = "ms-box" + (["nudge", "achievement", "levelup", "rank"].includes(type) ? " " + type : "") +
+  box.className = "ms-box" + (["achievement", "levelup", "rank"].includes(type) ? " " + type : "") +
     (type === "milestone" && tier > 1 ? " plan-" + tier : "");
   // Achievement & level-up milestones carry a tier/league colour applied inline.
   if ((type === "achievement" || type === "levelup") && color) {
@@ -4138,7 +4126,7 @@ function endGame(endedEarly) {
     if (!endedEarly) {
       newDayKey = recordDayStats(score, wrong, skipped, wordCount);
       // milestone-вітання тепер за пунктами «термометра» (а не за к-стю ігор):
-      // гра дала пункт(и) → перевіряємо перетин 4/8… (🎯 план) та 2/6… (💪 півплану).
+      // гра дала пункт(и) → перевіряємо перетин 4/8… (🎯 план).
       checkThermoMilestones();
     }
     // leaderboard rank milestone (only once the board was already full — a real bump)
@@ -9014,8 +9002,8 @@ function getThermoPointsToday() {
 }
 
 // ── Денні milestone-вітання за пунктами «термометра» (раніше — за к-стю ігор) ──
-// 🎯 основне на кожні 4 пункти (план виконано: 4/8/12/16…), 💪 проміжне на півплані
-// (2/6/10/14…). Рахуємо від ПОКАЗАНИХ пунктів (з carry-in). Ловимо ПЕРЕТИН порогу —
+// 🎯 ЛИШЕ на кожні 4 пункти (план виконано: 4/8/12/16…). ⚠️ Проміжне 💪 «Ще трішки!» на
+// 2/6/10… ВИДАЛЕНО в сесії 61 за запитом («щоби це не збивало») — НЕ повертати. Рахуємо від ПОКАЗАНИХ пунктів (з carry-in). Ловимо ПЕРЕТИН порогу —
 // пункт може стрибнути на +2 (заняття піснями, LingoHut №36+). «Верхня планка» сесії
 // (high-water) не дає спамити на reload і на дай-бери −/+ (за домовленістю з користувачем).
 const PLAN_TIERS = [   // [іконка, заголовок] для планів 1…5+ (5+ — заголовок з номером)
@@ -9041,8 +9029,6 @@ function checkThermoMilestones() {
       enqueueMilestone({ icon: T[0], text: tier === 5 ? "План " + n + " — легенда дня!" : T[1],
         sub: (tier === 1 || tier === 5 ? "" : "План " + n + " · ") + t + " " + plural(t, "пункт", "пункти", "пунктів") + " сьогодні",
         type: "milestone", tier, sfx: () => sfxPlan(tier) });
-    } else if (t % 4 === 2) {
-      enqueueMilestone({ icon: "💪", text: "Ще трішки!", sub: "Півплану позаду — не зупиняйся!", type: "nudge", sfx: sfxNudge });
     }
   }
   thermoMsHighWater = pts;
