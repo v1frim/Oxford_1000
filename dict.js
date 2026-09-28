@@ -3140,7 +3140,7 @@ const WORDS = [
   {en:"low tide",ua:"відлив",uaAlt:["відплив","спад води"]},
   {en:"mantle",ua:"мантія Землі",uaAlt:["накидка"]},
   {en:"marsh",ua:"болото",uaAlt:["драговина"]},
-  {en:"mercury",ua:"ртуть"},
+  {en:"mercury",ua:"ртуть",uaAlt:["Меркурій"]},
   {en:"mesa",ua:"столова гора"},
   {en:"meteor",ua:"метеор"},
   {en:"methane",ua:"метан"},
@@ -27032,6 +27032,7 @@ const HINTS = {
   "matt:матовий": "брит. написання",
   "driving licence:водійське посвідчення": "брит. — стандарт у Британії",
   "driving license:водійське посвідчення": "змішане написання, нестандартне",
+  "mercury": "метал; з великої літери — планета",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
