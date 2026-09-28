@@ -110,6 +110,29 @@ function chromePath() {
   t("enAlt: слова лишились клікабельні без дужки",
     alt.words.includes("doughnut") && alt.words.includes("donut"), alt.words.join("|"));
 
+  // 3б². КЛЮЧ-КОНТЕКСТ «варіант:глос» (сесія 61, привід «порваний = torn / ripped» без пояснень).
+  // `ripped` — власна картка, тож голий ключ на enAlt не береться; працює «ripped:порваний».
+  // Плюс enAlt, уже показаний із картки-сусіда, не дублюється голим (`walk` на картці `go`).
+  const ctx = await page.evaluate(() => {
+    const say = (q) => {
+      const i = WORDS.findIndex((w) => (Array.isArray(w.en) ? w.en[0] : w.en) === q);
+      currentWordIndex = i; currentWord = WORDS[i]; mode = "ua-en";
+      return getCorrectAnswer();
+    };
+    const torn = say("torn");
+    showCorrection(torn);
+    const el = document.getElementById("correction-answer");
+    return { torn, go: say("go"), hints: el.querySelectorAll(".ans-hint").length,
+             words: [...el.querySelectorAll("span.hw")].map((x) => x.textContent) };
+  });
+  t("ключ-контекст: обидва слова пояснені", ctx.torn.split(" / ").every((p) => p.includes("(")), ctx.torn);
+  t("ключ-контекст: ripped має контекстну підказку", ctx.torn.includes("ripped (" + (await page.evaluate(() => HINTS["ripped:порваний"])) + ")"), ctx.torn);
+  t("ключ-контекст: підказки окремими спанами", ctx.hints === 2, String(ctx.hints));
+  t("ключ-контекст: слова клікабельні без дужки",
+    ctx.words.includes("torn") && ctx.words.includes("ripped"), ctx.words.join("|"));
+  t("enAlt не дублює слово з картки-сусіда",
+    ctx.go.split(" / ").filter((p) => /^walk\b/.test(p)).length <= 1, ctx.go);
+
   // 3в. АВТОПОЗНАЧКА «амер./брит.» (сесія 51). Обчислюється з пари, а не з даних:
   // правило застосовується до основного `en` і спрацьовує, лише якщо результат дослівно
   // дорівнює наявному `enAlt` — тому широкі суфіксні правила не чіпають four/tour/doctor.
@@ -195,7 +218,8 @@ function chromePath() {
   t("bonnet/hood підписані з обох боків",
     lex.bonnet === "bonnet (брит.) / hood (амер.)", lex.bonnet);
   t("нейтральне слово не стає «амер.»: lawyer / solicitor (брит.)",
-    lex.lawyer === "lawyer / solicitor (брит.)", lex.lawyer);
+    // сесія 61: lawyer дістав змістовну підказку — перевіряємо саме відсутність «амер.»
+    !/lawyer \(амер/.test(lex.lawyer) && lex.lawyer.endsWith("solicitor (брит.)"), lex.lawyer);
   t("три варіанти підписані кожен своєю нормою",
     lex.trash === "trash (амер.) / rubbish (брит.) / garbage (амер.)", lex.trash);
   t("`hood` без пари (картка «капюшон») мітки НЕ дістає", !/\(амер\.\)/.test(lex.hood), lex.hood);
