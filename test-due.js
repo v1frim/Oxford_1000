@@ -339,6 +339,28 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       }
       out.reviewWorst[n] = worst;
     }
+    // ⚠️ СЕСІЯ 61 («щедрий двічі підряд у кінці, хоча всі відповіді правильні»).
+    // Прогін вище НЕ відповідає, тож лічильники не рухаються і слово ніколи не
+    // закривається — він не бачив, що рандом лишав одне слово відстати й добиватись
+    // підряд у кінці. Тут — ПОВНЕ повторення, кожна відповідь правильна, до кінця.
+    out.cleanWorst = {};
+    for (const n of [2, 3, 4, 5, 8]) {
+      const pool = [...Array(n).keys()].map(i => i + 80);
+      let worst = 1;
+      for (let t = 0; t < 200; t++) {
+        startGame(pool, {});
+        const rseq = [];
+        for (let g = 0; g < 100 && reviewRemaining && reviewRemaining.size; g++) {
+          rseq.push(currentWordIndex);
+          currentWord = WORDS[currentWordIndex];
+          recordAnswer("x", "correct");
+          nextWord();
+        }
+        worst = Math.max(worst, rseq.length === n * 3 ? maxRun(rseq) : 99);
+        endGame(true);
+      }
+      out.cleanWorst[n] = worst;
+    }
     // ⚠️ А ОСЬ ЩОЙНО ЧЕРГА ЗВУЗИЛАСЬ ДО ОДНОГО — повтор з'являється, і це правильно.
     // Саме цей сценарій користувач побачив у грі: 5 слів × 3 правильні = 15, останнє
     // слово добивалось підряд, бо інші вже закриті.
@@ -366,6 +388,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   for (const n of [2, 3, 5, 8])
     t("повторення, " + n + " слів у черзі: без сусідніх повторів (200 прогонів)",
       rep.reviewWorst[n] === 1, "найдовша серія " + rep.reviewWorst[n]);
+  for (const n of [2, 3, 4, 5, 8])
+    t("повторення без помилок, " + n + " слів: до самого кінця жодного повтору підряд (200 прогонів)",
+      rep.cleanWorst[n] === 1, "найдовша серія " + rep.cleanWorst[n]);
   t("черга звузилась до одного слова → повтор повертається",
     rep.shrink.left === 1 && rep.shrink.allSame === true, JSON.stringify(rep.shrink));
   t("⚠️ повторення, ОДНЕ слово в черзі: повтор лишається (правило 3 поспіль)", rep.singleAllSame === true);

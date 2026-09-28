@@ -2940,7 +2940,17 @@ function nextWord() {
     const rwin = repeatWindow(indices.length);
     const rrecent = rwin ? recentIndices.slice(-rwin) : [];
     const fresh = indices.filter(x => !rrecent.includes(x));
-    const from = fresh.length ? fresh : indices;
+    const cand = fresh.length ? fresh : indices;
+    // ⚠️ СЕСІЯ 61 (скарга «щедрий двічі підряд у кінці, хоча всі відповіді правильні»):
+    // серед свіжих беремо ЛИШЕ слова з найбільшою кількістю НЕДОБРАНИХ правильних.
+    // Чистий рандом давав слову відстати: решта закривались, і воно лишалось останнім
+    // із 2-3 незакритими кроками — тобто добивалось підряд без жодної помилки.
+    // Тепер без помилок слова закриваються «хвилями» (кожне по разу в хвилі, порядок
+    // у хвилі випадковий), і останнє слово ніколи не лишається саме з 2+ кроками.
+    // Після помилки слово відстає — і повтор у кінці лишається, так і домовлено.
+    const need = x => REVIEW_REQUIRED_CORRECT - (reviewCorrectCounts[x] || 0);
+    const top = Math.max(...cand.map(need));
+    const from = cand.filter(x => need(x) === top);
     currentWordIndex = from[Math.floor(Math.random() * from.length)];
     if (reviewDir === "random") {
       const plan = reviewDirPlan && reviewDirPlan[currentWordIndex];
