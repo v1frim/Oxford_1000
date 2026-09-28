@@ -26,6 +26,15 @@ const FILE = path.join(ROOT, "dict.js");   // дані живуть у dict.js (
 // Після великого розподілу сесії 46 кошик «без рівня» = рівно цей список.
 const ALLOW = new Set([
   "new year", "christmas", "easter", "halloween", "thanksgiving",
+  // сесія 61: планети, свята, континенти, океани, країни
+  "mercury", "venus", "mars", "jupiter", "saturn", "uranus",
+  "neptune", "pluto", "milky way", "valentine's day", "new year's eve", "christmas eve",
+  "mother's day", "father's day", "independence day", "april fools' day", "black friday", "europe",
+  "asia", "africa", "north america", "south america", "australia", "antarctica",
+  "atlantic ocean", "pacific ocean", "indian ocean", "arctic ocean", "ukraine", "usa",
+  "uk", "england", "scotland", "ireland", "canada", "france",
+  "germany", "poland", "italy", "spain", "japan", "china",
+  "india", "mexico", "brazil",
 ]);
 
 function blocks(html) {
