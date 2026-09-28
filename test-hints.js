@@ -326,7 +326,7 @@ function chromePath() {
   });
   t("жодна підказка не дублює власний глос", taut.length === 0, taut.slice(0, 6).join(" | "));
 
-  // ── ВЛАСНА КАРТКА ПРОМПТУ — ПЕРШОЮ Й ВИДІЛЕНА (сесія 61, за запитом) ──────────────
+  // ── ВЛАСНА КАРТКА ПРОМПТУ — ПЕРШОЮ, БЕЗ ВИДІЛЕННЯ (сесія 61, за запитом) ──────────────
   // Штраф за помилку в UA→US іде ПОКАЗАНІЙ картці, а рядок відповіді йшов у словниковому
   // порядку — з нього не було видно, котра з семи карток «складний» отримала штраф.
   const own = await page.evaluate(() => {
@@ -335,23 +335,21 @@ function chromePath() {
     const r = {};
     for (const en of ["complex", "tricky", "hard"]) {
       at(en);
-      const a = getCorrectAnswer(), n = ownAnswerCount();
-      const d = document.createElement("div"); d.innerHTML = wrapEnWord(a, n);
-      r[en] = { first: a.split(" / ")[0].replace(/\s*\(.*$/, ""), n,
-        own: [...d.querySelectorAll(".ans-own .hw")].map(x => x.textContent),
-        other: d.querySelectorAll(".ans-other").length,
-        hwFirstAttr: (d.querySelector(".hw").outerHTML.match(/^<span class="hw" data-trans=/) || [""])[0] !== "" };
+      const a = getCorrectAnswer();
+      const d = document.createElement("div"); d.innerHTML = wrapEnWord(a);
+      r[en] = { first: a.split(" / ")[0].replace(/\s*\(.*$/, ""), parts: a.split(" / ").length,
+        marked: d.querySelectorAll(".ans-own, .ans-other, [title]").length,
+        firstHw: d.querySelector(".hw").textContent };
     }
-    at("goalkeeper"); r.goal = { n: ownAnswerCount(), a: getCorrectAnswer() };
     return r;
   });
   for (const en of ["complex", "tricky", "hard"]) {
     t("«складний» від " + en + ": власна картка першою", own[en].first === en, JSON.stringify(own[en]));
-    // решти ≥6: у `hard` є ще глос «важкий» зі своїми сусідами, у картки можуть бути enAlt
-    t("«складний» від " + en + ": виділено саме її, решта приглушені", own[en].own.join() === en && own[en].other >= 6, JSON.stringify(own[en]));
+    t("«складний» від " + en + ": у рядку й решта карток (≥7 частин)", own[en].parts >= 7, JSON.stringify(own[en]));
+    t("«складний» від " + en + ": перший спан у DOM — саме вона", own[en].firstHw === en, JSON.stringify(own[en]));
+    // жирне+підкреслене сприймалось як баг — користувач хоче лише порядок
+    t("«складний» від " + en + ": без виділення й підказок-title", own[en].marked === 0, JSON.stringify(own[en]));
   }
-  t("порядок атрибутів class=hw → data-trans не зламано обгорткою", own.complex.hwFirstAttr);
-  t("одна картка (goalkeeper/goalie) — без виділення", own.goal.n === 0, JSON.stringify(own.goal));
 
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
