@@ -1059,6 +1059,60 @@
     65%      { transform: translateY(-5px) rotate(9deg); }
   }
   .ms-icon { font-size: 52px; display: block; margin-bottom: 10px; }
+  /* ── Щаблі «План N виконано» (сесія 61, за запитом): кожен наступний — помітніший.
+     1 🎯 як було · 2 ⭐ блакитний, підскок · 3 🔥 помаранчевий, пульс + іскри ·
+     4 🚀 фіолетовий, спалах + конфеті · 5+ 👑 райдужна рамка, струс, великий салют. */
+  #milestone-overlay.show.long { animation-duration: 3.4s; }
+  .ms-box { position: relative; }
+  .ms-box.plan-2 { border-color: #7ee0ff; box-shadow: 0 0 60px rgba(126,224,255,0.45), 0 10px 30px rgba(0,0,0,0.5); }
+  .ms-box.plan-2 .ms-text { color: #9be8ff; }
+  .ms-box.plan-2 .ms-icon { animation: ms-hop 0.5s ease 0.2s 2; }
+  .ms-box.plan-3 { border-color: #ff9f43; background: linear-gradient(160deg, rgba(95,35,15,0.96), rgba(45,20,40,0.96));
+    animation: ms-glow-or 0.9s ease-in-out 0.1s 3; padding: 32px 54px; }
+  .ms-box.plan-3 .ms-text { color: #ffb561; font-size: 25px; }
+  .ms-box.plan-3 .ms-icon { font-size: 62px; animation: ms-throb 0.45s ease 0.15s 4; }
+  .ms-box.plan-4 { border: 3px solid #d27bff; background: linear-gradient(160deg, rgba(60,20,110,0.97), rgba(20,25,80,0.97));
+    box-shadow: 0 0 90px rgba(210,123,255,0.6), 0 10px 30px rgba(0,0,0,0.5); padding: 36px 60px; }
+  .ms-box.plan-4 .ms-text { color: #e7b6ff; font-size: 27px; }
+  .ms-box.plan-4 .ms-icon { font-size: 70px; animation: ms-launch 0.9s cubic-bezier(.2,.9,.3,1.3) 0.05s 1 backwards; }
+  .ms-box.plan-5 { border: 3px solid transparent; padding: 38px 64px;
+    background: linear-gradient(160deg, rgba(40,25,5,0.97), rgba(25,15,45,0.97)) padding-box,
+                linear-gradient(90deg, #ff5f6d, #ffc371, #f9f871, #4be1a0, #5ec8ff, #b36bff, #ff5f6d) border-box;
+    background-size: 100% 100%, 300% 100%; animation: ms-rainbow 1.2s linear infinite;
+    box-shadow: 0 0 120px rgba(255,209,102,0.65), 0 10px 30px rgba(0,0,0,0.5); }
+  .ms-box.plan-5 .ms-text { font-size: 29px; background: linear-gradient(90deg, #fff3b0, #ffd166, #fff3b0);
+    background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: ms-shimmer 1s linear infinite; }
+  .ms-box.plan-5 .ms-icon { font-size: 78px; animation: ms-crown 0.8s cubic-bezier(.2,.9,.3,1.4) 0.05s 1 backwards; }
+  #milestone-overlay.shake { animation-name: ms-pop, ms-shake; animation-duration: 3.4s, 0.5s;
+    animation-delay: 0s, 0.15s; animation-timing-function: ease, ease-in-out; animation-fill-mode: forwards, none; }
+  .ms-flash { position: fixed; inset: 0; background: radial-gradient(circle, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%);
+    opacity: 0; pointer-events: none; }
+  .ms-flash.on { animation: ms-flash 0.7s ease-out 1; }
+  .ms-fx { position: fixed; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
+  .ms-fx i { position: absolute; left: 0; top: 0; font-style: normal; font-size: var(--fs, 14px);
+    width: var(--w, 8px); height: var(--h, 12px); background: var(--bg, transparent); border-radius: 2px;
+    animation: ms-burst var(--dur, 1.6s) cubic-bezier(.15,.7,.35,1) var(--del, 0s) 1 forwards; opacity: 0; }
+  @keyframes ms-hop    { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-14px) scale(1.12); } }
+  @keyframes ms-throb  { 0%,100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+  @keyframes ms-glow-or { 0%,100% { box-shadow: 0 0 50px rgba(255,159,67,0.4), 0 10px 30px rgba(0,0,0,0.5); }
+                          50%     { box-shadow: 0 0 110px rgba(255,159,67,0.85), 0 10px 30px rgba(0,0,0,0.5); } }
+  @keyframes ms-launch { 0% { transform: translateY(60px) scale(0.4); opacity: 0; } 60% { transform: translateY(-18px) scale(1.15); opacity: 1; }
+                         100% { transform: translateY(0) scale(1); } }
+  @keyframes ms-crown  { 0% { transform: translateY(-80px) rotate(-25deg) scale(0.5); opacity: 0; }
+                         65% { transform: translateY(6px) rotate(8deg) scale(1.2); opacity: 1; } 100% { transform: none; } }
+  @keyframes ms-rainbow { to { background-position: 0 0, 300% 0; } }
+  @keyframes ms-shimmer { to { background-position: -200% 0; } }
+  @keyframes ms-shake  { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-7px,3px); }
+                         40% { transform: translate(6px,-4px); } 60% { transform: translate(-5px,-2px); } 80% { transform: translate(4px,3px); } }
+  @keyframes ms-flash  { 0% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes ms-burst  { 0% { opacity: 1; transform: translate(0,0) rotate(0) scale(0.6); }
+                         70% { opacity: 1; }
+                         100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ms-fx, .ms-flash { display: none; }
+    .ms-box[class*="plan-"], .ms-box[class*="plan-"] .ms-icon, .ms-box.plan-5 .ms-text { animation: none !important; }
+  }
   .ms-box.nudge .ms-icon { font-size: 34px; margin-bottom: 6px; }
   .ms-text { font-size: 22px; font-weight: 700; color: #ffd166; }
   .ms-box.nudge .ms-text { font-size: 16px; color: #87b4ff; }
@@ -3785,6 +3839,38 @@ function sfxMilestone() {
   _beep(784,  0.24, 0.10, 0.18);
   _beep(1047, 0.36, 0.25, 0.20);
 }
+// Звуки щаблів плану: кожен наступний довший, щільніший і «важчий» (бас, акорд, іскри).
+function sfxPlan(tier) {
+  if (tier <= 1) return sfxMilestone();
+  const tr = "triangle";
+  if (tier === 2) {             // арпеджіо на октаву вище + дзвінкий дубль
+    [523, 659, 784, 1047, 1319].forEach((f, i) => _beep(f, i * 0.1, 0.12, 0.17, tr));
+    _beep(1568, 0.5, 0.35, 0.16, tr); _beep(1319, 0.5, 0.35, 0.10, tr);
+    return;
+  }
+  if (tier === 3) {             // швидкий розгін на дві октави → мажорний акорд + низький корінь
+    [392, 523, 659, 784, 1047, 1319, 1568].forEach((f, i) => _beep(f, i * 0.07, 0.1, 0.16, tr));
+    [1047, 1319, 1568].forEach(f => _beep(f, 0.5, 0.6, 0.12, tr));
+    _beep(131, 0.5, 0.55, 0.16, "sine");
+    return;
+  }
+  if (tier === 4) {             // фанфара «та-та-та-таа» + акорд, бас, іскристий хвіст
+    [0, 0.13, 0.26].forEach(t => _beep(784, t, 0.1, 0.18, "square"));
+    _beep(1047, 0.4, 0.5, 0.16, "square");
+    [1047, 1319, 1568].forEach(f => _beep(f, 0.4, 0.8, 0.10, tr));
+    _beep(131, 0.4, 0.7, 0.2, "sine"); _beep(65, 0.4, 0.7, 0.16, "sine");
+    [2093, 2637, 3136, 4186].forEach((f, i) => _beep(f, 0.95 + i * 0.07, 0.12, 0.06));
+    return;
+  }
+  // 5+: урочиста дворазова фанфара → великий акорд у дві октави, гучний бас, салют іскор
+  [0, 0.12, 0.24].forEach(t => _beep(784, t, 0.09, 0.18, "square"));
+  _beep(1047, 0.36, 0.22, 0.18, "square");
+  [0.62, 0.74, 0.86].forEach(t => _beep(1047, t, 0.09, 0.18, "square"));
+  _beep(1319, 0.98, 0.22, 0.18, "square");
+  [523, 784, 1047, 1319, 1568, 2093].forEach(f => _beep(f, 1.24, 1.1, 0.09, tr));
+  _beep(131, 1.24, 1.0, 0.22, "sine"); _beep(65, 1.24, 1.0, 0.2, "sine");
+  for (let i = 0; i < 10; i++) _beep(2000 + Math.random() * 2600, 1.4 + i * 0.08, 0.1, 0.05);
+}
 function sfxNudge() {
   // Gentle 2-note chime: E5 → G5
   _beep(659, 0,    0.08, 0.14);
@@ -3813,14 +3899,44 @@ function sfxLevelUp() {
   _beep(262,  0.58, 0.55, 0.13, "sine"); // C4 — низький корінь
 }
 let _msTimer = null;
-function showMilestone(icon, text, sub, type, color, color2) {
+// Частинки/спалах для вищих щаблів плану. Контейнер `.ms-fx` — центр екрана.
+function _msBurst(n, pal, emoji) {
+  const fx = document.querySelector("#milestone-overlay .ms-fx");
+  if (!fx) return;
+  fx.innerHTML = "";
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement("i");
+    const a = Math.random() * Math.PI * 2, r = 140 + Math.random() * 260;
+    el.style.setProperty("--dx", Math.round(Math.cos(a) * r) + "px");
+    el.style.setProperty("--dy", Math.round(Math.sin(a) * r + 60 + Math.random() * 120) + "px");
+    el.style.setProperty("--rot", Math.round(Math.random() * 720 - 360) + "deg");
+    el.style.setProperty("--del", (Math.random() * 0.25).toFixed(2) + "s");
+    el.style.setProperty("--dur", (1.3 + Math.random() * 0.9).toFixed(2) + "s");
+    if (emoji && Math.random() < 0.35) {
+      el.textContent = emoji[i % emoji.length];
+      el.style.setProperty("--w", "auto"); el.style.setProperty("--h", "auto");
+      el.style.setProperty("--fs", (14 + Math.random() * 12) + "px");
+    } else el.style.setProperty("--bg", pal[i % pal.length]);
+    fx.appendChild(el);
+  }
+  setTimeout(() => { fx.innerHTML = ""; }, 3500);
+}
+const PLAN_FX = {   // щабель → [частинок, палітра, емодзі, спалах, струс]
+  3: [16, ["#ff9f43", "#ffd166", "#ff6b3d"], ["✨"], false, false],
+  4: [40, ["#d27bff", "#7ee0ff", "#ffd166", "#ff7eb6"], ["✨", "⭐"], true, false],
+  5: [80, ["#ff5f6d", "#ffc371", "#f9f871", "#4be1a0", "#5ec8ff", "#b36bff"], ["✨", "⭐", "🎉"], true, true],
+};
+function showMilestone(icon, text, sub, type, color, color2, tier) {
   const ov  = document.getElementById("milestone-overlay");
   const box = ov.querySelector(".ms-box");
   const icEl = ov.querySelector(".ms-icon"), txtEl = ov.querySelector(".ms-text");
   icEl.textContent = icon;
   txtEl.textContent = text;
   ov.querySelector(".ms-sub").textContent  = sub || "";
-  box.className = "ms-box" + (type === "nudge" ? " nudge" : type === "achievement" ? " achievement" : type === "levelup" ? " levelup" : "");
+  // ⚠️ `rank` теж отримує свій клас: його CSS (фіолетова рамка, хитання кубка) існував, але
+  // клас не ставився — рекорди виглядали як звичайний план (знайдено в сесії 61).
+  box.className = "ms-box" + (["nudge", "achievement", "levelup", "rank"].includes(type) ? " " + type : "") +
+    (type === "milestone" && tier > 1 ? " plan-" + tier : "");
   // Achievement & level-up milestones carry a tier/league colour applied inline.
   if ((type === "achievement" || type === "levelup") && color) {
     box.style.borderColor = color;
@@ -3837,11 +3953,21 @@ function showMilestone(icon, text, sub, type, color, color2) {
     txtEl.style.color = ""; icEl.style.color = "";
     box.style.removeProperty("--lvl"); box.style.removeProperty("--lvl2");
   }
-  ov.classList.remove("show");
+  const fx = type === "milestone" ? PLAN_FX[tier] : null;
+  const long = !!(type === "milestone" && tier >= 4);
+  ov.classList.remove("show", "long", "shake");
+  const flash = ov.querySelector(".ms-flash");
+  if (flash) flash.classList.remove("on");
   void ov.offsetWidth;
   ov.classList.add("show");
+  if (long) ov.classList.add("long");
+  if (fx) {
+    _msBurst(fx[0], fx[1], fx[2]);
+    if (fx[3] && flash) flash.classList.add("on");
+    if (fx[4]) ov.classList.add("shake");
+  }
   if (_msTimer) clearTimeout(_msTimer);
-  _msTimer = setTimeout(() => ov.classList.remove("show"), 2500);
+  _msTimer = setTimeout(() => ov.classList.remove("show", "long", "shake"), long ? 3500 : 2500);
 }
 // Queue so multiple milestones play one after another instead of overwriting
 let _msQueue = [];
@@ -3871,8 +3997,8 @@ function _drainMilestones() {
   const item = _msQueue.shift();
   if (!item) { _msRunning = false; return; }
   if (item.sfx) item.sfx();
-  showMilestone(item.icon, item.text, item.sub, item.type, item.color, item.color2);
-  setTimeout(_drainMilestones, 2700);
+  showMilestone(item.icon, item.text, item.sub, item.type, item.color, item.color2, item.tier);
+  setTimeout(_drainMilestones, item.tier >= 4 ? 3700 : 2700);
 }
 
 function startGame(pool, opts) {
@@ -8892,6 +9018,10 @@ function getThermoPointsToday() {
 // (2/6/10/14…). Рахуємо від ПОКАЗАНИХ пунктів (з carry-in). Ловимо ПЕРЕТИН порогу —
 // пункт може стрибнути на +2 (заняття піснями, LingoHut №36+). «Верхня планка» сесії
 // (high-water) не дає спамити на reload і на дай-бери −/+ (за домовленістю з користувачем).
+const PLAN_TIERS = [   // [іконка, заголовок] для планів 1…5+ (5+ — заголовок з номером)
+  ["🎯", "План виконано!"], ["⭐", "Подвійний план!"], ["🔥", "Потрійний план!"],
+  ["🚀", "Чотири плани!"], ["👑", ""],
+];
 let thermoMsHighWater = -1;   // найвищі вже відсвятковані пункти сьогодні (в межах сесії)
 let thermoMsDate = "";        // дата (UTC), до якої належить планка
 function checkThermoMilestones() {
@@ -8905,7 +9035,12 @@ function checkThermoMilestones() {
   if (pts <= thermoMsHighWater) return;  // без приросту (або −) → не святкуємо, планку лишаємо
   for (let t = thermoMsHighWater + 1; t <= pts; t++) {
     if (t % 4 === 0) {
-      enqueueMilestone({ icon: "🎯", text: "План " + (t / 4) + " виконано!", sub: t + " пунктів сьогодні", type: "milestone", sfx: sfxMilestone });
+      // Щабель = номер плану, стеля 5 (20+ пунктів — щоразу найбільший салют).
+      const n = t / 4, tier = Math.min(n, 5);
+      const T = PLAN_TIERS[tier - 1];
+      enqueueMilestone({ icon: T[0], text: tier === 5 ? "План " + n + " — легенда дня!" : T[1],
+        sub: (tier === 1 || tier === 5 ? "" : "План " + n + " · ") + t + " " + plural(t, "пункт", "пункти", "пунктів") + " сьогодні",
+        type: "milestone", tier, sfx: () => sfxPlan(tier) });
     } else if (t % 4 === 2) {
       enqueueMilestone({ icon: "💪", text: "Ще трішки!", sub: "Півплану позаду — не зупиняйся!", type: "nudge", sfx: sfxNudge });
     }
@@ -10815,6 +10950,8 @@ document.addEventListener("keydown", e => {
 }, true);
 </script>
 <div id="milestone-overlay">
+  <div class="ms-flash"></div>
+  <div class="ms-fx"></div>
   <div class="ms-box">
     <span class="ms-icon"></span>
     <div class="ms-text"></div>
