@@ -3416,8 +3416,29 @@ function getCorrectAnswer() {
     // протікає підказка ЧУЖОГО слова: `cheque` показував «check (звірити швидко)» — а це
     // пояснення дієслова «перевіряти», а не позначка норми. Той самий клас витоку, що
     // між картками-парами в сесії 45. Для `donut` (картки нема) підказка законна й лишається.
-    (currentWord.enAlt || []).forEach(e =>
-      ans.add(withHint(e, null, spellingRegion(e), sameKeyWords(e).length > 0)));
+    // ── СЕСІЯ 61 (привід «порваний = torn / ripped» без жодного пояснення) ──
+    // 1) КЛЮЧ-КОНТЕКСТ «варіант:глос картки» («ripped:порваний») — підказка для enAlt саме
+    //    на ЦІЙ картці. Пишеться під конкретне сусідство, тож має пріоритет над усім.
+    // 2) Варіант, що сам є карткою, бере підказку СВОЄЇ картки — але лише якщо та картка
+    //    про той самий сенс (її ua/uaAlt містить показаний глос). `check` на картці «чек»
+    //    цю умову не пройде («перевіряти» ≠ «чек»), тож витік сесії 51 не повертається.
+    //    Позначку «амер./брит.» такий запозичений опис НЕ перебиває — вона точніша тут.
+    // 3) Дубль прибираємо: `walk` уже стоїть як «walk (іти пішки)» з картки-сусіда,
+    //    і голий повтор тим самим enAlt лише засмічував рядок.
+    const curUa = getUa(currentWord)[0];
+    const shownSet = new Set(shownUa);
+    const listed = new Set([...ans].map(a => a.replace(/\s*\([^)]*\)$/, "")));
+    (currentWord.enAlt || []).forEach(e => {
+      if (listed.has(e)) return;
+      listed.add(e);
+      const exact = HINTS[e + ":" + curUa];
+      if (exact) { ans.add(e + " (" + exact + ")"); return; }
+      const own = sameKeyWords(e), region = spellingRegion(e);
+      const same = !region && own.find(w =>
+        [...getUa(w), ...(w.uaAlt || [])].some(u => shownSet.has(uaBare(u))));
+      const h = same ? hintFor(e, getUa(same)[0]) : "";
+      ans.add(h ? e + " (" + h + ")" : withHint(e, null, region, own.length > 0));
+    });
     return [...ans].join(" / ");
   } else if (mode === "en-ua") {
     // підказка стосується САМЕ цієї картки, тож чіпляється до основного глоса

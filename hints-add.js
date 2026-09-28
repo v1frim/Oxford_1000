@@ -49,6 +49,11 @@ const cardKeys = new Set(W.map((w) => en1(w) + ":" + ua1(w)));
 // Варіант, що САМ є карткою, сюди не потрапляє — там працює звичайна логіка ключа.
 const altOwner = new Map();   // enAlt-варіант → картка-власник (для перевірки тавтології)
 W.forEach((w) => (w.enAlt || []).forEach((a) => { if (!keys.has(a)) altOwner.set(a, w); }));
+// ⚠️ КЛЮЧ-КОНТЕКСТ «варіант:глос» (сесія 61, привід «порваний = torn / ripped»): підказка
+// для enAlt-синоніма саме на картці з цим ОСНОВНИМ глосом («ripped:порваний»). Потрібна,
+// коли варіант сам є карткою — голий ключ там не береться (витік `cheque`/`check`, сесія 51).
+const altCtxKeys = new Set();
+W.forEach((w) => (w.enAlt || []).forEach((a) => altCtxKeys.add(a + ":" + ua1(w))));
 const pairs = new Set();
 { const seen = new Set(); W.forEach((w) => { const k = en1(w); if (seen.has(k)) pairs.add(k); seen.add(k); }); }
 
@@ -80,7 +85,7 @@ for (const [k, v] of Object.entries(batch)) {
     if (g && norm(g) === norm(v)) { tautology.push(k + " = " + norm(g)); continue; }
   }
   if (k.includes(":")) {
-    if (!cardKeys.has(k)) { unknown.push(k); continue; }
+    if (!cardKeys.has(k) && !altCtxKeys.has(k)) { unknown.push(k); continue; }
   } else if (!keys.has(k) && !altOwner.has(k)) { unknown.push(k); continue; }
   else if (keys.has(k) && pairs.has(k)) { deadPair.push(k); continue; }   // голий ключ слова-пари ніколи не покажеться
   if (have.has(k) && !force) { skipped.push(k); continue; }

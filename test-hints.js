@@ -49,7 +49,9 @@ function chromePath() {
     orphans: Object.keys(HINTS).filter((k) => {
       const en1 = (w) => (Array.isArray(w.en) ? w.en[0] : w.en);
       const ua1 = (w) => (Array.isArray(w.ua) ? w.ua[0] : w.ua);
-      if (k.includes(":")) return !WORDS.some((w) => en1(w) + ":" + ua1(w) === k);
+      // ⚠️ Ключ-контекст «варіант:глос» (сесія 61) — enAlt картки з цим основним глосом.
+      if (k.includes(":")) return !WORDS.some((w) => en1(w) + ":" + ua1(w) === k ||
+        (w.enAlt || []).some((a) => a + ":" + ua1(w) === k));
       const cards = WORDS.filter((w) => en1(w) === k);
       if (cards.length === 1) return false;
       // ⚠️ Ключ-варіант з `enAlt` теж живий (сесія 51): у UA→US `getCorrectAnswer`
@@ -149,7 +151,7 @@ function chromePath() {
   t("явна підказка сильніша за автопозначку",
     /повне написання/.test(reg.doughnut) && !/\(амер\.\)/.test(reg.doughnut), reg.doughnut);
   t("несписаний синонім лишається без позначки",
-    /mathematics/.test(reg.math) && !/mathematics \(/.test(reg.math), reg.math);
+    /mathematics/.test(reg.math) && !/mathematics \((амер|брит)/.test(reg.math), reg.math);
   t("лексичні синоніми НЕ позначаються як брит./амер.",
     reg.negative.length === 0, reg.negative.join(", "));
   t("позначку дістає весь клас пар, а не одна картка", reg.marked > 100, String(reg.marked));
