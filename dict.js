@@ -9312,7 +9312,7 @@ const WORDS = [
   {en:"business owner",ua:"власник бізнесу",uaAlt:["підприємець","власник справи"]},
   {en:"CEO",ua:"генеральний директор",enAlt:["chief executive officer"]},
   {en:"team leader",ua:"керівник команди",enAlt:["team lead"],uaAlt:["тімлід","лідер команди"]},
-  {en:"head of department",ua:"керівник відділу",uaAlt:["начальник відділу"]},
+  {en:"head of department",ua:"керівник відділу",uaAlt:["начальник відділу","голова відділу","завідувач відділу","завідувач кафедри"]},
   {en:"senior employee",ua:"фахівець високого рівня",uaAlt:["старший працівник","старший фахівець"]},
   {en:"junior employee",ua:"молодший працівник",uaAlt:["молодший співробітник"]},
   {en:"trainee",ua:"працівник на навчанні",uaAlt:["стажер"]},
