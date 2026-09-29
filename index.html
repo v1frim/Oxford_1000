@@ -4047,6 +4047,10 @@ function startGame(pool, opts) {
   shuffledIndices = schedThisGame ? buildSchedQueue(sourcePool) : shuffle([...sourcePool]);
   shufflePos = 0;
   recentIndices = [];   // анти-повтор рахується в межах ОДНІЄЇ гри
+  // Сесія 61 («to belong пропущене останнім — і першим же в повторенні»): останнє слово
+  // гри засіваємо у вікно анти-повтору — тож повторення помилок з НЬОГО не починається
+  // (і ще кілька перших кроків його не бере). Пул з 1 слова вікна не має — там як є.
+  if (activePool && opts.avoidFirst != null) recentIndices.push(opts.avoidFirst);
   // ⚠️ СЕСІЯ 60: БОРГ БІЛЬШЕ НЕ ПІДМІШУЄТЬСЯ (заморожено; див. recordAnswer). Було:
   // `pickDueIndices(forcedNow)` + вставка в першу дюжину / перші 4 позиції для примусових.
   // Помилки повертає планувальник за лічильником показів. `dueThisGame` лишається
@@ -4211,7 +4215,9 @@ function startReview() {
   // повернеться по завершенні повторення (setMode(selectedMode) у displayEndScreen).
   reviewDir = "random";
   mode = "en-ua";   // конкретний старт; nextWord перевипадковлює напрям щослова (reviewDir="random")
-  startGame(failedIndices);
+  // Останнє хибне/пропущене слово гри щойно було на екрані — не починати з нього.
+  const lastBad = records.filter(r => r.status !== "correct").pop();
+  startGame(failedIndices, { avoidFirst: lastBad ? lastBad.wordIndex : null });
 }
 
 function setFilter(f) {

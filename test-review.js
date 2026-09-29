@@ -128,6 +128,24 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("повторення без закритих слів нічого не пише", xp.rc2 === xp.rc1, xp.rc1 + " → " + xp.rc2);
   t("повторення НЕ чіпає mastery (streak лишається за грою)", xp.mastery === undefined, JSON.stringify(xp.mastery));
 
+  // ── ОСТАННЄ ХИБНЕ СЛОВО ГРИ НЕ ЙДЕ ПЕРШИМ У ПОВТОРЕННІ (сесія 61) ─────────────────
+  // «to belong пропущене останнім — і першим же в повторенні». 300 запусків на 6 словах.
+  const af = await p.evaluate(() => {
+    let hit = 0, seen = new Set();
+    for (let k = 0; k < 300; k++) {
+      records = [10, 20, 30, 40, 50, 60].map((i, j) => ({ wordIndex: i, status: j % 2 ? "skipped" : "wrong" }));
+      startReview();
+      if (currentWordIndex === 60) hit++;
+      seen.add(currentWordIndex);
+    }
+    // пул з 1 слова: вікна немає — слово все одно має показатись
+    records = [{ wordIndex: 70, status: "wrong" }]; startReview();
+    return { hit, seen: seen.size, solo: currentWordIndex };
+  });
+  t("останнє хибне слово ніколи не перше (0/300)", af.hit === 0, JSON.stringify(af));
+  t("перше слово — будь-яке з решти п'яти (без перекосу на одне)", af.seen === 5, JSON.stringify(af));
+  t("повторення з 1 слова стартує з нього ж", af.solo === 70, JSON.stringify(af));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n - " + bad.join("\n - ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ " + errs.slice(0,3).join(" | ") : "✅ 0 помилок консолі");
   await b.close(); process.exit(bad.length || errs.length ? 1 : 0);
