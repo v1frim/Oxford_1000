@@ -12351,7 +12351,7 @@ const WORDS = [
   {en:"crop failure",ua:"неврожай"},
   {en:"to sow",ua:"сіяти",uaAlt:["посіяти","засіяти"]},
   {en:"to irrigate",ua:"зрошувати",uaAlt:["зросити"]},
-  {en:"footpath",ua:"пішохідна стежка"},
+  {en:"footpath",ua:"пішохідна стежка",uaAlt:["пішохідна доріжка"]},
   {en:"trailhead",ua:"початок туристичного маршруту"},
   {en:"turning",ua:"відгалуження дороги"},
   {en:"signpost",ua:"вказівник"},
