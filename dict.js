@@ -9494,7 +9494,7 @@ const WORDS = [
   {en:"net profit",ua:"чистий прибуток"},
   {en:"profit margin",ua:"маржа прибутку",uaAlt:["рентабельність продажів"]},
   {en:"gross margin",ua:"валова маржа",uaAlt:["валова рентабельність","маржа до витрат"]},
-  {en:"markup",ua:"націнка"},
+  {en:"markup",ua:"націнка",enAlt:["mark-up"]},
   {en:"cost price",ua:"собівартість",uaAlt:["закупівельна ціна"]},
   {en:"COGS",ua:"собівартість реалізованих товарів",enAlt:["cost of goods sold"]},
   {en:"operating expense",ua:"операційна витрата",uaAlt:["операційні витрати","поточні витрати"]},
