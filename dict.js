@@ -4463,7 +4463,7 @@ const WORDS = [
   {en:"bedside table",ua:"тумбочка біля ліжка",uaAlt:["приліжкова тумба"],enAlt:["nightstand"]},
   {en:"bidet",ua:"біде"},
   {en:"blade",ua:"лезо",uaAlt:["клинок","лопать"]},
-  {en:"blanket",ua:"ковдра",uaAlt:["покривало"]},
+  {en:"blanket",ua:"ковдра",uaAlt:["покривало","плед"]},
   {en:"blender",ua:"блендер"},
   {en:"boiler",ua:"бойлер",uaAlt:["котел"]},
   {en:"bolt",ua:"засув",uaAlt:["болт","шворінь"]},
