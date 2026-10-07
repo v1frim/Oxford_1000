@@ -3307,7 +3307,7 @@ const WORDS = [
   {en:"suppository",ua:"супозиторій"},
   {en:"synagogue",ua:"синагога"},
   {en:"syrup",ua:"сироп"},
-  {en:"till",ua:"касова шухляда"},
+  {en:"till",ua:"касова шухляда",uaAlt:["каса","до","поки не"]},
   {en:"tissue",ua:"тканина організму",uaAlt:["серветка паперова"]},
   {en:"tower",ua:"вежа",uaAlt:["башта"]},
   {en:"traffic light",ua:"світлофор",enAlt:["traffic lights","traffic signal"]},
