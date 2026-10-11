@@ -188,6 +188,19 @@
   .lb-subhead { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #ffa94d; opacity: 0.95; font-weight: 700; margin-bottom: 4px; }
   .lb-variable .lb-stat-row { padding: 1px 0; font-size: 12px; }
   .lb-variable .lb-stat-label { opacity: 0.72; }
+  /* Сесія 61: «сьогодні» з вкладки 📅 дублюється ПІД панеллю лідерборда — видно з будь-якої
+     вкладки. Абсолютно під aside, щоб не зсувати розкладку сторінки. */
+  #leaderboard { position: relative; }
+  #lb-today-strip {
+    position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+    padding: 4px 14px; border-radius: 14px;
+    background: linear-gradient(165deg, rgba(16,20,42,0.92), rgba(9,12,26,0.90));
+    border: 1px solid rgba(255,209,102,0.30);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  }
+  #lb-today-strip.hidden { display: none; }
+  #lb-today-strip li { border-bottom: none; }
+  #lb-today-strip li.lb-today { background: rgba(255, 209, 102, 0.10) !important; }
   .lb-list li.lb-sep {
     background: transparent !important; box-shadow: none !important;
     border-top: 1px dashed rgba(255,255,255,0.25);
@@ -1807,6 +1820,7 @@
   <div class="lb-title" id="lb-title">Топ-10 ігор</div>
   <div class="lb-chips hidden" id="lb-period-chips"></div>
   <ol class="lb-list" id="lb-list"></ol>
+  <ol class="lb-list hidden" id="lb-today-strip" title="Сьогоднішній результат · місце серед усіх днів"></ol>
   <div class="lb-empty hidden" id="lb-empty">Зіграй кілька разів, щоб тут з'явились результати.</div>
   <div id="ach-screen" class="hidden"></div>
   <div id="lh-screen" class="hidden">
@@ -8803,8 +8817,27 @@ function renderLeaderboard(newGameId, newDayKey) {
   else if (lbActiveTab === "days") renderTabDays();
   else if (lbActiveTab === "xpdays") renderTabXpDays();
   else renderTabStreaks();
+  renderTodayStrip();
   leaderboardEl.classList.remove("hidden");
   updateLayoutAlign();
+}
+// Рядок «сьогодні» під панеллю (сесія 61, за запитом): той самий формат, що в 📅 —
+// місце серед усіх днів, правильні (хибні+пропуски / усього), к-сть ігор, дата.
+function renderTodayStrip() {
+  const el = document.getElementById("lb-today-strip");
+  if (!el) return;
+  const days = loadDays(), today = todayKey(), t = days[today];
+  if (!t || !(t.games > 0 || t.correct + t.wrong + t.skipped > 0)) { el.classList.add("hidden"); el.innerHTML = ""; return; }
+  const all = Object.entries(days).map(([key, st]) => ({ key, ...st }))
+    .sort((a, b) => b.correct - a.correct || (a.wrong + a.skipped) - (b.wrong + b.skipped));
+  const rank = 1 + all.findIndex(e => e.key === today);
+  const games = t.games || 0;
+  el.innerHTML = '<li class="lb-today" data-rank="' + rank + '" title="місце серед усіх ' + all.length + ' днів">' +
+    '<span class="lb-score">' + t.correct + '</span>' +
+    '<span class="lb-detail">(<span class="lb-bad">' + (t.wrong + t.skipped) + '</span>/<span class="lb-total">' + (t.correct + t.wrong + t.skipped) + '</span>)</span>' +
+    (games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "") +
+    '<span class="lb-mode">' + fmtDayKey(today) + '</span></li>';
+  el.classList.remove("hidden");
 }
 function hideLeaderboard() { leaderboardEl.classList.add("hidden"); updateLayoutAlign(); }
 // Зсув групи праворуч лише коли видно картку + leaderboard без панелі прогресу,
