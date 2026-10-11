@@ -199,8 +199,10 @@
     box-shadow: 0 12px 30px rgba(0,0,0,0.45);
   }
   #lb-today-strip.hidden { display: none; }
-  #lb-today-strip li { border-bottom: none; }
-  #lb-today-strip li.lb-today { background: rgba(255, 209, 102, 0.10) !important; }
+  /* Без підсвітки (сесія 61): і так ясно, що це сьогодні; у самому лідерборді рядок
+     «сьогодні» лишається підсвіченим — там він на тлі інших днів. */
+  #lb-today-strip li { border-bottom: none; background: transparent !important; box-shadow: none !important; counter-increment: none; }
+  #lb-today-strip li::before { content: attr(data-rank) "."; font-size: 12px; opacity: 0.7; }
   .lb-list li.lb-sep {
     background: transparent !important; box-shadow: none !important;
     border-top: 1px dashed rgba(255,255,255,0.25);
@@ -8832,12 +8834,25 @@ function renderTodayStrip() {
     .sort((a, b) => b.correct - a.correct || (a.wrong + a.skipped) - (b.wrong + b.skipped));
   const rank = 1 + all.findIndex(e => e.key === today);
   const games = t.games || 0;
-  el.innerHTML = '<li class="lb-today" data-rank="' + rank + '" title="місце серед усіх ' + all.length + ' днів">' +
+  el.innerHTML = '<li data-rank="' + rank + '" title="місце серед усіх ' + all.length + ' днів">' +
     '<span class="lb-score">' + t.correct + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + (t.wrong + t.skipped) + '</span>/<span class="lb-total">' + (t.correct + t.wrong + t.skipped) + '</span>)</span>' +
     (games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "") +
     '<span class="lb-mode">' + fmtDayKey(today) + '</span></li>';
   el.classList.remove("hidden");
+  requestAnimationFrame(positionTodayStrip);
+}
+// Вертикально — на рівні кнопки «🏆 Рекорди» правої панелі (за запитом). Немає кнопки
+// або вона вище за низ лідерборда → просто під панеллю (CSS-фолбек top: 100% + 10px).
+function positionTodayStrip() {
+  const el = document.getElementById("lb-today-strip");
+  if (!el || el.classList.contains("hidden")) return;
+  el.style.top = "";
+  const btn = document.getElementById("lb-records-btn");
+  if (!btn || !btn.offsetParent || leaderboardEl.classList.contains("hidden")) return;
+  const b = btn.getBoundingClientRect(), lb = leaderboardEl.getBoundingClientRect();
+  const top = b.top + b.height / 2 - lb.top - el.offsetHeight / 2;
+  if (top >= lb.height + 6) el.style.top = Math.round(top) + "px";
 }
 function hideLeaderboard() { leaderboardEl.classList.add("hidden"); updateLayoutAlign(); }
 // Зсув групи праворуч лише коли видно картку + leaderboard без панелі прогресу,
@@ -8862,6 +8877,7 @@ function updateLayoutAlign() {
   // картка з'їжджала на 10px вправо. Компенсація = різниця ширин як margin-right (сесія 33).
   document.querySelector(".layout").classList.toggle("balance-center", lbVisible && !progHidden);
   positionThermo();
+  requestAnimationFrame(positionTodayStrip);
 }
 function renderLbTotals() {
   const days = loadDays();
@@ -8935,6 +8951,7 @@ function renderLbTotals() {
   // (кінець гри, Duolingo/GPT/LingoHut/пісні), тож перевірка тут покриває все.
   checkRecordMilestones();
   renderMovieBtn();   // 🔒/🎬 — лічильник розблокування живе з mastery (звуть усі точки зміни)
+  requestAnimationFrame(positionTodayStrip);   // смужка «сьогодні» — на рівні цієї кнопки
 }
 
 // ── ПОМИЛКИ-ПОВТОРЕННЯ → ПУНКТИ «ПЛАНИ» — ⚠️ ФІЧА ЗАКРИТА В СЕСІЇ 45 ───────────
