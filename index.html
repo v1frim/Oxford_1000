@@ -884,6 +884,10 @@
     padding: 7px 9px; border-radius: 8px; cursor: pointer; font-size: 14px;
   }
   .cat-row:hover { background: rgba(255,255,255,0.09); }
+  /* Сесія 61: слова, що перейшли в «Знаю»/«Вивчаю» в ОСТАННІЙ грі — підсвічені смужкою
+     одразу; при наведенні — трохи темніший відтінок, щоб ховер лишався помітним. */
+  .cat-row.recent { background: rgba(255,255,255,0.11); }
+  .cat-row.recent:hover { background: rgba(0,0,0,0.18); }
   .cat-en { font-weight: 600; white-space: nowrap; }
   .cat-ua { opacity: 0.6; text-align: right; }
   /* Рівень CEFR біля слова у списку слів дня (сесія 58, за запитом). Обгортка потрібна
@@ -4049,6 +4053,7 @@ function startGame(pool, opts) {
   shuffledIndices = schedThisGame ? buildSchedQueue(sourcePool) : shuffle([...sourcePool]);
   shufflePos = 0;
   recentIndices = [];   // анти-повтор рахується в межах ОДНІЄЇ гри
+  if (!activePool) resetLastGameTrans();   // підсвітка «щойно перейшли» — лише від цієї гри
   // Сесія 61 («to belong пропущене останнім — і першим же в повторенні»): останнє слово
   // гри засіваємо у вікно анти-повтору — тож повторення помилок з НЬОГО не починається
   // (і ще кілька перших кроків його не бере). Пул з 1 слова вікна не має — там як є.
@@ -7092,7 +7097,24 @@ function loadMasteryTrans() {
 }
 // Слово увійшло в категорію cat ("k"=Знаю / "l"=Вивчаю) сьогодні. Списки дня диз'юнктні:
 // вхід у «Знаю» прибирає слово зі списку «Вивчаю» ЦЬОГО дня (і навпаки при регресії).
+// Переходи ОСТАННЬОЇ гри (сесія 61, за запитом «щоб я чітко бачив, які слова щойно
+// перенеслися»): {date, k:[], l:[]}. Скидається на старті кожної звичайної гри (не
+// повторення — воно mastery не чіпає), тож гра без переходів гасить стару підсвітку.
+const LAST_GAME_TRANS_KEY = "oxford_last_game_trans_v1";
+function loadLastGameTrans() {
+  try { return JSON.parse(localStorage.getItem(LAST_GAME_TRANS_KEY)) || null; } catch(e) { return null; }
+}
+function resetLastGameTrans() {
+  localStorage.setItem(LAST_GAME_TRANS_KEY, JSON.stringify({ date: new Date().toISOString().slice(0, 10), k: [], l: [] }));
+}
 function recordMasteryTrans(cat, enKey) {
+  const lg = loadLastGameTrans();
+  if (lg) {
+    const o = cat === "k" ? "l" : "k";
+    lg[o] = lg[o].filter(w => w !== enKey);
+    if (!lg[cat].includes(enKey)) lg[cat].push(enKey);
+    localStorage.setItem(LAST_GAME_TRANS_KEY, JSON.stringify(lg));
+  }
   const t = loadMasteryTrans();
   const date = new Date().toISOString().slice(0, 10);
   const day = t[date] || (t[date] = { k: [], l: [] });
@@ -7662,9 +7684,12 @@ function openDayTransModal(date, cat) {
   // рівня. Слова поза списками CEFR (наш тематичний шар) дають "none" → показуємо «—»:
   // це свідомий окремий стан, а не сміття, і ховати його не можна — інакше список
   // мовчки брехав би, що рівень є в усіх.
+  const lg = loadLastGameTrans();
+  const recent = new Set(lg && lg.date === date && (cat === "k" || cat === "l") ? lg[cat] : []);
   listEl.innerHTML = rows.map(g => {
     const lvl = cefrLevelOf(WORDS[g[0]]);
-    return '<div class="cat-row" data-i="' + g[0] + '">' +
+    const rc = recent.has(wordKey(WORDS[g[0]])) ? " recent" : "";
+    return '<div class="cat-row' + rc + '" data-i="' + g[0] + '"' + (rc ? ' title="перейшло в останній грі"' : '') + '>' +
       '<span class="cat-left">' +
         '<span class="cat-en">' + esc(getEn(WORDS[g[0]]).join(" / ")) + '</span>' +
         '<span class="cat-lvl lv-' + lvl + '" title="' + esc(CEFR_META[lvl] || "") + '">' +
