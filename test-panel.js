@@ -55,7 +55,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.click("#start-btn"); await p.waitForTimeout(200);
   t("модалка відкрилась кліком", await p.isVisible("#train-modal"));
   t("три набори слів", (await p.$$(".tm-set")).length === 3);
-  t("два напрямки, без «Випадкового»", (await p.$$(".tm-dir")).length === 2);
+  // Сесія 61: третя кнопка — «⇄ По черзі» (чергування ЩОГРИ), а не «Випадковий» щослова
+  const dirs = await p.$$eval(".tm-dir", bs => bs.map(b => b.dataset.dir));
+  t("два напрямки + «⇄ По черзі», без «Випадкового»", dirs.join() === "ua-en,en-ua,auto", dirs.join());
   t("рядок рівнів видно для CEFR", await p.isVisible("#tm-levels"));
   // лічильники — окремим рядком унизу картки, з правильним відмінком (сесія 44)
   const cnts = await p.$$eval(".tm-set .tm-cnt", es => es.map(e => e.textContent));
