@@ -433,7 +433,12 @@
   }
   .tm-sec::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
   .tm-sets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .tm-dirs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tm-dirs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  /* «⇄ По черзі» (сесія 61): напрямок, що піде НАСТУПНИМ, позначено пунктиром і «далі» */
+  .tm-dir.next { border: 1px dashed rgba(255,209,102,0.6); }
+  .tm-dir.next b { color: #ffe39e; }
+  .tm-dir[data-dir="auto"] { padding: 11px 16px 9px 8px; }
+  .tm-dir[data-dir="auto"] b { font-size: 14px; }
   .tm-set, .tm-dir {
     position: relative; text-align: center; cursor: pointer; color: #eee7fb;
     background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.08);
@@ -1780,6 +1785,7 @@
     <div class="tm-dirs">
       <button class="tm-dir" data-dir="ua-en"><b>UA → US</b></button>
       <button class="tm-dir" data-dir="en-ua"><b>US → UA</b></button>
+      <button class="tm-dir" data-dir="auto" title="Напрямок чергується щогри: раз UA → US, раз US → UA"><b>⇄ По черзі</b><small></small></button>
     </div>
     <button id="tm-go">▶ Почати<small></small></button>
     <button id="tm-cancel">Скасувати</button>
@@ -7843,16 +7849,20 @@ function cefrTagLabel(sel) {
 // бейджами вгорі (рішення користувача, сесія 44).
 const TRAIN_KEY = "oxford_train_sel_v1";
 const TRAIN_SETS = ["cefr", "all", "tolearn"];
-let trainSet = "cefr", trainDir = "ua-en";
+// ⚠️ «⇄ По черзі» (сесія 61, за запитом «щоразу перемикаю вручну»): trainAuto=true —
+// напрямок чергується щогри. trainDir тоді = напрямок НАСТУПНОЇ гри; startTraining
+// після старту перевертає його. Ручний вибір UA→US / US→UA вимикає чергування.
+let trainSet = "cefr", trainDir = "ua-en", trainAuto = false;
 (() => {
   try {
     const o = JSON.parse(localStorage.getItem(TRAIN_KEY));
     if (o && TRAIN_SETS.includes(o.set)) trainSet = o.set;
     if (o && ["ua-en","en-ua"].includes(o.dir)) trainDir = o.dir;
+    if (o && o.auto) trainAuto = true;
   } catch (e) {}
 })();
 function saveTrainSel() {
-  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir })); } catch (e) {}
+  try { localStorage.setItem(TRAIN_KEY, JSON.stringify({ set: trainSet, dir: trainDir, auto: trainAuto })); } catch (e) {}
 }
 // ── ДВА РЯДИ ЧИПСІВ = ОДИН ВИБІР (сесія 46, за запитом користувача) ────────
 // Набір «🎓 Рівні CEFR» має два ряди: верхній — рівень ЦІЛКОМ, нижній (📖) — той
@@ -7934,7 +7944,7 @@ function trainSetLabel() {
   if (trainSet === "tolearn")  return "📖 Незасвоєні";
   return "📚 Весь словник";
 }
-function trainDirLabel() { return trainDir === "ua-en" ? "UA → US" : "US → UA"; }
+function trainDirLabel() { return (trainAuto ? "⇄ " : "") + (trainDir === "ua-en" ? "UA → US" : "US → UA"); }
 // «1 слово · 904 слова · 8646 слів» — відмінок за останніми цифрами (сесія 44:
 // раніше скрізь писалось тупо «слів», що для 8562 і 904 неграмотно).
 function plWords(n) {
@@ -7962,7 +7972,16 @@ function renderTrainModal() {
     if (k === "all")     { note.textContent = "усі рівні разом";                 cnt.textContent = plWords(uniqueWordKeys().length); }
     if (k === "tolearn") { note.textContent = "вивчаю + нові";                   cnt.textContent = plWords(uniqueCount(toLearnIndices())); }
   });
-  document.querySelectorAll(".tm-dir").forEach(b => b.classList.toggle("on", b.dataset.dir === trainDir));
+  document.querySelectorAll(".tm-dir").forEach(b => {
+    const d = b.dataset.dir;
+    if (d === "auto") {
+      b.classList.toggle("on", trainAuto);
+      b.querySelector("small").textContent = "далі " + (trainDir === "ua-en" ? "UA → US" : "US → UA");
+    } else {
+      b.classList.toggle("on", !trainAuto && d === trainDir);
+      b.classList.toggle("next", trainAuto && d === trainDir);
+    }
+  });
   // Обидва ряди чипсів — один спільний вибір, тому живуть/ховаються разом.
   // `.taken` — рівень зайнято протилежним рядом: чипс погашено й не клікається.
   const lv = document.getElementById("tm-levels");
@@ -8007,6 +8026,7 @@ function startTraining() {
   saveTrainSel();
   closeTrainModal();
   setMode(trainDir);
+  if (trainAuto) { trainDir = trainDir === "ua-en" ? "en-ua" : "ua-en"; saveTrainSel(); }   // наступна гра — навпаки
   // Тег «cefr:<рівні>» лишає гру поза топ-10, але з підписом рівня (правило сесії 43)
   const tag = trainSet === "cefr" ? "cefr:" + cefrMixLabel() : null;
   if (pool) startGame(pool, { timed: true, tag: tag, sched: true });
@@ -8015,7 +8035,11 @@ function startTraining() {
 document.querySelectorAll(".tm-set").forEach(b =>
   b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
 document.querySelectorAll(".tm-dir").forEach(b =>
-  b.addEventListener("click", () => { trainDir = b.dataset.dir; saveTrainSel(); renderTrainModal(); }));
+  b.addEventListener("click", () => {
+    if (b.dataset.dir === "auto") trainAuto = !trainAuto;
+    else { trainDir = b.dataset.dir; trainAuto = false; }
+    saveTrainSel(); renderTrainModal();
+  }));
 // Обидва ряди ведуть в один і той самий вибір; клік по будь-якому чипсу заодно
 // повертає набір «Рівні CEFR» (зручно, коли зараз активний «Весь словник»).
 const onLevelChip = (attr, solo) => e => {
