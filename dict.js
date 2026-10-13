@@ -9485,7 +9485,7 @@ const WORDS = [
   {en:"accounting",ua:"бухгалтерський облік"},
   {en:"bookkeeping",ua:"ведення бухгалтерських записів"},
   {en:"bookkeeper",ua:"бухгалтер з первинного обліку",uaAlt:["бухгалтер"]},
-  {en:"financial statement",ua:"фінансова звітність",uaAlt:["фінансовий звіт","звітність компанії"]},
+  {en:"financial statement",ua:"фінансова звітність",uaAlt:["фінансовий звіт","звітність компанії"],enAlt:["financial report"]},
   {en:"balance sheet",ua:"звіт про фінансовий стан",uaAlt:["баланс підприємства"]},
   {en:"income statement",ua:"звіт про прибутки та збитки",enAlt:["profit and loss statement"],uaAlt:["звіт про доходи","звіт про фінансові результати"]},
   {en:"cash flow statement",ua:"звіт про рух грошових коштів",uaAlt:["звіт про грошові потоки","звіт про рух коштів"]},
