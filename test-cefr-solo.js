@@ -160,8 +160,9 @@ function chromePath() {
   await page.click("#start-btn");
   s = await state();
   t("вибір обох рядів збережено", s.full.join() === "B1" && s.solo.join() === "A1", JSON.stringify(s));
-  const goTxt = await page.$eval("#tm-go", b => b.textContent);
-  t("підпис на «Почати» = мітці", /A1 📖\+B1/.test(goTxt), goTxt);
+  // сесія 61: на кнопках 📖 → зелений рівень (як у лідерборді), без емодзі
+  const go = await page.$eval("#tm-go small", b => ({ txt: b.textContent, solo: [...b.querySelectorAll(".cefr-solo")].map(x => x.textContent) }));
+  t("підпис на «Почати» = мітці (A1 зелений, без 📖)", /^A1\+B1 ·/.test(go.txt) && go.solo.join() === "A1", JSON.stringify(go));
 
   // ── 7. Перетин рядів у сховищі лікується на завантаженні ─────────────
   await page.evaluate(() => {

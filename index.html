@@ -359,6 +359,8 @@
      щоденних активностей і дрібний ряд English-only. Бічні панелі не чіпані. */
   #start-btn { font-size: 18px; font-weight: 800; padding: 14px 16px; line-height: 1.25; }
   #start-sub { display: block; font-size: 12.5px; font-weight: 600; opacity: 0.75; margin-top: 4px; }
+  /* на жовтій кнопці світло-зелений не читається — темніший зелений того ж змісту */
+  #start-sub .cefr-solo, #tm-go small .cefr-solo { color: #137a2e; }
   #due-banner {
     margin: 8px 0 0; padding: 8px 12px; border-radius: 12px;
     background: rgba(120,190,255,0.13); border: 1px solid rgba(140,200,255,0.35);
@@ -7945,6 +7947,13 @@ function trainPool() {
   if (trainSet === "tolearn")  return toLearnIndices();
   return null;                       // «весь словник» = звичайна гра без пулу
 }
+// ⚠️ Сесія 61 (скарга «на головній абра-кадабра»): у підписах кнопок 🎓/📖 рендерились
+// ламано. Набір «Рівні» тепер без 🎓, а «📖-рівень» — зеленим, як у лідерборді
+// (`cefrLabelHtml`). Тому підписи вставляються через innerHTML (trainSetHtml).
+function trainSetHtml() {
+  if (trainSet === "cefr")     return cefrLabelHtml(cefrMixLabel());
+  return esc(trainSetLabel());
+}
 function trainSetLabel() {
   if (trainSet === "cefr")     return "🎓 " + cefrMixLabel();
   if (trainSet === "tolearn")  return "📖 Незасвоєні";
@@ -7974,7 +7983,7 @@ function renderTrainModal() {
     b.classList.toggle("on", k === trainSet);
     const note = b.querySelector(".tm-note"), cnt = b.querySelector(".tm-cnt");
     if (!note || !cnt) return;
-    if (k === "cefr")    { note.textContent = "обрано " + cefrMixLabel();        cnt.textContent = plWords(uniqueCount(cefrMixedIndices())); }
+    if (k === "cefr")    { note.innerHTML = "обрано " + cefrLabelHtml(cefrMixLabel());        cnt.textContent = plWords(uniqueCount(cefrMixedIndices())); }
     if (k === "all")     { note.textContent = "усі рівні разом";                 cnt.textContent = plWords(uniqueWordKeys().length); }
     if (k === "tolearn") { note.textContent = "вивчаю + нові";                   cnt.textContent = plWords(uniqueCount(toLearnIndices())); }
   });
@@ -8014,14 +8023,14 @@ function renderTrainModal() {
     }).join("");
   }
   const go = document.getElementById("tm-go");
-  go.innerHTML = "▶ Почати<small>" + trainSetLabel() + " · " + trainDirLabel() + " · 60 секунд</small>";
+  go.innerHTML = "▶ Почати<small>" + trainSetHtml() + " · " + esc(trainDirLabel()) + " · 60 секунд</small>";
   go.disabled = !trainCount();
   renderStartSub();
 }
 // підпис під головною кнопкою меню: чим гратимеш, якщо просто тиснути Enter
 function renderStartSub() {
   const el = document.getElementById("start-sub");
-  if (el) el.textContent = trainSetLabel() + " · " + trainDirLabel();
+  if (el) el.innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());
   renderDueBanner();   // плашка рахується по поточному набору — оновлюємо разом із підписом
 }
 function openTrainModal() { renderTrainModal(); document.getElementById("train-modal").classList.remove("hidden"); }
@@ -8540,8 +8549,11 @@ function renderTabGames() {
 // без емодзі, яке з'їдало ~18px у й так тісному рядку).
 // ⚠️ ОДИН хелпер на ВСІ вкладки: спершу він жив усередині renderTabCefr, і на 🕒/🏆
 // мітка лишалась зі старим 📖 — розбіжність помітив користувач.
-const cefrLabelHtml = (label) => esc(String(label))
-  .replace(/([A-C][12]|—)\s*📖/g, '<span class="cefr-solo" title="лише невивчені слова">$1</span>');
+// function-декларація (не const): кличе ще й renderStartSub на старті сторінки — без TDZ
+function cefrLabelHtml(label) {
+  return esc(String(label))
+    .replace(/([A-C][12]|—)\s*📖/g, '<span class="cefr-solo" title="лише невивчені слова">$1</span>');
+}
 function renderTabCefr() {
   setLbTitle("Рекорди за рівнями CEFR");
   const games = loadGamesLog().filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
