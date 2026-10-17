@@ -1825,8 +1825,8 @@
       <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
-      <button class="lb-tab" data-tab="gaps" title="Анти-топ: найдовші перерви без занять">⏸️</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
+      <button class="lb-tab" data-tab="gaps" title="Анти-топ: найдовші перерви без занять">⏸️</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
     </div>
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
@@ -6278,7 +6278,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "cefr", "days", "xpdays", "gaps", "streaks", "ach"];
+    const tabs = ["period", "cefr", "days", "xpdays", "streaks", "gaps", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();

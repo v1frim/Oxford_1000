@@ -154,9 +154,9 @@ function chromePath() {
   // 9. Порядок вкладок і Tab-цикл (сесія 51: 🕒 стоїть ПЕРЕД 🏆, за запитом)
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
-  // сесія 61: 🏆 прибрано; анти-топ ⏸️ — одразу після ⚡ XP-днів (за запитом)
-  t("порядок вкладок: 🕒 · 🎓 · 📅 · ⚡ · ⏸️ · 🔥 · 🎖️",
-    order.join(",") === "period,cefr,days,xpdays,gaps,streaks,ach", order.join(","));
+  // сесія 61: 🏆 прибрано; анти-топ ⏸️ — після 🔥 серій (за запитом)
+  t("порядок вкладок: 🕒 · 🎓 · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️",
+    order.join(",") === "period,cefr,days,xpdays,streaks,gaps,ach", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
