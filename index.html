@@ -8378,7 +8378,9 @@ function computeGaps(act) {
     if (act[k]) { if (run) { gaps.push(run); run = null; } continue; }
     if (run) { run.end = k; run.length++; } else run = { start: k, end: k, length: 1 };
   }
-  if (run) { run.ongoing = true; gaps.push(run); }
+  // Хвіст до вчора — «триває» лише якщо й СЬОГОДНІ ще нічого не було. Інакше перерва вже
+  // закрита сьогоднішнім заняттям і нічим не відрізняється від решти (скарга сесії 61).
+  if (run) { if (!act[today]) run.ongoing = true; gaps.push(run); }
   return gaps.sort((a, b) => b.length - a.length || (a.end < b.end ? 1 : a.end > b.end ? -1 : 0));
 }
 function renderTabGaps() {
