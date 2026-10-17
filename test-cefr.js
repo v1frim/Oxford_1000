@@ -166,7 +166,8 @@ function chromePath() {
   await page.waitForTimeout(1200);
   // ⚠️ СЕСІЯ 53: лідерборд тепер відкривається на 🕒 «Рекорди за період», тож рядок
   // «остання гра» з `oxford_latest_v1` треба шукати ПІСЛЯ явного переходу на 🏆.
-  await page.evaluate(() => document.querySelector('.lb-tab[data-tab="games"]').click());
+  // сесія 61: кнопку 🏆 прибрано з лідерборда (замість неї — анти-топ ⏸️), логіка вкладки лишилась
+  await page.evaluate(() => { lbActiveTab = "games"; renderLeaderboard(); });
   await page.waitForTimeout(120);
   const row = await page.evaluate(() => {
     const li = [...document.querySelectorAll("#lb-list li")].find((x) => x.className.includes("lb-latest"));

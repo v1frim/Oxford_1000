@@ -70,7 +70,8 @@ function chromePath() {
   const openTab = async (tab) => {
     await page.evaluate((tb) => {
       document.getElementById("leaderboard").classList.remove("hidden");
-      document.querySelector('.lb-tab[data-tab="' + tb + '"]').click();
+      const btn = document.querySelector('.lb-tab[data-tab="' + tb + '"]');
+      if (btn) btn.click(); else { lbActiveTab = tb; renderLeaderboard(); }   // 🏆 без кнопки з сесії 61
     }, tab);
     await page.waitForTimeout(120);
   };
@@ -153,8 +154,9 @@ function chromePath() {
   // 9. Порядок вкладок і Tab-цикл (сесія 51: 🕒 стоїть ПЕРЕД 🏆, за запитом)
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
-  t("порядок вкладок: 🕒 · 🎓 · 🏆 · далі як було",
-    order.slice(0, 3).join(",") === "period,cefr,games", order.join(","));
+  // сесія 61: 🏆 прибрано; анти-топ ⏸️ — одразу після ⚡ XP-днів (за запитом)
+  t("порядок вкладок: 🕒 · 🎓 · 📅 · ⚡ · ⏸️ · 🔥 · 🎖️",
+    order.join(",") === "period,cefr,days,xpdays,gaps,streaks,ach", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));

@@ -143,6 +143,12 @@
   .lb-list li:nth-child(1)::before { content: "🥇"; opacity: 1; font-size: 16px; }
   .lb-list li:nth-child(2)::before { content: "🥈"; opacity: 1; font-size: 16px; }
   .lb-list li:nth-child(3)::before { content: "🥉"; opacity: 1; font-size: 16px; }
+  /* ⏸️ Анти-топ перерв (сесія 61): без медалей — номери й червонуватий відтінок для топ-3 */
+  .lb-list li.lb-gap::before { content: counter(rank) "."; opacity: 0.55; font-size: 12px; }
+  .lb-list li.lb-gap:nth-child(-n+3) { background: rgba(255, 107, 107, 0.12); }
+  .lb-list li.lb-gap .lb-score { color: #ff9d9d; }
+  .lb-list li.lb-gap-total { counter-increment: none; background: none !important; justify-content: center; }
+  .lb-list li.lb-gap-total::before { content: none; }
   /* Вкладка 🎓 (сесія 43): рядки — рекорди РІЗНИХ пулів (рівнів), а не місця в одному
      рейтингу, тож без медалей і без нумерації; ліворуч — шапочка. ⚠️ Правила стоять ДО
      .lb-today/.lb-latest::before, щоб ті рядки лишили свої «★»/«ост». */
@@ -1817,9 +1823,9 @@
     <div class="lb-tabs">
       <button class="lb-tab active" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
       <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
-      <button class="lb-tab" data-tab="games" title="Найкращі ігри">🏆</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
+      <button class="lb-tab" data-tab="gaps" title="Анти-топ: найдовші перерви без занять">⏸️</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
     </div>
@@ -6272,7 +6278,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "cefr", "games", "days", "xpdays", "streaks", "ach"];
+    const tabs = ["period", "cefr", "days", "xpdays", "gaps", "streaks", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -8342,6 +8348,59 @@ function fmtDayKey(key) {
   const [y, m, d] = key.split("-");
   return d + "." + m;
 }
+// ── АКТИВНІ ДНІ (сесія 61, за запитом «зараховуй і Duolingo, LingoHut та інші активності до
+// ігрових днів»). День активний, якщо була гра АБО Duolingo / LingoHut / пісні / GPT / кіно /
+// вирази АБО хоч якийсь XP. Живить: «Днів гри» й «Пропущено днів» у статистиці, серії 🔥
+// і анти-топ ⏸️. ⚠️ «📅 Найкращі ігрові дні» СВІДОМО лишаються лише за іграми (рішення користувача).
+function activityDays() {
+  const days = loadDays(), out = {};
+  const add = d => { if (typeof d === "string" && /^\d{4}-\d\d-\d\d$/.test(d)) out[d] = days[d] || {}; };
+  Object.entries(days).forEach(([d, x]) => { if ((x.games || 0) > 0) add(d); });
+  [loadDuoSessions(), loadSongSessions(), loadGptRequests(), loadMovieSessions()]
+    .forEach(o => Object.entries(o || {}).forEach(([d, n]) => { if (n) add(d); }));
+  Object.values(loadLhDone()).forEach(add);
+  Object.values(loadSongsXpAwarded()).forEach(add);
+  Object.entries(loadExprXpLog() || {}).forEach(([d, x]) => { if (x && x.r) add(d); });
+  try { Object.entries(JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}")).forEach(([d, v]) => { if (v > 0) add(d); }); } catch (e) {}
+  return out;
+}
+// Перерви без занять: від першого активного дня до ВЧОРА (сьогодні ще не закінчилось).
+// [{start, end, length}] — довші вище, при рівності новіші вище.
+function computeGaps(act) {
+  act = act || activityDays();
+  const keys = Object.keys(act).sort();
+  if (!keys.length) return [];
+  const dk = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  const today = todayKey(), gaps = [];
+  let run = null;
+  for (let d = new Date(keys[0] + "T12:00:00"); dk(d) < today; d.setDate(d.getDate() + 1)) {
+    const k = dk(d);
+    if (act[k]) { if (run) { gaps.push(run); run = null; } continue; }
+    if (run) { run.end = k; run.length++; } else run = { start: k, end: k, length: 1 };
+  }
+  if (run) { run.ongoing = true; gaps.push(run); }
+  return gaps.sort((a, b) => b.length - a.length || (a.end < b.end ? 1 : a.end > b.end ? -1 : 0));
+}
+function renderTabGaps() {
+  setLbTitle("Анти-топ · найдовші перерви");
+  const gaps = computeGaps();
+  if (!gaps.length) {
+    lbListEl.innerHTML = "";
+    lbEmptyEl.textContent = "Жодного пропущеного дня — так тримати!";
+    lbEmptyEl.classList.remove("hidden");
+    return;
+  }
+  lbEmptyEl.classList.add("hidden");
+  const total = gaps.reduce((a, g) => a + g.length, 0);
+  lbListEl.innerHTML = gaps.slice(0, LB_LIMIT).map(g =>
+    '<li class="lb-gap' + (g.ongoing ? " is-new" : "") + '"' + (g.ongoing ? ' title="перерва триває"' : '') + '>' +
+      '<span class="lb-score lb-bad">' + g.length + '</span>' +
+      '<span class="lb-detail">' + plural(g.length, "день", "дні", "днів") + '</span>' +
+      '<span class="lb-mode">' + (g.length === 1 ? fmtDayKey(g.start) : fmtDayKey(g.start) + " – " + fmtDayKey(g.end)) + '</span>' +
+    '</li>').join("") +
+    '<li class="lb-sep"></li><li class="lb-gap-total"><span class="lb-detail">Усього пропущено: <b>' + total + '</b> ' +
+    plural(total, "день", "дні", "днів") + ' · перерв: ' + gaps.length + '</span></li>';
+}
 function computeStreaks(days) {
   const keys = Object.keys(days).sort();
   if (keys.length === 0) return [];
@@ -8789,7 +8848,7 @@ function renderTabXpDays() {
 function renderTabStreaks() {
   setLbTitle("Серії днів підряд");
   const days = loadDays();
-  const allStreaks = computeStreaks(days);
+  const allStreaks = computeStreaks(activityDays());   // сесія 61: серії — за будь-якою активністю
   const top = allStreaks.slice(0, LB_LIMIT);
   const ongoing = allStreaks.find(s => s.ongoing);
   if (top.length === 0) {
@@ -8831,7 +8890,7 @@ function renderLeaderboard(newGameId, newDayKey) {
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
   // reset схований і на «XP-днях» (виводяться з oxford_xp_day_v1, не з лідерборд-сховища),
   // і на «🎓 CEFR» (рахуються з games-log, який годує ще й «Точність» — чистити його звідси не можна)
-  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "cefr" || lbActiveTab === "period") ? "hidden" : "";
+  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "gaps" || lbActiveTab === "cefr" || lbActiveTab === "period") ? "hidden" : "";
   lbListEl.classList.toggle("lb-cefr", lbActiveTab === "cefr");   // без медалей/нумерації — рядки з різних пулів
   // ⚠️ Ховаємо ТУТ, а показує сам renderTabPeriod: інакше ряд чипсів висів би над
   // чужими вкладками (та сама пастка, що з `title` заголовка до setLbTitle, сесія 45).
@@ -8842,6 +8901,7 @@ function renderLeaderboard(newGameId, newDayKey) {
   else if (lbActiveTab === "period") renderTabPeriod();
   else if (lbActiveTab === "days") renderTabDays();
   else if (lbActiveTab === "xpdays") renderTabXpDays();
+  else if (lbActiveTab === "gaps") renderTabGaps();
   else renderTabStreaks();
   renderTodayStrip();
   leaderboardEl.classList.remove("hidden");
@@ -8913,7 +8973,11 @@ function renderLbTotals() {
     skipped += d.skipped || 0;
     review  += d.reviewCorrect || 0;
   });
-  const activeDays = Object.values(days).filter(d => (d.games || 0) > 0).length;
+  // сесія 61: «Днів гри» — дні з БУДЬ-ЯКОЮ активністю (ігри, Duolingo, LingoHut, пісні, GPT…)
+  const _act = activityDays();
+  const activeDays = Object.keys(_act).length;
+  const missedDays = computeGaps(_act).reduce((a, g) => a + g.length, 0);
+  const missedPct = activeDays + missedDays > 0 ? (missedDays / (activeDays + missedDays) * 100).toFixed(1).replace(".", ",") : "0";
   const total = correct + wrong + skipped;
   const xp = loadXp();
   const fmt = n => String(n);
@@ -8938,7 +9002,9 @@ function renderLbTotals() {
   const lhDoneCount  = Object.keys(loadLhDone()).length;
   document.getElementById("lb-totals").innerHTML =
     '<div class="lb-totals-title">✦ Загальна статистика ✦</div>' +
-    row("📅", "Днів гри", activeDays) +
+    row("📅", "Днів гри", activeDays, null, "Дні з будь-якою активністю: ігри, Duolingo, LingoHut, пісні, GPT, кіно, вирази") +
+    row("⏸️", "Пропущено днів", missedDays + ' <span style="opacity:.6;font-size:.85em">(' + missedPct + '%)</span>', "#ff9d9d",
+        "Дні без жодних занять від першого дня до вчора · у дужках — частка від усіх днів (активні + пропущені)") +
     row("🎮", "Ігор", games) +
     row("🧮", "Відповідей", total) +
     row("✅", "Правильних", correct, "#7be07b") +
@@ -9713,9 +9779,9 @@ function sumDayField(f) { return Object.values(loadDays()).reduce((s,d)=>s+(d[f]
 // «Знаю»; розійтись може лише на осиротілі ключі (перейменоване слово) — прийнятно, пороги грубі.
 function countKnownWords() { return Object.values(loadMastery()).filter(v=>mStreak(v)>=3).length; }
 function countLearnedSongs() { return Object.values(loadSongStatus()).filter(s=>s==="learned").length; }
-function activeDaysCount() { return Object.values(loadDays()).filter(d=>(d.games||0)>0).length; }
-function bestStreakLength() { const s = computeStreaks(loadDays()); return s.length ? s[0].length : 0; }
-function currentStreakLength() { const s = computeStreaks(loadDays()); const c = s.find(x => x.ongoing); return c ? c.length : 0; }
+function activeDaysCount() { return Object.keys(activityDays()).length; }   // сесія 61: будь-яка активність
+function bestStreakLength() { const s = computeStreaks(activityDays()); return s.length ? s[0].length : 0; }
+function currentStreakLength() { const s = computeStreaks(activityDays()); const c = s.find(x => x.ongoing); return c ? c.length : 0; }
 // Найкращий місяць за весь час — сума СИРИХ пунктів термометра по кожному місяцю, максимум.
 function bestMonthPoints() {
   const days=loadDays(),duo=loadDuoSessions(),lh=loadLhDone(),songSess=loadSongSessions(),gpt=loadGptRequests();
