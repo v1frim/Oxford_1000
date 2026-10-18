@@ -8946,12 +8946,24 @@ function positionTodayStrip() {
   const el = document.getElementById("lb-today-strip");
   if (!el || el.classList.contains("hidden")) return;
   el.style.top = "";
+  if (leaderboardEl.classList.contains("hidden")) return;
   const btn = document.getElementById("lb-records-btn");
-  if (!btn || !btn.offsetParent || leaderboardEl.classList.contains("hidden")) return;
-  const b = btn.getBoundingClientRect(), lb = leaderboardEl.getBoundingClientRect();
-  const top = b.top + b.height / 2 - lb.top - el.offsetHeight / 2;
+  const lb = leaderboardEl.getBoundingClientRect();
+  // Центр смужки по вертикалі: кнопка «Рекорди», коли її видно (меню). На екрані
+  // результатів правої панелі немає — тоді та сама висота, що в меню: остання відома
+  // позиція кнопки, а без неї — низ вікна з тим самим відступом (сесія 61, за запитом).
+  let cy;
+  if (btn && btn.offsetParent) {
+    const b = btn.getBoundingClientRect();
+    cy = b.top + b.height / 2;
+    _todayStripBottomGap = window.innerHeight - cy;
+  } else {
+    cy = window.innerHeight - (_todayStripBottomGap || 47);
+  }
+  const top = cy - lb.top - el.offsetHeight / 2;
   if (top >= lb.height + 6) el.style.top = Math.round(top) + "px";
 }
+let _todayStripBottomGap = null;   // відстань від центру кнопки «Рекорди» до низу вікна
 function hideLeaderboard() { leaderboardEl.classList.add("hidden"); updateLayoutAlign(); }
 // Зсув групи праворуч лише коли видно картку + leaderboard без панелі прогресу,
 // щоб центральна картка не з'їжджала вліво від центру екрана.
