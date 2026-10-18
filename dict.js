@@ -9494,7 +9494,7 @@ const WORDS = [
   {en:"net profit",ua:"чистий прибуток"},
   {en:"profit margin",ua:"маржа прибутку",uaAlt:["рентабельність продажів"]},
   {en:"gross margin",ua:"валова маржа",uaAlt:["валова рентабельність","маржа до витрат"]},
-  {en:"markup",ua:"націнка",enAlt:["mark-up"]},
+  {en:"markup",ua:"націнка",enAlt:["mark-up"],uaAlt:["розмітка","торгова націнка"]},
   {en:"cost price",ua:"собівартість",uaAlt:["закупівельна ціна"]},
   {en:"COGS",ua:"собівартість реалізованих товарів",enAlt:["cost of goods sold"]},
   {en:"operating expense",ua:"операційна витрата",uaAlt:["операційні витрати","поточні витрати"]},
@@ -27248,6 +27248,7 @@ const HINTS = {
   "wavy": "хвилями, плавно — слабше за curly",
   "curly": "кільцями, кучерями — сильніше за wavy",
   "training": "процес підготовки, тренінг; одне заняття в залі — workout",
+  "markup": "у торгівлі; в IT — розмітка тексту, HTML — HyperText Markup Language",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
