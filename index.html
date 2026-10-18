@@ -8763,6 +8763,26 @@ function renderTabPeriod() {
   lbListEl.innerHTML = html;
 }
 
+// Іконки інших занять дня (сесія 61, за запитом) — для 📅 і смужки «сьогодні»: 🦉3 📚2 🤖2…
+// Порядок і значки — як у «Прогресі по днях». Ігри (🎮) не дублюємо: вони вже є «· N ігор».
+function dayActsHtml(d) {
+  const duo = loadDuoSessions()[d] || 0;
+  const lh = Object.values(loadLhDone()).filter(v => v === d).length;
+  const gpt = loadGptRequests()[d] || 0;
+  const mv = loadMovieSessions()[d] || 0;
+  const ex = ((loadExprXpLog() || {})[d] || {}).r || 0;
+  const ss = loadSongSessions()[d] || 0;
+  const sg = Object.values(loadSongsXpAwarded()).filter(v => v === d).length;
+  const parts = [];
+  if (duo) parts.push("🦉" + duo);
+  if (lh) parts.push("📚" + lh);
+  if (gpt) parts.push("🤖" + gpt);
+  if (mv) parts.push("🎬" + mv);
+  if (ex) parts.push("💬" + ex);
+  if (ss) parts.push("🎧" + ss);
+  if (sg) parts.push("🎵" + sg);
+  return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
+}
 function renderTabDays() {
   setLbTitle("Найкращі ігрові дні");
   const days = loadDays();
@@ -8786,7 +8806,7 @@ function renderTabDays() {
     return '<li class="' + cls + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед усіх ' + Object.keys(days).length + ' днів"' : '') + '>' +
       '<span class="lb-score">' + e.correct + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (e.wrong + e.skipped) + '</span>/<span class="lb-total">' + (e.correct + e.wrong + e.skipped) + '</span>)</span>' +
-      gamesStr +
+      gamesStr + dayActsHtml(e.key) +
       '<span class="lb-mode">' + fmtDayKey(e.key) + '</span>' +
     '</li>';
   };
@@ -8950,6 +8970,7 @@ function renderTodayStrip() {
     '<span class="lb-score">' + t.correct + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + (t.wrong + t.skipped) + '</span>/<span class="lb-total">' + (t.correct + t.wrong + t.skipped) + '</span>)</span>' +
     (games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "") +
+    dayActsHtml(today) +
     '<span class="lb-mode">' + fmtDayKey(today) + '</span></li>';
   el.classList.remove("hidden");
   requestAnimationFrame(positionTodayStrip);
