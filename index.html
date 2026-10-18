@@ -3065,6 +3065,15 @@ function nextWord() {
     }
     currentWordIndex = shuffledIndices[shufflePos++];
     if (selectedMode === "mix") mode = Math.random() < 0.5 ? "en-ua" : "ua-en";
+    else if (selectedMode === "en-ua" || selectedMode === "ua-en") {
+      // ⚠️ ДВОБІЧНЕ ЗНАННЯ (сесія 61, за запитом «знаю footpath → пішохідна доріжка, але
+      // навпаки не скажу»): слово з двома правильними ПОСПІЛЬ лише в ОДНОМУ напрямку
+      // третій (вирішальний для «Знаю») показ отримує в ІНШОМУ. Решта слів — напрямок гри.
+      mode = selectedMode;
+      const rec = loadMastery()[wordKey(WORDS[currentWordIndex])];
+      const sch = mSched(rec), bit = DIR_BIT[selectedMode];
+      if (mStreak(rec) === 2 && sch.b === bit) mode = selectedMode === "en-ua" ? "ua-en" : "en-ua";
+    }
   }
   rememberShown(currentWordIndex);
   currentWord = WORDS[currentWordIndex];
@@ -6563,10 +6572,13 @@ const SCHED_QUOTA_SPAN = 5;
 let schedThisGame = false;        // чи поточна гра йде планувальником (opts.sched)
 function loadSeen() { const v = parseInt(localStorage.getItem(SEEN_KEY), 10); return isNaN(v) ? 0 : v; }
 function bumpSeen() { const v = loadSeen() + 1; localStorage.setItem(SEEN_KEY, String(v)); return v; }
+// b — бітова маска напрямків правильних відповідей ПОТОЧНОЇ серії (1 = US→UA, 2 = UA→US;
+// сесія 61). Помилка обнуляє. Для старих записів без b — 0 (напрямок невідомий, не чіпаємо).
+const DIR_BIT = { "en-ua": 1, "ua-en": 2 };
 function mSched(v) {
   return (v !== null && typeof v === "object")
-    ? { n: (typeof v.n === "number" ? v.n : null), d: v.d || null, r: v.r || 0 }
-    : { n: null, d: null, r: 0 };
+    ? { n: (typeof v.n === "number" ? v.n : null), d: v.d || null, r: v.r || 0, b: v.b || 0 }
+    : { n: null, d: null, r: 0, b: 0 };
 }
 function dayDiff(a, b) {   // a − b у днях, обидва YYYY-MM-DD (локальні дати з todayKey)
   const u = k => Date.UTC(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10));
@@ -6581,6 +6593,7 @@ function schedTouch(idx) {
   if (rec === undefined) return;
   const sch = mSched(rec), t = mTally(rec);
   m[key] = { s: mStreak(rec), c: t.c, w: t.w, n: sch.n, d: todayKey(), r: sch.r };
+  if (sch.b) m[key].b = sch.b;   // маску напрямків не губимо
   saveMastery(m);
 }
 // Черга гри за планом. Порядок: (1) прострочені (n ≤ seen), найзатриманіші першими,
@@ -7167,7 +7180,8 @@ function updateMastery(wordIndex, correct) {
   // Сесія 60: разом зі streak пишемо план наступного показу (n), день показу (d) і
   // лічильник ревізій (r). Інтервал — від ЦЬОГО показу, попередній не накопичується.
   const sch = mSched(rec), seen = loadSeen(), today = todayKey();
-  const setStreak = (s, iv, r) => { m[key] = { s: s, c: tally.c, w: tally.w, n: seen + schedRand(iv), d: today, r: r }; };
+  const dirB = correct ? (sch.b | (DIR_BIT[mode] || 0)) : 0;   // напрямки правильних відповідей серії
+  const setStreak = (s, iv, r) => { m[key] = { s: s, c: tally.c, w: tally.w, n: seen + schedRand(iv), d: today, r: r }; if (dirB) m[key].b = dirB; };
   if (correct) {
     const next = Math.min((prev !== undefined ? prev : 0) + 1, 3);
     if (prev >= 3) {

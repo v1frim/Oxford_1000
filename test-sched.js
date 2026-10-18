@@ -264,6 +264,26 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("живий прогін 21 слова без помилок; черга = 40 + 3 квотові", live.ok && live.len === 43, JSON.stringify(live));
 
+  // ── ДВОБІЧНЕ ЗНАННЯ (сесія 61): 2 правильні в ОДНОМУ напрямку → 3-й показ у ІНШОМУ ──
+  const dir = await p.evaluate(() => {
+    localStorage.removeItem("oxford_word_mastery_v1");
+    const i = WORDS.findIndex(w => getEn(w)[0] === "footpath"), j = WORDS.findIndex(w => getEn(w)[0] === "team");
+    setMode("en-ua"); updateMastery(i, true); updateMastery(i, true);
+    const mask = loadMastery().footpath.b;
+    startGame([i], { timed: true }); nextWord(); const flipEnUa = mode; endGame(true);
+    setMode("en-ua"); updateMastery(j, true); setMode("ua-en"); updateMastery(j, true);
+    setMode("en-ua"); startGame([j], { timed: true }); nextWord(); const mixed = mode; endGame(true);
+    setMode("en-ua"); updateMastery(i, false); const afterWrong = loadMastery().footpath.b;
+    setMode("ua-en"); updateMastery(i, true); updateMastery(i, true);
+    startGame([i], { timed: true }); nextWord(); const flipUaEn = mode; endGame(true);
+    return { mask, flipEnUa, mixed, afterWrong, flipUaEn };
+  });
+  t("маска напрямків: 2× US→UA → b=1", dir.mask === 1, JSON.stringify(dir));
+  t("гра US→UA: 3-й показ такого слова — UA→US", dir.flipEnUa === "ua-en", JSON.stringify(dir));
+  t("обидва напрямки вже були → без перемикання", dir.mixed === "en-ua", JSON.stringify(dir));
+  t("помилка скидає маску", dir.afterWrong === undefined, JSON.stringify(dir));
+  t("гра UA→US: 3-й показ — US→UA", dir.flipUaEn === "en-ua", JSON.stringify(dir));
+
   await b.close();
   console.log(`\n✅ ${ok.length} ok, ❌ ${bad.length} bad, console errors: ${errs.length}`);
   bad.forEach(x => console.log("  ❌ " + x));
