@@ -231,8 +231,12 @@ const DAY = 86400000;
   t("на сусідній вкладці tooltip знято", back.days.tip === "", back.days.tip);
 
   // вкладка є в Tab-циклі і в розмітці
-  const tabsOk = await page.evaluate(() => !!document.querySelector('.lb-tab[data-tab="cefr"]'));
-  t("кнопка вкладки 🎓 є в розмітці", tabsOk);
+  // сесія 61: окрема вкладка 🎓 стала чипсом «Рівні CEFR» у 🕒 «Рекорди за період»
+  const tabsOk = await page.evaluate(() => { lbActiveTab = "period"; lbPeriod = "cefr"; renderLeaderboard();
+    return !document.querySelector('.lb-tab[data-tab="cefr"]') &&
+      (document.querySelector('#lb-period-chips .lb-chip.active') || {}).textContent === "Рівні CEFR" &&
+      /рівнями CEFR/.test(document.getElementById("lb-title").textContent); });
+  t("CEFR — чипс у 🕒, окремої вкладки немає", tabsOk);
 
   // порожній стан
   await page.evaluate(() => {

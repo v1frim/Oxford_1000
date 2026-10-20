@@ -1824,7 +1824,6 @@
   <div class="lb-header">
     <div class="lb-tabs">
       <button class="lb-tab active" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
-      <button class="lb-tab" data-tab="cefr" title="Рекорди за рівнями CEFR">🎓</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -6301,7 +6300,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "cefr", "days", "xpdays", "streaks", "gaps", "ach"];
+    const tabs = ["period", "days", "xpdays", "streaks", "gaps", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -8695,6 +8694,9 @@ const LB_PERIODS = [
   // при 422 зіграних нічого не відсікало, тобто чип уже показував «за весь час», лише
   // під назвою, що обіцяла обмеження. `oxford_games_log_v1` тримає останні 5000 ігор.
   { id: "all",   label: "За весь час", sub: "усі ігри журналу",  kind: "all" },
+  // Сесія 61, за запитом: «Рекорди за рівнями CEFR» переїхали з окремої вкладки 🎓 сюди,
+  // чипсом після «За весь час». Рендер — той самий renderTabCefr.
+  { id: "cefr",  label: "Рівні CEFR",  sub: "рекорд кожного набору рівнів", kind: "cefr" },
 ];
 let lbPeriod = (() => {
   const saved = localStorage.getItem(LB_PERIOD_KEY);
@@ -8730,6 +8732,17 @@ function lbPeriodGames(periodId) {
 }
 
 function renderTabPeriod() {
+  const chipsHtml = () => LB_PERIODS.map(p =>
+    '<button class="lb-chip' + (p.id === lbPeriod ? " active" : "") + '" data-per="' + p.id + '">' +
+    p.label + "</button>").join("");
+  if (lbPeriod === "cefr") {
+    lbListEl.classList.add("lb-cefr");
+    renderTabCefr();
+    const ce = document.getElementById("lb-period-chips");
+    ce.innerHTML = chipsHtml(); ce.classList.remove("hidden");
+    return;
+  }
+  lbListEl.classList.remove("lb-cefr");
   const { per, games } = lbPeriodGames(lbPeriod);
   setLbTitle('Рекорди за період<span class="lb-title-sub">· ' + per.sub + '</span>',
     "Найкращі ігри за обраний період — з журналу всіх ігор. Сюди входять і ігри за " +
@@ -8748,9 +8761,7 @@ function renderTabPeriod() {
       (sum / total).toFixed(1).replace(".", ",") + " · точність " +
       (answered ? pct(sum / answered * 100) : "—") + "</div>"
     : "";
-  chipsEl.innerHTML = LB_PERIODS.map(p =>
-    '<button class="lb-chip' + (p.id === lbPeriod ? " active" : "") + '" data-per="' + p.id + '">' +
-    p.label + "</button>").join("") + summary;
+  chipsEl.innerHTML = chipsHtml() + summary;
   chipsEl.classList.remove("hidden");
 
   if (!total) {

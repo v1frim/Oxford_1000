@@ -93,7 +93,7 @@ function chromePath() {
   t("вкладка 🕒 існує", (await page.$('.lb-tab[data-tab="period"]')) !== null);
   t("заголовок про період", /Рекорди за період/.test(v.title), v.title);
   t("дефолтний період — Місяць (30 днів)", v.active === "Місяць", String(v.active));
-  t("чотири варіанти періоду («Цей місяць» прибрано, сесія 61)", v.chips.length === 4, v.chips.join("|"));
+  t("п'ять чипсів періоду («Цей місяць» прибрано, «Рівні CEFR» додано — сесія 61)", v.chips.length === 5, v.chips.join("|"));
   t("кошик-reset схований", v.resetHidden);
 
   // 2. вікно «30 днів»: без давніх ігор (400 і 45 днів тому)
@@ -155,14 +155,14 @@ function chromePath() {
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
   // сесія 61: 🏆 прибрано; анти-топ ⏸️ — після 🔥 серій (за запитом)
-  t("порядок вкладок: 🕒 · 🎓 · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️",
-    order.join(",") === "period,cefr,days,xpdays,streaks,gaps,ach", order.join(","));
+  t("порядок вкладок: 🕒 · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️ (🎓 став чипсом у 🕒)",
+    order.join(",") === "period,days,xpdays,streaks,gaps,ach", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
     return lbActiveTab;
   });
-  t("Tab із 🕒 веде на 🎓", cycle === "cefr", cycle);
+  t("Tab із 🕒 веде на 📅", cycle === "days", cycle);
 
   // 10. кап топ-10 і порожній період
   await page.evaluate(() => {
@@ -290,7 +290,7 @@ function chromePath() {
     await page.keyboard.press("Shift"); await page.waitForTimeout(120);
     seq.push(await page.evaluate(() => lbPeriod));
   }
-  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "g300,all,d7,d30", seq.join(","));
+  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "g300,all,cefr,d7", seq.join(","));
 
   // ⚠️ ПРАВИЙ Shift — назад (сесія 51, прямий вибір користувача). Playwright'ів
   // `press("Shift")` шле саме ShiftLeft, тож правий тиснемо явно через down/up.
@@ -300,7 +300,7 @@ function chromePath() {
     await page.waitForTimeout(120);
     back.push(await page.evaluate(() => lbPeriod));
   }
-  t("правий Shift гортає назад", back.join(",") === "d7,all", back.join(","));
+  t("правий Shift гортає назад", back.join(",") === "cefr,all", back.join(","));
 
   // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
   const perBeforeModal = await page.evaluate(() => lbPeriod);
