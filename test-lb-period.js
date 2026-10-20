@@ -92,8 +92,8 @@ function chromePath() {
   let v = await read();
   t("вкладка 🕒 існує", (await page.$('.lb-tab[data-tab="period"]')) !== null);
   t("заголовок про період", /Рекорди за період/.test(v.title), v.title);
-  t("дефолтний період — 30 днів", v.active === "30 днів", String(v.active));
-  t("п'ять варіантів періоду", v.chips.length === 5, v.chips.join("|"));
+  t("дефолтний період — Місяць (30 днів)", v.active === "Місяць", String(v.active));
+  t("чотири варіанти періоду («Цей місяць» прибрано, сесія 61)", v.chips.length === 4, v.chips.join("|"));
   t("кошик-reset схований", v.resetHidden);
 
   // 2. вікно «30 днів»: без давніх ігор (400 і 45 днів тому)
@@ -278,19 +278,19 @@ function chromePath() {
 
   await page.keyboard.press("Shift"); await page.waitForTimeout(150);
   st = await page.evaluate(() => ({ per: lbPeriod, active: document.querySelector("#lb-period-chips .lb-chip.active").textContent }));
-  t("другий Shift гортає період уперед", st.per === "month", JSON.stringify(st));
-  t("активний чипс перемалювався", st.active === "Цей місяць", st.active);
+  t("другий Shift гортає період уперед", st.per === "d30", JSON.stringify(st));
+  t("активний чипс перемалювався", st.active === "Місяць", st.active);
 
   const stored = await page.evaluate(() => localStorage.getItem("oxford_lb_period_v1"));
-  t("гортання зберігається у localStorage", stored === "month", String(stored));
+  t("гортання зберігається у localStorage", stored === "d30", String(stored));
 
-  // коло замикається (порядок сесії 58): month → d30 → g300 → all → d7
+  // коло замикається (сесія 61): d30 → g300 → all → d7 → d30
   const seq = [];
   for (let i = 0; i < 4; i++) {
     await page.keyboard.press("Shift"); await page.waitForTimeout(120);
     seq.push(await page.evaluate(() => lbPeriod));
   }
-  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "d30,g300,all,d7", seq.join(","));
+  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "g300,all,d7,d30", seq.join(","));
 
   // ⚠️ ПРАВИЙ Shift — назад (сесія 51, прямий вибір користувача). Playwright'ів
   // `press("Shift")` шле саме ShiftLeft, тож правий тиснемо явно через down/up.
@@ -300,7 +300,7 @@ function chromePath() {
     await page.waitForTimeout(120);
     back.push(await page.evaluate(() => lbPeriod));
   }
-  t("правий Shift гортає назад", back.join(",") === "all,g300", back.join(","));
+  t("правий Shift гортає назад", back.join(",") === "d7,all", back.join(","));
 
   // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
   const perBeforeModal = await page.evaluate(() => lbPeriod);
@@ -342,13 +342,13 @@ function chromePath() {
   });
   await page.keyboard.press("Shift"); await page.waitForTimeout(150);
   t("на екрані результатів Shift гортає вперед",
-    await page.evaluate(() => lbPeriod) === "month", await page.evaluate(() => lbPeriod));
+    await page.evaluate(() => lbPeriod) === "d30", await page.evaluate(() => lbPeriod));
   await page.keyboard.down("ShiftRight"); await page.keyboard.up("ShiftRight");
   await page.waitForTimeout(150);
   t("на екрані результатів правий Shift гортає назад",
     await page.evaluate(() => lbPeriod) === "d7", await page.evaluate(() => lbPeriod));
   t("чипси на фіналі перемальовані",
-    await page.evaluate(() => (document.querySelector("#lb-period-chips .lb-chip.active") || {}).textContent) === "7 днів");
+    await page.evaluate(() => (document.querySelector("#lb-period-chips .lb-chip.active") || {}).textContent) === "Тиждень");
 
   // 14. ПІДПИСИ ПУЛІВ (сесія 51, баг знайшов користувач: «🎓 цей значок означає, так
   // розумію, що це були повторення»). Тег `wrong` («не дались») до фіксу йшов тією ж
