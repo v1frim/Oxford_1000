@@ -3250,7 +3250,13 @@ function isCorrect(input) {
     if ((currentWord.enAlt || []).some(e => normEn(e) === inpNorm)) return true;
     // Через індекс: кандидатів беремо за введеним англійським словом (їх одиниці),
     // а не перебираємо весь словник. Логіка збігу — та сама, що була.
-    return wordsByEnNorm(inpNorm).some(w => getUa(w).some(u => shownUa.includes(uaBare(u))));
+    // ⚠️ РІЗНІ ДУЖКИ = РІЗНІ СЕНСИ (сесія 61, привід «гвоздика (пряність)» / «гвоздика (квітка)»):
+    // голий глос однаковий, але уточнення в дужках розводить картки — clove на «гвоздика (квітка)»
+    // НЕ приймається. Дужка лише з одного боку (або однакова) — збіг як і раніше.
+    const shownFull = getUa(currentWord);
+    const paren = u => { const m = String(u).match(/\(([^)]*)\)\s*$/); return m ? m[1].trim().toLowerCase() : ""; };
+    return wordsByEnNorm(inpNorm).some(w => getUa(w).some(u => shownFull.some(su =>
+      uaBare(su) === uaBare(u) && (!paren(su) || !paren(u) || paren(su) === paren(u)))));
   } else if (mode === "en-def" || mode === "en-cloze") {
     // Answer is the English word itself
     return getEn(currentWord).some(e => normEn(e) === inpNorm);
@@ -3517,8 +3523,14 @@ function getCorrectAnswer() {
     // виділення: жирне+підкреслене сприймалось як баг — користувач хоче лише порядок.
     const seenW = new Set([currentWord]);
     getEn(currentWord).forEach(e => ans.add(withHint(e, getUa(currentWord)[0], spellingRegion(e))));
+    const _par = u => { const m = String(u).match(/\(([^)]*)\)\s*$/); return m ? m[1].trim().toLowerCase() : ""; };
+    const _shownFull = getUa(currentWord);
     shownUa.forEach(k => wordsByUaBare(k).forEach(w => {
-      if (seenW.has(w)) return; seenW.add(w);
+      if (seenW.has(w)) return;
+      // різні дужки = різні сенси (сесія 61) — те саме правило, що в isCorrect
+      if (!getUa(w).some(u => _shownFull.some(su => uaBare(su) === uaBare(u) &&
+          (!_par(su) || !_par(u) || _par(su) === _par(u))))) return;
+      seenW.add(w);
       getEn(w).forEach(e => ans.add(withHint(e, getUa(w)[0], w === currentWord ? spellingRegion(e) : "")));
     }));
     // ⚠️ ГОЛИЙ КЛЮЧ HINTS БЕРЕМО ЛИШЕ ЯКЩО enAlt НЕ Є ВЛАСНОЮ КАРТКОЮ. Інакше на варіант
