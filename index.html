@@ -1630,6 +1630,153 @@
   .rec-label { font-size: 14px; font-weight: 700; }
   .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
+  /* — 🎮 Світ слів: три прототипи (🌱 сад / 🧙 герой / 🏙️ місто), сесія 61 — */
+  /* z-index 210 — ВИЩЕ за «Загальну статистику» й ліві кнопки (200): на 1366px вони наїжджали на панель */
+  #world-overlay {
+    position: fixed; inset: 0; z-index: 210;
+    background: rgba(4,6,14,0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  #world-overlay.hidden { display: none; }
+  .world-panel { width: 960px; }
+  .w-tabs { display: flex; gap: 6px; margin-left: 10px; }
+  .w-tab {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: rgba(255,255,255,0.75);
+    border-radius: 10px; padding: 6px 14px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;
+  }
+  .w-tab:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .w-tab.active { background: linear-gradient(180deg, rgba(255,209,102,0.30), rgba(255,209,102,0.14)); border-color: rgba(255,209,102,0.6); color: #ffd166; }
+  .w-keys { font-size: 11px; opacity: 0.45; margin-left: auto; white-space: nowrap; }
+  .w-keys + .songs-close { margin-left: 6px; }
+  .w-sec { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .55; margin: 16px 0 8px; font-weight: 700; }
+  .w-banner {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); font-size: 14px;
+  }
+  .w-banner .w-big { font-size: 18px; font-weight: 800; }
+  .w-banner.good { border-color: rgba(123,224,123,0.45); background: rgba(123,224,123,0.08); }
+  .w-banner.warn { border-color: rgba(255,169,77,0.45); background: rgba(255,169,77,0.08); }
+  .w-banner.bad  { border-color: rgba(255,107,107,0.45); background: rgba(255,107,107,0.08); }
+  .w-totals { display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,0.75); margin: 10px 2px 0; }
+  .w-totals b { color: #fff; }
+  .w-new { color: #ffd166; font-weight: 700; font-size: 12px; }
+  .w-chip {
+    display: inline-block; padding: 1px 8px; margin: 0 4px 3px 0; border-radius: 10px; font-size: 12px;
+    background: rgba(123,224,123,.14); border: 1px solid rgba(123,224,123,.4); color: #b8f5b8;
+  }
+  .w-harvest { margin-top: 10px; font-size: 13px; line-height: 1.9; }
+  .w-help { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .w-help > div { padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); font-size: 12px; }
+  .w-help .h-ic { font-size: 18px; letter-spacing: 1px; min-height: 24px; white-space: nowrap; overflow: hidden; }
+  .w-help .h-off { filter: grayscale(1); opacity: .35; }
+  .w-help b { display: block; font-size: 13px; margin-top: 2px; }
+  .w-help span { opacity: .6; }
+  /* 🌱 Сад: 1 рослина = 20 слів рівня в «Знаю»; --dry (0-4) в'ялить рослини після пропусків */
+  .garden { --dry: 0; }
+  .g-sky {
+    position: relative; height: 58px; border-radius: 12px; overflow: hidden; margin: 12px 0 10px;
+    background: linear-gradient(180deg, #3f86d1, #a6d3f5 85%, #6fae4f 85%);
+  }
+  .garden.dry .g-sky { background: linear-gradient(180deg, #8c7f66, #cdbf98 85%, #a08a55 85%); }
+  .g-sun { position: absolute; right: 18px; top: 4px; font-size: 30px; }
+  .g-farmer { position: absolute; left: 14px; bottom: 2px; font-size: 28px; }
+  .g-fly { position: absolute; font-size: 17px; animation: gFly 5s ease-in-out infinite alternate; }
+  @keyframes gFly { from { transform: translate(0, 0) rotate(-8deg); } to { transform: translate(30px, -8px) rotate(8deg); } }
+  .g-bed { margin-bottom: 9px; }
+  .g-head { display: flex; align-items: baseline; gap: 8px; font-size: 13px; margin-bottom: 4px; }
+  .g-head > b { color: #ffd166; min-width: 22px; }
+  .g-head .g-n { margin-left: auto; font-size: 12px; opacity: .7; }
+  .g-cells {
+    display: flex; flex-wrap: wrap; gap: 1px 2px; padding: 5px 8px; border-radius: 10px;
+    background: linear-gradient(180deg, #5d3f25, #3f2a18); box-shadow: inset 0 2px 6px rgba(0,0,0,.45);
+  }
+  .garden.dry .g-cells { background: linear-gradient(180deg, #7c6449, #5b4834); }
+  .g-cells i {
+    font-style: normal; width: 17px; height: 20px; display: inline-flex; align-items: flex-end; justify-content: center;
+    font-size: 15px; line-height: 1;
+  }
+  .g-cells .g-p, .g-cells .g-s {
+    filter: saturate(calc(1 - var(--dry) * 0.2)) sepia(calc(var(--dry) * 0.18));
+    transform: rotate(calc(var(--dry) * 5deg)); transform-origin: 50% 100%;
+  }
+  .g-cells .g-s { font-size: 11px; opacity: .85; }
+  .g-cells .g-e::before { content: ""; width: 7px; height: 4px; border-radius: 50%; background: rgba(0,0,0,.35); margin-bottom: 3px; }
+  .g-cells i.g-new { filter: drop-shadow(0 0 4px #ffd166) drop-shadow(0 0 2px #fff); animation: gPop .9s ease-out; }
+  @keyframes gPop { from { transform: scale(.2); } 70% { transform: scale(1.3); } to { transform: scale(1); } }
+  /* 🧙 Герой: клас = ліга рівня XP, спорядження = ліги ачівок, характеристики = віхи */
+  .hero { display: grid; grid-template-columns: 330px 1fr; gap: 18px; margin-top: 12px; }
+  .h-card {
+    padding: 16px; border-radius: 16px; text-align: center;
+    background: radial-gradient(circle at 50% 28%, color-mix(in srgb, var(--hc) 30%, transparent), rgba(255,255,255,.03) 70%);
+    border: 1px solid color-mix(in srgb, var(--hc) 55%, transparent);
+  }
+  .h-ava { font-size: 84px; line-height: 1.15; filter: drop-shadow(0 0 18px color-mix(in srgb, var(--hc) 70%, transparent)); }
+  .h-cls { font-size: 19px; font-weight: 800; color: var(--hc2); }
+  .h-lvl { font-size: 13px; opacity: .8; margin-top: 2px; }
+  .h-xp { height: 8px; border-radius: 6px; background: rgba(255,255,255,.1); overflow: hidden; margin: 9px 0 3px; }
+  .h-xp i { display: block; height: 100%; background: linear-gradient(90deg, var(--hc), var(--hc2)); }
+  .h-xpn { font-size: 11px; opacity: .6; }
+  .h-gear { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 12px; }
+  .h-item {
+    --ic: #4a5570; --ic2: #8090aa;
+    border-radius: 12px; padding: 7px 2px 6px; text-align: center; font-size: 11px; cursor: help;
+    border: 1px solid color-mix(in srgb, var(--ic) 60%, transparent);
+    background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--ic) 28%, transparent), rgba(0,0,0,.2));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--ic) 30%, transparent);
+  }
+  .h-item .i-ic { font-size: 24px; display: block; line-height: 1.25; }
+  .h-item .i-lg { color: var(--ic2); font-weight: 700; }
+  .h-item.locked { box-shadow: none; }
+  .h-item.locked .i-ic { filter: grayscale(1); opacity: .35; }
+  .h-stats { display: flex; flex-direction: column; gap: 9px; }
+  .h-stat { display: grid; grid-template-columns: 26px 200px 1fr 76px; align-items: center; gap: 8px; font-size: 13px; }
+  .h-stat .s-ic { font-size: 19px; text-align: center; }
+  .h-stat .s-name b { display: block; font-size: 14px; }
+  .h-stat .s-name small { opacity: .55; font-size: 11px; }
+  .h-bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .h-bar i { display: block; height: 100%; background: linear-gradient(90deg, #87b4ff, #c4b5fd); }
+  .h-stat .s-v { text-align: right; font-weight: 800; font-size: 15px; }
+  .h-stat .s-v small { display: block; font-weight: 500; opacity: .55; font-size: 10px; }
+  .h-buffs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .h-buff { padding: 4px 10px; border-radius: 10px; font-size: 12px; background: rgba(123,224,123,.12); border: 1px solid rgba(123,224,123,.4); }
+  .h-buff.neg { background: rgba(255,169,77,.12); border-color: rgba(255,169,77,.45); }
+  /* 🏙️ Місто: квартал на рівень, будинок = 1/24 слів рівня; вогні — від сьогоднішніх занять */
+  .city { --win: #ffd76a; --sky1: #0b1430; --sky2: #2a2f60; }
+  .city.dusk { --win: rgba(255,215,106,.5); --sky1: #2c2f5c; --sky2: #c27858; }
+  .city.dark { --win: rgba(150,170,210,.14); --sky1: #04060d; --sky2: #10152a; }
+  .c-row { margin-top: 10px; }
+  .c-head { display: flex; align-items: baseline; gap: 8px; font-size: 13px; margin-bottom: 3px; }
+  .c-head > b { color: #ffd166; min-width: 22px; }
+  .c-head .c-n { margin-left: auto; font-size: 12px; opacity: .7; }
+  .c-strip {
+    display: flex; align-items: flex-end; gap: 4px; padding: 0 10px; border-radius: 10px 10px 3px 3px;
+    background: linear-gradient(180deg, var(--sky1), var(--sky2)); border-bottom: 4px solid #3a4258;
+  }
+  .c-b { flex: 1 1 0; max-width: 34px; position: relative; font-style: normal; border-radius: 2px 2px 0 0; }
+  .c-b.built { background: radial-gradient(circle, var(--win) 0.9px, transparent 1.4px) 1px 4px / 5px 7px, linear-gradient(180deg, var(--bc1), var(--bc2)); }
+  .city.dark .c-b.built { filter: saturate(.45) brightness(.75); }
+  .c-b.build { background: repeating-linear-gradient(45deg, rgba(255,209,102,.6) 0 3px, rgba(60,50,30,.75) 3px 6px); }
+  .c-b.found { border: 1px dashed rgba(255,255,255,.3); border-bottom: none; background: rgba(255,255,255,.03); }
+  .c-b.lot { height: 3px; background: rgba(255,255,255,.08); }
+  .c-house.built::before { content: ""; position: absolute; left: -2px; right: -2px; top: -8px; height: 9px; background: var(--roof); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .c-flat.built::before { content: ""; position: absolute; left: 22%; right: 22%; top: -4px; height: 4px; background: var(--bc1); }
+  .c-spire.built::before { content: ""; position: absolute; left: 50%; top: -12px; width: 2px; height: 12px; background: #b9c6e4; transform: translateX(-50%); }
+  .c-crane { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); font-size: 16px; line-height: 1; }
+  .c-b.fresh { box-shadow: 0 0 10px 1px rgba(255,209,102,.85); }
+  .c-infra { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .c-inf {
+    --ic: #4a5570; --ic2: #8090aa;
+    display: grid; grid-template-columns: 34px 1fr; align-items: center; column-gap: 8px; padding: 7px 10px; border-radius: 12px; cursor: help;
+    border: 1px solid color-mix(in srgb, var(--ic) 55%, transparent);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--ic) 16%, transparent), rgba(255,255,255,.02));
+  }
+  .c-inf .i-ic { grid-row: span 2; font-size: 24px; text-align: center; }
+  .c-inf b { font-size: 13px; }
+  .c-stars { font-size: 12px; color: var(--ic2); letter-spacing: 1px; }
+  .c-stars .dim { color: rgba(255,255,255,.18); }
+  .c-inf.off .i-ic { filter: grayscale(1); opacity: .5; }
+  #world-btn { background: linear-gradient(0deg, rgba(123,224,123,0.16), rgba(123,224,123,0.16)), rgba(10,14,30,0.92) !important; color: #c8f7c8 !important; }
+  #world-btn:hover { background: linear-gradient(0deg, rgba(123,224,123,0.28), rgba(123,224,123,0.28)), rgba(10,14,30,0.95) !important; }
   /* — Прогрес по днях: комірки «значок зверху / число знизу», розділені напівпрозорими рисками — */
   /* ⚠️ ШИРИНА 500px (сесія 50, за запитом «місячним рядкам ледь місця вистачає»).
      Було 440 (сесія 32), до того 420. Правило «прогрес і лідерборд однакової ширини»
@@ -1862,6 +2009,7 @@
   <div class="th-plans" id="thermo-plans">—</div>
 </div>
 <div id="bottom-left-btns">
+  <button id="world-btn" title="Сад, герой і місто, що ростуть разом із твоїми словами (прототипи)">🌱 Світ слів</button>
   <button id="progress-btn">📈 Прогрес по днях</button>
   <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
   <button id="import-btn">📂 Відновити</button>
@@ -1894,6 +2042,12 @@
   <div class="songs-panel records-panel">
     <div class="songs-head" id="records-head"></div>
     <div class="songs-body" id="records-body"></div>
+  </div>
+</div>
+<div id="world-overlay" class="hidden">
+  <div class="songs-panel world-panel">
+    <div class="songs-head" id="world-head"></div>
+    <div class="songs-body" id="world-body"></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -11153,6 +11307,370 @@ document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
   if (!levelsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeLevels(); }
   else if (!recordsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeRecords(); }
+}, true);
+// ── 🎮 СВІТ СЛІВ — три прототипи: 🌱 Сад · 🧙 Герой · 🏙️ Місто (сесія 61, за запитом) ──
+// Привід дослівно: «гра, яка би працювала на тому принципі, що коли я там здобуваю нові
+// слова у знаю… грядка росте… чи якийсь персонаж в ігрі щось покращується». Користувач
+// узяв варіанти 1, 2 і 4 як ПРОТОТИПИ: подивиться всі три, лишить ОДИН — його й розвиватимемо.
+// ⚠️ НОВОГО СХОВИЩА НЕМА: світ рахується в момент відкриття з наявних даних — mastery
+// (через mStreak, ті самі правила, що бейджі меню), CEFR, XP, activityDays, Duolingo, GPT,
+// пісні, кіно, LingoHut, вирази, ачівки. Тож він одразу «пам'ятає» всю історію й не може
+// розійтися з лічильниками меню. Єдиний ключ — обрана вкладка (зручність, як період 🕒).
+// ⚠️ Пропуски лише «в'ялять» світ (сад жовкне, вогні міста гаснуть, герой «втомлений») —
+// нічого не гине й не віднімається: демотивацію користувач уже називав проблемою (сесія 60).
+const WORLD_TAB_KEY = "oxford_world_tab_v1";
+const WORLD_TABS = [
+  { id: "garden", ic: "🌱", label: "Сад" },
+  { id: "hero",   ic: "🧙", label: "Герой" },
+  { id: "city",   ic: "🏙️", label: "Місто" }
+];
+let worldTab = (() => {
+  try { const t = localStorage.getItem(WORLD_TAB_KEY); if (WORLD_TABS.some(x => x.id === t)) return t; } catch (e) {}
+  return "garden";
+})();
+const worldOverlay = document.getElementById("world-overlay");
+function wAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
+function wDays(n) { return n + " " + plural(n, "день", "дні", "днів"); }
+function wWords(n) { return n + " " + plural(n, "слово", "слова", "слів"); }
+function worldSum(o) { return Object.values(o || {}).reduce((a, n) => a + (+n || 0), 0); }
+// Сума за останні 7 днів, включно з сьогоднішнім (ключі сховищ — YYYY-MM-DD)
+function worldWeek(o) {
+  const d = new Date(); d.setDate(d.getDate() - 6);
+  const from = d.toISOString().slice(0, 10);
+  return Object.entries(o || {}).reduce((a, [k, n]) => a + (k >= from ? (+n || 0) : 0), 0);
+}
+// Ліга ачівки 0-5; у «періодичних» (серія, місяць) — здобута НАЗАВЖДИ, як у вкладці 🎖️
+function worldAchLevel(id) {
+  const a = ACHIEVEMENTS.find(x => x.id === id);
+  if (!a) return 0;
+  return a.periodic ? Math.max(loadAch()[id] || 0, achLevelFor(a)) : achLevelFor(a);
+}
+function worldAchNext(id) {
+  const a = ACHIEVEMENTS.find(x => x.id === id), L = worldAchLevel(id);
+  if (!a) return "";
+  if (L >= 5) return a.name + ": найвища ліга 👑";
+  return a.name + ": " + fmtAchNum(a.value()) + " / " + fmtAchNum(a.thresholds[L]) + " до ліги «" + ACH_LEAGUES[L].name + "»";
+}
+// Рівень за віхами: скільки віх узято + відсоток шляху до наступної
+function worldTier(v, ms) {
+  let i = 0;
+  while (i < ms.length && v >= ms[i]) i++;
+  const from = i ? ms[i - 1] : 0, to = i < ms.length ? ms[i] : null;
+  return { lvl: i, to, pct: to ? Math.max(0, Math.min(100, Math.round((v - from) / (to - from) * 100))) : 100 };
+}
+function worldData() {
+  const m = loadMastery(), lv = {};
+  CEFR_LEVELS.forEach(L => (lv[L] = { total: 0, known: 0, learning: 0 }));
+  const seen = new Set();
+  for (const w of WORDS) {
+    const k = wordKey(w);
+    if (seen.has(k)) continue;                 // пари з однаковим en — одне слово (як бейджі меню)
+    seen.add(k);
+    const o = lv[cefrLevelOf(w)] || lv.none;
+    o.total++;
+    const s = mStreak(m[k]);
+    if (s >= 3) o.known++; else if (s !== undefined) o.learning++;
+  }
+  const levels = CEFR_LEVELS.filter(L => lv[L].total > 0);
+  let known = 0, learning = 0;
+  levels.forEach(L => { known += lv[L].known; learning += lv[L].learning; });
+  // Слова, що перейшли в «Знаю» за ОСТАННЮ гру — по рівнях (лише ті, що досі там)
+  const lastK = {}, lg = loadLastGameTrans();
+  ((lg && lg.k) || []).forEach(k => {
+    if (mStreak(m[k]) < 3) return;
+    const i = indexOfWordKey(k);
+    if (i < 0) return;
+    const L = cefrLevelOf(WORDS[i]);
+    lastK[L] = (lastK[L] || 0) + 1;
+  });
+  const act = activityDays(), today = todayKey();
+  const actKeys = Object.keys(act).filter(x => x <= today).sort();
+  const trans = loadMasteryTrans(), isoToday = new Date().toISOString().slice(0, 10);
+  const wk = new Date(); wk.setDate(wk.getDate() - 6);
+  const wFrom = wk.toISOString().slice(0, 10);
+  let weekK = 0;
+  Object.entries(trans).forEach(([dt, x]) => { if (dt >= wFrom) weekK += ((x && x.k) || []).length; });
+  const exprLearned = dir => Object.values(loadExprStatus(dir)).filter(s => s === "learned").length;
+  const acc = recentAccuracy(300), xp = loadXp();
+  const gpt = loadGptRequests(), songS = loadSongSessions(), movies = loadMovieSessions(), duo = loadDuoSessions();
+  return {
+    lv, levels, known, learning, lastK,
+    idle: actKeys.length ? dayDiff(today, actKeys[actKeys.length - 1]) : null,   // 0 — сьогодні вже займався
+    harvest: ((trans[isoToday] || {}).k || []).filter(k => mStreak(m[k]) >= 3),
+    weekK,
+    streak: currentStreakLength(), bestStreak: bestStreakLength(),
+    xp, xpInfo: getLevelInfo(xp), xpToday: getTodayXpGain(),
+    acc: acc ? acc.pct : null,
+    gamesToday: (loadDays()[today] || {}).games || 0,
+    duo: worldSum(duo), duoWeek: worldWeek(duo),
+    gpt: worldSum(gpt), gptWeek: worldWeek(gpt),
+    songSess: worldSum(songS), songWeek: worldWeek(songS),
+    movies: worldSum(movies), movieWeek: worldWeek(movies),
+    expr: exprLearned("en2ua") + exprLearned("ua2en")
+  };
+}
+function worldLevelName(L) { return L === "none" ? "Поза CEFR" : L; }
+function worldHarvestHtml(d, icon, emptyText) {
+  if (!d.harvest.length) return '<div class="w-harvest">' + icon + ' ' + emptyText + '</div>';
+  const MAX = 18;
+  return '<div class="w-harvest">' + icon + ' <b>Сьогодні в «Знаю»: +' + d.harvest.length + '</b> &nbsp;' +
+    d.harvest.slice(0, MAX).map(w => '<span class="w-chip">' + esc(w) + '</span>').join("") +
+    (d.harvest.length > MAX ? '<span class="w-new">ще ' + (d.harvest.length - MAX) + '</span>' : '') + '</div>';
+}
+
+// ── 🌱 Сад: грядка на рівень CEFR, 1 рослина = 20 слів рівня в «Знаю» ──
+const GARDEN_STEP = 20;
+const GARDEN_KIND = {
+  A1: { ic: "🌿", name: "Трави" },     A2: { ic: "🌷", name: "Тюльпани" },
+  B1: { ic: "🌻", name: "Соняшники" }, B2: { ic: "🌳", name: "Дуби" },
+  C1: { ic: "🌸", name: "Сакури" },    C2: { ic: "🌺", name: "Гібіскуси" },
+  none: { ic: "🌵", name: "Кактуси" }
+};
+function renderGarden(d) {
+  const dry = d.idle !== null && d.idle >= 2 ? Math.min(4, d.idle - 1) : 0;
+  const banner = d.idle === null ? ["warn", "🌰", "Посій перші слова — зіграй гру"]
+    : d.idle === 0 ? ["good", "💧", "Полито сьогодні" + (d.streak > 1 ? " · ☀️ " + wDays(d.streak) + " поспіль" : "")]
+    : d.idle === 1 ? ["warn", "🌤️", "Сьогодні ще не полито — одна гра, і сад засяє"]
+    : ["bad", "🥀", "Сад сохне: останній полив " + wDays(d.idle) + " тому. Зіграй — і він оживе, нічого не загинуло"];
+  let plants = 0, sprouts = 0, free = 0, beds = "";
+  d.levels.forEach(L => {
+    const o = d.lv[L], k = GARDEN_KIND[L] || GARDEN_KIND.none;
+    const cap = Math.ceil(o.total / GARDEN_STEP);
+    const grown = o.known >= o.total ? cap : Math.min(cap, Math.floor(o.known / GARDEN_STEP));
+    const rest = Math.max(0, o.known - grown * GARDEN_STEP) + o.learning;   // те, що вже «посіяне»
+    const sprout = Math.min(cap - grown, rest > 0 ? Math.max(1, Math.round(rest / GARDEN_STEP)) : 0);
+    const lastK = d.lastK[L] || 0;
+    const fresh = Math.min(grown, grown - Math.floor(Math.max(0, o.known - lastK) / GARDEN_STEP));
+    const need = grown < cap ? Math.min(GARDEN_STEP - (o.known % GARDEN_STEP), o.total - o.known) : 0;
+    let cells = "";
+    for (let i = 0; i < cap; i++) {
+      if (i < grown) cells += '<i class="g-p' + (i >= grown - fresh ? ' g-new' : '') + '">' + k.ic + '</i>';
+      else if (i < grown + sprout) cells += '<i class="g-s">🌱</i>';
+      else cells += '<i class="g-e"></i>';
+    }
+    beds += '<div class="g-bed" data-lv="' + L + '"><div class="g-head"><b>' + worldLevelName(L) + '</b><span>' + k.ic + ' ' + k.name + '</span>' +
+      (lastK ? '<span class="w-new" title="Слова цього рівня, що перейшли в «Знаю» за останню гру">✨ +' + lastK + ' з останньої гри</span>' : '') +
+      '<span class="g-n">' + grown + ' / ' + cap + ' · ' + (need > 0 ? 'ще ' + wWords(need) + ' до нової рослини' : 'грядка повна! 🎉') + '</span></div>' +
+      '<div class="g-cells" title="' + wAttr(worldLevelName(L) + ': ' + o.known + ' у «Знаю» · ' + o.learning + ' вивчаю · ' +
+        (o.total - o.known - o.learning) + ' нових · усього ' + o.total) + '">' + cells + '</div></div>';
+    plants += grown; sprouts += sprout; free += cap - grown - sprout;
+  });
+  const fly = [];
+  for (let i = 0; i < Math.min(d.songWeek, 5); i++) fly.push("🐝");
+  for (let i = 0; i < Math.min(d.movieWeek, 4); i++) fly.push("🦋");
+  const sky = '<div class="g-sky">' + (d.gptWeek ? '<span class="g-farmer" title="Садівник — запити GPT за тиждень">👨‍🌾</span>' : '') +
+    fly.map((f, i) => '<span class="g-fly" style="left:' + (14 + i * 9) + '%;top:' + (6 + (i * 13) % 22) + 'px;animation-delay:-' + (i * 0.8).toFixed(1) + 's">' + f + '</span>').join("") +
+    '<span class="g-sun">' + (dry ? "🌥️" : "☀️") + '</span></div>';
+  const helper = (ic, n, cap, name, what) => '<div title="' + wAttr(name + ": " + what) + '"><div class="h-ic' + (n ? '' : ' h-off') + '">' +
+    (n ? ic.repeat(Math.min(n, cap)) : ic) + '</div><b>' + name + ': ' + n + '</b><span>' + what + '</span></div>';
+  return '<div class="garden' + (dry ? ' dry' : '') + '" style="--dry:' + dry + '">' +
+    '<div class="w-banner ' + banner[0] + '"><span class="w-big">' + banner[1] + '</span>' + banner[2] + '</div>' +
+    worldHarvestHtml(d, "🧺", "Сьогодні ще без урожаю — слова, що перейдуть у «Знаю», з'являться тут") +
+    sky +
+    '<div class="w-totals"><span>🌳 Рослин: <b>' + plants + '</b></span><span>🌱 Паростків: <b>' + sprouts + '</b></span>' +
+      '<span>🟫 Вільних місць: <b>' + free + '</b></span><span>За тиждень у «Знаю»: <b>+' + d.weekK + '</b></span>' +
+      '<span style="opacity:.6">1 рослина = ' + GARDEN_STEP + ' слів рівня в «Знаю» · паросток — слова «Вивчаю»</span></div>' +
+    '<div style="margin-top:10px">' + beds + '</div>' +
+    '<div class="w-sec">Помічники саду · за тиждень</div>' +
+    '<div class="w-help">' +
+      helper("🐝", d.songWeek, 5, "Бджоли", "заняття піснями") +
+      helper("🦋", d.movieWeek, 5, "Метелики", "сеанси кіно") +
+      helper("🧪", d.duoWeek, 5, "Добриво", "сесії Duolingo") +
+      helper("👨‍🌾", d.gptWeek, 3, "Садівник", "запити GPT") +
+    '</div></div>';
+}
+
+// ── 🧙 Герой: клас = ліга рівня XP, спорядження = ліги ачівок, характеристики = віхи ──
+const HERO_CLASSES = [
+  { ic: "🧒", name: "Новачок" }, { ic: "👨‍🎓", name: "Учень" }, { ic: "🧝", name: "Мандрівник" },
+  { ic: "🧙", name: "Маг" }, { ic: "🦸", name: "Легенда" }
+];
+const HERO_GEAR = [
+  { ach: "known",        ic: "⚔️", name: "Меч" },
+  { ach: "correct",      ic: "🏹", name: "Лук" },
+  { ach: "streak",       ic: "🛡️", name: "Щит" },
+  { ach: "totaldays",    ic: "🥾", name: "Чоботи" },
+  { ach: "duo",          ic: "📿", name: "Амулет" },
+  { ach: "lingohut",     ic: "📜", name: "Сувій" },
+  { ach: "songs",        ic: "🎻", name: "Скрипка" },
+  { ach: "thermo_month", ic: "👑", name: "Корона" }
+];
+const HERO_STATS = [
+  { ic: "📖", name: "Словник",      hint: "слів у «Знаю»",            v: d => d.known, ms: [100, 250, 500, 1000, 2000, 3000, 5000, 7500, 10000, 13000] },
+  { ic: "🎯", name: "Влучність",    hint: "точність · 300 відповідей", v: d => d.acc, pct: true },
+  { ic: "🔥", name: "Витривалість", hint: "днів поспіль",              v: d => d.streak, ms: [3, 7, 14, 30, 60, 90, 180, 365] },
+  { ic: "🧠", name: "Мудрість",     hint: "запитів GPT",               v: d => d.gpt, ms: [10, 25, 50, 100, 200, 400, 800] },
+  { ic: "💬", name: "Харизма",      hint: "виразів вивчено",           v: d => d.expr, ms: [10, 25, 50, 100, 200, 400, 800, 1200] },
+  { ic: "👂", name: "Слух",         hint: "занять піснями й кіно",     v: d => d.songSess + d.movies, ms: [5, 10, 25, 50, 100, 200, 400] },
+  { ic: "🦉", name: "Дисципліна",   hint: "сесій Duolingo",            v: d => d.duo, ms: [10, 50, 150, 400, 700, 1000, 1500] }
+];
+function renderHero(d) {
+  const info = d.xpInfo, tier = xpTierForLevel(info.level), cls = HERO_CLASSES[tier], lg = ACH_LEAGUES[tier];
+  const xpPct = info.isMax ? 100 : Math.round((info.xp - info.cur) / (info.next - info.cur) * 100);
+  const nextCls = tier < 4 ? 'до класу «' + HERO_CLASSES[tier + 1].name + '» — рівень ' + (tier * 4 + 5) : 'найвищий клас';
+  const gear = HERO_GEAR.map(g => {
+    const L = worldAchLevel(g.ach), c = L ? ACH_LEAGUES[L - 1] : null;
+    return '<div class="h-item' + (L ? '' : ' locked') + '"' + (c ? ' style="--ic:' + c.color + ';--ic2:' + c.color2 + '"' : '') +
+      ' title="' + wAttr(worldAchNext(g.ach)) + '"><span class="i-ic">' + g.ic + '</span>' + g.name +
+      '<br><span class="i-lg">' + (c ? c.name : '🔒') + '</span></div>';
+  }).join("");
+  const stats = HERO_STATS.map(s => {
+    const v = s.v(d);
+    let sub, pct, val, small;
+    if (s.pct) {
+      pct = v === null ? 0 : Math.round(v);
+      sub = s.hint; val = v === null ? "—" : pct + "%"; small = "";
+    } else {
+      const t = worldTier(v, s.ms);
+      pct = t.pct; sub = "рів. " + t.lvl + " · " + s.hint; val = fmtXpNum(v);
+      small = t.to ? "до " + fmtXpNum(t.to) : "макс.";
+    }
+    return '<div class="h-stat"><span class="s-ic">' + s.ic + '</span><span class="s-name"><b>' + s.name + '</b><small>' + sub + '</small></span>' +
+      '<span class="h-bar"><i style="width:' + pct + '%"></i></span><span class="s-v">' + val + (small ? '<small>' + small + '</small>' : '') + '</span></div>';
+  }).join("");
+  const buffs = [];
+  if (d.idle === 0) buffs.push(["", "💧 Бадьорий — сьогодні вже тренувався"]);
+  if (d.streak >= 3) buffs.push(["", "🔥 Натхнення — " + wDays(d.streak) + " поспіль"]);
+  if (d.acc !== null && d.acc >= 70) buffs.push(["", "🎯 Снайпер — точність " + Math.round(d.acc) + "%"]);
+  if (d.idle === 1) buffs.push(["neg", "🌙 Сьогодні ще не тренувався"]);
+  if (d.idle !== null && d.idle >= 2) buffs.push(["neg", "😴 Втома — " + wDays(d.idle) + " без тренувань (мине після гри)"]);
+  return '<div class="w-banner"><span class="w-big">⚔️</span><span>Сьогодні: ігор <b>' + d.gamesToday + '</b> · у «Знаю» <b>+' + d.harvest.length +
+      '</b> · XP <b>+' + fmtXpNum(d.xpToday) + '</b> · за тиждень у «Знаю» <b>+' + d.weekK + '</b></span></div>' +
+    '<div class="hero">' +
+      '<div><div class="h-card" style="--hc:' + lg.color + ';--hc2:' + lg.color2 + '">' +
+        '<div class="h-ava">' + cls.ic + '</div><div class="h-cls">' + cls.name + '</div>' +
+        '<div class="h-lvl">Рівень ' + info.level + ' · ' + info.name + '</div>' +
+        '<div class="h-xp"><i style="width:' + xpPct + '%"></i></div>' +
+        '<div class="h-xpn">' + (info.isMax ? fmtXpNum(info.xp) + ' XP · максимум' : fmtXpNum(info.xp) + ' / ' + fmtXpNum(info.next) + ' XP') + ' · ' + nextCls + '</div>' +
+      '</div>' +
+      '<div class="w-sec">Спорядження · ліги досягнень</div><div class="h-gear">' + gear + '</div></div>' +
+      '<div><div class="w-sec" style="margin-top:0">Характеристики</div><div class="h-stats">' + stats + '</div>' +
+        '<div class="w-sec">Стан</div><div class="h-buffs">' +
+          (buffs.length ? buffs.map(b => '<span class="h-buff ' + b[0] + '">' + b[1] + '</span>').join("") : '<span class="h-buff">🙂 Звичайний день</span>') +
+        '</div>' + worldHarvestHtml(d, "✨", "Сьогодні ще жодне слово не перейшло в «Знаю»") + '</div>' +
+    '</div>';
+}
+
+// ── 🏙️ Місто: квартал на рівень CEFR, до 24 будинків; вогні — від сьогоднішніх занять ──
+const CITY_SLOTS = 24;
+const CITY_DIST = {
+  A1:   { name: "Старе місто",     h: [16, 26],  roof: "house", bc: ["#c98b5a", "#8a5634"], rf: "#a5452f" },
+  A2:   { name: "Передмістя",      h: [22, 36],  roof: "house", bc: ["#d9b38c", "#9a7350"], rf: "#7b3f2c" },
+  B1:   { name: "Центр",           h: [32, 52],  roof: "flat",  bc: ["#7d8fb3", "#4c5a7a"], rf: "#3b465f" },
+  B2:   { name: "Ділові квартали", h: [44, 68],  roof: "flat",  bc: ["#5aa3b8", "#2f6276"], rf: "#244c5c" },
+  C1:   { name: "Хмарочоси",       h: [58, 90],  roof: "spire", bc: ["#6f7fe0", "#3a3f9a"], rf: "#2c2f75" },
+  C2:   { name: "Шпилі",           h: [70, 106], roof: "spire", bc: ["#b18cf0", "#5e3fa3"], rf: "#45307a" },
+  none: { name: "Околиці",         h: [14, 22],  roof: "house", bc: ["#9aa58a", "#5f6a52"], rf: "#6b4a2f" }
+};
+const CITY_RANKS = [[0, "Хутір"], [100, "Село"], [500, "Містечко"], [1500, "Місто"], [4000, "Велике місто"], [8000, "Мегаполіс"], [12000, "Столиця"]];
+const CITY_INFRA = [
+  { ic: "🏟️", name: "Стадіон",      ach: "games" },
+  { ic: "🚇", name: "Метро",        ach: "streak" },
+  { ic: "🦉", name: "Совиний парк", ach: "duo" },
+  { ic: "🏫", name: "Школа",        ach: "lingohut" },
+  { ic: "🎵", name: "Філармонія",   ach: "songs" },
+  { ic: "🗼", name: "Телевежа",     ach: "xp" },
+  { ic: "🏛️", name: "Бібліотека",   v: d => d.gpt,    ms: [10, 50, 150, 400, 800], what: "запитів GPT" },
+  { ic: "🎭", name: "Кінотеатр",    v: d => d.movies, ms: [5, 15, 40, 80, 150],   what: "сеансів кіно" }
+];
+function renderCity(d) {
+  const mood = d.idle === 0 ? "lit" : d.idle === 1 ? "dusk" : "dark";
+  const banner = d.idle === null ? ["warn", "🌑", "Місто ще не збудоване — зіграй першу гру"]
+    : mood === "lit" ? ["good", "🌃", "Місто сяє — сьогодні ти вже займався"]
+    : mood === "dusk" ? ["warn", "🌆", "Вечоріє: сьогодні ще не займався — зіграй, і вогні засвітяться"]
+    : ["bad", "🌑", "Місто спить: останнє заняття " + wDays(d.idle) + " тому. Будинки цілі — вогні засвітяться після гри"];
+  let rank = CITY_RANKS[0], next = null;
+  CITY_RANKS.forEach((r, i) => { if (d.known >= r[0]) { rank = r; next = CITY_RANKS[i + 1] || null; } });
+  let built = 0, cons = 0, found = 0, rows = "";
+  d.levels.forEach((L, li) => {
+    const o = d.lv[L], ds = CITY_DIST[L] || CITY_DIST.none;
+    const slots = Math.max(1, Math.min(CITY_SLOTS, Math.ceil(o.total / 10)));
+    const per = Math.ceil(o.total / slots);
+    const b = o.known >= o.total ? slots : Math.min(slots, Math.floor(o.known / per));
+    const part = b < slots ? (o.known - b * per) / per : 0;
+    const c = part > 0 ? 1 : 0;
+    const f = Math.max(0, Math.min(slots - b - c, Math.round(o.learning / per)));
+    const lastK = d.lastK[L] || 0;
+    const fresh = Math.min(b, b - Math.floor(Math.max(0, o.known - lastK) / per));
+    const need = b < slots ? Math.min(per - (o.known - b * per), o.total - o.known) : 0;
+    // Смуга кварталу — по найвищій НАЯВНІЙ споруді (порожній квартал не займає пів екрана)
+    let strip = "", top = 0;
+    for (let i = 0; i < slots; i++) {
+      const h = Math.round(ds.h[0] + ((i * 7 + li * 3) % 9) / 8 * (ds.h[1] - ds.h[0]));
+      if (i < b + c + f) top = Math.max(top, h);
+      if (i < b) strip += '<i class="c-b built c-' + ds.roof + (i >= b - fresh ? ' fresh' : '') + '" style="height:' + h + 'px"></i>';
+      else if (i === b && c) strip += '<i class="c-b build" style="height:' + Math.max(4, Math.round(h * part)) + 'px" title="' +
+        wAttr(Math.round(part * 100) + '% — ще ' + wWords(need) + ' в «Знаю»') + '"><span class="c-crane">🏗️</span></i>';
+      else if (i < b + c + f) strip += '<i class="c-b found" style="height:' + h + 'px"></i>';
+      else strip += '<i class="c-b lot"></i>';
+    }
+    rows += '<div class="c-row" data-lv="' + L + '" style="--bc1:' + ds.bc[0] + ';--bc2:' + ds.bc[1] + ';--roof:' + ds.rf + '">' +
+      '<div class="c-head"><b>' + worldLevelName(L) + '</b><span>' + ds.name + '</span>' +
+        (lastK ? '<span class="w-new" title="Слова цього рівня, що перейшли в «Знаю» за останню гру">✨ +' + lastK + ' з останньої гри</span>' : '') +
+        '<span class="c-n">🏢 ' + b + ' / ' + slots + ' · ' + (need > 0 ? 'ще ' + wWords(need) + ' до нового будинку' : 'квартал добудовано! 🎉') + '</span></div>' +
+      '<div class="c-strip" style="height:' + Math.max(26, top + 16) + 'px" title="' + wAttr(worldLevelName(L) + ': 1 будинок = ' + wWords(per) +
+        ' у «Знаю» · ' + o.known + ' знаю · ' + o.learning + ' вивчаю (фундаменти) · усього ' + o.total) + '">' + strip + '</div></div>';
+    built += b; cons += c; found += f;
+  });
+  const infra = CITY_INFRA.map(x => {
+    let L, tip;
+    if (x.ach) { L = worldAchLevel(x.ach); tip = worldAchNext(x.ach); }
+    else {
+      const v = x.v(d), t = worldTier(v, x.ms);
+      L = Math.min(5, t.lvl); tip = x.name + ": " + v + " " + x.what + (t.to ? " · наступний рівень — " + t.to : " · максимум");
+    }
+    const lgc = L ? ACH_LEAGUES[L - 1] : null;
+    return '<div class="c-inf' + (L ? '' : ' off') + '"' + (lgc ? ' style="--ic:' + lgc.color + ';--ic2:' + lgc.color2 + '"' : '') +
+      ' title="' + wAttr(tip) + '"><span class="i-ic">' + (L ? x.ic : '🚧') + '</span><b>' + x.name + '</b>' +
+      '<span class="c-stars">' + '★'.repeat(L) + '<span class="dim">' + '★'.repeat(5 - L) + '</span></span></div>';
+  }).join("");
+  return '<div class="city ' + mood + '">' +
+    '<div class="w-banner ' + banner[0] + '"><span class="w-big">' + banner[1] + '</span>' + banner[2] + '</div>' +
+    '<div class="w-totals"><span style="font-size:15px">🏙️ <b>' + rank[1] + '</b></span><span>👥 <b>' + fmtXpNum(d.known * 10) + '</b> жителів</span>' +
+      (next ? '<span>до «' + next[1] + '» ще <b>' + fmtXpNum(next[0] - d.known) + '</b> слів</span>' : '') +
+      '<span>🏢 Будинків: <b>' + built + '</b></span><span>🏗️ Будується: <b>' + cons + '</b></span><span>📐 Фундаментів: <b>' + found + '</b></span></div>' +
+    worldHarvestHtml(d, "🧱", "Сьогодні ще без нових цеглин — слова, що перейдуть у «Знаю», з'являться тут") +
+    rows +
+    '<div class="w-sec">Міські споруди · ліги досягнень</div><div class="c-infra">' + infra + '</div>' +
+    '<div class="w-totals" style="opacity:.6">Будинок = частка слів рівня в «Знаю» · пунктир — фундаменти зі слів «Вивчаю» · 1 слово в «Знаю» = 10 жителів</div>' +
+  '</div>';
+}
+
+function renderWorld() {
+  document.getElementById("world-head").innerHTML =
+    '<div><h2>🎮 Світ слів</h2> <span class="sh-sub">прототипи — обери, який розвивати</span></div>' +
+    '<div class="w-tabs">' + WORLD_TABS.map(t => '<button class="w-tab' + (t.id === worldTab ? ' active' : '') + '" data-wtab="' + t.id + '">' +
+      t.ic + ' ' + t.label + '</button>').join("") + '</div>' +
+    '<span class="w-keys">Tab — далі · Esc — закрити</span>' +
+    '<button class="songs-close" data-act="close">✕</button>';
+  const d = worldData(), body = document.getElementById("world-body");
+  body.innerHTML = worldTab === "hero" ? renderHero(d) : worldTab === "city" ? renderCity(d) : renderGarden(d);
+  body.scrollTop = 0;
+}
+function openWorld() { renderWorld(); worldOverlay.classList.remove("hidden"); }
+function closeWorld() { worldOverlay.classList.add("hidden"); }
+function setWorldTab(id) {
+  worldTab = id;
+  try { localStorage.setItem(WORLD_TAB_KEY, id); } catch (e) {}
+  renderWorld();
+}
+worldOverlay.addEventListener("click", e => {
+  const t = e.target.closest("[data-wtab]");
+  if (t) { setWorldTab(t.dataset.wtab); return; }
+  if (e.target === worldOverlay || e.target.closest('[data-act="close"]')) closeWorld();
+});
+document.getElementById("world-btn").addEventListener("click", openWorld);
+// Клавіатура світу (capture): Tab — наступний прототип, Esc — закрити. Усе інше НЕ доходить
+// до меню позаду (Enter відкрив би «Тренування», Tab гортав би вкладки лідерборду).
+document.addEventListener("keydown", e => {
+  if (worldOverlay.classList.contains("hidden")) return;
+  e.stopPropagation();
+  if (e.key === "Escape") { e.preventDefault(); closeWorld(); }
+  else if (e.key === "Tab") {
+    e.preventDefault();
+    const i = WORLD_TABS.findIndex(t => t.id === worldTab);
+    setWorldTab(WORLD_TABS[(i + (e.shiftKey ? WORLD_TABS.length - 1 : 1)) % WORLD_TABS.length].id);
+  } else if (e.key === "Enter" || e.key === " ") e.preventDefault();
 }, true);
 // Клавіатура в розділі виразів (capture, щоб не тригерити ігрові обробники за оверлеєм)
 document.addEventListener("keydown", e => {
