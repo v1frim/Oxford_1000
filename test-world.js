@@ -84,16 +84,27 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.keyboard.press("Tab"); await p.waitForTimeout(200);
   t("Tab → 🏙️ Місто", await p.$eval(".w-tab.active", x => x.dataset.wtab) === "city");
   t("3 дні без занять → місто спить (темне)", await p.$eval(".city", x => x.classList.contains("dark")));
-  const cityA1 = await p.evaluate(() => {
-    const row = document.querySelector('.c-row[data-lv="A1"]');
-    return { built: row.querySelectorAll(".c-b.built").length, slots: row.querySelectorAll(".c-b").length,
-             cons: row.querySelectorAll(".c-b.build").length };
+  // Місто (ізометрична мапа): A1 — 45 знаю / 7 вивчаю, остання гра: 39 → 45 (перетнула межу 2-ї → 3-ї хатки)
+  const city = await p.evaluate(() => {
+    const q = (c, L) => document.querySelectorAll('.c-map .cb.' + c + '[data-lv="' + L + '"]').length;
+    return { step: CITY_STEP, built: q("built", "A1"), cons: q("cons", "A1"), found: q("found", "A1"), lot: q("lot", "A1"),
+      fresh: q("fresh", "A1"), freshB1: q("fresh", "B1"), legend: document.querySelector('.c-lrow[data-lv="A1"]').textContent,
+      sectors: new Set([...document.querySelectorAll(".c-map .cb")].map(e => e.dataset.lv)).size, levels: worldData().levels.length,
+      vw: +document.querySelector(".c-map").getAttribute("viewBox").split(" ")[2] };
   });
-  // A1: 24 будинки, будинок = ⌈A1/24⌉ слів; 45 знаю → 1 будинок + 1 на будові
-  const per = Math.ceil(seed.a1Total / 24);
-  t("місто: квартал A1 — 24 ділянки", cityA1.slots === 24, String(cityA1.slots));
-  t("місто: будинків A1 = ⌊45 / слів-на-будинок⌋", cityA1.built === Math.floor(45 / per), cityA1.built + " (по " + per + ")");
-  t("місто: неповний будинок — на будові", cityA1.cons === (45 % per ? 1 : 0), String(cityA1.cons));
+  const lots = Math.ceil(seed.a1Total / city.step);
+  t("місто: хаток A1 = ⌊45 / крок⌋", city.built === Math.floor(45 / city.step), city.built + " (крок " + city.step + ")");
+  t("місто: неповна хатка — будмайданчик", city.cons === (45 % city.step ? 1 : 0), String(city.cons));
+  t("місто: 7 слів «Вивчаю» — 1 фундамент", city.found === 1, String(city.found));
+  t("місто: ділянок A1 = ⌈слів A1 / крок⌉", city.built + city.cons + city.found + city.lot === lots, (city.built + city.cons + city.found + city.lot) + " / " + lots);
+  t("місто: остання гра добудувала хатку → підсвічена саме одна", city.fresh === 1, String(city.fresh));
+  t("місто: 30 → 31-ше слово B1 добудувало будинок → підсвічений", city.freshB1 === 1, String(city.freshB1));
+  t("місто: легенда A1 показує «будинки / ділянки»", city.legend.includes(city.built + " / " + lots), city.legend);
+  t("місто: на кожен рівень CEFR — свій сектор", city.sectors === city.levels, city.sectors + " / " + city.levels);
+  await p.click(".c-zoom"); await p.waitForTimeout(200);
+  const vwAll = await p.$eval(".c-map", x => +x.getAttribute("viewBox").split(" ")[2]);
+  t("«⤢ Уся ділянка» віддаляє камеру", vwAll > city.vw, city.vw + " → " + vwAll);
+  t("після «Уся ділянка» кнопка пропонує «Ближче»", /Ближче/.test(await p.textContent(".c-zoom")));
   await p.keyboard.press("Shift+Tab"); await p.waitForTimeout(200);
   t("Shift+Tab → назад на 🧙 Герой", await p.$eval(".w-tab.active", x => x.dataset.wtab) === "hero");
   await p.keyboard.press("Enter"); await p.waitForTimeout(250);

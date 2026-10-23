@@ -1740,29 +1740,31 @@
   .h-buffs { display: flex; gap: 6px; flex-wrap: wrap; }
   .h-buff { padding: 4px 10px; border-radius: 10px; font-size: 12px; background: rgba(123,224,123,.12); border: 1px solid rgba(123,224,123,.4); }
   .h-buff.neg { background: rgba(255,169,77,.12); border-color: rgba(255,169,77,.45); }
-  /* 🏙️ Місто: квартал на рівень, будинок = 1/24 слів рівня; вогні — від сьогоднішніх занять */
-  .city { --win: #ffd76a; --sky1: #0b1430; --sky2: #2a2f60; }
-  .city.dusk { --win: rgba(255,215,106,.5); --sky1: #2c2f5c; --sky2: #c27858; }
-  .city.dark { --win: rgba(150,170,210,.14); --sky1: #04060d; --sky2: #10152a; }
-  .c-row { margin-top: 10px; }
-  .c-head { display: flex; align-items: baseline; gap: 8px; font-size: 13px; margin-bottom: 3px; }
-  .c-head > b { color: #ffd166; min-width: 22px; }
-  .c-head .c-n { margin-left: auto; font-size: 12px; opacity: .7; }
-  .c-strip {
-    display: flex; align-items: flex-end; gap: 4px; padding: 0 10px; border-radius: 10px 10px 3px 3px;
-    background: linear-gradient(180deg, var(--sky1), var(--sky2)); border-bottom: 4px solid #3a4258;
+  /* 🏙️ Місто: ізометричний острів у SVG; день/вечір/ніч — фільтр від сьогоднішніх занять */
+  .c-mapwrap { position: relative; margin-top: 10px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.14); }
+  .c-zoom {
+    position: absolute; right: 10px; bottom: 10px; padding: 5px 12px; border-radius: 10px; cursor: pointer;
+    background: rgba(255,255,255,.88); border: 1px solid rgba(30,40,70,.25); color: #24324f; font: 700 12px system-ui, sans-serif;
   }
-  .c-b { flex: 1 1 0; max-width: 34px; position: relative; font-style: normal; border-radius: 2px 2px 0 0; }
-  .c-b.built { background: radial-gradient(circle, var(--win) 0.9px, transparent 1.4px) 1px 4px / 5px 7px, linear-gradient(180deg, var(--bc1), var(--bc2)); }
-  .city.dark .c-b.built { filter: saturate(.45) brightness(.75); }
-  .c-b.build { background: repeating-linear-gradient(45deg, rgba(255,209,102,.6) 0 3px, rgba(60,50,30,.75) 3px 6px); }
-  .c-b.found { border: 1px dashed rgba(255,255,255,.3); border-bottom: none; background: rgba(255,255,255,.03); }
-  .c-b.lot { height: 3px; background: rgba(255,255,255,.08); }
-  .c-house.built::before { content: ""; position: absolute; left: -2px; right: -2px; top: -8px; height: 9px; background: var(--roof); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-  .c-flat.built::before { content: ""; position: absolute; left: 22%; right: 22%; top: -4px; height: 4px; background: var(--bc1); }
-  .c-spire.built::before { content: ""; position: absolute; left: 50%; top: -12px; width: 2px; height: 12px; background: #b9c6e4; transform: translateX(-50%); }
-  .c-crane { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); font-size: 16px; line-height: 1; }
-  .c-b.fresh { box-shadow: 0 0 10px 1px rgba(255,209,102,.85); }
+  .c-zoom:hover { background: #fff; }
+  .c-map { display: block; width: 100%; height: auto; transition: filter .3s; }
+  .city.dusk .c-map { filter: sepia(.35) saturate(1.15) brightness(.86) hue-rotate(-12deg); }
+  .city.dark .c-map { filter: grayscale(.6) brightness(.55) contrast(1.05); }
+  .c-map text { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+  .c-lm { font-size: 15px; }
+  .c-lm.off { opacity: .28; filter: grayscale(1); }
+  .c-spark { font-size: 14px; animation: cSpark 1.1s ease-in-out infinite alternate; }
+  .c-glow { fill: rgba(255,209,102,.35); stroke: #ffd166; stroke-width: 2; animation: cSpark 1.1s ease-in-out infinite alternate; }
+  @keyframes cSpark { from { opacity: .35; } to { opacity: 1; } }
+  .c-tag rect { fill: rgba(255,255,255,.9); stroke: rgba(30,40,70,.25); }
+  .c-tag text { font: 700 11px system-ui, sans-serif; fill: #24324f; }
+  .c-leg { display: flex; flex-direction: column; gap: 6px; }
+  .c-lrow { display: grid; grid-template-columns: 12px 30px 230px 1fr 64px 210px; align-items: center; gap: 8px; font-size: 13px; }
+  .c-sw { width: 12px; height: 12px; border-radius: 3px; }
+  .c-lrow > b { color: #ffd166; font-size: 12px; }
+  .c-ln small { opacity: .55; font-size: 11px; }
+  .c-lnum { text-align: right; font-weight: 700; }
+  .c-lnext { font-size: 12px; opacity: .75; }
   .c-infra { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .c-inf {
     --ic: #4a5570; --ic2: #8090aa;
@@ -11551,16 +11553,28 @@ function renderHero(d) {
     '</div>';
 }
 
-// ── 🏙️ Місто: квартал на рівень CEFR, до 24 будинків; вогні — від сьогоднішніх занять ──
-const CITY_SLOTS = 24;
-const CITY_DIST = {
-  A1:   { name: "Старе місто",     h: [16, 26],  roof: "house", bc: ["#c98b5a", "#8a5634"], rf: "#a5452f" },
-  A2:   { name: "Передмістя",      h: [22, 36],  roof: "house", bc: ["#d9b38c", "#9a7350"], rf: "#7b3f2c" },
-  B1:   { name: "Центр",           h: [32, 52],  roof: "flat",  bc: ["#7d8fb3", "#4c5a7a"], rf: "#3b465f" },
-  B2:   { name: "Ділові квартали", h: [44, 68],  roof: "flat",  bc: ["#5aa3b8", "#2f6276"], rf: "#244c5c" },
-  C1:   { name: "Хмарочоси",       h: [58, 90],  roof: "spire", bc: ["#6f7fe0", "#3a3f9a"], rf: "#2c2f75" },
-  C2:   { name: "Шпилі",           h: [70, 106], roof: "spire", bc: ["#b18cf0", "#5e3fa3"], rf: "#45307a" },
-  none: { name: "Околиці",         h: [14, 22],  roof: "house", bc: ["#9aa58a", "#5f6a52"], rf: "#6b4a2f" }
+// ── 🏙️ Місто — кругла ділянка-острів в ізометрії (сесія 61, за запитом і референсами користувача:
+// «кільцевий участок, де будуть будуватися дома… бідні райони, середній клас, багатоповерхівки,
+// хмарочоси / бізнес-центри, вілли, парки… і я буду спостерігати, як розростається моє місто»).
+// Кожен рівень CEFR — сектор кола зі СВОЇМ КЛАСОМ забудови (CITY_CLASSES); кожні CITY_STEP слів
+// рівня в «Знаю» = ще один будинок. Сектор забудовується від центральної площі НАЗОВНІ — місто
+// росте кільцями. Неповний будинок — будмайданчик із краном (висота риштувань = частка), слова
+// «Вивчаю» — фундаменти, решта ділянок сектора — розмічена земля під забудову, далі ліс.
+// ⚠️ Ізометрія в SVG: світова клітинка (x,y) → екран ((x−y)·TW/2, (x+y)·TH/2); об'єкти малюються
+// «художником» за зростанням x+y (ззаду наперед). Хмарочоси (C1) — у секторі ПОЗАДУ (світовий
+// кут 225°), щоб високе не затуляло низьке. Розмітка детермінована: ті самі числа — та сама картинка.
+const CITY_STEP = 15;                 // слів рівня в «Знаю» на один будинок
+let cityShowAll = false;              // «⤢ Уся ділянка» замість наближення до забудови
+const CITY_TW = 28, CITY_TH = 14;     // ізо-плитка 2:1
+const CITY_PLAZA = 3.2, CITY_ROAD = 0.6;
+const CITY_CLASSES = {
+  A1:   { name: "Хатки",            sub: "бідний район",     type: "house",  h: [6, 9],   walls: ["#c9ad86", "#b9a07e", "#d2bc98"], roof: ["#7d4a35", "#6b5847", "#8a5a3c"], pop: 4,   price: 15e3 },
+  A2:   { name: "Котеджі",          sub: "середній клас",    type: "house",  h: [10, 14], walls: ["#f1e7d8", "#e3edf2", "#efe0c8"], roof: ["#4b6382", "#9a4b3b", "#3e6e5c"], pop: 6,   price: 15e4 },
+  B1:   { name: "Багатоповерхівки", sub: "житлові квартали", type: "block",  h: [26, 40], walls: ["#d3d1cc", "#c7ccd4", "#ddd3c3"], pop: 180, price: 4e6 },
+  B2:   { name: "Бізнес-центри",    sub: "офіси",            type: "office", h: [42, 60], walls: ["#86b2d6", "#73a0c4", "#94c0d4"], pop: 300, price: 25e6 },
+  C1:   { name: "Хмарочоси",        sub: "даунтаун",         type: "tower",  h: [64, 96], walls: ["#5f8fd0", "#4f78b8", "#7aa6de"], pop: 900, price: 12e7 },
+  C2:   { name: "Вілли",            sub: "еліта",            type: "villa",  h: [7, 9],   walls: ["#ffffff"], pop: 8, price: 8e6 },
+  none: { name: "Парки",            sub: "поза CEFR",        type: "park",   h: [0, 0],   walls: ["#7cc464"], pop: 0, price: 1e6 }
 };
 const CITY_RANKS = [[0, "Хутір"], [100, "Село"], [500, "Містечко"], [1500, "Місто"], [4000, "Велике місто"], [8000, "Мегаполіс"], [12000, "Столиця"]];
 const CITY_INFRA = [
@@ -11573,45 +11587,251 @@ const CITY_INFRA = [
   { ic: "🏛️", name: "Бібліотека",   v: d => d.gpt,    ms: [10, 50, 150, 400, 800], what: "запитів GPT" },
   { ic: "🎭", name: "Кінотеатр",    v: d => d.movies, ms: [5, 15, 40, 80, 150],   what: "сеансів кіно" }
 ];
+function cityRnd(x, y, s) {   // детермінований «шум» клітинки, 0..1
+  let h = Math.imul((x * 73856093) ^ (y * 19349663) ^ ((s || 0) * 83492791), 2654435761);
+  h ^= h >>> 15; h = Math.imul(h, 2246822519); h ^= h >>> 13;
+  return (h >>> 0) / 4294967296;
+}
+function cityShade(hex, k) {  // k > 0 — світліше, k < 0 — темніше
+  const n = parseInt(hex.slice(1), 16), c = [n >> 16, (n >> 8) & 255, n & 255];
+  return "#" + c.map(v => Math.round(k < 0 ? v * (1 + k) : v + (255 - v) * k).toString(16).padStart(2, "0")).join("");
+}
+function cityMoney(v) {
+  const r1 = x => String(Math.round(x * 10) / 10).replace(".", ",");
+  return v >= 1e9 ? r1(v / 1e9) + " млрд $" : v >= 1e6 ? r1(v / 1e6) + " млн $" : v >= 1e3 ? Math.round(v / 1e3) + " тис. $" : v + " $";
+}
+// Розкладка: сектори з кутом ∝ √ділянок (не менше 10°) — за прямої пропорції вузький A1 тягнувся
+// б далеко назовні зіркою, а з коренем райони ростуть приблизно однаковим радіусом; проспекти на межах широких
+// секторів, кільцеві дороги кожні 5 клітинок. Радіус росте, доки кожному сектору вистачить ділянок.
+function cityLayout(d) {
+  const TAU = Math.PI * 2, norm = a => ((a % TAU) + TAU) % TAU;
+  const secs = d.levels.map(L => ({ L, o: d.lv[L], need: Math.max(1, Math.ceil(d.lv[L].total / CITY_STEP)) }));
+  const sq = secs.reduce((a, s) => a + Math.sqrt(s.need), 0);
+  let share = secs.map(s => Math.max(10 / 360, Math.sqrt(s.need) / sq));
+  const st = share.reduce((a, v) => a + v, 0);
+  let acc = 0;
+  secs.forEach((s, i) => { s.share = share[i] / st; s.a0 = acc; acc += s.share * TAU; s.a1 = acc; });
+  const back = secs.find(s => s.L === "C1") || secs[secs.length - 1];
+  const rot = 1.25 * Math.PI - (back.a0 + back.a1) / 2;
+  secs.forEach(s => { s.a0 = norm(s.a0 + rot); s.a1 = s.a0 + s.share * TAU; });
+  const aves = secs.filter((s, i) => s.share >= 0.05 && secs[(i + secs.length - 1) % secs.length].share >= 0.05).map(s => s.a0);
+  const secOf = a => secs.find(s => norm(a - s.a0) < s.a1 - s.a0) || secs[0];
+  const gap = CITY_ROAD + 0.15;
+  for (let R = 8; R < 80; R += 0.5) {
+    const rings = [];
+    for (let r = 8.5; r < R - 1; r += 5) rings.push(r);
+    const cells = new Map(secs.map(s => [s, []])), N = Math.ceil(R);
+    for (let y = -N; y <= N; y++) for (let x = -N; x <= N; x++) {
+      const dist = Math.hypot(x, y);
+      if (dist > R || dist < CITY_PLAZA + 1 + CITY_ROAD) continue;
+      if (rings.some(r => Math.abs(dist - r) < gap)) continue;
+      if (aves.some(p => Math.abs(x * Math.sin(p) - y * Math.cos(p)) < gap && x * Math.cos(p) + y * Math.sin(p) > 0)) continue;
+      const a = norm(Math.atan2(y, x));
+      cells.get(secOf(a)).push({ x, y, dist, a: norm(a - secOf(a).a0) });
+    }
+    if (secs.every(s => cells.get(s).length >= s.need)) {
+      secs.forEach(s => { s.cells = cells.get(s).sort((p, q) => p.dist - q.dist || p.a - q.a); });
+      return { secs, R, rings, aves };
+    }
+  }
+  return null;
+}
+// ── примітиви ізометрії (рядки SVG) ──
+const cF = v => Math.round(v * 10) / 10;
+const cPts = a => a.map(p => cF(p[0]) + "," + cF(p[1])).join(" ");
+const cPoly = (a, fill, extra) => '<polygon points="' + cPts(a) + '" fill="' + fill + '"' + (extra || "") + '/>';
+function cDia(cx, cy, f) { const hw = CITY_TW / 2 * f, hh = CITY_TH / 2 * f; return [[cx, cy - hh], [cx + hw, cy], [cx, cy + hh], [cx - hw, cy]]; }
+function cBox(cx, cy, f, h, col, floorGap, floorCol) {
+  const [T, R, B, L] = cDia(cx, cy, f), up = p => [p[0], p[1] - h];
+  let s = cPoly([L, B, up(B), up(L)], cityShade(col, -0.1)) + cPoly([B, R, up(R), up(B)], cityShade(col, -0.32));
+  if (floorGap) {
+    const at = (a, b, t, o) => cF(a[0] + (b[0] - a[0]) * t) + " " + cF(a[1] + (b[1] - a[1]) * t - o);
+    let p = "";
+    for (let o = 4; o < h - 2; o += floorGap) p += "M" + at(L, B, .14, o) + "L" + at(L, B, .86, o) + "M" + at(B, R, .14, o) + "L" + at(B, R, .86, o);
+    s += '<path d="' + p + '" stroke="' + floorCol + '" stroke-width="1.3" fill="none"/>';
+  }
+  return s + cPoly([up(T), up(R), up(B), up(L)], cityShade(col, 0.14));
+}
+function cRoof(cx, cy, f, h, rh, col) {
+  const [T, R, B, L] = cDia(cx, cy, f * 1.14).map(p => [p[0], p[1] - h]), A = [cx, cy - h - rh];
+  return cPoly([T, L, A], cityShade(col, 0.18)) + cPoly([T, R, A], cityShade(col, 0.06)) +
+    cPoly([L, B, A], cityShade(col, -0.04)) + cPoly([B, R, A], cityShade(col, -0.3));
+}
+function cTree(x, y, s, col) {
+  return '<line x1="' + cF(x) + '" y1="' + cF(y) + '" x2="' + cF(x) + '" y2="' + cF(y - s) + '" stroke="#6b4a2b" stroke-width="1.4"/>' +
+    '<ellipse cx="' + cF(x) + '" cy="' + cF(y - s * 1.6) + '" rx="' + cF(s * 1.05) + '" ry="' + cF(s * 1.15) + '" fill="' + col + '"/>' +
+    '<ellipse cx="' + cF(x - s * .3) + '" cy="' + cF(y - s * 1.85) + '" rx="' + cF(s * .42) + '" ry="' + cF(s * .38) + '" fill="#ffffff" opacity=".18" stroke="none"/>';
+}
+// Будинок класу cls на клітинці (x,y); повертає { svg, top } — top для «✨»
+function cBuilding(cls, x, y, sx, sy) {
+  const r = (k) => cityRnd(x, y, k), pick = a => a[Math.floor(r(1) * a.length) % a.length];
+  const h = Math.round(cls.h[0] + r(2) * (cls.h[1] - cls.h[0])), wall = pick(cls.walls);
+  if (cls.type === "house") {
+    const f = cls === CITY_CLASSES.A1 ? .56 : .66, rh = cls === CITY_CLASSES.A1 ? 5 : 7;
+    const roof = cls.roof[Math.floor(r(3) * cls.roof.length) % cls.roof.length];
+    let s = cls === CITY_CLASSES.A2 ? cPoly(cDia(sx, sy, .94), "#8fcd72") : "";
+    if (cls === CITY_CLASSES.A2 && r(4) < .5) s += cTree(sx + CITY_TW * .3, sy + 1, 3, "#3f9a45");
+    return { svg: s + cBox(sx, sy, f, h, wall) + cRoof(sx, sy, f, h, rh, roof), top: sy - h - rh };
+  }
+  if (cls.type === "villa") {
+    let s = cPoly(cDia(sx, sy, .96), "#8fcf74");
+    s += cBox(sx - CITY_TW * .08, sy - CITY_TH * .12, .5, h, "#fbfbf8") + cBox(sx + CITY_TW * .12, sy - CITY_TH * .2, .3, h - 3, "#ece6da");
+    s += cPoly(cDia(sx + CITY_TW * .17, sy + CITY_TH * .17, .34), "#4fc3f7", ' stroke="#e9fbff" stroke-width=".8"');
+    s += cTree(sx - CITY_TW * .3, sy + CITY_TH * .1, 3.2, "#2f8f45");
+    return { svg: s, top: sy - h - 4 };
+  }
+  if (cls.type === "park") {
+    let s = cPoly(cDia(sx, sy, .96), "#7cc464");
+    s += '<path d="M' + cF(sx - CITY_TW * .34) + ' ' + cF(sy) + 'L' + cF(sx + CITY_TW * .34) + ' ' + cF(sy) + '" stroke="#e9dcb8" stroke-width="1.6"/>';
+    s += '<ellipse cx="' + cF(sx + 2) + '" cy="' + cF(sy + 2.5) + '" rx="4" ry="2" fill="#5ab8e8" stroke="none"/>';
+    s += cTree(sx - 6, sy - 1, 3.4, "#2f8a3e") + cTree(sx + 5, sy - 2.5, 3, "#3c9a48") + cTree(sx - 1, sy + 3.5, 2.8, "#2f8a3e");
+    return { svg: s, top: sy - 12 };
+  }
+  // багатоповерхівки / офіси / хмарочоси — на мощеній ділянці
+  let s = cPoly(cDia(sx, sy, .96), "#cfccc4");
+  if (cls.type === "block") {
+    s += cBox(sx, sy, .74, h, wall, 4.2, "rgba(70,90,120,.55)") + cBox(sx + 2, sy - h, .2, 4, wall);
+    return { svg: s, top: sy - h - 4 };
+  }
+  if (cls.type === "office") {
+    s += cBox(sx, sy, .78, h, wall, 3.4, "rgba(232,244,255,.6)");
+    return { svg: s, top: sy - h };
+  }
+  const f = .64;   // хмарочос: скляна вежа, у половини — уступ і шпиль
+  s += cBox(sx, sy, f, h, wall, 3, "rgba(225,240,255,.62)");
+  let top = sy - h;
+  if (r(5) < .5) { s += cBox(sx, sy - h, .42, 12, cityShade(wall, .1), 3, "rgba(225,240,255,.62)"); top -= 12; }
+  s += '<line x1="' + cF(sx) + '" y1="' + cF(top) + '" x2="' + cF(sx) + '" y2="' + cF(top - 12) + '" stroke="#c9d6ee" stroke-width="1.2"/>';
+  return { svg: s, top: top - 12 };
+}
+function cCrane(sx, sy, hFull, part) {
+  const hs = Math.max(4, hFull * part), [T, R, B, L] = cDia(sx, sy, .74), up = p => [p[0], p[1] - hs];
+  let s = cPoly(cDia(sx, sy, .92), "#b48c5c");
+  s += '<g fill="none" stroke="#f0b43a" stroke-width="1" stroke-dasharray="2 1.5">' +
+    cPoly([L, B, up(B), up(L)], "none") + cPoly([B, R, up(R), up(B)], "none") + cPoly([up(T), up(R), up(B), up(L)], "none") + '</g>';
+  const mx = sx + CITY_TW * .3, top = sy - hFull - 12;
+  s += '<path d="M' + cF(mx) + ' ' + cF(sy) + 'V' + cF(top) + 'M' + cF(mx - CITY_TW * .75) + ' ' + cF(top) + 'H' + cF(mx + CITY_TW * .3) +
+    'M' + cF(mx - CITY_TW * .55) + ' ' + cF(top) + 'V' + cF(sy - hs - 3) + '" stroke="#f2b632" stroke-width="1.5" fill="none"/>';
+  return { svg: s, top };
+}
+function renderCityMap(d, lay, all) {
+  const P = (x, y) => [(x - y) * CITY_TW / 2, (x + y) * CITY_TH / 2];
+  const objs = [], add = (x, y, svg) => objs.push({ k: x + y, x, svg });
+  const RI = lay.R + 3, ex = RI * Math.SQRT2 * CITY_TW / 2, ey = RI * Math.SQRT2 * CITY_TH / 2;
+  let minY = 0, maxD = 0, lots = "", stats = [];
+  lay.secs.forEach(sec => {
+    const o = sec.o, cls = CITY_CLASSES[sec.L] || CITY_CLASSES.none, n = sec.need;
+    const built = o.known >= o.total ? n : Math.min(n, Math.floor(o.known / CITY_STEP));
+    const part = built < n ? (o.known - built * CITY_STEP) / CITY_STEP : 0;
+    const cons = part > 0 ? 1 : 0;
+    const found = Math.max(0, Math.min(n - built - cons, o.learning > 0 ? Math.max(1, Math.round(o.learning / CITY_STEP)) : 0));
+    const lastK = d.lastK[sec.L] || 0;
+    const fresh = Math.min(built, built - Math.floor(Math.max(0, o.known - lastK) / CITY_STEP));
+    const need = built < n ? Math.min(CITY_STEP - (o.known % CITY_STEP), o.total - o.known) : 0;
+    stats.push({ L: sec.L, cls, n, built, cons, found, need, lastK });
+    sec.cells.forEach((c, i) => {
+      const [sx, sy] = P(c.x, c.y), lv = ' data-lv="' + sec.L + '"';
+      if (i < built) {
+        maxD = Math.max(maxD, c.dist);
+        const b = cBuilding(cls, c.x, c.y, sx, sy);
+        minY = Math.min(minY, b.top - 14);
+        const isNew = i >= built - fresh;   // добудований ОСТАННЬОЮ грою — золоте кільце + ✨
+        let g = '<g class="cb built' + (isNew ? ' fresh' : '') + '"' + lv + '><title>' + sec.L + ' · ' + cls.name + (isNew ? ' · новий!' : '') + '</title>' +
+          (isNew ? '<ellipse class="c-glow" cx="' + cF(sx) + '" cy="' + cF(sy) + '" rx="' + cF(CITY_TW * .62) + '" ry="' + cF(CITY_TH * .62) + '"/>' : '') + b.svg + '</g>';
+        if (isNew) g += '<text class="c-spark" x="' + cF(sx) + '" y="' + cF(b.top - 2) + '" text-anchor="middle">✨</text>';
+        add(c.x, c.y, g);
+      } else if (i === built && cons) {
+        maxD = Math.max(maxD, c.dist);
+        const hFull = (cls.h[0] + cls.h[1]) / 2 || 8, b = cCrane(sx, sy, hFull, part);
+        minY = Math.min(minY, b.top - 4);
+        add(c.x, c.y, '<g class="cb cons"' + lv + '><title>' + wAttr(sec.L + ' · будується: ' + Math.round(part * 100) + '% — ще ' + wWords(need) + ' в «Знаю»') + '</title>' + b.svg + '</g>');
+      } else if (i < built + cons + found) {
+        maxD = Math.max(maxD, c.dist);
+        add(c.x, c.y, '<g class="cb found"' + lv + '><title>' + sec.L + ' · фундамент (слова «Вивчаю»)</title>' + cBox(sx, sy, .66, 1.6, "#d8c7a5") + '</g>');
+      } else if (i < n) {
+        lots += cPoly(cDia(sx, sy, .86), "rgba(255,255,255,.09)", ' class="cb lot"' + lv);
+        if (cityRnd(c.x, c.y, 17) < .22)   // дерева на ще не забудованих ділянках — їх «вирубають» під будинок
+          add(c.x, c.y, cTree(sx + (cityRnd(c.x, c.y, 8) - .5) * 8, sy + (cityRnd(c.x, c.y, 9) - .5) * 4, 3 + cityRnd(c.x, c.y, 10) * 1.4, "#3c8f45"));
+      } else if (cityRnd(c.x, c.y, 7) < .55) {
+        add(c.x, c.y, cTree(sx + (cityRnd(c.x, c.y, 8) - .5) * 8, sy + (cityRnd(c.x, c.y, 9) - .5) * 4, 3.4 + cityRnd(c.x, c.y, 10) * 1.6, cityRnd(c.x, c.y, 11) < .5 ? "#2f7d3a" : "#3c8f45"));
+      }
+    });
+  });
+  // ліс навколо міста
+  const N = Math.ceil(RI);
+  for (let y = -N; y <= N; y++) for (let x = -N; x <= N; x++) {
+    const dist = Math.hypot(x, y);
+    if (dist <= lay.R + .5 || dist > RI - .6 || cityRnd(x, y, 12) > .72) continue;
+    const [sx, sy] = P(x, y);
+    add(x, y, cTree(sx + (cityRnd(x, y, 13) - .5) * 9, sy + (cityRnd(x, y, 14) - .5) * 4, 3.6 + cityRnd(x, y, 15) * 1.8, cityRnd(x, y, 16) < .5 ? "#2c7437" : "#3a8a43"));
+  }
+  // площа: фонтан у центрі, по колу — міські споруди за лігами досягнень
+  CITY_INFRA.forEach((inf, k) => {
+    const a = -Math.PI * 3 / 4 + k * Math.PI / 4, x = Math.cos(a) * 2.2, y = Math.sin(a) * 2.2, [sx, sy] = P(x, y);
+    const L = inf.ach ? worldAchLevel(inf.ach) : Math.min(5, worldTier(inf.v(d), inf.ms).lvl);
+    add(x, y, cPoly(cDia(sx, sy, .8), "#d6cdb9") + '<text class="c-lm' + (L ? '' : ' off') + '" x="' + cF(sx) + '" y="' + cF(sy + 1) + '" text-anchor="middle">' +
+      inf.ic + '<title>' + wAttr(inf.name + (L ? ' · ' + ACH_LEAGUES[L - 1].name : ' · ще не збудовано')) + '</title></text>');
+  });
+  objs.sort((a, b) => a.k - b.k || a.x - b.x);
+  const ell = (r, extra) => '<ellipse cx="0" cy="0" rx="' + cF(r * Math.SQRT2 * CITY_TW / 2) + '" ry="' + cF(r * Math.SQRT2 * CITY_TH / 2) + '"' + extra + '/>';
+  let roads = ell(CITY_PLAZA + .6, ' fill="none" stroke="#8a8d93" stroke-width="10"');
+  lay.rings.forEach(r => { roads += ell(r, ' fill="none" stroke="#8a8d93" stroke-width="10"'); });
+  lay.aves.forEach(p => {
+    const [x1, y1] = P(Math.cos(p) * (CITY_PLAZA + .6), Math.sin(p) * (CITY_PLAZA + .6)), [x2, y2] = P(Math.cos(p) * (lay.R + .4), Math.sin(p) * (lay.R + .4));
+    roads += '<line x1="' + cF(x1) + '" y1="' + cF(y1) + '" x2="' + cF(x2) + '" y2="' + cF(y2) + '" stroke="#8a8d93" stroke-width="9" stroke-linecap="round"/>';
+  });
+  const dash = roads.replace(/stroke="#8a8d93" stroke-width="(9|10)"/g, 'stroke="#f3efe2" stroke-width=".8" stroke-dasharray="4 4"');
+  // підписи районів — плашки на краю ділянки
+  // «Камера»: за замовчуванням — забудована частина + запас (мін. 9 клітинок), тож місто
+  // помітно «віддаляється» в міру росту; кнопка «Уся ділянка» показує острів цілком.
+  const VR = all ? RI : Math.min(RI, Math.max(9, maxD + 3.5));
+  const vex = VR * Math.SQRT2 * CITY_TW / 2, vey = VR * Math.SQRT2 * CITY_TH / 2;
+  const vx = -vex - 16, vw = vex * 2 + 32, vy = Math.min(-vey, minY) - 8, vh = vey + (VR >= RI ? 26 : 10) - vy;
+  // підписи районів — плашки на краю видимої ділянки
+  let labels = "";
+  lay.secs.forEach(sec => {
+    const a = (sec.a0 + sec.a1) / 2, lr = VR >= RI ? lay.R + 1.7 : VR - 1.6;
+    const txt = sec.L === "none" ? "Парки" : sec.L + " · " + (CITY_CLASSES[sec.L] || CITY_CLASSES.none).name, w = txt.length * 6.3 + 14;
+    let [lx, ly] = P(Math.cos(a) * lr, Math.sin(a) * lr);
+    lx = Math.max(vx + w / 2 + 4, Math.min(vx + vw - w / 2 - 4, lx));
+    ly = Math.max(vy + 12, Math.min(vy + vh - 12, ly));
+    labels += '<g class="c-tag"><rect x="' + cF(lx - w / 2) + '" y="' + cF(ly - 9) + '" width="' + cF(w) + '" height="17" rx="8.5"/>' +
+      '<text x="' + cF(lx) + '" y="' + cF(ly + 3.5) + '" text-anchor="middle">' + esc(txt) + '</text></g>';
+  });
+  return {
+    stats,
+    svg: '<svg class="c-map" viewBox="' + cF(vx) + ' ' + cF(vy) + ' ' + cF(vw) + ' ' + cF(vh) + '" xmlns="http://www.w3.org/2000/svg">' +
+      '<defs><linearGradient id="cWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9e3f5"/><stop offset="1" stop-color="#7cc3e6"/></linearGradient></defs>' +
+      '<rect x="' + cF(vx) + '" y="' + cF(vy) + '" width="' + cF(vw) + '" height="' + cF(vh) + '" fill="url(#cWater)"/>' +
+      '<ellipse cx="0" cy="12" rx="' + cF(ex) + '" ry="' + cF(ey) + '" fill="#7a5a3a"/>' +
+      '<ellipse cx="0" cy="6" rx="' + cF(ex) + '" ry="' + cF(ey) + '" fill="#9a7650"/>' +
+      '<ellipse cx="0" cy="0" rx="' + cF(ex) + '" ry="' + cF(ey) + '" fill="#86c26c" stroke="#6fae58" stroke-width="1.5"/>' +
+      roads + dash + ell(CITY_PLAZA, ' fill="#e6dfcf" stroke="#cbbfa6" stroke-width="1.5"') + ell(CITY_PLAZA * .45, ' fill="#ddd4c0" stroke="#cbbfa6" stroke-width="1"') +
+      '<ellipse cx="0" cy="0" rx="10" ry="5" fill="#5ab8e8" stroke="#fff" stroke-width="1.2"/><ellipse cx="0" cy="-3" rx="2.2" ry="4" fill="#d6f1ff" opacity=".9"/>' +
+      lots + '<g stroke="rgba(20,25,35,.22)" stroke-width=".5">' + objs.map(o => o.svg).join("") + '</g>' + labels + '</svg>'
+  };
+}
 function renderCity(d) {
   const mood = d.idle === 0 ? "lit" : d.idle === 1 ? "dusk" : "dark";
   const banner = d.idle === null ? ["warn", "🌑", "Місто ще не збудоване — зіграй першу гру"]
-    : mood === "lit" ? ["good", "🌃", "Місто сяє — сьогодні ти вже займався"]
-    : mood === "dusk" ? ["warn", "🌆", "Вечоріє: сьогодні ще не займався — зіграй, і вогні засвітяться"]
-    : ["bad", "🌑", "Місто спить: останнє заняття " + wDays(d.idle) + " тому. Будинки цілі — вогні засвітяться після гри"];
+    : mood === "lit" ? ["good", "☀️", "Місто живе — сьогодні ти вже займався"]
+    : mood === "dusk" ? ["warn", "🌆", "Вечоріє: сьогодні ще не займався — зіграй, і місто прокинеться"]
+    : ["bad", "🌑", "Місто спить: останнє заняття " + wDays(d.idle) + " тому. Будинки цілі — після гри знову буде день"];
   let rank = CITY_RANKS[0], next = null;
   CITY_RANKS.forEach((r, i) => { if (d.known >= r[0]) { rank = r; next = CITY_RANKS[i + 1] || null; } });
-  let built = 0, cons = 0, found = 0, rows = "";
-  d.levels.forEach((L, li) => {
-    const o = d.lv[L], ds = CITY_DIST[L] || CITY_DIST.none;
-    const slots = Math.max(1, Math.min(CITY_SLOTS, Math.ceil(o.total / 10)));
-    const per = Math.ceil(o.total / slots);
-    const b = o.known >= o.total ? slots : Math.min(slots, Math.floor(o.known / per));
-    const part = b < slots ? (o.known - b * per) / per : 0;
-    const c = part > 0 ? 1 : 0;
-    const f = Math.max(0, Math.min(slots - b - c, Math.round(o.learning / per)));
-    const lastK = d.lastK[L] || 0;
-    const fresh = Math.min(b, b - Math.floor(Math.max(0, o.known - lastK) / per));
-    const need = b < slots ? Math.min(per - (o.known - b * per), o.total - o.known) : 0;
-    // Смуга кварталу — по найвищій НАЯВНІЙ споруді (порожній квартал не займає пів екрана)
-    let strip = "", top = 0;
-    for (let i = 0; i < slots; i++) {
-      const h = Math.round(ds.h[0] + ((i * 7 + li * 3) % 9) / 8 * (ds.h[1] - ds.h[0]));
-      if (i < b + c + f) top = Math.max(top, h);
-      if (i < b) strip += '<i class="c-b built c-' + ds.roof + (i >= b - fresh ? ' fresh' : '') + '" style="height:' + h + 'px"></i>';
-      else if (i === b && c) strip += '<i class="c-b build" style="height:' + Math.max(4, Math.round(h * part)) + 'px" title="' +
-        wAttr(Math.round(part * 100) + '% — ще ' + wWords(need) + ' в «Знаю»') + '"><span class="c-crane">🏗️</span></i>';
-      else if (i < b + c + f) strip += '<i class="c-b found" style="height:' + h + 'px"></i>';
-      else strip += '<i class="c-b lot"></i>';
-    }
-    rows += '<div class="c-row" data-lv="' + L + '" style="--bc1:' + ds.bc[0] + ';--bc2:' + ds.bc[1] + ';--roof:' + ds.rf + '">' +
-      '<div class="c-head"><b>' + worldLevelName(L) + '</b><span>' + ds.name + '</span>' +
-        (lastK ? '<span class="w-new" title="Слова цього рівня, що перейшли в «Знаю» за останню гру">✨ +' + lastK + ' з останньої гри</span>' : '') +
-        '<span class="c-n">🏢 ' + b + ' / ' + slots + ' · ' + (need > 0 ? 'ще ' + wWords(need) + ' до нового будинку' : 'квартал добудовано! 🎉') + '</span></div>' +
-      '<div class="c-strip" style="height:' + Math.max(26, top + 16) + 'px" title="' + wAttr(worldLevelName(L) + ': 1 будинок = ' + wWords(per) +
-        ' у «Знаю» · ' + o.known + ' знаю · ' + o.learning + ' вивчаю (фундаменти) · усього ' + o.total) + '">' + strip + '</div></div>';
-    built += b; cons += c; found += f;
-  });
+  const lay = cityLayout(d);
+  if (!lay) return '<div class="city ' + mood + '"><div class="w-banner bad">Не вдалося розмітити місто</div></div>';
+  const map = renderCityMap(d, lay, cityShowAll);
+  let pop = 0, value = 0, built = 0, cons = 0, found = 0;
+  const legend = map.stats.map(s => {
+    pop += s.built * s.cls.pop; value += s.built * s.cls.price; built += s.built; cons += s.cons; found += s.found;
+    return '<div class="c-lrow" data-lv="' + s.L + '"><span class="c-sw" style="background:' + (s.cls.roof ? s.cls.roof[0] : s.cls.walls[0]) + '"></span>' +
+      '<b>' + (s.L === "none" ? "—" : s.L) + '</b><span class="c-ln">' + s.cls.name + ' <small>' + s.cls.sub + '</small></span>' +
+      '<span class="h-bar"><i style="width:' + Math.round(s.built / s.n * 100) + '%"></i></span>' +
+      '<span class="c-lnum">' + s.built + ' / ' + s.n + '</span>' +
+      '<span class="c-lnext">' + (s.need > 0 ? 'ще ' + wWords(s.need) + ' до нового' : 'район добудовано! 🎉') +
+        (s.lastK ? ' <span class="w-new">✨ +' + s.lastK + '</span>' : '') + '</span></div>';
+  }).join("");
   const infra = CITY_INFRA.map(x => {
     let L, tip;
     if (x.ach) { L = worldAchLevel(x.ach); tip = worldAchNext(x.ach); }
@@ -11626,13 +11846,14 @@ function renderCity(d) {
   }).join("");
   return '<div class="city ' + mood + '">' +
     '<div class="w-banner ' + banner[0] + '"><span class="w-big">' + banner[1] + '</span>' + banner[2] + '</div>' +
-    '<div class="w-totals"><span style="font-size:15px">🏙️ <b>' + rank[1] + '</b></span><span>👥 <b>' + fmtXpNum(d.known * 10) + '</b> жителів</span>' +
+    '<div class="w-totals"><span style="font-size:15px">🏙️ <b>' + rank[1] + '</b></span>' +
       (next ? '<span>до «' + next[1] + '» ще <b>' + fmtXpNum(next[0] - d.known) + '</b> слів</span>' : '') +
-      '<span>🏢 Будинків: <b>' + built + '</b></span><span>🏗️ Будується: <b>' + cons + '</b></span><span>📐 Фундаментів: <b>' + found + '</b></span></div>' +
+      '<span>👥 <b>' + fmtXpNum(pop) + '</b> мешканців</span><span>💰 <b>' + cityMoney(value) + '</b></span>' +
+      '<span>🏢 <b>' + built + '</b> будинків</span><span>🏗️ <b>' + cons + '</b> будується</span><span>📐 <b>' + found + '</b> фундаментів</span></div>' +
     worldHarvestHtml(d, "🧱", "Сьогодні ще без нових цеглин — слова, що перейдуть у «Знаю», з'являться тут") +
-    rows +
-    '<div class="w-sec">Міські споруди · ліги досягнень</div><div class="c-infra">' + infra + '</div>' +
-    '<div class="w-totals" style="opacity:.6">Будинок = частка слів рівня в «Знаю» · пунктир — фундаменти зі слів «Вивчаю» · 1 слово в «Знаю» = 10 жителів</div>' +
+    '<div class="c-mapwrap">' + map.svg + '<button class="c-zoom" data-act="czoom">' + (cityShowAll ? '🔍 Ближче до забудови' : '⤢ Уся ділянка') + '</button></div>' +
+    '<div class="w-sec">Райони · 1 будинок = ' + CITY_STEP + ' слів рівня в «Знаю»</div><div class="c-leg">' + legend + '</div>' +
+    '<div class="w-sec">Споруди на площі · ліги досягнень</div><div class="c-infra">' + infra + '</div>' +
   '</div>';
 }
 
@@ -11657,6 +11878,10 @@ function setWorldTab(id) {
 worldOverlay.addEventListener("click", e => {
   const t = e.target.closest("[data-wtab]");
   if (t) { setWorldTab(t.dataset.wtab); return; }
+  if (e.target.closest('[data-act="czoom"]')) {
+    const body = document.getElementById("world-body"), top = body.scrollTop;
+    cityShowAll = !cityShowAll; renderWorld(); body.scrollTop = top; return;
+  }
   if (e.target === worldOverlay || e.target.closest('[data-act="close"]')) closeWorld();
 });
 document.getElementById("world-btn").addEventListener("click", openWorld);
