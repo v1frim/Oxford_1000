@@ -2992,7 +2992,7 @@ const WORDS = [
   {en:"fare",ua:"вартість проїзду",uaAlt:["тариф"]},
   {en:"faucet",ua:"водопровідний кран",enAlt:["tap"]},
   {en:"fossil fuels",ua:"викопне паливо",enAlt:["fossil fuel"],uaAlt:["викопне пальне"]},
-  {en:"grater",ua:"тертка"},
+  {en:"grater",ua:"тертка",uaAlt:["терка"]},
   {en:"greenhouse effect",ua:"парниковий ефект",uaAlt:["тепличний ефект"]},
   {en:"hand luggage",ua:"ручна поклажа",enAlt:["hand baggage","carry-on","carry-on bag"],uaAlt:["ручна кладь"]},
   {en:"headquarters",ua:"штаб-квартира",uaAlt:["головний офіс"]},
