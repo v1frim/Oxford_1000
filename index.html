@@ -5693,6 +5693,50 @@ const EN_TO_UA = (() => {
   m.set("indian", ["індійський; індієць"]);
   m.set("arctic", ["арктичний"]);
   m.set("pacific", ["Тихий океан", "тихоокеанський"]);
+  // ⚠️ ФОРМИ МИНУЛОГО ЧАСУ, ЩО ЗБІГАЮТЬСЯ З ІНШИМ СЛОВОМ (сесія 61, привід «We saw every star» →
+  // ховер «пилка, пила» без «бачив»). `stemEn` віддає форму як є, коли вона САМА — ключ словника,
+  // тож сенс дієслова з IRREGULAR губився. Дієслівний сенс — ПЕРШИМ (у реченнях він частіший),
+  // з базою в дужках, як у `broke`. Сюди ж — форми, що стемились у хибний іменник (lit → light
+  // «легкий», sprang → spring «весна»), і брит./рідкісні форми без бази в IRREGULAR.
+  m.set("saw", ["бачив (see)", "пилка", "пила"]);
+  m.set("rose", ["піднявся (rise)", "троянда"]);
+  m.set("spoke", ["говорив (speak)", "спиця"]);
+  m.set("thought", ["думав (think)", "думка", "гадка"]);
+  m.set("bit", ["трохи (a bit)", "вкусив (bite)", "біт"]);
+  m.set("lost", ["втратив (lose)", "загубив", "програв", "загублений", "втрачений"]);
+  m.set("stuck", ["застряг (stick)", "застряглий"]);
+  m.set("rung", ["подзвонив (ring)", "щабель"]);
+  m.set("shot", ["вистрілив (shoot)", "постріл", "удар", "спроба"]);
+  m.set("laid", ["поклав (lay)", "невимушений"]);
+  m.set("lay", ["лежав (lie)", "класти"]);
+  m.set("lit", ["запалив (light)", "освітлений"]);
+  m.set("bent", ["зігнув (bend)", "зігнутий"]);
+  m.set("sank", ["затонув (sink)"]);
+  m.set("sprang", ["стрибнув (spring)"]);
+  m.set("sped", ["мчав (speed)"]);
+  m.set("rang", ["дзвонив (ring)"]);
+  m.set("wound", ["рана", "поранення", "ранити", "намотав (wind)"]);
+  m.set("beheld", ["споглядав (behold)"]);
+  m.set("sought", ["шукав (seek)"]);
+  m.set("bled", ["кровоточив (bleed)"]);
+  m.set("bred", ["розводив (breed)"]);
+  m.set("stank", ["смердів (stink)"]);
+  m.set("lent", ["позичив (lend)"]);
+  m.set("knelt", ["став на коліна (kneel)"]);
+  m.set("spilt", ["розлив (spill)"]);
+  m.set("spelt", ["назвав по літерах (spell)"]);
+  m.set("dreamt", ["мріяв, снилося (dream)"]);
+  m.set("learnt", ["вивчив (learn)"]);
+  m.set("smelt", ["пахнув, понюхав (smell)"]);
+  m.set("spat", ["плюнув (spit)"]);
+  m.set("foresaw", ["передбачив (foresee)"]);
+  m.set("overtook", ["обігнав (overtake)"]);
+  m.set("mistook", ["сплутав (mistake)"]);
+  m.set("misled", ["ввів в оману (mislead)"]);
+  m.set("retold", ["переказав (retell)"]);
+  m.set("rewrote", ["переписав (rewrite)"]);
+  m.set("arose", ["виник (arise)"]);
+  m.set("awoke", ["прокинувся (awake)"]);
   return m;
 })();
 
