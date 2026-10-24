@@ -177,6 +177,8 @@
   .lb-chip:hover { background: rgba(255,255,255,0.18); }
   .lb-chip.active { background: #ffd166; color: #1e3c72; border-color: #ffd166; font-weight: 600; }
   .lb-per-sum { flex: 1 0 100%; font-size: 11px; opacity: 0.55; margin-top: 2px; }
+  .lb-per-ok { color: #7be07b; font-weight: 700; }
+  .lb-per-bad { color: #ff8a8a; font-weight: 700; }
   .lb-review { font-size: 11px; color: #87b4ff; opacity: 0.85; }
   .lb-empty { font-size: 13px; opacity: 0.6; padding: 10px 4px; }
   #lb-totals { position: fixed; bottom: 18px; right: 18px; background: rgba(12,32,68,0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 12px 16px; min-width: 190px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); z-index: 200; }
@@ -1736,7 +1738,7 @@
 <body>
 <div class="layout">
 <aside class="leaderboard hidden" id="progress-panel">
-  <div class="lb-header" style="margin-bottom:4px">
+  <div class="lb-header" style="margin-bottom:14px">
     <span style="font-size:16px;font-weight:600;opacity:0.9">📈 Прогрес по днях</span>
     <span id="prog-streak"></span>
   </div>
@@ -1748,7 +1750,6 @@
 
   <!-- START SCREEN -->
   <div id="start-screen">
-    <p class="desc">У тебе 60 секунд. Перекладай слова якомога швидше.</p>
     <div id="mastery-stats"></div>
     <div id="mastery-bar"></div>
     <div id="xp-section">
@@ -8882,9 +8883,11 @@ function renderTabPeriod() {
   // ⚠️ Кома в дробовій частині — та сама конвенція, що в «Точності» (сесія 36):
   // відсоток рухається повільно, тож десяткова частина показує зміну.
   const pct = p => p.toFixed(1).replace(".", ",") + "%";
+  // ⚠️ Замість середнього «сер. 5,4» — суми правильних і неправильних за період (сесія 61, за
+  // запитом). Неправильні = помилки + пропуски, як «Неправильних» на екрані результатів гри.
   const summary = total
-    ? '<div class="lb-per-sum">' + plGames(total) + " · сер. " +
-      (sum / total).toFixed(1).replace(".", ",") + " · точність " +
+    ? '<div class="lb-per-sum">' + plGames(total) + ' · <span class="lb-per-ok">✓ ' + sum + '</span> · ' +
+      '<span class="lb-per-bad">✗ ' + (answered - sum) + '</span> · точність ' +
       (answered ? pct(sum / answered * 100) : "—") + "</div>"
     : "";
   chipsEl.innerHTML = chipsHtml() + summary;
