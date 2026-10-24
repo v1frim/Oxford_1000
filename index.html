@@ -622,7 +622,7 @@
   #xp-section.tier-3 { --tier:#7c3aed; --tier2:#c4b5fd; }  /* Діамант - фіолетовий */
   #xp-section.tier-4 { --tier:#c0392b; --tier2:#ff6040; }  /* Королівство - червоний */
   #xp-row { display: flex; align-items: center; gap: 12px; }
-  #xp-hex { position: relative; flex-shrink: 0; width: 46px; height: 50px;
+  #xp-hex { position: relative; flex-shrink: 0; width: 58px; height: 64px; cursor: pointer;
     display: flex; align-items: center; justify-content: center; }
   #xp-hex::before { content: ""; position: absolute; inset: 0;
     background: linear-gradient(155deg, var(--tier2), var(--tier));
@@ -630,10 +630,16 @@
   #xp-hex::after { content: ""; position: absolute; inset: 3px;
     background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.18), rgba(0,0,0,0.45));
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-  #xp-hex-num { position: absolute; inset: 0; z-index: 1; display: flex;
-    align-items: center; justify-content: center; font-weight: 800; font-size: 19px;
-    color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.65); line-height: 1;
-    transform: translate(-1px, -2px); }
+  /* Герой у шестикутнику (сесія 61): аватар-бюст у формі ліги, номер рівня — бейдж знизу */
+  #xp-hex-ava { position: absolute; inset: 3px; z-index: 1; overflow: hidden;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  #xp-hex-ava .hero-svg { width: 100%; height: 100%; display: block; transform: translateY(3px) scale(1.08); }
+  #xp-section.tier-3 #xp-hex-ava { clip-path: circle(46%); }
+  #xp-section.tier-4 #xp-hex-ava { clip-path: polygon(50% 2%, 98% 50%, 50% 98%, 2% 50%); }
+  #xp-hex-num { position: absolute; left: 50%; bottom: -5px; z-index: 2; transform: translateX(-50%);
+    min-width: 20px; padding: 1px 5px; border-radius: 9px; text-align: center;
+    background: linear-gradient(155deg, var(--tier2), var(--tier)); border: 1px solid rgba(0,0,0,.35);
+    font-weight: 800; font-size: 11px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.7); line-height: 1.25; }
   /* Diamond — кругла форма з фіолетовим свінням */
   #xp-section.tier-3 #xp-hex::before,
   #xp-section.tier-3 #xp-hex::after { clip-path: circle(46%); }
@@ -1570,41 +1576,16 @@
     color: #ffd166; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s;
   }
   #lb-records-btn:hover { background: linear-gradient(180deg, rgba(255,209,102,0.32), rgba(255,209,102,0.16)); }
-  /* — XP-блок клікабельний (відкриває сходи рівнів) — */
+  /* — XP-блок клікабельний (відкриває екран героя) — */
   #xp-section { cursor: pointer; border-radius: 12px; transition: background .15s; }
   #xp-section:hover { background: rgba(255,209,102,0.06); }
-  /* — Оверлей «Сходи рівнів» — */
-  #levels-overlay, #records-overlay {
+  #records-overlay {
     position: fixed; inset: 0; z-index: 150;
     background: rgba(4,6,14,0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     display: flex; align-items: center; justify-content: center; padding: 24px;
   }
-  #levels-overlay.hidden, #records-overlay.hidden { display: none; }
-  .levels-panel, .records-panel { width: 620px; }
-  .lvl-list { display: flex; flex-direction: column; gap: 6px; }
-  .lvl-row {
-    display: flex; align-items: center; gap: 12px; padding: 9px 14px;
-    border: 1px solid color-mix(in srgb, var(--lg) 45%, transparent);
-    border-left: 4px solid var(--lg); border-radius: 12px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--lg) 10%, transparent), rgba(255,255,255,0.015));
-  }
-  .lvl-row.future { opacity: 0.45; }
-  .lvl-row.cur {
-    opacity: 1; border-color: var(--lg2); border-left-width: 4px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--lg) 26%, transparent), color-mix(in srgb, var(--lg) 8%, transparent));
-    box-shadow: 0 0 22px color-mix(in srgb, var(--lg) 40%, transparent);
-  }
-  .lvl-num {
-    flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, var(--lg2), var(--lg));
-    color: #14100a; font-weight: 800; font-size: 13px;
-    display: inline-flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 10px color-mix(in srgb, var(--lg) 55%, transparent);
-  }
-  .lvl-ic { font-size: 20px; flex: 0 0 auto; }
-  .lvl-name { flex: 1 1 auto; font-size: 15px; font-weight: 700; }
-  .lvl-you { display: block; font-size: 11px; font-weight: 600; color: var(--lg2); margin-top: 1px; }
-  .lvl-xp { font-size: 12px; opacity: 0.65; font-weight: 600; white-space: nowrap; }
+  #records-overlay.hidden { display: none; }
+  .records-panel { width: 620px; }
   /* — Оверлей «Рекорди» — */
   .rec-list { display: flex; flex-direction: column; gap: 8px; }
   .rec-row {
@@ -1630,22 +1611,15 @@
   .rec-label { font-size: 14px; font-weight: 700; }
   .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
-  /* — 🎮 Світ слів: три прототипи (🌱 сад / 🧙 герой / 🏙️ місто), сесія 61 — */
+  /* — 🧙 Герой (сесія 61): екран героя — клік по смужці рівня — */
   /* z-index 210 — ВИЩЕ за «Загальну статистику» й ліві кнопки (200): на 1366px вони наїжджали на панель */
-  #world-overlay {
+  #hero-overlay {
     position: fixed; inset: 0; z-index: 210;
     background: rgba(4,6,14,0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     display: flex; align-items: center; justify-content: center; padding: 24px;
   }
-  #world-overlay.hidden { display: none; }
-  .world-panel { width: 960px; }
-  .w-tabs { display: flex; gap: 6px; margin-left: 10px; }
-  .w-tab {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: rgba(255,255,255,0.75);
-    border-radius: 10px; padding: 6px 14px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;
-  }
-  .w-tab:hover { background: rgba(255,255,255,0.12); color: #fff; }
-  .w-tab.active { background: linear-gradient(180deg, rgba(255,209,102,0.30), rgba(255,209,102,0.14)); border-color: rgba(255,209,102,0.6); color: #ffd166; }
+  #hero-overlay.hidden { display: none; }
+  .hero-panel { width: 1000px; }
   .w-keys { font-size: 11px; opacity: 0.45; margin-left: auto; white-space: nowrap; }
   .w-keys + .songs-close { margin-left: 6px; }
   .w-sec { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .55; margin: 16px 0 8px; font-weight: 700; }
@@ -1654,131 +1628,72 @@
     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); font-size: 14px;
   }
   .w-banner .w-big { font-size: 18px; font-weight: 800; }
-  .w-banner.good { border-color: rgba(123,224,123,0.45); background: rgba(123,224,123,0.08); }
-  .w-banner.warn { border-color: rgba(255,169,77,0.45); background: rgba(255,169,77,0.08); }
-  .w-banner.bad  { border-color: rgba(255,107,107,0.45); background: rgba(255,107,107,0.08); }
-  .w-totals { display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,0.75); margin: 10px 2px 0; }
-  .w-totals b { color: #fff; }
   .w-new { color: #ffd166; font-weight: 700; font-size: 12px; }
   .w-chip {
     display: inline-block; padding: 1px 8px; margin: 0 4px 3px 0; border-radius: 10px; font-size: 12px;
     background: rgba(123,224,123,.14); border: 1px solid rgba(123,224,123,.4); color: #b8f5b8;
   }
   .w-harvest { margin-top: 10px; font-size: 13px; line-height: 1.9; }
-  .w-help { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .w-help > div { padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); font-size: 12px; }
-  .w-help .h-ic { font-size: 18px; letter-spacing: 1px; min-height: 24px; white-space: nowrap; overflow: hidden; }
-  .w-help .h-off { filter: grayscale(1); opacity: .35; }
-  .w-help b { display: block; font-size: 13px; margin-top: 2px; }
-  .w-help span { opacity: .6; }
-  /* 🌱 Сад: 1 рослина = 20 слів рівня в «Знаю»; --dry (0-4) в'ялить рослини після пропусків */
-  .garden { --dry: 0; }
-  .g-sky {
-    position: relative; height: 58px; border-radius: 12px; overflow: hidden; margin: 12px 0 10px;
-    background: linear-gradient(180deg, #3f86d1, #a6d3f5 85%, #6fae4f 85%);
-  }
-  .garden.dry .g-sky { background: linear-gradient(180deg, #8c7f66, #cdbf98 85%, #a08a55 85%); }
-  .g-sun { position: absolute; right: 18px; top: 4px; font-size: 30px; }
-  .g-farmer { position: absolute; left: 14px; bottom: 2px; font-size: 28px; }
-  .g-fly { position: absolute; font-size: 17px; animation: gFly 5s ease-in-out infinite alternate; }
-  @keyframes gFly { from { transform: translate(0, 0) rotate(-8deg); } to { transform: translate(30px, -8px) rotate(8deg); } }
-  .g-bed { margin-bottom: 9px; }
-  .g-head { display: flex; align-items: baseline; gap: 8px; font-size: 13px; margin-bottom: 4px; }
-  .g-head > b { color: #ffd166; min-width: 22px; }
-  .g-head .g-n { margin-left: auto; font-size: 12px; opacity: .7; }
-  .g-cells {
-    display: flex; flex-wrap: wrap; gap: 1px 2px; padding: 5px 8px; border-radius: 10px;
-    background: linear-gradient(180deg, #5d3f25, #3f2a18); box-shadow: inset 0 2px 6px rgba(0,0,0,.45);
-  }
-  .garden.dry .g-cells { background: linear-gradient(180deg, #7c6449, #5b4834); }
-  .g-cells i {
-    font-style: normal; width: 17px; height: 20px; display: inline-flex; align-items: flex-end; justify-content: center;
-    font-size: 15px; line-height: 1;
-  }
-  .g-cells .g-p, .g-cells .g-s {
-    filter: saturate(calc(1 - var(--dry) * 0.2)) sepia(calc(var(--dry) * 0.18));
-    transform: rotate(calc(var(--dry) * 5deg)); transform-origin: 50% 100%;
-  }
-  .g-cells .g-s { font-size: 11px; opacity: .85; }
-  .g-cells .g-e::before { content: ""; width: 7px; height: 4px; border-radius: 50%; background: rgba(0,0,0,.35); margin-bottom: 3px; }
-  .g-cells i.g-new { filter: drop-shadow(0 0 4px #ffd166) drop-shadow(0 0 2px #fff); animation: gPop .9s ease-out; }
-  @keyframes gPop { from { transform: scale(.2); } 70% { transform: scale(1.3); } to { transform: scale(1); } }
-  /* 🧙 Герой: клас = ліга рівня XP, спорядження = ліги ачівок, характеристики = віхи */
-  .hero { display: grid; grid-template-columns: 330px 1fr; gap: 18px; margin-top: 12px; }
+  .hero { display: grid; grid-template-columns: 300px 1fr; gap: 20px; margin-top: 12px; }
   .h-card {
-    padding: 16px; border-radius: 16px; text-align: center;
-    background: radial-gradient(circle at 50% 28%, color-mix(in srgb, var(--hc) 30%, transparent), rgba(255,255,255,.03) 70%);
+    padding: 10px 14px 14px; border-radius: 16px; text-align: center;
+    background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--hc) 22%, transparent), rgba(255,255,255,.03) 72%);
     border: 1px solid color-mix(in srgb, var(--hc) 55%, transparent);
   }
-  .h-ava { font-size: 84px; line-height: 1.15; filter: drop-shadow(0 0 18px color-mix(in srgb, var(--hc) 70%, transparent)); }
-  .h-cls { font-size: 19px; font-weight: 800; color: var(--hc2); }
-  .h-lvl { font-size: 13px; opacity: .8; margin-top: 2px; }
-  .h-xp { height: 8px; border-radius: 6px; background: rgba(255,255,255,.1); overflow: hidden; margin: 9px 0 3px; }
+  .h-ava .hero-svg { width: 210px; height: auto; display: block; margin: 0 auto; }
+  .h-cls { font-size: 22px; font-weight: 800; color: var(--hc2); margin-top: 2px; }
+  .h-lvl { font-size: 12px; opacity: .8; margin-top: 2px; }
+  .h-xp { height: 9px; border-radius: 6px; background: rgba(255,255,255,.1); overflow: hidden; margin: 9px 0 3px; }
   .h-xp i { display: block; height: 100%; background: linear-gradient(90deg, var(--hc), var(--hc2)); }
-  .h-xpn { font-size: 11px; opacity: .6; }
-  .h-gear { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 12px; }
+  .h-xpn { font-size: 11px; opacity: .65; }
+  .h-power { margin-top: 8px; font-size: 14px; color: #ffd166; }
+  .h-power b { font-size: 18px; } .h-power span { opacity: .55; font-size: 12px; }
+  .h-path { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding-right: 4px; }
+  .h-rank {
+    display: grid; grid-template-columns: 34px 24px 1fr auto; align-items: center; gap: 8px; padding: 4px 10px 4px 6px; border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--lg) 35%, transparent); border-left: 3px solid var(--lg);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--lg) 10%, transparent), rgba(255,255,255,.01));
+  }
+  .h-rank.future { opacity: .45; }
+  .h-rank.cur { opacity: 1; border-color: var(--lg2); box-shadow: 0 0 16px color-mix(in srgb, var(--lg) 45%, transparent);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--lg) 26%, transparent), color-mix(in srgb, var(--lg) 8%, transparent)); }
+  .r-ava .hero-svg { width: 34px; height: 34px; display: block; border-radius: 50%; background: rgba(0,0,0,.25); }
+  .r-num { font-weight: 800; font-size: 13px; color: var(--lg2); text-align: center; }
+  .r-name { font-size: 13px; font-weight: 700; }
+  .r-name small { display: block; font-size: 10px; font-weight: 500; opacity: .6; }
+  .r-name small.r-you { opacity: 1; color: var(--lg2); font-weight: 700; }
+  .r-xp { font-size: 11px; opacity: .6; white-space: nowrap; }
+  .h-gear { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .h-item {
     --ic: #4a5570; --ic2: #8090aa;
-    border-radius: 12px; padding: 7px 2px 6px; text-align: center; font-size: 11px; cursor: help;
+    display: flex; flex-direction: column; align-items: center; border-radius: 12px; padding: 6px 6px 7px; text-align: center; font-size: 12px; cursor: help;
     border: 1px solid color-mix(in srgb, var(--ic) 60%, transparent);
-    background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--ic) 28%, transparent), rgba(0,0,0,.2));
-    box-shadow: 0 0 12px color-mix(in srgb, var(--ic) 30%, transparent);
+    background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--ic) 26%, transparent), rgba(0,0,0,.2));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--ic) 28%, transparent);
   }
-  .h-item .i-ic { font-size: 24px; display: block; line-height: 1.25; }
-  .h-item .i-lg { color: var(--ic2); font-weight: 700; }
+  .h-item .gear-svg { width: 44px; height: 44px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
+  .h-item b { font-size: 13px; margin-top: 2px; }
+  .h-item .i-lg { color: var(--ic2); font-weight: 700; font-size: 11px; }
+  .h-item small { font-size: 10px; opacity: .5; line-height: 1.2; margin: 2px 0 4px; }
   .h-item.locked { box-shadow: none; }
-  .h-item.locked .i-ic { filter: grayscale(1); opacity: .35; }
-  .h-stats { display: flex; flex-direction: column; gap: 9px; }
-  .h-stat { display: grid; grid-template-columns: 26px 200px 1fr 76px; align-items: center; gap: 8px; font-size: 13px; }
-  .h-stat .s-ic { font-size: 19px; text-align: center; }
-  .h-stat .s-name b { display: block; font-size: 14px; }
-  .h-stat .s-name small { opacity: .55; font-size: 11px; }
-  .h-bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .h-item.locked .gear-svg { opacity: .55; filter: grayscale(.6); }
+  .h-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 18px; }
+  .h-stat { display: grid; grid-template-columns: 24px 1fr auto; grid-template-rows: auto auto; column-gap: 8px; align-items: center; font-size: 13px; cursor: help; }
+  .h-stat .s-ic { grid-row: span 2; font-size: 18px; text-align: center; }
+  .h-stat .s-name b { font-size: 13px; }
+  .h-stat .s-lv { font-size: 11px; color: #c4b5fd; font-weight: 700; }
+  .h-stat .s-name small { display: block; font-size: 10px; opacity: .5; }
+  .h-stat .s-v { text-align: right; font-weight: 800; font-size: 14px; line-height: 1.1; }
+  .h-stat .s-v small { display: block; font-weight: 500; opacity: .5; font-size: 10px; }
+  .h-stat .h-bar { grid-column: 2 / span 2; margin-top: 3px; }
+  .h-bar { height: 7px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; display: block; }
+  .h-bar.sm { height: 4px; width: 80%; }
   .h-bar i { display: block; height: 100%; background: linear-gradient(90deg, #87b4ff, #c4b5fd); }
-  .h-stat .s-v { text-align: right; font-weight: 800; font-size: 15px; }
-  .h-stat .s-v small { display: block; font-weight: 500; opacity: .55; font-size: 10px; }
+  .h-item .h-bar i { background: linear-gradient(90deg, var(--ic), var(--ic2)); }
   .h-buffs { display: flex; gap: 6px; flex-wrap: wrap; }
   .h-buff { padding: 4px 10px; border-radius: 10px; font-size: 12px; background: rgba(123,224,123,.12); border: 1px solid rgba(123,224,123,.4); }
   .h-buff.neg { background: rgba(255,169,77,.12); border-color: rgba(255,169,77,.45); }
-  /* 🏙️ Місто: ізометричний острів у SVG; день/вечір/ніч — фільтр від сьогоднішніх занять */
-  .c-mapwrap { position: relative; margin-top: 10px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.14); }
-  .c-zoom {
-    position: absolute; right: 10px; bottom: 10px; padding: 5px 12px; border-radius: 10px; cursor: pointer;
-    background: rgba(255,255,255,.88); border: 1px solid rgba(30,40,70,.25); color: #24324f; font: 700 12px system-ui, sans-serif;
-  }
-  .c-zoom:hover { background: #fff; }
-  .c-map { display: block; width: 100%; height: auto; transition: filter .3s; }
-  .city.dusk .c-map { filter: sepia(.35) saturate(1.15) brightness(.86) hue-rotate(-12deg); }
-  .city.dark .c-map { filter: grayscale(.6) brightness(.55) contrast(1.05); }
-  .c-map text { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
-  .c-lm { font-size: 15px; }
-  .c-lm.off { opacity: .28; filter: grayscale(1); }
-  .c-spark { font-size: 14px; animation: cSpark 1.1s ease-in-out infinite alternate; }
-  .c-glow { fill: rgba(255,209,102,.35); stroke: #ffd166; stroke-width: 2; animation: cSpark 1.1s ease-in-out infinite alternate; }
-  @keyframes cSpark { from { opacity: .35; } to { opacity: 1; } }
-  .c-tag rect { fill: rgba(255,255,255,.9); stroke: rgba(30,40,70,.25); }
-  .c-tag text { font: 700 11px system-ui, sans-serif; fill: #24324f; }
-  .c-leg { display: flex; flex-direction: column; gap: 6px; }
-  .c-lrow { display: grid; grid-template-columns: 12px 30px 230px 1fr 64px 210px; align-items: center; gap: 8px; font-size: 13px; }
-  .c-sw { width: 12px; height: 12px; border-radius: 3px; }
-  .c-lrow > b { color: #ffd166; font-size: 12px; }
-  .c-ln small { opacity: .55; font-size: 11px; }
-  .c-lnum { text-align: right; font-weight: 700; }
-  .c-lnext { font-size: 12px; opacity: .75; }
-  .c-infra { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .c-inf {
-    --ic: #4a5570; --ic2: #8090aa;
-    display: grid; grid-template-columns: 34px 1fr; align-items: center; column-gap: 8px; padding: 7px 10px; border-radius: 12px; cursor: help;
-    border: 1px solid color-mix(in srgb, var(--ic) 55%, transparent);
-    background: linear-gradient(90deg, color-mix(in srgb, var(--ic) 16%, transparent), rgba(255,255,255,.02));
-  }
-  .c-inf .i-ic { grid-row: span 2; font-size: 24px; text-align: center; }
-  .c-inf b { font-size: 13px; }
-  .c-stars { font-size: 12px; color: var(--ic2); letter-spacing: 1px; }
-  .c-stars .dim { color: rgba(255,255,255,.18); }
-  .c-inf.off .i-ic { filter: grayscale(1); opacity: .5; }
-  #world-btn { background: linear-gradient(0deg, rgba(123,224,123,0.16), rgba(123,224,123,0.16)), rgba(10,14,30,0.92) !important; color: #c8f7c8 !important; }
-  #world-btn:hover { background: linear-gradient(0deg, rgba(123,224,123,0.28), rgba(123,224,123,0.28)), rgba(10,14,30,0.95) !important; }
+  .h-buff.info { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.18); opacity: .8; }
   /* — Прогрес по днях: комірки «значок зверху / число знизу», розділені напівпрозорими рисками — */
   /* ⚠️ ШИРИНА 500px (сесія 50, за запитом «місячним рядкам ледь місця вистачає»).
      Було 440 (сесія 32), до того 420. Правило «прогрес і лідерборд однакової ширини»
@@ -1838,7 +1753,7 @@
     <div id="mastery-bar"></div>
     <div id="xp-section">
       <div id="xp-row">
-        <div id="xp-hex"><span id="xp-hex-num"></span></div>
+        <div id="xp-hex" title="Твій герой — клікни, щоб відкрити"><span id="xp-hex-ava"></span><span id="xp-hex-num"></span></div>
         <div id="xp-bar-wrap">
           <div id="xp-labels">
             <span id="xp-name"></span>
@@ -2014,7 +1929,6 @@
   <div class="th-plans" id="thermo-plans">—</div>
 </div>
 <div id="bottom-left-btns">
-  <button id="world-btn" title="Сад, герой і місто, що ростуть разом із твоїми словами (прототипи)">🌱 Світ слів</button>
   <button id="progress-btn">📈 Прогрес по днях</button>
   <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
   <button id="import-btn">📂 Відновити</button>
@@ -2037,22 +1951,16 @@
     <div class="songs-body" id="expr-body"></div>
   </div>
 </div>
-<div id="levels-overlay" class="hidden">
-  <div class="songs-panel levels-panel">
-    <div class="songs-head" id="levels-head"></div>
-    <div class="songs-body" id="levels-body"></div>
-  </div>
-</div>
 <div id="records-overlay" class="hidden">
   <div class="songs-panel records-panel">
     <div class="songs-head" id="records-head"></div>
     <div class="songs-body" id="records-body"></div>
   </div>
 </div>
-<div id="world-overlay" class="hidden">
-  <div class="songs-panel world-panel">
-    <div class="songs-head" id="world-head"></div>
-    <div class="songs-body" id="world-body"></div>
+<div id="hero-overlay" class="hidden">
+  <div class="songs-panel hero-panel">
+    <div class="songs-head" id="hero-head"></div>
+    <div class="songs-body" id="hero-body"></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -7078,17 +6986,16 @@ function handleImportClick() {
 const XP_KEY = "oxford_xp_v1";
 // Thresholds: triangular curve (k-1)*k/2 * 800, scaled ×(180000/152000) so
 // Level 20 = 180000 XP, rounded to nearest 100. Step grows linearly (+900…+18000).
-// РЕДИЗАЙН (гілка redesign): космічна шкала рівнів — від струн до мультивсесвіту.
-// Пороги XP НЕ змінені (та сама трикутна крива, Level 20 = 180,000) — лише назви/іконки.
+// ⚠️ ЗВАННЯ ГЕРОЯ (сесія 61, за запитом «родина/людина/організм… змінюємо на ті, що ближчі до героя»).
+// Доти тут була космічна шкала (Струни → Мультивсесвіт, редизайн сесії 32). Пороги XP НЕ змінені —
+// лише назви. Кожні 4 рівні — новий клас героя з іншим виглядом (HERO_LOOKS, екран героя).
 const XP_LEVELS = [
-  [0,"Струни"],[900,"Кварк"],[2800,"Атом"],[5700,"Молекула"],
-  [9500,"Клітина"],[14200,"Організм"],[19900,"Людина"],[26500,"Родина"],
-  [34100,"Громада"],[42600,"Місто"],[52100,"Країна"],[62500,"Континент"],
-  [73900,"Планета"],[86200,"Зоряна система"],[99500,"Галактика"],
-  [113700,"Скупчення галактик"],[128800,"Надскупчення"],[144900,"Космічна павутина"],
-  [162000,"Всесвіт"],[180000,"Мультивсесвіт"]
+  [0,"Новачок"],[900,"Учень"],[2800,"Підмайстер"],[5700,"Зброєносець"],
+  [9500,"Слідопит"],[14200,"Мандрівник"],[19900,"Ратник"],[26500,"Воїн"],
+  [34100,"Лицар"],[42600,"Ветеран"],[52100,"Чемпіон"],[62500,"Страж"],
+  [73900,"Маг"],[86200,"Чарівник"],[99500,"Архімаг"],[113700,"Мудрець"],
+  [128800,"Лорд"],[144900,"Герой"],[162000,"Легенда"],[180000,"Безсмертний"]
 ];
-const LEVEL_ICONS = ["🧵","⚛️","🔬","🧪","🦠","🌱","🧍","👪","🏘️","🏙️","🗺️","🌍","🪐","☀️","🌌","✨","💫","🕸️","🌠","♾️"];
 function loadXp() { return parseInt(localStorage.getItem(XP_KEY) || "0", 10) || 0; }
 function saveXp(n) { localStorage.setItem(XP_KEY, String(Math.max(0, n))); }
 function addXp(delta) { saveXp(loadXp() + delta); trackDayXp(delta); }
@@ -7249,7 +7156,8 @@ function renderXpBar() {
   sec.classList.remove("tier-0","tier-1","tier-2","tier-3","tier-4");
   sec.classList.add("tier-" + tier);
   document.getElementById("xp-hex-num").textContent = info.level;
-  document.getElementById("xp-name").textContent = LEVEL_ICONS[info.level - 1] + " " + info.name;
+  document.getElementById("xp-name").textContent = info.name;
+  setTimeout(renderXpAvatar, 0);   // аватар героя в шестикутнику (див. «🧙 ГЕРОЙ»)
   document.getElementById("xp-nums").textContent = info.isMax ? "MAX" : (xp - info.cur) + " / " + (info.next - info.cur) + " XP";
   document.getElementById("xp-fill").style.width = pct + "%";
   document.getElementById("xp-league").textContent = ACH_LEAGUES[tier].label + " ліга";
@@ -11197,44 +11105,8 @@ exprOverlay.addEventListener("click", e => {
 });
 document.getElementById("expr-btn").addEventListener("click", openExpr);
 
-// ── РЕДИЗАЙН: «Сходи рівнів» (космічна шкала) ────────────────────────────────
-// Клік по XP-блоку відкриває повний список 20 рівнів (мультивсесвіт згори →
-// струни знизу, як на референсі), з порогами XP, лігами і поточною позицією.
-const levelsOverlay = document.getElementById("levels-overlay");
+// Числа з тонким пробілом-розділювачем тисяч (екран героя, «Шлях героя»)
 function fmtXpNum(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
-function openLevels() {
-  const info = getLevelInfo(loadXp());
-  document.getElementById("levels-head").innerHTML =
-    '<div><h2>🌌 Сходи рівнів</h2> <span class="sh-sub">від струн до мультивсесвіту</span></div>' +
-    '<button class="songs-close" data-act="close">✕</button>';
-  let html = '<div class="lvl-list">';
-  for (let i = XP_LEVELS.length - 1; i >= 0; i--) {
-    const lvl = i + 1;
-    const tier = xpTierForLevel(lvl);
-    const lg = ACH_LEAGUES[tier];
-    const isCur = lvl === info.level;
-    const isPast = lvl < info.level;
-    const cls = 'lvl-row' + (isCur ? ' cur' : '') + (isPast ? ' past' : '') + (lvl > info.level ? ' future' : '');
-    html += '<div class="' + cls + '" style="--lg:' + lg.color + ';--lg2:' + lg.color2 + '">' +
-      '<span class="lvl-num">' + lvl + '</span>' +
-      '<span class="lvl-ic">' + LEVEL_ICONS[i] + '</span>' +
-      '<span class="lvl-name">' + XP_LEVELS[i][1] +
-        (isCur ? '<span class="lvl-you">ти тут · ' + fmtXpNum(info.xp) + ' XP</span>' : '') + '</span>' +
-      '<span class="lvl-xp">' + fmtXpNum(XP_LEVELS[i][0]) + ' XP</span>' +
-    '</div>';
-  }
-  html += '</div>';
-  document.getElementById("levels-body").innerHTML = html;
-  levelsOverlay.classList.remove("hidden");
-  // проскролити до поточного рівня
-  const cur = levelsOverlay.querySelector(".lvl-row.cur");
-  if (cur) cur.scrollIntoView({ block: "center" });
-}
-function closeLevels() { levelsOverlay.classList.add("hidden"); }
-levelsOverlay.addEventListener("click", e => {
-  if (e.target === levelsOverlay || e.target.closest('[data-act="close"]')) closeLevels();
-});
-document.getElementById("xp-section").addEventListener("click", openLevels);
 
 // ── РЕДИЗАЙН: «Рекорди» — найкращі показники за день ─────────────────────────
 // Рахуються з уже збережених щоденних сховищ (без нового сховища, завжди актуальні).
@@ -11366,54 +11238,156 @@ recordsOverlay.addEventListener("click", e => {
 document.getElementById("lb-totals").addEventListener("click", e => {
   if (e.target.closest("#lb-records-btn")) openRecords();
 });
-// Esc закриває сходи рівнів / рекорди (capture, як інші оверлеї)
+// Esc закриває рекорди (capture, як інші оверлеї)
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
-  if (!levelsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeLevels(); }
-  else if (!recordsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeRecords(); }
+  if (!recordsOverlay.classList.contains("hidden")) { e.preventDefault(); e.stopPropagation(); closeRecords(); }
 }, true);
-// ── 🎮 СВІТ СЛІВ — три прототипи: 🌱 Сад · 🧙 Герой · 🏙️ Місто (сесія 61, за запитом) ──
-// Привід дослівно: «гра, яка би працювала на тому принципі, що коли я там здобуваю нові
-// слова у знаю… грядка росте… чи якийсь персонаж в ігрі щось покращується». Користувач
-// узяв варіанти 1, 2 і 4 як ПРОТОТИПИ: подивиться всі три, лишить ОДИН — його й розвиватимемо.
-// ⚠️ НОВОГО СХОВИЩА НЕМА: світ рахується в момент відкриття з наявних даних — mastery
-// (через mStreak, ті самі правила, що бейджі меню), CEFR, XP, activityDays, Duolingo, GPT,
-// пісні, кіно, LingoHut, вирази, ачівки. Тож він одразу «пам'ятає» всю історію й не може
-// розійтися з лічильниками меню. Єдиний ключ — обрана вкладка (зручність, як період 🕒).
-// ⚠️ Пропуски лише «в'ялять» світ (сад жовкне, вогні міста гаснуть, герой «втомлений») —
-// нічого не гине й не віднімається: демотивацію користувач уже називав проблемою (сесія 60).
-const WORLD_TAB_KEY = "oxford_world_tab_v1";
-const WORLD_TABS = [
-  { id: "garden", ic: "🌱", label: "Сад" },
-  { id: "hero",   ic: "🧙", label: "Герой" },
-  { id: "city",   ic: "🏙️", label: "Місто" }
+// ── 🎨 Малюнки героя (SVG): персонаж-«лялька» зі спорядженням + іконки предметів ──
+// Метал предмета = ліга його досягнення: 0 — дерево/шкіра (ще не здобуто), 1 бронза,
+// 2 срібло, 3 золото, 4 діамант (фіолет, як ліга), 5 королівська (червоне золото).
+const HERO_METAL = [
+  ["#b08a5e", "#6e4c2c", "#4a321c"], ["#f6c08a", "#b8692a", "#7a3f12"], ["#ffffff", "#aeb7c6", "#6b7686"],
+  ["#fff3b0", "#e2ad12", "#8f6a05"], ["#efe2ff", "#9b5cf6", "#5b21b6"], ["#ffb38a", "#e0452b", "#8f1d12"]
 ];
-let worldTab = (() => {
-  try { const t = localStorage.getItem(WORLD_TAB_KEY); if (WORLD_TABS.some(x => x.id === t)) return t; } catch (e) {}
-  return "garden";
-})();
-const worldOverlay = document.getElementById("world-overlay");
+// Вигляд класу (5 класів по 4 рівні): одяг, головний убір, плащ
+const HERO_LOOKS = [
+  { name: "Новобранець", tunic: ["#a07850", "#7b5634"], sleeve: "#6f4c2e", pants: "#5a4535", hair: "#6b3f22", head: "band" },
+  { name: "Слідопит",    tunic: ["#4f9a5c", "#2f6d3c"], sleeve: "#2a5e35", pants: "#4d3b29", hair: "#3b2a1c", head: "hood", hood: ["#3f7f4b", "#24502d"] },
+  { name: "Лицар",       tunic: ["#e3e8ef", "#8e99ab"], sleeve: "#7b8698", pants: "#4b5563", hair: "#3b2a1c", head: "helm", armor: true, cape: ["#2f5bd3", "#1e3a8a"] },
+  { name: "Маг",         tunic: ["#8a63e0", "#4c2f91"], sleeve: "#5b3aa8", pants: "#3b2a6b", hair: "#d8d8e0", head: "hat", robe: true, cape: ["#3d2a7a", "#24164f"] },
+  { name: "Легенда",     tunic: ["#ffe28a", "#cf9a14"], sleeve: "#b8860b", pants: "#7c2d12", hair: "#f5deb3", head: "gold", armor: true, cape: ["#e0452b", "#8f1d12"] }
+];
+function heroDefs(u, gear, look) {
+  const g = (id, c) => '<linearGradient id="' + id + u + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + c[0] + '"/><stop offset=".55" stop-color="' + c[1] + '"/><stop offset="1" stop-color="' + c[2] + '"/></linearGradient>';
+  let s = '<defs>';
+  Object.keys(gear).forEach(k => { s += g("m" + k, HERO_METAL[gear[k]]); });
+  s += g("tu", [look.tunic[0], look.tunic[0], look.tunic[1]]);
+  if (look.cape) s += g("ca", [look.cape[0], look.cape[0], look.cape[1]]);
+  if (look.hood) s += g("ho", [look.hood[0], look.hood[0], look.hood[1]]);
+  s += '<radialGradient id="au' + u + '"><stop offset="0" stop-color="var(--hc2, #ffd166)" stop-opacity=".55"/><stop offset="1" stop-color="var(--hc, #ffd166)" stop-opacity="0"/></radialGradient>';
+  return s + '</defs>';
+}
+// h = { tier: 0..4, gear: {sword,bow,shield,boots,amulet,scroll,lute,crown}: ліги 0..5 }
+// opt.bust — лише голова й плечі (для смужки рівня та «Шляху героя»)
+function heroSvg(h, opt) {
+  opt = opt || {};
+  const u = "h" + Math.random().toString(36).slice(2, 8), look = HERO_LOOKS[h.tier], G = h.gear, M = k => "url(#m" + k + u + ")";
+  const D = c => HERO_METAL[G[c]][2];
+  let s = heroDefs(u, G, look);
+  if (!opt.bust) s += '<circle cx="100" cy="122" r="98" fill="url(#au' + u + ')"/><ellipse cx="100" cy="228" rx="54" ry="8" fill="rgba(0,0,0,.35)"/>';
+  // плащ
+  if (look.cape) s += '<path d="M70 110 Q100 100 130 110 L146 214 Q100 226 54 214 Z" fill="url(#ca' + u + ')"/>';
+  // лук за правим плечем
+  if (G.bow) s += '<path d="M128 62 Q172 112 140 176" fill="none" stroke="' + M("bow") + '" stroke-width="6" stroke-linecap="round"/>' +
+    '<path d="M128 62 L140 176" stroke="#f1ead8" stroke-width="1.2"/>';
+  // лютня за лівим плечем
+  if (G.lute) s += '<g transform="rotate(-28 64 120)"><rect x="60" y="56" width="7" height="46" rx="2" fill="#7a4a24"/><rect x="58" y="50" width="11" height="10" rx="2" fill="' + D("lute") + '"/>' +
+    '<ellipse cx="63.5" cy="122" rx="17" ry="21" fill="' + M("lute") + '" stroke="' + D("lute") + '" stroke-width="1.5"/><circle cx="63.5" cy="118" r="5" fill="#3a2414"/></g>';
+  // ноги / мантія
+  if (!look.robe) s += '<rect x="83" y="170" width="14" height="44" rx="6" fill="' + look.pants + '"/><rect x="103" y="170" width="14" height="44" rx="6" fill="' + look.pants + '"/>';
+  // чоботи
+  s += G.boots
+    ? '<path d="M99 196 h-17 v16 l-7 2 q-5 1.5 -5 5 v3 h29 z M101 196 h17 v16 l7 2 q5 1.5 5 5 v3 h-29 z" fill="' + M("boots") + '" stroke="' + D("boots") + '" stroke-width="1.2"/>' +
+      '<rect x="81" y="193" width="19" height="6" rx="2" fill="' + D("boots") + '"/><rect x="100" y="193" width="19" height="6" rx="2" fill="' + D("boots") + '"/>'
+    : '<rect x="78" y="210" width="21" height="12" rx="5" fill="#5b3a22"/><rect x="101" y="210" width="21" height="12" rx="5" fill="#5b3a22"/>';
+  // тулуб
+  s += look.robe
+    ? '<path d="M74 110 Q100 100 126 110 L142 216 Q100 228 58 216 Z" fill="url(#tu' + u + ')"/><path d="M100 112 L100 222" stroke="rgba(255,215,120,.7)" stroke-width="3"/>'
+    : '<path d="M74 110 Q100 100 126 110 L131 178 Q100 188 69 178 Z" fill="url(#tu' + u + ')"/>';
+  if (look.armor) s += '<path d="M82 120 Q100 112 118 120 L116 150 Q100 158 84 150 Z" fill="rgba(255,255,255,.22)"/><path d="M100 116 V156" stroke="rgba(0,0,0,.18)" stroke-width="2"/>' +
+    '<ellipse cx="74" cy="114" rx="11" ry="8" fill="url(#tu' + u + ')" stroke="rgba(0,0,0,.2)"/><ellipse cx="126" cy="114" rx="11" ry="8" fill="url(#tu' + u + ')" stroke="rgba(0,0,0,.2)"/>';
+  // пояс + сувій
+  s += '<rect x="70" y="160" width="60" height="8" rx="3" fill="' + (look.robe ? "#d8a530" : "#4a3020") + '"/><rect x="95" y="159" width="10" height="10" rx="2" fill="#e8c35a" stroke="#8a6a1a"/>';
+  if (G.scroll) s += '<g transform="rotate(-12 124 168)"><rect x="112" y="162" width="26" height="10" rx="5" fill="#f4e7c3" stroke="#bfa66a"/><rect x="122" y="161" width="5" height="12" fill="' + M("scroll") + '"/></g>';
+  // амулет
+  if (G.amulet) s += '<path d="M86 108 Q100 128 114 108" fill="none" stroke="' + D("amulet") + '" stroke-width="1.6"/><path d="M100 122 l7 7 l-7 9 l-7 -9 z" fill="' + M("amulet") + '" stroke="#fff" stroke-width="1"/>';
+  // ліва рука (меч)
+  s += '<path d="M76 116 L64 156" stroke="' + look.sleeve + '" stroke-width="13" stroke-linecap="round"/>';
+  // меч: 0 — дерев'яний
+  s += '<polygon points="61,146 67,146 66.5,70 64,62 61.5,70" fill="' + M("sword") + '" stroke="' + D("sword") + '" stroke-width="1"/>' +
+    '<line x1="64" y1="70" x2="64" y2="144" stroke="rgba(255,255,255,.45)" stroke-width="1"/>' +
+    '<rect x="52" y="145" width="24" height="5" rx="2.5" fill="' + D("sword") + '"/><rect x="61.5" y="150" width="5" height="14" rx="2" fill="#5b3a22"/><circle cx="64" cy="166" r="3.6" fill="' + D("sword") + '"/>';
+  s += '<circle cx="64" cy="156" r="6.5" fill="#f2c9a0" stroke="#d9a77c"/>';
+  // права рука (щит)
+  s += '<path d="M124 116 L136 154" stroke="' + look.sleeve + '" stroke-width="13" stroke-linecap="round"/><circle cx="136" cy="156" r="6.5" fill="#f2c9a0" stroke="#d9a77c"/>';
+  s += G.shield
+    ? '<path d="M118 134 h38 v20 q0 22 -19 32 q-19 -10 -19 -32 z" fill="' + M("shield") + '" stroke="' + D("shield") + '" stroke-width="2"/>' +
+      '<path d="M137 141 v36 M124 155 h26" stroke="' + D("shield") + '" stroke-width="3.5" stroke-linecap="round" opacity=".75"/>'
+    : '<circle cx="137" cy="158" r="17" fill="#8b6340" stroke="#5b3a22" stroke-width="2"/><path d="M125 152 h24 M124 162 h26" stroke="#5b3a22" stroke-width="1.4"/><circle cx="137" cy="158" r="3.5" fill="#bfa06a"/>';
+  // голова
+  if (look.head === "hood") s += '<path d="M56 98 Q50 26 100 24 Q150 26 144 98 Q100 112 56 98 Z" fill="url(#ho' + u + ')"/>';
+  s += '<rect x="93" y="98" width="14" height="12" fill="#e9bc92"/>';
+  s += '<circle cx="68" cy="78" r="6" fill="#efc39a"/><circle cx="132" cy="78" r="6" fill="#efc39a"/><circle cx="100" cy="74" r="32" fill="#f4cda6"/>';
+  // волосся
+  if (look.head === "band") s += '<path d="M68 70 Q66 38 100 38 Q134 38 132 70 Q128 52 116 50 Q120 60 108 56 Q104 46 92 52 Q86 46 80 56 Q74 54 68 70 Z" fill="' + look.hair + '"/>';
+  if (look.head === "hat") s += '<path d="M70 78 Q66 104 84 110 Q78 96 80 84 Z M130 78 Q134 104 116 110 Q122 96 120 84 Z" fill="' + look.hair + '"/><path d="M84 96 Q100 126 116 96 Q110 106 100 106 Q90 106 84 96 Z" fill="' + look.hair + '"/>';
+  // обличчя
+  s += '<ellipse cx="89" cy="78" rx="3.4" ry="4.4" fill="#2b2222"/><ellipse cx="111" cy="78" rx="3.4" ry="4.4" fill="#2b2222"/>' +
+    '<circle cx="90.2" cy="76.4" r="1.2" fill="#fff"/><circle cx="112.2" cy="76.4" r="1.2" fill="#fff"/>' +
+    '<circle cx="82" cy="88" r="4.5" fill="#f19a8a" opacity=".45"/><circle cx="118" cy="88" r="4.5" fill="#f19a8a" opacity=".45"/>' +
+    (look.head === "hat" ? '' : '<path d="M93 89 Q100 95 107 89" fill="none" stroke="#8a4b3a" stroke-width="2" stroke-linecap="round"/>') +
+    '<path d="M84 68 Q88.5 65 93 67 M107 67 Q111.5 65 116 68" fill="none" stroke="' + (look.head === "hat" ? "#c9c9d2" : "#4a2c1a") + '" stroke-width="2" stroke-linecap="round"/>';
+  // головний убір
+  if (look.head === "band") s += '<path d="M68 62 Q100 50 132 62 L132 69 Q100 58 68 69 Z" fill="#c0392b"/><path d="M131 64 l10 6 l-4 -10 z" fill="#c0392b"/>';
+  if (look.head === "hood") s += '<path d="M66 74 Q68 36 100 34 Q132 36 134 74 Q124 50 100 48 Q76 50 66 74 Z" fill="url(#ho' + u + ')"/>';
+  if (look.head === "helm" || look.head === "gold") {
+    const c1 = look.head === "gold" ? "#ffe28a" : "#e6ebf2", c2 = look.head === "gold" ? "#c48f12" : "#8e99ab";
+    s += '<path d="M64 80 Q60 34 100 32 Q140 34 136 80 L128 80 Q126 56 100 54 Q74 56 72 80 Z" fill="' + c1 + '" stroke="' + c2 + '" stroke-width="2"/>' +
+      '<path d="M100 32 V54" stroke="' + c2 + '" stroke-width="3"/>';
+    if (look.head === "gold") s += '<path d="M64 60 Q44 50 40 34 Q56 44 66 48 Z M136 60 Q156 50 160 34 Q144 44 134 48 Z" fill="#fff" stroke="#d8d8d8"/>' +
+      '<ellipse cx="100" cy="16" rx="24" ry="6" fill="none" stroke="#ffe28a" stroke-width="3" opacity=".9"/>';
+    else s += '<path d="M100 32 Q112 10 128 16 Q114 18 104 34 Z" fill="#c0392b"/>';
+  }
+  if (look.head === "hat") s += '<path d="M70 54 Q96 46 106 2 Q110 -4 114 4 Q112 30 130 54 Z" fill="#4c2f91"/>' +
+    '<ellipse cx="100" cy="54" rx="42" ry="8" fill="#3b2275"/><path d="M76 50 Q100 42 124 50" stroke="#e8c35a" stroke-width="3" fill="none"/>' +
+    '<path d="M98 26 l2 5 l5 0 l-4 3 l2 5 l-5 -3 l-5 3 l2 -5 l-4 -3 l5 0 z" fill="#ffe28a"/>';
+  // корона (ліга «Пунктів за місяць»)
+  if (G.crown) s += '<g transform="translate(46 22) rotate(-16)"><path d="M0 18 L2 2 L9 10 L15 0 L21 10 L28 2 L30 18 Z" fill="' + M("crown") + '" stroke="' + D("crown") + '" stroke-width="1.2"/>' +
+    '<rect x="0" y="16" width="30" height="5" rx="2" fill="' + D("crown") + '"/><circle cx="15" cy="12" r="2.4" fill="#e11d48"/></g>';
+  const vb = opt.bust ? "40 4 120 120" : "0 -6 200 246";
+  return '<svg class="hero-svg" viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg">' + s + '</svg>';
+}
+// Іконка предмета (48×48) у металі своєї ліги
+function heroGearIcon(type, L) {
+  const u = "g" + Math.random().toString(36).slice(2, 8), c = HERO_METAL[L], M = "url(#i" + u + ")", D = c[2];
+  let s = '<defs><linearGradient id="i' + u + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + c[0] + '"/><stop offset=".55" stop-color="' + c[1] + '"/><stop offset="1" stop-color="' + c[2] + '"/></linearGradient></defs>';
+  if (type === "sword") s += '<g transform="rotate(45 24 24)"><polygon points="21,30 27,30 26.5,8 24,2 21.5,8" fill="' + M + '" stroke="' + D + '"/><line x1="24" y1="7" x2="24" y2="29" stroke="rgba(255,255,255,.55)"/>' +
+    '<rect x="13" y="29" width="22" height="5" rx="2.5" fill="' + D + '"/><rect x="21.6" y="34" width="4.8" height="9" rx="2" fill="#5b3a22"/><circle cx="24" cy="45" r="3.2" fill="' + D + '"/></g>';
+  if (type === "bow") s += '<path d="M15 5 Q44 24 15 43" fill="none" stroke="' + M + '" stroke-width="4.5" stroke-linecap="round"/><path d="M15 5 L15 43" stroke="#f1ead8" stroke-width="1"/>' +
+    '<path d="M8 24 H38" stroke="#d8cdb4" stroke-width="2"/><path d="M42 24 l-7 -4 v8 z" fill="' + D + '"/><path d="M8 24 l-3 -4 M8 24 l-3 4" stroke="#c0392b" stroke-width="2"/>';
+  if (type === "shield") s += '<path d="M9 6 h30 v14 q0 18 -15 24 q-15 -6 -15 -24 z" fill="' + M + '" stroke="' + D + '" stroke-width="2"/><path d="M24 11 v28 M14 21 h20" stroke="' + D + '" stroke-width="3" stroke-linecap="round" opacity=".75"/>';
+  if (type === "boots") s += '<path d="M12 6 h16 v22 q0 3 3 4 l9 3 q4 1 4 6 v3 h-32 z" fill="' + M + '" stroke="' + D + '" stroke-width="1.5"/><rect x="10" y="5" width="20" height="7" rx="2" fill="' + D + '"/>';
+  if (type === "amulet") s += '<path d="M10 4 Q24 30 38 4" fill="none" stroke="' + D + '" stroke-width="2"/><path d="M24 22 l10 10 l-10 13 l-10 -13 z" fill="' + M + '" stroke="#fff" stroke-width="1.2"/><path d="M24 25 l5 7 l-5 6" fill="rgba(255,255,255,.4)"/>';
+  if (type === "scroll") s += '<rect x="10" y="14" width="28" height="22" fill="#f4e7c3" stroke="#bfa66a"/><rect x="6" y="11" width="6" height="28" rx="3" fill="#d9c08a"/><rect x="36" y="11" width="6" height="28" rx="3" fill="#d9c08a"/>' +
+    '<path d="M16 20 h16 M16 25 h16 M16 30 h11" stroke="#8a7350" stroke-width="1.4"/><rect x="21" y="34" width="6" height="11" fill="' + M + '"/>';
+  if (type === "lute") s += '<g transform="rotate(-35 24 24)"><rect x="21.5" y="2" width="5" height="22" rx="1.5" fill="#7a4a24"/><rect x="20" y="0" width="8" height="6" rx="2" fill="' + D + '"/>' +
+    '<ellipse cx="24" cy="33" rx="12" ry="13" fill="' + M + '" stroke="' + D + '" stroke-width="1.4"/><circle cx="24" cy="30" r="3.6" fill="#3a2414"/><path d="M22.5 6 V40 M25.5 6 V40" stroke="#f1ead8" stroke-width=".6"/></g>';
+  if (type === "crown") s += '<path d="M6 36 L8 12 L17 22 L24 8 L31 22 L40 12 L42 36 Z" fill="' + M + '" stroke="' + D + '" stroke-width="1.5"/><rect x="6" y="34" width="36" height="7" rx="2" fill="' + D + '"/>' +
+    '<circle cx="24" cy="28" r="3" fill="#e11d48"/><circle cx="14" cy="30" r="2" fill="#2563eb"/><circle cx="34" cy="30" r="2" fill="#2563eb"/>';
+  return '<svg class="gear-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">' + s + '</svg>';
+}
+
+// ── 🧙 ГЕРОЙ (сесія 61, за запитом) ─────────────────────────────────────────────
+// Історія: «Світ слів» мав три прототипи (🌱 сад / 🧙 герой / 🏙️ місто); користувач обрав
+// ГЕРОЯ («залишаємо лише героя») і попросив зробити його самою системою рівнів: герой живе
+// на центральній смужці рівня (#xp-section — аватар у шестикутнику), клік по ній відкриває
+// екран героя, а колишні «Сходи рівнів» переїхали в картку героя як «Шлях героя».
+// Назви 20 рівнів — звання героя (XP_LEVELS), кожні 4 рівні — новий КЛАС і новий вигляд
+// (HERO_LOOKS: Новобранець → Слідопит → Лицар → Маг → Володар) у кольорі своєї ліги.
+// ⚠️ НОВОГО СХОВИЩА НЕМА: усе рахується в момент відкриття з наявних даних (mastery через
+// mStreak, XP, activityDays, Duolingo, GPT, пісні, кіно, LingoHut, вирази, ачівки) — герой
+// одразу «пам'ятає» всю історію й не може розійтися з «Загальною статистикою».
+// ⚠️ Пропуски лише дають стан «Втома» — нічого не забирають (демотивація — тема сесії 60).
+const heroOverlay = document.getElementById("hero-overlay");
 function wAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
 function wDays(n) { return n + " " + plural(n, "день", "дні", "днів"); }
-function wWords(n) { return n + " " + plural(n, "слово", "слова", "слів"); }
 function worldSum(o) { return Object.values(o || {}).reduce((a, n) => a + (+n || 0), 0); }
-// Сума за останні 7 днів, включно з сьогоднішнім (ключі сховищ — YYYY-MM-DD)
-function worldWeek(o) {
-  const d = new Date(); d.setDate(d.getDate() - 6);
-  const from = d.toISOString().slice(0, 10);
-  return Object.entries(o || {}).reduce((a, [k, n]) => a + (k >= from ? (+n || 0) : 0), 0);
-}
 // Ліга ачівки 0-5; у «періодичних» (серія, місяць) — здобута НАЗАВЖДИ, як у вкладці 🎖️
 function worldAchLevel(id) {
   const a = ACHIEVEMENTS.find(x => x.id === id);
   if (!a) return 0;
   return a.periodic ? Math.max(loadAch()[id] || 0, achLevelFor(a)) : achLevelFor(a);
-}
-function worldAchNext(id) {
-  const a = ACHIEVEMENTS.find(x => x.id === id), L = worldAchLevel(id);
-  if (!a) return "";
-  if (L >= 5) return a.name + ": найвища ліга 👑";
-  return a.name + ": " + fmtAchNum(a.value()) + " / " + fmtAchNum(a.thresholds[L]) + " до ліги «" + ACH_LEAGUES[L].name + "»";
 }
 // Рівень за віхами: скільки віх узято + відсоток шляху до наступної
 function worldTier(v, ms) {
@@ -11422,33 +11396,65 @@ function worldTier(v, ms) {
   const from = i ? ms[i - 1] : 0, to = i < ms.length ? ms[i] : null;
   return { lvl: i, to, pct: to ? Math.max(0, Math.min(100, Math.round((v - from) / (to - from) * 100))) : 100 };
 }
-function worldData() {
-  const m = loadMastery(), lv = {};
-  CEFR_LEVELS.forEach(L => (lv[L] = { total: 0, known: 0, learning: 0 }));
-  const seen = new Set();
-  for (const w of WORDS) {
-    const k = wordKey(w);
-    if (seen.has(k)) continue;                 // пари з однаковим en — одне слово (як бейджі меню)
-    seen.add(k);
-    const o = lv[cefrLevelOf(w)] || lv.none;
-    o.total++;
-    const s = mStreak(m[k]);
-    if (s >= 3) o.known++; else if (s !== undefined) o.learning++;
-  }
-  const levels = CEFR_LEVELS.filter(L => lv[L].total > 0);
-  let known = 0, learning = 0;
-  levels.forEach(L => { known += lv[L].known; learning += lv[L].learning; });
-  // Слова, що перейшли в «Знаю» за ОСТАННЮ гру — по рівнях (лише ті, що досі там)
-  const lastK = {}, lg = loadLastGameTrans();
-  ((lg && lg.k) || []).forEach(k => {
-    if (mStreak(m[k]) < 3) return;
-    const i = indexOfWordKey(k);
-    if (i < 0) return;
-    const L = cefrLevelOf(WORDS[i]);
-    lastK[L] = (lastK[L] || 0) + 1;
-  });
-  const act = activityDays(), today = todayKey();
-  const actKeys = Object.keys(act).filter(x => x <= today).sort();
+// Спорядження = ліги досягнень (🎖️): метал предмета — ліга, 0 — дерев'яний / ще нема
+const HERO_GEAR = [
+  { key: "sword",  ach: "known",        name: "Меч",    src: "слів у «Знаю»" },
+  { key: "bow",    ach: "correct",      name: "Лук",    src: "правильних відповідей" },
+  { key: "shield", ach: "streak",       name: "Щит",    src: "днів поспіль (рекорд)" },
+  { key: "boots",  ach: "totaldays",    name: "Чоботи", src: "днів занять" },
+  { key: "amulet", ach: "duo",          name: "Амулет", src: "сесій Duolingo" },
+  { key: "scroll", ach: "lingohut",     name: "Сувій",  src: "уроків LingoHut" },
+  { key: "lute",   ach: "songs",        name: "Лютня",  src: "пісень вивчено" },
+  { key: "crown",  ach: "thermo_month", name: "Корона", src: "пунктів «Плани» за місяць" }
+];
+function heroState() {
+  const gear = {};
+  HERO_GEAR.forEach(g => { gear[g.key] = worldAchLevel(g.ach); });
+  return { tier: xpTierForLevel(getLevelInfo(loadXp()).level), gear };
+}
+// Аватар на смужці рівня. Через setTimeout: renderXpBar кличеться ще під час завантаження,
+// коли ACHIEVEMENTS (нижче за текстом) ще в TDZ. Кеш за станом — не перемальовуємо дарма.
+let _heroAvaKey = "";
+function renderXpAvatar() {
+  try {
+    const st = heroState(), key = JSON.stringify(st), el = document.getElementById("xp-hex-ava");
+    if (!el || key === _heroAvaKey) return;
+    _heroAvaKey = key;
+    el.innerHTML = heroSvg(st, { bust: true });
+  } catch (e) {}
+}
+// Характеристики — кожен рядок «Загальної статистики» став атрибутом героя.
+// Рівень атрибута = скільки з 10 віх пройдено (0-10); смужка — шлях до наступної віхи.
+// Для відсоткових (Влучність, Сталість) рівень = десятки відсотків. Міць = сума рівнів.
+const HERO_STATS = [
+  { ic: "📖", name: "Інтелект",       src: "слів у «Знаю»",                 v: d => d.known,     ms: [100, 250, 500, 1000, 1500, 2500, 4000, 6000, 9000, 13000] },
+  { ic: "💪", name: "Сила",           src: "правильних відповідей",         v: d => d.correct,   ms: [100, 500, 1000, 2500, 5000, 10000, 15000, 25000, 40000, 60000] },
+  { ic: "🎯", name: "Влучність",      src: "точність · останні 300 слів",   v: d => d.acc,       pct: true },
+  { ic: "⚡", name: "Спритність",     src: "відповідей за гру · останні 30", v: d => d.speed,    ms: [6, 8, 10, 12, 14, 16, 18, 20, 22, 25], dec: true },
+  { ic: "🎮", name: "Бойовий досвід", src: "ігор зіграно",                  v: d => d.games,     ms: [10, 50, 100, 250, 500, 1000, 1500, 2500, 4000, 6000] },
+  { ic: "🩹", name: "Загартованість", src: "помилок, з яких ти вчився",     v: d => d.wrong,     ms: [50, 200, 500, 1000, 2000, 3500, 5000, 8000, 12000, 20000] },
+  { ic: "🔁", name: "Наполегливість", src: "повторень",                     v: d => d.review,    ms: [100, 500, 1000, 2500, 5000, 10000, 15000, 20000, 25000, 30000] },
+  { ic: "🛡️", name: "Витривалість",   src: "днів занять",                   v: d => d.activeDays, ms: [7, 14, 30, 60, 90, 150, 200, 365, 500, 730] },
+  { ic: "🔥", name: "Запал",          src: "днів поспіль зараз",            v: d => d.streak,    ms: [3, 7, 14, 21, 30, 45, 60, 90, 180, 365] },
+  { ic: "⚖️", name: "Сталість",       src: "днів без пропусків",            v: d => d.steady,    pct: true },
+  { ic: "🦉", name: "Дисципліна",     src: "сесій Duolingo",                v: d => d.duo,       ms: [10, 25, 50, 100, 150, 250, 400, 600, 800, 1000] },
+  { ic: "📜", name: "Ерудиція",       src: "уроків LingoHut",               v: d => d.lh,        ms: [5, 10, 20, 35, 50, 70, 85, 100, 115, 125] },
+  { ic: "🧠", name: "Мудрість",       src: "запитів GPT",                   v: d => d.gpt,       ms: [10, 25, 50, 100, 150, 250, 400, 600, 800, 1000] },
+  { ic: "🎵", name: "Слух",           src: "занять піснями + вивчені пісні", v: d => d.songs,    ms: [5, 10, 20, 35, 50, 75, 100, 150, 200, 300] },
+  { ic: "👁️", name: "Сприйняття",     src: "сеансів кіно",                  v: d => d.movies,    ms: [1, 3, 5, 10, 20, 35, 50, 75, 100, 150] },
+  { ic: "💬", name: "Харизма",        src: "виразів вивчено (обидва боки)", v: d => d.expr,      ms: [10, 25, 50, 100, 200, 300, 450, 600, 800, 1000] }
+];
+function heroStatLevel(s, d) {
+  const v = s.v(d);
+  if (s.pct) return v === null ? { lvl: 0, pct: 0, to: null } : { lvl: Math.min(10, Math.floor(v / 10)), pct: Math.round(v), to: null };
+  return worldTier(v || 0, s.ms);
+}
+function heroData() {
+  const m = loadMastery(), today = todayKey();
+  let known = 0;
+  for (const k of uniqueWordKeys()) if (mStreak(m[k]) >= 3) known++;
+  const act = activityDays(), actKeys = Object.keys(act).filter(x => x <= today).sort();
+  const missed = computeGaps(act).reduce((a, g) => a + g.length, 0);
   const trans = loadMasteryTrans(), isoToday = new Date().toISOString().slice(0, 10);
   const wk = new Date(); wk.setDate(wk.getDate() - 6);
   const wFrom = wk.toISOString().slice(0, 10);
@@ -11456,509 +11462,121 @@ function worldData() {
   Object.entries(trans).forEach(([dt, x]) => { if (dt >= wFrom) weekK += ((x && x.k) || []).length; });
   const exprLearned = dir => Object.values(loadExprStatus(dir)).filter(s => s === "learned").length;
   const acc = recentAccuracy(300), xp = loadXp();
-  const gpt = loadGptRequests(), songS = loadSongSessions(), movies = loadMovieSessions(), duo = loadDuoSessions();
+  const log = loadGamesLog().slice(-30);
+  const speed = log.length ? Math.round(log.reduce((a, g) => a + (g.score || 0) + (g.wrong || 0) + (g.skipped || 0), 0) / log.length * 10) / 10 : 0;
+  const correct = sumDayField("correct"), wrong = sumDayField("wrong"), skipped = sumDayField("skipped");
   return {
-    lv, levels, known, learning, lastK,
+    known, harvest: ((trans[isoToday] || {}).k || []).filter(k => mStreak(m[k]) >= 3), weekK,
     idle: actKeys.length ? dayDiff(today, actKeys[actKeys.length - 1]) : null,   // 0 — сьогодні вже займався
-    harvest: ((trans[isoToday] || {}).k || []).filter(k => mStreak(m[k]) >= 3),
-    weekK,
-    streak: currentStreakLength(), bestStreak: bestStreakLength(),
+    streak: currentStreakLength(), activeDays: actKeys.length, missed,
+    steady: actKeys.length ? actKeys.length / (actKeys.length + missed) * 100 : null,
     xp, xpInfo: getLevelInfo(xp), xpToday: getTodayXpGain(),
-    acc: acc ? acc.pct : null,
+    acc: acc ? acc.pct : null, accAll: correct + wrong + skipped ? correct / (correct + wrong + skipped) * 100 : null,
+    speed, correct, wrong, games: sumDayField("games"), review: sumDayField("reviewCorrect"),
     gamesToday: (loadDays()[today] || {}).games || 0,
-    duo: worldSum(duo), duoWeek: worldWeek(duo),
-    gpt: worldSum(gpt), gptWeek: worldWeek(gpt),
-    songSess: worldSum(songS), songWeek: worldWeek(songS),
-    movies: worldSum(movies), movieWeek: worldWeek(movies),
+    duo: worldSum(loadDuoSessions()), gpt: worldSum(loadGptRequests()), lh: Object.keys(loadLhDone()).length,
+    songs: worldSum(loadSongSessions()) + countLearnedSongs(), movies: worldSum(loadMovieSessions()),
     expr: exprLearned("en2ua") + exprLearned("ua2en")
   };
 }
-function worldLevelName(L) { return L === "none" ? "Поза CEFR" : L; }
-function worldHarvestHtml(d, icon, emptyText) {
-  if (!d.harvest.length) return '<div class="w-harvest">' + icon + ' ' + emptyText + '</div>';
+function heroHarvestHtml(d) {
+  if (!d.harvest.length) return '<div class="w-harvest">✨ Сьогодні ще жодне слово не перейшло в «Знаю»</div>';
   const MAX = 18;
-  return '<div class="w-harvest">' + icon + ' <b>Сьогодні в «Знаю»: +' + d.harvest.length + '</b> &nbsp;' +
+  return '<div class="w-harvest">✨ <b>Сьогодні в «Знаю»: +' + d.harvest.length + '</b> &nbsp;' +
     d.harvest.slice(0, MAX).map(w => '<span class="w-chip">' + esc(w) + '</span>').join("") +
     (d.harvest.length > MAX ? '<span class="w-new">ще ' + (d.harvest.length - MAX) + '</span>' : '') + '</div>';
 }
-
-// ── 🌱 Сад: грядка на рівень CEFR, 1 рослина = 20 слів рівня в «Знаю» ──
-const GARDEN_STEP = 20;
-const GARDEN_KIND = {
-  A1: { ic: "🌿", name: "Трави" },     A2: { ic: "🌷", name: "Тюльпани" },
-  B1: { ic: "🌻", name: "Соняшники" }, B2: { ic: "🌳", name: "Дуби" },
-  C1: { ic: "🌸", name: "Сакури" },    C2: { ic: "🌺", name: "Гібіскуси" },
-  none: { ic: "🌵", name: "Кактуси" }
-};
-function renderGarden(d) {
-  const dry = d.idle !== null && d.idle >= 2 ? Math.min(4, d.idle - 1) : 0;
-  const banner = d.idle === null ? ["warn", "🌰", "Посій перші слова — зіграй гру"]
-    : d.idle === 0 ? ["good", "💧", "Полито сьогодні" + (d.streak > 1 ? " · ☀️ " + wDays(d.streak) + " поспіль" : "")]
-    : d.idle === 1 ? ["warn", "🌤️", "Сьогодні ще не полито — одна гра, і сад засяє"]
-    : ["bad", "🥀", "Сад сохне: останній полив " + wDays(d.idle) + " тому. Зіграй — і він оживе, нічого не загинуло"];
-  let plants = 0, sprouts = 0, free = 0, beds = "";
-  d.levels.forEach(L => {
-    const o = d.lv[L], k = GARDEN_KIND[L] || GARDEN_KIND.none;
-    const cap = Math.ceil(o.total / GARDEN_STEP);
-    const grown = o.known >= o.total ? cap : Math.min(cap, Math.floor(o.known / GARDEN_STEP));
-    const rest = Math.max(0, o.known - grown * GARDEN_STEP) + o.learning;   // те, що вже «посіяне»
-    const sprout = Math.min(cap - grown, rest > 0 ? Math.max(1, Math.round(rest / GARDEN_STEP)) : 0);
-    const lastK = d.lastK[L] || 0;
-    const fresh = Math.min(grown, grown - Math.floor(Math.max(0, o.known - lastK) / GARDEN_STEP));
-    const need = grown < cap ? Math.min(GARDEN_STEP - (o.known % GARDEN_STEP), o.total - o.known) : 0;
-    let cells = "";
-    for (let i = 0; i < cap; i++) {
-      if (i < grown) cells += '<i class="g-p' + (i >= grown - fresh ? ' g-new' : '') + '">' + k.ic + '</i>';
-      else if (i < grown + sprout) cells += '<i class="g-s">🌱</i>';
-      else cells += '<i class="g-e"></i>';
-    }
-    beds += '<div class="g-bed" data-lv="' + L + '"><div class="g-head"><b>' + worldLevelName(L) + '</b><span>' + k.ic + ' ' + k.name + '</span>' +
-      (lastK ? '<span class="w-new" title="Слова цього рівня, що перейшли в «Знаю» за останню гру">✨ +' + lastK + ' з останньої гри</span>' : '') +
-      '<span class="g-n">' + grown + ' / ' + cap + ' · ' + (need > 0 ? 'ще ' + wWords(need) + ' до нової рослини' : 'грядка повна! 🎉') + '</span></div>' +
-      '<div class="g-cells" title="' + wAttr(worldLevelName(L) + ': ' + o.known + ' у «Знаю» · ' + o.learning + ' вивчаю · ' +
-        (o.total - o.known - o.learning) + ' нових · усього ' + o.total) + '">' + cells + '</div></div>';
-    plants += grown; sprouts += sprout; free += cap - grown - sprout;
-  });
-  const fly = [];
-  for (let i = 0; i < Math.min(d.songWeek, 5); i++) fly.push("🐝");
-  for (let i = 0; i < Math.min(d.movieWeek, 4); i++) fly.push("🦋");
-  const sky = '<div class="g-sky">' + (d.gptWeek ? '<span class="g-farmer" title="Садівник — запити GPT за тиждень">👨‍🌾</span>' : '') +
-    fly.map((f, i) => '<span class="g-fly" style="left:' + (14 + i * 9) + '%;top:' + (6 + (i * 13) % 22) + 'px;animation-delay:-' + (i * 0.8).toFixed(1) + 's">' + f + '</span>').join("") +
-    '<span class="g-sun">' + (dry ? "🌥️" : "☀️") + '</span></div>';
-  const helper = (ic, n, cap, name, what) => '<div title="' + wAttr(name + ": " + what) + '"><div class="h-ic' + (n ? '' : ' h-off') + '">' +
-    (n ? ic.repeat(Math.min(n, cap)) : ic) + '</div><b>' + name + ': ' + n + '</b><span>' + what + '</span></div>';
-  return '<div class="garden' + (dry ? ' dry' : '') + '" style="--dry:' + dry + '">' +
-    '<div class="w-banner ' + banner[0] + '"><span class="w-big">' + banner[1] + '</span>' + banner[2] + '</div>' +
-    worldHarvestHtml(d, "🧺", "Сьогодні ще без урожаю — слова, що перейдуть у «Знаю», з'являться тут") +
-    sky +
-    '<div class="w-totals"><span>🌳 Рослин: <b>' + plants + '</b></span><span>🌱 Паростків: <b>' + sprouts + '</b></span>' +
-      '<span>🟫 Вільних місць: <b>' + free + '</b></span><span>За тиждень у «Знаю»: <b>+' + d.weekK + '</b></span>' +
-      '<span style="opacity:.6">1 рослина = ' + GARDEN_STEP + ' слів рівня в «Знаю» · паросток — слова «Вивчаю»</span></div>' +
-    '<div style="margin-top:10px">' + beds + '</div>' +
-    '<div class="w-sec">Помічники саду · за тиждень</div>' +
-    '<div class="w-help">' +
-      helper("🐝", d.songWeek, 5, "Бджоли", "заняття піснями") +
-      helper("🦋", d.movieWeek, 5, "Метелики", "сеанси кіно") +
-      helper("🧪", d.duoWeek, 5, "Добриво", "сесії Duolingo") +
-      helper("👨‍🌾", d.gptWeek, 3, "Садівник", "запити GPT") +
-    '</div></div>';
-}
-
-// ── 🧙 Герой: клас = ліга рівня XP, спорядження = ліги ачівок, характеристики = віхи ──
-const HERO_CLASSES = [
-  { ic: "🧒", name: "Новачок" }, { ic: "👨‍🎓", name: "Учень" }, { ic: "🧝", name: "Мандрівник" },
-  { ic: "🧙", name: "Маг" }, { ic: "🦸", name: "Легенда" }
-];
-const HERO_GEAR = [
-  { ach: "known",        ic: "⚔️", name: "Меч" },
-  { ach: "correct",      ic: "🏹", name: "Лук" },
-  { ach: "streak",       ic: "🛡️", name: "Щит" },
-  { ach: "totaldays",    ic: "🥾", name: "Чоботи" },
-  { ach: "duo",          ic: "📿", name: "Амулет" },
-  { ach: "lingohut",     ic: "📜", name: "Сувій" },
-  { ach: "songs",        ic: "🎻", name: "Скрипка" },
-  { ach: "thermo_month", ic: "👑", name: "Корона" }
-];
-const HERO_STATS = [
-  { ic: "📖", name: "Словник",      hint: "слів у «Знаю»",            v: d => d.known, ms: [100, 250, 500, 1000, 2000, 3000, 5000, 7500, 10000, 13000] },
-  { ic: "🎯", name: "Влучність",    hint: "точність · 300 відповідей", v: d => d.acc, pct: true },
-  { ic: "🔥", name: "Витривалість", hint: "днів поспіль",              v: d => d.streak, ms: [3, 7, 14, 30, 60, 90, 180, 365] },
-  { ic: "🧠", name: "Мудрість",     hint: "запитів GPT",               v: d => d.gpt, ms: [10, 25, 50, 100, 200, 400, 800] },
-  { ic: "💬", name: "Харизма",      hint: "виразів вивчено",           v: d => d.expr, ms: [10, 25, 50, 100, 200, 400, 800, 1200] },
-  { ic: "👂", name: "Слух",         hint: "занять піснями й кіно",     v: d => d.songSess + d.movies, ms: [5, 10, 25, 50, 100, 200, 400] },
-  { ic: "🦉", name: "Дисципліна",   hint: "сесій Duolingo",            v: d => d.duo, ms: [10, 50, 150, 400, 700, 1000, 1500] }
-];
-function renderHero(d) {
-  const info = d.xpInfo, tier = xpTierForLevel(info.level), cls = HERO_CLASSES[tier], lg = ACH_LEAGUES[tier];
+function renderHero() {
+  const d = heroData(), info = d.xpInfo, tier = xpTierForLevel(info.level), look = HERO_LOOKS[tier], lg = ACH_LEAGUES[tier];
+  const st = heroState();
   const xpPct = info.isMax ? 100 : Math.round((info.xp - info.cur) / (info.next - info.cur) * 100);
-  const nextCls = tier < 4 ? 'до класу «' + HERO_CLASSES[tier + 1].name + '» — рівень ' + (tier * 4 + 5) : 'найвищий клас';
-  const gear = HERO_GEAR.map(g => {
-    const L = worldAchLevel(g.ach), c = L ? ACH_LEAGUES[L - 1] : null;
-    return '<div class="h-item' + (L ? '' : ' locked') + '"' + (c ? ' style="--ic:' + c.color + ';--ic2:' + c.color2 + '"' : '') +
-      ' title="' + wAttr(worldAchNext(g.ach)) + '"><span class="i-ic">' + g.ic + '</span>' + g.name +
-      '<br><span class="i-lg">' + (c ? c.name : '🔒') + '</span></div>';
-  }).join("");
+  const nextCls = tier < 4 ? 'до класу «' + HERO_LOOKS[tier + 1].name + '» — рівень ' + (tier * 4 + 5) : 'найвищий клас';
+  // характеристики
+  let power = 0;
   const stats = HERO_STATS.map(s => {
-    const v = s.v(d);
-    let sub, pct, val, small;
-    if (s.pct) {
-      pct = v === null ? 0 : Math.round(v);
-      sub = s.hint; val = v === null ? "—" : pct + "%"; small = "";
-    } else {
-      const t = worldTier(v, s.ms);
-      pct = t.pct; sub = "рів. " + t.lvl + " · " + s.hint; val = fmtXpNum(v);
-      small = t.to ? "до " + fmtXpNum(t.to) : "макс.";
-    }
-    return '<div class="h-stat"><span class="s-ic">' + s.ic + '</span><span class="s-name"><b>' + s.name + '</b><small>' + sub + '</small></span>' +
-      '<span class="h-bar"><i style="width:' + pct + '%"></i></span><span class="s-v">' + val + (small ? '<small>' + small + '</small>' : '') + '</span></div>';
+    const v = s.v(d), t = heroStatLevel(s, d);
+    power += t.lvl;
+    const val = v === null ? "—" : s.pct ? Math.round(v) + "%" : s.dec ? String(v).replace(".", ",") : fmtXpNum(v);
+    const tip = s.name + ": " + s.src + " — " + val + (s.pct ? " · рівень = десятки відсотків" : t.to ? " · наступна віха " + fmtXpNum(t.to) : " · усі віхи пройдено");
+    return '<div class="h-stat" title="' + wAttr(tip) + '"><span class="s-ic">' + s.ic + '</span>' +
+      '<span class="s-name"><b>' + s.name + '</b> <span class="s-lv">рів. ' + t.lvl + '</span><small>' + s.src + '</small></span>' +
+      '<span class="s-v">' + val + (t.to ? '<small>до ' + fmtXpNum(t.to) + '</small>' : '') + '</span>' +
+      '<span class="h-bar"><i style="width:' + t.pct + '%"></i></span></div>';
   }).join("");
+  // спорядження
+  const gear = HERO_GEAR.map(g => {
+    const a = ACHIEVEMENTS.find(x => x.id === g.ach), L = st.gear[g.key], c = L ? ACH_LEAGUES[L - 1] : null;
+    const v = a ? (a.periodic && a.record ? Math.max(a.value(), a.record()) : a.value()) : 0;
+    const goal = a && L < 5 ? a.thresholds[L] : null, from = L ? a.thresholds[L - 1] : 0;
+    const pct = goal ? Math.max(0, Math.min(100, Math.round((v - from) / (goal - from) * 100))) : 100;
+    const tip = g.name + " — " + g.src + ": " + fmtAchNum(v) + (goal ? " · до ліги «" + ACH_LEAGUES[L].name + "» — " + fmtAchNum(goal) : " · найвища ліга 👑");
+    return '<div class="h-item' + (L ? '' : ' locked') + '"' + (c ? ' style="--ic:' + c.color + ';--ic2:' + c.color2 + '"' : '') + ' title="' + wAttr(tip) + '">' +
+      heroGearIcon(g.key, L) + '<b>' + g.name + '</b><span class="i-lg">' + (c ? c.name : 'дерев\'яний') + '</span>' +
+      '<small>' + g.src + '</small><span class="h-bar sm"><i style="width:' + pct + '%"></i></span></div>';
+  }).join("");
+  // Шлях героя — 20 звань (колишні «Сходи рівнів»), класи з мініатюрою свого вигляду
+  const busts = HERO_LOOKS.map((_, t) => heroSvg({ tier: t, gear: { sword: 0, bow: 0, shield: 0, boots: 0, amulet: 0, scroll: 0, lute: 0, crown: 0 } }, { bust: true }));
+  let path = "";
+  for (let i = XP_LEVELS.length - 1; i >= 0; i--) {
+    const lvl = i + 1, t = xpTierForLevel(lvl), c = ACH_LEAGUES[t];
+    const cls = lvl === info.level ? " cur" : lvl < info.level ? " past" : " future";
+    path += '<div class="h-rank' + cls + '" style="--lg:' + c.color + ';--lg2:' + c.color2 + '">' +
+      '<span class="r-ava">' + busts[t] + '</span><span class="r-num">' + lvl + '</span>' +
+      '<span class="r-name">' + XP_LEVELS[i][1] + (lvl % 4 === 1 ? '<small>клас «' + HERO_LOOKS[t].name + '» · ' + c.label.toLowerCase() + ' ліга</small>' : '') +
+        (lvl === info.level ? '<small class="r-you">ти тут · ' + fmtXpNum(info.xp) + ' XP</small>' : '') + '</span>' +
+      '<span class="r-xp">' + fmtXpNum(XP_LEVELS[i][0]) + ' XP</span></div>';
+  }
+  // стан
   const buffs = [];
   if (d.idle === 0) buffs.push(["", "💧 Бадьорий — сьогодні вже тренувався"]);
   if (d.streak >= 3) buffs.push(["", "🔥 Натхнення — " + wDays(d.streak) + " поспіль"]);
   if (d.acc !== null && d.acc >= 70) buffs.push(["", "🎯 Снайпер — точність " + Math.round(d.acc) + "%"]);
   if (d.idle === 1) buffs.push(["neg", "🌙 Сьогодні ще не тренувався"]);
   if (d.idle !== null && d.idle >= 2) buffs.push(["neg", "😴 Втома — " + wDays(d.idle) + " без тренувань (мине після гри)"]);
-  return '<div class="w-banner"><span class="w-big">⚔️</span><span>Сьогодні: ігор <b>' + d.gamesToday + '</b> · у «Знаю» <b>+' + d.harvest.length +
+  document.getElementById("hero-head").innerHTML =
+    '<div><h2>🧙 Герой</h2> <span class="sh-sub">твій рівень — це звання героя</span></div>' +
+    '<span class="w-keys">Esc — закрити</span><button class="songs-close" data-act="close">✕</button>';
+  document.getElementById("hero-body").innerHTML =
+    '<div class="w-banner"><span class="w-big">⚔️</span><span>Сьогодні: ігор <b>' + d.gamesToday + '</b> · у «Знаю» <b>+' + d.harvest.length +
       '</b> · XP <b>+' + fmtXpNum(d.xpToday) + '</b> · за тиждень у «Знаю» <b>+' + d.weekK + '</b></span></div>' +
-    '<div class="hero">' +
-      '<div><div class="h-card" style="--hc:' + lg.color + ';--hc2:' + lg.color2 + '">' +
-        '<div class="h-ava">' + cls.ic + '</div><div class="h-cls">' + cls.name + '</div>' +
-        '<div class="h-lvl">Рівень ' + info.level + ' · ' + info.name + '</div>' +
+    '<div class="hero" style="--hc:' + lg.color + ';--hc2:' + lg.color2 + '">' +
+      '<div class="h-left"><div class="h-card">' +
+        '<div class="h-ava">' + heroSvg(st) + '</div>' +
+        '<div class="h-cls">' + info.name + '</div>' +
+        '<div class="h-lvl">Рівень ' + info.level + ' · клас «' + look.name + '» · ' + lg.label + ' ліга</div>' +
         '<div class="h-xp"><i style="width:' + xpPct + '%"></i></div>' +
         '<div class="h-xpn">' + (info.isMax ? fmtXpNum(info.xp) + ' XP · максимум' : fmtXpNum(info.xp) + ' / ' + fmtXpNum(info.next) + ' XP') + ' · ' + nextCls + '</div>' +
+        '<div class="h-power" title="Сума рівнів усіх 16 характеристик (макс. 160)">⚔️ Міць <b>' + power + '</b> <span>/ 160</span></div>' +
       '</div>' +
-      '<div class="w-sec">Спорядження · ліги досягнень</div><div class="h-gear">' + gear + '</div></div>' +
-      '<div><div class="w-sec" style="margin-top:0">Характеристики</div><div class="h-stats">' + stats + '</div>' +
+      '<div class="w-sec">Шлях героя · 20 звань</div><div class="h-path">' + path + '</div></div>' +
+      '<div class="h-right">' +
+        '<div class="w-sec" style="margin-top:0">Спорядження · ліги досягнень</div><div class="h-gear">' + gear + '</div>' +
+        '<div class="w-sec">Характеристики · із «Загальної статистики»</div><div class="h-stats">' + stats + '</div>' +
         '<div class="w-sec">Стан</div><div class="h-buffs">' +
           (buffs.length ? buffs.map(b => '<span class="h-buff ' + b[0] + '">' + b[1] + '</span>').join("") : '<span class="h-buff">🙂 Звичайний день</span>') +
-        '</div>' + worldHarvestHtml(d, "✨", "Сьогодні ще жодне слово не перейшло в «Знаю»") + '</div>' +
+          (d.missed ? '<span class="h-buff info">⏸️ Пропущено днів за весь час: ' + d.missed + '</span>' : '') +
+        '</div>' + heroHarvestHtml(d) +
+      '</div>' +
     '</div>';
+  document.getElementById("hero-body").scrollTop = 0;
+  const cur = heroOverlay.querySelector(".h-rank.cur"), box = heroOverlay.querySelector(".h-path");
+  if (cur && box) box.scrollTop = cur.offsetTop - box.offsetTop - box.clientHeight / 2 + cur.clientHeight / 2;
 }
-
-// ── 🏙️ Місто — кругла ділянка-острів в ізометрії (сесія 61, за запитом і референсами користувача:
-// «кільцевий участок, де будуть будуватися дома… бідні райони, середній клас, багатоповерхівки,
-// хмарочоси / бізнес-центри, вілли, парки… і я буду спостерігати, як розростається моє місто»).
-// Кожен рівень CEFR — сектор кола зі СВОЇМ КЛАСОМ забудови (CITY_CLASSES); кожні CITY_STEP слів
-// рівня в «Знаю» = ще один будинок. Сектор забудовується від центральної площі НАЗОВНІ — місто
-// росте кільцями. Неповний будинок — будмайданчик із краном (висота риштувань = частка), слова
-// «Вивчаю» — фундаменти, решта ділянок сектора — розмічена земля під забудову, далі ліс.
-// ⚠️ Ізометрія в SVG: світова клітинка (x,y) → екран ((x−y)·TW/2, (x+y)·TH/2); об'єкти малюються
-// «художником» за зростанням x+y (ззаду наперед). Хмарочоси (C1) — у секторі ПОЗАДУ (світовий
-// кут 225°), щоб високе не затуляло низьке. Розмітка детермінована: ті самі числа — та сама картинка.
-const CITY_STEP = 15;                 // слів рівня в «Знаю» на один будинок
-let cityShowAll = false;              // «⤢ Уся ділянка» замість наближення до забудови
-const CITY_TW = 28, CITY_TH = 14;     // ізо-плитка 2:1
-const CITY_PLAZA = 3.2, CITY_ROAD = 0.6;
-const CITY_CLASSES = {
-  A1:   { name: "Хатки",            sub: "бідний район",     type: "house",  h: [6, 9],   walls: ["#c9ad86", "#b9a07e", "#d2bc98"], roof: ["#7d4a35", "#6b5847", "#8a5a3c"], pop: 4,   price: 15e3 },
-  A2:   { name: "Котеджі",          sub: "середній клас",    type: "house",  h: [10, 14], walls: ["#f1e7d8", "#e3edf2", "#efe0c8"], roof: ["#4b6382", "#9a4b3b", "#3e6e5c"], pop: 6,   price: 15e4 },
-  B1:   { name: "Багатоповерхівки", sub: "житлові квартали", type: "block",  h: [26, 40], walls: ["#d3d1cc", "#c7ccd4", "#ddd3c3"], pop: 180, price: 4e6 },
-  B2:   { name: "Бізнес-центри",    sub: "офіси",            type: "office", h: [42, 60], walls: ["#86b2d6", "#73a0c4", "#94c0d4"], pop: 300, price: 25e6 },
-  C1:   { name: "Хмарочоси",        sub: "даунтаун",         type: "tower",  h: [64, 96], walls: ["#5f8fd0", "#4f78b8", "#7aa6de"], pop: 900, price: 12e7 },
-  C2:   { name: "Вілли",            sub: "еліта",            type: "villa",  h: [7, 9],   walls: ["#ffffff"], pop: 8, price: 8e6 },
-  none: { name: "Парки",            sub: "поза CEFR",        type: "park",   h: [0, 0],   walls: ["#7cc464"], pop: 0, price: 1e6 }
-};
-const CITY_RANKS = [[0, "Хутір"], [100, "Село"], [500, "Містечко"], [1500, "Місто"], [4000, "Велике місто"], [8000, "Мегаполіс"], [12000, "Столиця"]];
-const CITY_INFRA = [
-  { ic: "🏟️", name: "Стадіон",      ach: "games" },
-  { ic: "🚇", name: "Метро",        ach: "streak" },
-  { ic: "🦉", name: "Совиний парк", ach: "duo" },
-  { ic: "🏫", name: "Школа",        ach: "lingohut" },
-  { ic: "🎵", name: "Філармонія",   ach: "songs" },
-  { ic: "🗼", name: "Телевежа",     ach: "xp" },
-  { ic: "🏛️", name: "Бібліотека",   v: d => d.gpt,    ms: [10, 50, 150, 400, 800], what: "запитів GPT" },
-  { ic: "🎭", name: "Кінотеатр",    v: d => d.movies, ms: [5, 15, 40, 80, 150],   what: "сеансів кіно" }
-];
-function cityRnd(x, y, s) {   // детермінований «шум» клітинки, 0..1
-  let h = Math.imul((x * 73856093) ^ (y * 19349663) ^ ((s || 0) * 83492791), 2654435761);
-  h ^= h >>> 15; h = Math.imul(h, 2246822519); h ^= h >>> 13;
-  return (h >>> 0) / 4294967296;
-}
-function cityShade(hex, k) {  // k > 0 — світліше, k < 0 — темніше
-  const n = parseInt(hex.slice(1), 16), c = [n >> 16, (n >> 8) & 255, n & 255];
-  return "#" + c.map(v => Math.round(k < 0 ? v * (1 + k) : v + (255 - v) * k).toString(16).padStart(2, "0")).join("");
-}
-function cityMoney(v) {
-  const r1 = x => String(Math.round(x * 10) / 10).replace(".", ",");
-  return v >= 1e9 ? r1(v / 1e9) + " млрд $" : v >= 1e6 ? r1(v / 1e6) + " млн $" : v >= 1e3 ? Math.round(v / 1e3) + " тис. $" : v + " $";
-}
-// Розкладка: сектори з кутом ∝ √ділянок (не менше 10°) — за прямої пропорції вузький A1 тягнувся
-// б далеко назовні зіркою, а з коренем райони ростуть приблизно однаковим радіусом; проспекти на межах широких
-// секторів, кільцеві дороги кожні 5 клітинок. Радіус росте, доки кожному сектору вистачить ділянок.
-function cityLayout(d) {
-  const TAU = Math.PI * 2, norm = a => ((a % TAU) + TAU) % TAU;
-  const secs = d.levels.map(L => ({ L, o: d.lv[L], need: Math.max(1, Math.ceil(d.lv[L].total / CITY_STEP)) }));
-  const sq = secs.reduce((a, s) => a + Math.sqrt(s.need), 0);
-  let share = secs.map(s => Math.max(10 / 360, Math.sqrt(s.need) / sq));
-  const st = share.reduce((a, v) => a + v, 0);
-  let acc = 0;
-  secs.forEach((s, i) => { s.share = share[i] / st; s.a0 = acc; acc += s.share * TAU; s.a1 = acc; });
-  const back = secs.find(s => s.L === "C1") || secs[secs.length - 1];
-  const rot = 1.25 * Math.PI - (back.a0 + back.a1) / 2;
-  secs.forEach(s => { s.a0 = norm(s.a0 + rot); s.a1 = s.a0 + s.share * TAU; });
-  const aves = secs.filter((s, i) => s.share >= 0.05 && secs[(i + secs.length - 1) % secs.length].share >= 0.05).map(s => s.a0);
-  const secOf = a => secs.find(s => norm(a - s.a0) < s.a1 - s.a0) || secs[0];
-  const gap = CITY_ROAD + 0.15;
-  for (let R = 8; R < 80; R += 0.5) {
-    const rings = [];
-    for (let r = 8.5; r < R - 1; r += 5) rings.push(r);
-    const cells = new Map(secs.map(s => [s, []])), N = Math.ceil(R);
-    for (let y = -N; y <= N; y++) for (let x = -N; x <= N; x++) {
-      const dist = Math.hypot(x, y);
-      if (dist > R || dist < CITY_PLAZA + 1 + CITY_ROAD) continue;
-      if (rings.some(r => Math.abs(dist - r) < gap)) continue;
-      if (aves.some(p => Math.abs(x * Math.sin(p) - y * Math.cos(p)) < gap && x * Math.cos(p) + y * Math.sin(p) > 0)) continue;
-      const a = norm(Math.atan2(y, x));
-      cells.get(secOf(a)).push({ x, y, dist, a: norm(a - secOf(a).a0) });
-    }
-    if (secs.every(s => cells.get(s).length >= s.need)) {
-      secs.forEach(s => { s.cells = cells.get(s).sort((p, q) => p.dist - q.dist || p.a - q.a); });
-      return { secs, R, rings, aves };
-    }
-  }
-  return null;
-}
-// ── примітиви ізометрії (рядки SVG) ──
-const cF = v => Math.round(v * 10) / 10;
-const cPts = a => a.map(p => cF(p[0]) + "," + cF(p[1])).join(" ");
-const cPoly = (a, fill, extra) => '<polygon points="' + cPts(a) + '" fill="' + fill + '"' + (extra || "") + '/>';
-function cDia(cx, cy, f) { const hw = CITY_TW / 2 * f, hh = CITY_TH / 2 * f; return [[cx, cy - hh], [cx + hw, cy], [cx, cy + hh], [cx - hw, cy]]; }
-function cBox(cx, cy, f, h, col, floorGap, floorCol) {
-  const [T, R, B, L] = cDia(cx, cy, f), up = p => [p[0], p[1] - h];
-  let s = cPoly([L, B, up(B), up(L)], cityShade(col, -0.1)) + cPoly([B, R, up(R), up(B)], cityShade(col, -0.32));
-  if (floorGap) {
-    const at = (a, b, t, o) => cF(a[0] + (b[0] - a[0]) * t) + " " + cF(a[1] + (b[1] - a[1]) * t - o);
-    let p = "";
-    for (let o = 4; o < h - 2; o += floorGap) p += "M" + at(L, B, .14, o) + "L" + at(L, B, .86, o) + "M" + at(B, R, .14, o) + "L" + at(B, R, .86, o);
-    s += '<path d="' + p + '" stroke="' + floorCol + '" stroke-width="1.3" fill="none"/>';
-  }
-  return s + cPoly([up(T), up(R), up(B), up(L)], cityShade(col, 0.14));
-}
-function cRoof(cx, cy, f, h, rh, col) {
-  const [T, R, B, L] = cDia(cx, cy, f * 1.14).map(p => [p[0], p[1] - h]), A = [cx, cy - h - rh];
-  return cPoly([T, L, A], cityShade(col, 0.18)) + cPoly([T, R, A], cityShade(col, 0.06)) +
-    cPoly([L, B, A], cityShade(col, -0.04)) + cPoly([B, R, A], cityShade(col, -0.3));
-}
-function cTree(x, y, s, col) {
-  return '<line x1="' + cF(x) + '" y1="' + cF(y) + '" x2="' + cF(x) + '" y2="' + cF(y - s) + '" stroke="#6b4a2b" stroke-width="1.4"/>' +
-    '<ellipse cx="' + cF(x) + '" cy="' + cF(y - s * 1.6) + '" rx="' + cF(s * 1.05) + '" ry="' + cF(s * 1.15) + '" fill="' + col + '"/>' +
-    '<ellipse cx="' + cF(x - s * .3) + '" cy="' + cF(y - s * 1.85) + '" rx="' + cF(s * .42) + '" ry="' + cF(s * .38) + '" fill="#ffffff" opacity=".18" stroke="none"/>';
-}
-// Будинок класу cls на клітинці (x,y); повертає { svg, top } — top для «✨»
-function cBuilding(cls, x, y, sx, sy) {
-  const r = (k) => cityRnd(x, y, k), pick = a => a[Math.floor(r(1) * a.length) % a.length];
-  const h = Math.round(cls.h[0] + r(2) * (cls.h[1] - cls.h[0])), wall = pick(cls.walls);
-  if (cls.type === "house") {
-    const f = cls === CITY_CLASSES.A1 ? .56 : .66, rh = cls === CITY_CLASSES.A1 ? 5 : 7;
-    const roof = cls.roof[Math.floor(r(3) * cls.roof.length) % cls.roof.length];
-    let s = cls === CITY_CLASSES.A2 ? cPoly(cDia(sx, sy, .94), "#8fcd72") : "";
-    if (cls === CITY_CLASSES.A2 && r(4) < .5) s += cTree(sx + CITY_TW * .3, sy + 1, 3, "#3f9a45");
-    return { svg: s + cBox(sx, sy, f, h, wall) + cRoof(sx, sy, f, h, rh, roof), top: sy - h - rh };
-  }
-  if (cls.type === "villa") {
-    let s = cPoly(cDia(sx, sy, .96), "#8fcf74");
-    s += cBox(sx - CITY_TW * .08, sy - CITY_TH * .12, .5, h, "#fbfbf8") + cBox(sx + CITY_TW * .12, sy - CITY_TH * .2, .3, h - 3, "#ece6da");
-    s += cPoly(cDia(sx + CITY_TW * .17, sy + CITY_TH * .17, .34), "#4fc3f7", ' stroke="#e9fbff" stroke-width=".8"');
-    s += cTree(sx - CITY_TW * .3, sy + CITY_TH * .1, 3.2, "#2f8f45");
-    return { svg: s, top: sy - h - 4 };
-  }
-  if (cls.type === "park") {
-    let s = cPoly(cDia(sx, sy, .96), "#7cc464");
-    s += '<path d="M' + cF(sx - CITY_TW * .34) + ' ' + cF(sy) + 'L' + cF(sx + CITY_TW * .34) + ' ' + cF(sy) + '" stroke="#e9dcb8" stroke-width="1.6"/>';
-    s += '<ellipse cx="' + cF(sx + 2) + '" cy="' + cF(sy + 2.5) + '" rx="4" ry="2" fill="#5ab8e8" stroke="none"/>';
-    s += cTree(sx - 6, sy - 1, 3.4, "#2f8a3e") + cTree(sx + 5, sy - 2.5, 3, "#3c9a48") + cTree(sx - 1, sy + 3.5, 2.8, "#2f8a3e");
-    return { svg: s, top: sy - 12 };
-  }
-  // багатоповерхівки / офіси / хмарочоси — на мощеній ділянці
-  let s = cPoly(cDia(sx, sy, .96), "#cfccc4");
-  if (cls.type === "block") {
-    s += cBox(sx, sy, .74, h, wall, 4.2, "rgba(70,90,120,.55)") + cBox(sx + 2, sy - h, .2, 4, wall);
-    return { svg: s, top: sy - h - 4 };
-  }
-  if (cls.type === "office") {
-    s += cBox(sx, sy, .78, h, wall, 3.4, "rgba(232,244,255,.6)");
-    return { svg: s, top: sy - h };
-  }
-  const f = .64;   // хмарочос: скляна вежа, у половини — уступ і шпиль
-  s += cBox(sx, sy, f, h, wall, 3, "rgba(225,240,255,.62)");
-  let top = sy - h;
-  if (r(5) < .5) { s += cBox(sx, sy - h, .42, 12, cityShade(wall, .1), 3, "rgba(225,240,255,.62)"); top -= 12; }
-  s += '<line x1="' + cF(sx) + '" y1="' + cF(top) + '" x2="' + cF(sx) + '" y2="' + cF(top - 12) + '" stroke="#c9d6ee" stroke-width="1.2"/>';
-  return { svg: s, top: top - 12 };
-}
-function cCrane(sx, sy, hFull, part) {
-  const hs = Math.max(4, hFull * part), [T, R, B, L] = cDia(sx, sy, .74), up = p => [p[0], p[1] - hs];
-  let s = cPoly(cDia(sx, sy, .92), "#b48c5c");
-  s += '<g fill="none" stroke="#f0b43a" stroke-width="1" stroke-dasharray="2 1.5">' +
-    cPoly([L, B, up(B), up(L)], "none") + cPoly([B, R, up(R), up(B)], "none") + cPoly([up(T), up(R), up(B), up(L)], "none") + '</g>';
-  const mx = sx + CITY_TW * .3, top = sy - hFull - 12;
-  s += '<path d="M' + cF(mx) + ' ' + cF(sy) + 'V' + cF(top) + 'M' + cF(mx - CITY_TW * .75) + ' ' + cF(top) + 'H' + cF(mx + CITY_TW * .3) +
-    'M' + cF(mx - CITY_TW * .55) + ' ' + cF(top) + 'V' + cF(sy - hs - 3) + '" stroke="#f2b632" stroke-width="1.5" fill="none"/>';
-  return { svg: s, top };
-}
-function renderCityMap(d, lay, all) {
-  const P = (x, y) => [(x - y) * CITY_TW / 2, (x + y) * CITY_TH / 2];
-  const objs = [], add = (x, y, svg) => objs.push({ k: x + y, x, svg });
-  const RI = lay.R + 3, ex = RI * Math.SQRT2 * CITY_TW / 2, ey = RI * Math.SQRT2 * CITY_TH / 2;
-  let minY = 0, maxD = 0, lots = "", stats = [];
-  lay.secs.forEach(sec => {
-    const o = sec.o, cls = CITY_CLASSES[sec.L] || CITY_CLASSES.none, n = sec.need;
-    const built = o.known >= o.total ? n : Math.min(n, Math.floor(o.known / CITY_STEP));
-    const part = built < n ? (o.known - built * CITY_STEP) / CITY_STEP : 0;
-    const cons = part > 0 ? 1 : 0;
-    const found = Math.max(0, Math.min(n - built - cons, o.learning > 0 ? Math.max(1, Math.round(o.learning / CITY_STEP)) : 0));
-    const lastK = d.lastK[sec.L] || 0;
-    const fresh = Math.min(built, built - Math.floor(Math.max(0, o.known - lastK) / CITY_STEP));
-    const need = built < n ? Math.min(CITY_STEP - (o.known % CITY_STEP), o.total - o.known) : 0;
-    stats.push({ L: sec.L, cls, n, built, cons, found, need, lastK });
-    sec.cells.forEach((c, i) => {
-      const [sx, sy] = P(c.x, c.y), lv = ' data-lv="' + sec.L + '"';
-      if (i < built) {
-        maxD = Math.max(maxD, c.dist);
-        const b = cBuilding(cls, c.x, c.y, sx, sy);
-        minY = Math.min(minY, b.top - 14);
-        const isNew = i >= built - fresh;   // добудований ОСТАННЬОЮ грою — золоте кільце + ✨
-        let g = '<g class="cb built' + (isNew ? ' fresh' : '') + '"' + lv + '><title>' + sec.L + ' · ' + cls.name + (isNew ? ' · новий!' : '') + '</title>' +
-          (isNew ? '<ellipse class="c-glow" cx="' + cF(sx) + '" cy="' + cF(sy) + '" rx="' + cF(CITY_TW * .62) + '" ry="' + cF(CITY_TH * .62) + '"/>' : '') + b.svg + '</g>';
-        if (isNew) g += '<text class="c-spark" x="' + cF(sx) + '" y="' + cF(b.top - 2) + '" text-anchor="middle">✨</text>';
-        add(c.x, c.y, g);
-      } else if (i === built && cons) {
-        maxD = Math.max(maxD, c.dist);
-        const hFull = (cls.h[0] + cls.h[1]) / 2 || 8, b = cCrane(sx, sy, hFull, part);
-        minY = Math.min(minY, b.top - 4);
-        add(c.x, c.y, '<g class="cb cons"' + lv + '><title>' + wAttr(sec.L + ' · будується: ' + Math.round(part * 100) + '% — ще ' + wWords(need) + ' в «Знаю»') + '</title>' + b.svg + '</g>');
-      } else if (i < built + cons + found) {
-        maxD = Math.max(maxD, c.dist);
-        add(c.x, c.y, '<g class="cb found"' + lv + '><title>' + sec.L + ' · фундамент (слова «Вивчаю»)</title>' + cBox(sx, sy, .66, 1.6, "#d8c7a5") + '</g>');
-      } else if (i < n) {
-        lots += cPoly(cDia(sx, sy, .86), "rgba(255,255,255,.09)", ' class="cb lot"' + lv);
-        if (cityRnd(c.x, c.y, 17) < .22)   // дерева на ще не забудованих ділянках — їх «вирубають» під будинок
-          add(c.x, c.y, cTree(sx + (cityRnd(c.x, c.y, 8) - .5) * 8, sy + (cityRnd(c.x, c.y, 9) - .5) * 4, 3 + cityRnd(c.x, c.y, 10) * 1.4, "#3c8f45"));
-      } else if (cityRnd(c.x, c.y, 7) < .55) {
-        add(c.x, c.y, cTree(sx + (cityRnd(c.x, c.y, 8) - .5) * 8, sy + (cityRnd(c.x, c.y, 9) - .5) * 4, 3.4 + cityRnd(c.x, c.y, 10) * 1.6, cityRnd(c.x, c.y, 11) < .5 ? "#2f7d3a" : "#3c8f45"));
-      }
-    });
-  });
-  // ліс навколо міста
-  const N = Math.ceil(RI);
-  for (let y = -N; y <= N; y++) for (let x = -N; x <= N; x++) {
-    const dist = Math.hypot(x, y);
-    if (dist <= lay.R + .5 || dist > RI - .6 || cityRnd(x, y, 12) > .72) continue;
-    const [sx, sy] = P(x, y);
-    add(x, y, cTree(sx + (cityRnd(x, y, 13) - .5) * 9, sy + (cityRnd(x, y, 14) - .5) * 4, 3.6 + cityRnd(x, y, 15) * 1.8, cityRnd(x, y, 16) < .5 ? "#2c7437" : "#3a8a43"));
-  }
-  // площа: фонтан у центрі, по колу — міські споруди за лігами досягнень
-  CITY_INFRA.forEach((inf, k) => {
-    const a = -Math.PI * 3 / 4 + k * Math.PI / 4, x = Math.cos(a) * 2.2, y = Math.sin(a) * 2.2, [sx, sy] = P(x, y);
-    const L = inf.ach ? worldAchLevel(inf.ach) : Math.min(5, worldTier(inf.v(d), inf.ms).lvl);
-    add(x, y, cPoly(cDia(sx, sy, .8), "#d6cdb9") + '<text class="c-lm' + (L ? '' : ' off') + '" x="' + cF(sx) + '" y="' + cF(sy + 1) + '" text-anchor="middle">' +
-      inf.ic + '<title>' + wAttr(inf.name + (L ? ' · ' + ACH_LEAGUES[L - 1].name : ' · ще не збудовано')) + '</title></text>');
-  });
-  objs.sort((a, b) => a.k - b.k || a.x - b.x);
-  const ell = (r, extra) => '<ellipse cx="0" cy="0" rx="' + cF(r * Math.SQRT2 * CITY_TW / 2) + '" ry="' + cF(r * Math.SQRT2 * CITY_TH / 2) + '"' + extra + '/>';
-  let roads = ell(CITY_PLAZA + .6, ' fill="none" stroke="#8a8d93" stroke-width="10"');
-  lay.rings.forEach(r => { roads += ell(r, ' fill="none" stroke="#8a8d93" stroke-width="10"'); });
-  lay.aves.forEach(p => {
-    const [x1, y1] = P(Math.cos(p) * (CITY_PLAZA + .6), Math.sin(p) * (CITY_PLAZA + .6)), [x2, y2] = P(Math.cos(p) * (lay.R + .4), Math.sin(p) * (lay.R + .4));
-    roads += '<line x1="' + cF(x1) + '" y1="' + cF(y1) + '" x2="' + cF(x2) + '" y2="' + cF(y2) + '" stroke="#8a8d93" stroke-width="9" stroke-linecap="round"/>';
-  });
-  const dash = roads.replace(/stroke="#8a8d93" stroke-width="(9|10)"/g, 'stroke="#f3efe2" stroke-width=".8" stroke-dasharray="4 4"');
-  // підписи районів — плашки на краю ділянки
-  // «Камера»: за замовчуванням — забудована частина + запас (мін. 9 клітинок), тож місто
-  // помітно «віддаляється» в міру росту; кнопка «Уся ділянка» показує острів цілком.
-  const VR = all ? RI : Math.min(RI, Math.max(9, maxD + 3.5));
-  const vex = VR * Math.SQRT2 * CITY_TW / 2, vey = VR * Math.SQRT2 * CITY_TH / 2;
-  const vx = -vex - 16, vw = vex * 2 + 32, vy = Math.min(-vey, minY) - 8, vh = vey + (VR >= RI ? 26 : 10) - vy;
-  // підписи районів — плашки на краю видимої ділянки
-  let labels = "";
-  lay.secs.forEach(sec => {
-    const a = (sec.a0 + sec.a1) / 2, lr = VR >= RI ? lay.R + 1.7 : VR - 1.6;
-    const txt = sec.L === "none" ? "Парки" : sec.L + " · " + (CITY_CLASSES[sec.L] || CITY_CLASSES.none).name, w = txt.length * 6.3 + 14;
-    let [lx, ly] = P(Math.cos(a) * lr, Math.sin(a) * lr);
-    lx = Math.max(vx + w / 2 + 4, Math.min(vx + vw - w / 2 - 4, lx));
-    ly = Math.max(vy + 12, Math.min(vy + vh - 12, ly));
-    labels += '<g class="c-tag"><rect x="' + cF(lx - w / 2) + '" y="' + cF(ly - 9) + '" width="' + cF(w) + '" height="17" rx="8.5"/>' +
-      '<text x="' + cF(lx) + '" y="' + cF(ly + 3.5) + '" text-anchor="middle">' + esc(txt) + '</text></g>';
-  });
-  return {
-    stats,
-    svg: '<svg class="c-map" viewBox="' + cF(vx) + ' ' + cF(vy) + ' ' + cF(vw) + ' ' + cF(vh) + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><linearGradient id="cWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9e3f5"/><stop offset="1" stop-color="#7cc3e6"/></linearGradient></defs>' +
-      '<rect x="' + cF(vx) + '" y="' + cF(vy) + '" width="' + cF(vw) + '" height="' + cF(vh) + '" fill="url(#cWater)"/>' +
-      '<ellipse cx="0" cy="12" rx="' + cF(ex) + '" ry="' + cF(ey) + '" fill="#7a5a3a"/>' +
-      '<ellipse cx="0" cy="6" rx="' + cF(ex) + '" ry="' + cF(ey) + '" fill="#9a7650"/>' +
-      '<ellipse cx="0" cy="0" rx="' + cF(ex) + '" ry="' + cF(ey) + '" fill="#86c26c" stroke="#6fae58" stroke-width="1.5"/>' +
-      roads + dash + ell(CITY_PLAZA, ' fill="#e6dfcf" stroke="#cbbfa6" stroke-width="1.5"') + ell(CITY_PLAZA * .45, ' fill="#ddd4c0" stroke="#cbbfa6" stroke-width="1"') +
-      '<ellipse cx="0" cy="0" rx="10" ry="5" fill="#5ab8e8" stroke="#fff" stroke-width="1.2"/><ellipse cx="0" cy="-3" rx="2.2" ry="4" fill="#d6f1ff" opacity=".9"/>' +
-      lots + '<g stroke="rgba(20,25,35,.22)" stroke-width=".5">' + objs.map(o => o.svg).join("") + '</g>' + labels + '</svg>'
-  };
-}
-function renderCity(d) {
-  const mood = d.idle === 0 ? "lit" : d.idle === 1 ? "dusk" : "dark";
-  const banner = d.idle === null ? ["warn", "🌑", "Місто ще не збудоване — зіграй першу гру"]
-    : mood === "lit" ? ["good", "☀️", "Місто живе — сьогодні ти вже займався"]
-    : mood === "dusk" ? ["warn", "🌆", "Вечоріє: сьогодні ще не займався — зіграй, і місто прокинеться"]
-    : ["bad", "🌑", "Місто спить: останнє заняття " + wDays(d.idle) + " тому. Будинки цілі — після гри знову буде день"];
-  let rank = CITY_RANKS[0], next = null;
-  CITY_RANKS.forEach((r, i) => { if (d.known >= r[0]) { rank = r; next = CITY_RANKS[i + 1] || null; } });
-  const lay = cityLayout(d);
-  if (!lay) return '<div class="city ' + mood + '"><div class="w-banner bad">Не вдалося розмітити місто</div></div>';
-  const map = renderCityMap(d, lay, cityShowAll);
-  let pop = 0, value = 0, built = 0, cons = 0, found = 0;
-  const legend = map.stats.map(s => {
-    pop += s.built * s.cls.pop; value += s.built * s.cls.price; built += s.built; cons += s.cons; found += s.found;
-    return '<div class="c-lrow" data-lv="' + s.L + '"><span class="c-sw" style="background:' + (s.cls.roof ? s.cls.roof[0] : s.cls.walls[0]) + '"></span>' +
-      '<b>' + (s.L === "none" ? "—" : s.L) + '</b><span class="c-ln">' + s.cls.name + ' <small>' + s.cls.sub + '</small></span>' +
-      '<span class="h-bar"><i style="width:' + Math.round(s.built / s.n * 100) + '%"></i></span>' +
-      '<span class="c-lnum">' + s.built + ' / ' + s.n + '</span>' +
-      '<span class="c-lnext">' + (s.need > 0 ? 'ще ' + wWords(s.need) + ' до нового' : 'район добудовано! 🎉') +
-        (s.lastK ? ' <span class="w-new">✨ +' + s.lastK + '</span>' : '') + '</span></div>';
-  }).join("");
-  const infra = CITY_INFRA.map(x => {
-    let L, tip;
-    if (x.ach) { L = worldAchLevel(x.ach); tip = worldAchNext(x.ach); }
-    else {
-      const v = x.v(d), t = worldTier(v, x.ms);
-      L = Math.min(5, t.lvl); tip = x.name + ": " + v + " " + x.what + (t.to ? " · наступний рівень — " + t.to : " · максимум");
-    }
-    const lgc = L ? ACH_LEAGUES[L - 1] : null;
-    return '<div class="c-inf' + (L ? '' : ' off') + '"' + (lgc ? ' style="--ic:' + lgc.color + ';--ic2:' + lgc.color2 + '"' : '') +
-      ' title="' + wAttr(tip) + '"><span class="i-ic">' + (L ? x.ic : '🚧') + '</span><b>' + x.name + '</b>' +
-      '<span class="c-stars">' + '★'.repeat(L) + '<span class="dim">' + '★'.repeat(5 - L) + '</span></span></div>';
-  }).join("");
-  return '<div class="city ' + mood + '">' +
-    '<div class="w-banner ' + banner[0] + '"><span class="w-big">' + banner[1] + '</span>' + banner[2] + '</div>' +
-    '<div class="w-totals"><span style="font-size:15px">🏙️ <b>' + rank[1] + '</b></span>' +
-      (next ? '<span>до «' + next[1] + '» ще <b>' + fmtXpNum(next[0] - d.known) + '</b> слів</span>' : '') +
-      '<span>👥 <b>' + fmtXpNum(pop) + '</b> мешканців</span><span>💰 <b>' + cityMoney(value) + '</b></span>' +
-      '<span>🏢 <b>' + built + '</b> будинків</span><span>🏗️ <b>' + cons + '</b> будується</span><span>📐 <b>' + found + '</b> фундаментів</span></div>' +
-    worldHarvestHtml(d, "🧱", "Сьогодні ще без нових цеглин — слова, що перейдуть у «Знаю», з'являться тут") +
-    '<div class="c-mapwrap">' + map.svg + '<button class="c-zoom" data-act="czoom">' + (cityShowAll ? '🔍 Ближче до забудови' : '⤢ Уся ділянка') + '</button></div>' +
-    '<div class="w-sec">Райони · 1 будинок = ' + CITY_STEP + ' слів рівня в «Знаю»</div><div class="c-leg">' + legend + '</div>' +
-    '<div class="w-sec">Споруди на площі · ліги досягнень</div><div class="c-infra">' + infra + '</div>' +
-  '</div>';
-}
-
-function renderWorld() {
-  document.getElementById("world-head").innerHTML =
-    '<div><h2>🎮 Світ слів</h2> <span class="sh-sub">прототипи — обери, який розвивати</span></div>' +
-    '<div class="w-tabs">' + WORLD_TABS.map(t => '<button class="w-tab' + (t.id === worldTab ? ' active' : '') + '" data-wtab="' + t.id + '">' +
-      t.ic + ' ' + t.label + '</button>').join("") + '</div>' +
-    '<span class="w-keys">Tab — далі · Esc — закрити</span>' +
-    '<button class="songs-close" data-act="close">✕</button>';
-  const d = worldData(), body = document.getElementById("world-body");
-  body.innerHTML = worldTab === "hero" ? renderHero(d) : worldTab === "city" ? renderCity(d) : renderGarden(d);
-  body.scrollTop = 0;
-}
-function openWorld() { renderWorld(); worldOverlay.classList.remove("hidden"); }
-function closeWorld() { worldOverlay.classList.add("hidden"); }
-function setWorldTab(id) {
-  worldTab = id;
-  try { localStorage.setItem(WORLD_TAB_KEY, id); } catch (e) {}
-  renderWorld();
-}
-worldOverlay.addEventListener("click", e => {
-  const t = e.target.closest("[data-wtab]");
-  if (t) { setWorldTab(t.dataset.wtab); return; }
-  if (e.target.closest('[data-act="czoom"]')) {
-    const body = document.getElementById("world-body"), top = body.scrollTop;
-    cityShowAll = !cityShowAll; renderWorld(); body.scrollTop = top; return;
-  }
-  if (e.target === worldOverlay || e.target.closest('[data-act="close"]')) closeWorld();
+function openHero() { heroOverlay.classList.remove("hidden"); renderHero(); }
+function closeHero() { heroOverlay.classList.add("hidden"); }
+heroOverlay.addEventListener("click", e => {
+  if (e.target === heroOverlay || e.target.closest('[data-act="close"]')) closeHero();
 });
-document.getElementById("world-btn").addEventListener("click", openWorld);
-// Клавіатура світу (capture): Tab — наступний прототип, Esc — закрити. Усе інше НЕ доходить
-// до меню позаду (Enter відкрив би «Тренування», Tab гортав би вкладки лідерборду).
+document.getElementById("xp-section").addEventListener("click", openHero);
+// Клавіатура героя (capture): Esc — закрити. Усе інше НЕ доходить до меню позаду
+// (Enter відкрив би «Тренування», Tab гортав би вкладки лідерборду).
 document.addEventListener("keydown", e => {
-  if (worldOverlay.classList.contains("hidden")) return;
+  if (heroOverlay.classList.contains("hidden")) return;
   e.stopPropagation();
-  if (e.key === "Escape") { e.preventDefault(); closeWorld(); }
-  else if (e.key === "Tab") {
-    e.preventDefault();
-    const i = WORLD_TABS.findIndex(t => t.id === worldTab);
-    setWorldTab(WORLD_TABS[(i + (e.shiftKey ? WORLD_TABS.length - 1 : 1)) % WORLD_TABS.length].id);
-  } else if (e.key === "Enter" || e.key === " ") e.preventDefault();
+  if (e.key === "Escape") { e.preventDefault(); closeHero(); }
+  else if (e.key === "Enter" || e.key === " " || e.key === "Tab") e.preventDefault();
 }, true);
+
 // Клавіатура в розділі виразів (capture, щоб не тригерити ігрові обробники за оверлеєм)
 document.addEventListener("keydown", e => {
   if (exprOverlay.classList.contains("hidden")) return;
