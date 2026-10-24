@@ -1790,6 +1790,9 @@
      (правий край 183px): при 500 лейаут починається з 206px, тобто 23px чистими.
      Стеля ≈513; більше — кнопки почнуть перекриватись, коли панель високa. */
   #progress-panel { width: 440px; }
+  #progress-panel .lb-header { justify-content: space-between; }
+  #prog-streak { font-size: 14px; font-weight: 700; color: #ffa94d; white-space: nowrap; }
+  #prog-streak.pending { opacity: .55; }
   /* ⚠️ 500px ЛИШЕ на широких екранах. Заміряно: щільний місячний рядок (143 ігри,
      +10273 нових) переноситься на другий поверх при 440-490 і вміщається з 480 на РЕАЛЬНИХ місячних рядках
      користувача (серпень/липень/червень 2026) — 440-470 їх переносять. Але при 500 лейаут потребує
@@ -1820,8 +1823,8 @@
 <aside class="leaderboard hidden" id="progress-panel">
   <div class="lb-header" style="margin-bottom:4px">
     <span style="font-size:16px;font-weight:600;opacity:0.9">📈 Прогрес по днях</span>
+    <span id="prog-streak"></span>
   </div>
-  <div class="lb-title">Зміна категорій за кожен день</div>
   <div id="prog-list"></div>
   <div class="lb-empty hidden" id="prog-empty">Зіграй кілька ігор, щоб тут з'явились дані.</div>
 </aside>
@@ -7585,7 +7588,22 @@ function _progFmtMonth(monthKey) {
   return names[parseInt(m)-1] + " " + y;
 }
 
+// Поточна серія днів у шапці «Прогресу» (сесія 61, за запитом — замість підпису «Зміна категорій
+// за кожен день»). Серія, що закінчилась ВЧОРА, ще жива: показуємо її приглушено з підказкою
+// «продовж сьогодні» (computeStreaks вважає ongoing лише серію, що включає сьогодні).
+function renderProgStreak() {
+  const el = document.getElementById("prog-streak");
+  if (!el) return;
+  const y = new Date(); y.setDate(y.getDate() - 1);
+  const yk = y.getFullYear() + "-" + String(y.getMonth() + 1).padStart(2, "0") + "-" + String(y.getDate()).padStart(2, "0");
+  const cur = computeStreaks(activityDays()).find(x => x.end === todayKey() || x.end === yk);
+  const n = cur ? cur.length : 0, today = !!cur && cur.end === todayKey();
+  el.className = n && !today ? "pending" : "";
+  el.textContent = "🔥 " + n + " " + plural(n, "день", "дні", "днів");
+  el.title = !n ? "Серії зараз нема — займись сьогодні, щоб почати" : today ? "Поточна серія днів поспіль" : "Серія ще жива — займись сьогодні, щоб продовжити";
+}
 function renderProgressPanel() {
+  renderProgStreak();
   const history = loadMasteryHistory();
   const allDates = Object.keys(history).sort();
   const list = document.getElementById("prog-list");
