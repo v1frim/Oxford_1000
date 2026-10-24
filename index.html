@@ -11302,7 +11302,9 @@ function heroSvg(h, opt) {
     '<ellipse cx="74" cy="114" rx="11" ry="8" fill="url(#tu' + u + ')" stroke="rgba(0,0,0,.2)"/><ellipse cx="126" cy="114" rx="11" ry="8" fill="url(#tu' + u + ')" stroke="rgba(0,0,0,.2)"/>';
   // пояс + сувій
   s += '<rect x="70" y="160" width="60" height="8" rx="3" fill="' + (look.robe ? "#d8a530" : "#4a3020") + '"/><rect x="95" y="159" width="10" height="10" rx="2" fill="#e8c35a" stroke="#8a6a1a"/>';
-  if (G.scroll) s += '<g transform="rotate(-12 124 168)"><rect x="112" y="162" width="26" height="10" rx="5" fill="#f4e7c3" stroke="#bfa66a"/><rect x="122" y="161" width="5" height="12" fill="' + M("scroll") + '"/></g>';
+  // сувій — на ЛІВОМУ стегні (справа його цілком затуляв щит)
+  if (G.scroll) s += '<g transform="rotate(14 86 174)"><rect x="73" y="168" width="28" height="11" rx="5.5" fill="#f4e7c3" stroke="#bfa66a" stroke-width="1.2"/>' +
+    '<path d="M79 171.5 h16 M79 175.5 h12" stroke="#a8916a" stroke-width="1"/><rect x="84" y="167" width="5" height="13" fill="' + M("scroll") + '"/></g>';
   // амулет
   if (G.amulet) s += '<path d="M86 108 Q100 128 114 108" fill="none" stroke="' + D("amulet") + '" stroke-width="1.6"/><path d="M100 122 l7 7 l-7 9 l-7 -9 z" fill="' + M("amulet") + '" stroke="#fff" stroke-width="1"/>';
   // ліва рука (меч)
