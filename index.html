@@ -635,7 +635,7 @@
   /* Герой у шестикутнику (сесія 61): аватар-бюст у формі ліги, номер рівня — бейдж знизу */
   #xp-hex-ava { position: absolute; inset: 3px; z-index: 1; overflow: hidden;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-  #xp-hex-ava .hero-svg { width: 100%; height: 100%; display: block; transform: translateY(3px) scale(1.08); }
+  #xp-hex-ava .hero-svg { width: 100%; height: 100%; display: block; transform: translateY(-4px); }
   #xp-section.tier-3 #xp-hex-ava { clip-path: circle(46%); }
   #xp-section.tier-4 #xp-hex-ava { clip-path: polygon(50% 2%, 98% 50%, 50% 98%, 2% 50%); }
   #xp-hex-num { position: absolute; left: 50%; bottom: -5px; z-index: 2; transform: translateX(-50%);
@@ -11348,7 +11348,8 @@ function heroSvg(h, opt) {
   // корона (ліга «Пунктів за місяць»)
   if (G.crown) s += '<g transform="translate(46 22) rotate(-16)"><path d="M0 18 L2 2 L9 10 L15 0 L21 10 L28 2 L30 18 Z" fill="' + M("crown") + '" stroke="' + D("crown") + '" stroke-width="1.2"/>' +
     '<rect x="0" y="16" width="30" height="5" rx="2" fill="' + D("crown") + '"/><circle cx="15" cy="12" r="2.4" fill="#e11d48"/></g>';
-  const vb = opt.bust ? "40 4 120 120" : "0 -6 200 246";
+  // face — тісний кадр на обличчя (шестикутник смужки рівня: у бюсті 120×120 обличчя «ледь визирало» знизу)
+  const vb = opt.face ? "56 30 88 88" : opt.bust ? "40 4 120 120" : "0 -6 200 246";
   return '<svg class="hero-svg" viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg">' + s + '</svg>';
 }
 // Іконка предмета (48×48) у металі своєї ліги
@@ -11423,7 +11424,7 @@ function renderXpAvatar() {
     const st = heroState(), key = JSON.stringify(st), el = document.getElementById("xp-hex-ava");
     if (!el || key === _heroAvaKey) return;
     _heroAvaKey = key;
-    el.innerHTML = heroSvg(st, { bust: true });
+    el.innerHTML = heroSvg(st, { bust: true, face: true });
   } catch (e) {}
 }
 // Характеристики — кожен рядок «Загальної статистики» став атрибутом героя.
