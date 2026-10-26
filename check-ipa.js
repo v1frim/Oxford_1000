@@ -84,6 +84,18 @@ if (statsMode) {
   hits.forEach(([w, i, f]) => console.log("  " + w.padEnd(24) + i.padEnd(28) + f.join(",")));
 }
 
+// ── ПОКРИТТЯ enAlt (сесія 61) ────────────────────────────────────────────────
+// Підказка при наведенні бере IPA з TRANS[слово]. Варіанти `enAlt` (trash can /
+// garbage can на картці «dustbin») мали транскрипцію 0 з 978 — користувач помітив,
+// що вона є «лише в основного». Нові варіанти — через `node ipa-add.js batch.json`.
+const WORDS = new Function(src + "; return WORDS;")();
+const has = (x) => { const b = x.replace(/^to /, ""); return TRANS[x] || TRANS[b] || TRANS[b.toLowerCase()]; };
+const noIpa = [...new Set(WORDS.flatMap((w) => [w.en, ...(w.enAlt || [])]).filter((x) => !has(x)))];
+if (noIpa.length) {
+  console.log("❌ IPA: " + noIpa.length + " слів/варіантів без транскрипції (node ipa-add.js batch.json): " + noIpa.slice(0, 15).join(", "));
+  process.exit(1);
+}
+
 if (!hits.length) {
   console.log("✅ IPA: американська норма, британських форм немає");
   process.exit(0);
