@@ -9068,11 +9068,12 @@ function renderTabCefr() {
         '<span class="lb-mode">' + cefrLabelHtml(label) + ' · ' + fmtDate(lq.ts) + '</span></li>';
     }
     const poolStr = g.wordCount ? ' <span class="lb-pool">· ' + fmtPool(g.wordCount) + '</span>' : '';
-    return '<li class="' + klass + '" title="' + (isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
+    const isQ = g.tag === "quest";   // «ост» може бути й походом (сесія 64)
+    return '<li class="' + klass + '" title="' + (isQ ? "останній похід рівнями (рекорду не ставить)" : isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
       '<span class="lb-score">' + g.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)' + poolStr + '</span>' +
       gamesStr +
-      '<span class="lb-mode">' + cefrLabelHtml(label) + ' · ' + fmtDate(g.ts) + '</span>' +
+      '<span class="lb-mode">' + (isQ ? "⚔️ " : "") + cefrLabelHtml(label) + ' · ' + fmtDate(g.ts) + '</span>' +
     '</li>';
   };
   // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
@@ -9080,10 +9081,15 @@ function renderTabCefr() {
   let html = [...new Set([...best.keys(), ...qCount.keys()])]
     .sort((a, b) => { const x = diffOrder(a), y = diffOrder(b);
       return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || x[3] - y[3] || String(a).localeCompare(String(b)); })
-    .map(k => renderCefrRow(best.get(k), k, last && best.has(k) && best.get(k).ts === last.ts ? "is-latest-game" : ""))
+    .map(k => renderCefrRow(best.get(k), k, last && best.has(k) && best.get(k).ts === last.ts && !quests.some(q => q.ts > last.ts) ? "is-latest-game" : ""))
     .join("");
-  // під рискою — остання CEFR-гра, якщо вона сама не є рекордом (як «ост» у «Найкращих іграх»)
-  if (last && ![...best.values()].some(g => g.ts === last.ts)) {
+  // під рискою — останнє заняття рівнями, якщо воно саме не є рекордом (як «ост» у «Найкращих іграх»).
+  // ⚠️ Сесія 64 (скарга: «ост» показував стару гру, хоча щойно був похід): «ост» = новіше з ГРИ чи ПОХОДУ
+  // рівнями; похід позначено ⚔️. Рекорди — як і раніше, лише з ігор.
+  const lastQ = quests.length ? quests.reduce((a, b) => (b.ts > a.ts ? b : a)) : null;
+  if (lastQ && (!last || lastQ.ts > last.ts)) {
+    html += '<li class="lb-sep"></li>' + renderCefrRow(lastQ, lastQ.cefr, "lb-latest", true);
+  } else if (last && ![...best.values()].some(g => g.ts === last.ts)) {
     html += '<li class="lb-sep"></li>' + renderCefrRow(last, last.tag.slice(5), "lb-latest", true);
   }
   lbListEl.innerHTML = html;
@@ -10671,6 +10677,26 @@ renderLeaderboard();
 // отримує його мітку. Похід зі словом поза набором (грався іншим пулом) лишається без мітки.
 // Відновлені `rec:1` слів не мають — їм теж поточна мітка (найкраща оцінка).
 // ⚠️ Ключ журналу походів — літералом: const QUEST_LOG_KEY оголошено нижче (TDZ на старті).
+// 🧹 ПОРОЖНІ CEFR-ІГРИ (сесія 64): до виправлення гра рівнями без жодної відповіді (старт → час вийшов)
+// писалась у журнал і «ост» — у «Рівнях CEFR» висів рядок «0 (0/0)». Прибираємо разово; статистику дня не чіпаємо.
+(function dropEmptyCefrGames() {
+  const FLAG = "oxford_fix_empty_cefr_v1";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    const empty = g => g && g.tag && g.tag.indexOf("cefr:") === 0 && (g.score || 0) + (g.wrong || 0) + (g.skipped || 0) === 0;
+    const log = loadGamesLog(), keep = log.filter(g => !empty(g));
+    let changed = keep.length !== log.length;
+    if (changed) localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(keep));
+    if (empty(loadLatest())) {                       // «остання гра» — попередня непорожня, з ЇЇ днем
+      const prev = keep.filter(g => g.tag !== "quest").slice(-1)[0];
+      if (prev) localStorage.setItem(LB_LATEST_KEY, JSON.stringify(Object.assign({ key: tsToDayKey(prev.ts) }, prev)));
+      else localStorage.removeItem(LB_LATEST_KEY);
+      changed = true;
+    }
+    localStorage.setItem(FLAG, "1");
+    if (changed) renderLeaderboard();                // лідерборд уже намальовано вище
+  } catch (e) {}
+})();
 (function tagOldQuestsCefr() {
   const FLAG = "oxford_fix_quest_cefr_v1";
   if (localStorage.getItem(FLAG)) return;

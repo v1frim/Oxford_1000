@@ -313,7 +313,7 @@ const DAY = 86400000;
     const last = li[li.length - 1];
     return { a12: pick(row("A1+A2")), a2: pick(row("A2")), b1: pick(row("B1")),
       rows: li.filter(r => !r.classList.contains("lb-sep")).length,
-      ost: { latest: last.classList.contains("lb-latest"), score: last.querySelector(".lb-score").textContent,
+      ost: { latest: last.classList.contains("lb-latest"), score: last.querySelector(".lb-score").textContent, mode: last.querySelector(".lb-mode").textContent,
              games: !!last.querySelector(".lb-games") } };
   });
   t("⚔️ рекорд набору — лише з ігор (похід на 20 не перебив 12)", qz.a12 && qz.a12.score === "12", JSON.stringify(qz.a12));
@@ -324,7 +324,8 @@ const DAY = 86400000;
   t("⚔️ набір лише з походів — рядок без рекорду", qz.b1 && qz.b1.score === "—" && /⚔️2/.test(qz.b1.games) && qz.b1.sum === "· 10 (2/12)",
     JSON.stringify(qz.b1));
   t("⚔️ похід без мітки рівнів не рахується, рядків 3 + «ост»", qz.rows === 4, String(qz.rows));
-  t("⚔️ «ост» — остання ГРА, не похід", qz.ost.latest && qz.ost.score === "4" && !qz.ost.games, JSON.stringify(qz.ost));
+  // сесія 64 (скарга «ост показує стару гру, хоча щойно був похід»): «ост» = новіше з гри чи походу, похід з ⚔️
+  t("⚔️ «ост» — найсвіжіший похід, з позначкою ⚔️, без лічильника", qz.ost.latest && qz.ost.score === "6" && /⚔️/.test(qz.ost.mode) && !qz.ost.games, JSON.stringify(qz.ost));
 
   // запис нового походу несе мітку набору рівнів
   const qrec = await page.evaluate(() => {
@@ -360,6 +361,20 @@ const DAY = 86400000;
   t("⚔️ міграція: похід зі словами набору отримав мітку", mig[0] === "A1+A2", JSON.stringify(mig));
   t("⚔️ міграція: похід зі словом поза набором — без мітки", mig[1] === null, JSON.stringify(mig));
   t("⚔️ міграція: відновлений похід (без слів) — поточна мітка", mig[2] === "A1+A2", JSON.stringify(mig));
+
+  // порожня CEFR-гра «0 (0/0)», записана до виправлення, — прибирається разовою міграцією (сесія 64)
+  await page.evaluate(() => {
+    const now = Date.now();
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([
+      { score: 5, wrong: 2, skipped: 0, mode: "ua-en", ts: now - 864e5, wordCount: 8600, tag: "cefr:A1+A2" },
+      { score: 0, wrong: 0, skipped: 0, mode: "ua-en", ts: now - 1000, wordCount: 8600, tag: "cefr:A1+A2" }]));
+    localStorage.setItem("oxford_latest_v1", JSON.stringify({ key: todayKey(), score: 0, wrong: 0, skipped: 0, mode: "ua-en", ts: now - 1000, wordCount: 8600, tag: "cefr:A1+A2" }));
+    localStorage.removeItem("oxford_fix_empty_cefr_v1");
+  });
+  await page.reload(); await page.waitForTimeout(900);
+  const emp = await page.evaluate(() => ({ log: loadGamesLog().map(g => g.score + "/" + g.wrong), latest: loadLatest() }));
+  t("міграція: порожня CEFR-гра прибрана з журналу", emp.log.join() === "5/2", JSON.stringify(emp.log));
+  t("міграція: «остання гра» — попередня непорожня зі своїм днем", emp.latest && emp.latest.score === 5 && emp.latest.key !== undefined, JSON.stringify(emp.latest));
 
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));
