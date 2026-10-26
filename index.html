@@ -8970,7 +8970,7 @@ function renderTabCefr() {
         '</span>/<span class="lb-total">' + a.total + '</span>)</span>' : "";
     const qStr = nq ? ' <span title="походів цим набором рівнів — у сумі відповідей, але не в рекорді">⚔️' + nq + '</span>' : "";
     const gamesStr = many
-      ? '<span class="lb-games">' + (n ? n + " " + plural(n, "гра", "ігри", "ігор") : "") + qStr + "</span>" + sumStr : "";
+      ? '<span class="lb-games">' + (n ? '<span title="ігор цим набором рівнів">🎮' + n + '</span>' : "") + qStr + "</span>" + sumStr : "";   // 🎮 замість «ігор» (сесія 64)
     if (!g) {   // набір, зіграний лише походами: рекорду нема (походи його не ставлять)
       const lq = qLast.get(label);
       return '<li class="' + klass + '" title="лише походи — рекорд ставлять тільки ігри на час">' +

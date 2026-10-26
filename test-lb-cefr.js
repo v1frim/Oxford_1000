@@ -171,7 +171,7 @@ const DAY = 86400000;
   t("рядок на кожен набір рівнів", body.length === 4, JSON.stringify(body.map(r => r.mode)));
   t("рекорд A1 = найкраща гра пулу (16)", body[0] && body[0].score === "16" && /A1 ·/.test(body[0].mode),
     JSON.stringify(body[0]));
-  t("лічильник ігор рівня", body[0] && /2 ігри/.test(body[0].games || ""), String(body[0] && body[0].games));
+  t("лічильник ігор рівня", body[0] && /🎮2/.test(body[0].games || ""), String(body[0] && body[0].games));
   // ⚠️ Сесія 45 змінила правило: сортуємо за СКЛАДНІСТЮ набору (найвищий рівень у
   // ньому), а не за першим рівнем мітки. Тому `A1-B2` тепер після `B1`: пул із B2-словами
   // важчий за чистий B1, хоч мітка й починається з A1. Було: A1 → A1-B2 → B1 → —.
@@ -285,7 +285,7 @@ const DAY = 86400000;
     JSON.stringify(diff.scores));
   t("🎓 «—» (без рівня) стоїть останнім", diff.order[diff.order.length - 1] === "—", JSON.stringify(diff.order));
   t("🎓 сума по всіх іграх набору", diff.a1.sum === "· 33 (3/36)", JSON.stringify(diff.a1));
-  t("🎓 лічильник ігор лишився", /2 ігри/.test(diff.a1.games || ""), String(diff.a1.games));
+  t("🎓 лічильник ігор лишився", /🎮2/.test(diff.a1.games || ""), String(diff.a1.games));
   t("🎓 на одній грі суми немає (дублювала б рекорд)", diff.single === false);
 
   // ── ⚔️ Походи в «Рівнях CEFR» (сесія 64, за запитом) ───────────────────────────
@@ -317,9 +317,9 @@ const DAY = 86400000;
              games: !!last.querySelector(".lb-games") } };
   });
   t("⚔️ рекорд набору — лише з ігор (похід на 20 не перебив 12)", qz.a12 && qz.a12.score === "12", JSON.stringify(qz.a12));
-  t("⚔️ походи в лічильнику поруч з іграми", qz.a12 && /3 ігри/.test(qz.a12.games) && /⚔️2/.test(qz.a12.games), JSON.stringify(qz.a12));
+  t("⚔️ походи в лічильнику поруч з іграми", qz.a12 && /🎮3/.test(qz.a12.games) && /⚔️2/.test(qz.a12.games), JSON.stringify(qz.a12));
   t("⚔️ сума = ігри + походи", qz.a12 && qz.a12.sum === "· 52 (16/68)", JSON.stringify(qz.a12));
-  t("⚔️ одна гра + похід — сума показується", qz.a2 && /1 гра/.test(qz.a2.games) && /⚔️1/.test(qz.a2.games) && qz.a2.sum === "· 14 (2/16)",
+  t("⚔️ одна гра + похід — сума показується", qz.a2 && /🎮1/.test(qz.a2.games) && /⚔️1/.test(qz.a2.games) && qz.a2.sum === "· 14 (2/16)",
     JSON.stringify(qz.a2));
   t("⚔️ набір лише з походів — рядок без рекорду", qz.b1 && qz.b1.score === "—" && /⚔️2/.test(qz.b1.games) && qz.b1.sum === "· 10 (2/12)",
     JSON.stringify(qz.b1));
