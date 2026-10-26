@@ -100,10 +100,13 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("у повторенні бульбашка монстра = промпт картки (не підказує відповідь)", bub.bubble === bub.shown, JSON.stringify(bub));
   t("Tab у повторенні озвучує англійське лише в US→UA", bub.mode === "en-ua" ? bub.out[0] === bub.shown : bub.out.length === 0, JSON.stringify(bub));
   t("правильна в повторенні — герой б'є монстра", await p.evaluate(() => document.getElementById("q-hero").classList.contains("strike") && Q.mon.classList.contains("hit")));
+  const modeBeforeWrong = await p.evaluate(() => mode);
   await p.fill("#q-answer", "ні"); await p.keyboard.press("Enter"); await p.waitForTimeout(120);
   t("помилка в повторенні — монстр б'є героя", await p.evaluate(() => document.getElementById("q-hero").classList.contains("hurt") && Q.mon.classList.contains("strike-back")));
   await p.waitForTimeout(1800);
   t("помилка в повторенні НЕ обнуляє лічильник (3 правильні не обов'язково поспіль)", await p.evaluate(() => Q.drill.n === 1 && Q.phase === "drill"));
+  const modeAfterWrong = await p.evaluate(() => mode);
+  t("після помилки в повторенні — зворотний напрямок (бачиш те слово, якого не знав)", modeAfterWrong !== modeBeforeWrong, modeBeforeWrong + " → " + modeAfterWrong);
   const xpBeforeDrill = await p.evaluate(() => loadXp());
   for (let i = 0; i < 2; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
   t("повторення — в обидва боки", new Set(dirs).size === 2, dirs.join(","));

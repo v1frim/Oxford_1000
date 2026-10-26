@@ -12343,6 +12343,11 @@ function qDrillAnswer(val, auto) {
     qAnswerEl.classList.add("wrong");
     qSetInput(false);
     qSfx("hurt");
+    // ⚠️ ПІСЛЯ ПОМИЛКИ — ЗВОРОТНИЙ НАПРЯМОК (сесія 63, за запитом): не знаєш англійського — наступним
+    // покажемо саме англійське слово (і навпаки), а не той самий промпт ще раз. Решта плану чергується
+    // далі від нього, тож у повторенні й надалі є обидва боки.
+    const cur = d.plan[d.n % d.plan.length], flip = x => x === "ua-en" ? "en-ua" : "ua-en";
+    for (let i = d.n, x = flip(cur); i < d.plan.length; i++, x = flip(x)) d.plan[i] = x;
     Q.timer = setTimeout(() => { if (Q && Q.phase === "drill") qDrillAsk(); }, 1700);
   }
 }
