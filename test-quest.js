@@ -92,12 +92,23 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("добитий на арені монстр зник зі збереженої арени", await p.evaluate(() => loadQArena().length === 0));
   const pts = await p.evaluate(() => ({ need: [1,2,3,4,5,6,7].map(questPointNeed).join(","), d: loadDays()[todayKey()].questPts || 0,
     ans: Q.answers, q: Q.pts, exp: questPointsFor(Q.answers), at10: questPointsFor(10), at45: questPointsFor(45), at62: questPointsFor(62) }));
-  t("пункти «Плани»: 8·16·24·32·40, далі кожні 10", pts.need === "8,16,24,32,40,50,60" && pts.at10 === 1 && pts.at45 === 5 && pts.at62 === 7, JSON.stringify(pts));
+  t("пункти «Плани»: кожні 14 очок", pts.need === "14,28,42,56,70,84,98" && pts.at10 === 0 && pts.at45 === 3 && pts.at62 === 4, JSON.stringify(pts));
   // очки: монстр ✓ (1) + монстр ✗ (1) + завершене повторення (1) + добитий на арені (1) = 4;
   // помилки в повторенні й на арені очок НЕ дають
   t("очки походу: відповідь монстру + завершене повторення + добитий на арені = 4", pts.ans === 4, JSON.stringify(pts));
   t("пункти = очки / сходинки (і записані в день)", pts.q === pts.exp && pts.d === pts.q, JSON.stringify(pts));
   await p.keyboard.press("Enter"); await p.waitForTimeout(400);
+  const tim = await p.evaluate(() => {
+    const g = loadGamesLog().find(x => x.tag === "quest"), ql = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]");
+    const q = ql[ql.length - 1] || {};
+    return { card: document.getElementById("q-card").textContent, gTime: g && g.time, gN: g && g.n,
+      mons: (q.monsters || []).length, wrongRec: (q.monsters || []).find(r => !r.ok) || null, arena: (q.arena || []).length,
+      arenaRec: (q.arena || [])[0] || null };
+  });
+  t("фінал: таблиця часу по етапах", /Час по етапах/.test(tim.card) && /Арена/.test(tim.card) && /Читання картки/.test(tim.card), tim.card.slice(0, 120));
+  t("журнал ігор: секунди по етапах і лічильники", tim.gTime && "fight" in tim.gTime && "arena" in tim.gTime && tim.gTime.total >= 0 && tim.gN && tim.gN.fights === 2 && tim.gN.drills === 1 && tim.gN.arena === 1, JSON.stringify([tim.gTime, tim.gN]));
+  t("журнал походів: кожен монстр із часом відповіді", tim.mons === 2 && tim.wrongRec && tim.wrongRec.t >= 0 && tim.wrongRec.st >= 0 && tim.wrongRec.dr >= 0 && tim.wrongRec.da >= 3, JSON.stringify(tim.wrongRec));
+  t("журнал походів: монстр арени — час і спроби", tim.arena === 1 && tim.arenaRec.tries === 3 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
   t("Enter на фіналі — назад у меню", !(await p.isVisible("#quest-overlay")) && await p.isVisible("#start-screen"));
   const inv = await p.evaluate(() => {
     const days = loadDays(), h = loadMasteryHistory(), hd = Object.keys(h).sort();
@@ -148,7 +159,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.reload(); await p.waitForTimeout(1200);
   const m2 = await p.evaluate(() => loadDays()[todayKey()]);
   t("міграція: 3 «гри» = 1 гра + 2 походи (один — ще до журналу)", m2.games === 1 && m2.quests === 2, JSON.stringify(m2));
-  t("міграція: пункти за відповіді походів (18 − 9 = 9 → 1)", m2.questPts === 1, JSON.stringify(m2));
+  t("міграція: пункти за відповіді походів (18 − 9 = 9 очок → 0 при кроці 14)", (m2.questPts || 0) === 0, JSON.stringify(m2));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");

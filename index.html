@@ -1727,6 +1727,11 @@
   .qc-go small { opacity: .6; font-weight: 600; margin-left: 6px; }
   .qc-go.alt { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.25); }
   .qc-btns { display: flex; gap: 10px; justify-content: center; }
+  .qc-time { margin: 10px auto 0; max-width: 520px; text-align: left; font-size: 13px; }
+  .qt-h { text-align: center; opacity: .8; margin-bottom: 6px; }
+  .qt-row { display: grid; grid-template-columns: 1fr 52px 150px; gap: 8px; padding: 3px 8px; border-radius: 8px; }
+  .qt-row:nth-child(odd) { background: rgba(255,255,255,.04); }
+  .qt-row b { text-align: right; } .qt-row small { opacity: .6; }
   .q-bottom { padding: 12px 18px 16px; background: rgba(8,12,26,.95); border-top: 1px solid rgba(255,209,102,.2); }
   .q-hint { text-align: center; font-size: 13px; opacity: .6; min-height: 18px; margin-bottom: 8px; }
   .q-inrow { display: flex; gap: 10px; justify-content: center; }
@@ -6733,7 +6738,8 @@ function loadGamesLog() {
 }
 function appendGamesLog(game) {
   const log = loadGamesLog();
-  log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag });
+  log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag,
+    ...(game.time ? { time: game.time, n: game.n } : {}) });   // ⚔️ похід: секунди по етапах + лічильники
   for (let keep = Math.min(log.length, GAMES_LOG_MAX); ; keep = Math.floor(keep / 2)) {
     try { localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-keep))); return; }
     catch (e) { if (keep <= 100) return; }        // квота вичерпана — ріжемо й пробуємо ще
@@ -6998,7 +7004,7 @@ const BACKUP_KEYS = [
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
   "oxford_self_reviews_v1","oxford_due_v1","oxford_day_wrong_v1",
-  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1"
+  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1","oxford_quest_log_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -7210,6 +7216,9 @@ function exprPointsByDate(log) {
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + 3·ΔВивчаю + 8·ΔЗнаю + Duolingo×30 + LingoHut(50/75/100)
 //          + GPT×15 + 🎧×30 + 🎬×60 + 📒пункти×30 + 📖повторення×30 (ставки сесії 41).
+// ⚠️ ОГОЛОШЕНО ТУТ (а не в модулі походу): questPointNeed кличе міграція splitQuestsFromGames ще під час
+// завантаження — const нижче за текстом був би в TDZ, і міграція тихо падала б у try/catch.
+const QUEST_PT_STEP = 14;   // ⚔️ похід: очок на 1 пункт «Плани»
 const QUEST_DRILL_XP = 1;   // ⚔️ похід: слово, вивчене посеред бою (3 правильні після картки)
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev, mrWords, exprXp) {
   let xp = 0;
@@ -11950,7 +11959,7 @@ function qHud() {
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
-    '<span title="Пункти «Плани»: 1 за кожні 8 очок до 40-го, далі кожні 10. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
+    '<span title="Пункти «Плани»: 1 за кожні 14 очок. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -11976,6 +11985,7 @@ function qSpawnMonster(idx, side) {
 function qWalk() {
   if (!Q || Q.stage !== "road") return;
   Q.phase = "walk"; Q.speedTo = 1;
+  qT("road");
   qHero("walking");
   qSetInput(false, "…йдемо далі");
   qHint("Герой іде дорогою…");
@@ -11991,6 +12001,8 @@ function qFight() {
   Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
   Q.speedTo = 0;
   Q.phase = "fight";
+  qT("fight");
+  Q.mAt = qNow();
   Q.timer = setTimeout(() => {
     if (!Q || Q.phase !== "fight") return;
     qHero("fighting face-" + Q.side);
@@ -11999,12 +12011,37 @@ function qFight() {
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
   qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
 }
-// ⚠️ ПУНКТИ «ПЛАНИ» ЗА ПОХІД (за запитом): 1 пункт за кожні 8 «очок» до 40-го (8 · 16 · 24 ·
-// 32 · 40), далі — кожні 10 (50 · 60 · 70…). Журнал — поле дня questPts.
+// ⏱ ОБЛІК ЧАСУ ПОХОДУ (сесія 61, за запитом «важливо зафіксувати, скільки часу йде на кожен етап»).
+// Кошики: road — ходьба, удари, втечі; fight — від появи монстра до першої відповіді (думав);
+// study — читання картки; drill — повторення після картки; arena — арена (і передарена); pause — привал.
+// qT(кошик) закриває поточний кошик і відкриває новий. Деталі по кожному монстру — у журналі походів
+// `oxford_quest_log_v1` (останні 200 походів, у BACKUP_KEYS): час відповіді, картки, повторення, спроби.
+const QUEST_LOG_KEY = "oxford_quest_log_v1";
+const QUEST_LOG_MAX = 200;
+function qNow() { return Date.now(); }
+function qT(bucket) {
+  if (!Q) return;
+  const now = qNow();
+  if (Q.tB) Q.tm[Q.tB] = (Q.tm[Q.tB] || 0) + (now - Q.tAt);
+  Q.tB = bucket; Q.tAt = now;
+}
+function qFmtT(ms) { const s = Math.round(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+function qFmtAvg(ms, n) { return n ? (Math.round(ms / n / 100) / 10).toString().replace(".", ",") + " с" : "—"; }
+function qSaveLog(rec) {
+  try {
+    let a = JSON.parse(localStorage.getItem(QUEST_LOG_KEY) || "[]");
+    if (!Array.isArray(a)) a = [];
+    a.push(rec);
+    localStorage.setItem(QUEST_LOG_KEY, JSON.stringify(a.slice(-QUEST_LOG_MAX)));
+  } catch (e) {}
+}
+// ⚠️ ПУНКТИ «ПЛАНИ» ЗА ПОХІД (за запитом): 1 пункт за кожні QUEST_PT_STEP (14) «очок» — 14 · 28 ·
+// 42… (спершу було 8·16·24·32·40 і далі по 10; користувач порахував, що 10 монстрів ≈ 18 очок, і
+// попросив 14 на кожен пункт). Журнал — поле дня questPts.
 // ⚠️ ОЧКО ≠ КОЖНА ВІДПОВІДЬ (виправлено за скаргою «1 монстр із помилкою дає стільки ж, скільки
 // 7 правильних»): +1 за ПЕРШУ відповідь монстру (правильну чи ні), +1 за завершене повторення
 // після картки (3 правильні), +1 за монстра, добитого на арені. Помилки в повторенні й на арені — 0.
-function questPointNeed(k) { return k <= 5 ? 8 * k : 40 + 10 * (k - 5); }   // відповідей до k-го пункту
+function questPointNeed(k) { return QUEST_PT_STEP * k; }   // очок до k-го пункту
 function questPointsFor(n) { let k = 0; while (questPointNeed(k + 1) <= n) k++; return k; }
 function qCountAnswer() {
   Q.answers++;
@@ -12026,6 +12063,9 @@ function qFightAnswer(val, auto) {
   if (auto && !ok) return;                       // друк — лише автозарахування правильного
   const c = Q.cur;
   Q.phase = ok ? "kill" : "hurt";                // поки йде анімація — відповіді не приймаються
+  qT("road");
+  Q.rec = { w: wordKey(WORDS[c.idx]), dir: c.dir, ok, t: qNow() - Q.mAt };   // ⏱ скільки думав над монстром
+  Q.mlog.push(Q.rec);
   qCountAnswer();
   bumpSeen();                                    // показ для планувальника — як у звичайній грі
   if (!Q.counted) { Q.counted = true; qDayAdd("quests"); }   // ⚔️ окремий режим — не «гра»
@@ -12062,6 +12102,8 @@ function qFightAnswer(val, auto) {
 function qStudy(userVal) {
   const c = Q.cur;
   Q.phase = "study";
+  qT("study");
+  Q.rec.s0 = qNow();
   mode = c.dir; currentWord = WORDS[c.idx]; currentShown = c.shown; currentWordIndex = c.idx;
   const ans = getCorrectAnswer();
   const en = getEn(currentWord)[0], ua = getUa(currentWord)[0];
@@ -12083,6 +12125,9 @@ function qDrillStart() {
   const c = Q.cur, other = c.dir === "ua-en" ? "en-ua" : "ua-en";
   Q.drill = { n: 0, plan: [c.dir, other, c.dir] };
   Q.phase = "drill";
+  qT("drill");
+  Q.rec.st = qNow() - Q.rec.s0; delete Q.rec.s0;   // ⏱ читання картки
+  Q.rec.d0 = qNow(); Q.rec.da = 0;
   qDrillAsk();
 }
 function qDrillAsk() {
@@ -12100,6 +12145,7 @@ function qDrillAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
   if (auto && !ok) return;
   const d = Q.drill;
+  Q.rec.da++;                                      // спроб у повторенні (і правильних, і ні)
   if (ok) {
     d.n++;
     qSfx("hit");
@@ -12108,6 +12154,7 @@ function qDrillAnswer(val, auto) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
       addXp(QUEST_DRILL_XP); qDayAdd("questDrill");
       qCountAnswer();   // завершене повторення = 1 очко до пункту «Плани»
+      Q.rec.dr = qNow() - Q.rec.d0; delete Q.rec.d0;   // ⏱ повторення
       qFloat("+" + QUEST_DRILL_XP + " XP", "xp", 50);
       qFlee(); return;
     }
@@ -12141,6 +12188,7 @@ function qClash(heroWins) {
 }
 function qFlee() {
   Q.phase = "flee";
+  qT("road");
   qEl("q-card").classList.add("hidden");
   qSetInput(false);
   qHint("💨 Втікаємо!");
@@ -12160,6 +12208,7 @@ function questStop() {
   clearTimeout(Q.timer);
   Q.stage = "pause";
   Q.speedTo = 0;
+  qT("pause");
   questOverlay.classList.add("q-noinput");
   qHero("");
   if (Q.mon && Q.phase === "fight") Q.mon.remove();   // недобитий монстр без відповіді — просто зникає
@@ -12179,11 +12228,12 @@ function questStop() {
 function qArenaStart(pre) {
   Q.pre = !!pre;
   Q.stage = "arena"; Q.phase = "arena";
+  qT("arena");
   questOverlay.classList.remove("q-noinput");
   qEl("q-card").classList.add("hidden");
   qEl("q-scene").classList.add("arena");
   qEl("q-actors").querySelectorAll(".q-mon").forEach(x => x.remove());
-  Q.arena = { left: new Set(Q.arenaPool), cnt: {}, plan: buildReviewDirPlan(Q.arenaPool), last: null, els: {} };
+  Q.arena = { left: new Set(Q.arenaPool), cnt: {}, plan: buildReviewDirPlan(Q.arenaPool), last: null, els: {}, rec: {} };
   Q.arenaPool.forEach((idx, i) => {
     const el = qSpawnMonster(idx, "right");
     el.classList.add("lined");
@@ -12215,6 +12265,7 @@ function qArenaNext() {
   const idx = from[Math.floor(Math.random() * from.length)];
   A.last = idx;
   const dir = A.plan[idx][(A.cnt[idx] || 0) % A.plan[idx].length];
+  Q.aAt = qNow();
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
   Object.values(A.els).forEach(el => el.classList.remove("target"));
   const el = A.els[idx];
@@ -12229,6 +12280,8 @@ function qArenaAnswer(val, auto) {
   if (auto && !ok) return;
   const A = Q.arena, idx = Q.cur.idx, el = A.els[idx];
   qSetInput(false);
+  const ar = A.rec[idx] || (A.rec[idx] = { w: wordKey(WORDS[idx]), t: 0, tries: 0, pre: !!Q.pre });
+  ar.t += qNow() - Q.aAt; ar.tries++;               // ⏱ час і спроби на кожного монстра арени
   if (ok) {
     A.cnt[idx] = (A.cnt[idx] || 0) + 1;
     qHero("strike face-right arena");
@@ -12238,6 +12291,7 @@ function qArenaAnswer(val, auto) {
       // закритий монстр = закрите слово повторення: +2 XP і +1 «Повторень» (як post-game review)
       addXp(2); Q.arenaWon++;
       qCountAnswer();   // добитий на арені = 1 очко до пункту «Плани»
+      Q.alog.push(ar);
       recordReviewStats(1);
       A.left.delete(idx);
       qArenaDel(idx);
@@ -12260,23 +12314,37 @@ function qRoadAfterArena() {
   if (!Q || Q.stage !== "arena") return;
   Q.pre = false; Q.arena = null;
   Q.stage = "road";
+  qT("road");
   qEl("q-scene").classList.remove("arena");
   qEl("q-actors").querySelectorAll(".q-mon").forEach(x => x.remove());
   qEl("q-skip").textContent = "💨 Втекти";
   qFloat("🛣️ Дорога вільна!", "pt", 50);
   qWalk();
 }
+function questTimeSummary() {
+  const tm = Q.tm, n = { fights: Q.mlog.length, drills: Q.mlog.filter(r => r.dr != null).length, arena: Q.alog.length };
+  const sec = {}; let total = 0;
+  ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => { sec[k] = Math.round((tm[k] || 0) / 1000); total += tm[k] || 0; });
+  sec.total = Math.round(total / 1000);
+  return { sec, n };
+}
 function questFinal() {
   if (!Q) return;
   clearTimeout(Q.timer);
+  qT(null);                                        // ⏱ облік зупинено
+  const ts = questTimeSummary();
   // ⚠️ ПОХІД У ЖУРНАЛ ІГОР — з тегом "quest" (за скаргою «у лідерборді числиться ще минула гра»):
   // рядок «ост» у 🕒 і підсумок ✓/✗ періоду його бачать, а РЕЙТИНГ (місця, топ, gameRanks,
   // спритність героя) — ні: безстроковий похід непорівнюваний із 60-секундною грою.
   if (Q.counted && !Q.logged) {
     Q.logged = true;
-    const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest" };
+    const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest",
+                time: ts.sec, n: ts.n };
     appendGamesLog(g);
     updateLatest(g);
+    // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
+    qSaveLog({ ts: g.ts, t0: Q.t0, dir: g.mode, time: ts.sec, n: ts.n, won: Q.won, fled: Q.fled.length, pts: Q.pts, answers: Q.answers,
+               xp: qXp(), monsters: Q.mlog, arena: Q.alog });
   }
   Q.stage = "final"; Q.phase = "final";
   questOverlay.classList.add("q-noinput");
@@ -12293,10 +12361,22 @@ function questFinal() {
       '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' чекають на наступний похід)' : '') + '</div>' +
       '<div><b>' + Q.pts + '</b>пунктів «Плани»</div>' +
       '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + mins + '</b>хв</div></div>' +
+    qTimeHtml(ts) +
     (fled.length ? '<div class="qc-sub">Втік від: ' + fled.slice(0, 20).map(i => '<span class="w-chip">' + esc(getEn(WORDS[i])[0]) + ' — ' + esc(getUa(WORDS[i])[0]) + '</span>').join("") + '</div>' : '') +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
   qEl("q-card").classList.remove("hidden");
   qHint("");
+}
+function qTimeHtml(ts) {
+  const tm = Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
+  const row = (ic, name, ms, extra) => '<div class="qt-row"><span>' + ic + ' ' + name + '</span><b>' + qFmtT(ms || 0) + '</b><small>' + (extra || '') + '</small></div>';
+  return '<div class="qc-time"><div class="qt-h">⏱ Час по етапах · разом <b>' + qFmtT(total) + '</b></div>' +
+    row("⚔️", "Бої — думав над відповіддю", tm.fight, "сер. " + qFmtAvg(tm.fight || 0, n.fights) + " на монстра") +
+    row("📖", "Читання картки", tm.study, "сер. " + qFmtAvg(tm.study || 0, n.drills) + " на слово") +
+    row("🔁", "Повторення після картки", tm.drill, "сер. " + qFmtAvg(tm.drill || 0, n.drills) + " на слово") +
+    row("🏟️", "Арена", tm.arena, "сер. " + qFmtAvg(tm.arena || 0, n.arena) + " на монстра") +
+    row("🛣️", "Дорога, удари, втечі", tm.road, "") +
+    (tm.pause ? row("🏁", "Привал", tm.pause, "") : "") + '</div>';
 }
 function questStart() {
   if (Q) return;
@@ -12307,7 +12387,8 @@ function questStart() {
   Q = { pool, queue: buildSchedQueue(pool), qpos: 0, recent: [], dir: trainDir, auto: trainAuto, flip: false,
         scale, gap: Math.round(85 * scale + 18),
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
-        speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp() };
+        speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
+        tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null };
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
   qEl("q-actors").querySelectorAll(".q-mon,.q-float").forEach(x => x.remove());
