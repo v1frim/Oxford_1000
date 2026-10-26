@@ -74,14 +74,14 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("Інтелект = слова в «Знаю» (45)", /^45/.test(h.know), h.know);
   t("3 дні без занять → стан «Втома»", h.tired);
 
-  // 3. Клавіатура: Enter не відкриває «Тренування», Esc закриває
+  // 3. Клавіатура: Enter не стартує похід позаду (з сесії 64 Enter у меню = похід), Esc закриває
   await p.keyboard.press("Enter"); await p.waitForTimeout(250);
-  t("Enter на екрані героя НЕ відкриває «Тренування»", !(await p.isVisible("#train-modal")));
+  t("Enter на екрані героя НЕ стартує похід позаду", !(await p.isVisible("#quest-overlay")) && !(await p.isVisible("#train-modal")));
   await p.keyboard.press("Escape"); await p.waitForTimeout(200);
   t("Esc закриває екран героя", !(await p.isVisible("#hero-overlay")));
   await p.keyboard.press("Enter"); await p.waitForTimeout(250);
-  t("після закриття Enter знову відкриває «Тренування»", await p.isVisible("#train-modal"));
-  await p.keyboard.press("Escape"); await p.waitForTimeout(200);
+  t("після закриття Enter стартує похід", await p.isVisible("#quest-overlay"));
+  await p.evaluate(() => questClose(false)); await p.waitForTimeout(200);
 
   // 4. Клас змінюється з рівнем; гра сьогодні знімає втому
   await p.evaluate(() => {

@@ -52,7 +52,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
 
   // 3. модалка «Тренування» відкривається кнопкою або Enter
   //    (⚠️ Shift її БІЛЬШЕ НЕ відкриває — сесія 51: у меню він гортає період вкладки 🕒)
-  await p.click("#start-btn"); await p.waitForTimeout(200);
+  await p.click("#mode-btn"); await p.waitForTimeout(200);
   t("модалка відкрилась кліком", await p.isVisible("#train-modal"));
   t("три набори слів", (await p.$$(".tm-set")).length === 3);
   // Сесія 61: третя кнопка — «⇄ По черзі» (чергування ЩОГРИ), а не «Випадковий» щослова
@@ -88,9 +88,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("стрілка змінила набір на «весь словник»", await p.evaluate(()=>trainSet) === "all", await p.evaluate(()=>trainSet));
   t("рівні сховані поза CEFR", await p.isHidden("#tm-levels"));
 
-  // 6. Enter стартує гру обраним набором і напрямком
-  await p.keyboard.press("Enter"); await p.waitForTimeout(500);
-  t("гра стартувала", await p.isVisible("#game"));
+  // 6. Сесія 64: Enter у модалці = «Готово» (лише вибір), Ctrl+Enter — гра обраним набором і напрямком
+  await p.keyboard.press("Enter"); await p.waitForTimeout(300);
+  t("Enter у «Режимі» = Готово: модалка закрилась, гра НЕ стартувала", !(await p.isVisible("#train-modal")) && !(await p.isVisible("#game")));
+  await p.keyboard.press("Control+Enter"); await p.waitForTimeout(500);
+  t("гра стартувала (Ctrl+Enter у меню)", await p.isVisible("#game"));
   t("напрямок узято з модалки", await p.evaluate(()=>mode) === d2, await p.evaluate(()=>mode));
   await p.evaluate(()=>endGame(true)); await p.waitForTimeout(300);
   await p.evaluate(()=>{ document.getElementById("end-screen").classList.add("hidden");

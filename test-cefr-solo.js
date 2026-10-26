@@ -57,7 +57,7 @@ function chromePath() {
   await page.waitForTimeout(1200);
 
   // ── 1. Обидва ряди на місці, під картками наборів ────────────────────
-  await page.click("#start-btn");
+  await page.click("#mode-btn");
   t("модалка відкрилась", await page.isVisible("#train-modal"));
   t("ряд «повні рівні» видно", await page.isVisible("#tm-levels"));
   t("ряд «лише невивчені» видно", await page.isVisible("#tm-solo"));
@@ -84,7 +84,7 @@ function chromePath() {
     localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(m));
   });
   await page.reload(); await page.waitForTimeout(900);
-  await page.click("#start-btn");
+  await page.click("#mode-btn");
   const a1chip = await page.$eval('#tm-solo button[data-solo="A1"]', b => ({
     pc: b.querySelector(".lvp").textContent, n: +b.querySelector(".lvn").textContent, title: b.title }));
   // очікуване рахуємо незалежно, з сирого mastery: ключ = англійське слово, тож
@@ -157,7 +157,7 @@ function chromePath() {
   await page.evaluate(() => { cefrSel = new Set(["B1"]); cefrSoloSel = new Set(["A1"]);
     saveCefrSel(); saveCefrSoloSel(); });
   await page.reload(); await page.waitForTimeout(900);
-  await page.click("#start-btn");
+  await page.click("#mode-btn");
   s = await state();
   t("вибір обох рядів збережено", s.full.join() === "B1" && s.solo.join() === "A1", JSON.stringify(s));
   // сесія 61: на кнопках 📖 → зелений рівень (як у лідерборді), без емодзі

@@ -302,10 +302,10 @@ function chromePath() {
   }
   t("правий Shift гортає назад", back.join(",") === "cefr,all", back.join(","));
 
-  // Enter із меню й далі відкриває «Тренування», Shift усередині — напрямок
+  // «⚙️ Режим» відкриває модалку (з сесії 64 Enter у меню = похід), Shift усередині — напрямок
   const perBeforeModal = await page.evaluate(() => lbPeriod);
-  await page.keyboard.press("Enter"); await page.waitForTimeout(200);
-  t("Enter відкриває «Тренування»", await page.isVisible("#train-modal"));
+  await page.click("#mode-btn"); await page.waitForTimeout(200);
+  t("«Режим» відкриває вибір", await page.isVisible("#train-modal"));
   const dir1 = await page.evaluate(() => trainDir);
   await page.keyboard.press("Shift"); await page.waitForTimeout(150);
   const dir2 = await page.evaluate(() => trainDir);

@@ -245,7 +245,7 @@ function chromePath() {
   await page.evaluate(() => { localStorage.clear(); });
   await page.reload();
   await page.waitForTimeout(800);
-  await page.click("#start-btn").catch(() => {});
+  await page.click("#mode-btn").catch(() => {});
   await page.waitForTimeout(600);
   const prompt = await page.evaluate(() => {
     const el = document.getElementById("word-display");

@@ -359,10 +359,16 @@
   /* ── ПЕРЕБУДОВА ЦЕНТРАЛЬНОЇ ПАНЕЛІ (сесія 44, за запитом) ──────────────
      Головна кнопка → модалка «Тренування» (набір × напрямок); під нею ряд
      щоденних активностей і дрібний ряд English-only. Бічні панелі не чіпані. */
+  #start-row { display: flex; gap: 8px; margin-top: 22px; }
+  #start-row > button { flex: 1 1 0; min-width: 0; margin-top: 0; }
   #start-btn { font-size: 18px; font-weight: 800; padding: 14px 16px; line-height: 1.25; }
-  #start-sub { display: block; font-size: 12.5px; font-weight: 600; opacity: 0.75; margin-top: 4px; }
+  #start-btn small { display: block; font-size: 11.5px; font-weight: 600; opacity: 0.6; margin-top: 4px; }
+  #mode-btn { font-size: 16px; font-weight: 800; padding: 14px 12px; line-height: 1.25; color: #ffe39e;
+    background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.45); border-radius: 14px; }
+  #mode-btn:hover { background: rgba(255,209,102,0.16); }
+  #start-sub { display: block; font-size: 12.5px; font-weight: 600; opacity: 0.8; margin-top: 4px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   /* на жовтій кнопці світло-зелений не читається — темніший зелений того ж змісту */
-  #start-sub .cefr-solo, #tm-go small .cefr-solo { color: #137a2e; }
+  #tm-go small .cefr-solo { color: #137a2e; }
   .panel-lab {
     font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
     color: rgba(255,255,255,0.42); text-align: center; margin: 12px 0 6px;
@@ -1947,8 +1953,12 @@
         </div>
       </div>
     </div>
-    <button id="start-btn">▶ Тренування · 60 сек<span id="start-sub"></span></button>
-    <button id="quest-btn" title="Без таймера: монстри зі словами, доки сам не зупиниш">⚔️ Похід героя<small>без таймера · переможи монстрів словами</small></button>
+    <!-- Сесія 64, за запитом: «Тренування» розділено — зліва вибір режиму, справа гра. Enter = похід, Ctrl+Enter = гра -->
+    <div id="start-row">
+      <button id="mode-btn" title="Набір слів і напрямок — для гри і для походу">⚙️ Режим<span id="start-sub"></span></button>
+      <button id="start-btn" title="Гра на 60 секунд обраним режимом — одразу, без вікна вибору">▶ Гра · 60 сек<small>Ctrl+Enter</small></button>
+    </div>
+    <button id="quest-btn" title="Без таймера: монстри зі словами, доки сам не зупиниш">⚔️ Похід героя<small>без таймера · переможи монстрів словами · Enter</small></button>
     <div class="panel-lab">Щодня</div>
     <div id="daily-row">
       <div id="duo-wrap" class="pair">
@@ -2026,8 +2036,8 @@
 </div>
 <div id="train-modal" class="hidden">
   <div class="tm-card">
-    <div class="tm-title">Тренування</div>
-    <div class="tm-keys"><b>Tab</b> — набір · <b>Shift</b> — напрямок · <b>Enter</b> — почати · <b>Esc</b> — назад</div>
+    <div class="tm-title">Режим</div>
+    <div class="tm-keys"><b>Tab</b> — набір · <b>Shift</b> — напрямок · <b>Enter</b> — готово · <b>Ctrl+Enter</b> — гра · <b>Esc</b> — назад</div>
     <div class="tm-sec">Вибір режиму</div>
     <div class="tm-sets">
       <button class="tm-set" data-set="cefr"><span class="tm-ico">🎓</span><b>Рівні CEFR</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
@@ -2045,7 +2055,7 @@
       <button class="tm-dir" data-dir="en-ua"><b>US → UA</b></button>
       <button class="tm-dir" data-dir="auto" title="Напрямок чергується щогри: раз UA → US, раз US → UA"><b>⇄ По черзі</b><small></small></button>
     </div>
-    <button id="tm-go">▶ Почати<small></small></button>
+    <button id="tm-go">✓ Готово<small></small></button>
     <button id="tm-cancel">Скасувати</button>
   </div>
 </div>
@@ -6350,9 +6360,8 @@ document.getElementById("end-btn").addEventListener("click", () => {
   awaitingAfterWrong = false;
   endGame(timeLeft > 0);
 });
-document.getElementById("start-btn").addEventListener("click", () => {
-  openTrainModal();
-});
+document.getElementById("mode-btn").addEventListener("click", openTrainModal);
+document.getElementById("start-btn").addEventListener("click", () => startTraining());
 function restoreProgressPanel() {
   if (localStorage.getItem("oxford_progress_open_v1") === "1") {
     const panel = document.getElementById("progress-panel");
@@ -6537,7 +6546,7 @@ document.addEventListener("keydown", e => {
   // (напрямок перемикає Shift, див. трекер «чистих» модифікаторів вище).
   if (!document.getElementById("train-modal").classList.contains("hidden")) {
     if (e.key === "Escape") { e.preventDefault(); closeTrainModal(); }
-    else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) startTraining(); }
+    else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) { if (e.ctrlKey || e.metaKey) startTraining(); else confirmTrainModal(); } }
     else if (e.key === "Tab" || ["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)) {
       e.preventDefault();                       // Tab не ходить по кнопках браузера — циклить набори
       const sets = TRAIN_SETS;
@@ -6623,8 +6632,12 @@ document.addEventListener("keydown", e => {
   }
   if (e.key !== "Enter") return;
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
+  // ⚠️ Сесія 64, за запитом: у меню Enter = ⚔️ похід, Ctrl+Enter = гра 60 с одразу (обраним режимом).
+  // Вибір режиму — кнопка «⚙️ Режим» (клавіші в меню не має).
   if (!startScreen.classList.contains("hidden")) {
-    openTrainModal();
+    if (e.repeat) return;
+    e.preventDefault();
+    if (e.ctrlKey || e.metaKey) startTraining(); else questStart();
     return;
   }
   if (!endScreen.classList.contains("hidden")) {
@@ -8370,7 +8383,7 @@ function renderTrainModal() {
     }).join("");
   }
   const go = document.getElementById("tm-go");
-  go.innerHTML = "▶ Почати<small>" + trainSetHtml() + " · " + esc(trainDirLabel()) + " · 60 секунд</small>";
+  go.innerHTML = "✓ Готово<small>" + trainSetHtml() + " · " + esc(trainDirLabel()) + "</small>";
   go.disabled = !trainCount();
   renderStartSub();
 }
@@ -8414,7 +8427,9 @@ const onLevelChip = (attr, solo) => e => {
 };
 document.getElementById("tm-levels").addEventListener("click", onLevelChip("lv", false));
 document.getElementById("tm-solo").addEventListener("click", onLevelChip("solo", true));
-document.getElementById("tm-go").addEventListener("click", startTraining);
+// Сесія 64: модалка — лише ВИБІР режиму («Готово» зберігає й закриває); гра — окрема кнопка / Ctrl+Enter
+function confirmTrainModal() { saveTrainSel(); closeTrainModal(); renderStartSub(); }
+document.getElementById("tm-go").addEventListener("click", confirmTrainModal);
 document.getElementById("tm-cancel").addEventListener("click", closeTrainModal);
 document.getElementById("train-modal").addEventListener("click", e => {
   if (e.target.id === "train-modal") closeTrainModal();      // клік по фону закриває
@@ -9201,7 +9216,7 @@ function renderTabQuests() {
     "Окремий рейтинг — з іграми на 60 секунд похід не порівнюється.");
   if (!all.length) {
     lbListEl.innerHTML = "";
-    lbEmptyEl.textContent = "Тут будуть твої походи ⚔️ — кнопка під «Тренуванням».";
+    lbEmptyEl.textContent = "Тут будуть твої походи ⚔️ — кнопка «⚔️ Похід героя» (або Enter у меню).";
     lbEmptyEl.classList.remove("hidden");
     return;
   }

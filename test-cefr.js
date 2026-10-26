@@ -60,7 +60,7 @@ function chromePath() {
   // 1. рівні живуть у модалці «Тренування» (сесія 44: окремої кнопки/модалки CEFR нема)
   t("старої кнопки #cefr-btn нема", await page.$("#cefr-btn") === null);
   t("старої модалки #cefr-modal нема", await page.$("#cefr-modal") === null);
-  await page.click("#start-btn");
+  await page.click("#mode-btn");
   t("модалка «Тренування» відкрилась", await page.isVisible("#train-modal"));
   const sets = await page.$$eval(".tm-set", bs => bs.map(b => b.dataset.set));
   t("CEFR перший у списку наборів", sets[0] === "cefr", sets.join(","));
