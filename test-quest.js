@@ -62,9 +62,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.fill("#q-answer", "ні"); await p.keyboard.press("Enter"); await p.waitForTimeout(120);
   t("помилка в повторенні — монстр б'є героя", await p.evaluate(() => document.getElementById("q-hero").classList.contains("hurt") && Q.mon.classList.contains("strike-back")));
   await p.waitForTimeout(1800);
-  t("помилка в повторенні ОБНУЛЯЄ лічильник (3 поспіль)", await p.evaluate(() => Q.drill.n === 0 && Q.phase === "drill"));
+  t("помилка в повторенні НЕ обнуляє лічильник (3 правильні не обов'язково поспіль)", await p.evaluate(() => Q.drill.n === 1 && Q.phase === "drill"));
   const xpBeforeDrill = await p.evaluate(() => loadXp());
-  for (let i = 0; i < 3; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
+  for (let i = 0; i < 2; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
   t("повторення — в обидва боки", new Set(dirs).size === 2, dirs.join(","));
   t("після 3 правильних — втеча", await p.evaluate(() => Q.phase === "flee" || Q.phase === "walk"));
   t("вивчене посеред походу слово = +1 XP", (await p.evaluate(() => loadXp())) - xpBeforeDrill === 1);
