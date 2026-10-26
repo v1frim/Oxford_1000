@@ -12029,7 +12029,8 @@ function qWalk() {
   qSetInput(false, "…йдемо далі");
   qHint("Герой іде дорогою…");
   clearTimeout(Q.timer);
-  Q.timer = setTimeout(qFight, 1800 + Math.random() * 1200);
+  // пауза до нового монстра — випадкові 2-5 с (за запитом: «щоби додати елемент неочікуваності»)
+  Q.timer = setTimeout(qFight, 2000 + Math.random() * 3000);
 }
 function qFight() {
   if (!Q || Q.stage !== "road") return;
