@@ -67,6 +67,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   await p.waitForTimeout(300);   // transition .2s
   card2.open = await p.evaluate(() => { const ua = document.querySelector("#q-card .qc-exua"); return ua ? getComputedStyle(ua).filter : ""; });
+  await p.hover("#q-card .qc-exua"); await p.waitForTimeout(300);
+  card2.enBlur = await p.evaluate(() => getComputedStyle(document.querySelector("#q-card .qc-ex")).filter);
+  await p.mouse.move(5, 5); await p.waitForTimeout(300);
+  card2.enBack = await p.evaluate(() => getComputedStyle(document.querySelector("#q-card .qc-ex")).filter);
+  t("наводиш на переклад — англійське речення розмивається, прибрав — знову видно", !card2.ua || (/blur/.test(card2.enBlur) && card2.enBack === "none"), JSON.stringify(card2));
   t("переклад речення заблюрено, клік — показує", !card2.ua || (/blur/.test(card2.blur0) && card2.open === "none"), JSON.stringify(card2));
   t("на картці — Перекладач із цим словом і GPT (клік = запит)", card2.gt.includes("translate.google.com") && card2.gt.includes(encodeURIComponent(card2.en)) && card2.gpt && card2.gptN === 1, JSON.stringify(card2));
   const keys = await p.evaluate(() => { const o = speak, out = []; speak = w => out.push(w);

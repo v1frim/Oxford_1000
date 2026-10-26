@@ -126,6 +126,9 @@
     counter-increment: rank; flex-wrap: nowrap; white-space: nowrap;
   }
   .lb-list li:last-child { border-bottom: none; }
+  /* 🔥 серії: активності за всю серію — ДРУГИМ рядком (в один не влазили, сесія 61) */
+  .lb-list li.lb-streak { flex-wrap: wrap; row-gap: 2px; }
+  .lb-list li.lb-streak .lb-acts { order: 9; flex-basis: 100%; padding-left: 30px; font-size: 12px; }
   .lb-list li::before {
     content: counter(rank) ".";
     opacity: 0.55; font-size: 12px;
@@ -1708,6 +1711,9 @@
   .qc-ex { font-size: 16px; margin-top: 12px; font-style: italic; }
   .qc-exua { font-size: 14px; margin-top: 10px; opacity: .65; font-style: italic; filter: blur(5px); cursor: pointer; transition: filter .2s; user-select: none; }
   .qc-exua:hover, .qc-exua.open { filter: none; user-select: auto; }
+  /* навпаки: дивишся на переклад — розмивається англійське (за запитом: «щоб ховалось протилежне») */
+  .qc-ex { transition: filter .2s; }
+  .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
   .qc-links { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
   .qc-links .gt-link { margin-left: 0; font-size: 13px; padding: 4px 10px; }
   .qc-hint { font-size: 13px; opacity: .6; }
@@ -8752,7 +8758,8 @@ function computeStreaks(days) {
       const x = days[k];
       if (!x) continue;
       s.games += x.games || 0;
-      s.words += (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0);
+      s.words += (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0);   // ігри + походи (обидва пишуть у день)
+      s.bad = (s.bad || 0) + (x.wrong || 0) + (x.skipped || 0);
     }
   });
   // ⚠️ НІЧИЯ ЗА ДОВЖИНОЮ → БІЛЬШЕ ІГОР, ПОТІМ БІЛЬШЕ ВІДПОВІДЕЙ (сесія 60, за скаргою: три
@@ -9083,24 +9090,18 @@ function renderTabPeriod() {
 
 // Іконки інших занять дня (сесія 61, за запитом) — для 📅 і смужки «сьогодні»: 🦉3 📚2 🤖2…
 // Порядок і значки — як у «Прогресі по днях». Ігри (🎮) не дублюємо: вони вже є «· N ігор».
-function dayActsHtml(d) {
-  const duo = loadDuoSessions()[d] || 0;
-  const lh = Object.values(loadLhDone()).filter(v => v === d).length;
-  const gpt = loadGptRequests()[d] || 0;
-  const mv = loadMovieSessions()[d] || 0;
-  const ex = ((loadExprXpLog() || {})[d] || {}).r || 0;
-  const ss = loadSongSessions()[d] || 0;
-  const sg = Object.values(loadSongsXpAwarded()).filter(v => v === d).length;
+// Активності поза іграми за ДЕНЬ або за НАБІР днів (серія 🔥 — сума по всіх її днях).
+function dayActsHtml(d) { return daysActsHtml([d]); }
+function daysActsHtml(keys) {
+  const set = new Set(keys), days = loadDays(), sum = o => keys.reduce((a, k) => a + ((o || {})[k] || 0), 0);
+  const inSet = o => Object.values(o).filter(v => set.has(v)).length;
+  const qn = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
+  const ex = keys.reduce((a, k) => a + (((loadExprXpLog() || {})[k] || {}).r || 0), 0);
   const parts = [];
-  const qn = (loadDays()[d] || {}).quests || 0;
   if (qn) parts.push("⚔️" + qn);   // походи — окремо від «· N ігор»
-  if (duo) parts.push("🦉" + duo);
-  if (lh) parts.push("📚" + lh);
-  if (gpt) parts.push("🤖" + gpt);
-  if (mv) parts.push("🎬" + mv);
-  if (ex) parts.push("💬" + ex);
-  if (ss) parts.push("🎧" + ss);
-  if (sg) parts.push("🎵" + sg);
+  [["🦉", sum(loadDuoSessions())], ["📚", inSet(loadLhDone())], ["🤖", sum(loadGptRequests())],
+   ["🎬", sum(loadMovieSessions())], ["💬", ex], ["🎧", sum(loadSongSessions())], ["🎵", inSet(loadSongsXpAwarded())]]
+    .forEach(([i, n]) => { if (n) parts.push(i + n); });
   return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
 }
 function renderTabDays() {
@@ -9234,11 +9235,19 @@ function renderTabStreaks() {
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
     const games = s.games, totalWords = s.words;   // пораховано в computeStreaks
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    const wordsStr = totalWords > 0 ? '<span class="lb-games">(' + totalWords + ')</span>' : "";
-    return '<li class="' + cls + '">' +
+    // (хибні+пропуски / усього слів) — як у «📅 Найкращих днях»; слова ігор І походів.
+    // Далі — активності серії (⚔️ походи, 🦉, 📚, 🎧…) сумою по днях: скарга «у серіях лише ігри,
+    // більше нічого не показує», хоча серія рахується за будь-якою активністю.
+    const wordsStr = totalWords > 0 ? '<span class="lb-detail">(<span class="lb-bad">' + (s.bad || 0) + '</span>/<span class="lb-total">' + totalWords + '</span>)</span>' : "";
+    const keys = [];
+    for (let d = new Date(s.start + "T12:00:00"); ; d.setDate(d.getDate() + 1)) {
+      const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+      keys.push(k); if (k >= s.end || keys.length > 400) break;
+    }
+    return '<li class="lb-streak ' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
       '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
-      gamesStr + wordsStr +
+      gamesStr + wordsStr + daysActsHtml(keys) +
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
   };

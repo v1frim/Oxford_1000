@@ -416,6 +416,20 @@ function chromePath() {
   t("при відмові квоти лог ріжеться, а гра пишеться",
     quota.len > 0 && quota.len < 401 && quota.kept, JSON.stringify(quota));
 
+  // 🔥 серії: активності за всю серію + (хибні/усього) як у 📅 (скарга сесії 61: «там просто ігри»)
+  const stk = await page.evaluate(() => {
+    const days = {}, duo = {}, dk = i => { const d = new Date(); d.setDate(d.getDate() - i);
+      return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+    for (let i = 0; i < 3; i++) { days[dk(i)] = { games: 1, quests: 2, correct: 8, wrong: 1, skipped: 1 }; duo[dk(i)] = 1; }
+    localStorage.setItem("oxford_days_v1", JSON.stringify(days)); localStorage.setItem("oxford_duolingo_v1", JSON.stringify(duo));
+    lbActiveTab = "streaks"; renderLeaderboard();
+    const li = document.querySelector("#lb-list li");
+    return { txt: li.textContent, over: li.scrollWidth > li.clientWidth };
+  });
+  t("🔥 серія: (хибні/усього) слів ігор і походів", /\(6\/30\)/.test(stk.txt), stk.txt);
+  t("🔥 серія: активності сумою — ⚔️6 походів, 🦉3", /⚔️6/.test(stk.txt) && /🦉3/.test(stk.txt), stk.txt);
+  t("🔥 серія: рядок не вилазить за панель", !stk.over, stk.txt);
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");
   await browser.close();
