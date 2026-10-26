@@ -1728,6 +1728,14 @@
   .qc-go.alt { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.25); }
   .qc-btns { display: flex; gap: 10px; justify-content: center; }
   .qc-keys { font-size: 11px; opacity: .45; margin-top: 8px; }
+  .q-feed { position: absolute; top: 10px; right: 14px; z-index: 70; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; pointer-events: none; }
+  .q-feed.hidden { display: none; }
+  .qf-row { display: flex; align-items: center; gap: 6px; background: rgba(10,14,30,.72); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 3px 9px; font-size: 12px; }
+  .qf-row:first-child { border-color: rgba(255,209,102,.5); }
+  .qf-row:not(:first-child) { opacity: .78; }
+  .qf-w { font-weight: 700; margin-right: 2px; }
+  .qf-it { color: #06d6a0; } .qf-it.neg { color: #ff8a8a; } .qf-it.zero { color: rgba(255,255,255,.5); }
+  .qf-sum { color: #ffd166; margin-left: 4px; } .qf-sum.neg { color: #ff8a8a; }
   .qc-time { margin: 10px auto 0; max-width: 520px; text-align: left; font-size: 13px; }
   .qt-h { text-align: center; opacity: .8; margin-bottom: 6px; }
   .qt-row { display: grid; grid-template-columns: 1fr 52px 150px; gap: 8px; padding: 3px 8px; border-radius: 8px; }
@@ -2108,6 +2116,7 @@
     <div id="q-far" class="q-layer q-far"></div><div id="q-near" class="q-layer q-near"></div><div id="q-ground" class="q-layer q-ground"></div>
     <div id="q-actors" class="q-actors"><div id="q-hero" class="q-hero"></div></div>
     <div id="q-card" class="q-card hidden"></div>
+    <div id="q-feed" class="q-feed hidden" title="XP за останніх монстрів"></div>
   </div>
   <div class="q-bottom">
     <div id="q-hint" class="q-hint"></div>
@@ -11970,6 +11979,35 @@ function qSetInput(on, placeholder) {
   if (on) setTimeout(() => qAnswerEl.focus(), 0);
 }
 function qHint(text) { qEl("q-hint").textContent = text || ""; }
+// ── 📜 СТРІЧКА XP (за запитом «скільки і за що давали XP по кожному з монстрів, по останніх 5») ──
+// Рядок = ОДНА ЗУСТРІЧ із монстром на дорозі (+ «вивчив», якщо втік), а вся арена — ОДИН рядок
+// (уточнення користувача). Бонуси mastery — різницею XP до/після updateMastery: +3 — нове слово
+// (Нові → Вивчаю), +5 — у «Знаю», −3 — випало зі «Знаю». 5 останніх, найсвіжіший зверху.
+function qBonusLabel(b) { return b === 3 ? "нове слово" : b === 5 ? "у «Знаю»" : b === 8 ? "нове → «Знаю»" : b === -3 ? "випало зі «Знаю»" : "бонус слова"; }
+// kind: "fight" — нова зустріч; "drill" — доповнити поточну зустріч; "arena" — рядок поточної арени
+function qFeed(idx, items, kind) {
+  if (!Q) return;
+  let e;
+  if (kind === "drill" && Q.feedCur) e = Q.feedCur;
+  else if (kind === "arena") {
+    e = Q.feedArena;
+    if (!e) { e = Q.feedArena = { w: Q.pre ? "🏟️ Арена (минулий похід)" : "🏟️ Арена", items: [], kills: 0 }; Q.feed.unshift(e); }
+    e.kills++;
+    e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
+    items = [];
+  } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], items: [] }; Q.feed.unshift(e); }
+  if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
+  e.items = e.items.concat(items.map(([v, l]) => ({ v: +v, l })));
+  Q.feed = Q.feed.slice(0, 20);
+  const box = qEl("q-feed");
+  box.innerHTML = Q.feed.slice(0, 5).map(x => {
+    const sum = x.items.reduce((a, it) => a + it.v, 0);
+    return '<div class="qf-row"><span class="qf-w">' + esc(x.w) + '</span>' +
+      x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") +
+      '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
+  }).join("");
+  box.classList.toggle("hidden", !Q.feed.length);
+}
 // ── монстр ──
 function qSpawnMonster(idx, side) {
   const L = cefrLevelOf(WORDS[idx]), m = QUEST_MONSTERS[L] || QUEST_MONSTERS.none;
@@ -12071,11 +12109,14 @@ function qFightAnswer(val, auto) {
   bumpSeen();                                    // показ для планувальника — як у звичайній грі
   if (!Q.counted) { Q.counted = true; qDayAdd("quests"); }   // ⚔️ окремий режим — не «гра»
   qSetInput(false);
+  const xpA = loadXp();
   if (ok) {
     addXp(1); Q.won++;
     const t = masteryTargetIndex(val);
     updateMastery(t, true);
     if (t !== c.idx) schedTouch(c.idx);
+    const bonus = loadXp() - xpA - 1;
+    qFeed(c.idx, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight");
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
     qHero("strike face-" + Q.side);
@@ -12087,6 +12128,8 @@ function qFightAnswer(val, auto) {
     Q.timer = setTimeout(qWalk, 900);
   } else {
     updateMastery(c.idx, false);
+    const bonus = loadXp() - xpA;
+    qFeed(c.idx, bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : [["0", "втік"]], "fight");
     addDayWrong(c.idx);
     qDayAdd("wrong");
     Q.fled.push(c.idx);
@@ -12160,6 +12203,7 @@ function qDrillAnswer(val, auto) {
     if (d.n >= QUEST_DRILL) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
       addXp(QUEST_DRILL_XP); qDayAdd("questDrill");
+      qFeed(Q.cur.idx, [["+" + QUEST_DRILL_XP, "вивчив"]], "drill");
       qCountAnswer();   // завершене повторення = 1 очко до пункту «Плани»
       Q.rec.dr = qNow() - Q.rec.d0; delete Q.rec.d0;   // ⏱ повторення
       qFloat("+" + QUEST_DRILL_XP + " XP", "xp", 50);
@@ -12234,6 +12278,7 @@ function questStop() {
 }
 function qArenaStart(pre) {
   Q.pre = !!pre;
+  Q.feedArena = null;                              // нова арена — новий рядок у стрічці XP
   Q.stage = "arena"; Q.phase = "arena";
   qT("arena");
   questOverlay.classList.remove("q-noinput");
@@ -12297,6 +12342,7 @@ function qArenaAnswer(val, auto) {
     if (A.cnt[idx] >= REVIEW_REQUIRED_CORRECT) {
       // закритий монстр = закрите слово повторення: +2 XP і +1 «Повторень» (як post-game review)
       addXp(2); Q.arenaWon++;
+      qFeed(idx, [], "arena");
       qCountAnswer();   // добитий на арені = 1 очко до пункту «Плани»
       Q.alog.push(ar);
       recordReviewStats(1);
@@ -12394,12 +12440,13 @@ function questStart() {
         scale, gap: Math.round(85 * scale + 18),
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
-        tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null };
+        tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null, feed: [] };
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
   qEl("q-actors").querySelectorAll(".q-mon,.q-float").forEach(x => x.remove());
   qEl("q-scene").classList.remove("arena");
   qEl("q-card").classList.add("hidden");
+  qEl("q-feed").innerHTML = ""; qEl("q-feed").classList.add("hidden");
   qEl("q-hero").innerHTML = heroSvg(heroState());
   qEl("q-hero").style.width = Math.round(170 * scale) + "px";
   qEl("q-set").innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());

@@ -88,6 +88,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await fight(); await p.waitForTimeout(200);
   await p.keyboard.press("Escape"); await p.waitForTimeout(300);
   const pause = await p.evaluate(() => document.getElementById("q-card").textContent);
+  const feed = await p.evaluate(() => [...document.querySelectorAll("#q-feed .qf-row")].map(r => r.textContent));
+  t("стрічка XP: монстри з розкладом «за що» (перемога, нове слово, вивчив)",
+    feed.length === 2 && /перемога/.test(feed[1]) && /нове слово/.test(feed[1]) && /вивчив/.test(feed[0]), JSON.stringify(feed));
   t("Esc — привал із правильними / неправильними", /1\s*правильних/.test(pause) && /1\s*неправильних/.test(pause), pause.slice(0, 80));
   t("на привалі кличе на арену", /На арену/.test(pause));
   await p.keyboard.press("Enter"); await p.waitForTimeout(900);
@@ -121,6 +124,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("журнал ігор: секунди по етапах і лічильники", tim.gTime && "fight" in tim.gTime && "arena" in tim.gTime && tim.gTime.total >= 0 && tim.gN && tim.gN.fights === 2 && tim.gN.drills === 1 && tim.gN.arena === 1, JSON.stringify([tim.gTime, tim.gN]));
   t("журнал походів: кожен монстр із часом відповіді", tim.mons === 2 && tim.wrongRec && tim.wrongRec.t >= 0 && tim.wrongRec.st >= 0 && tim.wrongRec.dr >= 0 && tim.wrongRec.da >= 3, JSON.stringify(tim.wrongRec));
   t("журнал походів: монстр арени — час і спроби", tim.arena === 1 && tim.arenaRec.tries === 3 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
+  const feedA = await p.evaluate(() => [...document.querySelectorAll("#q-feed .qf-row")].map(r => r.textContent));
+  t("стрічка XP: уся арена — одним рядком (+2 за добитого)", /Арена/.test(feedA[0]) && /\+2 добито 1/.test(feedA[0]) && feedA.filter(x => /Арена/.test(x)).length === 1, JSON.stringify(feedA));
   t("Enter на фіналі — назад у меню", !(await p.isVisible("#quest-overlay")) && await p.isVisible("#start-screen"));
   const inv = await p.evaluate(() => {
     const days = loadDays(), h = loadMasteryHistory(), hd = Object.keys(h).sort();
