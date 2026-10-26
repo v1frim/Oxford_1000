@@ -12231,7 +12231,7 @@ function qStudy(userVal) {
     (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
     // ⚠️ Переклад речення ЗАБЛЮРЕНО до наведення/кліку (скарга: «речення і переклад одне над одним —
     // легко підглянути»). Спершу спробуй зрозуміти англійське сам.
-    (exUa ? '<div class="qc-exua" data-q="exua" title="Наведи або клікни — показати переклад">«' + esc(exUa) + '»</div>' : '') +
+    (exUa ? '<div class="qc-exua" data-q="exua">«' + esc(exUa) + '»</div>' : '') +
     // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
     '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
       '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a></div>' +
