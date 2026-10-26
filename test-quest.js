@@ -111,8 +111,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   for (let i = 0; i < 2; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
   t("повторення — в обидва боки", new Set(dirs).size === 2, dirs.join(","));
   t("після 3 правильних — втеча", await p.evaluate(() => Q.phase === "flee" || Q.phase === "walk"));
-  t("вивчене посеред походу слово = +1 XP", (await p.evaluate(() => loadXp())) - xpBeforeDrill === 1);
-  t("журнал для перерахунку XP: день.questDrill = 1", (await day()).questDrill === 1);
+  t("вивчене посеред походу слово = +2 XP", (await p.evaluate(() => loadXp())) - xpBeforeDrill === 2);
+  t("журнал для перерахунку XP: день.questDrill2 = 1 (по 2 XP), старе questDrill не росте", (await day()).questDrill2 === 1 && !(await day()).questDrill);
   t("повторення посеред походу mastery НЕ чіпає", await p.evaluate(i => mStreak(loadMastery()[wordKey(WORDS[i])]) === 0, idx2));
 
   // 3. стоп → арена
@@ -135,7 +135,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("арена: після помилки той самий монстр питає у зворотному напрямку", aMode1.mode !== aMode0 && aMode1.cnt === 0 && aMode1.idx === idx2, aMode0 + " → " + JSON.stringify(aMode1));
   for (let i = 0; i < 3; i++) { await p.fill("#q-answer", await right()); await p.waitForTimeout(1100); }
   await p.waitForTimeout(1200);
-  const fin = await p.evaluate(() => ({ stage: Q && Q.stage, card: document.getElementById("q-card").textContent, xp: qXp(), real: loadXp() - Q.xp0 }));
+  const fin = await p.evaluate(() => ({ stage: Q && Q.stage, card: document.getElementById("q-card").textContent, xp: qXp(), real: loadXp() - Q.xp0,
+    words: [...document.querySelectorAll("#q-card .qw-row")].map(r => ({ t: r.textContent, hw: !!r.querySelector(".hw"), miss: r.classList.contains("miss") })) }));
+  t("фінал: «Слова походу» — кожне слово раз, ✓ / ✗+🏟️, англійське з ховером", fin.words.length === 2 && fin.words.every(w => w.hw) &&
+    fin.words.filter(w => w.miss).length === 1 && fin.words.some(w => /✓/.test(w.t)) && fin.words.some(w => /✗/.test(w.t) && /🏟️1/.test(w.t)), JSON.stringify(fin.words));
+  t("фінал: 🌡️ показує очки походу", /🌡️ \+\d+ очок · ще \d+ до пункту/.test(fin.card), fin.card.slice(0, 300));
   t("3 правильні на арені — монстр добитий, фінал", fin.stage === "final" && /Похід завершено/.test(fin.card), fin.stage);
   t("XP походу = реальний приріст (1 перемога + 1 вивчення + 2 арена + бонуси mastery)", fin.xp === fin.real && fin.real >= 3 && fin.real - xp0 * 0 === (await p.evaluate(() => loadXp())) - xp0, fin.xp + " / " + fin.real);
   d = await day();

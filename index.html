@@ -1717,6 +1717,16 @@
   /* навпаки: дивишся на переклад — розмивається англійське (за запитом: «щоб ховалось протилежне») */
   .qc-ex { transition: filter .2s; }
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
+  .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
+  .qc-words { margin-top: 8px; }
+  .qw-list { max-height: 170px; overflow-y: auto; text-align: left; font-size: 13px; border-radius: 8px; background: rgba(255,255,255,.04); padding: 4px 8px; }
+  .qw-row { display: flex; gap: 8px; align-items: baseline; padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+  .qw-row:last-child { border-bottom: none; }
+  .qw-mk { flex: 0 0 52px; font-style: normal; }
+  .qw-mk i { font-style: normal; margin-right: 4px; }
+  .qw-mk .ok { color: #7be07b; } .qw-mk .bad { color: #ff9d9d; } .qw-mk span.bad { font-size: 11px; }
+  .qw-en { flex: 0 0 auto; font-weight: 600; }
+  .qw-ua { opacity: .7; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .qc-links { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
   .qc-links .gt-link { margin-left: 0; font-size: 13px; padding: 4px 10px; }
   /* ± лічильник запитів GPT біля значка 🤖 GPT у грі/поході (сесія 63) */
@@ -7225,7 +7235,8 @@ function exprPointsByDate(log) {
 // ⚠️ ОГОЛОШЕНО ТУТ (а не в модулі походу): questPointNeed кличе міграція splitQuestsFromGames ще під час
 // завантаження — const нижче за текстом був би в TDZ, і міграція тихо падала б у try/catch.
 const QUEST_PT_STEP = 14;   // ⚔️ похід: очок на 1 пункт «Плани»
-const QUEST_DRILL_XP = 1;   // ⚔️ похід: слово, вивчене посеред бою (3 правильні після картки)
+const QUEST_DRILL_XP = 2;   // сесія 63: 1 → 2 (за запитом); старі дні — поле questDrill по 1 XP, нові — questDrill2 по 2
+const QUEST_DRILL_XP_OLD = 1;   // ⚔️ похід: слово, вивчене посеред бою (3 правильні після картки)
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev, mrWords, exprXp) {
   let xp = 0;
   const d = days[date] || {};
@@ -7239,7 +7250,9 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // ⚔️ Похід (сесія 61, за запитом «я також приділяю на це свій час»): слово, вивчене посеред
   // походу (3 правильні після картки), = QUEST_DRILL_XP. Журнал — поле дня `questDrill`
   // (пишеться РАЗОМ з addXp у qDrillAnswer — прибрати одне без другого не можна).
-  xp += (d.questDrill || 0) * QUEST_DRILL_XP;
+  // ⚠️ Сесія 63: 1 → 2 XP. Щоб перерахунок НЕ переписав історію, нові вивчення пишуться в ОКРЕМЕ
+  // поле `questDrill2` (по QUEST_DRILL_XP), а старе `questDrill` лишилось по 1 XP. Не зливати поля!
+  xp += (d.questDrill || 0) * QUEST_DRILL_XP_OLD + (d.questDrill2 || 0) * QUEST_DRILL_XP;
   const idx = hdates.indexOf(date);
   if (idx >= 0) {
     const cur  = history[date];
@@ -12079,7 +12092,7 @@ function qHud() {
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
-    '<span title="Пункти «Плани»: 1 за кожні 14 очок; недобрані очки переходять у наступний похід. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
+    '<span title="Пункти «Плани»: 1 за кожні 14 очок; недобрані очки переходять у наступний похід. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>· ' + Q.answers + ' оч. (ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -12326,7 +12339,7 @@ function qDrillAnswer(val, auto) {
     qClash(true);
     if (d.n >= QUEST_DRILL) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
-      addXp(QUEST_DRILL_XP); qDayAdd("questDrill");
+      addXp(QUEST_DRILL_XP); qDayAdd("questDrill2");   // questDrill2 = по 2 XP (сесія 63), не questDrill
       qFeed(Q.cur.idx, [["+" + QUEST_DRILL_XP, "вивчив"]], "drill");
       qCountAnswer();   // завершене повторення = 1 очко до пункту «Плани»
       Q.rec.dr = qNow() - Q.rec.d0; delete Q.rec.d0;   // ⏱ повторення
@@ -12578,6 +12591,24 @@ function qLogQuest(ts) {
              xp: qXp(), monsters: Q.mlog, arena: Q.alog });
 }
 addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } catch (e) {} });
+// 📜 СЛОВА ПОХОДУ на фіналі (сесія 63, за запитом: «після гри можна було подивитися слова, які відповів
+// правильно чи неправильно — підгадати переклад чи звучання»). Кожне слово — раз: дорога (✓ переміг /
+// ✗ втік) і арена (🏟️, скільки помилок). Англійське — з ховером перекладу й IPA, клік озвучує (.hw).
+function qWordsHtml() {
+  const by = new Map(), get = w => by.get(w) || (by.set(w, {}), by.get(w));
+  (Q.mlog || []).forEach(r => { const o = get(r.w); o.road = o.road === false ? false : r.ok; });
+  (Q.alog || []).forEach(r => { const o = get(r.w); o.arena = Math.max(0, (r.tries || 0) - REVIEW_REQUIRED_CORRECT); });
+  if (!by.size) return "";
+  const rows = [...by].map(([k, o]) => {
+    const i = indexOfWordKey(k), ua = i >= 0 ? getUa(WORDS[i]).slice(0, 2).join(", ") : "";
+    const mk = (o.road === true ? '<i class="ok">✓</i>' : o.road === false ? '<i class="bad" title="втік">✗</i>' : '') +
+      ("arena" in o ? '<i title="арена' + (o.arena ? ': помилок ' + o.arena : '') + '">🏟️' + (o.arena ? '<span class="bad">' + o.arena + '</span>' : '') + '</i>' : '');
+    return '<div class="qw-row' + (o.road === false || o.arena ? ' miss' : '') + '"><span class="qw-mk">' + mk + '</span>' +
+      '<span class="qw-en">' + wrapEnWord(k) + '</span><span class="qw-ua">' + esc(ua) + '</span></div>';
+  });
+  return '<div class="qc-words"><div class="qc-sub">📜 Слова походу · ' + by.size + ' <small>(наведи — переклад, клік — вимова)</small></div>' +
+    '<div class="qw-list">' + rows.join("") + '</div></div>';
+}
 function questFinal() {
   if (!Q) return;
   clearTimeout(Q.timer);
@@ -12601,12 +12632,16 @@ function questFinal() {
     '<div class="qc-stats">' +
       '<div><b class="ok">' + Q.won + '</b>правильних</div><div><b class="bad">' + Q.fled.length + '</b>неправильних</div>' +
       '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' чекають на наступний похід)' : '') + '</div>' +
-      '<div><b>' + Q.pts + '</b>пунктів «Плани»</div>' +
+      // 🌡️ і пункти, і ОЧКИ (сесія 63, за запитом «невідомо скільки очок дало»): +зароблені цим походом
+      // (без залишку з минулого) · до наступного пункту
+      '<div><b>' + Q.pts + '</b>пунктів «Плани»<small class="qc-pts">🌡️ +' + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
+        (questPointNeed(Q.pts + 1) - Q.answers) + ' до пункту</small></div>' +
       '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div></div>' +
     qTimeHtml(ts) +
     // слова, що цей похід перевів у «Знаю» (за запитом — замість «Втік від»)
     (newKeys.length ? '<div class="qc-sub">У «Знаю»: ' + newKeys.slice(0, 30).map(k => { const i = indexOfWordKey(k);
       return '<span class="w-chip">' + esc(k) + (i >= 0 ? ' — ' + esc(getUa(WORDS[i])[0]) : '') + '</span>'; }).join("") + '</div>' : '') +
+    qWordsHtml() +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
   qEl("q-card").classList.remove("hidden");
   qHint("");
