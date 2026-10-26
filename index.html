@@ -9130,9 +9130,13 @@ function renderTabQuests() {
   }
   lbEmptyEl.classList.add("hidden");
   const sorted = [...all].sort((a, b) => b.score - a.score || ((a.wrong || 0) + (a.skipped || 0)) - ((b.wrong || 0) + (b.skipped || 0)) || b.ts - a.ts);
-  let html = sorted.slice(0, LB_LIMIT).map((g, i) => renderQuestRow(g, "", null)).join("");
   // останній похід — під рискою з реальним місцем, якщо не потрапив у топ (як у 🕒)
   const newest = all.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null), at = sorted.indexOf(newest);
+  // ⚠️ ПЛАШКИ ЯК У 🕒 (сесія 63, скарга «останній похід на 1 місці, а плашки нема»): синя смужка —
+  // останній похід (is-latest-game); жовта — він же й остання гра взагалі, тобто щойно зіграний (is-new)
+  const latest = loadLatest(), justNow = latest && latest.ts === newest.ts;
+  const mark = g => g === newest ? "is-latest-game" + (justNow ? " is-new" : "") : "";
+  let html = sorted.slice(0, LB_LIMIT).map(g => renderQuestRow(g, mark(g), null)).join("");
   if (at >= LB_LIMIT) html += '<li class="lb-sep"></li>' + renderQuestRow(newest, "lb-latest", at + 1);
   lbListEl.innerHTML = html;
 }

@@ -459,6 +459,9 @@ function chromePath() {
     return { rows, title: document.getElementById("lb-title").textContent, labels,
       reset: getComputedStyle(document.getElementById("lb-reset")).visibility };
   });
+  const qcls = await page.evaluate(() => { document.querySelector('.lb-tab[data-tab="quests"]').click();
+    return [...document.querySelectorAll("#lb-list li")].map(l => l.className); });
+  t("⚔️ вкладка: останній похід (3, найновіший) — синя плашка, решта без", /is-latest-game/.test(qcls[2]) && !/is-latest-game/.test(qcls[0] + qcls[1]), JSON.stringify(qcls));
   t("⚔️ вкладка: лише походи, за переможеними (12, 5, 3)", qv.rows.length === 3 && /^12/.test(qv.rows[0]) && /^5/.test(qv.rows[1]) && /^3/.test(qv.rows[2]), JSON.stringify(qv.rows));
   t("⚔️ рядок: (втечі/усього), тривалість, арена", /\(4\/16\)/.test(qv.rows[0]) && /12:34/.test(qv.rows[0]) && /🏟️4/.test(qv.rows[0]), qv.rows[0]);
   t("⚔️ заголовок «Рекорди походів · 3 походи», кошика нема", /Рекорди походів/.test(qv.title) && /3 походи/.test(qv.title) && qv.reset === "hidden", qv.title);
