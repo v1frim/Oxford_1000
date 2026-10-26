@@ -227,6 +227,15 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const few = await p.evaluate(() => { const A = Q.arena; [...A.left].slice(3).forEach(i => { A.left.delete(i); A.els[i].remove(); delete A.els[i]; }); qArenaLayout();
     return new Set(Object.values(A.els).map(e => e.style.bottom)).size; });
   t("арена: 3 монстри — один ряд", few === 1, String(few));
+  // баг: вийшов з арени, не добивши → ціль (z-index 200) вилазила поверх фінальної картки
+  const fin2 = await p.evaluate(async () => { questFinal(); await new Promise(r => setTimeout(r, 400));
+    const c = document.getElementById("q-card"), bad = [];
+    const cr = c.getBoundingClientRect();
+    for (const m of document.querySelectorAll("#q-actors .q-mon")) { const r = m.getBoundingClientRect();
+      const x = Math.max(cr.left + 2, Math.min(cr.right - 2, r.left + r.width / 2)), y = Math.max(cr.top + 2, Math.min(cr.bottom - 2, r.top + r.height / 2));
+      const el = document.elementFromPoint(x, y); if (el && !c.contains(el)) bad.push(el.className.baseVal ?? el.className); }
+    return { bad, words: [...document.querySelectorAll("#q-actors .qm-word")].map(w => w.textContent).join("") }; });
+  t("вийшов з арени, не добивши — фінальна картка поверх монстрів, бульбашок нема", !fin2.bad.length && !fin2.words, JSON.stringify(fin2));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");

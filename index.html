@@ -1630,7 +1630,9 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200'%3E%3Cpath d='M0 200 L0 120 Q75 72 150 108 Q225 146 300 100 Q375 62 450 104 Q525 140 600 120 L600 200Z' fill='%2365a85a'/%3E%3Cg fill='%236b4a2b'%3E%3Crect x='76' y='96' width='6' height='22'/%3E%3Crect x='326' y='78' width='6' height='24'/%3E%3Crect x='486' y='96' width='6' height='22'/%3E%3C/g%3E%3Cg fill='%23387a3c'%3E%3Ccircle cx='79' cy='86' r='16'/%3E%3Ccircle cx='70' cy='96' r='11'/%3E%3Ccircle cx='89' cy='95' r='11'/%3E%3Ccircle cx='329' cy='68' r='18'/%3E%3Ccircle cx='318' cy='79' r='12'/%3E%3Ccircle cx='341' cy='79' r='12'/%3E%3Ccircle cx='489' cy='86' r='15'/%3E%3Ccircle cx='480' cy='96' r='10'/%3E%3C/g%3E%3C/svg%3E"); }
   .q-ground { bottom: 0; height: 96px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='96'%3E%3Crect width='200' height='96' fill='%23b38c5c'/%3E%3Crect width='200' height='16' fill='%2358a24a'/%3E%3Cpath d='M0 16 q10 7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0' fill='%2358a24a'/%3E%3Cellipse cx='40' cy='52' rx='9' ry='3' fill='%23977149'/%3E%3Cellipse cx='150' cy='74' rx='12' ry='3.5' fill='%23977149'/%3E%3Ccircle cx='100' cy='40' r='3' fill='%23d1b07f'/%3E%3Ccircle cx='178' cy='46' r='2.4' fill='%23d1b07f'/%3E%3C/svg%3E"); }
-  .q-actors { position: absolute; inset: 0; }
+  /* z-index тут = окремий шар: z-index монстрів арени (до 200, «ціль поверх натовпу») живе ВСЕРЕДИНІ
+     і не перекриває картку (80) та стрічку XP (70). Без цього недобитий монстр вилазив поверх фіналу. */
+  .q-actors { position: absolute; inset: 0; z-index: 5; }
   .q-hero { position: absolute; left: 50%; bottom: 70px; width: 170px; transform: translateX(-50%); transition: left .6s ease; z-index: 30; }
   .q-hero > svg { width: 100%; height: auto; display: block; transform-origin: 50% 100%; }
   .q-scene.arena .q-hero { left: 26%; }
@@ -12434,6 +12436,8 @@ function questFinal() {
   if (!Q) return;
   clearTimeout(Q.timer);
   qT(null);                                        // ⏱ облік зупинено
+  // недобиті на арені лишаються стояти (чекають наступного походу), але вже без слова й підсвітки
+  qEl("q-actors").querySelectorAll(".q-mon").forEach(m => { m.classList.remove("target"); const w = m.querySelector(".qm-word"); if (w) w.textContent = ""; });
   const ts = questTimeSummary();
   // ⚠️ ПОХІД У ЖУРНАЛ ІГОР — з тегом "quest" (за скаргою «у лідерборді числиться ще минула гра»):
   // рядок «ост» у 🕒 і підсумок ✓/✗ періоду його бачать, а РЕЙТИНГ (місця, топ, gameRanks,
