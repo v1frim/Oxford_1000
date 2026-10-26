@@ -9,7 +9,8 @@
 //     і викидання «порожньої» гри (0 очок, 0 відповідей) із топ-10;
 //   • захист endGame: порожня гра не пише ні в scores, ні в latest, ні в лог;
 //   • вкладку 🎓 «Рекорди за рівнями CEFR» — по рядку на набір рівнів,
-//     рекорд пулу, лічильник ігор, «ост»-рядок, відсутність медалей/номерів.
+//     рекорд пулу, лічильник ігор, «ост»-рядок, відсутність медалей/номерів;
+//   • ⚔️ походи набором рівнів у лічильнику й сумі, але не в рекорді + міграція (сесія 64).
 // У verify.sh НЕ входить (потрібен зовнішній драйвер) — ганяти вручну після
 // змін у лідерборді.
 
@@ -286,6 +287,79 @@ const DAY = 86400000;
   t("🎓 сума по всіх іграх набору", diff.a1.sum === "· 33 (3/36)", JSON.stringify(diff.a1));
   t("🎓 лічильник ігор лишився", /2 ігри/.test(diff.a1.games || ""), String(diff.a1.games));
   t("🎓 на одній грі суми немає (дублювала б рекорд)", diff.single === false);
+
+  // ── ⚔️ Походи в «Рівнях CEFR» (сесія 64, за запитом) ───────────────────────────
+  // Похід набором рівнів додається до лічильника й суми рядка, але РЕКОРДУ не ставить
+  // (без 60-секундного таймера). Похід без мітки `cefr` (інший пул) — не враховується.
+  const qz = await page.evaluate(() => {
+    const now = Date.now(), day = 864e5;
+    const mk = (tag, score, wrong, d, extra) => Object.assign({ score, wrong, skipped: 0, mode: "ua-en",
+      ts: now - d * day, wordCount: 8600, tag }, extra || {});
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([
+      mk("cefr:A1+A2", 12, 2, 5), mk("cefr:A1+A2", 10, 3, 4),
+      mk("quest", 20, 4, 3, { cefr: "A1+A2" }),           // більше за рекорд — але рекорд не ставить
+      mk("cefr:A2", 9, 1, 6), mk("quest", 5, 1, 6.5, { cefr: "A2" }),
+      mk("quest", 7, 2, 2, { cefr: "B1" }), mk("quest", 3, 0, 1.5, { cefr: "B1" }),   // набір лише походами
+      mk("quest", 30, 0, 1),                                // без мітки — пул «весь словник»
+      mk("cefr:A1+A2", 4, 6, 0.5),                          // остання гра, не рекорд → «ост»
+      mk("quest", 6, 1, 0.1, { cefr: "A1+A2" }),            // найсвіжіший запис — похід
+    ]));
+    lbActiveTab = "cefr"; renderLeaderboard();
+    const li = [...document.querySelectorAll("#lb-list li")];
+    const row = lbl => li.find(r => !r.classList.contains("lb-latest") && r.querySelector(".lb-mode") &&
+      r.querySelector(".lb-mode").textContent.split("·")[0].trim() === lbl);
+    const pick = r => r && { score: r.querySelector(".lb-score").textContent,
+      games: (r.querySelector(".lb-games") || {}).textContent || "", sum: (r.querySelector(".lb-games-sum") || {}).textContent || "" };
+    const last = li[li.length - 1];
+    return { a12: pick(row("A1+A2")), a2: pick(row("A2")), b1: pick(row("B1")),
+      rows: li.filter(r => !r.classList.contains("lb-sep")).length,
+      ost: { latest: last.classList.contains("lb-latest"), score: last.querySelector(".lb-score").textContent,
+             games: !!last.querySelector(".lb-games") } };
+  });
+  t("⚔️ рекорд набору — лише з ігор (похід на 20 не перебив 12)", qz.a12 && qz.a12.score === "12", JSON.stringify(qz.a12));
+  t("⚔️ походи в лічильнику поруч з іграми", qz.a12 && /3 ігри/.test(qz.a12.games) && /⚔️2/.test(qz.a12.games), JSON.stringify(qz.a12));
+  t("⚔️ сума = ігри + походи", qz.a12 && qz.a12.sum === "· 52 (16/68)", JSON.stringify(qz.a12));
+  t("⚔️ одна гра + похід — сума показується", qz.a2 && /1 гра/.test(qz.a2.games) && /⚔️1/.test(qz.a2.games) && qz.a2.sum === "· 14 (2/16)",
+    JSON.stringify(qz.a2));
+  t("⚔️ набір лише з походів — рядок без рекорду", qz.b1 && qz.b1.score === "—" && /⚔️2/.test(qz.b1.games) && qz.b1.sum === "· 10 (2/12)",
+    JSON.stringify(qz.b1));
+  t("⚔️ похід без мітки рівнів не рахується, рядків 3 + «ост»", qz.rows === 4, String(qz.rows));
+  t("⚔️ «ост» — остання ГРА, не похід", qz.ost.latest && qz.ost.score === "4" && !qz.ost.games, JSON.stringify(qz.ost));
+
+  // запис нового походу несе мітку набору рівнів
+  const qrec = await page.evaluate(() => {
+    trainSet = "cefr";
+    questStart(); Q.counted = true; Q.won = 2; qLogQuest();
+    const g = loadGamesLog().slice(-1)[0];
+    return { tag: g.tag, cefr: g.cefr, want: cefrMixLabel(), kills: !!g.kills };
+  });
+  t("⚔️ новий похід пише мітку рівнів у журнал", qrec.tag === "quest" && qrec.cefr && qrec.cefr === qrec.want, JSON.stringify(qrec));
+  t("⚔️ журнал зберігає kills походу", qrec.kills, JSON.stringify(qrec));
+
+  // міграція старих походів: мітка лише тим, чиї монстри всі в поточному наборі
+  await page.evaluate(() => {
+    const keyOf = L => wordKey(WORDS.find(w => cefrLevelOf(w) === L));
+    const a1 = keyOf("A1"), a2 = keyOf("A2"), c2 = keyOf("C2");
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([
+      { score: 3, wrong: 1, skipped: 0, mode: "ua-en", ts: 1000, wordCount: 8600, tag: "quest" },
+      { score: 2, wrong: 0, skipped: 0, mode: "ua-en", ts: 2000, wordCount: 8600, tag: "quest" },
+      { score: 1, wrong: 0, skipped: 0, mode: "ua-en", ts: 3000, wordCount: 8600, tag: "quest", rec: 1 },
+    ]));
+    localStorage.setItem("oxford_quest_log_v1", JSON.stringify([
+      { ts: 1000, monsters: [{ w: a1, ok: true }, { w: a2, ok: false }], arena: [{ w: a2, tries: 3 }] },
+      { ts: 2000, monsters: [{ w: a1, ok: true }, { w: c2, ok: true }], arena: [] },
+    ]));
+    localStorage.setItem("oxford_cefr_sel_v1", JSON.stringify(["A1", "A2"]));
+    localStorage.setItem("oxford_cefr_solo_v1", "[]");
+    localStorage.setItem("oxford_train_sel_v1", JSON.stringify({ set: "cefr", dir: "ua-en" }));
+    localStorage.removeItem("oxford_fix_quest_cefr_v1");
+  });
+  await page.reload();
+  await page.waitForTimeout(900);
+  const mig = await page.evaluate(() => loadGamesLog().map(g => g.cefr || null));
+  t("⚔️ міграція: похід зі словами набору отримав мітку", mig[0] === "A1+A2", JSON.stringify(mig));
+  t("⚔️ міграція: похід зі словом поза набором — без мітки", mig[1] === null, JSON.stringify(mig));
+  t("⚔️ міграція: відновлений похід (без слів) — поточна мітка", mig[2] === "A1+A2", JSON.stringify(mig));
 
   console.log("✅ " + ok.length + " перевірок пройдено");
   if (bad.length) console.log("❌ ПРОВАЛЕНО:\n - " + bad.join("\n - "));

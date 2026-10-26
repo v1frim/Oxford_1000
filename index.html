@@ -6762,7 +6762,9 @@ function loadGamesLog() {
 function appendGamesLog(game) {
   const log = loadGamesLog();
   log.push({ score: game.score, wrong: game.wrong, skipped: game.skipped, mode: game.mode, ts: game.ts, wordCount: game.wordCount, tag: game.tag,
-    ...(game.time ? { time: game.time, n: game.n } : {}) });   // ⚔️ похід: секунди по етапах + лічильники
+    ...(game.time ? { time: game.time, n: game.n } : {}),     // ⚔️ похід: секунди по етапах + лічильники
+    ...(game.kills ? { kills: game.kills } : {}),
+    ...(game.cefr ? { cefr: game.cefr } : {}) });            // ⚔️ похід набором рівнів → у вкладку «Рівні CEFR» (сесія 64)
   for (let keep = Math.min(log.length, GAMES_LOG_MAX); ; keep = Math.floor(keep / 2)) {
     try { localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-keep))); return; }
     catch (e) { if (keep <= 100) return; }        // квота вичерпана — ріжемо й пробуємо ще
@@ -8889,8 +8891,13 @@ function cefrLabelHtml(label) {
 }
 function renderTabCefr() {
   setLbTitle("Рекорди за рівнями CEFR");
-  const games = loadGamesLog().filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
-  if (!games.length) {
+  const log = loadGamesLog();
+  const games = log.filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
+  // ⚔️ ПОХОДИ тим самим набором рівнів (сесія 64, за запитом): додаються до лічильника й суми
+  // відповідей рядка, але РЕКОРДУ не ставлять — похід без 60-секундного таймера, рахунки
+  // непорівнювані. Мітка набору — поле `cefr` (пишеться з сесії 64; старі — міграція tagOldQuestsCefr).
+  const quests = log.filter(g => g.tag === "quest" && g.cefr);
+  if (!games.length && !quests.length) {
     lbListEl.innerHTML = "";
     lbEmptyEl.textContent = "Зіграй «🎓 Рівні CEFR» — тут з'являться рекорди по кожному рівню.";
     lbEmptyEl.classList.remove("hidden");
@@ -8901,15 +8908,26 @@ function renderTabCefr() {
   const isBetter = (a, b) => b.score > a.score || (b.score === a.score && (b.wrong + b.skipped) < (a.wrong + a.skipped));
   const best = new Map();     // мітка рівнів → найкраща гра цим пулом
   const count = new Map();    // мітка рівнів → скільки ігор зіграно
-  const agg = new Map();      // мітка рівнів → сума по ВСІХ іграх цим пулом (сесія 45)
+  const agg = new Map();      // мітка рівнів → сума по ВСІХ іграх (і походах) цим пулом (сесія 45)
+  const qCount = new Map();   // мітка рівнів → скільки походів (сесія 64)
+  const qLast = new Map();    // мітка рівнів → останній похід (для рядка без жодної гри)
+  const addAgg = (k, g) => {
+    const a = agg.get(k) || { score: 0, bad: 0, total: 0 };
+    const bad = (g.wrong || 0) + (g.skipped || 0);
+    a.score += g.score || 0; a.bad += bad; a.total += (g.score || 0) + bad;
+    agg.set(k, a);
+  };
   games.forEach(g => {
     const k = g.tag.slice(5);
     count.set(k, (count.get(k) || 0) + 1);
-    const a = agg.get(k) || { score: 0, bad: 0, total: 0 };
-    const bad = (g.wrong || 0) + (g.skipped || 0);
-    a.score += g.score; a.bad += bad; a.total += g.score + bad;
-    agg.set(k, a);
+    addAgg(k, g);
     if (!best.has(k) || isBetter(best.get(k), g)) best.set(k, g);
+  });
+  quests.forEach(g => {
+    const k = g.cefr;
+    qCount.set(k, (qCount.get(k) || 0) + 1);
+    addAgg(k, g);
+    if (!qLast.has(k) || g.ts > qLast.get(k).ts) qLast.set(k, g);
   });
   // ⚠️ ПОРЯДОК РЯДКІВ — ЗА СКЛАДНІСТЮ НАБОРУ, а не за рахунком (сесія 45, за запитом:
   // «вверху найлегші, далі до найважчих комбінацій»). Ключ сортування:
@@ -8936,19 +8954,29 @@ function renderTabCefr() {
     return [Math.max(...idx), Math.min(...idx), idx.length, solo];
   };
   const renderCefrRow = (g, label, cls, isExtra) => {
-    const isTodayGame = tsToDayKey(g.ts) === today;
-    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(g.ts));
+    const ts = g ? g.ts : qLast.get(label).ts;
+    const isTodayGame = tsToDayKey(ts) === today;
+    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(ts));
     const klass = (cls || "") + (isTodayGame ? " is-today-game" : "") + (isYesterdayGame ? " lb-yesterday-date" : "");
-    const n = count.get(label) || 0;
+    const n = count.get(label) || 0, nq = isExtra ? 0 : (qCount.get(label) || 0);
     // Поруч із кількістю ігор — сума по ВСІХ іграх цього набору, як у «Найкращих
     // ігрових днях» (сесія 45, за запитом). Показуємо лише коли ігор >1: на одній
-    // грі сума дослівно дублювала б рахунок рекорду ліворуч.
+    // грі сума дослівно дублювала б рахунок рекорду ліворуч. Походи (⚔️N) входять у суму —
+    // з ними вона вже не дубль рекорду, тож показується й при одній грі.
     const a = agg.get(label);
-    const sumStr = (!isExtra && n > 1 && a)
+    const many = !isExtra && (n > 1 || nq > 0);
+    const sumStr = (many && a)
       ? '<span class="lb-games-sum">· ' + a.score + ' (<span class="lb-bad">' + a.bad +
         '</span>/<span class="lb-total">' + a.total + '</span>)</span>' : "";
-    const gamesStr = (!isExtra && n > 1)
-      ? '<span class="lb-games">' + n + " " + plural(n, "гра", "ігри", "ігор") + "</span>" + sumStr : "";
+    const qStr = nq ? ' <span title="походів цим набором рівнів — у сумі відповідей, але не в рекорді">⚔️' + nq + '</span>' : "";
+    const gamesStr = many
+      ? '<span class="lb-games">' + (n ? n + " " + plural(n, "гра", "ігри", "ігор") : "") + qStr + "</span>" + sumStr : "";
+    if (!g) {   // набір, зіграний лише походами: рекорду нема (походи його не ставлять)
+      const lq = qLast.get(label);
+      return '<li class="' + klass + '" title="лише походи — рекорд ставлять тільки ігри на час">' +
+        '<span class="lb-score">—</span><span class="lb-detail"></span>' + gamesStr +
+        '<span class="lb-mode">' + cefrLabelHtml(label) + ' · ' + fmtDate(lq.ts) + '</span></li>';
+    }
     const poolStr = g.wordCount ? ' <span class="lb-pool">· ' + fmtPool(g.wordCount) + '</span>' : '';
     return '<li class="' + klass + '" title="' + (isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
       '<span class="lb-score">' + g.score + '</span>' +
@@ -8958,14 +8986,14 @@ function renderTabCefr() {
     '</li>';
   };
   // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
-  const last = games.reduce((a, b) => (b.ts > a.ts ? b : a));
-  let html = [...best.keys()]
+  const last = games.length ? games.reduce((a, b) => (b.ts > a.ts ? b : a)) : null;
+  let html = [...new Set([...best.keys(), ...qCount.keys()])]
     .sort((a, b) => { const x = diffOrder(a), y = diffOrder(b);
       return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || x[3] - y[3] || String(a).localeCompare(String(b)); })
-    .map(k => renderCefrRow(best.get(k), k, best.get(k).ts === last.ts ? "is-latest-game" : ""))
+    .map(k => renderCefrRow(best.get(k), k, last && best.has(k) && best.get(k).ts === last.ts ? "is-latest-game" : ""))
     .join("");
   // під рискою — остання CEFR-гра, якщо вона сама не є рекордом (як «ост» у «Найкращих іграх»)
-  if (![...best.values()].some(g => g.ts === last.ts)) {
+  if (last && ![...best.values()].some(g => g.ts === last.ts)) {
     html += '<li class="lb-sep"></li>' + renderCefrRow(last, last.tag.slice(5), "lb-latest", true);
   }
   lbListEl.innerHTML = html;
@@ -10544,6 +10572,33 @@ renderLeaderboard();
       added += miss;
     });
     if (added) { log.sort((a, b) => a.ts - b.ts); localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-GAMES_LOG_MAX))); }
+    localStorage.setItem(FLAG, "1");
+  } catch (e) {}
+})();
+// ⚔️ МІТКА РІВНІВ ДЛЯ СТАРИХ ПОХОДІВ (сесія 64). До сесії 64 похід не записував, яким набором рівнів
+// грався, тож вкладка «Рівні CEFR» його не бачила. Відновлюємо разово: якщо зараз обрано «🎓 Рівні»
+// і ВСІ монстри походу (дорога + арена, з oxford_quest_log_v1) лежать у поточному наборі — похід
+// отримує його мітку. Похід зі словом поза набором (грався іншим пулом) лишається без мітки.
+// Відновлені `rec:1` слів не мають — їм теж поточна мітка (найкраща оцінка).
+// ⚠️ Ключ журналу походів — літералом: const QUEST_LOG_KEY оголошено нижче (TDZ на старті).
+(function tagOldQuestsCefr() {
+  const FLAG = "oxford_fix_quest_cefr_v1";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    if (trainSet === "cefr") {
+      const sel = new Set([...cefrSel, ...cefrSoloSel]), label = cefrMixLabel();
+      let qlog = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]");
+      if (!Array.isArray(qlog)) qlog = [];
+      const log = loadGamesLog();
+      let n = 0;
+      log.forEach(g => {
+        if (g.tag !== "quest" || g.cefr) return;
+        const r = qlog.find(x => x.ts === g.ts);
+        const ws = r ? [...(r.monsters || []), ...(r.arena || [])].map(x => x.w) : [];
+        if (ws.every(w => { const i = indexOfWordKey(w); return i < 0 || sel.has(cefrLevelOf(WORDS[i])); })) { g.cefr = label; n++; }
+      });
+      if (n) { localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log)); renderLeaderboard(); }   // лідерборд уже намальовано вище
+    }
     localStorage.setItem(FLAG, "1");
   } catch (e) {}
 })();
@@ -12639,7 +12694,7 @@ function qLogQuest(ts) {
   Q.logged = true;
   ts = ts || questTimeSummary();
   const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest",
-              time: ts.sec, n: ts.n, kills: questKillsFrom(Q.mlog, Q.alog) };
+              time: ts.sec, n: ts.n, kills: questKillsFrom(Q.mlog, Q.alog), ...(Q.cefr ? { cefr: Q.cefr } : {}) };
   appendGamesLog(g);
   updateLatest(g);
   // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
@@ -12722,6 +12777,7 @@ function questStart() {
   // масштаб персонажів — під висоту екрана (на 900px сцена інакше лишалась «порожнім небом»)
   const scale = Math.max(1, Math.min(1.6, (window.innerHeight - 190) / 520));
   Q = { pool, queue: buildSchedQueue(pool), qpos: 0, recent: [], dir: trainDir, auto: trainAuto, flip: false,
+        cefr: trainSet === "cefr" ? cefrMixLabel() : null,   // мітка набору рівнів — та сама, що в тегу CEFR-гри
         scale, gap: Math.round(85 * scale + 18),
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
