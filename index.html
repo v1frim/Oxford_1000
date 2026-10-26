@@ -10249,13 +10249,14 @@ const ACH_LEAGUES = [
 const ACH_NOLEAGUE = { color: "#6b7a99", color2: "#9aa8c4" }; // ще не здобуто жодної ліги
 const ACHIEVEMENTS = [
   { id:"correct",   icon:"✅", name:"Правильних відповідей", thresholds:[2000,7000,15000,25000,40000],      value:()=>sumDayField("correct") },
-  { id:"games",     icon:"🎮", name:"Ігор зіграно",          thresholds:[150,600,1500,2500,4000],            value:()=>sumDayField("games") },
+  // сесія 63: ігри + походи разом (за запитом: «по тривалості це ± те саме»)
+  { id:"games",     icon:"🎮", name:"Ігор і походів",        thresholds:[150,600,1500,2500,4000],            value:()=>sumDayField("games") + sumDayField("quests") },
   { id:"known",     icon:"✓",  name:"Слів у «Знаю»",          thresholds:[100,500,2000,5000,10000],           value:()=>countKnownWords() },
-  { id:"review",    icon:"🔁", name:"Повторень",              thresholds:[1000,5000,10000,20000,30000],       value:()=>sumDayField("reviewCorrect") },
+  // «Повторень» ПРИБРАНО (сесія 63, за запитом; і з «Загальної статистики», і з рекордів дня)
   { id:"duo",       icon:"🦉", name:"Duolingo сесій",         thresholds:[50,150,400,700,1000],               value:()=>getTotalDuoSessions() },
   { id:"lingohut",  icon:"📚", name:"Уроків LingoHut",        thresholds:[10,35,70,100,125],                  value:()=>Object.keys(loadLhDone()).length },
   { id:"streak",    icon:"🔥", name:"Днів поспіль",           thresholds:[7,14,30,60,90],                     value:()=>currentStreakLength(), record:()=>bestStreakLength(), periodic:true, unit:"дн." },
-  { id:"totaldays", icon:"📅", name:"Днів гри загалом",       thresholds:[30,90,180,365,730],                 value:()=>activeDaysCount() },
+  { id:"totaldays", icon:"📅", name:"Активних днів"   ,       thresholds:[30,90,180,365,730],                 value:()=>activeDaysCount() },
   { id:"xp",        icon:"⚡", name:"Накопичено XP",           thresholds:[15000,45000,90000,150000,250000],   value:()=>loadXp() },
   { id:"songs",     icon:"🎵", name:"Пісень вивчено",         thresholds:[5,10,20,30,40],                     value:()=>countLearnedSongs() },
   // Місячне: пункти «термометра» за поточний місяць. Лічильник скидається щомісяця
@@ -11489,15 +11490,13 @@ function computeRecords() {
   const g = _maxOf(days, x => x.games || 0);
   const c = _maxOf(days, x => x.correct || 0);
   const t = _maxOf(days, x => (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0));
-  const r = _maxOf(days, x => x.reviewCorrect || 0);
   // ⚠️ ПОРЯДОК дзеркалить «Загальну статистику» (#lb-totals) — за запитом користувача:
-  // ігри → відповіді → правильні → повторення → Duolingo → GPT → заняття піснями,
+  // ігри → відповіді → правильні → Duolingo → GPT → заняття піснями,
   // далі похідні (mastery) і накопичувальні XP/пункти. Змінюєш один список — синхронізуй обидва.
   return [
     { id: "games",    ic: "🎮", label: "Ігор за день",             ...g, color: "#ffd166" },
     { id: "answers",  ic: "🧮", label: "Відповідей за день",       ...t, color: "#e8eef7" },
     { id: "correct",  ic: "✅", label: "Правильних за день",       ...c, color: "#7be07b" },
-    { id: "review",   ic: "🔁", label: "Повторень за день",        ...r, color: "#87b4ff" },
     { id: "duo",      ic: "🦉", label: "Duolingo за день",         ..._maxOf(duo), color: "#7fdd40" },
     { id: "gpt",      ic: "🤖", label: "Запитів GPT за день",      ..._maxOf(gpt), color: "#2dd4bf" },
     { id: "songsess", ic: "🎧", label: "Занять піснями за день",   ..._maxOf(songSess), color: "#c89bff" },
