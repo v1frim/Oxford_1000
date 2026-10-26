@@ -7207,6 +7207,7 @@ function exprPointsByDate(log) {
 // Deterministic XP straight from the displayed daily stats (no event accumulation).
 // Per day: correct×1 + reviewCorrect×2 + 3·ΔВивчаю + 8·ΔЗнаю + Duolingo×30 + LingoHut(50/75/100)
 //          + GPT×15 + 🎧×30 + 🎬×60 + 📒пункти×30 + 📖повторення×30 (ставки сесії 41).
+const QUEST_DRILL_XP = 1;   // ⚔️ похід: слово, вивчене посеред бою (3 правильні поспіль після картки)
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev, mrWords, exprXp) {
   let xp = 0;
   const d = days[date] || {};
@@ -7217,6 +7218,10 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // старі блоки міграцій (v3…v15) кличуть без нього → відрахунку немає, стара поведінка.
   const _mrW = (mrWords && mrWords[date]) || 0;
   xp += 2 * Math.max(0, (d.reviewCorrect || 0) - _mrW); // each closed review word = 1 repetition = 2 XP
+  // ⚔️ Похід (сесія 61, за запитом «я також приділяю на це свій час»): слово, вивчене посеред
+  // походу (3 правильні поспіль після картки), = QUEST_DRILL_XP. Журнал — поле дня `questDrill`
+  // (пишеться РАЗОМ з addXp у qDrillAnswer — прибрати одне без другого не можна).
+  xp += (d.questDrill || 0) * QUEST_DRILL_XP;
   const idx = hdates.indexOf(date);
   if (idx >= 0) {
     const cur  = history[date];
@@ -11815,7 +11820,7 @@ function questMonsterSvg(L) {
 // ⚠️ isCorrect / getCorrectAnswer читають ГЛОБАЛИ гри (mode, currentWord, currentShown,
 // currentWordIndex) — похід виставляє їх сам перед кожним питанням. Звичайна гра в цей час
 // не йде (похід стартує лише з меню), тож конфлікту нема.
-const QUEST_DRILL = 3;                   // правильних відповідей, щоб вивчити слово посеред походу
+const QUEST_DRILL = 3;                   // правильних ПОСПІЛЬ, щоб вивчити слово посеред походу
 const questOverlay = document.getElementById("quest-overlay");
 const qAnswerEl = document.getElementById("q-answer");
 let Q = null;                            // стан поточного походу (null — похід не йде)
@@ -11996,7 +12001,7 @@ function qStudy(userVal) {
     (userVal ? '<div class="qc-your">твоя відповідь: <s>' + esc(userVal) + '</s></div>' : '<div class="qc-your">пропущено</div>') +
     (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
     (exUa ? '<div class="qc-exua">«' + esc(exUa) + '»</div>' : '') +
-    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>';
+    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази поспіль <small>Enter</small></button>';
   qEl("q-card").classList.remove("hidden");
   Q.say = en; Q.sayEx = ex;
   qSetInput(false);
@@ -12013,7 +12018,7 @@ function qDrillAsk() {
   const shown = qAsk(c.idx, dir);
   const dots = Array.from({ length: QUEST_DRILL }, (_, i) => '<i class="' + (i < d.n ? "on" : "") + '"></i>').join("");
   qEl("q-card").innerHTML =
-    '<div class="qc-title">📖 Повтори слово · <span class="qc-dots">' + dots + '</span></div>' +
+    '<div class="qc-title">📖 Повтори ' + QUEST_DRILL + ' рази поспіль · <span class="qc-dots">' + dots + '</span></div>' +
     '<div class="qc-hint">' + esc(MODE_HINTS[dir] || "") + '</div>' +
     '<div class="qc-prompt">' + esc(shown) + '</div><div class="qc-msg" id="qc-msg"></div>';
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
@@ -12026,12 +12031,19 @@ function qDrillAnswer(val, auto) {
   if (ok) {
     d.n++;
     qSfx("hit");
-    if (d.n >= QUEST_DRILL) { qFlee(); return; }
+    if (d.n >= QUEST_DRILL) {
+      // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
+      addXp(QUEST_DRILL_XP); qDayAdd("questDrill");
+      qFloat("+" + QUEST_DRILL_XP + " XP", "xp", 50);
+      qFlee(); return;
+    }
     qDrillAsk();
   } else {
-    // як у повторенні: помилка не обнуляє, просто показуємо правильну відповідь
+    // ⚠️ ПОМИЛКА ОБНУЛЯЄ (за вибором користувача): треба 3 правильні саме ПОСПІЛЬ — на відміну
+    // від арени й повторення після раунду, де помилка лише не зараховується
+    d.n = 0;
     const msg = qEl("qc-msg");
-    if (msg) msg.innerHTML = '✗ правильно: <b>' + esc(getCorrectAnswer()) + '</b>';
+    if (msg) msg.innerHTML = '✗ правильно: <b>' + esc(getCorrectAnswer()) + '</b> · лічильник з нуля';
     qAnswerEl.classList.add("wrong");
     qSetInput(false);
     qSfx("hurt");

@@ -52,11 +52,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.keyboard.press("Enter"); await p.waitForTimeout(200);
   t("Enter — «Готово», почалось повторення", await p.evaluate(() => Q.phase === "drill"));
   const dirs = [];
+  await p.fill("#q-answer", await right()); await p.waitForTimeout(250);
+  t("правильна в повторенні — лічильник 1", await p.evaluate(() => Q.drill.n === 1));
   await p.fill("#q-answer", "ні"); await p.keyboard.press("Enter"); await p.waitForTimeout(1900);
-  t("помилка в повторенні не обнуляє лічильник", await p.evaluate(() => Q.drill.n === 0 && Q.phase === "drill"));
+  t("помилка в повторенні ОБНУЛЯЄ лічильник (3 поспіль)", await p.evaluate(() => Q.drill.n === 0 && Q.phase === "drill"));
+  const xpBeforeDrill = await p.evaluate(() => loadXp());
   for (let i = 0; i < 3; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
   t("повторення — в обидва боки", new Set(dirs).size === 2, dirs.join(","));
   t("після 3 правильних — втеча", await p.evaluate(() => Q.phase === "flee" || Q.phase === "walk"));
+  t("вивчене посеред походу слово = +1 XP", (await p.evaluate(() => loadXp())) - xpBeforeDrill === 1);
+  t("журнал для перерахунку XP: день.questDrill = 1", (await day()).questDrill === 1);
   t("повторення посеред походу mastery НЕ чіпає", await p.evaluate(i => mStreak(loadMastery()[wordKey(WORDS[i])]) === 0, idx2));
 
   // 3. стоп → арена
@@ -73,11 +78,17 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.waitForTimeout(1200);
   const fin = await p.evaluate(() => ({ stage: Q && Q.stage, card: document.getElementById("q-card").textContent, xp: qXp(), real: loadXp() - Q.xp0 }));
   t("3 правильні на арені — монстр добитий, фінал", fin.stage === "final" && /Похід завершено/.test(fin.card), fin.stage);
-  t("XP походу = реальний приріст (1 перемога + 2 арена + бонуси mastery)", fin.xp === fin.real && fin.real >= 3 && fin.real - xp0 * 0 === (await p.evaluate(() => loadXp())) - xp0, fin.xp + " / " + fin.real);
+  t("XP походу = реальний приріст (1 перемога + 1 вивчення + 2 арена + бонуси mastery)", fin.xp === fin.real && fin.real >= 3 && fin.real - xp0 * 0 === (await p.evaluate(() => loadXp())) - xp0, fin.xp + " / " + fin.real);
   d = await day();
   t("арена = +1 «Повторень» дня", d.reviewCorrect === 1, JSON.stringify(d));
   await p.keyboard.press("Enter"); await p.waitForTimeout(400);
   t("Enter на фіналі — назад у меню", !(await p.isVisible("#quest-overlay")) && await p.isVisible("#start-screen"));
+  const inv = await p.evaluate(() => {
+    const days = loadDays(), h = loadMasteryHistory(), hd = Object.keys(h).sort();
+    return { live: getTodayXpGain(), rec: computeDayStatsXp(todayKey(), h, hd, days, loadDuoSessions(), loadLhDone(),
+      loadGptRequests(), loadSongSessions(), loadMovieSessions(), {}, {}, {}, loadExprXpLog()) };
+  });
+  t("інваріант: живий XP дня == перерахунок із журналів (міграції його не з'їдять)", inv.live === inv.rec, inv.live + " / " + inv.rec);
   t("похід не потрапив у «Найкращі ігри»", await p.evaluate(() => loadScores().length === 0 && loadGamesLog().length === 0));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
