@@ -294,6 +294,25 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await fight(); await p.waitForTimeout(200);
   t("арена посеред: на дорозі кнопка знову є", await p.isVisible("#q-arena-go"));
 
+  // бульбашка довгого слова на дорозі не перекриває героя (сесія 64) — на кількох ширинах, з обох боків
+  for (const [vw, vh] of [[1920, 950], [1280, 720], [900, 700], [560, 800]]) {
+    await p.setViewportSize({ width: vw, height: vh }); await p.waitForTimeout(150);
+    for (const side of ["left", "right"]) {
+      const r = await p.evaluate(async side => {
+        if (Q.mon) Q.mon.remove();
+        Q.mon = qSpawnMonster(Q.cur.idx, side);
+        Q.mon.querySelector(".qm-word").textContent = "віднімання колін (вправа на прес)";
+        qRoadFitWord();
+        await new Promise(r => setTimeout(r, 800));
+        const w = Q.mon.querySelector(".qm-word").getBoundingClientRect(), h = document.querySelector("#q-hero svg").getBoundingClientRect(),
+              sc = document.getElementById("q-actors").getBoundingClientRect();
+        const hit = w.left < h.right && w.right > h.left && w.top < h.bottom && w.bottom > h.top;
+        return { hit, inside: w.left >= sc.left - 1 && w.right <= sc.right + 1, w: [w.left, w.right, w.top, w.bottom].map(Math.round), h: [h.left, h.right, h.top].map(Math.round) };
+      }, side);
+      t("слово не лізе на героя " + vw + "px, монстр " + side, !r.hit && r.inside, JSON.stringify(r));
+    }
+  }
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");
   await b.close();

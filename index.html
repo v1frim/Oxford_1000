@@ -12232,6 +12232,27 @@ function qSpawnMonster(idx, side) {
   w.classList.add("in");
   return w;
 }
+// Бульбашка слова на дорозі НЕ лізе на героя (сесія 64, скарга: «віднімання колін (вправа на прес)»
+// перекривало корону). Бульбашка центрована над монстром, тож довге слово вилазило в бік героя.
+// 1) зсуваємо її ВІД героя (у межах сцени); 2) якщо збоку місця нема (вузький екран) — піднімаємо
+// над героєм. Рахуємо з КІНЦЕВОЇ позиції монстра (як qArenaFitWord): під час входу rect бреше.
+function qRoadFitWord() {
+  const m = Q && Q.stage === "road" && Q.mon, w = m && m.querySelector(".qm-word"), h = qEl("q-hero");
+  if (!w || !h) return;
+  w.style.transform = ""; w.style.bottom = "";
+  const W = qEl("q-actors").clientWidth || innerWidth, pad = 10, bw = w.offsetWidth, half = bw / 2;
+  const right = m.classList.contains("side-right"), mw = m.offsetWidth;
+  const heroEdge = h.offsetWidth * 0.62 + 12;   // пів героя + запас: випад у бою (12px) і нахил SVG ширшають його
+  const c = right ? W / 2 + Q.gap + mw / 2 : W / 2 - Q.gap - mw / 2;   // центр монстра від лівого краю
+  let dx = right ? Math.max(0, W / 2 + heroEdge - (c - half)) : Math.min(0, W / 2 - heroEdge - (c + half));
+  dx = Math.min(dx, W - pad - (c + half)); dx = Math.max(dx, pad - (c - half));   // не за край сцени
+  const overlap = right ? (c + dx - half) < W / 2 + heroEdge : (c + dx + half) > W / 2 - heroEdge;
+  if (dx) w.style.transform = "translateX(calc(-50% + " + Math.round(dx) + "px))";
+  if (overlap) {   // не влізло збоку — над героєм (герой стоїть на 70px, монстр на 72px)
+    const raise = Math.max(0, 70 + h.offsetHeight + 6 - (72 + m.offsetHeight + 8));
+    if (raise) w.style.bottom = "calc(100% + " + Math.round(8 + raise) + "px)";
+  }
+}
 function qWalk() {
   if (!Q || Q.stage !== "road") return;
   Q.phase = "walk"; Q.speedTo = 1;
@@ -12250,6 +12271,7 @@ function qFight() {
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
   Q.mon = qSpawnMonster(idx, Q.side);
   Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
+  qRoadFitWord();
   Q.speedTo = 0;
   Q.phase = "fight";
   qT("fight");
@@ -12407,7 +12429,7 @@ function qDrillAsk() {
   const shown = qAsk(c.idx, dir);
   // бульбашка над монстром — ТОЙ САМИЙ промпт, що на картці (інакше в US→UA вона показувала
   // український промпт бою, тобто відповідь)
-  if (Q.mon) Q.mon.querySelector(".qm-word").textContent = shown;
+  if (Q.mon) { Q.mon.querySelector(".qm-word").textContent = shown; qRoadFitWord(); }
   const dots = Array.from({ length: QUEST_DRILL }, (_, i) => '<i class="' + (i < d.n ? "on" : "") + '"></i>').join("");
   qEl("q-card").innerHTML =
     '<div class="qc-title">📖 Повтори ' + QUEST_DRILL + ' рази · <span class="qc-dots">' + dots + '</span></div>' +
@@ -12568,7 +12590,7 @@ function qArenaFitWord() {
   const dx = Math.min(0, W - pad - (cx + half)) + Math.max(0, pad - (cx - half));
   w.style.transform = dx ? "translateX(calc(-50% + " + Math.round(dx) + "px))" : "";
 }
-addEventListener("resize", () => { if (Q && Q.stage === "arena" && Q.arena) qArenaLayout(); });
+addEventListener("resize", () => { if (Q && Q.stage === "arena" && Q.arena) qArenaLayout(); else if (Q && Q.mon) qRoadFitWord(); });
 function qArenaNext() {
   const A = Q.arena;
   if (!A.left.size) {
