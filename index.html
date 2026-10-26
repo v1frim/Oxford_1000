@@ -12301,14 +12301,33 @@ function qArenaStart(pre) {
   qEl("q-skip").textContent = "⏭ Пропустити";
   qArenaNext();
 }
+// Ряд арени: центри монстрів від 56% до 92% ширини сцени — хоч 30 монстрів, ряд лише щільнішає.
+// ⚠️ Питання користувача «якщо монстрів не вміститься — слово не вийде за карту?» (сесія 61):
+// 1) крайній монстр не вилазить за правий край (центр ≤ ширина − півмонстра);
+// 2) ціль — ПОВЕРХ натовпу (z-index), інакше її закривали сусіди спереду;
+// 3) бульбашка зі словом зсувається всередину сцени (`qArenaFitWord`) — довге «поліцейський
+//    патруль» над крайнім монстром обрізалось правим краєм.
 function qArenaLayout() {
-  const ids = [...Q.arena.left], n = ids.length;
+  const ids = [...Q.arena.left], n = ids.length, W = qEl("q-actors").clientWidth || innerWidth;
   ids.forEach((idx, i) => {
     const el = Q.arena.els[idx];
-    el.style.left = (56 + (n > 1 ? i * Math.min(9, 36 / (n - 1)) : 0)) + "%";
-    el.style.zIndex = String(50 - i);
+    const want = W * (56 + (n > 1 ? i * Math.min(9, 36 / (n - 1)) : 0)) / 100;
+    el.style.left = Math.min(want, W - el.offsetWidth / 2 - 8) + "px";
+    el.style.zIndex = el.classList.contains("target") ? "60" : String(50 - i);
   });
+  qArenaFitWord();
 }
+// Зсув бульбашки цілі всередину сцени. Рахуємо з КІНЦЕВОЇ позиції (style.left = центр монстра,
+// бо .lined має translateX(-50%)), а не з getBoundingClientRect — той бреше під час анімації входу.
+function qArenaFitWord() {
+  const el = Q && Q.arena && Q.arena.els[Q.cur && Q.cur.idx];
+  if (!el || !el.classList.contains("target")) return;
+  const w = el.querySelector(".qm-word"), W = qEl("q-actors").clientWidth || innerWidth;
+  const cx = parseFloat(el.style.left) || 0, half = w.offsetWidth / 2, pad = 10;
+  const dx = Math.min(0, W - pad - (cx + half)) + Math.max(0, pad - (cx - half));
+  w.style.transform = dx ? "translateX(calc(-50% + " + Math.round(dx) + "px))" : "";
+}
+addEventListener("resize", () => { if (Q && Q.stage === "arena" && Q.arena) qArenaLayout(); });
 function qArenaNext() {
   const A = Q.arena;
   if (!A.left.size) {
@@ -12328,6 +12347,7 @@ function qArenaNext() {
   el.classList.add("target");
   const pips = Array.from({ length: REVIEW_REQUIRED_CORRECT }, (_, i) => '<i class="' + (i < (A.cnt[idx] || 0) ? "on" : "") + '"></i>').join("");
   el.querySelector(".qm-word").innerHTML = esc(Q.cur.shown) + '<span class="qm-hp">' + pips + '</span>';
+  qArenaLayout();   // ціль — наверх, бульбашка — в межах сцени
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
   qHint((Q.pre ? "🏟️ Спершу добий монстрів із минулого походу" : "🏟️ Арена") + " · лишилось " + A.left.size + " · " + (MODE_HINTS[dir] || "") + " · Esc — завершити");
 }

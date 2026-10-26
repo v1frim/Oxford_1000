@@ -195,6 +195,29 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("міграція: 3 «гри» = 1 гра + 2 походи (один — ще до журналу)", m2.games === 1 && m2.quests === 2, JSON.stringify(m2));
   t("міграція: пункти за відповіді походів (18 − 9 = 9 очок → 0 при кроці 14)", (m2.questPts || 0) === 0, JSON.stringify(m2));
 
+
+  // 9. переповнена арена (питання «не вийде за карту?»): 30 монстрів із довгими словами
+  await p.setViewportSize({ width: 1100, height: 800 });
+  await p.click("#quest-btn"); await p.waitForTimeout(400);
+  const crowd = await p.evaluate(async () => {
+    clearTimeout(Q.timer); const pool = [];
+    for (let i = 0; pool.length < 30; i++) if (getUa(WORDS[i * 37])[0].length > 18) pool.push(i * 37);
+    Q.arenaPool = pool; qArenaStart(false);
+    const A = Q.arena, last = [...A.left].pop();
+    A.last = null; Object.values(A.els).forEach(e => e.classList.remove("target"));
+    A.els[last].classList.add("target"); A.els[last].querySelector(".qm-word").textContent = getUa(WORDS[last])[0];
+    Q.cur.idx = last; qArenaLayout();
+    await new Promise(r => setTimeout(r, 1300));
+    const sc = document.getElementById("q-actors").getBoundingClientRect();
+    const w = A.els[last].querySelector(".qm-word").getBoundingClientRect(), m = A.els[last].getBoundingClientRect();
+    const mons = Object.values(A.els).map(e => e.getBoundingClientRect());
+    return { inW: w.left >= sc.left && w.right <= sc.right, inM: mons.every(r => r.right <= sc.right + 1),
+      top: +A.els[last].style.zIndex === Math.max(...Object.values(A.els).map(e => +e.style.zIndex)) };
+  });
+  t("арена на 30 монстрів: усі в межах сцени", crowd.inM, JSON.stringify(crowd));
+  t("арена: бульбашка з довгим словом крайнього монстра не вилазить за край", crowd.inW, JSON.stringify(crowd));
+  t("арена: ціль — поверх натовпу", crowd.top, JSON.stringify(crowd));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");
   await b.close();
