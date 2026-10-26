@@ -422,12 +422,16 @@ function chromePath() {
       return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
     for (let i = 0; i < 3; i++) { days[dk(i)] = { games: 1, quests: 2, correct: 8, wrong: 1, skipped: 1 }; duo[dk(i)] = 1; }
     localStorage.setItem("oxford_days_v1", JSON.stringify(days)); localStorage.setItem("oxford_duolingo_v1", JSON.stringify(duo));
+    // по 2 походи на день, кожен 3 ✓ + 1 ✗ → 24 відповіді походів, решта 6 — ігор
+    const qlog = []; for (let i = 0; i < 3; i++) for (let j = 0; j < 2; j++) { const d = new Date(); d.setDate(d.getDate() - i); d.setHours(12, j);
+      qlog.push({ ts: d.getTime(), tag: "quest", score: 3, wrong: 1, skipped: 0 }); }
+    localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(qlog));
     lbActiveTab = "streaks"; renderLeaderboard();
     const li = document.querySelector("#lb-list li");
     return { txt: li.textContent, over: li.scrollWidth > li.clientWidth };
   });
-  t("🔥 серія: у дужках лише усього слів ігор і походів (без неправильних)", /\(30\)/.test(stk.txt) && !/\/30/.test(stk.txt), stk.txt);
-  t("🔥 серія: перший рядок «🎮3 ⚔️6 (30)» — значки замість «ігор», походи поруч, у дужках усього", /🎮3 ⚔️6 \(30\)/.test(stk.txt) && !/ігор|ігри/.test(stk.txt), stk.txt);
+  t("🔥 серія: у дужках лише кількість відповідей (без неправильних)", !/\/\d/.test(stk.txt), stk.txt);
+  t("🔥 серія: «🎮3 (6) ⚔️6 (24)» — у дужках відповіді окремо для ігор і походів", /🎮3 \(6\) ⚔️6 \(24\)/.test(stk.txt) && !/ігор|ігри/.test(stk.txt), stk.txt);
   t("🔥 серія: лише ігри й походи (🦉 нема), ⚔️ не дублюється", !/🦉/.test(stk.txt) && (stk.txt.match(/⚔️/g) || []).length === 1, stk.txt);
   t("🔥 серія: рядок не вилазить за панель", !stk.over, stk.txt);
 

@@ -9257,6 +9257,9 @@ function renderTabStreaks() {
     return;
   }
   lbEmptyEl.classList.add("hidden");
+  // відповіді походів за днями — з журналу (tag "quest"; обірвані/старі відновлено міграцією fillQuestLogGaps)
+  const qAnsDay = {};
+  questGames().forEach(g => { const k = tsToDayKey(g.ts); qAnsDay[k] = (qAnsDay[k] || 0) + (g.score || 0) + (g.wrong || 0) + (g.skipped || 0); });
   const renderStreak = (s, cls) => {
     const period = s.length === 1
       ? fmtDayKey(s.start)
@@ -9267,14 +9270,17 @@ function renderTabStreaks() {
       const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
       keys.push(k); if (k >= s.end || keys.length > 400) break;
     }
-    // Перший рядок: 🎮 ігри ⚔️ походи (усього відповідей) — ЗНАЧКИ замість слова «ігор» і походи поруч
-    // з іграми (сесія 62, за запитом). У дужках — ЛИШЕ загальна кількість, без неправильних.
+    // Рядок: 🎮 ігри (їхні відповіді) ⚔️ походи (їхні відповіді) — сесія 63, за запитом: було одне
+    // спільне «🎮8 ⚔️5 (73)», і здавалось, що відповіді походів не враховано. Тепер «🎮8 (49) ⚔️5 (24)».
+    // У дужках — ЛИШЕ загальна кількість, без неправильних. Відповіді походів — із журналу (qAnsDay),
+    // ігор — решта від денних correct+wrong+skipped (s.words, туди пишуть обидва режими).
     // Решту активностей (🦉, 📚, 🎧…) ПРИБРАНО (сесія 63, за запитом «у серіях лише ігри й походи»).
     const days = loadDays(), quests = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
+    const qAns = Math.min(totalWords, keys.reduce((a, k) => a + (qAnsDay[k] || 0), 0)), gAns = totalWords - qAns;
     const gamesStr = (s.games || quests)
-      ? '<span class="lb-games" title="ігри й походи серії · у дужках — усього відповідей">· ' +
-        (s.games ? "🎮" + s.games : "") + (s.games && quests ? " " : "") + (quests ? "⚔️" + quests : "") +
-        (totalWords > 0 ? " (" + totalWords + ")" : "") + '</span>' : "";
+      ? '<span class="lb-games" title="ігри й походи серії · у дужках — їхні відповіді">· ' +
+        (s.games ? "🎮" + s.games + (gAns > 0 ? " (" + gAns + ")" : "") : "") + (s.games && quests ? " " : "") +
+        (quests ? "⚔️" + quests + (qAns > 0 ? " (" + qAns + ")" : "") : "") + '</span>' : "";
     const wordsStr = "";
     return '<li class="lb-streak ' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
@@ -12384,7 +12390,8 @@ function qArenaStart(pre) {
   qEl("q-card").classList.add("hidden");
   qEl("q-scene").classList.add("arena");
   qEl("q-actors").querySelectorAll(".q-mon").forEach(x => x.remove());
-  Q.arena = { left: new Set(Q.arenaPool), cnt: {}, plan: buildReviewDirPlan(Q.arenaPool), last: null, els: {}, rec: {} };
+  Q.arena = { left: new Set(Q.arenaPool), cnt: {}, plan: buildReviewDirPlan(Q.arenaPool), last: null, els: {}, rec: {}, sp: {} };
+  Q.arenaPool.forEach(idx => { Q.arena.sp[idx] = Math.pow(3, Math.random() * 2 - 1); });   // «швидкість» ⅓…3 (qArenaNext)
   Q.arenaPool.forEach((idx, i) => {
     const el = qSpawnMonster(idx, "right");
     el.classList.add("lined");
@@ -12443,11 +12450,25 @@ function qArenaNext() {
     if (Q.pre) { Q.timer = setTimeout(qRoadAfterArena, 1100); return; }   // передарену добито — у дорогу
     setTimeout(questFinal, 900); return;
   }
+  // ⚠️ ХАОТИЧНИЙ ПОРЯДОК (сесія 63, за скаргою: «усім по разу, потім по два, і всі синхронно
+  // відлітають у кінці»). Було: завжди брався той, кому лишилось найбільше ударів → строгі кола.
+  // Тепер — зважений випадковий вибір: вага = «швидкість» монстра × (лишилось ударів)^1.5 ×
+  // × (скільки ходів не було, до N) × запобіжник хвоста.
+  // • «швидкість» A.sp — випадкова на кожного (⅓…3): хтось трапляється частіше й падає раніше,
+  //   хтось рідше — монстри відлітають уперемішку (симуляція: перший падає на ~½ арени, не на ¾);
+  // • запобіжник: слову, якому лишилось більше ударів, ніж є ІНШИХ слів, вага ×50 — інакше
+  //   наприкінці воно йшло б 2-3 рази поспіль (хвіст ≥3 підряд ≈ 3%, як і до змін — то вже помилки);
+  // • останні 1-2 показані слова виключені (2 — коли слів ≥4), тож підряд одне слово не буває.
   const ids = [...A.left], need = x => REVIEW_REQUIRED_CORRECT - (A.cnt[x] || 0);
-  const cand = ids.length > 1 ? ids.filter(x => x !== A.last) : ids;
-  const top = Math.max(...cand.map(need)), from = cand.filter(x => need(x) === top);
-  const idx = from[Math.floor(Math.random() * from.length)];
-  A.last = idx;
+  A.step = (A.step || 0) + 1; A.seen = A.seen || {};
+  const recent = (A.recent || []).slice(-(ids.length >= 4 ? 2 : 1));
+  const cand = ids.length > 1 ? ids.filter(x => !recent.includes(x)) : ids;
+  const pool = cand.length ? cand : ids;
+  const wt = x => A.sp[x] * Math.pow(need(x), 1.5) * (1 + 50 * Math.max(0, need(x) - (ids.length - 1))) *
+    Math.min(A.step - (A.seen[x] || -99), ids.length);
+  let r = Math.random() * pool.reduce((s, x) => s + wt(x), 0), idx = pool[pool.length - 1];
+  for (const x of pool) { r -= wt(x); if (r < 0) { idx = x; break; } }
+  A.last = idx; A.seen[idx] = A.step; A.recent = (A.recent || []).concat(idx).slice(-2);
   const dir = A.plan[idx][(A.cnt[idx] || 0) % A.plan[idx].length];
   Q.aAt = qNow();
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
