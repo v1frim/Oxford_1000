@@ -126,9 +126,6 @@
     counter-increment: rank; flex-wrap: nowrap; white-space: nowrap;
   }
   .lb-list li:last-child { border-bottom: none; }
-  /* 🔥 серії: активності за всю серію — ДРУГИМ рядком (в один не влазили, сесія 61) */
-  .lb-list li.lb-streak { flex-wrap: wrap; row-gap: 0; padding-top: 4px; padding-bottom: 4px; }
-  .lb-list li.lb-streak .lb-acts { order: 9; flex-basis: 100%; padding-left: 30px; font-size: 11px; line-height: 1.25; opacity: .85; }
   .lb-list li::before {
     content: counter(rank) ".";
     opacity: 0.55; font-size: 12px;
