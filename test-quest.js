@@ -201,6 +201,15 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("міграція: пункти за відповіді походів (18 − 9 = 9 очок → 0 при кроці 14)", (m2.questPts || 0) === 0, JSON.stringify(m2));
 
 
+  // 8б. похід, обірваний перезавантаженням, усе одно потрапляє в журнал (pagehide)
+  await p.click("#quest-btn"); await p.waitForTimeout(300);
+  for (let i = 0; i < 40; i++) { if (await p.evaluate(() => Q && Q.phase === "fight")) break; await p.waitForTimeout(200); }
+  const nq0 = await p.evaluate(() => loadGamesLog().filter(g => g.tag === "quest").length);
+  await p.fill("#q-answer", await right()); await p.waitForTimeout(400);
+  await p.reload(); await p.waitForTimeout(1200);
+  const nq1 = await p.evaluate(() => loadGamesLog().filter(g => g.tag === "quest").length);
+  t("похід, обірваний перезавантаженням, записано в журнал (рахунок ⚔️ = рахунку днів)", nq1 === nq0 + 1, nq0 + " → " + nq1);
+
   // 9. переповнена арена (питання «не вийде за карту?»): 30 монстрів із довгими словами
   await p.setViewportSize({ width: 1100, height: 800 });
   await p.click("#quest-btn"); await p.waitForTimeout(400);

@@ -155,14 +155,14 @@ function chromePath() {
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
   // сесія 61: 🏆 прибрано; анти-топ ⏸️ — після 🔥 серій (за запитом)
-  t("порядок вкладок: 🕒 · 📅 · ⚡ · 🔥 · ⏸️ · ⚔️ · 🎖️ (🎓 став чипсом у 🕒)",
-    order.join(",") === "period,days,xpdays,streaks,gaps,quests,ach", order.join(","));
+  t("порядок вкладок: 🕒 · ⚔️ · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️ (⚔️ — одразу після 🕒, за запитом)",
+    order.join(",") === "period,quests,days,xpdays,streaks,gaps,ach", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
     return lbActiveTab;
   });
-  t("Tab із 🕒 веде на 📅", cycle === "days", cycle);
+  t("Tab із 🕒 веде на ⚔️", cycle === "quests", cycle);
 
   // 10. кап топ-10 і порожній період
   await page.evaluate(() => {
@@ -426,7 +426,7 @@ function chromePath() {
     const li = document.querySelector("#lb-list li");
     return { txt: li.textContent, over: li.scrollWidth > li.clientWidth };
   });
-  t("🔥 серія: (хибні/усього) слів ігор і походів", /\(6\/30\)/.test(stk.txt), stk.txt);
+  t("🔥 серія: у дужках лише усього слів ігор і походів (без неправильних)", /\(30\)/.test(stk.txt) && !/\/30/.test(stk.txt), stk.txt);
   t("🔥 серія: активності сумою — ⚔️6 походів, 🦉3", /⚔️6/.test(stk.txt) && /🦉3/.test(stk.txt), stk.txt);
   t("🔥 серія: рядок не вилазить за панель", !stk.over, stk.txt);
 
@@ -451,6 +451,27 @@ function chromePath() {
   const iQ = qv.labels.findIndex(x => /^⚔️Походів/.test(x)), iG = qv.labels.findIndex(x => /^🎮Ігор/.test(x));
   t("статистика: «Походів» вище за «Ігор», між ними — монстри й слів на похід", iQ >= 0 && iG === iQ + 3 &&
     /Монстрів у походах20 \(7\/27\)/.test(qv.labels[iQ + 1]) && /Слів на 1 похід9,0/.test(qv.labels[iQ + 2]), JSON.stringify(qv.labels.slice(iQ, iQ + 4)));
+
+  // ⚔️ діри в журналі: день має 3 походи, журнал — 1 → міграція відновлює 2 (залишок відповідей дня)
+  const gap = await page.evaluate(() => {
+    const k = todayKey(), now = Date.now();
+    localStorage.setItem("oxford_days_v1", JSON.stringify({ [k]: { games: 1, quests: 3, correct: 30, wrong: 12, skipped: 1 } }));
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([
+      { score: 10, wrong: 3, skipped: 1, ts: now - 5000, mode: "ua-en" },
+      { score: 6, wrong: 2, skipped: 0, ts: now - 3000, tag: "quest", time: { total: 100 }, n: { arena: 0 } }]));
+    localStorage.removeItem("oxford_fix_quest_log_gap_v1");
+    return true; });
+  await page.reload(); await page.waitForTimeout(1000);
+  const gap2 = await page.evaluate(() => {
+    const qs = loadGamesLog().filter(g => g.tag === "quest");
+    document.querySelector('.lb-tab[data-tab="quests"]').click();
+    renderLbTotals();
+    const qRow = [...document.querySelectorAll("#lb-totals .lb-stat-row")].map(r => r.textContent).find(x => /^⚔️Походів/.test(x));
+    return { n: qs.length, rec: qs.filter(g => g.rec).map(g => [g.score, g.wrong]), title: document.getElementById("lb-title").textContent, qRow,
+      rows: [...document.querySelectorAll("#lb-list li")].map(l => l.textContent) };
+  });
+  t("діри журналу: відновлено 2 походи → у ⚔️ стільки ж, скільки в статистиці (3)", gap2.n === 3 && /3 походи/.test(gap2.title) && /Походів3/.test(gap2.qRow), JSON.stringify(gap2));
+  t("відновлений похід = залишок дня (14 ✓ / 7 ✗), другий — порожній, з позначкою", JSON.stringify(gap2.rec) === "[[14,7],[0,0]]" && gap2.rows.some(r => /відновлено/.test(r)), JSON.stringify(gap2));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");

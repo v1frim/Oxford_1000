@@ -127,8 +127,8 @@
   }
   .lb-list li:last-child { border-bottom: none; }
   /* 🔥 серії: активності за всю серію — ДРУГИМ рядком (в один не влазили, сесія 61) */
-  .lb-list li.lb-streak { flex-wrap: wrap; row-gap: 2px; }
-  .lb-list li.lb-streak .lb-acts { order: 9; flex-basis: 100%; padding-left: 30px; font-size: 12px; }
+  .lb-list li.lb-streak { flex-wrap: wrap; row-gap: 0; padding-top: 4px; padding-bottom: 4px; }
+  .lb-list li.lb-streak .lb-acts { order: 9; flex-basis: 100%; padding-left: 30px; font-size: 11px; line-height: 1.25; opacity: .85; }
   .lb-list li::before {
     content: counter(rank) ".";
     opacity: 0.55; font-size: 12px;
@@ -2040,11 +2040,11 @@
   <div class="lb-header">
     <div class="lb-tabs">
       <button class="lb-tab active" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
+      <button class="lb-tab" data-tab="quests" title="Рекорди походів">⚔️</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
       <button class="lb-tab" data-tab="gaps" title="Анти-топ: найдовші перерви без занять">⏸️</button>
-      <button class="lb-tab" data-tab="quests" title="Рекорди походів">⚔️</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
     </div>
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
@@ -6428,46 +6428,28 @@ document.addEventListener("mouseover", e => {
 [["en-def",btnEnDef],["en-syn",btnEnSyn],["en-ant",btnEnAnt],["en-cloze",btnEnCloze]]
   .forEach(([m,btn]) => btn.addEventListener("click", () => { setMode(m); startGame(); }));
 
-// ── «Чисті» натискання модифікаторів: Shift = цикл режимів, Alt = «Прогрес по днях» ──
+// ── «Чисте» натискання Shift = цикл режимів ──
+// ⚠️ Alt-тогл «Прогресу по днях» ПРИБРАНО (сесія 62, за запитом): панель відкривається/ховається
+// ЛИШЕ кнопкою «📈 Прогрес по днях». Alt тепер просто скасовує «чистий» Shift (Alt+Shift — розкладка).
 // Діють на KEYUP і ЛИШЕ якщо модифікатор натиснуто БЕЗ інших клавіш (сесія 35): системні
 // комбінації (Ctrl+Shift / Alt+Shift — зміна розкладки, Alt+PrtSc — скріншот) НЕ мають
 // перемикати режим чи ховати панель. Скасовує дію: (а) інший модифікатор уже затиснутий
 // на момент натискання, (б) БУДЬ-ЯКА інша клавіша між натисканням і відпусканням —
 // ловимо і keydown, і keyup, бо PrtSc у Windows шле ЛИШЕ keyup.
 let pendingShiftCode = null;   // e.code «чистого» Shift (лишився як маркер «Shift був чистий»)
-let pendingAltToggle = false;  // Alt натиснуто «чисто» → на keyup тогл панелі прогресу
 document.addEventListener("keydown", e => {
   // ⚠️ e.repeat НЕ озброює: авто-повтор затиснутого модифікатора не має «воскрешати»
   // скасовану дію. Кейс: Ctrl+Shift (розкладка), Ctrl відпущено на пів секунди раніше —
   // repeat-keydown Shift уже без ctrlKey, і без цієї перевірки цикл спрацював би знову.
   if (e.key === "Shift") {
-    pendingAltToggle = false;                       // Shift поверх Alt = комбінація
     if (e.ctrlKey || e.altKey || e.metaKey) { pendingShiftCode = null; return; }
     if (pendingShiftCode === null && !e.repeat) pendingShiftCode = e.code;
-  } else if (e.key === "Alt") {
-    pendingShiftCode = null;                        // Alt поверх Shift = комбінація
-    if (e.ctrlKey || e.shiftKey || e.metaKey) { pendingAltToggle = false; return; }
-    // Alt у меню — наш хоткей: глушимо дефолт браузера (фокус menubar у Firefox)
-    if (startScreen && !startScreen.classList.contains("hidden")) e.preventDefault();
-    if (!e.repeat) pendingAltToggle = true;
   } else {
     pendingShiftCode = null;
-    pendingAltToggle = false;
   }
 });
 document.addEventListener("keyup", e => {
-  if (e.key === "Alt") {
-    const doToggle = pendingAltToggle;
-    pendingAltToggle = false;
-    if (!doToggle || !startScreen || startScreen.classList.contains("hidden")) return;
-    // Модалки поверх меню перехоплюють клавіші (як і раніше в основному keydown-обробнику)
-    if (!document.getElementById("cat-modal").classList.contains("hidden")) return;
-    if (!document.getElementById("review-mode-modal").classList.contains("hidden")) return;
-    e.preventDefault();
-    document.getElementById("progress-btn").click();
-    return;
-  }
-  if (e.key !== "Shift") { pendingShiftCode = null; pendingAltToggle = false; return; }
+  if (e.key !== "Shift") { pendingShiftCode = null; return; }
   const code = pendingShiftCode;
   pendingShiftCode = null;
   if (!code) return;
@@ -6485,8 +6467,7 @@ document.addEventListener("keyup", e => {
     renderTrainModal();
     return;
   }
-  // ⚠️ Модалки поверх меню перехоплюють клавіші — Shift у них мовчить
-  // (той самий захист, що вже стоїть на Alt-тоглі вище).
+  // ⚠️ Модалки поверх меню перехоплюють клавіші — Shift у них мовчить.
   if (!document.getElementById("cat-modal").classList.contains("hidden")) return;
   if (!document.getElementById("review-mode-modal").classList.contains("hidden")) return;
   // ⚠️ СЕСІЯ 51, ЗА ЗАПИТОМ: у меню Shift БІЛЬШЕ НЕ ВІДКРИВАЄ «Тренування».
@@ -6515,7 +6496,7 @@ document.addEventListener("keyup", e => {
   renderTabPeriod();
 });
 // Alt+Tab / втрата фокуса вікна: keyup модифікатора може не долетіти — скидаємо стан
-window.addEventListener("blur", () => { pendingShiftCode = null; pendingAltToggle = false; });
+window.addEventListener("blur", () => { pendingShiftCode = null; });
 
 document.addEventListener("keydown", e => {
   // Модалка «Тренування»: Esc — закрити, Enter — почати, ←→/↑↓ — інший набір слів
@@ -6578,14 +6559,12 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "days", "xpdays", "streaks", "gaps", "quests", "ach"];
+    const tabs = ["period", "quests", "days", "xpdays", "streaks", "gaps", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
     return;
   }
-  // Alt (тогл «Прогресу по днях») перенесено в трекер «чистих» модифікаторів вище:
-  // тепер спрацьовує на keyup і лише без інших клавіш (Alt+PrtSc не ховає панель).
   if (e.key === "Tab" && !gameEl.classList.contains("hidden")) {
     e.preventDefault();
     if (awaitingAfterWrong) {
@@ -9120,6 +9099,7 @@ function renderQuestRow(g, cls, rank) {
     '<span class="lb-score">' + g.score + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
     (t ? '<span class="lb-games" title="тривалість походу">· ⏱ ' + fmtQuestTime(t) + '</span>' : '') +
+    (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">· відновлено</span>' : '') +
     (ar ? '<span class="lb-games" title="добито на арені">· 🏟️' + ar + '</span>' : '') +
     '<span class="lb-mode">' + fmtDate(g.ts) + '</span>' +
   '</li>';
@@ -9274,10 +9254,10 @@ function renderTabStreaks() {
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
     const games = s.games, totalWords = s.words;   // пораховано в computeStreaks
     const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    // (хибні+пропуски / усього слів) — як у «📅 Найкращих днях»; слова ігор І походів.
+    // (усього слів) ігор І походів — ЛИШЕ загальна кількість (уточнення: «без кількості неправильних»).
     // Далі — активності серії (⚔️ походи, 🦉, 📚, 🎧…) сумою по днях: скарга «у серіях лише ігри,
     // більше нічого не показує», хоча серія рахується за будь-якою активністю.
-    const wordsStr = totalWords > 0 ? '<span class="lb-detail">(<span class="lb-bad">' + (s.bad || 0) + '</span>/<span class="lb-total">' + totalWords + '</span>)</span>' : "";
+    const wordsStr = totalWords > 0 ? '<span class="lb-games" title="усього слів в іграх і походах серії">(' + totalWords + ')</span>' : "";
     const keys = [];
     for (let d = new Date(s.start + "T12:00:00"); ; d.setDate(d.getDate() + 1)) {
       const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -10438,6 +10418,34 @@ renderLeaderboard();
     localStorage.setItem(FLAG, "1");
   } catch (e) {}
 })();
+// ⚔️ ДІРИ В ЖУРНАЛІ ПОХОДІВ (сесія 62, скарга «у рекордах 4 походи, а в статистиці 5»). День рахує
+// похід із першої відповіді, журнал — лише з фіналу (до `qLogQuest` на pagehide) або взагалі не мав
+// походів, зіграних до появи журналу. Для кожного дня, де `quests` > записів «quest» у журналі,
+// ВІДНОВЛЮЄМО записи: правильні/неправильні = залишок дня після звичайних ігор і записаних походів
+// (не менше 0), без часу, з позначкою `rec:1`. Точно відновити не можна — це найкраща оцінка.
+(function fillQuestLogGaps() {
+  const FLAG = "oxford_fix_quest_log_gap_v1";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    const days = loadDays(), log = loadGamesLog(), byDay = {};
+    log.forEach(g => (byDay[tsToDayKey(g.ts)] = byDay[tsToDayKey(g.ts)] || []).push(g));
+    let added = 0;
+    Object.entries(days).forEach(([k, d]) => {
+      const gs = byDay[k] || [], qs = gs.filter(g => g.tag === "quest");
+      const miss = (d.quests || 0) - qs.length;
+      if (miss <= 0) return;
+      const ok = Math.max(0, (d.correct || 0) - gs.reduce((a, g) => a + (g.score || 0), 0));
+      const bad = Math.max(0, (d.wrong || 0) + (d.skipped || 0) - gs.reduce((a, g) => a + (g.wrong || 0) + (g.skipped || 0), 0));
+      const first = gs.length ? Math.min(...gs.map(g => g.ts)) : new Date(k + "T12:00:00").getTime();
+      for (let i = 0; i < miss; i++)
+        log.push({ score: i ? 0 : ok, wrong: i ? 0 : bad, skipped: 0, mode: "ua-en", ts: first - (miss - i) * 60000,
+                   wordCount: WORDS.length, tag: "quest", rec: 1 });
+      added += miss;
+    });
+    if (added) { log.sort((a, b) => a.ts - b.ts); localStorage.setItem(GAMES_LOG_KEY, JSON.stringify(log.slice(-GAMES_LOG_MAX))); }
+    localStorage.setItem(FLAG, "1");
+  } catch (e) {}
+})();
 (function refillLeaderboard() {
   const FLAG = "oxford_fix_lb_refill_v1";
   if (localStorage.getItem(FLAG)) return;
@@ -11062,7 +11070,7 @@ document.addEventListener("keydown", e => {
   if (songsOverlay.classList.contains("hidden")) return;
   if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeSongs(); return; }
   // ⚠️ Друк у полі пошуку НЕ повинен доходити до ігрових обробників (Пробіл=озвучити,
-  // Tab=вкладки лідерборду, Shift=цикл режимів, Alt=панель прогресу).
+  // Tab=вкладки лідерборду, Shift=цикл режимів).
   if (e.target && e.target.id === "songs-search") e.stopPropagation();
 }, true);
 
@@ -12478,6 +12486,22 @@ function questTimeSummary() {
   sec.total = Math.round(total / 1000);
   return { sec, n };
 }
+// Запис походу в журнал ігор + детальний журнал. Кличуть фінал І `pagehide`: похід, обірваний
+// перезавантаженням / закритою вкладкою, день уже зарахував (`quests` — з першої відповіді), а в
+// журнал він не потрапляв — і «Походів» у статистиці (5) розходились із ⚔️ «Рекордами походів» (4).
+function qLogQuest(ts) {
+  if (!Q || !Q.counted || Q.logged) return;
+  Q.logged = true;
+  ts = ts || questTimeSummary();
+  const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest",
+              time: ts.sec, n: ts.n };
+  appendGamesLog(g);
+  updateLatest(g);
+  // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
+  qSaveLog({ ts: g.ts, t0: Q.t0, dir: g.mode, time: ts.sec, n: ts.n, won: Q.won, fled: Q.fled.length, pts: Q.pts, answers: Q.answers,
+             xp: qXp(), monsters: Q.mlog, arena: Q.alog });
+}
+addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } catch (e) {} });
 function questFinal() {
   if (!Q) return;
   clearTimeout(Q.timer);
@@ -12488,16 +12512,7 @@ function questFinal() {
   // ⚠️ ПОХІД У ЖУРНАЛ ІГОР — з тегом "quest" (за скаргою «у лідерборді числиться ще минула гра»):
   // рядок «ост» у 🕒 і підсумок ✓/✗ періоду його бачать, а РЕЙТИНГ (місця, топ, gameRanks,
   // спритність героя) — ні: безстроковий похід непорівнюваний із 60-секундною грою.
-  if (Q.counted && !Q.logged) {
-    Q.logged = true;
-    const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest",
-                time: ts.sec, n: ts.n };
-    appendGamesLog(g);
-    updateLatest(g);
-    // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
-    qSaveLog({ ts: g.ts, t0: Q.t0, dir: g.mode, time: ts.sec, n: ts.n, won: Q.won, fled: Q.fled.length, pts: Q.pts, answers: Q.answers,
-               xp: qXp(), monsters: Q.mlog, arena: Q.alog });
-  }
+  qLogQuest(ts);
   Q.stage = "final"; Q.phase = "final";
   questOverlay.classList.add("q-noinput");
   qSetInput(false);
