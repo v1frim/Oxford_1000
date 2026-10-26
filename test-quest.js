@@ -129,6 +129,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const ar = await p.evaluate(() => ({ stage: Q.stage, n: document.querySelectorAll(".q-mon.lined").length, target: Q.cur.idx }));
   t("арена: у ряд стоять ті, від кого втік", ar.stage === "arena" && ar.n === 1, JSON.stringify(ar));
   t("на арені — саме втечене слово", ar.target === idx2);
+  const aMode0 = await p.evaluate(() => mode);
+  await p.fill("#q-answer", "абракадабра"); await p.keyboard.press("Enter"); await p.waitForTimeout(2100);
+  const aMode1 = await p.evaluate(() => ({ mode, cnt: Q.arena.cnt[Q.cur.idx] || 0, idx: Q.cur.idx }));
+  t("арена: після помилки той самий монстр питає у зворотному напрямку", aMode1.mode !== aMode0 && aMode1.cnt === 0 && aMode1.idx === idx2, aMode0 + " → " + JSON.stringify(aMode1));
   for (let i = 0; i < 3; i++) { await p.fill("#q-answer", await right()); await p.waitForTimeout(1100); }
   await p.waitForTimeout(1200);
   const fin = await p.evaluate(() => ({ stage: Q && Q.stage, card: document.getElementById("q-card").textContent, xp: qXp(), real: loadXp() - Q.xp0 }));
@@ -157,7 +161,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("недобрані очки збережено для наступного походу", await p.evaluate(() => localStorage.getItem("oxford_quest_carry_v1")) === "4");   // 4 очки, пункт — за 14
   t("журнал ігор: секунди по етапах і лічильники", tim.gTime && "fight" in tim.gTime && "arena" in tim.gTime && tim.gTime.total >= 0 && tim.gN && tim.gN.fights === 2 && tim.gN.drills === 1 && tim.gN.arena === 1, JSON.stringify([tim.gTime, tim.gN]));
   t("журнал походів: кожен монстр із часом відповіді", tim.mons === 2 && tim.wrongRec && tim.wrongRec.t >= 0 && tim.wrongRec.st >= 0 && tim.wrongRec.dr >= 0 && tim.wrongRec.da >= 3, JSON.stringify(tim.wrongRec));
-  t("журнал походів: монстр арени — час і спроби", tim.arena === 1 && tim.arenaRec.tries === 3 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
+  t("журнал походів: монстр арени — час і спроби (1 помилка + 3 правильні = 4)", tim.arena === 1 && tim.arenaRec.tries === 4 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
   const feedA = await p.evaluate(() => [...document.querySelectorAll("#q-feed .qf-row")].map(r => r.textContent));
   t("стрічка XP: уся арена — одним рядком (+2 за добитого)", /Арена/.test(feedA[0]) && /\+2 добито 1/.test(feedA[0]) && feedA.filter(x => /Арена/.test(x)).length === 1, JSON.stringify(feedA));
   t("Enter на фіналі — назад у меню", !(await p.isVisible("#quest-overlay")) && await p.isVisible("#start-screen"));

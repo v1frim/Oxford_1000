@@ -12538,6 +12538,9 @@ function qArenaAnswer(val, auto) {
     qHero("hurt face-right arena");
     qSfx("hurt");
     el.querySelector(".qm-word").innerHTML = '✗ <b>' + esc(getCorrectAnswer()) + '</b>';
+    // як у повторенні (сесія 63): наступного разу цей монстр питає у ЗВОРОТНОМУ напрямку, далі чергується
+    const pl = A.plan[idx], n = (A.cnt[idx] || 0) % pl.length, flip = x => x === "ua-en" ? "en-ua" : "ua-en";
+    for (let i = n, x = flip(pl[n]); i < pl.length; i++, x = flip(x)) pl[i] = x;
     Q.timer = setTimeout(() => { el.classList.remove("strike-back"); qArenaNext(); }, 1900);
   }
 }
