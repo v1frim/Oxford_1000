@@ -461,7 +461,11 @@ function chromePath() {
   });
   const qcls = await page.evaluate(() => { document.querySelector('.lb-tab[data-tab="quests"]').click();
     return [...document.querySelectorAll("#lb-list li")].map(l => l.className); });
-  t("⚔️ вкладка: останній похід (3, найновіший) — синя плашка, решта без", /is-latest-game/.test(qcls[2]) && !/is-latest-game/.test(qcls[0] + qcls[1]), JSON.stringify(qcls));
+  t("⚔️ вкладка: останній похід сьогодні — жовта смужка (is-new), не синя; решта без", /is-new/.test(qcls[2]) && !/is-latest-game/.test(qcls.join()) && !/is-new/.test(qcls[0] + qcls[1]), JSON.stringify(qcls));
+  const qcls2 = await page.evaluate(() => { const log = loadGamesLog().map(g => ({ ...g, ts: g.ts - 2 * 864e5 }));
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log)); document.querySelector('.lb-tab[data-tab="quests"]').click();
+    const r = [...document.querySelectorAll("#lb-list li")].map(l => l.className); localStorage.setItem("oxford_games_log_v1", JSON.stringify(log.map(g => ({ ...g, ts: g.ts + 2 * 864e5 })))); return r; });
+  t("⚔️ вкладка: сьогодні ще не ходив — останній похід синьою смужкою (без жовтої)", /is-latest-game/.test(qcls2[2]) && !/is-new/.test(qcls2.join()), JSON.stringify(qcls2));
   t("⚔️ вкладка: лише походи, за переможеними (12, 5, 3)", qv.rows.length === 3 && /^12/.test(qv.rows[0]) && /^5/.test(qv.rows[1]) && /^3/.test(qv.rows[2]), JSON.stringify(qv.rows));
   t("⚔️ рядок: (втечі/усього), тривалість, арена", /\(4\/16\)/.test(qv.rows[0]) && /12:34/.test(qv.rows[0]) && /🏟️4/.test(qv.rows[0]), qv.rows[0]);
   t("⚔️ заголовок «Рекорди походів · 3 походи», кошика нема", /Рекорди походів/.test(qv.title) && /3 походи/.test(qv.title) && qv.reset === "hidden", qv.title);
