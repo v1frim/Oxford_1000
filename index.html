@@ -1565,6 +1565,10 @@
     display: inline-flex; align-items: center; justify-content: center; font-size: 11px;
   }
   .lb-stat-label { flex: 1 1 auto; }
+  /* одна плашка на три числа: число зверху, підпис під ним (відповіді ігор, сесія 63) */
+  .lb-trio-c { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
+  .lb-trio-c b { font-size: 13px; font-weight: 700; color: #fff; }
+  .lb-trio-c small { font-size: 9px; opacity: .55; white-space: nowrap; }
   .lb-variable { background: rgba(255,169,77,0.07); padding: 7px 6px 5px; }
   /* повні бічні відступи плашок (старе правило `padding:1px 0` притискало цифри до рамки) */
   .lb-variable .lb-stat-row { border-color: rgba(255,169,77,0.22); padding: 3px 8px 3px 4px; }
@@ -9257,9 +9261,9 @@ function renderTabStreaks() {
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  // відповіді походів за днями — з журналу (tag "quest"; обірвані/старі відновлено міграцією fillQuestLogGaps)
-  const qAnsDay = {};
-  questGames().forEach(g => { const k = tsToDayKey(g.ts); qAnsDay[k] = (qAnsDay[k] || 0) + (g.score || 0) + (g.wrong || 0) + (g.skipped || 0); });
+  // відповіді за днями з ЖУРНАЛУ ІГОР — окремо походи (tag "quest") і звичайні ігри
+  const qAnsDay = {}, gAnsDay = {}, ansOf = g => (g.score || 0) + (g.wrong || 0) + (g.skipped || 0);
+  loadGamesLog().forEach(g => { const k = tsToDayKey(g.ts), o = g.tag === "quest" ? qAnsDay : gAnsDay; o[k] = (o[k] || 0) + ansOf(g); });
   const renderStreak = (s, cls) => {
     const period = s.length === 1
       ? fmtDayKey(s.start)
@@ -9271,12 +9275,15 @@ function renderTabStreaks() {
       keys.push(k); if (k >= s.end || keys.length > 400) break;
     }
     // Рядок: 🎮 ігри (їхні відповіді) ⚔️ походи (їхні відповіді) — сесія 63, за запитом: було одне
-    // спільне «🎮8 ⚔️5 (73)», і здавалось, що відповіді походів не враховано. Тепер «🎮8 (49) ⚔️5 (24)».
-    // У дужках — ЛИШЕ загальна кількість, без неправильних. Відповіді походів — із журналу (qAnsDay),
-    // ігор — решта від денних correct+wrong+skipped (s.words, туди пишуть обидва режими).
+    // спільне «🎮8 ⚔️5 (73)», і 73 — це відповіді ІГОР; походи додаються СВОЄЮ сумою → «🎮8 (73) ⚔️6 (38)».
+    // ⚠️ Обидва числа — з журналу ігор, НЕ різницею від денних correct/wrong: перша спроба
+    // (gAns = день − походи) дала «🎮8 (35)» — у реальних даних денна сума походів не містила.
+    // Запасний шлях для ігор, яких журнал не пише (пул «Знаю»): день − походи, береться більше.
+    // У дужках — ЛИШЕ загальна кількість, без неправильних.
     // Решту активностей (🦉, 📚, 🎧…) ПРИБРАНО (сесія 63, за запитом «у серіях лише ігри й походи»).
     const days = loadDays(), quests = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
-    const qAns = Math.min(totalWords, keys.reduce((a, k) => a + (qAnsDay[k] || 0), 0)), gAns = totalWords - qAns;
+    const qAns = keys.reduce((a, k) => a + (qAnsDay[k] || 0), 0);
+    const gAns = Math.max(keys.reduce((a, k) => a + (gAnsDay[k] || 0), 0), totalWords - qAns);
     const gamesStr = (s.games || quests)
       ? '<span class="lb-games" title="ігри й походи серії · у дужках — їхні відповіді">· ' +
         (s.games ? "🎮" + s.games + (gAns > 0 ? " (" + gAns + ")" : "") : "") + (s.games && quests ? " " : "") +
@@ -9396,14 +9403,13 @@ function updateLayoutAlign() {
 }
 function renderLbTotals() {
   const days = loadDays();
-  let games = 0, quests = 0, correct = 0, wrong = 0, skipped = 0, review = 0;
+  let games = 0, quests = 0, correct = 0, wrong = 0, skipped = 0;
   Object.values(days).forEach(d => {
     games   += d.games   || 0;
     quests  += d.quests  || 0;
     correct += d.correct || 0;
     wrong   += d.wrong   || 0;
     skipped += d.skipped || 0;
-    review  += d.reviewCorrect || 0;
   });
   // сесія 61: «Днів гри» — дні з БУДЬ-ЯКОЮ активністю (ігри, Duolingo, LingoHut, пісні, GPT…)
   const _act = activityDays();
@@ -9447,9 +9453,19 @@ function renderLbTotals() {
       row("📊", "Слів на 1 похід", ((qWon + qBad) / qLogged).toFixed(1).replace(".", ","), "",
         "У середньому монстрів-слів на дорозі за один похід (без арени)") : "") +
     row("🎮", "Ігор", games) +
-    row("🧮", "Відповідей", total) +
-    row("✅", "Правильних", correct, "#7be07b") +
-    row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +
+    // ⚠️ Відповіді / правильні / неправильні — ОДНА плашка під «Ігор» (сесія 63, за запитом: «об'єднати,
+    // як монстри в походах, але цифри й підписи окремо — числа вже великі»). ЛИШЕ ІГРИ: походи — рядком
+    // «Монстрів у походах» вище. Як у 🔥 серіях: з журналу ігор (без походів), а якщо день − походи
+    // більше (ігри, яких журнал не пише) — те. Точність нижче — і далі за ВСІМА відповідями.
+    (() => {
+      const _ng = loadGamesLog().filter(g => g.tag !== "quest");
+      const lOk = _ng.reduce((a, g) => a + (g.score || 0), 0), lBad = _ng.reduce((a, g) => a + (g.wrong || 0) + (g.skipped || 0), 0);
+      const gOk = Math.max(lOk, correct - qWon), gBad = Math.max(lBad, wrong + skipped - qBad), cell = (n, cap, c) =>
+        '<span class="lb-trio-c"><b' + (c ? ' style="color:' + c + '"' : '') + '>' + n + '</b><small>' + cap + '</small></span>';
+      return '<div class="lb-stat-row lb-trio" title="Відповіді в іграх (без походів): правильні · неправильні й пропущені · усього">' +
+        '<span class="lb-stat-ic">🧮</span>' + cell(gOk, "правильних", "#7be07b") + cell(gBad, "неправильних", "#ff9d9d") +
+        cell(gOk + gBad, "відповідей") + '</div>';
+    })() +
     row("🎯", "Точність · весь час", accAllHtml, "") +
     // ⚠️ ПІДПИС «300 слів», а не «ост. 300» (сесія 58, за запитом: «так буде набагато
     // зрозуміліше»). Довжина та сама, що в рядка «весь час», тож плашка не поїхала.
@@ -9461,7 +9477,6 @@ function renderLbTotals() {
     // Ловить лише перевірка повноти в `test-panel.js` (сесія 50 — я саме так і зробив).
     row("📈", "Точність · 300 слів", accRecHtml, "",
         "Точність за останні ~300 відповідей — вікно свіжої форми; слово, що траплялось у кількох іграх, рахується щоразу") +
-    row("🔁", "Повторень", review, "#87b4ff") +
     row("🦉", "Duolingo", getTotalDuoSessions(), "#7fdd40") +
     row("📚", "Уроки LingoHut", lhDoneCount + " / 125", "#87b4ff") +
     row("🤖", "Запити GPT", getTotalGptRequests(), "#2dd4bf") +
