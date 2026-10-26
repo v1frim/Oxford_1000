@@ -12351,7 +12351,6 @@ function questFinal() {
   qSetInput(false);
   qHero("");
   const lg = loadLastGameTrans(), newK = lg && lg.k ? lg.k.length : 0;
-  const mins = Math.max(1, Math.round((Date.now() - Q.t0) / 60000));
   const fled = [...new Set(Q.fled)];
   const left = qArenaPending().length;   // недобиті чекатимуть на початку наступного походу
   qEl("q-card").innerHTML =
@@ -12360,7 +12359,7 @@ function questFinal() {
       '<div><b class="ok">' + Q.won + '</b>правильних</div><div><b class="bad">' + Q.fled.length + '</b>неправильних</div>' +
       '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' чекають на наступний похід)' : '') + '</div>' +
       '<div><b>' + Q.pts + '</b>пунктів «Плани»</div>' +
-      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + mins + '</b>хв</div></div>' +
+      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div></div>' +
     qTimeHtml(ts) +
     (fled.length ? '<div class="qc-sub">Втік від: ' + fled.slice(0, 20).map(i => '<span class="w-chip">' + esc(getEn(WORDS[i])[0]) + ' — ' + esc(getUa(WORDS[i])[0]) + '</span>').join("") + '</div>' : '') +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
