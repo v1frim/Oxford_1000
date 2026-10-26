@@ -1717,6 +1717,9 @@
   /* навпаки: дивишся на переклад — розмивається англійське (за запитом: «щоб ховалось протилежне») */
   .qc-ex { transition: filter .2s; }
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
+  .lb-mon { display: inline-block; width: 20px; height: 18px; vertical-align: -4px; margin-right: 1px; }
+  .lb-mon svg { width: 100%; height: 100%; }
+  .lb-kills { white-space: nowrap; }
   .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
   .qc-words { margin-top: 8px; }
   .qw-list { max-height: 240px; overflow-y: auto; text-align: left; font-size: 13px; border-radius: 8px; background: rgba(255,255,255,.04); padding: 4px 8px; }
@@ -9120,9 +9123,30 @@ function daysActsHtml(keys, noQuests) {
 // Походи свідомо НЕ змішані з іграми в 🕒 (там вони «ост» поза місцями): безстроковий похід
 // непорівнюваний із 60-секундною грою. Тут — свій рейтинг: більше переможених монстрів,
 // при рівності менше втеч, потім новіший. Джерело — журнал ігор (tag "quest").
+// 🗡️ УБИТІ МОНСТРИ ЗА ВИДОМ (сесія 63, за запитом; варіант «міні-копії монстрів із гри»): переможені
+// на дорозі (ok) + добиті на арені → { A1: n, … }. Нові походи несуть це в журналі ігор (`kills`),
+// старі — рахуємо з детального журналу походів (oxford_quest_log_v1) за тим самим ts.
+const QUEST_KILL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2", "none"];
+function questKillsFrom(mlog, alog) {
+  const k = {}, add = w => { const i = indexOfWordKey(w), L = i >= 0 ? (cefrLevelOf(WORDS[i]) || "none") : "none";
+    const key = QUEST_KILL_ORDER.includes(L) ? L : "none"; k[key] = (k[key] || 0) + 1; };   // не QUEST_MONSTERS — той const нижче, а лідерборд малюється на старті (TDZ)
+  (mlog || []).forEach(r => { if (r.ok) add(r.w); });
+  (alog || []).forEach(r => add(r.w));
+  return k;
+}
+function questKills(g, qlog) {
+  if (g.kills) return g.kills;
+  const r = (qlog || []).find(x => x.ts === g.ts);
+  return r ? questKillsFrom(r.monsters, r.arena) : null;
+}
+function questKillsHtml(k) {
+  if (!k) return "";
+  const parts = QUEST_KILL_ORDER.filter(L => k[L]).map(L => '<span class="lb-mon" title="' + (L === "none" ? "без рівня" : L) + '">' + questMonsterSvg(L) + '</span>' + k[L]);
+  return parts.length ? '<span class="lb-games lb-kills" title="убито монстрів за видом (дорога + арена)">· ' + parts.join(" ") + '</span>' : "";
+}
 function questGames() { return loadGamesLog().filter(g => g.tag === "quest"); }
 function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = Math.floor(sec / 60); return m + ":" + String(sec % 60).padStart(2, "0"); }
-function renderQuestRow(g, cls, rank) {
+function renderQuestRow(g, cls, rank, qlog) {
   const bad = (g.wrong || 0) + (g.skipped || 0), t = g.time && g.time.total, ar = g.n && g.n.arena;
   const isToday = tsToDayKey(g.ts) === todayKey();
   return '<li class="' + (cls || "") + (isToday ? " is-today-game" : "") + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед усіх походів"' : '') + '>' +
@@ -9130,7 +9154,8 @@ function renderQuestRow(g, cls, rank) {
     '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
     (t ? '<span class="lb-games" title="тривалість походу">· ⏱ ' + fmtQuestTime(t) + '</span>' : '') +
     (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">· відновлено</span>' : '') +
-    (ar ? '<span class="lb-games" title="добито на арені">· 🏟️' + ar + '</span>' : '') +
+    // монстри за видом замість «🏟️ N» (сесія 63); без даних (старі/відновлені) — як було
+    (questKills(g, qlog) ? questKillsHtml(questKills(g, qlog)) : ar ? '<span class="lb-games" title="добито на арені">· 🏟️' + ar + '</span>' : '') +
     '<span class="lb-mode">' + fmtDate(g.ts) + '</span>' +
   '</li>';
 }
@@ -9153,8 +9178,9 @@ function renderTabQuests() {
   // жовта (is-new); ще не грав сьогодні → останній (вчорашній чи давніший) — синя (is-latest-game).
   // Комбінацію «жовта зліва + синя знизу» не ставимо — «синя ніколи не була знизу».
   const mark = g => g !== newest ? "" : tsToDayKey(g.ts) === todayKey() ? "is-new" : "is-latest-game";
-  let html = sorted.slice(0, LB_LIMIT).map(g => renderQuestRow(g, mark(g), null)).join("");
-  if (at >= LB_LIMIT) html += '<li class="lb-sep"></li>' + renderQuestRow(newest, "lb-latest", at + 1);
+  let qlog = []; try { qlog = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]"); } catch (e) {}   // літерал: QUEST_LOG_KEY оголошено нижче (TDZ на старті)
+  let html = sorted.slice(0, LB_LIMIT).map(g => renderQuestRow(g, mark(g), null, qlog)).join("");
+  if (at >= LB_LIMIT) html += '<li class="lb-sep"></li>' + renderQuestRow(newest, "lb-latest", at + 1, qlog);
   lbListEl.innerHTML = html;
 }
 function renderTabDays() {
@@ -12612,7 +12638,7 @@ function qLogQuest(ts) {
   Q.logged = true;
   ts = ts || questTimeSummary();
   const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest",
-              time: ts.sec, n: ts.n };
+              time: ts.sec, n: ts.n, kills: questKillsFrom(Q.mlog, Q.alog) };
   appendGamesLog(g);
   updateLatest(g);
   // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені

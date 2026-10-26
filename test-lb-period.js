@@ -465,6 +465,11 @@ function chromePath() {
   const qcls2 = await page.evaluate(() => { const log = loadGamesLog().map(g => ({ ...g, ts: g.ts - 2 * 864e5 }));
     localStorage.setItem("oxford_games_log_v1", JSON.stringify(log)); document.querySelector('.lb-tab[data-tab="quests"]').click();
     const r = [...document.querySelectorAll("#lb-list li")].map(l => l.className); localStorage.setItem("oxford_games_log_v1", JSON.stringify(log.map(g => ({ ...g, ts: g.ts + 2 * 864e5 })))); return r; });
+  const kil = await page.evaluate(() => { const log = loadGamesLog(); localStorage.setItem("oxford_games_log_v1", JSON.stringify(
+      [{ ts: Date.now(), tag: "quest", score: 5, wrong: 1, skipped: 0, n: { arena: 1 }, kills: { A1: 2, B1: 3, C2: 1 } }]));
+    document.querySelector('.lb-tab[data-tab="quests"]').click(); const li = document.querySelector("#lb-list li");
+    const r = { mons: li.querySelectorAll(".lb-mon svg").length, txt: li.textContent }; localStorage.setItem("oxford_games_log_v1", JSON.stringify(log)); return r; });
+  t("⚔️ вкладка: убиті монстри міні-копіями за видом замість 🏟️", kil.mons === 3 && !/🏟️/.test(kil.txt) && /2.*3.*1/.test(kil.txt), JSON.stringify(kil));
   t("⚔️ вкладка: сьогодні ще не ходив — останній похід синьою смужкою (без жовтої)", /is-latest-game/.test(qcls2[2]) && !/is-new/.test(qcls2.join()), JSON.stringify(qcls2));
   t("⚔️ вкладка: лише походи, за переможеними (12, 5, 3)", qv.rows.length === 3 && /^12/.test(qv.rows[0]) && /^5/.test(qv.rows[1]) && /^3/.test(qv.rows[2]), JSON.stringify(qv.rows));
   t("⚔️ рядок: (втечі/усього), тривалість, арена", /\(4\/16\)/.test(qv.rows[0]) && /12:34/.test(qv.rows[0]) && /🏟️4/.test(qv.rows[0]), qv.rows[0]);
