@@ -1718,6 +1718,15 @@
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
   .qc-links { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
   .qc-links .gt-link { margin-left: 0; font-size: 13px; padding: 4px 10px; }
+  /* ± лічильник запитів GPT біля значка 🤖 GPT у грі/поході (сесія 63) */
+  .gpt-ctl { display: inline-flex; align-items: center; gap: 3px; }
+  .gpt-ctl button { padding: 3px 8px; font-size: 13px; line-height: 1.2; border-radius: 8px; background: rgba(45,212,191,0.10);
+    border: 1px solid rgba(45,212,191,0.35); color: #2dd4bf; cursor: pointer; flex: none; width: auto; margin: 0; }
+  .gpt-ctl button:hover { background: rgba(45,212,191,0.24); color: #5ee9d6; }
+  .gpt-ctl button.gpt-m { color: rgba(255,255,255,0.45); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
+  .gpt-ctl button.gpt-m:hover { color: #ff6b6b; border-color: rgba(255,107,107,0.4); }
+  .gpt-ctl .gpt-n { min-width: 16px; text-align: center; font-size: 12px; font-weight: 700; color: #2dd4bf;
+    background: rgba(45,212,191,0.18); border-radius: 10px; padding: 1px 6px; }
   .qc-hint { font-size: 13px; opacity: .6; }
   .qc-prompt { font-size: 34px; font-weight: 800; margin: 6px 0; }
   .qc-msg { min-height: 20px; font-size: 15px; color: #ff9d9d; }
@@ -1984,6 +1993,7 @@
       <button id="tab-bad" class="tab">Помилки і пропуски</button>
       <a id="gt-link" class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate" target="_blank" rel="noopener" title="Відкрити Google Перекладач у новій вкладці">🌐 Перекладач</a>
       <a id="gpt-link" class="gt-link gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a>
+      <span class="gpt-ctl"></span>
     </div>
     <div class="results-list" id="results-list"></div>
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
@@ -10041,7 +10051,21 @@ function renderGptBtn() {
   countEl.textContent = count || "";
   countEl.style.display = count > 0 ? "inline-block" : "none";
   document.getElementById("gpt-minus").style.display = count > 0 ? "" : "none";
+  // ± біля 🤖 GPT у грі (фінал-екран) і в поході (картка вивчення) — сесія 63, за запитом:
+  // питаю GPT у бічній панелі/іншій вкладці → додаю запит, не виходячи з гри; бачу скільки, можу відняти
+  document.querySelectorAll(".gpt-ctl").forEach(el => {
+    el.innerHTML = '<button type="button" class="gpt-p" data-gpt="+" title="Додати запит GPT (+1, +' + GPT_XP + ' XP)">+</button>' +
+      (count ? '<span class="gpt-n" title="запитів GPT сьогодні">' + count + '</span>' +
+        '<button type="button" class="gpt-m" data-gpt="-" title="Скасувати останній запит (лише сьогодні)">−</button>' : '');
+  });
 }
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-gpt]");
+  if (!b) return;
+  e.stopPropagation();
+  b.dataset.gpt === "+" ? countGptRequest() : uncountGptRequest();
+  b.blur();   // щоб Enter/Пробіл далі керували грою, а не тиснули цю кнопку
+}, true);
 
 // Зарахувати 1 запит GPT (+XP, оновити всі лічильники). Спільне для «+» та для
 // GPT-лінка на фінал-екрані гри (клік там = реальний запит під час розбору помилки).
@@ -10149,7 +10173,8 @@ if (gptLink) gptLink.addEventListener("click", () => countGptRequest());
 // «+» — додати запит у будь-який момент (без відкриття сайту).
 document.getElementById("gpt-plus").addEventListener("click", () => countGptRequest());
 
-document.getElementById("gpt-minus").addEventListener("click", () => {
+document.getElementById("gpt-minus").addEventListener("click", () => uncountGptRequest());
+function uncountGptRequest() {
   const reqs = loadGptRequests();
   const today = gptToday();
   if (!reqs[today]) return;
@@ -10162,7 +10187,7 @@ document.getElementById("gpt-minus").addEventListener("click", () => {
   renderThermo();
   renderLbTotals();
   renderProgressPanel();
-});
+}
 
 // ── ACHIEVEMENTS ──────────────────────────────────────────────────────────────
 // 11 досягнень × 5 ліг (11-те — «Пунктів за місяць», monthly:true: лічильник скидається
@@ -12234,10 +12259,11 @@ function qStudy(userVal) {
     (exUa ? '<div class="qc-exua" data-q="exua">«' + esc(exUa) + '»</div>' : '') +
     // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
     '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
-      '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a></div>' +
+      '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a><span class="gpt-ctl"></span></div>' +
     '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>' +
     '<div class="qc-keys">Tab — озвучити слово · Пробіл — озвучити речення' + (exUa ? ' · наведи на розмите — переклад' : '') + '</div>';
   qEl("q-card").classList.remove("hidden");
+  renderGptBtn();   // заповнити ± лічильник GPT на картці
   Q.say = en; Q.sayEx = ex;
   qSetInput(false);
   // ⚠️ Нижню підказку НЕ дублюємо: клавіші вже в рядку `.qc-keys` на картці (скарга на дубль)

@@ -56,6 +56,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("клік по слову на картці озвучує його", said.hw && said.n === 1, JSON.stringify(said));
   const enHw = await p.evaluate(() => { const el = document.querySelector("#q-card .qc-word .hw"); return el ? { t: el.textContent, tr: !!el.dataset.trans, ipa: !!el.dataset.ipa } : null; });
   t("на картці англійське слово — з ховером перекладу й транскрипції", enHw && enHw.tr && enHw.ipa, JSON.stringify(enHw));
+  // ± запит GPT біля значка 🤖 GPT (сесія 63): + рахує, показує число, − віднімає; картка й фаза не міняються
+  const g0 = await p.evaluate(() => ({ n: loadGptRequests()[gptToday()] || 0, xp: loadXp(), plus: !!document.querySelector("#q-card .gpt-ctl [data-gpt='+']"), minus: !!document.querySelector("#q-card .gpt-ctl [data-gpt='-']") }));
+  t("картка: «+» біля GPT, «−» прихований при 0", g0.plus && !g0.minus, JSON.stringify(g0));
+  await p.click("#q-card .gpt-ctl [data-gpt='+']"); await p.click("#q-card .gpt-ctl [data-gpt='+']"); await p.waitForTimeout(100);
+  const g1 = await p.evaluate(() => ({ n: loadGptRequests()[gptToday()] || 0, xp: loadXp(), shown: (document.querySelector("#q-card .gpt-n") || {}).textContent, phase: Q.phase, end: (document.querySelector("#end-screen .gpt-n") || {}).textContent }));
+  t("«+» двічі → 2 запити, +2×GPT_XP, число на картці й на фінал-екрані, похід далі на картці", g1.n === g0.n + 2 && g1.xp === g0.xp + 30 && g1.shown === "2" && g1.end === "2" && g1.phase === "study", JSON.stringify(g1));
+  await p.click("#q-card .gpt-ctl [data-gpt='-']"); await p.waitForTimeout(100);
+  const g2 = await p.evaluate(() => ({ n: loadGptRequests()[gptToday()] || 0, xp: loadXp(), shown: (document.querySelector("#q-card .gpt-n") || {}).textContent, foc: document.activeElement && document.activeElement.dataset.gpt }));
+  t("«−» → 1 запит, XP назад, фокус знято з кнопки", g2.n === g0.n + 1 && g2.xp === g0.xp + 15 && g2.shown === "1" && !g2.foc, JSON.stringify(g2));
+  await p.click("#q-card .gpt-ctl [data-gpt='-']"); await p.waitForTimeout(100);
   const card2 = await p.evaluate(() => {
     const ua = document.querySelector("#q-card .qc-exua"), gt = document.querySelector("#q-card .qc-links .gt-link:not(.gpt)"), gpt = document.querySelector("#q-card .qc-links .gpt");
     const blur0 = ua ? getComputedStyle(ua).filter : "";
