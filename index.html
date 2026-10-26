@@ -363,12 +363,6 @@
   #start-sub { display: block; font-size: 12.5px; font-weight: 600; opacity: 0.75; margin-top: 4px; }
   /* на жовтій кнопці світло-зелений не читається — темніший зелений того ж змісту */
   #start-sub .cefr-solo, #tm-go small .cefr-solo { color: #137a2e; }
-  #due-banner {
-    margin: 8px 0 0; padding: 8px 12px; border-radius: 12px;
-    background: rgba(120,190,255,0.13); border: 1px solid rgba(140,200,255,0.35);
-    color: #a8d4ff; font-size: 12.5px; text-align: center;
-  }
-  #due-banner.hidden { display: none; }
   .panel-lab {
     font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
     color: rgba(255,255,255,0.42); text-align: center; margin: 12px 0 6px;
@@ -1909,7 +1903,6 @@
     </div>
     <button id="start-btn">▶ Тренування · 60 сек<span id="start-sub"></span></button>
     <button id="quest-btn" title="Без таймера: монстри зі словами, доки сам не зупиниш">⚔️ Похід героя<small>без таймера · переможи монстрів словами</small></button>
-    <div id="due-banner" class="hidden" title="План показів для обраного набору: скільки слів чекає повторення сьогодні, скільки з них — ревізії вже вивчених, і скільки слів зараз у роботі (Вивчаю)"></div>
     <div class="panel-lab">Щодня</div>
     <div id="daily-row">
       <div id="duo-wrap" class="pair">
@@ -8394,16 +8387,10 @@ document.getElementById("tm-cancel").addEventListener("click", closeTrainModal);
 document.getElementById("train-modal").addEventListener("click", e => {
   if (e.target.id === "train-modal") closeTrainModal();      // клік по фону закриває
 });
-// Плашка під кнопкою старту (сесія 60: замість «на повторенні N» боргу — план показів
-// по ПОТОЧНОМУ набору). Ім'я функції історичне, кличуть три місця — не перейменовував.
-function renderDueBanner() {
-  const el = document.getElementById("due-banner");
-  if (!el) return;
-  const pool = trainPool() || [...Array(WORDS.length).keys()];
-  const st = schedStats(pool);
-  el.classList.toggle("hidden", !pool.length);
-  el.textContent = "🔁 На сьогодні " + plWords(st.due) + " · ревізій " + st.rev + " · у роботі " + st.active;
-}
+// ⚠️ ПЛАШКУ «🔁 На сьогодні N слів · ревізій · у роботі» ПРИБРАНО (сесія 61, за запитом: «безтолкова»).
+// Функцію лишено порожньою — її кличуть кілька місць (renderStartSub, імпорт, меню). `schedStats`
+// живий (його читають тести планувальника) — повернути плашку = повернути елемент і тіло звідси (git).
+function renderDueBanner() {}
 
 // Сесія 44: окремих кнопки й модалки «🎓 Рівні CEFR» більше НЕМА — рівні стали
 // чипсами всередині модалки «Тренування» (renderTrainModal / #tm-levels).

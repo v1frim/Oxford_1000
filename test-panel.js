@@ -115,10 +115,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     localStorage.setItem("oxford_word_mastery_v1", JSON.stringify({ [wordKey(WORDS[0])]: { s: 1, c: 1, w: 0, n: 0, d: "2000-01-01", r: 0 } }));
     localStorage.setItem("oxford_seen_v1", "10");
     renderDueBanner();
-    const el = document.getElementById("due-banner");
-    return { hidden: el.classList.contains("hidden"), txt: el.textContent };
+    return { gone: !document.getElementById("due-banner") };
   });
-  t("плашка плану показується", !banner.hidden && /На сьогодні 1 слово · ревізій 0 · у роботі 1/.test(banner.txt), banner.txt);
+  t("плашки плану «На сьогодні…» більше нема (прибрано за запитом)", banner.gone);
 
   // 10. ЄДИНА ВИСОТА + КОЛЬОРИ ряду «Щодня» (сесія 45, за запитом).
   // Ловить рецидив легасі-стилів із лівої панелі: саме `margin:0 0 10px` у #expr-btn

@@ -250,9 +250,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("schedStats рахує ревізії окремо", known.stats.rev === 1 && known.stats.due === 0 && known.stats.active === 0, JSON.stringify(known.stats));
 
   // 15. плашка під кнопкою старту
-  const banner = await p.evaluate(() => { renderStartSub(); const el = document.getElementById("due-banner");
-    return { hidden: el.classList.contains("hidden"), text: el.textContent }; });
-  t("плашка показує план по набору", !banner.hidden && /На сьогодні .* · ревізій \d+ · у роботі \d+/.test(banner.text), banner.text);
+  const banner = await p.evaluate(() => { renderStartSub(); return document.getElementById("due-banner"); });
+  t("плашку плану прибрано з меню (сесія 61)", banner === null, String(banner));
 
   // 16. живий прогін: гра з планувальником крутить nextWord без помилок
   const live = await p.evaluate(() => {
