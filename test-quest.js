@@ -38,7 +38,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("правильна відповідь — монстр повалений", a1.won === 1 && a1.dead);
   t("перемога йде в mastery (streak 1)", a1.s === 1, String(a1.s));
   let d = await day();
-  t("день: +1 правильна і похід = 1 гра", d.correct === 1 && d.games === 1, JSON.stringify(d));
+  t("день: +1 правильна, похід = 1 «похід» (не гра)", d.correct === 1 && d.quests === 1 && !d.games, JSON.stringify(d));
 
   // 2. втеча: помилка → картка вивчення → Готово → 3 правильні → втеча
   await fight(); await p.waitForTimeout(200);
@@ -48,7 +48,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("помилка — одразу картка зі словом і прикладом", st.phase === "study" && /Готово/.test(st.card), st.phase);
   t("помилка йде в mastery (streak 0)", await p.evaluate(i => mStreak(loadMastery()[wordKey(WORDS[i])]) === 0, idx2));
   d = await day();
-  t("день: +1 неправильна", d.wrong === 1 && d.games === 1, JSON.stringify(d));
+  t("день: +1 неправильна", d.wrong === 1 && d.quests === 1 && !d.games, JSON.stringify(d));
+  t("утечений монстр одразу збережений для арени (переживе обрив походу)", await p.evaluate(i => loadQArena().includes(wordKey(WORDS[i])), idx2));
   const said = await p.evaluate(() => { window.__said = []; const o = speak; window.speak = speak = w => window.__said.push(w);
     const hw = document.querySelector("#q-card .qc-word .hw, #q-card .qc-ex .hw"); if (hw) hw.click();
     const n = window.__said.length; speak = o; return { n, hw: !!hw }; });
@@ -88,6 +89,11 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("XP походу = реальний приріст (1 перемога + 1 вивчення + 2 арена + бонуси mastery)", fin.xp === fin.real && fin.real >= 3 && fin.real - xp0 * 0 === (await p.evaluate(() => loadXp())) - xp0, fin.xp + " / " + fin.real);
   d = await day();
   t("арена = +1 «Повторень» дня", d.reviewCorrect === 1, JSON.stringify(d));
+  t("добитий на арені монстр зник зі збереженої арени", await p.evaluate(() => loadQArena().length === 0));
+  const pts = await p.evaluate(() => ({ need: [1,2,3,4,5,6,7].map(questPointNeed).join(","), d: loadDays()[todayKey()].questPts || 0,
+    ans: Q.answers, q: Q.pts, exp: questPointsFor(Q.answers), at10: questPointsFor(10), at45: questPointsFor(45), at62: questPointsFor(62) }));
+  t("пункти «Плани»: 8·16·24·32·40, далі кожні 10", pts.need === "8,16,24,32,40,50,60" && pts.at10 === 1 && pts.at45 === 5 && pts.at62 === 7, JSON.stringify(pts));
+  t("пункти походу = відповіді / сходинки (і записані в день)", pts.q === pts.exp && pts.d === pts.q && pts.ans >= 8, JSON.stringify(pts));
   await p.keyboard.press("Enter"); await p.waitForTimeout(400);
   t("Enter на фіналі — назад у меню", !(await p.isVisible("#quest-overlay")) && await p.isVisible("#start-screen"));
   const inv = await p.evaluate(() => {
@@ -103,6 +109,43 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const row = await p.evaluate(() => { lbActiveTab = "period"; renderLeaderboard();
     const li = document.querySelector("#lb-list li.lb-latest"); return li ? { text: li.textContent, rank: li.dataset.rank || "" } : null; });
   t("у 🕒 похід — рядком «ост» із підписом «⚔️ Похід», без місця", row && /Похід/.test(row.text) && !row.rank, JSON.stringify(row));
+
+  // 4. Обірваний похід: утечений монстр чекає й відкриває НАСТУПНИЙ похід ареною
+  await p.click("#quest-btn"); await p.waitForTimeout(200);
+  await fight(); await p.waitForTimeout(200);
+  const idx3 = await p.evaluate(() => Q.cur.idx);
+  await p.fill("#q-answer", "абракадабра"); await p.keyboard.press("Enter"); await p.waitForTimeout(700);
+  await p.reload(); await p.waitForTimeout(1200);          // похід обірвався (закрив вкладку)
+  t("після обриву монстр лишився на арені", await p.evaluate(i => loadQArena().includes(wordKey(WORDS[i])), idx3));
+  await p.click("#quest-btn"); await p.waitForTimeout(1000);
+  const pre = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, idx: Q.cur && Q.cur.idx, hint: document.getElementById("q-hint").textContent }));
+  t("новий похід починається з арени недобитих", pre.stage === "arena" && pre.pre && pre.n === 1 && pre.idx === idx3, JSON.stringify(pre));
+  t("підказка: «спершу добий монстрів із минулого походу»", /минулого походу/.test(pre.hint), pre.hint);
+  for (let i = 0; i < 3; i++) { await p.fill("#q-answer", await right()); await p.waitForTimeout(1150); }
+  await p.waitForTimeout(1300);
+  t("арену добито → похід іде дорогою далі", await p.evaluate(() => Q.stage === "road" && !Q.pre && loadQArena().length === 0));
+  await p.keyboard.press("Escape"); await p.waitForTimeout(300); await p.keyboard.press("Enter"); await p.waitForTimeout(300);
+  await p.keyboard.press("Enter"); await p.waitForTimeout(300);
+  // 5. Загальна статистика / прогрес: походи окремо від ігор
+  const tot = await p.evaluate(() => { renderLbTotals(); renderProgressPanel(); return {
+    row: [...document.querySelectorAll("#lb-totals .lb-stat-row")].map(r => r.textContent).find(x => /Походів/.test(x)) || "",
+    games: [...document.querySelectorAll("#lb-totals .lb-stat-row")].map(r => r.textContent).find(x => /^🎮Ігор/.test(x)) || "",
+    prog: document.getElementById("prog-list").textContent }; });
+  t("у загальній статистиці окремий рядок «⚔️ Походів»", /Походів\s*2/.test(tot.row), tot.row + " | " + tot.games);
+  t("у «Прогресі по днях» — значок ⚔️", /⚔️/.test(tot.prog));
+  // 6. Міграція: старий похід, записаний як «гра», переїжджає в «походи»
+  const mig = await p.evaluate(() => {
+    const k = todayKey(), days = loadDays();
+    days[k] = { correct: 12, wrong: 6, skipped: 0, games: 3 };
+    localStorage.setItem("oxford_days_v1", JSON.stringify(days));
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify([{ score: 5, wrong: 4, skipped: 0, ts: Date.now() - 5000, tag: "cefr:A1" },
+      { score: 3, wrong: 1, skipped: 0, ts: Date.now() - 3000, tag: "quest" }]));
+    localStorage.removeItem("oxford_fix_quest_split_v1");
+    return true; });
+  await p.reload(); await p.waitForTimeout(1200);
+  const m2 = await p.evaluate(() => loadDays()[todayKey()]);
+  t("міграція: 3 «гри» = 1 гра + 2 походи (один — ще до журналу)", m2.games === 1 && m2.quests === 2, JSON.stringify(m2));
+  t("міграція: пункти за відповіді походів (18 − 9 = 9 → 1)", m2.questPts === 1, JSON.stringify(m2));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");

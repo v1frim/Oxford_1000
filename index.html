@@ -1694,6 +1694,8 @@
   .q-float { position: absolute; bottom: 300px; transform: translateX(-50%); font-size: 22px; font-weight: 800; pointer-events: none; animation: qFloatUp 1.2s ease-out forwards; z-index: 60; }
   .q-float.xp { color: #06d6a0; text-shadow: 0 2px 6px rgba(0,0,0,.5); }
   .q-float.dust { font-size: 40px; bottom: 90px; }
+  .q-float.pt { color: #ffa94d; font-size: 20px; bottom: 360px; text-shadow: 0 2px 6px rgba(0,0,0,.5); }
+  .q-hud-stats small { opacity: .6; font-size: 11px; }
   @keyframes qFloatUp { from { opacity: 0; transform: translate(-50%, 10px); } 20% { opacity: 1; } to { opacity: 0; transform: translate(-50%, -50px); } }
   .q-card {
     position: absolute; left: 50%; top: 5%; transform: translateX(-50%); width: min(640px, 92%); z-index: 80;
@@ -6996,7 +6998,7 @@ const BACKUP_KEYS = [
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
   "oxford_self_reviews_v1","oxford_due_v1","oxford_day_wrong_v1",
-  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1"
+  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -7605,22 +7607,23 @@ function _progAggregate(dates, history, allDates, days) {
   const firstIdx = allDates.indexOf(dates[0]);
   const prev = firstIdx > 0 ? history[allDates[firstIdx-1]] : {k:0,l:0,t:WORDS.length};
   const last = history[dates[dates.length-1]] || prev;
-  let games = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0, expr = 0;
+  let games = 0, quests = 0, rev = 0, duo = 0, songSess = 0, gpt = 0, movies = 0, expr = 0;
   const duoSessions = loadDuoSessions();
   const songSessions = loadSongSessions();
   const gptRequests = loadGptRequests();
   const movieSessions = loadMovieSessions();
   const exprLog = loadExprXpLog();
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; expr += (exprLog[d] && exprLog[d].r) || 0; }
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; quests += days[d].quests||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; expr += (exprLog[d] && exprLog[d].r) || 0; }
   const dateSet = new Set(dates);
   const lh    = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const songs = Object.values(loadSongsXpAwarded()).filter(v => dateSet.has(v)).length;
   const dt = (last.t || WORDS.length) - (prev.t || WORDS.length);
-  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, rev, duo, lh, songs, songSess, gpt, movies, expr };
+  return { dk: last.k - prev.k, dl: last.l - prev.l, dt, games, quests, rev, duo, lh, songs, songSess, gpt, movies, expr };
 }
-function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr) {
+function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr, quests) {
   let h = "";
   if (games > 0) h += _pgCell("🎮", games, "prog-games");
+  if (quests > 0) h += _pgCell("⚔️", quests, "prog-games");   // ⚔️ походи — окремий режим (сесія 61)
   if (duo > 0)   h += _pgCell("🦉", duo, "prog-duo");
   if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
   if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
@@ -7703,7 +7706,7 @@ function renderProgressPanel() {
     const gpt = gptRequests[date] || 0;
     const movies = movieSessions[date] || 0;
     const expr = (exprLog[date] && exprLog[date].r) || 0;
-    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr);
+    const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr, (days[date] && days[date].quests) || 0);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dk = cur.k - prev.k, dl = cur.l - prev.l;
     const xpGain = getDayXpGain(date);
@@ -7728,9 +7731,9 @@ function renderProgressPanel() {
 
   const groupRows = (groups, fmt) =>
     Object.keys(groups).sort().reverse().map(k => {
-      const {dk, dl, games, rev, duo, lh, dt, songs, songSess, gpt, movies, expr} = _progAggregate(groups[k], history, allDates, days);
+      const {dk, dl, games, quests, rev, duo, lh, dt, songs, songSess, gpt, movies, expr} = _progAggregate(groups[k], history, allDates, days);
       return '<div class="prog-row prog-group"><span class="prog-date">' + fmt(groups[k], k) + '</span>' +
-        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr) + '</span>' +
+        '<span class="prog-cells">' + _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr, quests) + '</span>' +
         '<span class="prog-delta">' + _progDeltaHtml(dk, dl, rev, dt) + '</span></div>';
     }).join("");
 
@@ -8664,7 +8667,7 @@ function fmtDayKey(key) {
 function activityDays() {
   const days = loadDays(), out = {};
   const add = d => { if (typeof d === "string" && /^\d{4}-\d\d-\d\d$/.test(d)) out[d] = days[d] || {}; };
-  Object.entries(days).forEach(([d, x]) => { if ((x.games || 0) > 0) add(d); });
+  Object.entries(days).forEach(([d, x]) => { if ((x.games || 0) > 0 || (x.quests || 0) > 0) add(d); });   // ⚔️ похід — теж заняття
   [loadDuoSessions(), loadSongSessions(), loadGptRequests(), loadMovieSessions()]
     .forEach(o => Object.entries(o || {}).forEach(([d, n]) => { if (n) add(d); }));
   Object.values(loadLhDone()).forEach(add);
@@ -9078,6 +9081,8 @@ function dayActsHtml(d) {
   const ss = loadSongSessions()[d] || 0;
   const sg = Object.values(loadSongsXpAwarded()).filter(v => v === d).length;
   const parts = [];
+  const qn = (loadDays()[d] || {}).quests || 0;
+  if (qn) parts.push("⚔️" + qn);   // походи — окремо від «· N ігор»
   if (duo) parts.push("🦉" + duo);
   if (lh) parts.push("📚" + lh);
   if (gpt) parts.push("🤖" + gpt);
@@ -9172,6 +9177,8 @@ function renderTabXpDays() {
     const acts = [];
     const g = (days[d] && days[d].games) || 0;
     if (g) acts.push("🎮" + g);
+    const qn = (days[d] && days[d].quests) || 0;
+    if (qn) acts.push("⚔️" + qn);
     if (duo[d]) acts.push("🦉" + duo[d]);
     const lh = Object.values(lhDone).filter(v => v === d).length;
     if (lh) acts.push("📚" + lh);
@@ -9330,9 +9337,10 @@ function updateLayoutAlign() {
 }
 function renderLbTotals() {
   const days = loadDays();
-  let games = 0, correct = 0, wrong = 0, skipped = 0, review = 0;
+  let games = 0, quests = 0, correct = 0, wrong = 0, skipped = 0, review = 0;
   Object.values(days).forEach(d => {
     games   += d.games   || 0;
+    quests  += d.quests  || 0;
     correct += d.correct || 0;
     wrong   += d.wrong   || 0;
     skipped += d.skipped || 0;
@@ -9371,6 +9379,7 @@ function renderLbTotals() {
     row("⏸️", "Пропущено днів", missedDays + ' <span style="opacity:.6;font-size:.85em">(' + missedPct + '%)</span>', "#ff9d9d",
         "Дні без жодних занять від першого дня до вчора · у дужках — частка від усіх днів (активні + пропущені)") +
     row("🎮", "Ігор", games) +
+    row("⚔️", "Походів", quests, null, "⚔️ Похід героя — окремий режим без таймера; його відповіді входять у «Відповідей» і точність") +
     row("🧮", "Відповідей", total) +
     row("✅", "Правильних", correct, "#7be07b") +
     row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +
@@ -9485,6 +9494,7 @@ function loadSelfReviews() {
 function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, selfRev, exprPts) {
   let pts = 0;
   if (days[date]) pts += days[date].games || 0;
+  if (days[date]) pts += days[date].questPts || 0;   // ⚔️ похід: 1 пункт за 8/16/24/32/40, далі кожні 10 відповідей
   pts += duo[date] || 0;
   pts += (songSess[date] || 0) * 2;   // заняття піснями: 2 пункти кожне
   pts += gptPointsByDate(gpt)[date] || 0;   // GPT: пари запитів наскрізь через дні (сесія 34)
@@ -9653,6 +9663,7 @@ function getBestDayPoints() {
   allDates.forEach(date => {
     let pts = 0;
     if (days[date]) pts += days[date].games || 0;
+    if (days[date]) pts += days[date].questPts || 0;
     pts += duo[date] || 0;
     pts += (songSess[date] || 0) * 2;
     pts += Math.floor((gpt[date] || 0) / 2);
@@ -10333,6 +10344,32 @@ renderLeaderboard();
 // старт і одразу вихід). Обидві дірки закриває перебудова топ-10 з games-log:
 // лог веде ВСІ звичайні ігри з сесії 33, тож витіснена гра там є.
 // Ідемпотентно (прапор + дедуп за ts); порожні ігри більше не потрапляють у рейтинг — див. endGame.
+// ⚔️ Сесія 61: перші походи записались у день як «гра» (games). Переносимо їх у `quests` і
+// нараховуємо пункти «Плани» за їхні відповіді. Найперший похід (до коміту 430c853) у журнал
+// ігор НЕ писався — тому для днів від запуску походів рахуємо так: походи = ігри дня мінус
+// звичайні ігри з журналу, а їхні відповіді = відповіді дня мінус відповіді тих звичайних ігор.
+// (Ігри пулом «Знаю» в журнал теж не пишуться — у ці 1-2 дні їх не було, похибка прийнятна.)
+(function splitQuestsFromGames() {
+  const FLAG = "oxford_fix_quest_split_v1", SINCE = "2026-10-26";
+  if (localStorage.getItem(FLAG)) return;
+  try {
+    const days = loadDays(), log = loadGamesLog(), byDay = {};
+    log.forEach(g => { const k = tsToDayKey(g.ts); if (k >= SINCE) (byDay[k] = byDay[k] || []).push(g); });
+    Object.keys(days).filter(k => k >= SINCE).forEach(k => {
+      const d = days[k], gs = byDay[k] || [];
+      const normal = gs.filter(g => g.tag !== "quest");
+      const nQuests = Math.max(0, (d.games || 0) - normal.length);
+      if (!nQuests) return;
+      const ans = g => (g.score || 0) + (g.wrong || 0) + (g.skipped || 0);
+      const qAnswers = Math.max(0, (d.correct || 0) + (d.wrong || 0) + (d.skipped || 0) - normal.reduce((a, g) => a + ans(g), 0));
+      d.games = normal.length;
+      d.quests = (d.quests || 0) + nQuests;
+      d.questPts = (d.questPts || 0) + questPointsFor(qAnswers);
+    });
+    localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
+    localStorage.setItem(FLAG, "1");
+  } catch (e) {}
+})();
 (function refillLeaderboard() {
   const FLAG = "oxford_fix_lb_refill_v1";
   if (localStorage.getItem(FLAG)) return;
@@ -11589,7 +11626,7 @@ const HERO_STATS = [
   { ic: "💪", name: "Сила",           src: "правильних відповідей",         v: d => d.correct,   ms: [100, 500, 1000, 2500, 5000, 10000, 15000, 25000, 40000, 60000] },
   { ic: "🎯", name: "Влучність",      src: "точність · останні 300 слів",   v: d => d.acc,       pct: true },
   { ic: "⚡", name: "Спритність",     src: "відповідей за гру · останні 30", v: d => d.speed,    ms: [6, 8, 10, 12, 14, 16, 18, 20, 22, 25], dec: true },
-  { ic: "🎮", name: "Бойовий досвід", src: "ігор зіграно",                  v: d => d.games,     ms: [10, 50, 100, 250, 500, 1000, 1500, 2500, 4000, 6000] },
+  { ic: "🎮", name: "Бойовий досвід", src: "ігор і походів",                v: d => d.games + d.quests,     ms: [10, 50, 100, 250, 500, 1000, 1500, 2500, 4000, 6000] },
   { ic: "🩹", name: "Загартованість", src: "помилок, з яких ти вчився",     v: d => d.wrong,     ms: [50, 200, 500, 1000, 2000, 3500, 5000, 8000, 12000, 20000] },
   { ic: "🔁", name: "Наполегливість", src: "повторень",                     v: d => d.review,    ms: [100, 500, 1000, 2500, 5000, 10000, 15000, 20000, 25000, 30000] },
   { ic: "🛡️", name: "Витривалість",   src: "днів занять",                   v: d => d.activeDays, ms: [7, 14, 30, 60, 90, 150, 200, 365, 500, 730] },
@@ -11630,7 +11667,7 @@ function heroData() {
     steady: actKeys.length ? actKeys.length / (actKeys.length + missed) * 100 : null,
     xp, xpInfo: getLevelInfo(xp), xpToday: getTodayXpGain(),
     acc: acc ? acc.pct : null, accAll: correct + wrong + skipped ? correct / (correct + wrong + skipped) * 100 : null,
-    speed, correct, wrong, games: sumDayField("games"), review: sumDayField("reviewCorrect"),
+    speed, correct, wrong, games: sumDayField("games"), quests: sumDayField("quests"), review: sumDayField("reviewCorrect"),
     gamesToday: (loadDays()[today] || {}).games || 0,
     duo: worldSum(loadDuoSessions()), gpt: worldSum(loadGptRequests()), lh: Object.keys(loadLhDone()).length,
     songs: worldSum(loadSongSessions()) + countLearnedSongs(), movies: worldSum(loadMovieSessions()),
@@ -11825,6 +11862,18 @@ function questMonsterSvg(L) {
 // currentWordIndex) — похід виставляє їх сам перед кожним питанням. Звичайна гра в цей час
 // не йде (похід стартує лише з меню), тож конфлікту нема.
 const QUEST_DRILL = 3;                   // правильних (не обов'язково поспіль), щоб вивчити слово посеред походу
+// ⚠️ АРЕНА ПЕРЕЖИВАЄ ПОХІД (за запитом): утечені монстри лежать тут (ключі слів), доки їх не
+// доб'ють. Похід обірвався / арену не дограно → наступний похід ПОЧИНАЄТЬСЯ з цієї арени.
+const QUEST_ARENA_KEY = "oxford_quest_arena_v1";
+function loadQArena() { try { const a = JSON.parse(localStorage.getItem(QUEST_ARENA_KEY)); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function saveQArena(a) { try { localStorage.setItem(QUEST_ARENA_KEY, JSON.stringify(a)); } catch (e) {} }
+function qArenaPending() {   // індекси карток, що чекають на арені (ключі, яких уже нема в словнику, — геть)
+  const out = [];
+  loadQArena().forEach(k => { const i = indexOfWordKey(k); if (i >= 0 && !out.includes(i)) out.push(i); });
+  return out;
+}
+function qArenaAdd(idx) { const k = wordKey(WORDS[idx]), a = loadQArena(); if (!a.includes(k)) { a.push(k); saveQArena(a); } }
+function qArenaDel(idx) { const k = wordKey(WORDS[idx]); saveQArena(loadQArena().filter(x => x !== k)); }
 const questOverlay = document.getElementById("quest-overlay");
 const qAnswerEl = document.getElementById("q-answer");
 let Q = null;                            // стан поточного походу (null — похід не йде)
@@ -11900,7 +11949,8 @@ function qHud() {
     '<span class="ok" title="Правильних — монстрів переможено з першої спроби">⚔️ ✓ <b>' + Q.won + '</b></span>' +
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
-    '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>';
+    '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
+    '<span title="Пункти «Плани»: 1 за кожні 8 відповідей до 40-ї, далі кожні 10">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -11949,6 +11999,20 @@ function qFight() {
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
   qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
 }
+// ⚠️ ПУНКТИ «ПЛАНИ» ЗА ПОХІД (за запитом): 1 пункт за кожні 8 відповідей до 40-ї
+// (8 · 16 · 24 · 32 · 40), далі — кожні 10 (50 · 60 · 70…). Відповідь = будь-яка ПЕРЕВІРЕНА
+// відповідь у поході (монстру, у повторенні, на арені). Журнал — поле дня questPts.
+function questPointNeed(k) { return k <= 5 ? 8 * k : 40 + 10 * (k - 5); }   // відповідей до k-го пункту
+function questPointsFor(n) { let k = 0; while (questPointNeed(k + 1) <= n) k++; return k; }
+function qCountAnswer() {
+  Q.answers++;
+  while (questPointNeed(Q.pts + 1) <= Q.answers) {
+    Q.pts++;
+    qDayAdd("questPts");
+    qFloat("🌡️ +1 пункт", "pt", 50);
+  }
+  qHud();
+}
 function qOnAnswer(val, auto) {
   if (!Q) return;
   if (Q.phase === "fight") return qFightAnswer(val, auto);
@@ -11960,8 +12024,9 @@ function qFightAnswer(val, auto) {
   if (auto && !ok) return;                       // друк — лише автозарахування правильного
   const c = Q.cur;
   Q.phase = ok ? "kill" : "hurt";                // поки йде анімація — відповіді не приймаються
+  qCountAnswer();
   bumpSeen();                                    // показ для планувальника — як у звичайній грі
-  if (!Q.counted) { Q.counted = true; qDayAdd("games"); }
+  if (!Q.counted) { Q.counted = true; qDayAdd("quests"); }   // ⚔️ окремий режим — не «гра»
   qSetInput(false);
   if (ok) {
     addXp(1); Q.won++;
@@ -11982,6 +12047,7 @@ function qFightAnswer(val, auto) {
     addDayWrong(c.idx);
     qDayAdd("wrong");
     Q.fled.push(c.idx);
+    qArenaAdd(c.idx);   // чекатиме на арені — навіть якщо похід обірветься
     Q.log.push({ idx: c.idx, ok: false, user: val.trim() });
     qRestart(Q.mon, "strike-back", 460);
     qHero("hurt face-" + Q.side);
@@ -12032,6 +12098,7 @@ function qDrillAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
   if (auto && !ok) return;
   const d = Q.drill;
+  qCountAnswer();
   if (ok) {
     d.n++;
     qSfx("hit");
@@ -12095,7 +12162,7 @@ function questStop() {
   qHero("");
   if (Q.mon && Q.phase === "fight") Q.mon.remove();   // недобитий монстр без відповіді — просто зникає
   qSetInput(false);
-  const fled = [...new Set(Q.fled)];
+  const fled = qArenaPending();   // і з цього походу, і недобиті з попередніх
   Q.arenaPool = fled;
   qEl("q-card").innerHTML =
     '<div class="qc-title">🏁 Привал</div>' +
@@ -12107,7 +12174,8 @@ function questStop() {
   qEl("q-card").classList.remove("hidden");
   qHint("");
 }
-function qArenaStart() {
+function qArenaStart(pre) {
+  Q.pre = !!pre;
   Q.stage = "arena"; Q.phase = "arena";
   questOverlay.classList.remove("q-noinput");
   qEl("q-card").classList.add("hidden");
@@ -12135,7 +12203,10 @@ function qArenaLayout() {
 }
 function qArenaNext() {
   const A = Q.arena;
-  if (!A.left.size) { setTimeout(questFinal, 900); return; }
+  if (!A.left.size) {
+    if (Q.pre) { Q.timer = setTimeout(qRoadAfterArena, 1100); return; }   // передарену добито — у дорогу
+    setTimeout(questFinal, 900); return;
+  }
   const ids = [...A.left], need = x => REVIEW_REQUIRED_CORRECT - (A.cnt[x] || 0);
   const cand = ids.length > 1 ? ids.filter(x => x !== A.last) : ids;
   const top = Math.max(...cand.map(need)), from = cand.filter(x => need(x) === top);
@@ -12149,13 +12220,14 @@ function qArenaNext() {
   const pips = Array.from({ length: REVIEW_REQUIRED_CORRECT }, (_, i) => '<i class="' + (i < (A.cnt[idx] || 0) ? "on" : "") + '"></i>').join("");
   el.querySelector(".qm-word").innerHTML = esc(Q.cur.shown) + '<span class="qm-hp">' + pips + '</span>';
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
-  qHint("🏟️ Арена · лишилось " + A.left.size + " · " + (MODE_HINTS[dir] || "") + " · Esc — завершити");
+  qHint((Q.pre ? "🏟️ Спершу добий монстрів із минулого походу" : "🏟️ Арена") + " · лишилось " + A.left.size + " · " + (MODE_HINTS[dir] || "") + " · Esc — завершити");
 }
 function qArenaAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
   if (auto && !ok) return;
   const A = Q.arena, idx = Q.cur.idx, el = A.els[idx];
   qSetInput(false);
+  qCountAnswer();
   if (ok) {
     A.cnt[idx] = (A.cnt[idx] || 0) + 1;
     qHero("strike face-right arena");
@@ -12166,6 +12238,7 @@ function qArenaAnswer(val, auto) {
       addXp(2); Q.arenaWon++;
       recordReviewStats(1);
       A.left.delete(idx);
+      qArenaDel(idx);
       setTimeout(() => { el.classList.add("dead"); qSfx("kill"); qFloat("+2 XP", "xp", 62); }, 220);
       setTimeout(() => { el.remove(); delete A.els[idx]; qArenaLayout(); }, 1400);
       qHud();
@@ -12180,6 +12253,16 @@ function qArenaAnswer(val, auto) {
     el.querySelector(".qm-word").innerHTML = '✗ <b>' + esc(getCorrectAnswer()) + '</b>';
     Q.timer = setTimeout(() => { el.classList.remove("strike-back"); qArenaNext(); }, 1900);
   }
+}
+function qRoadAfterArena() {
+  if (!Q || Q.stage !== "arena") return;
+  Q.pre = false; Q.arena = null;
+  Q.stage = "road";
+  qEl("q-scene").classList.remove("arena");
+  qEl("q-actors").querySelectorAll(".q-mon").forEach(x => x.remove());
+  qEl("q-skip").textContent = "💨 Втекти";
+  qFloat("🛣️ Дорога вільна!", "pt", 50);
+  qWalk();
 }
 function questFinal() {
   if (!Q) return;
@@ -12200,12 +12283,13 @@ function questFinal() {
   const lg = loadLastGameTrans(), newK = lg && lg.k ? lg.k.length : 0;
   const mins = Math.max(1, Math.round((Date.now() - Q.t0) / 60000));
   const fled = [...new Set(Q.fled)];
-  const left = Q.arena ? Q.arena.left.size : fled.length;
+  const left = qArenaPending().length;   // недобиті чекатимуть на початку наступного походу
   qEl("q-card").innerHTML =
     '<div class="qc-title">🏆 Похід завершено</div>' +
     '<div class="qc-stats">' +
       '<div><b class="ok">' + Q.won + '</b>правильних</div><div><b class="bad">' + Q.fled.length + '</b>неправильних</div>' +
-      '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' лишилось)' : '') + '</div>' +
+      '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' чекають на наступний похід)' : '') + '</div>' +
+      '<div><b>' + Q.pts + '</b>пунктів «Плани»</div>' +
       '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + mins + '</b>хв</div></div>' +
     (fled.length ? '<div class="qc-sub">Втік від: ' + fled.slice(0, 20).map(i => '<span class="w-chip">' + esc(getEn(WORDS[i])[0]) + ' — ' + esc(getUa(WORDS[i])[0]) + '</span>').join("") + '</div>' : '') +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
@@ -12220,7 +12304,7 @@ function questStart() {
   const scale = Math.max(1, Math.min(1.6, (window.innerHeight - 190) / 520));
   Q = { pool, queue: buildSchedQueue(pool), qpos: 0, recent: [], dir: trainDir, auto: trainAuto, flip: false,
         scale, gap: Math.round(85 * scale + 18),
-        stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false,
+        stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp() };
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
@@ -12235,7 +12319,10 @@ function questStart() {
   qHud();
   Q.raf = requestAnimationFrame(qLoop);
   sfxStart();
-  qWalk();
+  // недобиті з минулих походів — першим ділом, за правилами арени
+  const pending = qArenaPending();
+  if (pending.length) { Q.arenaPool = pending; qArenaStart(true); }
+  else qWalk();
 }
 function questClose(again) {
   if (!Q) return;
@@ -12256,7 +12343,7 @@ function questClose(again) {
 function qEnter() {
   if (!Q) return;
   if (Q.phase === "study") { qDrillStart(); return; }
-  if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart() : questFinal(); return; }
+  if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart(false) : questFinal(); return; }
   if (Q.stage === "final") { questClose(false); return; }
   if (!qAnswerEl.disabled) qOnAnswer(qAnswerEl.value, false);
 }
@@ -12271,7 +12358,7 @@ questOverlay.addEventListener("click", e => {
   if (a === "say") speak(Q.say);
   else if (a === "sayex" && Q.sayEx) speak(Q.sayEx);
   else if (a === "ready") qDrillStart();
-  else if (a === "arena") qArenaStart();
+  else if (a === "arena") qArenaStart(false);
   else if (a === "final") questFinal();
   else if (a === "home") questClose(false);
   else if (a === "again") questClose(true);
