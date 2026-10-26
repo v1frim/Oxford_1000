@@ -1613,6 +1613,131 @@
   .rec-label { font-size: 14px; font-weight: 700; }
   .rec-date { font-size: 11px; opacity: 0.55; margin-top: 2px; }
   .rec-val { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--rc); text-shadow: 0 0 14px color-mix(in srgb, var(--rc) 45%, transparent); }
+  /* — ⚔️ Похід героя (сесія 61): повноекранна сцена, паралакс крутить JS (qLoop) — */
+  #quest-overlay { position: fixed; inset: 0; z-index: 220; display: flex; flex-direction: column; background: #0b1020; color: #fff; }
+  #quest-overlay.hidden { display: none; }
+  #quest-overlay.q-noinput .q-inrow { visibility: hidden; }
+  .q-hud { display: flex; align-items: center; gap: 14px; padding: 10px 18px; background: rgba(8,12,26,.92); border-bottom: 1px solid rgba(255,209,102,.25); }
+  .q-title { font-size: 17px; font-weight: 800; color: #ffd166; white-space: nowrap; }
+  .q-title small { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.6); margin-left: 8px; }
+  .q-hud-stats { display: flex; gap: 14px; margin-left: auto; font-size: 14px; }
+  .q-hud-stats b { font-size: 16px; }
+  .q-hud-stats .ok { color: #7be07b; font-weight: 700; } .q-hud-stats .bad { color: #ff8a8a; font-weight: 700; }
+  .q-stop { background: rgba(255,107,107,.16); border: 1px solid rgba(255,107,107,.5); color: #ffb3b3; border-radius: 10px; padding: 7px 14px; font-weight: 800; cursor: pointer; font-family: inherit; }
+  .q-stop small { opacity: .6; font-weight: 600; }
+  .q-scene { position: relative; flex: 1 1 auto; overflow: hidden; background: linear-gradient(180deg, #5aa7e6 0%, #9fd2f5 55%, #cdeaf9 100%); }
+  .q-layer { position: absolute; left: 0; right: 0; background-repeat: repeat-x; }
+  .q-far { bottom: 120px; height: 260px; opacity: .9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='260'%3E%3Cpath d='M0 260 L0 150 L90 80 L170 140 L250 50 L360 150 L450 95 L540 165 L640 70 L720 140 L800 150 L800 260Z' fill='%2389a9d1'/%3E%3Cpath d='M250 50 L282 80 L263 76 L250 90 L237 76 L218 80Z M640 70 L670 98 L652 94 L640 106 L628 94 L610 98Z M90 80 L112 100 L98 98 L90 106 L82 98 L68 100Z' fill='white' opacity='.85'/%3E%3C/svg%3E"); }
+  .q-near { bottom: 84px; height: 200px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200'%3E%3Cpath d='M0 200 L0 120 Q75 72 150 108 Q225 146 300 100 Q375 62 450 104 Q525 140 600 120 L600 200Z' fill='%2365a85a'/%3E%3Cg fill='%236b4a2b'%3E%3Crect x='76' y='96' width='6' height='22'/%3E%3Crect x='326' y='78' width='6' height='24'/%3E%3Crect x='486' y='96' width='6' height='22'/%3E%3C/g%3E%3Cg fill='%23387a3c'%3E%3Ccircle cx='79' cy='86' r='16'/%3E%3Ccircle cx='70' cy='96' r='11'/%3E%3Ccircle cx='89' cy='95' r='11'/%3E%3Ccircle cx='329' cy='68' r='18'/%3E%3Ccircle cx='318' cy='79' r='12'/%3E%3Ccircle cx='341' cy='79' r='12'/%3E%3Ccircle cx='489' cy='86' r='15'/%3E%3Ccircle cx='480' cy='96' r='10'/%3E%3C/g%3E%3C/svg%3E"); }
+  .q-ground { bottom: 0; height: 96px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='96'%3E%3Crect width='200' height='96' fill='%23b38c5c'/%3E%3Crect width='200' height='16' fill='%2358a24a'/%3E%3Cpath d='M0 16 q10 7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0' fill='%2358a24a'/%3E%3Cellipse cx='40' cy='52' rx='9' ry='3' fill='%23977149'/%3E%3Cellipse cx='150' cy='74' rx='12' ry='3.5' fill='%23977149'/%3E%3Ccircle cx='100' cy='40' r='3' fill='%23d1b07f'/%3E%3Ccircle cx='178' cy='46' r='2.4' fill='%23d1b07f'/%3E%3C/svg%3E"); }
+  .q-actors { position: absolute; inset: 0; }
+  .q-hero { position: absolute; left: 50%; bottom: 70px; width: 170px; transform: translateX(-50%); transition: left .6s ease; z-index: 30; }
+  .q-hero > svg { width: 100%; height: auto; display: block; transform-origin: 50% 100%; }
+  .q-scene.arena .q-hero { left: 26%; }
+  .q-hero.walking > svg { animation: qBob .42s ease-in-out infinite alternate; }
+  .q-hero.fighting.face-right > svg { animation: qLungeR .8s ease-in-out infinite; }
+  .q-hero.fighting.face-left > svg  { animation: qLungeL .8s ease-in-out infinite; }
+  .q-hero.strike.face-right > svg { animation: qStrikeR .42s ease-out; }
+  .q-hero.strike.face-left > svg  { animation: qStrikeL .42s ease-out; }
+  .q-hero.hurt > svg { animation: qHurt .45s ease-out; }
+  .q-hero.fleeing.face-left > svg  { animation: qRunL .22s ease-in-out infinite alternate; }
+  .q-hero.fleeing.face-right > svg { animation: qRunR .22s ease-in-out infinite alternate; }
+  @keyframes qBob { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+  @keyframes qLungeR { 0%,100% { transform: translateX(0); } 50% { transform: translateX(12px) rotate(3deg); } }
+  @keyframes qLungeL { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-12px) rotate(-3deg); } }
+  @keyframes qStrikeR { 40% { transform: translateX(46px) rotate(8deg); } 100% { transform: translateX(0); } }
+  @keyframes qStrikeL { 40% { transform: translateX(-46px) rotate(-8deg); } 100% { transform: translateX(0); } }
+  @keyframes qHurt { 0%,100% { transform: translateX(0); filter: none; } 25% { transform: translateX(-8px); filter: drop-shadow(0 0 10px #ff3b3b); } 60% { transform: translateX(7px); } }
+  @keyframes qRunL { from { transform: rotate(-8deg) translateY(0); } to { transform: rotate(-8deg) translateY(-8px); } }
+  @keyframes qRunR { from { transform: rotate(8deg) translateY(0); } to { transform: rotate(8deg) translateY(-8px); } }
+  .q-mon { position: absolute; bottom: 72px; z-index: 20; transition: transform .65s cubic-bezier(.2,.8,.3,1), left .5s ease, opacity .3s; }
+  .q-mon .qm-svg { width: 100%; height: auto; display: block; --fx: 1; transform: scaleX(var(--fx)); transform-origin: 50% 95%; }
+  .q-mon.side-right { left: calc(50% + 105px); transform: translateX(65vw); }
+  .q-mon.side-left  { right: calc(50% + 105px); transform: translateX(-65vw); }
+  .q-mon.side-left .qm-svg { --fx: -1; }
+  .q-mon.in { transform: translateX(0); }
+  .q-mon.lined { bottom: 74px; transform: translateX(-50%) translateX(65vw); }
+  .q-mon.lined.in { transform: translateX(-50%); }
+  .q-mon.side-right.behind { transform: translateX(75vw); transition: transform 1.3s ease-in; }
+  .q-mon.side-left.behind  { transform: translateX(-75vw); transition: transform 1.3s ease-in; }
+  .q-mon.fighting .qm-svg { animation: qMonFight .8s ease-in-out infinite; animation-delay: .4s; }
+  .q-mon.strike-back .qm-svg { animation: qMonStrike .45s ease-out; }
+  .q-mon.hit .qm-svg { animation: qMonHit .35s ease-out; }
+  .q-mon.dead .qm-svg { animation: qMonFall 1s ease-in forwards; }
+  .q-mon.dead .qm-word { opacity: 0; }
+  @keyframes qMonFight { 0%,100% { transform: scaleX(var(--fx)) translateX(0); } 50% { transform: scaleX(var(--fx)) translateX(-10px) rotate(-3deg); } }
+  @keyframes qMonStrike { 40% { transform: scaleX(var(--fx)) translateX(-40px) rotate(-8deg); } 100% { transform: scaleX(var(--fx)); } }
+  @keyframes qMonHit { 30% { transform: scaleX(var(--fx)) translateX(14px); filter: brightness(2.2); } 100% { transform: scaleX(var(--fx)); } }
+  @keyframes qMonFall { 0% { transform: scaleX(var(--fx)); filter: brightness(2.4); }
+    25% { transform: scaleX(var(--fx)) translateX(12px) rotate(10deg); filter: brightness(1); }
+    70% { transform: scaleX(var(--fx)) translateX(26px) rotate(88deg) translateY(4px); opacity: 1; }
+    100% { transform: scaleX(var(--fx)) translateX(30px) rotate(90deg) translateY(10px); opacity: 0; } }
+  .qm-word {
+    position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap;
+    background: rgba(10,14,30,.88); border: 2px solid #ffd166; color: #fff; border-radius: 14px; padding: 6px 16px;
+    font-size: 24px; font-weight: 800; box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: opacity .2s;
+  }
+  .qm-word:empty { display: none; }
+  .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+  .qm-hp i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4); }
+  .qm-hp i.on { background: #ffd166; border-color: #ffd166; }
+  .q-mon.lined:not(.target) { opacity: .8; }
+  .q-mon.lined:not(.target) .qm-word { opacity: 0; }
+  .q-mon.target .qm-svg { filter: drop-shadow(0 0 10px rgba(255,209,102,.8)); }
+  .qm-fly { animation: qFly 1.6s ease-in-out infinite alternate; }
+  @keyframes qFly { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+  .qm-wing { transform-origin: 80px 80px; animation: qWing .35s ease-in-out infinite alternate; }
+  @keyframes qWing { from { transform: scaleY(1); } to { transform: scaleY(.7); } }
+  .q-float { position: absolute; bottom: 300px; transform: translateX(-50%); font-size: 22px; font-weight: 800; pointer-events: none; animation: qFloatUp 1.2s ease-out forwards; z-index: 60; }
+  .q-float.xp { color: #06d6a0; text-shadow: 0 2px 6px rgba(0,0,0,.5); }
+  .q-float.dust { font-size: 40px; bottom: 90px; }
+  @keyframes qFloatUp { from { opacity: 0; transform: translate(-50%, 10px); } 20% { opacity: 1; } to { opacity: 0; transform: translate(-50%, -50px); } }
+  .q-card {
+    position: absolute; left: 50%; top: 5%; transform: translateX(-50%); width: min(640px, 92%); z-index: 80;
+    background: linear-gradient(165deg, rgba(15,19,40,.97), rgba(9,12,26,.97)); border: 1px solid rgba(255,209,102,.4);
+    border-radius: 18px; padding: 18px 22px; box-shadow: 0 18px 50px rgba(0,0,0,.5); text-align: center;
+  }
+  .q-card.hidden { display: none; }
+  .qc-title { font-size: 17px; font-weight: 800; color: #ffd166; margin-bottom: 10px; }
+  .qc-word { font-size: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .qc-word b { color: #7be07b; }
+  .qc-shown { opacity: .85; }
+  .qc-your { font-size: 13px; opacity: .6; margin-top: 4px; }
+  .qc-your s { color: #ff8a8a; }
+  .qc-ex { font-size: 16px; margin-top: 12px; font-style: italic; }
+  .qc-exua { font-size: 14px; margin-top: 4px; opacity: .65; font-style: italic; }
+  .qc-hint { font-size: 13px; opacity: .6; }
+  .qc-prompt { font-size: 34px; font-weight: 800; margin: 6px 0; }
+  .qc-msg { min-height: 20px; font-size: 15px; color: #ff9d9d; }
+  .qc-msg b { color: #7be07b; }
+  .qc-dots { display: inline-flex; gap: 5px; vertical-align: middle; }
+  .qc-dots i { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4); }
+  .qc-dots i.on { background: #7be07b; border-color: #7be07b; }
+  .qc-sub { font-size: 13px; opacity: .8; margin: 10px 0 4px; line-height: 1.9; }
+  .qc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 6px 0; }
+  .qc-stats > div { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 8px; font-size: 12px; opacity: .9; }
+  .qc-stats b { display: block; font-size: 26px; }
+  .qc-stats .ok { color: #7be07b; } .qc-stats .bad { color: #ff8a8a; } .qc-stats .xp { color: #06d6a0; }
+  .qc-go { margin-top: 14px; background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206; border: 1px solid #ffd166; border-radius: 12px; padding: 10px 20px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit; }
+  .qc-go small { opacity: .6; font-weight: 600; margin-left: 6px; }
+  .qc-go.alt { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.25); }
+  .qc-btns { display: flex; gap: 10px; justify-content: center; }
+  .q-bottom { padding: 12px 18px 16px; background: rgba(8,12,26,.95); border-top: 1px solid rgba(255,209,102,.2); }
+  .q-hint { text-align: center; font-size: 13px; opacity: .6; min-height: 18px; margin-bottom: 8px; }
+  .q-inrow { display: flex; gap: 10px; justify-content: center; }
+  #q-answer { width: min(460px, 70vw); font-size: 22px; padding: 12px 16px; border-radius: 14px; text-align: center; font-family: inherit;
+    background: rgba(255,255,255,.07); color: #fff; border: 2px solid rgba(255,209,102,.6); outline: none; }
+  #q-answer:disabled { opacity: .45; border-color: rgba(255,255,255,.2); }
+  #q-answer.wrong { border-color: #ff6b6b; }
+  .q-skip { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; padding: 0 16px; cursor: pointer; font-family: inherit; font-weight: 700; }
+  /* кнопка в меню */
+  #quest-btn { width: 100%; margin-top: 8px; padding: 10px 14px; border-radius: 14px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 800; color: #fff;
+    background: linear-gradient(180deg, rgba(192,57,43,.55), rgba(124,29,15,.55)); border: 1px solid rgba(255,120,90,.55); box-shadow: 0 4px 16px rgba(192,57,43,.25); }
+  #quest-btn:hover { background: linear-gradient(180deg, rgba(220,70,50,.7), rgba(140,35,20,.7)); }
+  #quest-btn small { display: block; font-size: 11.5px; font-weight: 600; opacity: .75; margin-top: 2px; }
   /* — 🧙 Герой (сесія 61): екран героя — клік по смужці рівня — */
   /* z-index 210 — ВИЩЕ за «Загальну статистику» й ліві кнопки (200): на 1366px вони наїжджали на панель */
   #hero-overlay {
@@ -1767,6 +1892,7 @@
       </div>
     </div>
     <button id="start-btn">▶ Тренування · 60 сек<span id="start-sub"></span></button>
+    <button id="quest-btn" title="Без таймера: монстри зі словами, доки сам не зупиниш">⚔️ Похід героя<small>без таймера · переможи монстрів словами</small></button>
     <div id="due-banner" class="hidden" title="План показів для обраного набору: скільки слів чекає повторення сьогодні, скільки з них — ревізії вже вивчених, і скільки слів зараз у роботі (Вивчаю)"></div>
     <div class="panel-lab">Щодня</div>
     <div id="daily-row">
@@ -1962,6 +2088,22 @@
   <div class="songs-panel hero-panel">
     <div class="songs-head" id="hero-head"></div>
     <div class="songs-body" id="hero-body"></div>
+  </div>
+</div>
+<div id="quest-overlay" class="hidden">
+  <div class="q-hud">
+    <div class="q-title">⚔️ Похід героя<small id="q-set"></small></div>
+    <div id="q-hud-stats" class="q-hud-stats"></div>
+    <button class="q-stop" data-q="stop">🏁 Стоп <small>Esc</small></button>
+  </div>
+  <div id="q-scene" class="q-scene">
+    <div id="q-far" class="q-layer q-far"></div><div id="q-near" class="q-layer q-near"></div><div id="q-ground" class="q-layer q-ground"></div>
+    <div id="q-actors" class="q-actors"><div id="q-hero" class="q-hero"></div></div>
+    <div id="q-card" class="q-card hidden"></div>
+  </div>
+  <div class="q-bottom">
+    <div id="q-hint" class="q-hint"></div>
+    <div class="q-inrow"><input id="q-answer" type="text" autocomplete="off" autocorrect="off" spellcheck="false" disabled><button id="q-skip" class="q-skip" data-q="skip" title="Порожній Enter — те саме">💨 Втекти</button></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -11582,6 +11724,533 @@ document.addEventListener("keydown", e => {
   e.stopPropagation();
   if (e.key === "Escape") { e.preventDefault(); closeHero(); }
   else if (e.key === "Enter" || e.key === " " || e.key === "Tab") e.preventDefault();
+}, true);
+
+// ── 👾 Монстри походу (SVG, дивляться ВЛІВО — на героя; з лівого боку їх віддзеркалює CSS) ──
+// Вид монстра = рівень CEFR слова: чим складніше слово, тим грізніший і більший ворог.
+const QUEST_MONSTERS = {
+  A1:   { name: "Слиз",   size: 120 },
+  A2:   { name: "Кажан",  size: 124 },
+  B1:   { name: "Вовк",   size: 156 },
+  B2:   { name: "Гоблін", size: 164 },
+  C1:   { name: "Голем",  size: 184 },
+  C2:   { name: "Дракон", size: 210 },
+  none: { name: "Привид", size: 132 }
+};
+function questMonsterSvg(L) {
+  const u = "q" + Math.random().toString(36).slice(2, 7), gr = (id, a, b) => '<linearGradient id="' + id + u + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + a + '"/><stop offset="1" stop-color="' + b + '"/></linearGradient>';
+  const eye = (x, y, r, c) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + (c || "#fff") + '"/><circle cx="' + (x - r * .35) + '" cy="' + y + '" r="' + (r * .5) + '" fill="#1b1b22"/><circle cx="' + (x - r * .5) + '" cy="' + (y - r * .25) + '" r="' + (r * .18) + '" fill="#fff"/>';
+  let s = '<ellipse cx="80" cy="152" rx="50" ry="6" fill="rgba(0,0,0,.28)"/>';
+  if (L === "A1") s += '<defs>' + gr("g", "#9be86a", "#3f9e3a") + '</defs>' +
+    '<path d="M22 148 Q20 84 78 68 Q84 52 92 60 Q88 66 96 70 Q140 86 138 148 Q80 156 22 148 Z" fill="url(#g' + u + ')" stroke="#2f7a2c" stroke-width="2"/>' +
+    '<ellipse cx="58" cy="94" rx="14" ry="8" fill="#fff" opacity=".35"/>' + eye(62, 112, 10) + eye(94, 112, 10) +
+    '<path d="M66 132 Q76 140 88 132" fill="none" stroke="#1f5a1d" stroke-width="3" stroke-linecap="round"/>';
+  if (L === "A2") s += '<g class="qm-fly"><g class="qm-wing"><path d="M62 74 Q22 40 4 76 Q22 72 26 90 Q38 78 46 94 Q52 82 62 90 Z" fill="#5b2a86" stroke="#3b1760" stroke-width="2"/>' +
+    '<path d="M98 74 Q138 40 156 76 Q138 72 134 90 Q122 78 114 94 Q108 82 98 90 Z" fill="#5b2a86" stroke="#3b1760" stroke-width="2"/></g>' +
+    '<path d="M62 56 L58 34 L72 50 Z M98 56 L102 34 L88 50 Z" fill="#6d35a0"/><circle cx="80" cy="78" r="26" fill="#7a3fb0" stroke="#3b1760" stroke-width="2"/>' +
+    '<ellipse cx="80" cy="86" rx="15" ry="12" fill="#9b6ad0"/>' + eye(70, 72, 7, "#ffe066") + eye(92, 72, 7, "#ffe066") +
+    '<path d="M70 92 l4 8 l4 -8 M84 92 l4 8 l4 -8" fill="#fff"/></g>';
+  if (L === "B1") s += '<defs>' + gr("g", "#a7adb8", "#5f6673") + '</defs>' +
+    '<path d="M126 100 Q150 84 150 60 Q160 84 140 108 Z" fill="#7d8491"/>' +
+    '<rect x="64" y="118" width="11" height="30" rx="4" fill="#5f6673"/><rect x="112" y="118" width="11" height="30" rx="4" fill="#5f6673"/>' +
+    '<ellipse cx="96" cy="106" rx="42" ry="24" fill="url(#g' + u + ')" stroke="#4a505c" stroke-width="2"/>' +
+    '<rect x="78" y="120" width="11" height="28" rx="4" fill="#737a87"/><rect x="124" y="120" width="11" height="28" rx="4" fill="#737a87"/>' +
+    '<path d="M36 56 L44 80 L58 64 Z M56 52 L58 78 L70 66 Z" fill="#6c7380" stroke="#4a505c" stroke-width="1.5"/>' +
+    '<circle cx="54" cy="84" r="22" fill="url(#g' + u + ')" stroke="#4a505c" stroke-width="2"/>' +
+    '<path d="M40 86 Q18 88 12 98 Q24 106 44 102 Z" fill="#9aa1ad" stroke="#4a505c" stroke-width="2"/><circle cx="13" cy="96" r="4" fill="#1b1b22"/>' +
+    '<path d="M20 102 l3 6 l3 -6 M30 103 l3 6 l3 -6" fill="#fff"/>' +
+    '<path d="M42 78 Q48 74 54 78 Q48 82 42 78 Z" fill="#ffd23f"/><circle cx="47" cy="78" r="1.8" fill="#1b1b22"/>' +
+    '<ellipse cx="62" cy="96" rx="10" ry="7" fill="#c7ccd4" opacity=".6"/>';
+  if (L === "B2") s += '<defs>' + gr("g", "#8fd16a", "#4c8f3a") + '</defs>' +
+    '<rect x="66" y="118" width="12" height="30" rx="4" fill="#5a4030"/><rect x="88" y="118" width="12" height="30" rx="4" fill="#5a4030"/>' +
+    '<path d="M60 88 Q84 80 108 88 L112 126 Q84 134 56 126 Z" fill="#8a5a33" stroke="#5a3a1e" stroke-width="2"/><rect x="58" y="114" width="52" height="7" fill="#3a2a1a"/>' +
+    '<path d="M108 96 L124 116" stroke="url(#g' + u + ')" stroke-width="11" stroke-linecap="round"/>' +
+    '<path d="M60 96 L42 108" stroke="url(#g' + u + ')" stroke-width="11" stroke-linecap="round"/>' +
+    '<g transform="rotate(-30 38 108)"><rect x="33" y="62" width="11" height="50" rx="5" fill="#7a4a24" stroke="#4a2c14"/>' +
+    '<circle cx="38" cy="64" r="10" fill="#8b5a2b" stroke="#4a2c14"/><path d="M28 60 l-5 -3 M48 60 l5 -3 M38 54 v-6" stroke="#cfcfcf" stroke-width="2.5"/></g>' +
+    '<path d="M54 56 L22 46 L52 70 Z M114 56 L140 44 L116 70 Z" fill="url(#g' + u + ')" stroke="#3b6e2c" stroke-width="2"/>' +
+    '<circle cx="84" cy="62" r="28" fill="url(#g' + u + ')" stroke="#3b6e2c" stroke-width="2"/>' +
+    '<path d="M66 54 l12 4 M102 54 l-12 4" stroke="#2c4d20" stroke-width="3" stroke-linecap="round"/>' + eye(72, 62, 6, "#ffe066") + eye(96, 62, 6, "#ffe066") +
+    '<path d="M68 76 Q84 88 100 76 Z" fill="#3a1a12"/><path d="M72 77 l3 5 l3 -4 M88 78 l3 5 l3 -5" fill="#fff"/><ellipse cx="80" cy="70" rx="5" ry="3.5" fill="#3b6e2c"/>';
+  if (L === "C1") s += '<defs>' + gr("g", "#a3a8b3", "#5e636e") + '</defs>' +
+    '<rect x="54" y="122" width="22" height="28" rx="6" fill="#6b707b"/><rect x="88" y="122" width="22" height="28" rx="6" fill="#6b707b"/>' +
+    '<rect x="44" y="66" width="76" height="66" rx="16" fill="url(#g' + u + ')" stroke="#474b55" stroke-width="2.5"/>' +
+    '<path d="M60 80 l10 14 l-6 10 M100 90 l-8 12 l8 10" stroke="#474b55" stroke-width="2" fill="none"/><ellipse cx="96" cy="74" rx="12" ry="5" fill="#5f9e4a"/>' +
+    '<circle cx="34" cy="98" r="17" fill="url(#g' + u + ')" stroke="#474b55" stroke-width="2.5"/><circle cx="130" cy="98" r="17" fill="url(#g' + u + ')" stroke="#474b55" stroke-width="2.5"/>' +
+    '<circle cx="28" cy="122" r="13" fill="#7a7f8a" stroke="#474b55" stroke-width="2"/><circle cx="136" cy="122" r="13" fill="#7a7f8a" stroke="#474b55" stroke-width="2"/>' +
+    '<rect x="58" y="30" width="48" height="40" rx="10" fill="url(#g' + u + ')" stroke="#474b55" stroke-width="2.5"/>' +
+    '<rect x="64" y="44" width="12" height="7" rx="2" fill="#5ef0ff"/><rect x="88" y="44" width="12" height="7" rx="2" fill="#5ef0ff"/>' +
+    '<rect x="64" y="44" width="12" height="7" rx="2" fill="#5ef0ff" opacity=".5" class="qm-glow"/><rect x="72" y="58" width="20" height="4" rx="2" fill="#3a3d45"/>';
+  if (L === "C2") s += '<defs>' + gr("g", "#ff7a59", "#b3261e") + gr("w", "#c2410c", "#7c1d0f") + '</defs>' +
+    '<g class="qm-wing"><path d="M96 84 Q110 20 154 16 Q140 34 150 44 Q132 46 140 60 Q120 60 124 76 Z" fill="url(#w' + u + ')" stroke="#5c140a" stroke-width="2"/></g>' +
+    '<path d="M126 116 Q156 112 156 136 Q150 124 140 126 L150 138 L132 134 Z" fill="url(#g' + u + ')" stroke="#7c1d0f" stroke-width="2"/>' +
+    '<rect x="78" y="120" width="13" height="28" rx="5" fill="#a32a1c"/><rect x="112" y="120" width="13" height="28" rx="5" fill="#a32a1c"/>' +
+    '<ellipse cx="100" cy="110" rx="40" ry="26" fill="url(#g' + u + ')" stroke="#7c1d0f" stroke-width="2"/><ellipse cx="94" cy="120" rx="24" ry="12" fill="#ffd27a"/>' +
+    '<path d="M72 100 Q56 80 52 60" stroke="url(#g' + u + ')" stroke-width="20" stroke-linecap="round" fill="none"/>' +
+    '<path d="M40 40 L36 22 L48 36 Z M58 38 L62 20 L66 38 Z" fill="#f5e6c8" stroke="#a08a5a"/>' +
+    '<path d="M64 50 Q60 34 44 36 Q20 40 14 56 Q22 66 46 64 Q62 64 64 50 Z" fill="url(#g' + u + ')" stroke="#7c1d0f" stroke-width="2"/>' +
+    '<circle cx="22" cy="52" r="2.4" fill="#4a0d06"/><path d="M18 60 l3 5 l3 -5 M28 61 l3 5 l3 -5" fill="#fff"/>' +
+    '<path d="M42 44 Q48 40 54 44 Q48 48 42 44 Z" fill="#ffe066"/><path d="M47 41 v6" stroke="#1b1b22" stroke-width="1.6"/>' +
+    '<path d="M70 92 l6 -8 l4 9 l6 -8 l4 9" fill="none" stroke="#7c1d0f" stroke-width="2"/>';
+  if (L === "none") s += '<g class="qm-fly"><path d="M40 140 Q34 68 80 56 Q126 68 120 140 Q112 130 104 142 Q96 130 88 142 Q80 130 72 142 Q64 130 56 142 Q48 130 40 140 Z" fill="#f4f6fb" stroke="#b9c0d4" stroke-width="2" opacity=".92"/>' +
+    '<ellipse cx="66" cy="94" rx="7" ry="10" fill="#22263a"/><ellipse cx="92" cy="94" rx="7" ry="10" fill="#22263a"/><ellipse cx="79" cy="116" rx="7" ry="8" fill="#22263a"/>' +
+    '<ellipse cx="54" cy="104" rx="6" ry="3.5" fill="#f6a5c0" opacity=".6"/></g>';
+  return '<svg class="qm-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">' + s + '</svg>';
+}
+
+// ── ⚔️ ПОХІД ГЕРОЯ (сесія 61, за запитом) ──────────────────────────────────────
+// Ідея користувача: «я персонаж гри… просто йду, і переді мною з'являються монстри, у кожного
+// слово — відповідаю, і цим борюся… вгадав — монстр повалився, йду далі; не вгадав — одразу
+// показує слово з прикладним реченням і перекладом, я його вчу, ставлю „готово" і тричі
+// відповідаю українською й англійською, і тоді втікаю… Гра триває, поки я не зупиню. Після
+// стопу — скільки правильних і неправильних, а потім ті монстри, від яких я втік, стоять у
+// ряд, і я їх по черзі валю — це те саме повторення, що зараз, тільки в кінці пригоди».
+// ⚠️ ЗАРАХУВАННЯ — ЯК У ЗВИЧАЙНІЙ ГРІ: перша відповідь на монстра йде в mastery
+// (updateMastery / masteryTargetIndex / планувальник bumpSeen) і дає +1 XP; день отримує
+// correct/wrong одразу (закриття вкладки посеред походу нічого не губить), а сам похід — одну
+// «гру» в статистиці дня. Вивчення посеред походу (3 правильні) і арена в кінці mastery НЕ
+// чіпають — як повторення після раунду; закритий на арені монстр = +2 XP і +1 «Повторень».
+// ⚠️ У «Найкращі ігри» / журнал ігор похід НЕ пишеться: безстроковий раунд непорівнюваний
+// із 60-секундним.
+// ⚠️ isCorrect / getCorrectAnswer читають ГЛОБАЛИ гри (mode, currentWord, currentShown,
+// currentWordIndex) — похід виставляє їх сам перед кожним питанням. Звичайна гра в цей час
+// не йде (похід стартує лише з меню), тож конфлікту нема.
+const QUEST_DRILL = 3;                   // правильних відповідей, щоб вивчити слово посеред походу
+const questOverlay = document.getElementById("quest-overlay");
+const qAnswerEl = document.getElementById("q-answer");
+let Q = null;                            // стан поточного походу (null — похід не йде)
+function qEl(id) { return document.getElementById(id); }
+function qSfx(kind) {
+  try {
+    if (kind === "hit")  { _beep(330, 0, 0.07, 0.16, "square"); _beep(880, 0.05, 0.12, 0.14); }
+    if (kind === "kill") { _beep(660, 0, 0.1, 0.16); _beep(880, 0.1, 0.1, 0.16); _beep(1175, 0.2, 0.18, 0.16); }
+    if (kind === "hurt") { _beep(180, 0, 0.18, 0.18, "sawtooth"); }
+    if (kind === "flee") { _beep(520, 0, 0.08, 0.1); _beep(390, 0.08, 0.08, 0.1); _beep(260, 0.16, 0.12, 0.1); }
+  } catch (e) {}
+}
+// Напрямок і показ слова: виставляємо глобали гри, щоб працювали isCorrect / getCorrectAnswer
+function qAsk(idx, dir) {
+  mode = dir; currentWordIndex = idx; currentWord = WORDS[idx];
+  const vals = dir === "ua-en" ? getUa(currentWord) : getEn(currentWord);
+  currentShown = vals[Math.floor(Math.random() * vals.length)];
+  return currentShown;
+}
+function qDirFor(idx) {
+  if (Q.auto) { Q.flip = !Q.flip; return Q.flip ? Q.dir : (Q.dir === "ua-en" ? "en-ua" : "ua-en"); }
+  // ⚠️ ДВОБІЧНЕ ЗНАННЯ — те саме правило, що в nextWord: 2 правильні поспіль в одному напрямку → третій показ навпаки
+  const rec = loadMastery()[wordKey(WORDS[idx])], sch = mSched(rec);
+  if (mStreak(rec) === 2 && sch.b === DIR_BIT[Q.dir]) return Q.dir === "en-ua" ? "ua-en" : "en-ua";
+  return Q.dir;
+}
+function qNextIdx() {
+  for (let guard = 0; guard < 200; guard++) {
+    if (Q.qpos >= Q.queue.length) { Q.queue = buildSchedQueue(Q.pool); Q.qpos = 0; if (!Q.queue.length) Q.queue = shuffle([...Q.pool]); }
+    const idx = Q.queue[Q.qpos++];
+    if (!Q.recent.includes(idx) || Q.pool.length <= Q.recent.length + 1) {
+      Q.recent.push(idx); if (Q.recent.length > 12) Q.recent.shift();
+      return idx;
+    }
+  }
+  return Q.queue[0];
+}
+function qDayAdd(field, n) {
+  const days = loadDays(), key = todayKey();
+  if (!days[key]) days[key] = { correct: 0, wrong: 0, skipped: 0, games: 0 };
+  days[key][field] = (days[key][field] || 0) + (n || 1);
+  if (field === "games" || !days[key].wordCount) days[key].wordCount = Math.max(days[key].wordCount || 0, WORDS.length);
+  localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
+}
+// ── сцена: паралакс крутить rAF; швидкість 1 — йдемо, 0 — бій, ±3.2 — тікаємо ──
+function qLoop(ts) {
+  if (!Q) return;
+  const dt = Q.lastTs ? Math.min(50, ts - Q.lastTs) : 16;
+  Q.lastTs = ts;
+  Q.speed += (Q.speedTo - Q.speed) * Math.min(1, dt / 160);
+  Q.off -= Q.speed * dt * 0.09;
+  qEl("q-far").style.backgroundPositionX = (Q.off * 0.25) + "px";
+  qEl("q-near").style.backgroundPositionX = (Q.off * 0.6) + "px";
+  qEl("q-ground").style.backgroundPositionX = Q.off + "px";
+  Q.raf = requestAnimationFrame(qLoop);
+}
+function qHero(cls) {
+  const h = qEl("q-hero");
+  h.className = "q-hero" + (cls ? " " + cls : "");
+}
+function qFloat(text, cls, x) {
+  const f = document.createElement("div");
+  f.className = "q-float " + (cls || "");
+  f.textContent = text;
+  f.style.left = (x == null ? 50 : x) + "%";
+  qEl("q-actors").appendChild(f);
+  setTimeout(() => f.remove(), 1300);
+}
+function qXp() { return Q ? Math.max(0, loadXp() - Q.xp0) : 0; }   // реальний приріст, з бонусами mastery
+function qHud() {
+  if (!Q) return;
+  qEl("q-hud-stats").innerHTML =
+    '<span class="ok" title="Правильних — монстрів переможено з першої спроби">⚔️ ✓ <b>' + Q.won + '</b></span>' +
+    '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
+    (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
+    '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>';
+}
+function qSetInput(on, placeholder) {
+  qAnswerEl.disabled = !on;
+  qAnswerEl.value = "";
+  qAnswerEl.placeholder = placeholder || "";
+  qAnswerEl.classList.remove("wrong");
+  if (on) setTimeout(() => qAnswerEl.focus(), 0);
+}
+function qHint(text) { qEl("q-hint").textContent = text || ""; }
+// ── монстр ──
+function qSpawnMonster(idx, side) {
+  const L = cefrLevelOf(WORDS[idx]), m = QUEST_MONSTERS[L] || QUEST_MONSTERS.none;
+  const w = document.createElement("div");
+  w.className = "q-mon side-" + side + " lv-" + L;
+  w.style.width = Math.round(m.size * Q.scale) + "px";
+  if (side === "right") w.style.left = "calc(50% + " + Q.gap + "px)"; else w.style.right = "calc(50% + " + Q.gap + "px)";
+  w.innerHTML = '<div class="qm-word"></div>' + questMonsterSvg(L);
+  qEl("q-actors").appendChild(w);
+  void w.offsetWidth;
+  w.classList.add("in");
+  return w;
+}
+function qWalk() {
+  if (!Q || Q.stage !== "road") return;
+  Q.phase = "walk"; Q.speedTo = 1;
+  qHero("walking");
+  qSetInput(false, "…йдемо далі");
+  qHint("Герой іде дорогою…");
+  clearTimeout(Q.timer);
+  Q.timer = setTimeout(qFight, 1800 + Math.random() * 1200);
+}
+function qFight() {
+  if (!Q || Q.stage !== "road") return;
+  const idx = qNextIdx(), dir = qDirFor(idx);
+  Q.side = Math.random() < 0.5 ? "left" : "right";
+  Q.cur = { idx, dir, shown: qAsk(idx, dir) };
+  Q.mon = qSpawnMonster(idx, Q.side);
+  Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
+  Q.speedTo = 0;
+  Q.phase = "fight";
+  Q.timer = setTimeout(() => {
+    if (!Q || Q.phase !== "fight") return;
+    qHero("fighting face-" + Q.side);
+    Q.mon.classList.add("fighting");
+  }, 650);
+  qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
+  qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
+}
+function qOnAnswer(val, auto) {
+  if (!Q) return;
+  if (Q.phase === "fight") return qFightAnswer(val, auto);
+  if (Q.phase === "drill") return qDrillAnswer(val, auto);
+  if (Q.phase === "arena") return qArenaAnswer(val, auto);
+}
+function qFightAnswer(val, auto) {
+  const ok = val.trim() !== "" && isCorrect(val);
+  if (auto && !ok) return;                       // друк — лише автозарахування правильного
+  const c = Q.cur;
+  Q.phase = ok ? "kill" : "hurt";                // поки йде анімація — відповіді не приймаються
+  bumpSeen();                                    // показ для планувальника — як у звичайній грі
+  if (!Q.counted) { Q.counted = true; qDayAdd("games"); }
+  qSetInput(false);
+  if (ok) {
+    addXp(1); Q.won++;
+    const t = masteryTargetIndex(val);
+    updateMastery(t, true);
+    if (t !== c.idx) schedTouch(c.idx);
+    qDayAdd("correct");
+    Q.log.push({ idx: c.idx, ok: true });
+    qHero("strike face-" + Q.side);
+    qSfx("hit");
+    const mon = Q.mon;
+    setTimeout(() => { mon.classList.remove("fighting"); mon.classList.add("dead"); qSfx("kill"); qFloat("+1 XP", "xp", Q.side === "left" ? 30 : 70); }, 260);
+    setTimeout(() => mon.remove(), 1500);
+    qHud();
+    Q.timer = setTimeout(qWalk, 900);
+  } else {
+    updateMastery(c.idx, false);
+    addDayWrong(c.idx);
+    qDayAdd("wrong");
+    Q.fled.push(c.idx);
+    Q.log.push({ idx: c.idx, ok: false, user: val.trim() });
+    Q.mon.classList.add("strike-back");
+    qHero("hurt face-" + Q.side);
+    qSfx("hurt");
+    qHud();
+    Q.timer = setTimeout(() => qStudy(val.trim()), 450);
+  }
+}
+// ── вивчення посеред походу: слово + приклад із перекладом → «Готово» → 3 правильні ──
+function qStudy(userVal) {
+  const c = Q.cur;
+  Q.phase = "study";
+  mode = c.dir; currentWord = WORDS[c.idx]; currentShown = c.shown; currentWordIndex = c.idx;
+  const ans = getCorrectAnswer();
+  const en = getEn(currentWord)[0], ua = getUa(currentWord)[0];
+  const ex = lookupExample(EXAMPLES, en, ua), exUa = lookupExample(EXAMPLES_UA, en, ua);
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">💨 Монстр сильніший — вивчи слово, і втечеш</div>' +
+    '<div class="qc-word"><span class="qc-shown">' + esc(c.shown) + '</span> = <b>' + (c.dir === "ua-en" ? wrapEnWord(ans) : esc(ans)) + '</b>' +
+      '<button class="speak-btn" data-q="say" title="Прослухати (Tab)">🔊</button></div>' +
+    (userVal ? '<div class="qc-your">твоя відповідь: <s>' + esc(userVal) + '</s></div>' : '<div class="qc-your">пропущено</div>') +
+    (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
+    (exUa ? '<div class="qc-exua">«' + esc(exUa) + '»</div>' : '') +
+    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>';
+  qEl("q-card").classList.remove("hidden");
+  Q.say = en; Q.sayEx = ex;
+  qSetInput(false);
+  qHint("Прочитай, послухай — і натисни «Готово» (Enter)");
+}
+function qDrillStart() {
+  const c = Q.cur, other = c.dir === "ua-en" ? "en-ua" : "ua-en";
+  Q.drill = { n: 0, plan: [c.dir, other, c.dir] };
+  Q.phase = "drill";
+  qDrillAsk();
+}
+function qDrillAsk() {
+  const c = Q.cur, d = Q.drill, dir = d.plan[d.n % d.plan.length];
+  const shown = qAsk(c.idx, dir);
+  const dots = Array.from({ length: QUEST_DRILL }, (_, i) => '<i class="' + (i < d.n ? "on" : "") + '"></i>').join("");
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">📖 Повтори слово · <span class="qc-dots">' + dots + '</span></div>' +
+    '<div class="qc-hint">' + esc(MODE_HINTS[dir] || "") + '</div>' +
+    '<div class="qc-prompt">' + esc(shown) + '</div><div class="qc-msg" id="qc-msg"></div>';
+  qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
+  qHint("Ще " + (QUEST_DRILL - d.n) + " · Enter — перевірити");
+}
+function qDrillAnswer(val, auto) {
+  const ok = val.trim() !== "" && isCorrect(val);
+  if (auto && !ok) return;
+  const d = Q.drill;
+  if (ok) {
+    d.n++;
+    qSfx("hit");
+    if (d.n >= QUEST_DRILL) { qFlee(); return; }
+    qDrillAsk();
+  } else {
+    // як у повторенні: помилка не обнуляє, просто показуємо правильну відповідь
+    const msg = qEl("qc-msg");
+    if (msg) msg.innerHTML = '✗ правильно: <b>' + esc(getCorrectAnswer()) + '</b>';
+    qAnswerEl.classList.add("wrong");
+    qSetInput(false);
+    qSfx("hurt");
+    Q.timer = setTimeout(() => { if (Q && Q.phase === "drill") qDrillAsk(); }, 1700);
+  }
+}
+function qFlee() {
+  Q.phase = "flee";
+  qEl("q-card").classList.add("hidden");
+  qSetInput(false);
+  qHint("💨 Втікаємо!");
+  qSfx("flee");
+  const mon = Q.mon;
+  mon.classList.remove("fighting", "strike-back");
+  qHero("fleeing face-" + (Q.side === "left" ? "right" : "left"));
+  Q.speedTo = Q.side === "right" ? -3.2 : 3.2;   // біжимо ВІД монстра
+  mon.classList.add("behind");
+  qFloat("💨", "dust", Q.side === "left" ? 58 : 42);
+  setTimeout(() => mon.remove(), 1400);
+  Q.timer = setTimeout(qWalk, 1500);
+}
+// ── стоп → підсумок → арена з тими, від кого втік → фінал ──
+function questStop() {
+  if (!Q || Q.stage !== "road") return;
+  clearTimeout(Q.timer);
+  Q.stage = "pause";
+  Q.speedTo = 0;
+  questOverlay.classList.add("q-noinput");
+  qHero("");
+  if (Q.mon && Q.phase === "fight") Q.mon.remove();   // недобитий монстр без відповіді — просто зникає
+  qSetInput(false);
+  const fled = [...new Set(Q.fled)];
+  Q.arenaPool = fled;
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">🏁 Привал</div>' +
+    '<div class="qc-stats"><div><b class="ok">' + Q.won + '</b>правильних · переможено</div><div><b class="bad">' + Q.fled.length + '</b>неправильних · втік</div></div>' +
+    (fled.length
+      ? '<div class="qc-sub">Монстри, від яких ти втік, чекають на арені — добий кожного (3 правильні відповіді, як у повторенні).</div>' +
+        '<button class="qc-go" data-q="arena">🏟️ На арену · ' + fled.length + ' ' + plural(fled.length, "монстр", "монстри", "монстрів") + ' <small>Enter</small></button>'
+      : '<div class="qc-sub">Жодного втеченого монстра — арена не потрібна!</div><button class="qc-go" data-q="final">🏆 Результат <small>Enter</small></button>');
+  qEl("q-card").classList.remove("hidden");
+  qHint("");
+}
+function qArenaStart() {
+  Q.stage = "arena"; Q.phase = "arena";
+  questOverlay.classList.remove("q-noinput");
+  qEl("q-card").classList.add("hidden");
+  qEl("q-scene").classList.add("arena");
+  qEl("q-actors").querySelectorAll(".q-mon").forEach(x => x.remove());
+  Q.arena = { left: new Set(Q.arenaPool), cnt: {}, plan: buildReviewDirPlan(Q.arenaPool), last: null, els: {} };
+  Q.arenaPool.forEach((idx, i) => {
+    const el = qSpawnMonster(idx, "right");
+    el.classList.add("lined");
+    el.dataset.idx = idx;
+    Q.arena.els[idx] = el;
+  });
+  qArenaLayout();
+  qHero("fighting face-right arena");
+  qEl("q-skip").textContent = "⏭ Пропустити";
+  qArenaNext();
+}
+function qArenaLayout() {
+  const ids = [...Q.arena.left], n = ids.length;
+  ids.forEach((idx, i) => {
+    const el = Q.arena.els[idx];
+    el.style.left = (56 + (n > 1 ? i * Math.min(9, 36 / (n - 1)) : 0)) + "%";
+    el.style.zIndex = String(50 - i);
+  });
+}
+function qArenaNext() {
+  const A = Q.arena;
+  if (!A.left.size) { setTimeout(questFinal, 900); return; }
+  const ids = [...A.left], need = x => REVIEW_REQUIRED_CORRECT - (A.cnt[x] || 0);
+  const cand = ids.length > 1 ? ids.filter(x => x !== A.last) : ids;
+  const top = Math.max(...cand.map(need)), from = cand.filter(x => need(x) === top);
+  const idx = from[Math.floor(Math.random() * from.length)];
+  A.last = idx;
+  const dir = A.plan[idx][(A.cnt[idx] || 0) % A.plan[idx].length];
+  Q.cur = { idx, dir, shown: qAsk(idx, dir) };
+  Object.values(A.els).forEach(el => el.classList.remove("target"));
+  const el = A.els[idx];
+  el.classList.add("target");
+  const pips = Array.from({ length: REVIEW_REQUIRED_CORRECT }, (_, i) => '<i class="' + (i < (A.cnt[idx] || 0) ? "on" : "") + '"></i>').join("");
+  el.querySelector(".qm-word").innerHTML = esc(Q.cur.shown) + '<span class="qm-hp">' + pips + '</span>';
+  qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
+  qHint("🏟️ Арена · лишилось " + A.left.size + " · " + (MODE_HINTS[dir] || "") + " · Esc — завершити");
+}
+function qArenaAnswer(val, auto) {
+  const ok = val.trim() !== "" && isCorrect(val);
+  if (auto && !ok) return;
+  const A = Q.arena, idx = Q.cur.idx, el = A.els[idx];
+  qSetInput(false);
+  if (ok) {
+    A.cnt[idx] = (A.cnt[idx] || 0) + 1;
+    qHero("strike face-right arena");
+    qSfx("hit");
+    el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit");
+    if (A.cnt[idx] >= REVIEW_REQUIRED_CORRECT) {
+      // закритий монстр = закрите слово повторення: +2 XP і +1 «Повторень» (як post-game review)
+      addXp(2); Q.arenaWon++;
+      recordReviewStats(1);
+      A.left.delete(idx);
+      setTimeout(() => { el.classList.add("dead"); qSfx("kill"); qFloat("+2 XP", "xp", 62); }, 220);
+      setTimeout(() => { el.remove(); delete A.els[idx]; qArenaLayout(); }, 1400);
+      qHud();
+      Q.timer = setTimeout(qArenaNext, 1000);
+    } else {
+      Q.timer = setTimeout(qArenaNext, 450);
+    }
+  } else {
+    el.classList.add("strike-back");
+    qHero("hurt face-right arena");
+    qSfx("hurt");
+    el.querySelector(".qm-word").innerHTML = '✗ <b>' + esc(getCorrectAnswer()) + '</b>';
+    Q.timer = setTimeout(() => { el.classList.remove("strike-back"); qArenaNext(); }, 1900);
+  }
+}
+function questFinal() {
+  if (!Q) return;
+  clearTimeout(Q.timer);
+  Q.stage = "final"; Q.phase = "final";
+  questOverlay.classList.add("q-noinput");
+  qSetInput(false);
+  qHero("");
+  const lg = loadLastGameTrans(), newK = lg && lg.k ? lg.k.length : 0;
+  const mins = Math.max(1, Math.round((Date.now() - Q.t0) / 60000));
+  const fled = [...new Set(Q.fled)];
+  const left = Q.arena ? Q.arena.left.size : fled.length;
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">🏆 Похід завершено</div>' +
+    '<div class="qc-stats">' +
+      '<div><b class="ok">' + Q.won + '</b>правильних</div><div><b class="bad">' + Q.fled.length + '</b>неправильних</div>' +
+      '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' лишилось)' : '') + '</div>' +
+      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + mins + '</b>хв</div></div>' +
+    (fled.length ? '<div class="qc-sub">Втік від: ' + fled.slice(0, 20).map(i => '<span class="w-chip">' + esc(getEn(WORDS[i])[0]) + ' — ' + esc(getUa(WORDS[i])[0]) + '</span>').join("") + '</div>' : '') +
+    '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
+  qEl("q-card").classList.remove("hidden");
+  qHint("");
+}
+function questStart() {
+  if (Q) return;
+  const pool = trainPool() || [...Array(WORDS.length).keys()];
+  if (!pool.length) return;
+  // масштаб персонажів — під висоту екрана (на 900px сцена інакше лишалась «порожнім небом»)
+  const scale = Math.max(1, Math.min(1.6, (window.innerHeight - 190) / 520));
+  Q = { pool, queue: buildSchedQueue(pool), qpos: 0, recent: [], dir: trainDir, auto: trainAuto, flip: false,
+        scale, gap: Math.round(85 * scale + 18),
+        stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false,
+        speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp() };
+  _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
+  resetLastGameTrans();               // «✨ останньої гри» = цей похід
+  qEl("q-actors").querySelectorAll(".q-mon,.q-float").forEach(x => x.remove());
+  qEl("q-scene").classList.remove("arena");
+  qEl("q-card").classList.add("hidden");
+  qEl("q-hero").innerHTML = heroSvg(heroState());
+  qEl("q-hero").style.width = Math.round(170 * scale) + "px";
+  qEl("q-set").innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());
+  qEl("q-skip").textContent = "💨 Втекти";
+  questOverlay.classList.remove("hidden", "q-noinput");
+  qHud();
+  Q.raf = requestAnimationFrame(qLoop);
+  sfxStart();
+  qWalk();
+}
+function questClose(again) {
+  if (!Q) return;
+  clearTimeout(Q.timer);
+  cancelAnimationFrame(Q.raf);
+  Q = null;
+  questOverlay.classList.add("hidden");
+  qEl("q-actors").querySelectorAll(".q-mon,.q-float").forEach(x => x.remove());
+  // оновити меню — як «🏠 На головну» після звичайної гри
+  saveMasterySnapshot();
+  renderThermo(); renderLeaderboard(); renderStartSub(); renderDueBanner();
+  renderMasteryStats(); renderXpBar(); renderLbTotals(); updateBackupLabel(); autoBackup();
+  if (!document.getElementById("progress-panel").classList.contains("hidden")) renderProgressPanel();
+  checkThermoMilestones(); checkAchievements(true); checkRecordMilestones();
+  flushDeferredMilestones();
+  if (again) setTimeout(questStart, 50);
+}
+function qEnter() {
+  if (!Q) return;
+  if (Q.phase === "study") { qDrillStart(); return; }
+  if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart() : questFinal(); return; }
+  if (Q.stage === "final") { questClose(false); return; }
+  if (!qAnswerEl.disabled) qOnAnswer(qAnswerEl.value, false);
+}
+qAnswerEl.addEventListener("input", () => { if (Q && !qAnswerEl.disabled && qAnswerEl.value.trim()) qOnAnswer(qAnswerEl.value, true); });
+questOverlay.addEventListener("click", e => {
+  const b = e.target.closest("[data-q]");
+  if (!b || !Q) return;
+  const a = b.dataset.q;
+  if (a === "say") speak(Q.say);
+  else if (a === "sayex" && Q.sayEx) speak(Q.sayEx);
+  else if (a === "ready") qDrillStart();
+  else if (a === "arena") qArenaStart();
+  else if (a === "final") questFinal();
+  else if (a === "home") questClose(false);
+  else if (a === "again") questClose(true);
+  else if (a === "stop") { Q.stage === "arena" ? questFinal() : questStop(); }
+  else if (a === "skip" && !qAnswerEl.disabled) qOnAnswer("", false);
+});
+document.getElementById("quest-btn").addEventListener("click", questStart);
+// Клавіатура походу (capture): Enter — відповідь / «Готово» / далі, Esc — стоп, Tab — озвучити
+// англійське слово (лише коли воно вже на екрані). Решта до меню позаду НЕ доходить.
+document.addEventListener("keydown", e => {
+  if (!Q) return;
+  e.stopPropagation();
+  if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) qEnter(); }
+  else if (e.key === "Escape") {
+    e.preventDefault();
+    if (Q.stage === "road") questStop();
+    else if (Q.stage === "arena") questFinal();
+    else if (Q.stage === "final") questClose(false);
+  } else if (e.key === "Tab") {
+    e.preventDefault();
+    if (Q.phase === "study") speak(Q.say);
+    else if (Q.cur && mode === "en-ua" && (Q.phase === "fight" || Q.phase === "drill" || Q.phase === "arena")) speak(Q.cur.shown);
+  }
 }, true);
 
 // Клавіатура в розділі виразів (capture, щоб не тригерити ігрові обробники за оверлеєм)
