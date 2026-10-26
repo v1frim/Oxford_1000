@@ -212,11 +212,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const w = A.els[last].querySelector(".qm-word").getBoundingClientRect(), m = A.els[last].getBoundingClientRect();
     const mons = Object.values(A.els).map(e => e.getBoundingClientRect());
     return { inW: w.left >= sc.left && w.right <= sc.right, inM: mons.every(r => r.right <= sc.right + 1),
-      top: +A.els[last].style.zIndex === Math.max(...Object.values(A.els).map(e => +e.style.zIndex)) };
+      top: +A.els[last].style.zIndex === Math.max(...Object.values(A.els).map(e => +e.style.zIndex)),
+      rows: new Set(Object.values(A.els).map(e => e.style.bottom)).size };
   });
   t("арена на 30 монстрів: усі в межах сцени", crowd.inM, JSON.stringify(crowd));
   t("арена: бульбашка з довгим словом крайнього монстра не вилазить за край", crowd.inW, JSON.stringify(crowd));
   t("арена: ціль — поверх натовпу", crowd.top, JSON.stringify(crowd));
+  t("арена: 30 монстрів стають у кілька рядів углиб (2–4)", crowd.rows >= 2 && crowd.rows <= 4, JSON.stringify(crowd));
+  const few = await p.evaluate(() => { const A = Q.arena; [...A.left].slice(3).forEach(i => { A.left.delete(i); A.els[i].remove(); delete A.els[i]; }); qArenaLayout();
+    return new Set(Object.values(A.els).map(e => e.style.bottom)).size; });
+  t("арена: 3 монстри — один ряд", few === 1, String(few));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");

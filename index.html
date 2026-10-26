@@ -1678,6 +1678,8 @@
   .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
   .qm-hp i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4); }
   .qm-hp i.on { background: #ffd166; border-color: #ffd166; }
+  .q-mon.lined { transition: transform .65s cubic-bezier(.2,.8,.3,1), left .5s ease, bottom .5s ease, width .5s ease, opacity .3s; }
+  .q-mon.lined .qm-svg { filter: brightness(var(--row-dim, 1)); }
   .q-mon.lined:not(.target) { opacity: .8; }
   .q-mon.lined:not(.target) .qm-word { opacity: 0; }
   .q-mon.target .qm-svg { filter: drop-shadow(0 0 10px rgba(255,209,102,.8)); }
@@ -12293,6 +12295,7 @@ function qArenaStart(pre) {
   Q.arenaPool.forEach((idx, i) => {
     const el = qSpawnMonster(idx, "right");
     el.classList.add("lined");
+    el.dataset.w = parseFloat(el.style.width) || 200;   // базова ширина — задні ряди менші від неї
     el.dataset.idx = idx;
     Q.arena.els[idx] = el;
   });
@@ -12301,19 +12304,32 @@ function qArenaStart(pre) {
   qEl("q-skip").textContent = "⏭ Пропустити";
   qArenaNext();
 }
-// Ряд арени: центри монстрів від 56% до 92% ширини сцени — хоч 30 монстрів, ряд лише щільнішає.
-// ⚠️ Питання користувача «якщо монстрів не вміститься — слово не вийде за карту?» (сесія 61):
-// 1) крайній монстр не вилазить за правий край (центр ≤ ширина − півмонстра);
-// 2) ціль — ПОВЕРХ натовпу (z-index), інакше її закривали сусіди спереду;
-// 3) бульбашка зі словом зсувається всередину сцени (`qArenaFitWord`) — довге «поліцейський
-//    патруль» над крайнім монстром обрізалось правим краєм.
+// Арена — КІЛЬКА РЯДІВ углиб (за запитом: «можливо просто зробити, щоби монстри йшли в 2-3-4 ряди?»).
+// Ряд займає 56–92% ширини сцени; у ряд влазить стільки, щоб сусіди стояли не тісніше ~55% ширини
+// монстра. Не влазять — додаємо ряд позаду (вище на 44px, на 14% менший, трохи темніший), до 4 рядів;
+// далі ряди лише щільнішають. Задні ряди зсунуті на пів кроку — визирають між передніми.
+// Порядок = черга: добив переднього — задні підходять уперед (переходи left/bottom/width).
+// ⚠️ Також (питання «не вийде за карту?»): крайній не вилазить за правий край, ціль — поверх
+// усіх (z-index 200), бульбашку довгого слова зсуває всередину сцени (`qArenaFitWord`).
+const QA_MAX_ROWS = 4;
 function qArenaLayout() {
   const ids = [...Q.arena.left], n = ids.length, W = qEl("q-actors").clientWidth || innerWidth;
-  ids.forEach((idx, i) => {
-    const el = Q.arena.els[idx];
-    const want = W * (56 + (n > 1 ? i * Math.min(9, 36 / (n - 1)) : 0)) / 100;
-    el.style.left = Math.min(want, W - el.offsetWidth / 2 - 8) + "px";
-    el.style.zIndex = el.classList.contains("target") ? "60" : String(50 - i);
+  if (!n) return;
+  const x0 = W * 0.56, span = W * 0.36;
+  const baseW = ids.reduce((a, idx) => a + (+Q.arena.els[idx].dataset.w || 200), 0) / n;
+  const cap = Math.max(1, Math.floor(span / (baseW * 0.55)) + 1);
+  const rows = Math.min(QA_MAX_ROWS, Math.ceil(n / cap)), per = Math.ceil(n / rows);
+  ids.forEach((idx, k) => {
+    const el = Q.arena.els[idx], r = Math.floor(k / per), i = k % per;
+    const inRow = Math.min(per, n - r * per);
+    const step = inRow > 1 ? Math.min(W * 0.09, span / (inRow - 1 + (r ? 0.5 : 0))) : 0;
+    const sc = 1 - r * 0.14, w = Math.round((+el.dataset.w || 200) * sc);
+    el.style.width = w + "px";
+    el.style.bottom = (74 + r * 44) + "px";
+    el.style.setProperty("--row-dim", String(1 - r * 0.12));
+    const want = x0 + i * step + (r % 2 ? step / 2 : 0);
+    el.style.left = Math.min(want, W - w / 2 - 8) + "px";
+    el.style.zIndex = el.classList.contains("target") ? "200" : String(100 - r * 20 - i);
   });
   qArenaFitWord();
 }
