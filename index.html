@@ -1705,6 +1705,13 @@
     border-radius: 18px; padding: 18px 22px; box-shadow: 0 18px 50px rgba(0,0,0,.5); text-align: center;
   }
   .q-card.hidden { display: none; }
+  /* Фінал походу (сесія 64, скарга «усе не поміщається»): нижня смуга вводу ховається — сцена стає вищою,
+     картка займає її висоту, а список «📜 Слова походу» стискається й гортається сам, кнопки завжди видно. */
+  #quest-overlay.q-final .q-bottom { display: none; }
+  #quest-overlay.q-final .q-card { top: 12px; max-height: calc(100% - 24px); display: flex; flex-direction: column; }
+  #quest-overlay.q-final .q-card > * { flex: none; }
+  #quest-overlay.q-final .q-card > .qc-words { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  #quest-overlay.q-final .qw-list { max-height: none; flex: 1 1 auto; min-height: 66px; }
   .qc-title { font-size: 17px; font-weight: 800; color: #ffd166; margin-bottom: 10px; }
   .qc-word { font-size: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
   .qc-word b { color: #7be07b; }
@@ -12755,7 +12762,7 @@ function questFinal() {
   // спритність героя) — ні: безстроковий похід непорівнюваний із 60-секундною грою.
   qLogQuest(ts);
   Q.stage = "final"; Q.phase = "final";
-  questOverlay.classList.add("q-noinput");
+  questOverlay.classList.add("q-noinput", "q-final");
   qSetInput(false);
   qHero("");
   const lg = loadLastGameTrans(), newKeys = (lg && lg.k) || [], newK = newKeys.length;
@@ -12792,6 +12799,122 @@ function qTimeHtml(ts) {
     row("🛣️", "Дорога, удари, втечі", tm.road, "") +
     (tm.pause ? row("🏁", "Привал", tm.pause, "") : "") + '</div>';
 }
+// 🌄 КРАЄВИД ПОХОДУ ЗА РІВНЯМИ CEFR (сесія 64, за запитом: «чим далі рівень — тим моторошніші краєвиди,
+// і їх комбінація по-різному комбінується; але не надто мрачно»). Шість тем: A1 весна (колишня сцена 1-в-1)
+// → A2 літо → B1 осінь → B2 туманний ліс у сутінках → C1 скелі під місяцем → C2 вулканічна пустка.
+// ⚠️ КОМБІНАЦІЯ — ПО ШАРАХ (обраних рівнів зазвичай ≤3): небо й далекі гори — від НАЙВИЩОГО рівня
+// (на обрії видно, куди йдеш), середній рівень — гори, якщо рівнів 3+; пагорби й дорога — від НАЙНИЖЧОГО.
+//   A1 → усе весна · A1+A2 → літнє небо над весняним лугом · A1+A2+B1 → осіннє небо, літні гори, весняний луг.
+// «—» (без рівня) рахується як B1; набір «весь словник» / «незасвоєні» = A1…C2.
+// Розміри SVG = старим (800×260, 600×200, 200×96) — паралакс qLoop крутить backgroundPositionX.
+const QUEST_SCENES = {
+  A1: { sky: ["#5aa7e6", "#9fd2f5", "#cdeaf9"],
+        far: { fill: "#89a9d1", snow: .85, jag: 0 },
+        near: { hill: "#65a85a", tree: "round", leaf: ["#387a3c"], trunk: "#6b4a2b" },
+        ground: { soil: "#b38c5c", grass: "#58a24a", spot: "#977149", peb: "#d1b07f" } },
+  A2: { sky: ["#4f9ee0", "#a8d4f0", "#f6e6b8"], sun: { x: "80%", y: "17%", r: 30, c: "#fff3b8", g: "rgba(255,232,150,.55)" },
+        far: { fill: "#8fa3cc", snow: .7, jag: 0 },
+        near: { hill: "#7fb24e", tree: "round", leaf: ["#4e8a34", "#5c9a3a"], trunk: "#6b4a2b", flowers: ["#ffd84d", "#ff8fb1", "#ffffff"] },
+        ground: { soil: "#c49a62", grass: "#79b043", spot: "#a67f4e", peb: "#e0c28f" } },
+  B1: { sky: ["#6aa2d4", "#f0c597", "#f8deb2"], sun: { x: "76%", y: "44%", r: 38, c: "#ffd59a", g: "rgba(255,170,90,.5)" },
+        far: { fill: "#9a8fb8", snow: .45, jag: 0 },
+        near: { hill: "#a39f4c", tree: "round", leaf: ["#d9772b", "#c4462f", "#e3a93a"], trunk: "#5e3f25" },
+        ground: { soil: "#a57a4c", grass: "#9a9a45", spot: "#87603a", peb: "#d9772b" } },
+  B2: { sky: ["#5f6f9c", "#a99bbf", "#e2c9c9"], sun: { x: "18%", y: "16%", r: 22, c: "#f4efe0", g: "rgba(240,236,220,.35)" }, stars: .35,
+        far: { fill: "#5d6a8c", snow: 0, jag: 0, fog: "#d9cbd6" },
+        near: { hill: "#3f6b4f", tree: "pine", leaf: ["#24493a", "#2c5543"], trunk: "#3d2c20", dense: 1 },
+        ground: { soil: "#7f6448", grass: "#4a7748", spot: "#665036", peb: "#9c8566" } },
+  C1: { sky: ["#3e3a6e", "#7d5f8f", "#c98d8f"], sun: { x: "22%", y: "20%", r: 34, c: "#f3e9d2", g: "rgba(243,233,210,.35)" }, stars: .7,
+        far: { fill: "#4a4566", snow: 0, jag: 1, fog: "#b98a98" },
+        near: { hill: "#5d5a5e", tree: "dead", leaf: ["#2f2a2c"], trunk: "#2f2a2c", rocks: "#77727a" },
+        ground: { soil: "#6e6258", grass: "#6f7556", spot: "#584d45", peb: "#8d8580" } },
+  C2: { sky: ["#2a1f3d", "#5e2d4a", "#c0583f"], sun: { x: "78%", y: "22%", r: 30, c: "#ffd2a8", g: "rgba(255,150,100,.4)" }, stars: .8,
+        far: { fill: "#2f2433", snow: 0, jag: 1, rim: "#ff7a3d" },
+        near: { hill: "#3c3036", tree: "dead", leaf: ["#1c1418"], trunk: "#1c1418", rocks: "#4e4048" },
+        ground: { soil: "#4a3a36", grass: "#5a4640", spot: "#3a2d2a", peb: "#7a5a50", lava: "#ff7b3a" } },
+};
+const QUEST_SCENE_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
+const qSvgUrl = s => 'url("data:image/svg+xml,' + encodeURIComponent(s) + '")';
+function qFarSvg(t) {
+  const soft = "M0 260 L0 150 L90 80 L170 140 L250 50 L360 150 L450 95 L540 165 L640 70 L720 140 L800 150 L800 260Z";
+  const jag = "M0 260 L0 160 L60 90 L95 130 L140 60 L190 120 L230 95 L280 40 L330 125 L380 80 L430 140 L480 70 L520 110 L570 50 L630 135 L680 85 L730 120 L770 75 L800 160 L800 260Z";
+  const d = t.jag ? jag : soft;
+  let s = "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='260'>" +
+    (t.fog ? "<defs><linearGradient id='f' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='" + t.fog + "' stop-opacity='0'/><stop offset='1' stop-color='" + t.fog + "' stop-opacity='.55'/></linearGradient></defs>" : "") +
+    "<path d='" + d + "' fill='" + t.fill + "'/>";
+  if (t.snow) s += "<path d='M250 50 L282 80 L263 76 L250 90 L237 76 L218 80Z M640 70 L670 98 L652 94 L640 106 L628 94 L610 98Z M90 80 L112 100 L98 98 L90 106 L82 98 L68 100Z' fill='white' opacity='" + t.snow + "'/>";
+  if (t.rim) s += "<path d='" + d.replace(/ L800 260Z$/, "").replace(/^M0 260 L/, "M") + "' fill='none' stroke='" + t.rim + "' stroke-width='2.5' opacity='.45'/>";
+  if (t.fog) s += "<rect x='0' y='150' width='800' height='110' fill='url(#f)'/>";
+  return s + "</svg>";
+}
+function qNearSvg(t) {
+  const L = i => t.leaf[i % t.leaf.length];
+  const tree = (x, y, h, i) => {          // x — центр, y — основа стовбура, h — розмір
+    if (t.tree === "pine") return "<rect x='" + (x - 3) + "' y='" + (y - 12) + "' width='6' height='12' fill='" + t.trunk + "'/>" +
+      "<path d='M" + x + " " + (y - h - 22) + " L" + (x + h * .55) + " " + (y - 10) + " L" + (x - h * .55) + " " + (y - 10) + "Z' fill='" + L(i) + "'/>" +
+      "<path d='M" + x + " " + (y - h - 34) + " L" + (x + h * .42) + " " + (y - h * .55 - 10) + " L" + (x - h * .42) + " " + (y - h * .55 - 10) + "Z' fill='" + L(i + 1) + "'/>";
+    if (t.tree === "dead") return "<path d='M" + x + " " + y + " L" + (x + 1) + " " + (y - h - 6) + " M" + (x + 1) + " " + (y - h * .55) + " L" + (x + h * .45) + " " + (y - h - 2) +
+      " M" + x + " " + (y - h * .35) + " L" + (x - h * .45) + " " + (y - h * .8) + " M" + (x - h * .3) + " " + (y - h * .65) + " L" + (x - h * .38) + " " + (y - h - 4) +
+      " M" + (x + h * .3) + " " + (y - h * .8) + " L" + (x + h * .52) + " " + (y - h * .78) + "' stroke='" + t.trunk + "' stroke-width='3.2' stroke-linecap='round' fill='none'/>";
+    return "<rect x='" + (x - 3) + "' y='" + (y - 22) + "' width='6' height='22' fill='" + t.trunk + "'/>" +
+      "<g fill='" + L(i) + "'><circle cx='" + x + "' cy='" + (y - 32) + "' r='" + (h * .5) + "'/><circle cx='" + (x - 9) + "' cy='" + (y - 22) + "' r='" + (h * .34) + "'/><circle cx='" + (x + 10) + "' cy='" + (y - 23) + "' r='" + (h * .34) + "'/></g>";
+  };
+  let s = "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='200'>" +
+    "<path d='M0 200 L0 120 Q75 72 150 108 Q225 146 300 100 Q375 62 450 104 Q525 140 600 120 L600 200Z' fill='" + t.hill + "'/>";
+  if (t.rocks) s += "<g fill='" + t.rocks + "'><ellipse cx='205' cy='160' rx='14' ry='7'/><ellipse cx='218' cy='163' rx='8' ry='5'/><ellipse cx='420' cy='150' rx='11' ry='6'/><ellipse cx='560' cy='165' rx='16' ry='7'/></g>";
+  if (t.flowers) [[30, 150], [120, 140], [175, 160], [250, 150], [390, 125], [430, 150], [540, 160], [585, 145]]
+    .forEach(([x, y], i) => (s += "<circle cx='" + x + "' cy='" + y + "' r='3' fill='" + t.flowers[i % t.flowers.length] + "'/>"));
+  const trees = [[79, 118, 32, 0], [329, 102, 36, 1], [489, 118, 30, 2]];
+  if (t.dense) trees.push([210, 150, 26, 1], [420, 140, 28, 0], [560, 150, 24, 1], [140, 140, 22, 0]);
+  trees.forEach(([x, y, h, i]) => (s += tree(x, y, h, i)));
+  return s + "</svg>";
+}
+function qGroundSvg(t) {
+  let s = "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='96'><rect width='200' height='96' fill='" + t.soil + "'/>";
+  if (t.lava) s += "<path d='M20 40 L38 52 L30 66 L52 78 M120 34 L136 48 L128 60 M160 70 L178 80 L172 92' stroke='" + t.lava + "' stroke-width='2' fill='none' opacity='.75' stroke-linecap='round'/>";
+  s += "<rect width='200' height='16' fill='" + t.grass + "'/><path d='M0 16 q10 7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0' fill='" + t.grass + "'/>" +
+    "<ellipse cx='40' cy='52' rx='9' ry='3' fill='" + t.spot + "'/><ellipse cx='150' cy='74' rx='12' ry='3.5' fill='" + t.spot + "'/>" +
+    "<circle cx='100' cy='40' r='3' fill='" + t.peb + "'/><circle cx='178' cy='46' r='2.4' fill='" + t.peb + "'/>";
+  return s + "</svg>";
+}
+function qSkyCss(t) {
+  const bg = [];
+  if (t.stars) {
+    let st = "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'>";
+    [[22, 30], [70, 80], [118, 18], [160, 60], [205, 110], [248, 34], [290, 88], [335, 20], [372, 66], [52, 140], [180, 150], [310, 140], [95, 196], [262, 186]]
+      .forEach(([x, y], i) => (st += "<circle cx='" + x + "' cy='" + y + "' r='" + (i % 3 ? 1.1 : 1.6) + "' fill='white' opacity='" + t.stars + "'/>"));
+    bg.push(qSvgUrl(st + "</svg>") + " top left / 400px 220px repeat-x");
+  }
+  if (t.sun) bg.push("radial-gradient(circle at " + t.sun.x + " " + t.sun.y + ", " + t.sun.c + " 0 " + t.sun.r + "px, " + t.sun.g + " " + (t.sun.r + 2) + "px, transparent " + (t.sun.r * 3.2) + "px)");
+  bg.push("linear-gradient(180deg, " + t.sky[0] + " 0%, " + t.sky[1] + " 55%, " + t.sky[2] + " 100%)");
+  return bg.join(", ");
+}
+// Рівні походу → які теми на яких шарах
+function questSceneLevels() {
+  let ls = trainSet === "cefr" ? [...cefrSel, ...cefrSoloSel] : QUEST_SCENE_ORDER.slice();
+  ls = ls.map(L => (L === "none" ? "B1" : L)).filter(L => QUEST_SCENES[L]);
+  ls = [...new Set(ls)].sort((a, b) => QUEST_SCENE_ORDER.indexOf(a) - QUEST_SCENE_ORDER.indexOf(b));
+  return ls.length ? ls : ["A1"];
+}
+function questSceneMix(ls) {
+  const lo = ls[0], hi = ls[ls.length - 1], mid = ls.length >= 3 ? ls[Math.floor((ls.length - 1) / 2)] : hi;
+  return { sky: hi, far: mid, near: lo, ground: lo };
+}
+function qApplyScene(ls) {
+  const m = questSceneMix(ls || questSceneLevels()), S = QUEST_SCENES;
+  qEl("q-scene").style.background = qSkyCss(S[m.sky]);
+  qEl("q-far").style.backgroundImage = qSvgUrl(qFarSvg(S[m.far].far));
+  qEl("q-near").style.backgroundImage = qSvgUrl(qNearSvg(S[m.near].near));
+  qEl("q-ground").style.backgroundImage = qSvgUrl(qGroundSvg(S[m.near].ground));
+  // Сутінки на ближніх шарах (сесія 64, за фідбеком: «світлий осінній луг під нічним небом C1 — неузгоджено»):
+  // що темніше небо за шар, то шар трохи темніший. Різниця 1 рівень — без змін; далі −8% яскравості за рівень.
+  const I = L => QUEST_SCENE_ORDER.indexOf(L), dusk = (a, b) => { const d = I(a) - I(b);
+    return d >= 2 ? "brightness(" + (1 - 0.08 * (d - 1)).toFixed(2) + ") saturate(" + (1 - 0.05 * (d - 1)).toFixed(2) + ")" : ""; };
+  qEl("q-far").style.filter = dusk(m.sky, m.far);
+  qEl("q-near").style.filter = qEl("q-ground").style.filter = dusk(m.sky, m.near);
+  qEl("q-scene").dataset.scene = ls ? ls.join("+") : "";
+  return m;
+}
 function questStart() {
   if (Q) return;
   const pool = trainPool() || [...Array(WORDS.length).keys()];
@@ -12811,11 +12934,12 @@ function questStart() {
   qEl("q-scene").classList.remove("arena");
   qEl("q-card").classList.add("hidden");
   qEl("q-feed").innerHTML = ""; qEl("q-feed").classList.add("hidden");
+  qApplyScene(questSceneLevels());   // 🌄 краєвид за обраними рівнями (сесія 64)
   qEl("q-hero").innerHTML = heroSvg(heroState());
   qEl("q-hero").style.width = Math.round(170 * scale) + "px";
   qEl("q-set").innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());
   qEl("q-skip").textContent = "💨 Втекти";
-  questOverlay.classList.remove("hidden", "q-noinput");
+  questOverlay.classList.remove("hidden", "q-noinput", "q-final");
   qHud();
   Q.raf = requestAnimationFrame(qLoop);
   sfxStart();
@@ -12830,6 +12954,7 @@ function questClose(again) {
   cancelAnimationFrame(Q.raf);
   Q = null;
   questOverlay.classList.add("hidden");
+  questOverlay.classList.remove("q-final");
   qEl("q-actors").querySelectorAll(".q-mon,.q-float").forEach(x => x.remove());
   // оновити меню — як «🏠 На головну» після звичайної гри
   saveMasterySnapshot();

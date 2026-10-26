@@ -294,6 +294,17 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await fight(); await p.waitForTimeout(200);
   t("арена посеред: на дорозі кнопка знову є", await p.isVisible("#q-arena-go"));
 
+  // 🌄 краєвид за рівнями (сесія 64): шари беруться з різних тем, A1 = колишня сцена
+  const sc = await p.evaluate(() => {
+    const get = () => ["q-scene", "q-far", "q-near", "q-ground"].map(id => { const st = document.getElementById(id).style; return id === "q-scene" ? st.background : st.backgroundImage; });
+    const one = qApplyScene(["A1"]), a1 = get(), mix = qApplyScene(["A1", "A2", "B1"]), m = get(), c2 = (qApplyScene(["C2"]), get());
+    return { one, mix, a1, m, c2, sky0: /90, 167, 230|5aa7e6/i.test(a1[0]) };
+  });
+  t("краєвид A1 — колишнє небо", sc.sky0, sc.a1[0].slice(0, 120));
+  t("A1+A2+B1: небо B1, гори A2, луг і дорога A1", sc.mix.sky === "B1" && sc.mix.far === "A2" && sc.mix.near === "A1" && sc.mix.ground === "A1", JSON.stringify(sc.mix));
+  t("A1+A2+B1: пагорби = як у A1, небо інше", sc.m[2] === sc.a1[2] && sc.m[0] !== sc.a1[0]);
+  t("C2 — усі шари інші, ніж у A1", sc.c2.every((x, i) => x !== sc.a1[i]));
+
   // бульбашка довгого слова на дорозі не перекриває героя (сесія 64) — на кількох ширинах, з обох боків
   for (const [vw, vh] of [[1920, 950], [1280, 720], [900, 700], [560, 800]]) {
     await p.setViewportSize({ width: vw, height: vh }); await p.waitForTimeout(150);
@@ -303,7 +314,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
         Q.mon = qSpawnMonster(Q.cur.idx, side);
         Q.mon.querySelector(".qm-word").textContent = "віднімання колін (вправа на прес)";
         qRoadFitWord();
-        await new Promise(r => setTimeout(r, 800));
+        await new Promise(r => setTimeout(r, 1400));
         const w = Q.mon.querySelector(".qm-word").getBoundingClientRect(), h = document.querySelector("#q-hero svg").getBoundingClientRect(),
               sc = document.getElementById("q-actors").getBoundingClientRect();
         const hit = w.left < h.right && w.right > h.left && w.top < h.bottom && w.bottom > h.top;
@@ -312,6 +323,20 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       t("слово не лізе на героя " + vw + "px, монстр " + side, !r.hit && r.inside, JSON.stringify(r));
     }
   }
+
+  // фінал: нижня смуга вводу схована, картка з кнопками вміщається в сцену (сесія 64)
+  await p.setViewportSize({ width: 1366, height: 650 }); await p.waitForTimeout(150);
+  const finFit = await p.evaluate(() => {
+    Q.stage = "road"; Q.phase = "walk"; Q.counted = true;
+    for (let i = 0; i < 30; i++) Q.mlog.push({ w: wordKey(WORDS[200 + i * 31]), ok: i % 2 === 0 });
+    questFinal();
+    const c = document.getElementById("q-card").getBoundingClientRect(), sc = document.getElementById("q-scene").getBoundingClientRect(),
+          bt = document.querySelector(".qc-btns").getBoundingClientRect();
+    return { bar: getComputedStyle(document.querySelector(".q-bottom")).display, fits: c.bottom <= sc.bottom + 1 && bt.bottom <= c.bottom };
+  });
+  t("фінал: нижня смуга схована, картка й кнопки в межах екрана", finFit.bar === "none" && finFit.fits, JSON.stringify(finFit));
+  await p.evaluate(() => questClose(true)); await p.waitForTimeout(300);
+  t("новий похід: нижня смуга вводу повернулась", await p.evaluate(() => getComputedStyle(document.querySelector(".q-bottom")).display !== "none"));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");
