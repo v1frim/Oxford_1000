@@ -9074,13 +9074,13 @@ function renderTabPeriod() {
 // Порядок і значки — як у «Прогресі по днях». Ігри (🎮) не дублюємо: вони вже є «· N ігор».
 // Активності поза іграми за ДЕНЬ або за НАБІР днів (серія 🔥 — сума по всіх її днях).
 function dayActsHtml(d) { return daysActsHtml([d]); }
-function daysActsHtml(keys) {
+function daysActsHtml(keys, noQuests) {
   const set = new Set(keys), days = loadDays(), sum = o => keys.reduce((a, k) => a + ((o || {})[k] || 0), 0);
   const inSet = o => Object.values(o).filter(v => set.has(v)).length;
   const qn = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
   const ex = keys.reduce((a, k) => a + (((loadExprXpLog() || {})[k] || {}).r || 0), 0);
   const parts = [];
-  if (qn) parts.push("⚔️" + qn);   // походи — окремо від «· N ігор»
+  if (qn && !noQuests) parts.push("⚔️" + qn);   // походи — окремо від «· N ігор» (у 🔥 — у рядку з іграми)
   [["🦉", sum(loadDuoSessions())], ["📚", inSet(loadLhDone())], ["🤖", sum(loadGptRequests())],
    ["🎬", sum(loadMovieSessions())], ["💬", ex], ["🎧", sum(loadSongSessions())], ["🎵", inSet(loadSongsXpAwarded())]]
     .forEach(([i, n]) => { if (n) parts.push(i + n); });
@@ -9252,21 +9252,25 @@ function renderTabStreaks() {
     const period = s.length === 1
       ? fmtDayKey(s.start)
       : fmtDayKey(s.start) + " – " + (s.ongoing ? "сьогодні" : fmtDayKey(s.end));
-    const games = s.games, totalWords = s.words;   // пораховано в computeStreaks
-    const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
-    // (усього слів) ігор І походів — ЛИШЕ загальна кількість (уточнення: «без кількості неправильних»).
-    // Далі — активності серії (⚔️ походи, 🦉, 📚, 🎧…) сумою по днях: скарга «у серіях лише ігри,
-    // більше нічого не показує», хоча серія рахується за будь-якою активністю.
-    const wordsStr = totalWords > 0 ? '<span class="lb-games" title="усього слів в іграх і походах серії">(' + totalWords + ')</span>' : "";
+    const totalWords = s.words;   // пораховано в computeStreaks
     const keys = [];
     for (let d = new Date(s.start + "T12:00:00"); ; d.setDate(d.getDate() + 1)) {
       const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
       keys.push(k); if (k >= s.end || keys.length > 400) break;
     }
+    // Перший рядок: 🎮 ігри ⚔️ походи (усього відповідей) — ЗНАЧКИ замість слова «ігор» і походи поруч
+    // з іграми (сесія 62, за запитом). У дужках — ЛИШЕ загальна кількість, без неправильних.
+    // Другим рядком — решта активностей серії (🦉, 📚, 🎧…) сумою по днях.
+    const days = loadDays(), quests = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
+    const gamesStr = (s.games || quests)
+      ? '<span class="lb-games" title="ігри й походи серії · у дужках — усього відповідей">· ' +
+        (s.games ? "🎮" + s.games : "") + (s.games && quests ? " " : "") + (quests ? "⚔️" + quests : "") +
+        (totalWords > 0 ? " (" + totalWords + ")" : "") + '</span>' : "";
+    const wordsStr = "";
     return '<li class="lb-streak ' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
       '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
-      gamesStr + wordsStr + daysActsHtml(keys) +
+      gamesStr + wordsStr + daysActsHtml(keys, true) +
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
   };
