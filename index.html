@@ -9201,7 +9201,8 @@ function renderTabDays() {
   lbEmptyEl.classList.add("hidden");
   const renderEntry = (e, cls, rank) => {
     const games = e.games || 0;
-    const gamesStr = games > 0 ? '<span class="lb-games">· ' + games + " " + plural(games, "гра", "ігри", "ігор") + '</span>' : "";
+    // значок 🎮 замість слова «ігор» — як у 🔥 серіях (сесія 63, за запитом)
+    const gamesStr = games > 0 ? '<span class="lb-games" title="ігор за день">· 🎮' + games + '</span>' : "";
     // 🔁 повторення ПРИБРАНО з рядків (сесія 32, за запитом — «на те значення не дивлюсь»)
     return '<li class="' + cls + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед усіх ' + Object.keys(days).length + ' днів"' : '') + '>' +
       '<span class="lb-score">' + e.correct + '</span>' +
