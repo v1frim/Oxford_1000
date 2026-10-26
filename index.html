@@ -2044,6 +2044,7 @@
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
       <button class="lb-tab" data-tab="gaps" title="Анти-топ: найдовші перерви без занять">⏸️</button>
+      <button class="lb-tab" data-tab="quests" title="Рекорди походів">⚔️</button>
       <button class="lb-tab" data-tab="ach" title="Досягнення">🎖️</button>
     </div>
     <button id="lb-reset" class="lb-reset" title="Очистити історію">🗑</button>
@@ -6577,7 +6578,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "days", "xpdays", "streaks", "gaps", "ach"];
+    const tabs = ["period", "days", "xpdays", "streaks", "gaps", "quests", "ach"];
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -9106,6 +9107,42 @@ function daysActsHtml(keys) {
     .forEach(([i, n]) => { if (n) parts.push(i + n); });
   return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
 }
+// ⚔️ РЕКОРДИ ПОХОДІВ (сесія 61, за запитом «додай походи в лідерборд» → «окрема вкладка ⚔️»).
+// Походи свідомо НЕ змішані з іграми в 🕒 (там вони «ост» поза місцями): безстроковий похід
+// непорівнюваний із 60-секундною грою. Тут — свій рейтинг: більше переможених монстрів,
+// при рівності менше втеч, потім новіший. Джерело — журнал ігор (tag "quest").
+function questGames() { return loadGamesLog().filter(g => g.tag === "quest"); }
+function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = Math.floor(sec / 60); return m + ":" + String(sec % 60).padStart(2, "0"); }
+function renderQuestRow(g, cls, rank) {
+  const bad = (g.wrong || 0) + (g.skipped || 0), t = g.time && g.time.total, ar = g.n && g.n.arena;
+  const isToday = tsToDayKey(g.ts) === todayKey();
+  return '<li class="' + (cls || "") + (isToday ? " is-today-game" : "") + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед усіх походів"' : '') + '>' +
+    '<span class="lb-score">' + g.score + '</span>' +
+    '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
+    (t ? '<span class="lb-games" title="тривалість походу">· ⏱ ' + fmtQuestTime(t) + '</span>' : '') +
+    (ar ? '<span class="lb-games" title="добито на арені">· 🏟️' + ar + '</span>' : '') +
+    '<span class="lb-mode">' + fmtDate(g.ts) + '</span>' +
+  '</li>';
+}
+function renderTabQuests() {
+  const all = questGames();
+  setLbTitle('Рекорди походів' + (all.length ? '<span class="lb-title-sub">· ' + all.length + ' ' + plural(all.length, "похід", "походи", "походів") + '</span>' : ''),
+    "⚔️ Похід героя: правильні (втечі / усього монстрів на дорозі), тривалість і скільки добито на арені. " +
+    "Окремий рейтинг — з іграми на 60 секунд похід не порівнюється.");
+  if (!all.length) {
+    lbListEl.innerHTML = "";
+    lbEmptyEl.textContent = "Тут будуть твої походи ⚔️ — кнопка під «Тренуванням».";
+    lbEmptyEl.classList.remove("hidden");
+    return;
+  }
+  lbEmptyEl.classList.add("hidden");
+  const sorted = [...all].sort((a, b) => b.score - a.score || ((a.wrong || 0) + (a.skipped || 0)) - ((b.wrong || 0) + (b.skipped || 0)) || b.ts - a.ts);
+  let html = sorted.slice(0, LB_LIMIT).map((g, i) => renderQuestRow(g, "", null)).join("");
+  // останній похід — під рискою з реальним місцем, якщо не потрапив у топ (як у 🕒)
+  const newest = all.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null), at = sorted.indexOf(newest);
+  if (at >= LB_LIMIT) html += '<li class="lb-sep"></li>' + renderQuestRow(newest, "lb-latest", at + 1);
+  lbListEl.innerHTML = html;
+}
 function renderTabDays() {
   setLbTitle("Найкращі ігрові дні");
   const days = loadDays();
@@ -9271,7 +9308,7 @@ function renderLeaderboard(newGameId, newDayKey) {
   document.getElementById("ach-screen").classList.toggle("hidden", !achActive);
   // reset схований і на «XP-днях» (виводяться з oxford_xp_day_v1, не з лідерборд-сховища),
   // і на «🎓 CEFR» (рахуються з games-log, який годує ще й «Точність» — чистити його звідси не можна)
-  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "gaps" || lbActiveTab === "cefr" || lbActiveTab === "period") ? "hidden" : "";
+  document.getElementById("lb-reset").style.visibility = (achActive || lbActiveTab === "xpdays" || lbActiveTab === "gaps" || lbActiveTab === "quests" || lbActiveTab === "cefr" || lbActiveTab === "period") ? "hidden" : "";
   lbListEl.classList.toggle("lb-cefr", lbActiveTab === "cefr");   // без медалей/нумерації — рядки з різних пулів
   // ⚠️ Ховаємо ТУТ, а показує сам renderTabPeriod: інакше ряд чипсів висів би над
   // чужими вкладками (та сама пастка, що з `title` заголовка до setLbTitle, сесія 45).
@@ -9283,6 +9320,7 @@ function renderLeaderboard(newGameId, newDayKey) {
   else if (lbActiveTab === "days") renderTabDays();
   else if (lbActiveTab === "xpdays") renderTabXpDays();
   else if (lbActiveTab === "gaps") renderTabGaps();
+  else if (lbActiveTab === "quests") renderTabQuests();
   else renderTabStreaks();
   renderTodayStrip();
   leaderboardEl.classList.remove("hidden");
@@ -9394,14 +9432,22 @@ function renderLbTotals() {
     '<span class="lb-stat-label">' + label + '</span>' +
     '<span class="lb-stat-val"' + (color ? ' style="color:' + color + '"' : '') + '>' + fmt(val) + '</span></div>';
   const learnedSongs = SONGS.filter(s => getSongStatus(s.id) === "learned").length;
+  const _qg = questGames(), qLogged = _qg.length;
+  const qWon = _qg.reduce((a, g) => a + g.score, 0), qBad = _qg.reduce((a, g) => a + (g.wrong || 0) + (g.skipped || 0), 0);
   const lhDoneCount  = Object.keys(loadLhDone()).length;
   document.getElementById("lb-totals").innerHTML =
     '<div class="lb-totals-title">✦ Загальна статистика ✦</div>' +
     row("📅", "Днів гри", activeDays, null, "Дні з будь-якою активністю: ігри, Duolingo, LingoHut, пісні, GPT, кіно, вирази") +
     row("⏸️", "Пропущено днів", missedDays + ' <span style="opacity:.6;font-size:.85em">(' + missedPct + '%)</span>', "#ff9d9d",
         "Дні без жодних занять від першого дня до вчора · у дужках — частка від усіх днів (активні + пропущені)") +
-    row("🎮", "Ігор", games) +
+    // ⚔️ Походи — ПЕРШИМИ, під ними їхня статистика, далі ігри (за запитом: «поміняй місцями ігор і
+    // походів, під походами додай статистику… і скільки в середньому слів на 1 похід»)
     row("⚔️", "Походів", quests, null, "⚔️ Похід героя — окремий режим без таймера; його відповіді входять у «Відповідей» і точність") +
+    (qLogged ? row("🗡️", "Монстрів у походах", '<span style="color:#7be07b">' + qWon + '</span> <span style="opacity:.6;font-size:.85em">(<span style="color:#ff9d9d">' + qBad + '</span>/' + (qWon + qBad) + ')</span>', "",
+        "Переможені (втечі / усього монстрів на дорозі) — за журналом походів (" + qLogged + ")") +
+      row("📊", "Слів на 1 похід", ((qWon + qBad) / qLogged).toFixed(1).replace(".", ","), "",
+        "У середньому монстрів-слів на дорозі за один похід (без арени)") : "") +
+    row("🎮", "Ігор", games) +
     row("🧮", "Відповідей", total) +
     row("✅", "Правильних", correct, "#7be07b") +
     row("❌", "Неправильних", wrong + skipped, "#ff9d9d") +

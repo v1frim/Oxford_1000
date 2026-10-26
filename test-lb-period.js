@@ -155,8 +155,8 @@ function chromePath() {
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
   // сесія 61: 🏆 прибрано; анти-топ ⏸️ — після 🔥 серій (за запитом)
-  t("порядок вкладок: 🕒 · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️ (🎓 став чипсом у 🕒)",
-    order.join(",") === "period,days,xpdays,streaks,gaps,ach", order.join(","));
+  t("порядок вкладок: 🕒 · 📅 · ⚡ · 🔥 · ⏸️ · ⚔️ · 🎖️ (🎓 став чипсом у 🕒)",
+    order.join(",") === "period,days,xpdays,streaks,gaps,quests,ach", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
@@ -429,6 +429,28 @@ function chromePath() {
   t("🔥 серія: (хибні/усього) слів ігор і походів", /\(6\/30\)/.test(stk.txt), stk.txt);
   t("🔥 серія: активності сумою — ⚔️6 походів, 🦉3", /⚔️6/.test(stk.txt) && /🦉3/.test(stk.txt), stk.txt);
   t("🔥 серія: рядок не вилазить за панель", !stk.over, stk.txt);
+
+  // ⚔️ вкладка походів + рядки походів у «Загальній статистиці» (сесія 61)
+  const qv = await page.evaluate(() => {
+    const now = Date.now(), log = [
+      { score: 5, wrong: 2, skipped: 0, ts: now - 9e6, tag: "quest", time: { total: 300 }, n: { arena: 2 } },
+      { score: 12, wrong: 4, skipped: 0, ts: now - 5e6, tag: "quest", time: { total: 754 }, n: { arena: 4 } },
+      { score: 30, wrong: 1, skipped: 0, ts: now - 4e6, mode: "ua-en" },
+      { score: 3, wrong: 1, skipped: 0, ts: now - 1e6, tag: "quest", time: { total: 95 }, n: { arena: 0 } }];
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
+    document.querySelector('.lb-tab[data-tab="quests"]').click();
+    const rows = [...document.querySelectorAll("#lb-list li")].map(l => l.textContent);
+    renderLbTotals();
+    const labels = [...document.querySelectorAll("#lb-totals .lb-stat-row")].map(r => r.textContent);
+    return { rows, title: document.getElementById("lb-title").textContent, labels,
+      reset: getComputedStyle(document.getElementById("lb-reset")).visibility };
+  });
+  t("⚔️ вкладка: лише походи, за переможеними (12, 5, 3)", qv.rows.length === 3 && /^12/.test(qv.rows[0]) && /^5/.test(qv.rows[1]) && /^3/.test(qv.rows[2]), JSON.stringify(qv.rows));
+  t("⚔️ рядок: (втечі/усього), тривалість, арена", /\(4\/16\)/.test(qv.rows[0]) && /12:34/.test(qv.rows[0]) && /🏟️4/.test(qv.rows[0]), qv.rows[0]);
+  t("⚔️ заголовок «Рекорди походів · 3 походи», кошика нема", /Рекорди походів/.test(qv.title) && /3 походи/.test(qv.title) && qv.reset === "hidden", qv.title);
+  const iQ = qv.labels.findIndex(x => /^⚔️Походів/.test(x)), iG = qv.labels.findIndex(x => /^🎮Ігор/.test(x));
+  t("статистика: «Походів» вище за «Ігор», між ними — монстри й слів на похід", iQ >= 0 && iG === iQ + 3 &&
+    /Монстрів у походах20 \(7\/27\)/.test(qv.labels[iQ + 1]) && /Слів на 1 похід9,0/.test(qv.labels[iQ + 2]), JSON.stringify(qv.labels.slice(iQ, iQ + 4)));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errors.length ? "❌ помилки консолі:\n  " + errors.join("\n  ") : "✅ 0 помилок консолі");
