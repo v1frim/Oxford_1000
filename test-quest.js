@@ -54,6 +54,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const hw = document.querySelector("#q-card .qc-word .hw, #q-card .qc-ex .hw"); if (hw) hw.click();
     const n = window.__said.length; speak = o; return { n, hw: !!hw }; });
   t("клік по слову на картці озвучує його", said.hw && said.n === 1, JSON.stringify(said));
+  const enHw = await p.evaluate(() => { const el = document.querySelector("#q-card .qc-word .hw"); return el ? { t: el.textContent, tr: !!el.dataset.trans, ipa: !!el.dataset.ipa } : null; });
+  t("на картці англійське слово — з ховером перекладу й транскрипції", enHw && enHw.tr && enHw.ipa, JSON.stringify(enHw));
   const keys = await p.evaluate(() => { const o = speak, out = []; speak = w => out.push(w);
     document.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true }));
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));

@@ -12111,7 +12111,9 @@ function qStudy(userVal) {
   const ex = lookupExample(EXAMPLES, en, ua), exUa = lookupExample(EXAMPLES_UA, en, ua);
   qEl("q-card").innerHTML =
     '<div class="qc-title">💨 Монстр сильніший — вивчи слово, і втечеш</div>' +
-    '<div class="qc-word"><span class="qc-shown">' + esc(c.shown) + '</span> = <b>' + (c.dir === "ua-en" ? wrapEnWord(ans) : esc(ans)) + '</b>' +
+    // US→UA: показане англійське слово — з ховером (переклади + транскрипція) і озвученням по кліку,
+    // як відповідь у UA→US (скарга «shovel без варіантів перекладу та транскрипції»)
+    '<div class="qc-word"><span class="qc-shown">' + (c.dir === "en-ua" ? wrapEnWord(c.shown) : esc(c.shown)) + '</span> = <b>' + (c.dir === "ua-en" ? wrapEnWord(ans) : esc(ans)) + '</b>' +
       '<button class="speak-btn" data-q="say" title="Прослухати (Tab)">🔊</button></div>' +
     (userVal ? '<div class="qc-your">твоя відповідь: <s>' + esc(userVal) + '</s></div>' : '<div class="qc-your">пропущено</div>') +
     (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
