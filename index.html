@@ -9048,16 +9048,18 @@ function renderTabPeriod() {
     return;
   }
   lbListEl.classList.remove("lb-cefr");
-  // ⚔️ Походи (tag "quest") — у підсумку ✓/✗ і в рядку «ост», але НЕ в рейтингу періоду
+  // ⚔️ Походи (tag "quest"): у «Тиждень» і «Місяць» — У РЕЙТИНГУ разом з іграми (сесія 63, за запитом
+  // «поки що тільки до тижня і місяця»); у «300 ігор» / «За весь час» — лише в підсумку й рядку «ост».
   const { per, games: allGames } = lbPeriodGames(lbPeriod);
-  const games = allGames.filter(g => g.tag !== "quest");
+  const questsRanked = lbPeriod === "d7" || lbPeriod === "d30";
+  const games = questsRanked ? allGames : allGames.filter(g => g.tag !== "quest");
   setLbTitle('Рекорди за період<span class="lb-title-sub">· ' + per.sub + '</span>',
     "Найкращі ігри за обраний період — з журналу всіх ігор. Сюди входять і ігри за " +
     "рівнями CEFR (кожен рядок підписаний своїм пулом), бо питання тут «як я граю зараз», " +
     "а не «який мій абсолютний рекорд». Ігри пулом «Знаю» в журнал не пишуться взагалі.");
 
   const chipsEl = document.getElementById("lb-period-chips");
-  const total = allGames.length;
+  const total = allGames.length, nQ = allGames.filter(g => g.tag === "quest").length;
   const sum = allGames.reduce((a, g) => a + g.score, 0);
   const answered = allGames.reduce((a, g) => a + g.score + g.wrong + g.skipped, 0);
   // ⚠️ Кома в дробовій частині — та сама конвенція, що в «Точності» (сесія 36):
@@ -9066,7 +9068,8 @@ function renderTabPeriod() {
   // ⚠️ Замість середнього «сер. 5,4» — суми правильних і неправильних за період (сесія 61, за
   // запитом). Неправильні = помилки + пропуски, як «Неправильних» на екрані результатів гри.
   const summary = total
-    ? '<div class="lb-per-sum">' + plGames(total) + ' · <span class="lb-per-ok">✓ ' + sum + '</span> · ' +
+    ? '<div class="lb-per-sum">' + (nQ ? plGames(total - nQ) + ' · ' + nQ + ' ' + plural(nQ, "похід", "походи", "походів") : plGames(total)) +
+      ' · <span class="lb-per-ok">✓ ' + sum + '</span> · ' +
       '<span class="lb-per-bad">✗ ' + (answered - sum) + '</span> · точність ' +
       (answered ? pct(sum / answered * 100) : "—") + "</div>"
     : "";
@@ -9093,7 +9096,7 @@ function renderTabPeriod() {
   const newest = allGames.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null);
   const at = newest ? games.findIndex(g => g.ts === newest.ts) : -1;
   if (at >= 10) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", at + 1, ctx);
-  else if (newest && newest.tag === "quest") html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", null, ctx);   // похід — без місця
+  else if (newest && newest.tag === "quest" && !questsRanked) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", null, ctx);   // похід — без місця
   lbListEl.innerHTML = html;
 }
 

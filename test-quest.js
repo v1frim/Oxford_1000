@@ -181,9 +181,12 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     score: log[0] && log[0].score, wrong: log[0] && log[0].wrong, latest: (loadLatest() || {}).tag, ranks: gameRanks().size }; });
   t("похід у журналі ігор із тегом «quest» (1 ✓ / 1 ✗)", lb.log === 1 && lb.tag === "quest" && lb.score === 1 && lb.wrong === 1, JSON.stringify(lb));
   t("похід — «остання гра», але не в «Найкращих іграх» і не в рейтингу", lb.latest === "quest" && lb.scores === 0 && lb.ranks === 0, JSON.stringify(lb));
-  const row = await p.evaluate(() => { lbActiveTab = "period"; renderLeaderboard();
+  const row = await p.evaluate(() => { lbActiveTab = "period"; lbPeriod = "all"; renderLeaderboard();
     const li = document.querySelector("#lb-list li.lb-latest"); return li ? { text: li.textContent, rank: li.dataset.rank || "" } : null; });
-  t("у 🕒 похід — рядком «ост» із підписом «⚔️ Похід», без місця", row && /Похід/.test(row.text) && !row.rank, JSON.stringify(row));
+  t("у 🕒 «За весь час» похід — рядком «ост» із підписом «⚔️ Похід», без місця", row && /Похід/.test(row.text) && !row.rank, JSON.stringify(row));
+  const rowW = await p.evaluate(() => { lbActiveTab = "period"; lbPeriod = "d7"; renderLeaderboard();
+    return { rows: [...document.querySelectorAll("#lb-list li")].map(l => l.className + "|" + l.textContent), sum: document.getElementById("lb-period-chips").textContent }; });
+  t("у 🕒 «Тиждень» похід — у рейтингу (не «ост»), у підсумку «1 похід»", rowW.rows.length === 1 && /Похід/.test(rowW.rows[0]) && !/lb-latest/.test(rowW.rows[0]) && /1 похід/.test(rowW.sum), JSON.stringify(rowW));
 
   // 4. Обірваний похід: утечений монстр чекає й відкриває НАСТУПНИЙ похід ареною
   await p.click("#quest-btn"); await p.waitForTimeout(200);
