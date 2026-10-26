@@ -1743,7 +1743,6 @@
   .qc-go small { opacity: .6; font-weight: 600; margin-left: 6px; }
   .qc-go.alt { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.25); }
   .qc-btns { display: flex; gap: 10px; justify-content: center; }
-  .qc-keys { font-size: 11px; opacity: .45; margin-top: 8px; }
   .q-feed { position: absolute; top: 10px; right: 14px; z-index: 70; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; pointer-events: none; }
   .q-feed.hidden { display: none; }
   .qf-row { display: flex; align-items: center; gap: 6px; background: rgba(10,14,30,.72); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 3px 9px; font-size: 12px; }
@@ -12260,14 +12259,13 @@ function qStudy(userVal) {
     // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
     '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
       '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a><span class="gpt-ctl"></span></div>' +
-    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>' +
-    '<div class="qc-keys">Tab — озвучити слово · Пробіл — озвучити речення' + (exUa ? ' · наведи на розмите — переклад' : '') + '</div>';
+    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>';
   qEl("q-card").classList.remove("hidden");
   renderGptBtn();   // заповнити ± лічильник GPT на картці
   Q.say = en; Q.sayEx = ex;
   qSetInput(false);
-  // ⚠️ Нижню підказку НЕ дублюємо: клавіші вже в рядку `.qc-keys` на картці (скарга на дубль)
-  qHint("");
+  // Клавіші — у нижній підказці над полем/«Втекти» (сесія 63, за запитом; раніше рядок `.qc-keys` на картці)
+  qHint("Tab — озвучити слово · Пробіл — озвучити речення" + (exUa ? " · наведи на розмите — переклад" : ""));
 }
 function qDrillStart() {
   const c = Q.cur, other = c.dir === "ua-en" ? "en-ua" : "ua-en";
