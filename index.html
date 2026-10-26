@@ -1618,7 +1618,7 @@
   .q-hud { display: flex; align-items: center; gap: 14px; padding: 10px 18px; background: rgba(8,12,26,.92); border-bottom: 1px solid rgba(255,209,102,.25); }
   .q-title { font-size: 17px; font-weight: 800; color: #ffd166; white-space: nowrap; }
   .q-title small { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.6); margin-left: 8px; }
-  .q-hud-stats { display: flex; gap: 14px; margin-left: auto; font-size: 14px; }
+  .q-hud-stats { display: flex; align-items: baseline; gap: 14px; margin-left: auto; font-size: 14px; }   /* baseline: числа різного розміру й <small> — на одній лінії */
   .q-hud-stats b { font-size: 16px; }
   .q-hud-stats .ok { color: #7be07b; font-weight: 700; } .q-hud-stats .bad { color: #ff8a8a; font-weight: 700; }
   .q-stop { background: rgba(255,107,107,.16); border: 1px solid rgba(255,107,107,.5); color: #ffb3b3; border-radius: 10px; padding: 7px 14px; font-weight: 800; cursor: pointer; font-family: inherit; }
@@ -1770,6 +1770,8 @@
   .q-bottom { padding: 12px 18px 16px; background: rgba(8,12,26,.95); border-top: 1px solid rgba(255,209,102,.2); }
   .q-hint { text-align: center; font-size: 13px; opacity: .6; min-height: 18px; margin-bottom: 8px; }
   .q-inrow { display: flex; gap: 10px; justify-content: center; }
+  .q-arena-go { background: rgba(255,209,102,.16); border-color: rgba(255,209,102,.55); color: #ffd166; animation: qArenaPulse 1.6s ease-in-out infinite; }
+  @keyframes qArenaPulse { 50% { box-shadow: 0 0 14px rgba(255,209,102,.45); } }
   #q-answer { width: min(460px, 70vw); font-size: 22px; padding: 12px 16px; border-radius: 14px; text-align: center; font-family: inherit;
     background: rgba(255,255,255,.07); color: #fff; border: 2px solid rgba(255,209,102,.6); outline: none; }
   #q-answer:disabled { opacity: .45; border-color: rgba(255,255,255,.2); }
@@ -2147,7 +2149,7 @@
   </div>
   <div class="q-bottom">
     <div id="q-hint" class="q-hint"></div>
-    <div class="q-inrow"><input id="q-answer" type="text" autocomplete="off" autocorrect="off" spellcheck="false" disabled><button id="q-skip" class="q-skip" data-q="skip" title="Порожній Enter — те саме">💨 Втекти</button></div>
+    <div class="q-inrow"><input id="q-answer" type="text" autocomplete="off" autocorrect="off" spellcheck="false" disabled><button id="q-skip" class="q-skip" data-q="skip" title="Порожній Enter — те саме">💨 Втекти</button><button id="q-arena-go" class="q-skip q-arena-go hidden" data-q="midarena" title="Добити втечених монстрів зараз, а потім — далі дорогою"></button></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -12099,6 +12101,7 @@ function qSetInput(on, placeholder) {
   qAnswerEl.placeholder = placeholder || "";
   qAnswerEl.classList.remove("wrong");
   if (on) setTimeout(() => qAnswerEl.focus(), 0);
+  qArenaGoBtn();
 }
 function qHint(text) { qEl("q-hint").textContent = text || ""; }
 // ── 📜 СТРІЧКА XP (за запитом «скільки і за що давали XP по кожному з монстрів, по останніх 5») ──
@@ -12113,7 +12116,7 @@ function qFeed(idx, items, kind) {
   if (kind === "drill" && Q.feedCur) e = Q.feedCur;
   else if (kind === "arena") {
     e = Q.feedArena;
-    if (!e) { e = Q.feedArena = { w: Q.pre ? "🏟️ Арена (минулий похід)" : "🏟️ Арена", items: [], kills: 0 }; Q.feed.unshift(e); }
+    if (!e) { e = Q.feedArena = { w: Q.pre === "mid" ? "🏟️ Арена посеред походу" : Q.pre ? "🏟️ Арена (минулий похід)" : "🏟️ Арена", items: [], kills: 0 }; Q.feed.unshift(e); }
     e.kills++;
     e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
     items = [];
@@ -12418,7 +12421,7 @@ function questStop() {
   qHint("");
 }
 function qArenaStart(pre) {
-  Q.pre = !!pre;
+  Q.pre = pre === "mid" ? "mid" : !!pre;
   Q.feedArena = null;                              // нова арена — новий рядок у стрічці XP
   Q.stage = "arena"; Q.phase = "arena";
   qT("arena");
@@ -12515,7 +12518,7 @@ function qArenaNext() {
   el.querySelector(".qm-word").innerHTML = esc(Q.cur.shown) + '<span class="qm-hp">' + pips + '</span>';
   qArenaLayout();   // ціль — наверх, бульбашка — в межах сцени
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
-  qHint((Q.pre ? "🏟️ Спершу добий монстрів із минулого походу" : "🏟️ Арена") + " · лишилось " + A.left.size + " · " + (MODE_HINTS[dir] || "") + " · Esc — завершити");
+  qHint((Q.pre === "mid" ? "🏟️ Арена посеред походу" : Q.pre ? "🏟️ Спершу добий монстрів із минулого походу" : "🏟️ Арена") + " · лишилось " + A.left.size + " · " + (MODE_HINTS[dir] || "") + (Q.pre === "mid" ? " · Esc — назад на дорогу" : " · Esc — завершити"));
 }
 function qArenaAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
@@ -12555,6 +12558,29 @@ function qArenaAnswer(val, auto) {
     for (let i = n, x = flip(pl[n]); i < pl.length; i++, x = flip(x)) pl[i] = x;
     Q.timer = setTimeout(() => { el.classList.remove("strike-back"); qArenaNext(); }, 1900);
   }
+}
+// 🏟️ АРЕНА ПОСЕРЕД ПОХОДУ (сесія 63, за запитом): щойно втечених монстрів назбиралось ≥ QUEST_MID_ARENA,
+// поруч із «Втекти» з'являється кнопка «🏟️ На арену» — доступна, поки герой іде дорогою або стоїть
+// перед новим монстром (той відступає, без відповіді й без зарахування). Арена та сама; добив усіх —
+// або Esc — назад на дорогу (недобиті лишаються чекати). Q.pre === "mid".
+const QUEST_MID_ARENA = 5;
+function qArenaGoBtn() {
+  const b = document.getElementById("q-arena-go");
+  if (!b) return;
+  const n = Q && Q.stage === "road" && (Q.phase === "walk" || Q.phase === "fight") ? qArenaPending().length : 0;
+  b.classList.toggle("hidden", n < QUEST_MID_ARENA);
+  if (n >= QUEST_MID_ARENA) b.textContent = "🏟️ На арену · " + n;
+}
+function qMidArena() {
+  if (!Q || Q.stage !== "road" || !(Q.phase === "walk" || Q.phase === "fight")) return;
+  if (qArenaPending().length < QUEST_MID_ARENA) return;
+  clearTimeout(Q.timer);
+  const m = Q.phase === "fight" ? Q.mon : null;
+  Q.phase = "toarena"; Q.speedTo = 0; Q.mon = null;
+  qSetInput(false);
+  qHero("");
+  if (m) { m.classList.remove("fighting"); m.classList.add("behind"); setTimeout(() => m.remove(), 1300); }   // монстр відступає
+  Q.timer = setTimeout(() => { if (!Q || Q.phase !== "toarena") return; Q.arenaPool = qArenaPending(); qArenaStart("mid"); }, m ? 800 : 200);
 }
 function qRoadAfterArena() {
   if (!Q || Q.stage !== "arena") return;
@@ -12727,7 +12753,8 @@ questOverlay.addEventListener("click", e => {
   else if (a === "final") questFinal();
   else if (a === "home") questClose(false);
   else if (a === "again") questClose(true);
-  else if (a === "stop") { Q.stage === "arena" ? questFinal() : questStop(); }
+  else if (a === "stop") { Q.stage === "arena" ? (Q.pre === "mid" ? qRoadAfterArena() : questFinal()) : questStop(); }
+  else if (a === "midarena") qMidArena();
   else if (a === "skip" && !qAnswerEl.disabled) qOnAnswer("", false);
 });
 document.getElementById("quest-btn").addEventListener("click", questStart);
@@ -12740,7 +12767,7 @@ document.addEventListener("keydown", e => {
   else if (e.key === "Escape") {
     e.preventDefault();
     if (Q.stage === "road") questStop();
-    else if (Q.stage === "arena") questFinal();
+    else if (Q.stage === "arena") Q.pre === "mid" ? qRoadAfterArena() : questFinal();
     else if (Q.stage === "final") questClose(false);
   } else if (e.key === "Tab") {
     e.preventDefault();

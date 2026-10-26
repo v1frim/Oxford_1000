@@ -267,6 +267,26 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     return { bad, words: [...document.querySelectorAll("#q-actors .qm-word")].map(w => w.textContent).join("") }; });
   t("вийшов з арени, не добивши — фінальна картка поверх монстрів, бульбашок нема", !fin2.bad.length && !fin2.words, JSON.stringify(fin2));
 
+  // 8. 🏟️ Арена посеред походу (сесія 63): ≥5 втечених → кнопка; монстр відступає; Esc — назад на дорогу
+  await p.evaluate(() => { localStorage.removeItem("oxford_quest_arena_v1"); });
+  await p.reload(); await p.waitForTimeout(1200);
+  await p.click("#quest-btn"); await fight(); await p.waitForTimeout(200);
+  t("арена посеред: при 0 втечених кнопки нема", !(await p.isVisible("#q-arena-go")));
+  await p.evaluate(() => { [1, 2, 3, 4].forEach(i => qArenaAdd(i)); qArenaGoBtn(); });
+  t("арена посеред: при 4 втечених кнопки нема", !(await p.isVisible("#q-arena-go")));
+  await p.evaluate(() => { qArenaAdd(5); qArenaGoBtn(); });
+  const btn = await p.evaluate(() => ({ vis: !document.getElementById("q-arena-go").classList.contains("hidden"), txt: document.getElementById("q-arena-go").textContent, idx: Q.cur.idx, mlog: Q.mlog.length }));
+  t("арена посеред: 5 втечених → кнопка «🏟️ На арену · 5»", btn.vis && /На арену · 5/.test(btn.txt), JSON.stringify(btn));
+  await p.click("#q-arena-go"); await p.waitForTimeout(1200);
+  const mid = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, mlog: Q.mlog.length, hint: document.getElementById("q-hint").textContent, btn: document.getElementById("q-arena-go").classList.contains("hidden") }));
+  t("арена посеред: монстр відступив без зарахування, відкрилась та сама арена з 5", mid.stage === "arena" && mid.pre === "mid" && mid.n === 5 && mid.mlog === btn.mlog && mid.btn, JSON.stringify(mid));
+  t("арена посеред: підказка «Esc — назад на дорогу»", /посеред походу/.test(mid.hint) && /назад на дорогу/.test(mid.hint), mid.hint);
+  await p.keyboard.press("Escape"); await p.waitForTimeout(400);
+  const back = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, left: qArenaPending().length }));
+  t("арена посеред: Esc → назад на дорогу, недобиті чекають", back.stage === "road" && !back.pre && back.left === 5, JSON.stringify(back));
+  await fight(); await p.waitForTimeout(200);
+  t("арена посеред: на дорозі кнопка знову є", await p.isVisible("#q-arena-go"));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");
   await b.close();
