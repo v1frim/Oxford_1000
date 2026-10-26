@@ -471,7 +471,7 @@ function chromePath() {
   t("⚔️ заголовок «Рекорди походів · 3 походи», кошика нема", /Рекорди походів/.test(qv.title) && /3 походи/.test(qv.title) && qv.reset === "hidden", qv.title);
   const iQ = qv.labels.findIndex(x => /^⚔️Походів/.test(x)), iG = qv.labels.findIndex(x => /^🎮Ігор/.test(x));
   t("статистика: «Походів» вище за «Ігор», між ними — монстри й слів на похід", iQ >= 0 && iG === iQ + 3 &&
-    /Монстрів у походах20 \(7\/27\)/.test(qv.labels[iQ + 1]) && /Слів на 1 похід9,0/.test(qv.labels[iQ + 2]), JSON.stringify(qv.labels.slice(iQ, iQ + 4)));
+    /20переможених7втеч27монстрів/.test(qv.labels[iQ + 1]) && /Слів на 1 похід9,0/.test(qv.labels[iQ + 2]), JSON.stringify(qv.labels.slice(iQ, iQ + 4)));
 
   // ⚔️ діри в журналі: день має 3 походи, журнал — 1 → міграція відновлює 2 (залишок відповідей дня)
   const gap = await page.evaluate(() => {

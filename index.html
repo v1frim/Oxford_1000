@@ -9444,6 +9444,17 @@ function renderLbTotals() {
   const _qg = questGames(), qLogged = _qg.length;
   const qWon = _qg.reduce((a, g) => a + g.score, 0), qBad = _qg.reduce((a, g) => a + (g.wrong || 0) + (g.skipped || 0), 0);
   const lhDoneCount  = Object.keys(loadLhDone()).length;
+  // Плашка на три числа (сесія 63): число зверху, підпис під ним — ✓ · ✗ · усього. Для відповідей ігор
+  // і монстрів походів. Ігри — з журналу (без походів); якщо день − походи більше (ігри, яких журнал
+  // не пише) — те. Точність нижче — і далі за ВСІМА відповідями.
+  const trio = (icon, tip, ok, okCap, bad, badCap, allCap) => {
+    const cell = (n, cap, c) => '<span class="lb-trio-c"><b' + (c ? ' style="color:' + c + '"' : '') + '>' + n + '</b><small>' + cap + '</small></span>';
+    return '<div class="lb-stat-row lb-trio" title="' + tip + '"><span class="lb-stat-ic">' + icon + '</span>' +
+      cell(ok, okCap, "#7be07b") + cell(bad, badCap, "#ff9d9d") + cell(ok + bad, allCap) + '</div>';
+  };
+  const _ng = loadGamesLog().filter(g => g.tag !== "quest");
+  const gOk = Math.max(_ng.reduce((a, g) => a + (g.score || 0), 0), correct - qWon);
+  const gBad = Math.max(_ng.reduce((a, g) => a + (g.wrong || 0) + (g.skipped || 0), 0), wrong + skipped - qBad);
   document.getElementById("lb-totals").innerHTML =
     '<div class="lb-totals-title">✦ Загальна статистика ✦</div>' +
     row("📅", "Днів гри", activeDays, null, "Дні з будь-якою активністю: ігри, Duolingo, LingoHut, пісні, GPT, кіно, вирази") +
@@ -9452,24 +9463,16 @@ function renderLbTotals() {
     // ⚔️ Походи — ПЕРШИМИ, під ними їхня статистика, далі ігри (за запитом: «поміняй місцями ігор і
     // походів, під походами додай статистику… і скільки в середньому слів на 1 похід»)
     row("⚔️", "Походів", quests, null, "⚔️ Похід героя — окремий режим без таймера; його відповіді входять у «Відповідей» і точність") +
-    (qLogged ? row("🗡️", "Монстрів у походах", '<span style="color:#7be07b">' + qWon + '</span> <span style="opacity:.6;font-size:.85em">(<span style="color:#ff9d9d">' + qBad + '</span>/' + (qWon + qBad) + ')</span>', "",
-        "Переможені (втечі / усього монстрів на дорозі) — за журналом походів (" + qLogged + ")") +
+    // монстри — такою ж плашкою на три числа, як відповіді ігор (сесія 63, за запитом «аналогічно»)
+    (qLogged ? trio("🗡️", "Монстри на дорозі походів — за журналом походів (" + qLogged + "): переможені · втечі · усього",
+        qWon, "переможених", qBad, "втеч", "монстрів") +
       row("📊", "Слів на 1 похід", ((qWon + qBad) / qLogged).toFixed(1).replace(".", ","), "",
         "У середньому монстрів-слів на дорозі за один похід (без арени)") : "") +
     row("🎮", "Ігор", games) +
     // ⚠️ Відповіді / правильні / неправильні — ОДНА плашка під «Ігор» (сесія 63, за запитом: «об'єднати,
-    // як монстри в походах, але цифри й підписи окремо — числа вже великі»). ЛИШЕ ІГРИ: походи — рядком
-    // «Монстрів у походах» вище. Як у 🔥 серіях: з журналу ігор (без походів), а якщо день − походи
-    // більше (ігри, яких журнал не пише) — те. Точність нижче — і далі за ВСІМА відповідями.
-    (() => {
-      const _ng = loadGamesLog().filter(g => g.tag !== "quest");
-      const lOk = _ng.reduce((a, g) => a + (g.score || 0), 0), lBad = _ng.reduce((a, g) => a + (g.wrong || 0) + (g.skipped || 0), 0);
-      const gOk = Math.max(lOk, correct - qWon), gBad = Math.max(lBad, wrong + skipped - qBad), cell = (n, cap, c) =>
-        '<span class="lb-trio-c"><b' + (c ? ' style="color:' + c + '"' : '') + '>' + n + '</b><small>' + cap + '</small></span>';
-      return '<div class="lb-stat-row lb-trio" title="Відповіді в іграх (без походів): правильні · неправильні й пропущені · усього">' +
-        '<span class="lb-stat-ic">🧮</span>' + cell(gOk, "правильних", "#7be07b") + cell(gBad, "неправильних", "#ff9d9d") +
-        cell(gOk + gBad, "відповідей") + '</div>';
-    })() +
+    // але цифри й підписи окремо — числа вже великі»). ЛИШЕ ІГРИ: походи — своєю плашкою вище.
+    trio("🧮", "Відповіді в іграх (без походів): правильні · неправильні й пропущені · усього",
+      gOk, "правильних", gBad, "неправильних", "відповідей") +
     row("🎯", "Точність · весь час", accAllHtml, "") +
     // ⚠️ ПІДПИС «300 слів», а не «ост. 300» (сесія 58, за запитом: «так буде набагато
     // зрозуміліше»). Довжина та сама, що в рядка «весь час», тож плашка не поїхала.
