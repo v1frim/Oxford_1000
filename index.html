@@ -9260,7 +9260,7 @@ function renderTabStreaks() {
     }
     // Перший рядок: 🎮 ігри ⚔️ походи (усього відповідей) — ЗНАЧКИ замість слова «ігор» і походи поруч
     // з іграми (сесія 62, за запитом). У дужках — ЛИШЕ загальна кількість, без неправильних.
-    // Другим рядком — решта активностей серії (🦉, 📚, 🎧…) сумою по днях.
+    // Решту активностей (🦉, 📚, 🎧…) ПРИБРАНО (сесія 63, за запитом «у серіях лише ігри й походи»).
     const days = loadDays(), quests = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
     const gamesStr = (s.games || quests)
       ? '<span class="lb-games" title="ігри й походи серії · у дужках — усього відповідей">· ' +
@@ -9270,7 +9270,7 @@ function renderTabStreaks() {
     return '<li class="lb-streak ' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
       '<span class="lb-detail">' + plural(s.length, "день", "дні", "днів") + '</span>' +
-      gamesStr + wordsStr + daysActsHtml(keys, true) +
+      gamesStr + wordsStr +
       '<span class="lb-mode">' + period + '</span>' +
     '</li>';
   };
