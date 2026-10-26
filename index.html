@@ -1719,7 +1719,7 @@
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
   .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
   .qc-words { margin-top: 8px; }
-  .qw-list { max-height: 170px; overflow-y: auto; text-align: left; font-size: 13px; border-radius: 8px; background: rgba(255,255,255,.04); padding: 4px 8px; }
+  .qw-list { max-height: 240px; overflow-y: auto; text-align: left; font-size: 13px; border-radius: 8px; background: rgba(255,255,255,.04); padding: 4px 8px; }
   .qw-row { display: flex; gap: 8px; align-items: baseline; padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
   .qw-row:last-child { border-bottom: none; }
   .qw-mk { flex: 0 0 52px; font-style: normal; }
@@ -1749,7 +1749,9 @@
   .qc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 6px 0; }
   .qc-stats > div { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 8px; font-size: 12px; opacity: .9; }
   .qc-stats b { display: block; font-size: 26px; }
-  .qc-stats .ok { color: #7be07b; } .qc-stats .bad { color: #ff8a8a; } .qc-stats .xp { color: #06d6a0; }
+  .qc-stats .ok { color: #7be07b; } .qc-stats .bad { color: #ff8a8a; } .qc-stats .xp { color: #ffd166; }   /* XP — золотистий, як у стрічці XP (сесія 63) */
+  .qc-stats.qc-fin { grid-template-columns: repeat(4, 1fr); gap: 6px; } .qc-stats.qc-fin > div { padding: 5px 4px; } .qc-stats.qc-fin b { font-size: 22px; }
+  .qw-know { flex: none; font-size: 11px; padding: 0 6px; border-radius: 8px; background: rgba(123,224,123,.14); border: 1px solid rgba(123,224,123,.4); color: #b8f5b8; }
   .qc-go { margin-top: 14px; background: linear-gradient(180deg, #ffe08a, #ffc94d); color: #1a1206; border: 1px solid #ffd166; border-radius: 12px; padding: 10px 20px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit; }
   .qc-go small { opacity: .6; font-weight: 600; margin-left: 6px; }
   .qc-go.alt { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.25); }
@@ -12093,7 +12095,7 @@ function qHud() {
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
-    '<span title="Пункти «Плани»: 1 за кожні 14 очок; недобрані очки переходять у наступний похід. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>· ' + Q.answers + ' оч. (ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
+    '<span title="Пункти «Плани»: 1 за кожні 14 очок; недобрані очки переходять у наступний похід. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>· ' + (Q.carry ? Q.carry + '+' + (Q.answers - Q.carry) : Q.answers) + ' оч. (ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -12619,7 +12621,7 @@ addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } c
 // 📜 СЛОВА ПОХОДУ на фіналі (сесія 63, за запитом: «після гри можна було подивитися слова, які відповів
 // правильно чи неправильно — підгадати переклад чи звучання»). Кожне слово — раз: дорога (✓ переміг /
 // ✗ втік) і арена (🏟️, скільки помилок). Англійське — з ховером перекладу й IPA, клік озвучує (.hw).
-function qWordsHtml() {
+function qWordsHtml(known) {
   const by = new Map(), get = w => by.get(w) || (by.set(w, {}), by.get(w));
   (Q.mlog || []).forEach(r => { const o = get(r.w); o.road = o.road === false ? false : r.ok; });
   (Q.alog || []).forEach(r => { const o = get(r.w); o.arena = Math.max(0, (r.tries || 0) - REVIEW_REQUIRED_CORRECT); });
@@ -12629,7 +12631,8 @@ function qWordsHtml() {
     const mk = (o.road === true ? '<i class="ok">✓</i>' : o.road === false ? '<i class="bad" title="втік">✗</i>' : '') +
       ("arena" in o ? '<i title="арена' + (o.arena ? ': помилок ' + o.arena : '') + '">🏟️' + (o.arena ? '<span class="bad">' + o.arena + '</span>' : '') + '</i>' : '');
     return '<div class="qw-row' + (o.road === false || o.arena ? ' miss' : '') + '"><span class="qw-mk">' + mk + '</span>' +
-      '<span class="qw-en">' + wrapEnWord(k) + '</span><span class="qw-ua">' + esc(ua) + '</span></div>';
+      '<span class="qw-en">' + wrapEnWord(k) + '</span>' + (known && known.has(k) ? '<span class="qw-know">✓ у «Знаю»</span>' : '') +
+      '<span class="qw-ua">' + esc(ua) + '</span></div>';
   });
   return '<div class="qc-words"><div class="qc-sub">📜 Слова походу · ' + by.size + ' <small>(наведи — переклад, клік — вимова)</small></div>' +
     '<div class="qw-list">' + rows.join("") + '</div></div>';
@@ -12654,19 +12657,20 @@ function questFinal() {
   const left = qArenaPending().length;   // недобиті чекатимуть на початку наступного походу
   qEl("q-card").innerHTML =
     '<div class="qc-title">🏆 Похід завершено</div>' +
-    '<div class="qc-stats">' +
+    // ⚠️ «Добито на арені» ЗАМІНЕНО на «монстрів» (✓ + ✗) — сесія 63: «добито» ≈ «неправильних», дублювало.
+    // Плитки — 4 в ряд (qc-fin), щоб «Словам походу» лишилось місця.
+    '<div class="qc-stats qc-fin">' +
       '<div><b class="ok">' + Q.won + '</b>правильних</div><div><b class="bad">' + Q.fled.length + '</b>неправильних</div>' +
-      '<div><b>' + Q.arenaWon + '</b>добито на арені' + (left ? ' (' + left + ' чекають на наступний похід)' : '') + '</div>' +
+      '<div><b>' + (Q.won + Q.fled.length) + '</b>монстрів' + (left ? '<small class="qc-pts">🏟️ ' + left + ' чекають на наступний похід</small>' : '') + '</div>' +
       // 🌡️ і пункти, і ОЧКИ (сесія 63, за запитом «невідомо скільки очок дало»): +зароблені цим походом
       // (без залишку з минулого) · до наступного пункту
-      '<div><b>' + Q.pts + '</b>пунктів «Плани»<small class="qc-pts">🌡️ +' + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
+      '<div><b>' + Q.pts + '</b>пунктів «Плани»<small class="qc-pts">🌡️ ' + (Q.carry ? Q.carry + '+' : '+') + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
         (questPointNeed(Q.pts + 1) - Q.answers) + ' до пункту</small></div>' +
-      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div></div>' +
+      '<div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div>' +
+      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div></div>' +
     qTimeHtml(ts) +
-    // слова, що цей похід перевів у «Знаю» (за запитом — замість «Втік від»)
-    (newKeys.length ? '<div class="qc-sub">У «Знаю»: ' + newKeys.slice(0, 30).map(k => { const i = indexOfWordKey(k);
-      return '<span class="w-chip">' + esc(k) + (i >= 0 ? ' — ' + esc(getUa(WORDS[i])[0]) : '') + '</span>'; }).join("") + '</div>' : '') +
-    qWordsHtml() +
+    // слова, що цей похід перевів у «Знаю», — позначкою в рядку «Слів походу» (сесія 63; було окремим рядком чипсів)
+    qWordsHtml(new Set(newKeys)) +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
   qEl("q-card").classList.remove("hidden");
   qHint("");

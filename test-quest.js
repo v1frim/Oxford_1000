@@ -139,6 +139,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     words: [...document.querySelectorAll("#q-card .qw-row")].map(r => ({ t: r.textContent, hw: !!r.querySelector(".hw"), miss: r.classList.contains("miss") })) }));
   t("фінал: «Слова походу» — кожне слово раз, ✓ / ✗+🏟️, англійське з ховером", fin.words.length === 2 && fin.words.every(w => w.hw) &&
     fin.words.filter(w => w.miss).length === 1 && fin.words.some(w => /✓/.test(w.t)) && fin.words.some(w => /✗/.test(w.t) && /🏟️1/.test(w.t)), JSON.stringify(fin.words));
+  t("фінал: «монстрів» = правильні + неправильні (замість «добито на арені»), XP золотистим", /2монстрів/.test(fin.card) && !/добито на арені/.test(fin.card) &&
+    await p.evaluate(() => getComputedStyle(document.querySelector("#q-card .qc-stats .xp")).color === "rgb(255, 209, 102)"), fin.card.slice(0, 200));
   t("фінал: 🌡️ показує очки походу", /🌡️ \+\d+ очок · ще \d+ до пункту/.test(fin.card), fin.card.slice(0, 300));
   t("3 правильні на арені — монстр добитий, фінал", fin.stage === "final" && /Похід завершено/.test(fin.card), fin.stage);
   t("XP походу = реальний приріст (1 перемога + 1 вивчення + 2 арена + бонуси mastery)", fin.xp === fin.real && fin.real >= 3 && fin.real - xp0 * 0 === (await p.evaluate(() => loadXp())) - xp0, fin.xp + " / " + fin.real);
@@ -192,6 +194,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("після обриву монстр лишився на арені", await p.evaluate(i => loadQArena().includes(wordKey(WORDS[i])), idx3));
   await p.click("#quest-btn"); await p.waitForTimeout(1000);
   t("новий похід стартує із залишком очок минулого", await p.evaluate(() => Q.answers === Q.carry && Q.carry > 0));
+  t("шапка: очки як «залишок+нові» (N+0)", await p.evaluate(() => { qHud(); return /🌡️ 0 · [1-9]\d*\+0 оч\./.test(document.getElementById("q-hud-stats").textContent); }),
+    await p.evaluate(() => document.getElementById("q-hud-stats").textContent));
   const pre = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, idx: Q.cur && Q.cur.idx, hint: document.getElementById("q-hint").textContent }));
   t("новий похід починається з арени недобитих", pre.stage === "arena" && pre.pre && pre.n === 1 && pre.idx === idx3, JSON.stringify(pre));
   t("підказка: «спершу добий монстрів із минулого походу»", /минулого походу/.test(pre.hint), pre.hint);
