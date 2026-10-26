@@ -120,7 +120,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       mons: (q.monsters || []).length, wrongRec: (q.monsters || []).find(r => !r.ok) || null, arena: (q.arena || []).length,
       arenaRec: (q.arena || [])[0] || null };
   });
-  t("фінал: таблиця часу по етапах", /Час по етапах/.test(tim.card) && /Арена/.test(tim.card) && /Читання картки/.test(tim.card), tim.card.slice(0, 120));
+  t("фінал: таблиця часу — бої з кількістю, картка, 3 правильні, арена", /Бої · 2/.test(tim.card) && /Картка зі словом/.test(tim.card) && /3 правильні після картки · 1/.test(tim.card) && /Арена · 1/.test(tim.card), tim.card.slice(0, 200));
+  t("фінал: замість «Втік від» — слова, що перейшли у «Знаю»", !/Втік від/.test(tim.card), tim.card.slice(-160));
+  t("недобрані очки збережено для наступного походу", await p.evaluate(() => localStorage.getItem("oxford_quest_carry_v1")) === "4");   // 4 очки, пункт — за 14
   t("журнал ігор: секунди по етапах і лічильники", tim.gTime && "fight" in tim.gTime && "arena" in tim.gTime && tim.gTime.total >= 0 && tim.gN && tim.gN.fights === 2 && tim.gN.drills === 1 && tim.gN.arena === 1, JSON.stringify([tim.gTime, tim.gN]));
   t("журнал походів: кожен монстр із часом відповіді", tim.mons === 2 && tim.wrongRec && tim.wrongRec.t >= 0 && tim.wrongRec.st >= 0 && tim.wrongRec.dr >= 0 && tim.wrongRec.da >= 3, JSON.stringify(tim.wrongRec));
   t("журнал походів: монстр арени — час і спроби", tim.arena === 1 && tim.arenaRec.tries === 3 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
@@ -149,6 +151,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.reload(); await p.waitForTimeout(1200);          // похід обірвався (закрив вкладку)
   t("після обриву монстр лишився на арені", await p.evaluate(i => loadQArena().includes(wordKey(WORDS[i])), idx3));
   await p.click("#quest-btn"); await p.waitForTimeout(1000);
+  t("новий похід стартує із залишком очок минулого", await p.evaluate(() => Q.answers === Q.carry && Q.carry > 0));
   const pre = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, idx: Q.cur && Q.cur.idx, hint: document.getElementById("q-hint").textContent }));
   t("новий похід починається з арени недобитих", pre.stage === "arena" && pre.pre && pre.n === 1 && pre.idx === idx3, JSON.stringify(pre));
   t("підказка: «спершу добий монстрів із минулого походу»", /минулого походу/.test(pre.hint), pre.hint);

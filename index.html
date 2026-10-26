@@ -7014,7 +7014,7 @@ const BACKUP_KEYS = [
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
   "oxford_self_reviews_v1","oxford_due_v1","oxford_day_wrong_v1",
-  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1","oxford_quest_log_v1"
+  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1","oxford_quest_log_v1","oxford_quest_carry_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -11969,7 +11969,7 @@ function qHud() {
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
-    '<span title="Пункти «Плани»: 1 за кожні 14 очок. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
+    '<span title="Пункти «Плани»: 1 за кожні 14 очок; недобрані очки переходять у наступний похід. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -12082,6 +12082,10 @@ function qSaveLog(rec) {
 // після картки (3 правильні), +1 за монстра, добитого на арені. Помилки в повторенні й на арені — 0.
 function questPointNeed(k) { return QUEST_PT_STEP * k; }   // очок до k-го пункту
 function questPointsFor(n) { let k = 0; while (questPointNeed(k + 1) <= n) k++; return k; }
+// ⚠️ ЗАЛИШОК ОЧОК ПЕРЕХОДИТЬ У НАСТУПНИЙ ПОХІД (за запитом, як монстри арени): похід стартує з
+// Q.answers = збережений залишок, і після кожного очка залишок (очки понад останній пункт) пишеться.
+const QUEST_CARRY_KEY = "oxford_quest_carry_v1";
+function qLoadCarry() { const v = parseInt(localStorage.getItem(QUEST_CARRY_KEY), 10); return v > 0 && v < QUEST_PT_STEP ? v : 0; }
 function qCountAnswer() {
   Q.answers++;
   while (questPointNeed(Q.pts + 1) <= Q.answers) {
@@ -12089,6 +12093,7 @@ function qCountAnswer() {
     qDayAdd("questPts");
     qFloat("🌡️ +1 пункт", "pt", 50);
   }
+  try { localStorage.setItem(QUEST_CARRY_KEY, String(Q.answers - questPointNeed(Q.pts))); } catch (e) {}
   qHud();
 }
 function qOnAnswer(val, auto) {
@@ -12403,7 +12408,7 @@ function questFinal() {
   questOverlay.classList.add("q-noinput");
   qSetInput(false);
   qHero("");
-  const lg = loadLastGameTrans(), newK = lg && lg.k ? lg.k.length : 0;
+  const lg = loadLastGameTrans(), newKeys = (lg && lg.k) || [], newK = newKeys.length;
   const fled = [...new Set(Q.fled)];
   const left = qArenaPending().length;   // недобиті чекатимуть на початку наступного походу
   qEl("q-card").innerHTML =
@@ -12414,7 +12419,9 @@ function questFinal() {
       '<div><b>' + Q.pts + '</b>пунктів «Плани»</div>' +
       '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div><div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div></div>' +
     qTimeHtml(ts) +
-    (fled.length ? '<div class="qc-sub">Втік від: ' + fled.slice(0, 20).map(i => '<span class="w-chip">' + esc(getEn(WORDS[i])[0]) + ' — ' + esc(getUa(WORDS[i])[0]) + '</span>').join("") + '</div>' : '') +
+    // слова, що цей похід перевів у «Знаю» (за запитом — замість «Втік від»)
+    (newKeys.length ? '<div class="qc-sub">У «Знаю»: ' + newKeys.slice(0, 30).map(k => { const i = indexOfWordKey(k);
+      return '<span class="w-chip">' + esc(k) + (i >= 0 ? ' — ' + esc(getUa(WORDS[i])[0]) : '') + '</span>'; }).join("") + '</div>' : '') +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
   qEl("q-card").classList.remove("hidden");
   qHint("");
@@ -12423,10 +12430,10 @@ function qTimeHtml(ts) {
   const tm = Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
   const row = (ic, name, ms, extra) => '<div class="qt-row"><span>' + ic + ' ' + name + '</span><b>' + qFmtT(ms || 0) + '</b><small>' + (extra || '') + '</small></div>';
   return '<div class="qc-time"><div class="qt-h">⏱ Час по етапах · разом <b>' + qFmtT(total) + '</b></div>' +
-    row("⚔️", "Бої — думав над відповіддю", tm.fight, "сер. " + qFmtAvg(tm.fight || 0, n.fights) + " на монстра") +
-    row("📖", "Читання картки", tm.study, "сер. " + qFmtAvg(tm.study || 0, n.drills) + " на слово") +
-    row("🔁", "Повторення після картки", tm.drill, "сер. " + qFmtAvg(tm.drill || 0, n.drills) + " на слово") +
-    row("🏟️", "Арена", tm.arena, "сер. " + qFmtAvg(tm.arena || 0, n.arena) + " на монстра") +
+    row("⚔️", "Бої · " + n.fights, tm.fight, "сер. " + qFmtAvg(tm.fight || 0, n.fights) + " на бій") +
+    row("📖", "Картка зі словом після поразки (до «Готово»)", tm.study, "сер. " + qFmtAvg(tm.study || 0, n.drills) + " на слово") +
+    row("🔁", "3 правильні після картки · " + n.drills, tm.drill, "сер. " + qFmtAvg(tm.drill || 0, n.drills) + " на слово") +
+    row("🏟️", "Арена · " + n.arena, tm.arena, "сер. " + qFmtAvg(tm.arena || 0, n.arena) + " на монстра") +
     row("🛣️", "Дорога, удари, втечі", tm.road, "") +
     (tm.pause ? row("🏁", "Привал", tm.pause, "") : "") + '</div>';
 }
@@ -12441,6 +12448,7 @@ function questStart() {
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
         tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null, feed: [] };
+  Q.answers = Q.carry = qLoadCarry();   // недобрані 🌡️ очки минулого походу
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
   qEl("q-actors").querySelectorAll(".q-mon,.q-float").forEach(x => x.remove());
