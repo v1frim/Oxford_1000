@@ -1727,6 +1727,7 @@
   .qc-go small { opacity: .6; font-weight: 600; margin-left: 6px; }
   .qc-go.alt { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.25); }
   .qc-btns { display: flex; gap: 10px; justify-content: center; }
+  .qc-keys { font-size: 11px; opacity: .45; margin-top: 8px; }
   .qc-time { margin: 10px auto 0; max-width: 520px; text-align: left; font-size: 13px; }
   .qt-h { text-align: center; opacity: .8; margin-bottom: 6px; }
   .qt-row { display: grid; grid-template-columns: 1fr 52px 150px; gap: 8px; padding: 3px 8px; border-radius: 8px; }
@@ -12115,11 +12116,12 @@ function qStudy(userVal) {
     (userVal ? '<div class="qc-your">твоя відповідь: <s>' + esc(userVal) + '</s></div>' : '<div class="qc-your">пропущено</div>') +
     (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
     (exUa ? '<div class="qc-exua">«' + esc(exUa) + '»</div>' : '') +
-    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>';
+    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>' +
+    '<div class="qc-keys">Tab — озвучити слово · Пробіл — озвучити речення</div>';
   qEl("q-card").classList.remove("hidden");
   Q.say = en; Q.sayEx = ex;
   qSetInput(false);
-  qHint("Прочитай, послухай — і натисни «Готово» (Enter)");
+  qHint("Прочитай, послухай (Tab — слово, Пробіл — речення) — і натисни «Готово» (Enter)");
 }
 function qDrillStart() {
   const c = Q.cur, other = c.dir === "ua-en" ? "en-ua" : "ua-en";
@@ -12133,6 +12135,9 @@ function qDrillStart() {
 function qDrillAsk() {
   const c = Q.cur, d = Q.drill, dir = d.plan[d.n % d.plan.length];
   const shown = qAsk(c.idx, dir);
+  // бульбашка над монстром — ТОЙ САМИЙ промпт, що на картці (інакше в US→UA вона показувала
+  // український промпт бою, тобто відповідь)
+  if (Q.mon) Q.mon.querySelector(".qm-word").textContent = shown;
   const dots = Array.from({ length: QUEST_DRILL }, (_, i) => '<i class="' + (i < d.n ? "on" : "") + '"></i>').join("");
   qEl("q-card").innerHTML =
     '<div class="qc-title">📖 Повтори ' + QUEST_DRILL + ' рази · <span class="qc-dots">' + dots + '</span></div>' +
@@ -12462,7 +12467,12 @@ document.addEventListener("keydown", e => {
   } else if (e.key === "Tab") {
     e.preventDefault();
     if (Q.phase === "study") speak(Q.say);
-    else if (Q.cur && mode === "en-ua" && (Q.phase === "fight" || Q.phase === "drill" || Q.phase === "arena")) speak(Q.cur.shown);
+    // ⚠️ currentShown, а НЕ Q.cur.shown: у повторенні напрямок міняється, і Q.cur.shown лишався
+    // українським промптом бою — Tab озвучував українське слово (скарга користувача)
+    else if (mode === "en-ua" && (Q.phase === "fight" || Q.phase === "drill" || Q.phase === "arena")) speak(currentShown);
+  } else if (e.key === " " && Q.phase === "study") {
+    e.preventDefault();                            // Пробіл на картці — озвучити речення-приклад
+    if (Q.sayEx) speak(Q.sayEx);
   }
 }, true);
 
