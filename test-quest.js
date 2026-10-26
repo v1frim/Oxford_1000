@@ -56,6 +56,19 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("клік по слову на картці озвучує його", said.hw && said.n === 1, JSON.stringify(said));
   const enHw = await p.evaluate(() => { const el = document.querySelector("#q-card .qc-word .hw"); return el ? { t: el.textContent, tr: !!el.dataset.trans, ipa: !!el.dataset.ipa } : null; });
   t("на картці англійське слово — з ховером перекладу й транскрипції", enHw && enHw.tr && enHw.ipa, JSON.stringify(enHw));
+  const card2 = await p.evaluate(() => {
+    const ua = document.querySelector("#q-card .qc-exua"), gt = document.querySelector("#q-card .qc-links .gt-link:not(.gpt)"), gpt = document.querySelector("#q-card .qc-links .gpt");
+    const blur0 = ua ? getComputedStyle(ua).filter : "";
+    if (ua) ua.click();
+    const g0 = loadGptRequests()[gptToday()] || 0;
+    document.addEventListener("click", e => e.preventDefault(), { capture: true, once: true });
+    if (gpt) gpt.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));   // preventDefault вище — без нової вкладки
+    return { ua: !!ua, blur0, open: ua ? getComputedStyle(ua).filter : "", gt: gt ? gt.href : "", en: Q.say, gpt: !!gpt, gptN: (loadGptRequests()[gptToday()] || 0) - g0 };
+  });
+  await p.waitForTimeout(300);   // transition .2s
+  card2.open = await p.evaluate(() => { const ua = document.querySelector("#q-card .qc-exua"); return ua ? getComputedStyle(ua).filter : ""; });
+  t("переклад речення заблюрено, клік — показує", !card2.ua || (/blur/.test(card2.blur0) && card2.open === "none"), JSON.stringify(card2));
+  t("на картці — Перекладач із цим словом і GPT (клік = запит)", card2.gt.includes("translate.google.com") && card2.gt.includes(encodeURIComponent(card2.en)) && card2.gpt && card2.gptN === 1, JSON.stringify(card2));
   const keys = await p.evaluate(() => { const o = speak, out = []; speak = w => out.push(w);
     document.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true }));
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
@@ -91,6 +104,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const feed = await p.evaluate(() => [...document.querySelectorAll("#q-feed .qf-row")].map(r => r.textContent));
   t("стрічка XP: монстри з розкладом «за що» (перемога, нове слово, вивчив)",
     feed.length === 2 && /перемога/.test(feed[1]) && /нове слово/.test(feed[1]) && /вивчив/.test(feed[0]), JSON.stringify(feed));
+  t("стрічка XP: «втік» видно навіть поруч із бонусом слова", /втік/.test(feed[0]) && /вивчив/.test(feed[0]), feed[0]);
   t("Esc — привал із правильними / неправильними", /1\s*правильних/.test(pause) && /1\s*неправильних/.test(pause), pause.slice(0, 80));
   t("на привалі кличе на арену", /На арену/.test(pause));
   await p.keyboard.press("Enter"); await p.waitForTimeout(900);

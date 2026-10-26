@@ -1704,7 +1704,10 @@
   .qc-your { font-size: 13px; opacity: .6; margin-top: 4px; }
   .qc-your s { color: #ff8a8a; }
   .qc-ex { font-size: 16px; margin-top: 12px; font-style: italic; }
-  .qc-exua { font-size: 14px; margin-top: 4px; opacity: .65; font-style: italic; }
+  .qc-exua { font-size: 14px; margin-top: 10px; opacity: .65; font-style: italic; filter: blur(5px); cursor: pointer; transition: filter .2s; user-select: none; }
+  .qc-exua:hover, .qc-exua.open { filter: none; user-select: auto; }
+  .qc-links { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+  .qc-links .gt-link { margin-left: 0; font-size: 13px; padding: 4px 10px; }
   .qc-hint { font-size: 13px; opacity: .6; }
   .qc-prompt { font-size: 34px; font-weight: 800; margin: 6px 0; }
   .qc-msg { min-height: 20px; font-size: 15px; color: #ff9d9d; }
@@ -12122,7 +12125,9 @@ function qFightAnswer(val, auto) {
   } else {
     updateMastery(c.idx, false);
     const bonus = loadXp() - xpA;
-    qFeed(c.idx, bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : [["0", "втік"]], "fight");
+    // «втік» — ЗАВЖДИ (скарга: «від монстра з dustbin я втік, але там не показало» — бонус нового
+    // слова витісняв мітку), бонус слова — поруч
+    qFeed(c.idx, [["0", "втік"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight");
     addDayWrong(c.idx);
     qDayAdd("wrong");
     Q.fled.push(c.idx);
@@ -12153,13 +12158,19 @@ function qStudy(userVal) {
       '<button class="speak-btn" data-q="say" title="Прослухати (Tab)">🔊</button></div>' +
     (userVal ? '<div class="qc-your">твоя відповідь: <s>' + esc(userVal) + '</s></div>' : '<div class="qc-your">пропущено</div>') +
     (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
-    (exUa ? '<div class="qc-exua">«' + esc(exUa) + '»</div>' : '') +
+    // ⚠️ Переклад речення ЗАБЛЮРЕНО до наведення/кліку (скарга: «речення і переклад одне над одним —
+    // легко підглянути»). Спершу спробуй зрозуміти англійське сам.
+    (exUa ? '<div class="qc-exua" data-q="exua" title="Наведи або клікни — показати переклад">«' + esc(exUa) + '»</div>' : '') +
+    // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
+    '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
+      '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a></div>' +
     '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>' +
-    '<div class="qc-keys">Tab — озвучити слово · Пробіл — озвучити речення</div>';
+    '<div class="qc-keys">Tab — озвучити слово · Пробіл — озвучити речення' + (exUa ? ' · наведи на розмите — переклад' : '') + '</div>';
   qEl("q-card").classList.remove("hidden");
   Q.say = en; Q.sayEx = ex;
   qSetInput(false);
-  qHint("Прочитай, послухай (Tab — слово, Пробіл — речення) — і натисни «Готово» (Enter)");
+  // ⚠️ Нижню підказку НЕ дублюємо: клавіші вже в рядку `.qc-keys` на картці (скарга на дубль)
+  qHint("");
 }
 function qDrillStart() {
   const c = Q.cur, other = c.dir === "ua-en" ? "en-ua" : "ua-en";
@@ -12489,6 +12500,8 @@ questOverlay.addEventListener("click", e => {
   const a = b.dataset.q;
   if (a === "say") speak(Q.say);
   else if (a === "sayex" && Q.sayEx) speak(Q.sayEx);
+  else if (a === "exua") b.classList.toggle("open");
+  else if (a === "gpt") countGptRequest();          // як GPT-лінк фінал-екрана: клік = запит
   else if (a === "ready") qDrillStart();
   else if (a === "arena") qArenaStart(false);
   else if (a === "final") questFinal();
