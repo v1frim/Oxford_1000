@@ -6706,6 +6706,10 @@ function loadDays() {
   try { return JSON.parse(localStorage.getItem(LB_DAYS_KEY)) || {}; }
   catch { return {}; }
 }
+// ⚠️ ЄДИНЕ «сьогодні» для ВСІХ сховищ — за МІСЦЕВИМ часом (сесія 64, за запитом). До того Duolingo, LingoHut,
+// GPT, пісні, кіно, денний XP, термометр і знімки mastery брали UTC (`toISOString`), а ігри й походи — місцевий
+// час: з 00:00 до 02:00/03:00 за Києвом частина занять падала «у вчора» (похід через північ показав 2 пункти з 3).
+// НЕ повертати `toISOString().slice(0, 10)` для дат — лише todayKey() / tsToDayKey().
 function todayKey() {
   const d = new Date();
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -7091,7 +7095,7 @@ async function writeToHandle(handle) {
   const writable = await handle.createWritable();
   await writable.write(getBackupData());
   await writable.close();
-  localStorage.setItem(BACKUP_DATE_KEY, new Date().toISOString().slice(0, 10));
+  localStorage.setItem(BACKUP_DATE_KEY, todayKey());
   updateBackupLabel();
 }
 
@@ -7114,7 +7118,7 @@ const hasFSA = !!window.showSaveFilePicker;
 
 async function autoBackup() {
   if (!hasFSA) return;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   if (localStorage.getItem(BACKUP_DATE_KEY) === today) return;
   const handle = await idbGet("fileHandle");
   if (!handle) return;
@@ -7131,7 +7135,7 @@ async function handleBackupClick() {
     a.href = URL.createObjectURL(blob);
     a.download = "oxford_backup.json";
     a.click();
-    localStorage.setItem(BACKUP_DATE_KEY, new Date().toISOString().slice(0, 10));
+    localStorage.setItem(BACKUP_DATE_KEY, todayKey());
     updateBackupLabel();
     return;
   }
@@ -7338,7 +7342,7 @@ function computeXpFromStats() {
 const XP_DAY_KEY = "oxford_xp_day_v1";  // per-day XP gain {date: xp}; do NOT remove (used by trackDayXp/getDayXpGain/migration)
 function trackDayXp(delta) {
   if (!delta) return;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   try {
     const h = JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}");
     h[today] = Math.max(0, (h[today] || 0) + delta);
@@ -7349,7 +7353,7 @@ function trackDayXp(delta) {
 function getDayXpGain(date) {
   try { return JSON.parse(localStorage.getItem(XP_DAY_KEY) || "{}")[date] || 0; } catch(e) { return 0; }
 }
-function getTodayXpGain() { return getDayXpGain(new Date().toISOString().slice(0, 10)); }
+function getTodayXpGain() { return getDayXpGain(todayKey()); }
 // 20 levels grouped into 5 colour tiers (4 levels each) — Бронза→Королівство
 function xpTierForLevel(level) { return Math.min(4, Math.floor((level - 1) / 4)); }
 let _xpPrevLevel = null;
@@ -7448,7 +7452,7 @@ function updateWordsAddedRegistry() {
     for (const [d, keys] of Object.entries(WORDS_ADDED_SEED))
       keys.forEach(k => { seedDate[k] = d; });
   }
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   let changed = false;
   WORDS.forEach(w => {
     const k = wordKey(w);
@@ -7478,7 +7482,7 @@ function loadLastGameTrans() {
   try { return JSON.parse(localStorage.getItem(LAST_GAME_TRANS_KEY)) || null; } catch(e) { return null; }
 }
 function resetLastGameTrans() {
-  localStorage.setItem(LAST_GAME_TRANS_KEY, JSON.stringify({ date: new Date().toISOString().slice(0, 10), k: [], l: [] }));
+  localStorage.setItem(LAST_GAME_TRANS_KEY, JSON.stringify({ date: todayKey(), k: [], l: [] }));
 }
 function recordMasteryTrans(cat, enKey) {
   const lg = loadLastGameTrans();
@@ -7489,7 +7493,7 @@ function recordMasteryTrans(cat, enKey) {
     localStorage.setItem(LAST_GAME_TRANS_KEY, JSON.stringify(lg));
   }
   const t = loadMasteryTrans();
-  const date = new Date().toISOString().slice(0, 10);
+  const date = todayKey();
   const day = t[date] || (t[date] = { k: [], l: [] });
   const other = cat === "k" ? "l" : "k";
   day[other] = day[other].filter(w => w !== enKey);
@@ -7555,7 +7559,7 @@ function saveMasterySnapshot() {
     const st = mStreak(m[wk]);
     if (st >= 3) known++; else if (st !== undefined) learning++;
   }
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   const history = loadMasteryHistory();
   // t = ЗАПИСИ бази (WORDS.length, 3242), НЕ унікальні ключі — дельта «+N ●» в прогресі
   // рахує нетто-зміну розміру словника. Бейдж-тотал меню натомість показує унікальні
@@ -7796,7 +7800,7 @@ function renderProgressPanel() {
 
   // РЕДИЗАЙН: рік винесено в заголовок секції — місяці ПОТОЧНОГО року підписані лише
   // назвою («Липень»), а завершені роки згортаються в один річний рядок («2026 рік»).
-  const curYear = new Date().toISOString().slice(0, 4);
+  const curYear = String(new Date().getFullYear());
   const monthName = k => _progFmtMonth(k).split(" ")[0];
   const curYearDates = allDates.filter(d => d.slice(0, 4) === curYear);
   const byMonth = _progGroupBy(curYearDates, d => d.slice(0, 7));
@@ -7830,7 +7834,7 @@ function renderMasteryStats() {
 
   const history = loadMasteryHistory();
   const allDates = Object.keys(history).sort();
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = todayKey();
   const todayIdx = allDates.indexOf(todayStr);
   const todaySnap = history[todayStr];
   const prevSnap = todayIdx > 0 ? history[allDates[todayIdx - 1]] : null;
@@ -9709,7 +9713,7 @@ function getThermoCarryIn(today, days, duo, lh, songSess, gpt, mrPts, movies, se
   return carry;
 }
 function getThermoPointsToday() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   const days  = loadDays();
   const duo   = loadDuoSessions();
   const lh    = loadLhDone();
@@ -9734,7 +9738,7 @@ const PLAN_TIERS = [   // [іконка, заголовок] для планів
 let thermoMsHighWater = -1;   // найвищі вже відсвятковані пункти сьогодні (в межах сесії)
 let thermoMsDate = "";        // дата (UTC), до якої належить планка
 function checkThermoMilestones() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   const pts = getThermoPointsToday();
   if (thermoMsDate !== today) {        // новий день / перший виклик на завантаженні: лише база
     thermoMsDate = today;
@@ -9866,7 +9870,7 @@ function thermoColor(t) {
   return a.map((v, i) => Math.round(v + (b[i] - v) * lt));
 }
 function renderThermo() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
   const days  = loadDays();
   const duo   = loadDuoSessions();
   const lh    = loadLhDone();
@@ -9970,7 +9974,7 @@ function loadLhDone() {
   } catch(e) { return {}; }
 }
 function saveLhDone(obj) { localStorage.setItem(LH_KEY, JSON.stringify(obj)); }
-function lhToday() { return new Date().toISOString().slice(0, 10); }
+function lhToday() { return todayKey(); }
 
 const LH_HIDE_IDS = ["lb-title", "lb-list", "lb-empty"];
 const LH_LB_HEADER = () => document.querySelector("#leaderboard .lb-header");
@@ -10049,7 +10053,7 @@ function loadDuoSessions() {
   try { return JSON.parse(localStorage.getItem(DUO_KEY) || "{}"); } catch(e) { return {}; }
 }
 function saveDuoSessions(obj) { localStorage.setItem(DUO_KEY, JSON.stringify(obj)); }
-function duoToday() { return new Date().toISOString().slice(0, 10); }
+function duoToday() { return todayKey(); }
 function getTotalDuoSessions() {
   return Object.values(loadDuoSessions()).reduce((s, n) => s + n, 0);
 }
@@ -10107,7 +10111,7 @@ function loadSongSessions() {
   try { return JSON.parse(localStorage.getItem(SONG_SESS_KEY) || "{}"); } catch(e) { return {}; }
 }
 function saveSongSessions(obj) { localStorage.setItem(SONG_SESS_KEY, JSON.stringify(obj)); }
-function songSessToday() { return new Date().toISOString().slice(0, 10); }
+function songSessToday() { return todayKey(); }
 function getTotalSongSessions() {
   return Object.values(loadSongSessions()).reduce((s, n) => s + n, 0);
 }
@@ -10162,7 +10166,7 @@ function loadGptRequests() {
   try { return JSON.parse(localStorage.getItem(GPT_KEY) || "{}"); } catch(e) { return {}; }
 }
 function saveGptRequests(obj) { localStorage.setItem(GPT_KEY, JSON.stringify(obj)); }
-function gptToday() { return new Date().toISOString().slice(0, 10); }
+function gptToday() { return todayKey(); }
 function getTotalGptRequests() {
   return Object.values(loadGptRequests()).reduce((s, n) => s + n, 0);
 }
@@ -11212,7 +11216,7 @@ songsOverlay.addEventListener("click", e => {
         const song = SONGS.find(s => s.id === el.dataset.song);
         if (song && song.xp) {
           addXp(song.xp);
-          awarded[el.dataset.song] = new Date().toISOString().slice(0, 10);
+          awarded[el.dataset.song] = todayKey();
           saveSongsXpAwarded(awarded);
         }
       }
@@ -11901,9 +11905,9 @@ function heroData() {
   for (const k of uniqueWordKeys()) if (mStreak(m[k]) >= 3) known++;
   const act = activityDays(), actKeys = Object.keys(act).filter(x => x <= today).sort();
   const missed = computeGaps(act).reduce((a, g) => a + g.length, 0);
-  const trans = loadMasteryTrans(), isoToday = new Date().toISOString().slice(0, 10);
+  const trans = loadMasteryTrans(), isoToday = todayKey();
   const wk = new Date(); wk.setDate(wk.getDate() - 6);
-  const wFrom = wk.toISOString().slice(0, 10);
+  const wFrom = tsToDayKey(wk);
   let weekK = 0;
   Object.entries(trans).forEach(([dt, x]) => { if (dt >= wFrom) weekK += ((x && x.k) || []).length; });
   const exprLearned = dir => Object.values(loadExprStatus(dir)).filter(s => s === "learned").length;
