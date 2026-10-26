@@ -962,6 +962,7 @@
     color: #fff;
   }
   .tab.active { background: #ffd166; color: #1e3c72; }
+  #tab-all { flex: 0 0 auto; padding: 9px 16px; }   /* «Усі» вузька — місце віддаємо «Помилки і пропуски» (сесія 64) */
   .gt-link {
     margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
     text-decoration: none; background: rgba(255,255,255,0.14); color: #fff;
@@ -970,6 +971,10 @@
     transition: background 0.15s;
   }
   .gt-link:hover { background: rgba(255,255,255,0.24); }
+  /* ± лічильник GPT ПІД значком (сесія 64, за запитом: збоку він сплющував «Усі» / «Помилки і пропуски») */
+  .gpt-stack { flex: none; display: inline-flex; flex-direction: column; align-items: stretch; justify-content: center; gap: 4px; }
+  .gpt-stack .gt-link { justify-content: center; }
+  .gpt-stack .gpt-ctl { justify-content: center; }
   .results-list {
     max-height: 260px;
     overflow-y: auto;
@@ -1687,6 +1692,8 @@
     font-size: 24px; font-weight: 800; box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: opacity .2s;
   }
   .qm-word:empty { display: none; }
+  .q-mon.extra .qm-word::before { content: "⭐ "; }   /* екстра-слово з рівня поза вибором (сесія 64) */
+  .q-mon.extra .qm-word { border-color: #b98cff; box-shadow: 0 0 18px rgba(185,140,255,.55), 0 6px 18px rgba(0,0,0,.35); }
   .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
   .qm-hp i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4); }
   .qm-hp i.on { background: #ffd166; border-color: #ffd166; }
@@ -1704,6 +1711,14 @@
   .q-float.dust { font-size: 40px; bottom: 90px; }
   .q-float.pt { color: #ffa94d; font-size: 20px; bottom: 360px; text-shadow: 0 2px 6px rgba(0,0,0,.5); }
   .q-hud-stats small { opacity: .6; font-size: 11px; }
+  .q-pts { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 10px; background: rgba(255,209,102,.08); border: 1px solid rgba(255,209,102,.25); }
+  .q-pts b { color: #ffd166; }
+  .q-pts-lab { font-size: 12px; opacity: .75; margin-left: -2px; }
+  .q-pts-bar { display: inline-flex; width: 64px; height: 7px; border-radius: 4px; background: rgba(255,255,255,.12); overflow: hidden; }
+  .q-pts-bar i { display: block; height: 100%; }
+  .q-pts-bar i.c { background: #8fb6e8; }
+  .q-pts-bar i.n { background: #ffd166; }
+  .q-pts small { opacity: .75; font-variant-numeric: tabular-nums; }
   @keyframes qFloatUp { from { opacity: 0; transform: translate(-50%, 10px); } 20% { opacity: 1; } to { opacity: 0; transform: translate(-50%, -50px); } }
   .q-card {
     position: absolute; left: 50%; top: 5%; transform: translateX(-50%); width: min(640px, 92%); z-index: 80;
@@ -2026,8 +2041,7 @@
       <button id="tab-all" class="tab active">Усі</button>
       <button id="tab-bad" class="tab">Помилки і пропуски</button>
       <a id="gt-link" class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate" target="_blank" rel="noopener" title="Відкрити Google Перекладач у новій вкладці">🌐 Перекладач</a>
-      <a id="gpt-link" class="gt-link gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a>
-      <span class="gpt-ctl"></span>
+      <span class="gpt-stack"><a id="gpt-link" class="gt-link gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a><span class="gpt-ctl"></span></span>
     </div>
     <div class="results-list" id="results-list"></div>
     <button id="review-btn" class="hidden" title="Пробіл">🔁 Повторити помилки</button>
@@ -3176,6 +3190,8 @@ let records = [];
 let currentFilter = "all";
 let shuffledIndices = [];
 let shufflePos = 0;
+let gameExtra = null;        // ⭐ екстра-слова поточної CEFR-гри (extraInit) або null
+let currentExtra = null;     // рівень, якщо ПОТОЧНЕ слово — екстра (для підпису «⭐ рідкісне слово»)
 // ── АНТИ-ПОВТОР (сесія 52, за скаргою «три рази підряд одне й те саме слово») ──
 // Звичайна гра йде шафлом БЕЗ повернення, тож у межах проходу повторів нема — але на
 // СТИКУ проходів слово з кінця може одразу випасти на початку наступного. На малих
@@ -3340,7 +3356,10 @@ function nextWord() {
         }
       }
     }
-    currentWordIndex = shuffledIndices[shufflePos++];
+    // ⭐ ЕКСТРА-СЛОВО з рівня поза вибором (сесія 64): займає місце цього кроку, слот черги не з'їдає
+    const ex = extraPick(gameExtra);
+    currentExtra = ex ? ex.L : null;
+    currentWordIndex = ex ? ex.idx : shuffledIndices[shufflePos++];
     if (selectedMode === "mix") mode = Math.random() < 0.5 ? "en-ua" : "ua-en";
     else if (selectedMode === "en-ua" || selectedMode === "ua-en") {
       // ⚠️ ДВОБІЧНЕ ЗНАННЯ (сесія 61, за запитом «знаю footpath → пішохідна доріжка, але
@@ -3356,6 +3375,7 @@ function nextWord() {
   currentWord = WORDS[currentWordIndex];
   wordDisplay.classList.remove("multiline");
   modeHintEl.textContent = MODE_HINTS[mode] || "";   // оновлюємо щослова — для міксу та випадкових повторень
+  if (currentExtra && !reviewRemaining) modeHintEl.textContent += " · ⭐ рідкісне слово " + cefrLvName(currentExtra);
 
   if (mode === "ua-en") {
     const vals = getUa(currentWord);
@@ -4380,6 +4400,7 @@ function startGame(pool, opts) {
   schedThisGame = !!opts.sched && !activePool;
   shuffledIndices = schedThisGame ? buildSchedQueue(sourcePool) : shuffle([...sourcePool]);
   shufflePos = 0;
+  gameExtra = (timedPoolTag && timedPoolTag.indexOf("cefr:") === 0) ? extraInit() : null;   // ⭐ лише гра рівнями
   recentIndices = [];   // анти-повтор рахується в межах ОДНІЄЇ гри
   if (!activePool) resetLastGameTrans();   // підсвітка «щойно перейшли» — лише від цієї гри
   // Сесія 61 («to belong пропущене останнім — і першим же в повторенні»): останнє слово
@@ -4453,8 +4474,12 @@ function endGame(endedEarly) {
         newDayKey = recordDayStats(score, wrong, skipped, wordCount);
         checkThermoMilestones();
       }
-      updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
-      appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
+      // порожня гра (0 відповідей) — не в журнал і не «ост» (сесія 64: так само, як звичайна з сесії 43;
+      // «0 (0/0)» з'явилась у 🕒 після гри, що стартувала й вичерпала час без жодної відповіді)
+      if (score + wrong + skipped > 0) {
+        updateLatest({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
+        appendGamesLog({ score, wrong, skipped, mode: selectedMode, ts, wordCount, tag: timedPoolTag });
+      }
     } else {
     // Порожня гра (жодної відповіді — старт і одразу вихід) у рейтинг НЕ йде: сесія 43,
     // саме така гра зайняла вільний слот у топ-10 і показувалась 10-м місцем із «0».
@@ -8306,6 +8331,45 @@ function cefrMixLabel() {
   return CEFR_LEVELS.filter(L => cefrSel.has(L) || cefrSoloSel.has(L))
     .map(L => (L === "none" ? "—" : L) + (cefrSoloSel.has(L) ? " 📖" : "")).join("+");
 }
+// ⭐ ЕКСТРА-СЛОВА З ІНШИХ РІВНІВ (сесія 64, за запитом). У грі й поході рівнями CEFR інколи трапляється
+// слово з рівня, якого НЕМА у виборі (вищого чи нижчого, і «без рівня») — лише слово поза «Знаю».
+// Частота за рівнем — «раз на N слів» (EXTRA_EVERY), переведена в ймовірність 1/N на КОЖНЕ слово.
+// ⚠️ БЕЗ ЛІЧИЛЬНИКА (прямо попросив користувач): кидок незалежний щоразу, тож після екстра-слова
+// шанси ті самі, що й до нього — C2 лишається 1:800, а не «800 мінус уже показані».
+// Приклад A1+A2+B1: B2 0,33% + C1 0,2% + C2 0,125% + «—» 0,67% ≈ 1,3% → ~1 екстра на 75 слів.
+const EXTRA_EVERY = { A1: 50, A2: 100, B1: 200, B2: 300, C1: 500, C2: 800, none: 150 };
+function extraInit() {
+  const inPlay = new Set([...cefrSel, ...cefrSoloSel]);
+  const out = CEFR_LEVELS.filter(L => !inPlay.has(L) && EXTRA_EVERY[L]);
+  return out.length ? { levels: out, cache: {} } : null;
+}
+function extraCandidates(X, L) {
+  if (!X.cache[L]) {
+    const m = loadMastery(), seen = new Set(), arr = [];
+    for (let i = 0; i < WORDS.length; i++) {
+      const k = wordKey(WORDS[i]);
+      if (seen.has(k)) continue;
+      seen.add(k);
+      if (cefrLevelOf(WORDS[i]) === L && !(mStreak(m[k]) >= 3)) arr.push(i);
+    }
+    X.cache[L] = arr;
+  }
+  return X.cache[L];
+}
+// → {idx, L} або null. Кидок один: r < Σ 1/N — випало, рівень — той, у чий відрізок потрапив r.
+function extraPick(X, avoid) {
+  if (!X) return null;
+  let r = Math.random();
+  for (const L of X.levels) {
+    const p = 1 / EXTRA_EVERY[L];
+    if (r < p) {
+      const c = extraCandidates(X, L).filter(i => !(avoid && avoid.includes(i)));
+      return c.length ? { idx: c[Math.floor(Math.random() * c.length)], L } : null;
+    }
+    r -= p;
+  }
+  return null;
+}
 function trainPool() {
   if (trainSet === "cefr")     return cefrMixedIndices();
   if (trainSet === "tolearn")  return toLearnIndices();
@@ -12156,6 +12220,9 @@ function qDirFor(idx) {
   return Q.dir;
 }
 function qNextIdx() {
+  const ex = extraPick(Q.extra, Q.recent);           // ⭐ екстра-слово з рівня поза вибором (сесія 64)
+  Q.extraL = ex ? ex.L : null;
+  if (ex) { Q.recent.push(ex.idx); if (Q.recent.length > 12) Q.recent.shift(); return ex.idx; }
   for (let guard = 0; guard < 200; guard++) {
     if (Q.qpos >= Q.queue.length) { Q.queue = buildSchedQueue(Q.pool); Q.qpos = 0; if (!Q.queue.length) Q.queue = shuffle([...Q.pool]); }
     const idx = Q.queue[Q.qpos++];
@@ -12205,7 +12272,19 @@ function qHud() {
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
-    '<span title="Пункти «Плани»: 1 за кожні 14 очок; недобрані очки переходять у наступний похід. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>· ' + (Q.carry ? Q.carry + '+' + (Q.answers - Q.carry) : Q.answers) + ' оч. (ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
+    qPtsHtml();
+}
+// 🌡️ Пункти в шапці походу (сесія 64, скарга «малозрозуміло, усе на купу» про «0 · 1+0 оч. (ще 13)»):
+// число пунктів + міні-шкала до НАСТУПНОГО пункту (сіро-блакитна частина — очки, перенесені з минулого
+// походу, жовта — набрані зараз) + «7/14 оч.». Подробиці — у tooltip.
+function qPtsHtml() {
+  const base = questPointNeed(Q.pts), have = Q.answers - base, carry = Q.pts ? 0 : Math.min(Q.carry || 0, have);
+  const pct = n => (n / QUEST_PT_STEP * 100).toFixed(1) + "%";
+  const tip = "Пункти «Плани» за похід: 1 пункт за кожні " + QUEST_PT_STEP + " очок. Очко — відповідь монстру, завершене повторення або добитий на арені. " +
+    "До наступного пункту: " + have + " з " + QUEST_PT_STEP + (Q.carry ? " (з них " + Q.carry + " перенесено з минулого походу)" : "") + ".";
+  return '<span class="q-pts" title="' + tip + '">🌡️ <b>' + Q.pts + '</b><span class="q-pts-lab">' + plural(Q.pts, "пункт", "пункти", "пунктів") + '</span>' +
+    '<span class="q-pts-bar"><i class="c" style="width:' + pct(carry) + '"></i><i class="n" style="width:' + pct(have - carry) + '"></i></span>' +
+    '<small>' + have + '/' + QUEST_PT_STEP + ' оч.</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -12296,6 +12375,7 @@ function qFight() {
   Q.side = Math.random() < 0.5 ? "left" : "right";
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
   Q.mon = qSpawnMonster(idx, Q.side);
+  if (Q.extraL) { Q.mon.classList.add("extra"); Q.mon.title = "⭐ рідкісне слово з рівня поза вибором · " + cefrLvName(Q.extraL); }
   Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
   qRoadFitWord();
   Q.speedTo = 0;
@@ -12942,6 +13022,7 @@ function questStart() {
   const scale = Math.max(1, Math.min(1.6, (window.innerHeight - 190) / 520));
   Q = { pool, queue: buildSchedQueue(pool), qpos: 0, recent: [], dir: trainDir, auto: trainAuto, flip: false,
         cefr: trainSet === "cefr" ? cefrMixLabel() : null,   // мітка набору рівнів — та сама, що в тегу CEFR-гри
+        extra: trainSet === "cefr" ? extraInit() : null, extraL: null,   // ⭐ екстра-слова (сесія 64)
         scale, gap: Math.round(85 * scale + 18),
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),

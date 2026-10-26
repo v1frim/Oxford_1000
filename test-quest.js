@@ -197,8 +197,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("після обриву монстр лишився на арені", await p.evaluate(i => loadQArena().includes(wordKey(WORDS[i])), idx3));
   await p.click("#quest-btn"); await p.waitForTimeout(1000);
   t("новий похід стартує із залишком очок минулого", await p.evaluate(() => Q.answers === Q.carry && Q.carry > 0));
-  t("шапка: очки як «залишок+нові» (N+0)", await p.evaluate(() => { qHud(); return /🌡️ 0 · [1-9]\d*\+0 оч\./.test(document.getElementById("q-hud-stats").textContent); }),
-    await p.evaluate(() => document.getElementById("q-hud-stats").textContent));
+  // сесія 64: «🌡️ 0 пунктів» + шкала до наступного пункту (перенесене — окремим кольором) + «N/14 оч.»
+  const hud = await p.evaluate(() => { qHud(); const el = document.querySelector("#q-hud-stats .q-pts");
+    return { txt: el.textContent, carry: parseFloat(el.querySelector(".q-pts-bar i.c").style.width), now: parseFloat(el.querySelector(".q-pts-bar i.n").style.width), tip: el.title }; });
+  t("шапка: пункти + шкала з перенесеними очками + «N/14 оч.»", /🌡️ 0пунктів[1-9]\d*\/14 оч\./.test(hud.txt) && hud.carry > 0 && hud.now === 0 && /перенесено/.test(hud.tip), JSON.stringify(hud));
   const pre = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, idx: Q.cur && Q.cur.idx, hint: document.getElementById("q-hint").textContent }));
   t("новий похід починається з арени недобитих", pre.stage === "arena" && pre.pre && pre.n === 1 && pre.idx === idx3, JSON.stringify(pre));
   t("підказка: «спершу добий монстрів із минулого походу»", /минулого походу/.test(pre.hint), pre.hint);

@@ -182,6 +182,7 @@ function chromePath() {
     const r = { tag: timedPoolTag, n: shuffledIndices.length,
       allA1: shuffledIndices.every(i => cefrLevelOf(WORDS[i]) === "A1"),
       noKnown: shuffledIndices.every(i => !(mStreak(m[wordKey(WORDS[i])]) >= 3)) };
+    score = 1;   // сесія 64: порожня CEFR-гра (0 відповідей) у журнал більше не пишеться
     endGame();
     return r;
   });
