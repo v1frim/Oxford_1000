@@ -49,12 +49,19 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("помилка йде в mastery (streak 0)", await p.evaluate(i => mStreak(loadMastery()[wordKey(WORDS[i])]) === 0, idx2));
   d = await day();
   t("день: +1 неправильна", d.wrong === 1 && d.games === 1, JSON.stringify(d));
+  const said = await p.evaluate(() => { window.__said = []; const o = speak; window.speak = speak = w => window.__said.push(w);
+    const hw = document.querySelector("#q-card .qc-word .hw, #q-card .qc-ex .hw"); if (hw) hw.click();
+    const n = window.__said.length; speak = o; return { n, hw: !!hw }; });
+  t("клік по слову на картці озвучує його", said.hw && said.n === 1, JSON.stringify(said));
   await p.keyboard.press("Enter"); await p.waitForTimeout(200);
   t("Enter — «Готово», почалось повторення", await p.evaluate(() => Q.phase === "drill"));
   const dirs = [];
   await p.fill("#q-answer", await right()); await p.waitForTimeout(250);
   t("правильна в повторенні — лічильник 1", await p.evaluate(() => Q.drill.n === 1));
-  await p.fill("#q-answer", "ні"); await p.keyboard.press("Enter"); await p.waitForTimeout(1900);
+  t("правильна в повторенні — герой б'є монстра", await p.evaluate(() => document.getElementById("q-hero").classList.contains("strike") && Q.mon.classList.contains("hit")));
+  await p.fill("#q-answer", "ні"); await p.keyboard.press("Enter"); await p.waitForTimeout(120);
+  t("помилка в повторенні — монстр б'є героя", await p.evaluate(() => document.getElementById("q-hero").classList.contains("hurt") && Q.mon.classList.contains("strike-back")));
+  await p.waitForTimeout(1800);
   t("помилка в повторенні ОБНУЛЯЄ лічильник (3 поспіль)", await p.evaluate(() => Q.drill.n === 0 && Q.phase === "drill"));
   const xpBeforeDrill = await p.evaluate(() => loadXp());
   for (let i = 0; i < 3; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
@@ -89,7 +96,13 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       loadGptRequests(), loadSongSessions(), loadMovieSessions(), {}, {}, {}, loadExprXpLog()) };
   });
   t("інваріант: живий XP дня == перерахунок із журналів (міграції його не з'їдять)", inv.live === inv.rec, inv.live + " / " + inv.rec);
-  t("похід не потрапив у «Найкращі ігри»", await p.evaluate(() => loadScores().length === 0 && loadGamesLog().length === 0));
+  const lb = await p.evaluate(() => { const log = loadGamesLog(); return { scores: loadScores().length, log: log.length, tag: log[0] && log[0].tag,
+    score: log[0] && log[0].score, wrong: log[0] && log[0].wrong, latest: (loadLatest() || {}).tag, ranks: gameRanks().size }; });
+  t("похід у журналі ігор із тегом «quest» (1 ✓ / 1 ✗)", lb.log === 1 && lb.tag === "quest" && lb.score === 1 && lb.wrong === 1, JSON.stringify(lb));
+  t("похід — «остання гра», але не в «Найкращих іграх» і не в рейтингу", lb.latest === "quest" && lb.scores === 0 && lb.ranks === 0, JSON.stringify(lb));
+  const row = await p.evaluate(() => { lbActiveTab = "period"; renderLeaderboard();
+    const li = document.querySelector("#lb-list li.lb-latest"); return li ? { text: li.textContent, rank: li.dataset.rank || "" } : null; });
+  t("у 🕒 похід — рядком «ост» із підписом «⚔️ Похід», без місця", row && /Похід/.test(row.text) && !row.rank, JSON.stringify(row));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");

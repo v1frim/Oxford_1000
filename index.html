@@ -6763,6 +6763,7 @@ function gameRanks(extras) {
   const seen = new Set();
   const all = [];
   loadGamesLog().concat(loadScores(), extras || []).forEach(g => {
+    if (g && g.tag === "quest") return;   // ⚔️ похід — поза рейтингом (безстроковий)
     if (g && g.ts && !seen.has(g.ts)) { seen.add(g.ts); all.push(g); }
   });
   const bad = g => (g.wrong || 0) + (g.skipped || 0);
@@ -8767,7 +8768,7 @@ function renderGameRow(s, cls, rank, ctx) {
     };
     // ⚠️ `wrong` — САМ значок, без підпису (сесія 51, за запитом «можна просто скоротити
     // до 🔁»): рядок і так має дату й рахунок, а довгий підпис їх підтискав.
-    const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові", wrong: "🔁" };   // known не зберігається взагалі
+    const LB_TAG_LABELS = { learning: "↗ Вивчаю", "new": "● Нові", wrong: "🔁", quest: "⚔️ Похід" };   // known не зберігається взагалі
     // Ігри за рівнями CEFR (сесія 42): підпис = рівень («🎓 A1», «🎓 A1-B1») замість напрямку,
     // і БЕЗ номера місця — вони поза рейтингом, бо пул одного рівня легший за повний словник.
     // ⚠️ ДВА РІЗНІ ПОНЯТТЯ, які до сесії 51 були однією змінною — і це був БАГ.
@@ -8778,7 +8779,7 @@ function renderGameRow(s, cls, rank, ctx) {
     // «🎓 цей значок означає, так розумію, що це були повторення, тож чому не вказувати
     // саме значок повторень?». НЕ зливати ці два прапорці назад в один.
     const isCefr = !!(s.tag && s.tag.indexOf("cefr:") === 0);
-    const outOfRank = isCefr || s.tag === "wrong";
+    const outOfRank = isCefr || s.tag === "wrong" || s.tag === "quest";
     const modeStr = (isCefr ? "🎓 " + cefrLabelHtml(s.tag.slice(5)) : null)
       || (s.tag && LB_TAG_LABELS[s.tag]) || LB_MODE_LABELS[s.mode] || "US→UA";
     const isTodayGame = tsToDayKey(s.ts) === today;
@@ -9017,16 +9018,18 @@ function renderTabPeriod() {
     return;
   }
   lbListEl.classList.remove("lb-cefr");
-  const { per, games } = lbPeriodGames(lbPeriod);
+  // ⚔️ Походи (tag "quest") — у підсумку ✓/✗ і в рядку «ост», але НЕ в рейтингу періоду
+  const { per, games: allGames } = lbPeriodGames(lbPeriod);
+  const games = allGames.filter(g => g.tag !== "quest");
   setLbTitle('Рекорди за період<span class="lb-title-sub">· ' + per.sub + '</span>',
     "Найкращі ігри за обраний період — з журналу всіх ігор. Сюди входять і ігри за " +
     "рівнями CEFR (кожен рядок підписаний своїм пулом), бо питання тут «як я граю зараз», " +
     "а не «який мій абсолютний рекорд». Ігри пулом «Знаю» в журнал не пишуться взагалі.");
 
   const chipsEl = document.getElementById("lb-period-chips");
-  const total = games.length;
-  const sum = games.reduce((a, g) => a + g.score, 0);
-  const answered = games.reduce((a, g) => a + g.score + g.wrong + g.skipped, 0);
+  const total = allGames.length;
+  const sum = allGames.reduce((a, g) => a + g.score, 0);
+  const answered = allGames.reduce((a, g) => a + g.score + g.wrong + g.skipped, 0);
   // ⚠️ Кома в дробовій частині — та сама конвенція, що в «Точності» (сесія 36):
   // відсоток рухається повільно, тож десяткова частина показує зміну.
   const pct = p => p.toFixed(1).replace(".", ",") + "%";
@@ -9057,9 +9060,10 @@ function renderTabPeriod() {
   // Патерн 1-в-1 як у «Найкращих іграх»: якщо гра вже в топі — вона просто підсвічена
   // синьою рискою (`is-latest-game` ставить сам renderGameRow), дубля НЕ додаємо.
   // Номер місця — саме в межах періоду, тому беремо позицію у ВЖЕ відсортованому списку.
-  const newest = games.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null);
+  const newest = allGames.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null);
   const at = newest ? games.findIndex(g => g.ts === newest.ts) : -1;
   if (at >= 10) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", at + 1, ctx);
+  else if (newest && newest.tag === "quest") html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", null, ctx);   // похід — без місця
   lbListEl.innerHTML = html;
 }
 
@@ -10334,7 +10338,7 @@ renderLeaderboard();
   if (localStorage.getItem(FLAG)) return;
   try {
     const isEmpty = e => (e.score || 0) + (e.wrong || 0) + (e.skipped || 0) === 0;
-    const rated = e => e && !isEmpty(e) && !(e.tag === "known") && e.tag !== "wrong" && !(e.tag && e.tag.indexOf("cefr:") === 0);
+    const rated = e => e && !isEmpty(e) && !(e.tag === "known") && e.tag !== "wrong" && e.tag !== "quest" && !(e.tag && e.tag.indexOf("cefr:") === 0);
     const byTs = new Map();
     loadGamesLog().filter(rated).forEach(g => byTs.set(g.ts, g));
     loadScores().filter(rated).forEach(s => byTs.set(s.ts, s));   // записи топу мають id — вони в пріоритеті
@@ -11616,7 +11620,7 @@ function heroData() {
   Object.entries(trans).forEach(([dt, x]) => { if (dt >= wFrom) weekK += ((x && x.k) || []).length; });
   const exprLearned = dir => Object.values(loadExprStatus(dir)).filter(s => s === "learned").length;
   const acc = recentAccuracy(300), xp = loadXp();
-  const log = loadGamesLog().slice(-30);
+  const log = loadGamesLog().filter(g => g.tag !== "quest").slice(-30);   // похід безстроковий — не про швидкість
   const speed = log.length ? Math.round(log.reduce((a, g) => a + (g.score || 0) + (g.wrong || 0) + (g.skipped || 0), 0) / log.length * 10) / 10 : 0;
   const correct = sumDayField("correct"), wrong = sumDayField("wrong"), skipped = sumDayField("skipped");
   return {
@@ -11979,7 +11983,7 @@ function qFightAnswer(val, auto) {
     qDayAdd("wrong");
     Q.fled.push(c.idx);
     Q.log.push({ idx: c.idx, ok: false, user: val.trim() });
-    Q.mon.classList.add("strike-back");
+    qRestart(Q.mon, "strike-back", 460);
     qHero("hurt face-" + Q.side);
     qSfx("hurt");
     qHud();
@@ -12031,6 +12035,7 @@ function qDrillAnswer(val, auto) {
   if (ok) {
     d.n++;
     qSfx("hit");
+    qClash(true);
     if (d.n >= QUEST_DRILL) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
       addXp(QUEST_DRILL_XP); qDayAdd("questDrill");
@@ -12042,6 +12047,7 @@ function qDrillAnswer(val, auto) {
     // ⚠️ ПОМИЛКА ОБНУЛЯЄ (за вибором користувача): треба 3 правильні саме ПОСПІЛЬ — на відміну
     // від арени й повторення після раунду, де помилка лише не зараховується
     d.n = 0;
+    qClash(false);
     const msg = qEl("qc-msg");
     if (msg) msg.innerHTML = '✗ правильно: <b>' + esc(getCorrectAnswer()) + '</b> · лічильник з нуля';
     qAnswerEl.classList.add("wrong");
@@ -12049,6 +12055,21 @@ function qDrillAnswer(val, auto) {
     qSfx("hurt");
     Q.timer = setTimeout(() => { if (Q && Q.phase === "drill") qDrillAsk(); }, 1700);
   }
+}
+// Удар у повторенні / на арені: правильна — герой б'є монстра, помилка — монстр б'є героя.
+// Після анімації обидва повертаються в бойову стійку.
+function qRestart(el, cls, ms) {
+  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+  setTimeout(() => el.classList.remove(cls), ms);
+}
+function qClash(heroWins) {
+  const mon = Q && Q.mon, side = Q.side;
+  if (!mon) return;
+  mon.classList.remove("fighting");
+  if (heroWins) { qHero("strike face-" + side); setTimeout(() => qRestart(mon, "hit", 380), 160); }
+  else { qRestart(mon, "strike-back", 460); qHero("hurt face-" + side); }
+  clearTimeout(Q.clashT);
+  Q.clashT = setTimeout(() => { if (Q && Q.phase === "drill") { qHero("fighting face-" + side); mon.classList.add("fighting"); } }, 520);
 }
 function qFlee() {
   Q.phase = "flee";
@@ -12164,6 +12185,15 @@ function qArenaAnswer(val, auto) {
 function questFinal() {
   if (!Q) return;
   clearTimeout(Q.timer);
+  // ⚠️ ПОХІД У ЖУРНАЛ ІГОР — з тегом "quest" (за скаргою «у лідерборді числиться ще минула гра»):
+  // рядок «ост» у 🕒 і підсумок ✓/✗ періоду його бачать, а РЕЙТИНГ (місця, топ, gameRanks,
+  // спритність героя) — ні: безстроковий похід непорівнюваний із 60-секундною грою.
+  if (Q.counted && !Q.logged) {
+    Q.logged = true;
+    const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest" };
+    appendGamesLog(g);
+    updateLatest(g);
+  }
   Q.stage = "final"; Q.phase = "final";
   questOverlay.classList.add("q-noinput");
   qSetInput(false);
@@ -12233,6 +12263,9 @@ function qEnter() {
 }
 qAnswerEl.addEventListener("input", () => { if (Q && !qAnswerEl.disabled && qAnswerEl.value.trim()) qOnAnswer(qAnswerEl.value, true); });
 questOverlay.addEventListener("click", e => {
+  // слова відповіді й речення на картці — клік озвучує, як на панелі правильної відповіді в грі
+  const hw = e.target.closest(".hw");
+  if (hw) { speak(hw.textContent); return; }
   const b = e.target.closest("[data-q]");
   if (!b || !Q) return;
   const a = b.dataset.q;
