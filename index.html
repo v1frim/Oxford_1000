@@ -11950,7 +11950,7 @@ function qHud() {
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
-    '<span title="Пункти «Плани»: 1 за кожні 8 відповідей до 40-ї, далі кожні 10">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
+    '<span title="Пункти «Плани»: 1 за кожні 8 очок до 40-го, далі кожні 10. Очко — відповідь монстру, завершене повторення або добитий на арені">🌡️ ' + Q.pts + ' <small>(ще ' + (questPointNeed(Q.pts + 1) - Q.answers) + ')</small></span>';
 }
 function qSetInput(on, placeholder) {
   qAnswerEl.disabled = !on;
@@ -11999,9 +11999,11 @@ function qFight() {
   qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
   qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
 }
-// ⚠️ ПУНКТИ «ПЛАНИ» ЗА ПОХІД (за запитом): 1 пункт за кожні 8 відповідей до 40-ї
-// (8 · 16 · 24 · 32 · 40), далі — кожні 10 (50 · 60 · 70…). Відповідь = будь-яка ПЕРЕВІРЕНА
-// відповідь у поході (монстру, у повторенні, на арені). Журнал — поле дня questPts.
+// ⚠️ ПУНКТИ «ПЛАНИ» ЗА ПОХІД (за запитом): 1 пункт за кожні 8 «очок» до 40-го (8 · 16 · 24 ·
+// 32 · 40), далі — кожні 10 (50 · 60 · 70…). Журнал — поле дня questPts.
+// ⚠️ ОЧКО ≠ КОЖНА ВІДПОВІДЬ (виправлено за скаргою «1 монстр із помилкою дає стільки ж, скільки
+// 7 правильних»): +1 за ПЕРШУ відповідь монстру (правильну чи ні), +1 за завершене повторення
+// після картки (3 правильні), +1 за монстра, добитого на арені. Помилки в повторенні й на арені — 0.
 function questPointNeed(k) { return k <= 5 ? 8 * k : 40 + 10 * (k - 5); }   // відповідей до k-го пункту
 function questPointsFor(n) { let k = 0; while (questPointNeed(k + 1) <= n) k++; return k; }
 function qCountAnswer() {
@@ -12098,7 +12100,6 @@ function qDrillAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
   if (auto && !ok) return;
   const d = Q.drill;
-  qCountAnswer();
   if (ok) {
     d.n++;
     qSfx("hit");
@@ -12106,6 +12107,7 @@ function qDrillAnswer(val, auto) {
     if (d.n >= QUEST_DRILL) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
       addXp(QUEST_DRILL_XP); qDayAdd("questDrill");
+      qCountAnswer();   // завершене повторення = 1 очко до пункту «Плани»
       qFloat("+" + QUEST_DRILL_XP + " XP", "xp", 50);
       qFlee(); return;
     }
@@ -12227,7 +12229,6 @@ function qArenaAnswer(val, auto) {
   if (auto && !ok) return;
   const A = Q.arena, idx = Q.cur.idx, el = A.els[idx];
   qSetInput(false);
-  qCountAnswer();
   if (ok) {
     A.cnt[idx] = (A.cnt[idx] || 0) + 1;
     qHero("strike face-right arena");
@@ -12236,6 +12237,7 @@ function qArenaAnswer(val, auto) {
     if (A.cnt[idx] >= REVIEW_REQUIRED_CORRECT) {
       // закритий монстр = закрите слово повторення: +2 XP і +1 «Повторень» (як post-game review)
       addXp(2); Q.arenaWon++;
+      qCountAnswer();   // добитий на арені = 1 очко до пункту «Плани»
       recordReviewStats(1);
       A.left.delete(idx);
       qArenaDel(idx);

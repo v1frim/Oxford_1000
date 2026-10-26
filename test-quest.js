@@ -93,7 +93,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   const pts = await p.evaluate(() => ({ need: [1,2,3,4,5,6,7].map(questPointNeed).join(","), d: loadDays()[todayKey()].questPts || 0,
     ans: Q.answers, q: Q.pts, exp: questPointsFor(Q.answers), at10: questPointsFor(10), at45: questPointsFor(45), at62: questPointsFor(62) }));
   t("пункти «Плани»: 8·16·24·32·40, далі кожні 10", pts.need === "8,16,24,32,40,50,60" && pts.at10 === 1 && pts.at45 === 5 && pts.at62 === 7, JSON.stringify(pts));
-  t("пункти походу = відповіді / сходинки (і записані в день)", pts.q === pts.exp && pts.d === pts.q && pts.ans >= 8, JSON.stringify(pts));
+  // очки: монстр ✓ (1) + монстр ✗ (1) + завершене повторення (1) + добитий на арені (1) = 4;
+  // помилки в повторенні й на арені очок НЕ дають
+  t("очки походу: відповідь монстру + завершене повторення + добитий на арені = 4", pts.ans === 4, JSON.stringify(pts));
+  t("пункти = очки / сходинки (і записані в день)", pts.q === pts.exp && pts.d === pts.q, JSON.stringify(pts));
   await p.keyboard.press("Enter"); await p.waitForTimeout(400);
   t("Enter на фіналі — назад у меню", !(await p.isVisible("#quest-overlay")) && await p.isVisible("#start-screen"));
   const inv = await p.evaluate(() => {
