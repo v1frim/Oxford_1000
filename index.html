@@ -1726,6 +1726,14 @@
     border-radius: 18px; padding: 18px 22px; box-shadow: 0 18px 50px rgba(0,0,0,.5); text-align: center;
   }
   .q-card.hidden { display: none; }
+  /* 📜 результат минулого походу (сесія 64) — картка фіналу у власному вікні над лідербордом */
+  #qrec-modal { position: fixed; inset: 0; z-index: 230; display: flex; align-items: center; justify-content: center; background: rgba(5,8,18,.6); padding: 16px; }
+  #qrec-modal.hidden { display: none; }
+  .qrec-card { width: min(640px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; color: #fff; text-align: center;
+    background: linear-gradient(165deg, rgba(15,19,40,.98), rgba(9,12,26,.98)); border: 1px solid rgba(255,209,102,.4);
+    border-radius: 18px; padding: 18px 22px; box-shadow: 0 18px 50px rgba(0,0,0,.5); }
+  .lb-list li.q-row { cursor: pointer; }
+  .lb-list li.q-row:hover { background: rgba(255,209,102,.07); }
   /* Фінал походу (сесія 64, скарга «усе не поміщається»): нижня смуга вводу ховається — сцена стає вищою,
      картка займає її висоту, а список «📜 Слова походу» стискається й гортається сам, кнопки завжди видно. */
   #quest-overlay.q-final .q-bottom { display: none; }
@@ -2171,6 +2179,7 @@
     <div class="songs-body" id="hero-body"></div>
   </div>
 </div>
+<div id="qrec-modal" class="hidden"><div id="qrec-card" class="qrec-card"></div></div>
 <div id="quest-overlay" class="hidden">
   <div class="q-hud">
     <div class="q-title">⚔️ Похід героя<small id="q-set"></small></div>
@@ -9273,7 +9282,8 @@ function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = 
 function renderQuestRow(g, cls, rank, qlog) {
   const bad = (g.wrong || 0) + (g.skipped || 0), t = g.time && g.time.total, ar = g.n && g.n.arena;
   const isToday = tsToDayKey(g.ts) === todayKey();
-  return '<li class="' + (cls || "") + (isToday ? " is-today-game" : "") + '"' + (rank ? ' data-rank="' + rank + '" title="місце серед усіх походів"' : '') + '>' +
+  return '<li class="q-row ' + (cls || "") + (isToday ? " is-today-game" : "") + '" data-ts="' + g.ts + '"' + (rank ? ' data-rank="' + rank + '"' : '') +
+      ' title="' + (rank ? 'місце серед усіх походів · ' : '') + 'клік — повний результат походу">' +
     '<span class="lb-score">' + g.score + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
     (t ? '<span class="lb-games" title="тривалість походу">· ⏱ ' + fmtQuestTime(t) + '</span>' : '') +
@@ -12861,10 +12871,10 @@ addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } c
 // 📜 СЛОВА ПОХОДУ на фіналі (сесія 63, за запитом: «після гри можна було подивитися слова, які відповів
 // правильно чи неправильно — підгадати переклад чи звучання»). Кожне слово — раз: дорога (✓ переміг /
 // ✗ втік) і арена (🏟️, скільки помилок). Англійське — з ховером перекладу й IPA, клік озвучує (.hw).
-function qWordsHtml(known) {
+function qWordsHtml(known, mlog, alog) {   // mlog/alog — для минулого походу з журналу (сесія 64); без них — поточний Q
   const by = new Map(), get = w => by.get(w) || (by.set(w, {}), by.get(w));
-  (Q.mlog || []).forEach(r => { const o = get(r.w); o.road = o.road === false ? false : r.ok; });
-  (Q.alog || []).forEach(r => { const o = get(r.w); o.arena = Math.max(0, (r.tries || 0) - REVIEW_REQUIRED_CORRECT); });
+  (mlog || (Q && Q.mlog) || []).forEach(r => { const o = get(r.w); o.road = o.road === false ? false : r.ok; });
+  (alog || (Q && Q.alog) || []).forEach(r => { const o = get(r.w); o.arena = Math.max(0, (r.tries || 0) - REVIEW_REQUIRED_CORRECT); });
   if (!by.size) return "";
   const rows = [...by].map(([k, o]) => {
     const i = indexOfWordKey(k), ua = i >= 0 ? getUa(WORDS[i]).slice(0, 2).join(", ") : "";
@@ -12915,8 +12925,8 @@ function questFinal() {
   qEl("q-card").classList.remove("hidden");
   qHint("");
 }
-function qTimeHtml(ts) {
-  const tm = Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
+function qTimeHtml(ts, tmMs) {   // tmMs — мс по етапах для минулого походу (сесія 64); без нього — поточний Q.tm
+  const tm = tmMs || Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
   const row = (ic, name, ms, extra) => '<div class="qt-row"><span>' + ic + ' ' + name + '</span><b>' + qFmtT(ms || 0) + '</b><small>' + (extra || '') + '</small></div>';
   return '<div class="qc-time"><div class="qt-h">⏱ Час по етапах · разом <b>' + qFmtT(total) + '</b></div>' +
     row("⚔️", "Бої · " + n.fights, tm.fight, "сер. " + qFmtAvg(tm.fight || 0, n.fights) + " на бій") +
@@ -12926,6 +12936,47 @@ function qTimeHtml(ts) {
     row("🛣️", "Дорога, удари, втечі", tm.road, "") +
     (tm.pause ? row("🏁", "Привал", tm.pause, "") : "") + '</div>';
 }
+// 📜 РЕЗУЛЬТАТ МИНУЛОГО ПОХОДУ (сесія 64, за запитом «можеш показати результати за останній похід?»):
+// клік по рядку у вкладці ⚔️ відкриває картку як фінальний екран — плитки, час по етапах, «Слова походу».
+// Джерело — детальний журнал `oxford_quest_log_v1` (за ts) + рядок журналу ігор. Відновлені (`rec:1`) і
+// походи до появи журналу мають лише підсумок.
+function openQuestRecord(ts) {
+  const g = loadGamesLog().find(x => x.tag === "quest" && x.ts === ts);
+  let qlog = []; try { qlog = JSON.parse(localStorage.getItem(QUEST_LOG_KEY) || "[]"); } catch (e) {}
+  const r = qlog.find(x => x.ts === ts);
+  if (!g && !r) return;
+  const won = r ? r.won : g.score, fled = r ? r.fled : (g.wrong || 0) + (g.skipped || 0);
+  const when = new Date(ts), hm = String(when.getHours()).padStart(2, "0") + ":" + String(when.getMinutes()).padStart(2, "0");
+  const sec = (r && r.time) || (g && g.time), n = (r && r.n) || (g && g.n);
+  const tile = (v, lab, cls) => '<div><b' + (cls ? ' class="' + cls + '"' : '') + '>' + v + '</b>' + lab + '</div>';
+  let html = '<div class="qc-title">⚔️ Похід · ' + fmtDate(ts) + ' · ' + hm + (g && g.cefr ? ' · ' + cefrLabelHtml(g.cefr) : '') + '</div>' +
+    '<div class="qc-stats qc-fin">' + tile(won, "правильних", "ok") + tile(fled, "неправильних", "bad") + tile(won + fled, "монстрів") +
+      (r ? tile(r.pts, "пунктів «Плани»") : '') + (sec && sec.total ? tile(qFmtT(sec.total * 1000), "тривалість") : '') +
+      (r && r.xp != null ? tile('+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile(r.arena.length, "добито на арені") : '') + '</div>';
+  if (sec && n) {
+    const ms = {}; ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => (ms[k] = (sec[k] || 0) * 1000));
+    html += qTimeHtml({ n }, ms);
+  }
+  html += r ? qWordsHtml(null, r.monsters, r.arena)
+            : '<div class="qc-sub">Деталей немає: ' + (g && g.rec ? 'похід відновлено з денної статистики.' : 'похід зіграно до появи детального журналу.') + '</div>';
+  html += '<div class="qc-btns"><button class="qc-go" data-qr="close">Закрити <small>Esc</small></button></div>';
+  document.getElementById("qrec-card").innerHTML = html;
+  document.getElementById("qrec-modal").classList.remove("hidden");
+}
+function closeQuestRecord() { document.getElementById("qrec-modal").classList.add("hidden"); }
+document.getElementById("qrec-modal").addEventListener("click", e => {
+  if (e.target.id === "qrec-modal" || e.target.closest('[data-qr="close"]')) closeQuestRecord();
+});
+document.addEventListener("keydown", e => {   // capture: Enter позаду не стартує похід
+  if (document.getElementById("qrec-modal").classList.contains("hidden")) return;
+  e.stopPropagation();
+  if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); closeQuestRecord(); }
+}, true);
+lbListEl.addEventListener("click", e => {
+  if (lbActiveTab !== "quests") return;
+  const li = e.target.closest("li[data-ts]");
+  if (li) openQuestRecord(Number(li.dataset.ts));
+});
 // 🌄 КРАЄВИД ПОХОДУ ЗА РІВНЯМИ CEFR (сесія 64, за запитом: «чим далі рівень — тим моторошніші краєвиди,
 // і їх комбінація по-різному комбінується; але не надто мрачно»). Шість тем: A1 весна (колишня сцена 1-в-1)
 // → A2 літо → B1 осінь → B2 туманний ліс у сутінках → C1 скелі під місяцем → C2 вулканічна пустка.

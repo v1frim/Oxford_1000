@@ -349,6 +349,26 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.evaluate(() => questClose(true)); await p.waitForTimeout(300);
   t("новий похід: нижня смуга вводу повернулась", await p.evaluate(() => getComputedStyle(document.querySelector(".q-bottom")).display !== "none"));
 
+  // 📜 результат минулого походу: клік по рядку у вкладці ⚔️ (сесія 64)
+  await p.evaluate(() => { if (Q) questClose(false); });
+  await p.waitForTimeout(200);
+  await p.evaluate(() => { const ts = Date.now() - 5000;
+    const log = loadGamesLog(); log.push({ score: 2, wrong: 1, skipped: 0, mode: "ua-en", ts, wordCount: WORDS.length, tag: "quest", cefr: "A1",
+      time: { road: 10, fight: 20, study: 5, drill: 8, arena: 6, pause: 0, total: 49 }, n: { fights: 3, drills: 1, arena: 1 } });
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
+    const ql = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]");
+    ql.push({ ts, time: { road: 10, fight: 20, study: 5, drill: 8, arena: 6, pause: 0, total: 49 }, n: { fights: 3, drills: 1, arena: 1 }, won: 2, fled: 1, pts: 0, answers: 4, xp: 7,
+      monsters: [{ w: wordKey(WORDS[10]), ok: true }, { w: wordKey(WORDS[11]), ok: true }, { w: wordKey(WORDS[12]), ok: false }], arena: [{ w: wordKey(WORDS[12]), tries: 4 }] });
+    localStorage.setItem("oxford_quest_log_v1", JSON.stringify(ql));
+    window.__qts = ts; lbActiveTab = "quests"; renderLeaderboard(); });
+  await p.click('#lb-list li[data-ts="' + await p.evaluate(() => window.__qts) + '"]'); await p.waitForTimeout(200);
+  const rc = await p.evaluate(() => ({ open: !document.getElementById("qrec-modal").classList.contains("hidden"),
+    txt: document.getElementById("qrec-card").textContent, words: document.querySelectorAll("#qrec-card .qw-row").length,
+    time: !!document.querySelector("#qrec-card .qc-time") }));
+  t("⚔️ клік по рядку — повний результат походу (плитки, час, слова)", rc.open && rc.words === 3 && rc.time && /\+7XP/.test(rc.txt) && /0:49/.test(rc.txt), JSON.stringify(rc).slice(0, 300));
+  await p.keyboard.press("Escape"); await p.waitForTimeout(200);
+  t("⚔️ Esc закриває результат і не стартує похід", await p.evaluate(() => document.getElementById("qrec-modal").classList.contains("hidden") && !Q));
+
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");
   await b.close();
