@@ -8811,7 +8811,7 @@ const WORDS = [
   {en:"food allergy",ua:"харчова алергія",uaAlt:["алергія на їжу"]},
   {en:"lactose intolerance",ua:"непереносимість лактози",uaAlt:["непереносність лактози"]},
   {en:"spoonful",ua:"повна ложка"},
-  {en:"cupful",ua:"повна чашка"},
+  {en:"cupful",ua:"повна чашка",enAlt:["full cup"]},
   {en:"tub",ua:"пластикова баночка",uaAlt:["контейнер","ванна"]},
   {en:"sealed",ua:"герметично закритий"},
   {en:"opened",ua:"початий",uaAlt:["відкритий"]},
@@ -24610,7 +24610,9 @@ const TRANS = {
   "Atlantic":"/ətˈlæntɪk/","the Pacific":"/ðə pəˈsɪfɪk/","Pacific":"/pəˈsɪfɪk/","the USA":"/ðə ˌjuː ɛs ˈeɪ/",
   "the United States":"/ðə juˌnaɪtɪd ˈsteɪts/","United States":"/juˌnaɪtɪd ˈsteɪts/","America":"/əˈmerɪkə/","the UK":"/ðə ˌjuː ˈkeɪ/",
   "the United Kingdom":"/ðə juˌnaɪtɪd ˈkɪŋdəm/","United Kingdom":"/juˌnaɪtɪd ˈkɪŋdəm/","Britain":"/ˈbrɪtən/","Great Britain":"/ˌɡreɪt ˈbrɪtən/",
-  "skating":"/ˈskeɪtɪŋ/","to fill out":"/tə ˈfɪl aʊt/"
+  "skating":"/ˈskeɪtɪŋ/","to fill out":"/tə ˈfɪl aʊt/",
+  // ── сесія 64: enAlt cupful ──
+  "full cup":"/fʊl kʌp/"
 };
 const HINTS = {
   "wonderful": "загальне захоплення",
