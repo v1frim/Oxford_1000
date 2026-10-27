@@ -12647,6 +12647,7 @@ function questStop() {
   questOverlay.classList.add("q-noinput");
   qHero("");
   if (Q.mon && Q.phase === "fight") Q.mon.remove();   // недобитий монстр без відповіді — просто зникає
+  else if (Q.mon) { const w = Q.mon.querySelector(".qm-word"); if (w) w.textContent = ""; }   // стоп посеред повторення — без бульбашки над привалом
   qSetInput(false);
   const fled = qArenaPending();   // і з цього походу, і недобиті з попередніх
   Q.arenaPool = fled;
@@ -12655,7 +12656,8 @@ function questStop() {
     '<div class="qc-stats"><div><b class="ok">' + Q.won + '</b>правильних · переможено</div><div><b class="bad">' + Q.fled.length + '</b>неправильних · втік</div></div>' +
     (fled.length
       ? '<div class="qc-sub">Монстри, від яких ти втік, чекають на арені — добий кожного (3 правильні відповіді, як у повторенні).</div>' +
-        '<button class="qc-go" data-q="arena">🏟️ На арену · ' + fled.length + ' ' + plural(fled.length, "монстр", "монстри", "монстрів") + ' <small>Enter</small></button>'
+        '<div class="qc-btns"><button class="qc-go" data-q="arena">🏟️ На арену · ' + fled.length + ' ' + plural(fled.length, "монстр", "монстри", "монстрів") + ' <small>Enter</small></button>' +
+        '<button class="qc-go alt" data-q="final">🏆 Результат <small>Esc</small></button></div>'
       : '<div class="qc-sub">Жодного втеченого монстра — арена не потрібна!</div><button class="qc-go" data-q="final">🏆 Результат <small>Enter</small></button>');
   qEl("q-card").classList.remove("hidden");
   qHint("");
@@ -13131,6 +13133,9 @@ document.addEventListener("keydown", e => {
     if (Q.stage === "road") questStop();
     else if (Q.stage === "arena") Q.pre === "mid" ? qRoadAfterArena() : questFinal();
     else if (Q.stage === "final") questClose(false);
+    // Сесія 64 (скарга «не можу вийти, Esc не спрацьовує»): на привалі Esc не мав дії — тепер одразу
+    // до результату; утечені монстри не губляться, а чекають на арені наступного походу (як завжди).
+    else if (Q.stage === "pause") questFinal();
   } else if (e.key === "Tab") {
     e.preventDefault();
     if (Q.phase === "study") speak(Q.say);

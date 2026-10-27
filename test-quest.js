@@ -326,6 +326,15 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     }
   }
 
+  // привал: Esc → результат (сесія 64, скарга «не можу вийти, Esc не спрацьовує»), утечені чекають на арені
+  await p.evaluate(() => questClose(false)); await p.waitForTimeout(200);
+  await p.click("#quest-btn"); await p.waitForTimeout(300);
+  const pz = await p.evaluate(() => { const before = qArenaPending().length; Q.stage = "road"; questStop();
+    return { stage: Q.stage, before, btns: document.querySelectorAll("#q-card .qc-go").length }; });
+  await p.keyboard.press("Escape"); await p.waitForTimeout(400);
+  const pz2 = await p.evaluate(() => ({ stage: Q && Q.stage, left: qArenaPending().length }));
+  t("привал: Esc → результат, утечені не губляться", pz.stage === "pause" && pz2.stage === "final" && pz2.left === pz.before, JSON.stringify([pz, pz2]));
+
   // фінал: нижня смуга вводу схована, картка з кнопками вміщається в сцену (сесія 64)
   await p.setViewportSize({ width: 1366, height: 650 }); await p.waitForTimeout(150);
   const finFit = await p.evaluate(() => {
