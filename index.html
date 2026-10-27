@@ -9758,6 +9758,10 @@ function loadSelfReviews() {
   try { return JSON.parse(localStorage.getItem(SELF_REVIEW_KEY) || "{}"); } catch(e) { return {}; }
 }
 
+// 📚 LingoHut: пунктів за урок. ⚠️ Сесія 64, за запитом: з 27.10.2026 КОЖЕН урок = 1 пункт (було 1 за №1–35,
+// 2 за №36+). Минулі дні НЕ переписуємо — інакше заднім числом зсунулись би пункти, плани й рекорди тих днів.
+const LH_FLAT_FROM = "2026-10-27";
+function lhPts(lesson, date) { return Number(lesson) <= 35 || date >= LH_FLAT_FROM ? 1 : 2; }
 function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, selfRev, exprPts) {
   let pts = 0;
   if (days[date]) pts += days[date].games || 0;
@@ -9769,7 +9773,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, sel
   pts += ((movies && movies[date]) || 0) * 2;   // 🎬 кіно: 2 пункти за сеанс (сесія 39; було 1 у сесії 36)
   pts += ((selfRev && selfRev[date]) || 0) * 1; // 📚 повторення слів: 1 пункт (сесія 40)
   pts += (exprPts && exprPts[date]) || 0;   // 💬 вирази: 1 пункт за кожні 12 карток (з перенесенням, сесія 47)
-  Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
+  Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += lhPts(k, dt); });
   return pts;
 }
 // Перенесення залишку на сьогодні: виконані плани (кратні 4) «згоряють», а
@@ -9935,7 +9939,7 @@ function getBestDayPoints() {
     pts += (songSess[date] || 0) * 2;
     pts += Math.floor((gpt[date] || 0) / 2);
     pts += mrPts[date] || 0;
-    Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += Number(k) <= 35 ? 1 : 2; });
+    Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += lhPts(k, dt); });
     if (pts > best) best = pts;
   });
   return best;
