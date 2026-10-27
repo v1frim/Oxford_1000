@@ -61,10 +61,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("картка: «+» біля GPT, «−» прихований при 0", g0.plus && !g0.minus, JSON.stringify(g0));
   await p.click("#q-card .gpt-ctl [data-gpt='+']"); await p.click("#q-card .gpt-ctl [data-gpt='+']"); await p.waitForTimeout(100);
   const g1 = await p.evaluate(() => ({ n: loadGptRequests()[gptToday()] || 0, xp: loadXp(), shown: (document.querySelector("#q-card .gpt-n") || {}).textContent, phase: Q.phase, end: (document.querySelector("#end-screen .gpt-n") || {}).textContent }));
-  t("«+» двічі → 2 запити, +2×GPT_XP, число на картці й на фінал-екрані, похід далі на картці", g1.n === g0.n + 2 && g1.xp === g0.xp + 30 && g1.shown === "2" && g1.end === "2" && g1.phase === "study", JSON.stringify(g1));
+  t("«+» двічі → 2 запити, +2×GPT_XP, число на картці й на фінал-екрані, похід далі на картці", g1.n === g0.n + 2 && g1.xp === g0.xp + 34 && g1.shown === "2" && g1.end === "2" && g1.phase === "study", JSON.stringify(g1));
   await p.click("#q-card .gpt-ctl [data-gpt='-']"); await p.waitForTimeout(100);
   const g2 = await p.evaluate(() => ({ n: loadGptRequests()[gptToday()] || 0, xp: loadXp(), shown: (document.querySelector("#q-card .gpt-n") || {}).textContent, foc: document.activeElement && document.activeElement.dataset.gpt }));
-  t("«−» → 1 запит, XP назад, фокус знято з кнопки", g2.n === g0.n + 1 && g2.xp === g0.xp + 15 && g2.shown === "1" && !g2.foc, JSON.stringify(g2));
+  t("«−» → 1 запит, XP назад, фокус знято з кнопки", g2.n === g0.n + 1 && g2.xp === g0.xp + 17 && g2.shown === "1" && !g2.foc, JSON.stringify(g2));
   await p.click("#q-card .gpt-ctl [data-gpt='-']"); await p.waitForTimeout(100);
   const card2 = await p.evaluate(() => {
     const ua = document.querySelector("#q-card .qc-exua"), gt = document.querySelector("#q-card .qc-links .gt-link:not(.gpt)"), gpt = document.querySelector("#q-card .qc-links .gpt");
@@ -111,8 +111,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   for (let i = 0; i < 2; i++) { dirs.push(await p.evaluate(() => mode)); await p.fill("#q-answer", await right()); await p.waitForTimeout(250); }
   t("повторення — в обидва боки", new Set(dirs).size === 2, dirs.join(","));
   t("після 3 правильних — втеча", await p.evaluate(() => Q.phase === "flee" || Q.phase === "walk"));
-  t("вивчене посеред походу слово = +2 XP", (await p.evaluate(() => loadXp())) - xpBeforeDrill === 2);
-  t("журнал для перерахунку XP: день.questDrill2 = 1 (по 2 XP), старе questDrill не росте", (await day()).questDrill2 === 1 && !(await day()).questDrill);
+  t("вивчене посеред походу слово = +5 XP (сесія 64)", (await p.evaluate(() => loadXp())) - xpBeforeDrill === 5);
+  t("журнал для перерахунку XP: день.questDrill2 = 1 (по 5 XP), старе questDrill не росте", (await day()).questDrill2 === 1 && !(await day()).questDrill);
   t("повторення посеред походу mastery НЕ чіпає", await p.evaluate(i => mStreak(loadMastery()[wordKey(WORDS[i])]) === 0, idx2));
 
   // 3. стоп → арена

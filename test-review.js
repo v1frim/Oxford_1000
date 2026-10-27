@@ -118,13 +118,14 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
              mastery: loadMastery()[wordKey(WORDS[300])] };
   });
   t("дві правильні ще не закривають слово — XP 0", xp.afterTwo === 0, String(xp.afterTwo));
-  t("третя правильна закриває слово — рівно +2 XP", xp.afterClose === 2, String(xp.afterClose));
-  t("слово із затинкою, закрите трьома правильними, теж +2", xp.liveXp === 4, "усього " + xp.liveXp);
-  t("незакрите слово (2 з 3) XP не дає", xp.liveXp === 4, "усього " + xp.liveXp);
+  // сесія 64: ставка за закрите слово 2 → REVIEW_WORD_XP (5); інваріант пари той самий, лише з константою
+  t("третя правильна закриває слово — рівно +5 XP", xp.afterClose === 5, String(xp.afterClose));
+  t("слово із затинкою, закрите трьома правильними, теж +5", xp.liveXp === 10, "усього " + xp.liveXp);
+  t("незакрите слово (2 з 3) XP не дає", xp.liveXp === 10, "усього " + xp.liveXp);
   t("endGame записав reviewCorrect = 2 закриті слова", xp.dRc === 2, String(xp.dRc));
-  t("⚠️ ІНВАРІАНТ ПАРИ: живий XP == 2 × reviewCorrect", xp.liveXp === 2 * xp.dRc,
-    xp.liveXp + " vs 2×" + xp.dRc);
-  t("денний XP (⚡ у «Прогресі») виріс на ті самі 4", xp.dayXp === 4, String(xp.dayXp));
+  t("⚠️ ІНВАРІАНТ ПАРИ: живий XP == REVIEW_WORD_XP × reviewCorrect", xp.liveXp === 5 * xp.dRc,
+    xp.liveXp + " vs 5×" + xp.dRc);
+  t("денний XP (⚡ у «Прогресі») виріс на ті самі 10", xp.dayXp === 10, String(xp.dayXp));
   t("повторення без закритих слів нічого не пише", xp.rc2 === xp.rc1, xp.rc1 + " → " + xp.rc2);
   t("повторення НЕ чіпає mastery (streak лишається за грою)", xp.mastery === undefined, JSON.stringify(xp.mastery));
 

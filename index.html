@@ -1990,14 +1990,14 @@
       </div>
       <div id="songsess-wrap" class="pair">
         <button id="songs-btn">🎵 Пісні</button>
-        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +30 XP)">🎧+<span id="songsess-count" style="display:none"></span></button>
+        <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +75 XP)">🎧+<span id="songsess-count" style="display:none"></span></button>
         <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
       </div>
       <button id="lh-btn">📚 LingoHut</button>
       <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази</button>
       <div id="movie-wrap" class="pair">
         <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
-        <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +60 XP)">+</button>
+        <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +75 XP)">+</button>
         <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
       </div>
     </div>
@@ -2150,7 +2150,7 @@
   <button id="import-btn">📂 Відновити</button>
   <div id="gpt-wrap">
     <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
-    <button id="gpt-plus" title="Додати запит GPT (+1, +15 XP)">+</button>
+    <button id="gpt-plus" title="Додати запит GPT (+1, +17 XP)">+</button>
     <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
   </div>
 </div>
@@ -4049,7 +4049,7 @@ function recordAnswer(userVal, status) {
         // ⚠️ ДЖЕРЕЛО І ЖУРНАЛ — ТІЛЬКИ В ПАРІ: цей addXp(2) відтворюється з
         // `recordReviewStats` у endGame (reviewCorrect × 2 у `computeDayStatsXp`). Прибрати
         // одне без другого = XP зникне на першій же міграції formula_vN або роздвоїться.
-        addXp(2);
+        addXp(REVIEW_WORD_XP);
         reviewRemaining.delete(currentWordIndex);
         // Only remove from today's mistakes if the word had no errors/skips this session.
         // A "tainted" word (any mistake in current review) must stay for further review.
@@ -7253,7 +7253,7 @@ function computeRetroXp() {
     if (s >= 2)   xp += 1;              // 2nd correct
     if (s >= 3) { xp += 5; xp += 1; }  // learn→know bonus + 3rd correct
   });
-  Object.values(loadDays()).forEach(d => { xp += 2 * (d.reviewCorrect || 0); });
+  Object.values(loadDays()).forEach(d => { xp += REVIEW_WORD_XP * (d.reviewCorrect || 0); });
   return xp;
 }
 // ── ⚡ XP ЗА КАРТКИ «ВИРАЗИ І СЛЕНГ» (сесія 47, за запитом) ───────────────────
@@ -7266,8 +7266,8 @@ function computeRetroXp() {
 // лога зникло б при першій же наступній міграції.
 // ⚠️ Оголошено ДО computeDayStatsXp і ДО блоку міграцій — інакше TDZ (як GPT/selfRev).
 const EXPR_XP_KEY  = "oxford_expr_xp_v1";   // {date: {r: показів картки, k: «знаю»}}
-const EXPR_CARD_XP = 1;                     // «Показати переклад» — за кожну картку
-const EXPR_KNOW_XP = 3;                     // «✓ Знаю» — перехід картки у «вивчено»
+const EXPR_CARD_XP = 2;                     // «Показати переклад» — за кожну картку (сесія 64: 1 → 2, formula_v18)
+const EXPR_KNOW_XP = 5;                     // «✓ Знаю» — перехід картки у «вивчено» (сесія 64: 3 → 5)
 function loadExprXpLog() {
   try { return JSON.parse(localStorage.getItem(EXPR_XP_KEY) || "{}"); } catch(e) { return {}; }
 }
@@ -7302,8 +7302,15 @@ function exprPointsByDate(log) {
 // ⚠️ ОГОЛОШЕНО ТУТ (а не в модулі походу): questPointNeed кличе міграція splitQuestsFromGames ще під час
 // завантаження — const нижче за текстом був би в TDZ, і міграція тихо падала б у try/catch.
 const QUEST_PT_STEP = 15;   // ⚔️ похід: очок на 1 пункт «Плани» (сесія 64, за запитом: 14 → 15)
-const QUEST_DRILL_XP = 2;   // сесія 63: 1 → 2 (за запитом); старі дні — поле questDrill по 1 XP, нові — questDrill2 по 2
-const QUEST_DRILL_XP_OLD = 1;   // ⚔️ похід: слово, вивчене посеред бою (3 правильні після картки)
+// ⚔️ похід: слово, вивчене посеред бою (3 правильні після картки). Сесія 63: 1 → 2 (історію НЕ переписували —
+// два поля дня questDrill/questDrill2); СЕСІЯ 64, за запитом «перераховувати»: 5 XP і для ВСІЄЇ історії (formula_v18).
+const QUEST_DRILL_XP = 5;
+const QUEST_DRILL_XP_OLD = 5;
+// 🔁 закрите слово POST-GAME повторення і 🏟️ добитий монстр арени — РІЗНІ ставки з сесії 64 (5 і 2). До того обидва
+// писались лише в reviewCorrect по 2 XP; тепер арена ще й у поле дня `arenaKill` (історію відновила formula_v18
+// з журналу походів), а формула: REVIEW_WORD_XP × (reviewCorrect − arenaKill) + ARENA_KILL_XP × arenaKill.
+const REVIEW_WORD_XP = 5;
+const ARENA_KILL_XP = 2;
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev, mrWords, exprXp) {
   let xp = 0;
   const d = days[date] || {};
@@ -7313,7 +7320,8 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // mrWords = loadMistakeReviews() {date: закритих через меню}. Параметр ОПЦІЙНИЙ:
   // старі блоки міграцій (v3…v15) кличуть без нього → відрахунку немає, стара поведінка.
   const _mrW = (mrWords && mrWords[date]) || 0;
-  xp += 2 * Math.max(0, (d.reviewCorrect || 0) - _mrW); // each closed review word = 1 repetition = 2 XP
+  const _ak = Math.min(d.arenaKill || 0, d.reviewCorrect || 0);   // 🏟️ арена — своя ставка (сесія 64)
+  xp += REVIEW_WORD_XP * Math.max(0, (d.reviewCorrect || 0) - _ak - _mrW) + ARENA_KILL_XP * _ak;
   // ⚔️ Похід (сесія 61, за запитом «я також приділяю на це свій час»): слово, вивчене посеред
   // походу (3 правильні після картки), = QUEST_DRILL_XP. Журнал — поле дня `questDrill`
   // (пишеться РАЗОМ з addXp у qDrillAnswer — прибрати одне без другого не можна).
@@ -10042,7 +10050,7 @@ document.getElementById("import-btn").addEventListener("click", handleImportClic
 // ── LINGOHUT LESSON TRACKER ───────────────────────────────────────────────────
 const LH_KEY = "oxford_lingohut_v1";
 const LH_TOTAL = 125;
-function getLhXp(n) { return n <= 35 ? 50 : n <= 70 ? 75 : 100; }
+function getLhXp(n) { return n <= 35 ? 25 : n <= 70 ? 30 : 35; }   // сесія 64: 50/75/100 → 25/30/35 (formula_v18)
 function getLhTier(n) { return n <= 35 ? "" : n <= 70 ? "t2" : "t3"; }
 
 function loadLhDone() {
@@ -10126,8 +10134,8 @@ document.getElementById("lh-btn").addEventListener("click", () => {
 // ── DUOLINGO SESSION TRACKER ─────────────────────────────────────────────────
 const DUO_KEY = "oxford_duolingo_v1";
 const DUO_XP = 25;   // сесія 32: 25→30; сесія 41: 30→25 (легше за гру при тому ж часі; formula_v15)
-const SONGSESS_XP = 30;        // 🎧 заняття піснями: сесія 39 БЕЗ XP→20; сесія 41: 20→30 (formula_v15)
-const MOVIE_XP = 60;           // 🎬 сеанс кіно: сесія 39 БЕЗ XP→40; сесія 41: 40→60 (formula_v15)
+const SONGSESS_XP = 75;        // 🎧 заняття піснями: сесія 39 БЕЗ XP→20; сесія 41: 20→30 (formula_v15); сесія 64: 30→75 (v18)
+const MOVIE_XP = 75;           // 🎬 сеанс кіно: сесія 39 БЕЗ XP→40; сесія 41: 40→60 (formula_v15); сесія 64: 60→75 (v18)
 const MISTAKE_REVIEW_XP = 30;  // 📒 XP за 1 ПУНКТ «Плани» = за закриття 15-ки слів (сесія 39; 15→30 у сесії 41).
                                // ⚠️ Нараховується РАЗОМ із пунктом, а не по 1 за слово: 7 закритих
                                // слів = 0 XP, 15-те слово замикає пункт і дає одразу +15.
@@ -10245,7 +10253,7 @@ document.getElementById("songsess-minus").addEventListener("click", () => {
 // скасовує сьогоднішній запит (як Duolingo). ⚠️ const/функції оголошено ТУТ — до
 // init-викликів renderThermo/renderLbTotals/thermoPointsThisMonth нижче (інакше TDZ).
 const GPT_KEY = "oxford_gpt_v1";   // {date: count}
-const GPT_XP = 15;                 // XP за 1 запит GPT (сесія 27: 10; сесія 32: 10→15, міграція formula_v9)
+const GPT_XP = 17;                 // XP за 1 запит GPT (сесія 27: 10; сесія 32: 10→15, formula_v9; сесія 64: 15→17, v18)
 function loadGptRequests() {
   try { return JSON.parse(localStorage.getItem(GPT_KEY) || "{}"); } catch(e) { return {}; }
 }
@@ -11131,6 +11139,62 @@ if (!localStorage.getItem("oxford_xp_formula_v17")) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
     localStorage.setItem("oxford_xp_formula_v17", "1");
+  } catch(e) {}
+}
+// ⚠️ v18 (сесія 64, за запитом «перераховувати») — НОВІ СТАВКИ XP під ~5 XP/хв (узгоджено на «Карті XP»):
+// 🔁 закрите слово повторення 2→5, ⚔️ вивчене після поразки 1/2→5 (обидва поля), 🏟️ арена лишилась 2 (тепер окремо),
+// 🤖 GPT 15→17, 📚 LingoHut 50/75/100→25/30/35, 🎧 пісні 30→75, 🎬 кіно 60→75, 💬 картка 1→2, «Знаю» 3→5.
+// Duolingo (25), гра (+1, +3, +5, −3) і вивчені пісні — без змін. Перераховується ВСЯ історія (total і per-day).
+// Перед перерахунком — разове відновлення поля дня `arenaKill` з журналу походів (до v18 арена жила лише в
+// reviewCorrect); без нього минулі добиті на арені пішли б по 5 XP замість 2. Ключ журналу — літералом (TDZ).
+if (!localStorage.getItem("oxford_xp_formula_v18")) {
+  try {
+    if (!localStorage.getItem("oxford_fix_arena_kill_v1")) {
+      const days = loadDays(), byDay = {};
+      let ql = []; try { ql = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]"); } catch (e) {}
+      (Array.isArray(ql) ? ql : []).forEach(r => { const n = (r && r.arena && r.arena.length) || 0;
+        if (n) { const k = tsToDayKey(r.ts); byDay[k] = (byDay[k] || 0) + n; } });
+      Object.entries(byDay).forEach(([k, n]) => { if (days[k]) days[k].arenaKill = Math.min(n, days[k].reviewCorrect || 0); });
+      localStorage.setItem(LB_DAYS_KEY, JSON.stringify(days));
+      localStorage.setItem("oxford_fix_arena_kill_v1", "1");
+    }
+    const _days   = loadDays();
+    const _hist   = loadMasteryHistory();
+    const _hdates = Object.keys(_hist).sort();
+    const _duo    = loadDuoSessions();
+    const _lh     = loadLhDone();
+    const _gpt    = loadGptRequests();
+    const _ss     = loadSongSessions();
+    const _mv     = loadMovieSessions();
+    const _mrWords = loadMistakeReviews();
+    const _mrPts  = mistakeReviewPointsByDate(_mrWords);
+    const _sr     = loadSelfReviews();
+    const _ex     = loadExprXpLog();
+    const _awarded = loadSongsXpAwarded();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
+      ...Object.keys(_gpt), ...Object.values(_awarded),
+      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mrPts), ...Object.keys(_sr),
+      ...Object.keys(_ex)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts, _sr, _mrWords, _ex);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    Object.entries(_awarded).forEach(([id, date]) => {
+      const song = SONGS.find(s => s.id === id);
+      if (song && song.xp) {
+        _xpd[date] = (_xpd[date] || 0) + song.xp;
+        _total += song.xp;
+      }
+    });
+    localStorage.setItem("oxford_xp_before_v18", String(loadXp()));   // для звіту користувачу: було → стало
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v18", "1");
   } catch(e) {}
 }
 renderXpBar();
@@ -12790,14 +12854,14 @@ function qArenaAnswer(val, auto) {
     el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit");
     if (A.cnt[idx] >= REVIEW_REQUIRED_CORRECT) {
       // закритий монстр = закрите слово повторення: +2 XP і +1 «Повторень» (як post-game review)
-      addXp(2); Q.arenaWon++;
+      addXp(ARENA_KILL_XP); Q.arenaWon++; qDayAdd("arenaKill");   // арена — своє поле дня (сесія 64)
       qFeed(idx, [], "arena");
       qCountAnswer();   // добитий на арені = 1 очко до пункту «Плани»
       Q.alog.push(ar);
       recordReviewStats(1);
       A.left.delete(idx);
       qArenaDel(idx);
-      setTimeout(() => { el.classList.add("dead"); qSfx("kill"); qFloat("+2 XP", "xp", 62); }, 220);
+      setTimeout(() => { el.classList.add("dead"); qSfx("kill"); qFloat("+" + ARENA_KILL_XP + " XP", "xp", 62); }, 220);
       setTimeout(() => { el.remove(); delete A.els[idx]; qArenaLayout(); }, 1400);
       qHud();
       Q.timer = setTimeout(qArenaNext, 1000);
