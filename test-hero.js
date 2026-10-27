@@ -23,7 +23,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const d = new Date(); d.setDate(d.getDate() - 3);
     const k3 = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
     localStorage.setItem("oxford_days_v1", JSON.stringify({ [k3]: { games: 2, correct: 10, wrong: 3, skipped: 0, reviewCorrect: 4 } }));
-    localStorage.setItem("oxford_xp_v1", "30168");
+    localStorage.setItem("oxford_xp_v1", "41900");   // сесія 64: пороги ×250/180 (було 30168)
   });
   await p.reload(); await p.waitForTimeout(1200);
 
@@ -85,7 +85,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
 
   // 4. Клас змінюється з рівнем; гра сьогодні знімає втому
   await p.evaluate(() => {
-    localStorage.setItem("oxford_xp_v1", "75000");
+    localStorage.setItem("oxford_xp_v1", "104200");
     const days = JSON.parse(localStorage.getItem("oxford_days_v1"));
     days[todayKey()] = { games: 1, correct: 5, wrong: 1, skipped: 0 };
     localStorage.setItem("oxford_days_v1", JSON.stringify(days));
