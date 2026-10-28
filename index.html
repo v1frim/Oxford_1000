@@ -1767,7 +1767,9 @@
   /* навпаки: дивишся на переклад — розмивається англійське (за запитом: «щоб ховалось протилежне») */
   .qc-ex { transition: filter .2s; }
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
-  .lb-mon { display: inline-block; width: 20px; height: 18px; vertical-align: -4px; margin-right: 1px; }
+  .lb-mon { display: inline-block; width: 17px; height: 15px; vertical-align: -3px; margin-right: 1px; }   /* сесія 65: було 20×18 — місце в рядку */
+  .lb-list li.q-row, #lb-today-strip li[data-qts] { gap: 8px; }   /* без «·» між групами — трохи ширший проміжок */
+  .lb-acts span + span, .lb-kills .lb-mon ~ .lb-mon { margin-left: 2px; }
   .lb-mon svg { width: 100%; height: 100%; }
   .lb-kills { white-space: nowrap; }
   .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
@@ -9329,7 +9331,8 @@ function questKills(g, qlog) {
 function questKillsHtml(k) {
   if (!k) return "";
   const parts = QUEST_KILL_ORDER.filter(L => k[L]).map(L => '<span class="lb-mon" title="' + (L === "none" ? "без рівня" : L) + '">' + questMonsterSvg(L) + '</span>' + k[L]);
-  return parts.length ? '<span class="lb-games lb-kills" title="убито монстрів за видом (дорога + арена)">· ' + parts.join(" ") + '</span>' : "";
+  // ⚠️ БЕЗ «·» у рядках походу (сесія 65, за запитом «впираємося по місцю»): групи розділяє проміжок flex
+  return parts.length ? '<span class="lb-games lb-kills" title="убито монстрів за видом (дорога + арена)">' + parts.join(" ") + '</span>' : "";
 }
 function questGames() { return loadGamesLog().filter(g => g.tag === "quest"); }
 function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = Math.floor(sec / 60); return m + ":" + String(sec % 60).padStart(2, "0"); }
@@ -9338,7 +9341,7 @@ function questSideHtml(r) {
   if (!r) return "";
   const parts = [["🦉", r.duo, "Duolingo"], ["📚", r.lh, "LingoHut"], ["💬", r.phr, "фраз"]].filter(x => x[1])
     .map(([i, n, t]) => '<span title="' + t + ' у поході">' + i + n + '</span>');
-  return parts.length ? '<span class="lb-games lb-acts">· ' + parts.join(" ") + '</span>' : "";
+  return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
 }
 function renderQuestRow(g, cls, rank, qlog) {
   const bad = (g.wrong || 0) + (g.skipped || 0), t = g.time && g.time.total, ar = g.n && g.n.arena;
@@ -9347,10 +9350,10 @@ function renderQuestRow(g, cls, rank, qlog) {
       ' title="' + (rank ? 'місце серед усіх походів · ' : '') + 'клік — повний результат походу">' +
     '<span class="lb-score">' + g.score + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
-    (t ? '<span class="lb-games" title="тривалість походу">· ⏱ ' + fmtQuestTime(t) + '</span>' : '') +
-    (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">· відновлено</span>' : '') +
+    (t ? '<span class="lb-games" title="тривалість походу">⏱' + fmtQuestTime(t) + '</span>' : '') +
+    (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">відновлено</span>' : '') +
     // монстри за видом замість «🏟️ N» (сесія 63); без даних (старі/відновлені) — як було
-    (questKills(g, qlog) ? questKillsHtml(questKills(g, qlog)) : ar ? '<span class="lb-games" title="добито на арені">· 🏟️' + ar + '</span>' : '') +
+    (questKills(g, qlog) ? questKillsHtml(questKills(g, qlog)) : ar ? '<span class="lb-games" title="добито на арені">🏟️' + ar + '</span>' : '') +
     questSideHtml((qlog || []).find(x => x.ts === g.ts)) +
     '<span class="lb-mode">' + fmtDate(g.ts) + '</span>' +
   '</li>';
@@ -9591,6 +9594,7 @@ function renderTodayStrip() {
           (isQ ? plural(pool.length, "походу", "походів", "походів") : "ігор журналу") })
       .replace('<span class="lb-score">', cap("ост. гра") + '<span class="lb-score">')
       .replace('<span class="lb-mode">', qExtra + '<span class="lb-mode">')
+      .replace("⚔️ Похід · ", "⚔️ ")   // похід — коротко: значок + дата (місце)
       .replace('<li ', last.tag === "quest" ? '<li data-qts="' + last.ts + '" ' : '<li ');   // похід — клікабельний (результат як у ⚔️)
   }
   if (t && (t.games > 0 || t.correct + t.wrong + t.skipped > 0)) {
