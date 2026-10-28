@@ -212,6 +212,7 @@
   #lb-today-strip li { border-bottom: none; background: transparent !important; box-shadow: none !important; counter-increment: none; }
   #lb-today-strip li::before { content: attr(data-rank) "."; font-size: 12px; opacity: 0.7; }
   #lb-today-strip li:not([data-rank])::before { content: "–"; }
+  #lb-today-strip li[data-qts] { cursor: pointer; } #lb-today-strip li[data-qts]:hover .lb-score { text-decoration: underline; }
   /* Сесія 65: два рядки — «ост. гра» і «за день»; підпис фіксованої ширини, щоб числа стояли в колонку */
   #lb-today-strip li + li { border-top: 1px dashed rgba(255,255,255,0.12); }
   #lb-today-strip .lb-strip-cap { flex: 0 0 auto; width: 52px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.55; white-space: nowrap; }
@@ -9572,7 +9573,8 @@ function renderTodayStrip() {
     const at = pool.findIndex(g => g.ts === last.ts);
     html += renderGameRow(last, "", at >= 0 ? at + 1 : null,
         { latest: null, today, rankAnyPool: true, rankTitle: "остання гра · місце серед усіх " + pool.length + " ігор журналу" })
-      .replace('<span class="lb-score">', cap("ост. гра") + '<span class="lb-score">');
+      .replace('<span class="lb-score">', cap("ост. гра") + '<span class="lb-score">')
+      .replace('<li ', last.tag === "quest" ? '<li data-qts="' + last.ts + '" ' : '<li ');   // похід — клікабельний (результат як у ⚔️)
   }
   if (t && (t.games > 0 || t.correct + t.wrong + t.skipped > 0)) {
     const all = Object.entries(days).map(([key, st]) => ({ key, ...st }))
@@ -13444,6 +13446,11 @@ lbListEl.addEventListener("click", e => {
   if (lbActiveTab !== "quests") return;
   const li = e.target.closest("li[data-ts]");
   if (li) openQuestRecord(Number(li.dataset.ts));
+});
+// Смужка під лідербордом: клік по «ост. гра»-походу → той самий результат, що у ⚔️ (сесія 65, за запитом)
+document.getElementById("lb-today-strip").addEventListener("click", e => {
+  const li = e.target.closest("li[data-qts]");
+  if (li) openQuestRecord(Number(li.dataset.qts));
 });
 // 🌄 КРАЄВИД ПОХОДУ ЗА РІВНЯМИ CEFR (сесія 64, за запитом: «чим далі рівень — тим моторошніші краєвиди,
 // і їх комбінація по-різному комбінується; але не надто мрачно»). Шість тем: A1 весна (колишня сцена 1-в-1)
