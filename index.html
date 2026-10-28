@@ -13371,6 +13371,8 @@ function openQuestRecord(ts) {
 }
 function closeQuestRecord() { document.getElementById("qrec-modal").classList.add("hidden"); }
 document.getElementById("qrec-modal").addEventListener("click", e => {
+  const hw = e.target.closest(".hw");   // «Слова походу» — клік озвучує, як на фіналі (сесія 65: тут не було)
+  if (hw) { speak(hw.textContent); return; }
   if (e.target.id === "qrec-modal" || e.target.closest('[data-qr="close"]')) closeQuestRecord();
 });
 document.addEventListener("keydown", e => {   // capture: Enter позаду не стартує похід
