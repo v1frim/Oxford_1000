@@ -1820,6 +1820,13 @@
   .qt-row { display: grid; grid-template-columns: 1fr 52px 150px; gap: 8px; padding: 3px 8px; border-radius: 8px; }
   .qt-row:nth-child(odd) { background: rgba(255,255,255,.04); }
   .qt-row b { text-align: right; } .qt-row small { opacity: .6; }
+  /* Сесія 65: ✨ XP зліва, ⏱ час справа; на вузькому — одна під одною */
+  .qc-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 14px; margin: 10px auto 0; max-width: 980px; align-items: start; }
+  .qc-split .qc-time { margin: 0; max-width: none; }
+  .q-card:has(.qc-split) { width: min(980px, 96%); } .qrec-card:has(.qc-split) { width: min(980px, 100%); }
+  .qc-xpby .qt-row { grid-template-columns: 1fr 52px; }
+  .qc-xpby b.xp { color: #ffd166; } .qc-xpby b.bad { color: #ff6b6b; }
+  @media (max-width: 760px) { .qc-split { grid-template-columns: 1fr; } }
   .q-bottom { padding: 12px 18px 16px; background: rgba(8,12,26,.95); border-top: 1px solid rgba(255,209,102,.2); }
   .q-hint { text-align: center; font-size: 13px; opacity: .6; min-height: 18px; margin-bottom: 8px; }
   .q-inrow { display: flex; gap: 10px; justify-content: center; }
@@ -12631,8 +12638,21 @@ function qHint(text) { qEl("q-hint").textContent = text || ""; }
 function qBonusLabel(b) { return b === 3 ? "нове слово" : b === 5 ? "у «Знаю»" : b === 8 ? "нове → «Знаю»" : b === -3 ? "випало зі «Знаю»" : "бонус слова"; }
 // kind: "fight" — нова зустріч; "drill" — доповнити поточну зустріч; "arena" — рядок поточної арени
 // Рядок стрічки без слова-монстра (фраза, побічний квест — сесія 64)
+// ✨ XP ЗА ДЖЕРЕЛАМИ (сесія 65, за запитом: на фіналі зліва — «скільки і за що отримав XP»). Рахуємо
+// з тих самих пар [XP, мітка], що йдуть у стрічку: кожне нарахування в поході проходить через неї.
+// Q.xpBy = { кошик: { v: XP, n: разів } }; різницю з qXp() (якщо щось нараховано поза стрічкою) фінал
+// показує рядком «інше». Мітки стрічки — ключі мапи: змінюючи мітку, онови й QUEST_XP_CAT.
+const QUEST_XP_CAT = { "перемога": "win", "нове слово": "new", "у «Знаю»": "know", "нове → «Знаю»": "know",
+  "випало зі «Знаю»": "drop", "бонус слова": "bonus", "підівчив": "drill" };
+function qXpBy(cat, v) {
+  if (!Q || !v) return;
+  const o = Q.xpBy[cat] || (Q.xpBy[cat] = { v: 0, n: 0 });
+  o.v += v; o.n++;
+}
 function qFeedRaw(label, items) {
   if (!Q) return;
+  const phr = label.indexOf("💬") === 0;
+  items.forEach(([v, l]) => qXpBy(phr ? (l === "фраза" ? "phr" : "phrK") : l === "бонус" ? "side" : l === "Duolingo" ? "duo" : "lh", +v));
   const e = { w: label, items: items.map(([v, l]) => ({ v: +v, l })) };
   Q.feed.unshift(e); Q.feedCur = null;
   qFeed(null, [], "redraw");
@@ -12648,8 +12668,10 @@ function qFeed(idx, items, kind) {
     e.kills++;
     e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
     items = [];
+    qXpBy("arena", ARENA_KILL_XP);
   } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], items: [] }; Q.feed.unshift(e); }
   if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
+  items.forEach(([v, l]) => qXpBy(QUEST_XP_CAT[l] || "bonus", +v));
   e.items = e.items.concat(items.map(([v, l]) => ({ v: +v, l })));
   Q.feed = Q.feed.slice(0, 20);
   const box = qEl("q-feed");
@@ -13285,7 +13307,7 @@ function qLogQuest(ts) {
   updateLatest(g);
   // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
   qSaveLog({ ts: g.ts, t0: Q.t0, dir: g.mode, time: ts.sec, n: ts.n, won: Q.won, fled: Q.fled.length, pts: Q.pts, answers: Q.answers,
-             xp: qXp(), monsters: Q.mlog, arena: Q.alog,
+             xp: qXp(), xpBy: Q.xpBy, monsters: Q.mlog, arena: Q.alog,
              ...(Q.phr || Q.duo || Q.lh ? { phr: Q.phr, duo: Q.duo, lh: Q.lh, xPts: Q.xPts } : {}) });   // сесія 65
 }
 addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } catch (e) {} });
@@ -13339,7 +13361,7 @@ function questFinal() {
         (questPointNeed(Q.pts + 1) - Q.answers) + ' до пункту' + (Q.xPts ? ' · +' + Q.xPts + ' за фрази й квести' : '') + '</small></div>' +
       '<div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div>' +
       '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div>' + qSideTiles(Q) + '</div>' +
-    qTimeHtml(ts) +
+    qSplitHtml(qXpHtml(Q.xpBy, qXp()), qTimeHtml(ts)) +
     // слова, що цей похід перевів у «Знаю», — позначкою в рядку «Слів походу» (сесія 63; було окремим рядком чипсів)
     qWordsHtml(new Set(newKeys)) +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
@@ -13352,6 +13374,22 @@ function qSideTiles(r) {
   return (r.phr ? t(r.phr, plural(r.phr, "фраза", "фрази", "фраз")) : '') +
     (r.duo || r.lh ? t((r.duo || 0) + (r.lh || 0), 'уроків<small class="qc-pts">' +
       [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '');
+}
+// Фінал / минулий похід: зліва ✨ XP за джерелами, справа ⏱ час по етапах (сесія 65). Без XP — час на всю ширину.
+function qSplitHtml(left, right) { return left ? '<div class="qc-split">' + left + right + '</div>' : right; }
+function qXpHtml(by, total) {
+  if (!by) return "";
+  const rows = [["win", "⚔️", "Перемоги"], ["new", "🆕", "Нові слова"], ["know", "⭐", "У «Знаю»"], ["drop", "📉", "Випали зі «Знаю»"],
+    ["bonus", "✨", "Бонуси слів"], ["drill", "🔁", "Підівчив після картки"], ["arena", "🏟️", "Арена"],
+    ["phr", "💬", "Фрази"], ["phrK", "💬", "Фрази у «Знаю»"], ["duo", "🦉", "Duolingo"], ["lh", "📚", "LingoHut"], ["side", "🗺️", "Бонус за квести"]];
+  let sum = 0;
+  const html = rows.filter(([k]) => by[k] && by[k].v).map(([k, ic, name]) => {
+    const o = by[k]; sum += o.v;
+    return '<div class="qt-row"><span>' + ic + ' ' + name + ' · ' + o.n + '</span><b class="' + (o.v < 0 ? 'bad' : 'xp') + '">' + (o.v > 0 ? '+' : '') + o.v + '</b></div>';
+  }).join("");
+  const rest = total - sum;
+  return '<div class="qc-time qc-xpby"><div class="qt-h">✨ XP за похід · разом <b class="xp">+' + total + '</b></div>' + html +
+    (rest ? '<div class="qt-row"><span>· інше</span><b>' + (rest > 0 ? '+' : '') + rest + '</b></div>' : '') + '</div>';
 }
 function qTimeHtml(ts, tmMs) {   // tmMs — мс по етапах для минулого походу (сесія 64); без нього — поточний Q.tm
   const tm = tmMs || Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
@@ -13383,7 +13421,7 @@ function openQuestRecord(ts) {
       (r && r.xp != null ? tile('+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile(r.arena.length, "добито на арені") : '') + (r ? qSideTiles(r) : '') + '</div>';
   if (sec && n) {
     const ms = {}; ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => (ms[k] = (sec[k] || 0) * 1000));
-    html += qTimeHtml({ n }, ms);
+    html += qSplitHtml(r && r.xpBy ? qXpHtml(r.xpBy, r.xp || 0) : "", qTimeHtml({ n }, ms));
   }
   html += r ? qWordsHtml(null, r.monsters, r.arena)
             : '<div class="qc-sub">Деталей немає: ' + (g && g.rec ? 'похід відновлено з денної статистики.' : 'похід зіграно до появи детального журналу.') + '</div>';
@@ -13536,7 +13574,7 @@ function questStart() {
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
         tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null, feed: [],
-        phr: 0, duo: 0, lh: 0, xPts: 0 };   // 💬 фрази, 🦉/📚 побічні квести і їхні пункти «Плани» в межах походу (сесія 65)
+        phr: 0, duo: 0, lh: 0, xPts: 0, xpBy: {} };   // 💬 фрази, 🦉/📚 побічні квести і їхні пункти «Плани» в межах походу (сесія 65)
   Q.answers = Q.carry = qLoadCarry();   // недобрані 🌡️ очки минулого походу
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
