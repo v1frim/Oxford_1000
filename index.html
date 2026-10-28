@@ -9333,6 +9333,13 @@ function questKillsHtml(k) {
 }
 function questGames() { return loadGamesLog().filter(g => g.tag === "quest"); }
 function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = Math.floor(sec / 60); return m + ":" + String(sec % 60).padStart(2, "0"); }
+// 🦉 📚 💬 у рядку походу (сесія 65, за запитом) — з детального журналу (поля phr/duo/lh пишуться з сесії 65)
+function questSideHtml(r) {
+  if (!r) return "";
+  const parts = [["🦉", r.duo, "Duolingo"], ["📚", r.lh, "LingoHut"], ["💬", r.phr, "фраз"]].filter(x => x[1])
+    .map(([i, n, t]) => '<span title="' + t + ' у поході">' + i + n + '</span>');
+  return parts.length ? '<span class="lb-games lb-acts">· ' + parts.join(" ") + '</span>' : "";
+}
 function renderQuestRow(g, cls, rank, qlog) {
   const bad = (g.wrong || 0) + (g.skipped || 0), t = g.time && g.time.total, ar = g.n && g.n.arena;
   const isToday = tsToDayKey(g.ts) === todayKey();
@@ -9344,6 +9351,7 @@ function renderQuestRow(g, cls, rank, qlog) {
     (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">· відновлено</span>' : '') +
     // монстри за видом замість «🏟️ N» (сесія 63); без даних (старі/відновлені) — як було
     (questKills(g, qlog) ? questKillsHtml(questKills(g, qlog)) : ar ? '<span class="lb-games" title="добито на арені">· 🏟️' + ar + '</span>' : '') +
+    questSideHtml((qlog || []).find(x => x.ts === g.ts)) +
     '<span class="lb-mode">' + fmtDate(g.ts) + '</span>' +
   '</li>';
 }
