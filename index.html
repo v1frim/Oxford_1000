@@ -1768,7 +1768,7 @@
   .qc-ex { transition: filter .2s; }
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
   .lb-mon { display: inline-block; width: 17px; height: 15px; vertical-align: -3px; margin-right: 1px; }   /* сесія 65: було 20×18 — місце в рядку */
-  .lb-list li.q-row, #lb-today-strip li[data-qts] { gap: 8px; }   /* без «·» між групами — трохи ширший проміжок */
+  .lb-list li.q-row, #lb-today-strip li[data-qts], .lb-list li:has(.lb-kills) { gap: 8px; }   /* без «·» між групами — трохи ширший проміжок */
   .lb-acts span + span, .lb-kills .lb-mon ~ .lb-mon { margin-left: 2px; }
   .lb-mon svg { width: 100%; height: 100%; }
   .lb-kills { white-space: nowrap; }
@@ -2128,8 +2128,8 @@
 <aside class="leaderboard hidden" id="leaderboard">
   <div class="lb-header">
     <div class="lb-tabs">
-      <button class="lb-tab active" data-tab="period" title="Рекорди за останній період · Shift гортає період">🕒</button>
-      <button class="lb-tab" data-tab="quests" title="Рекорди походів">⚔️</button>
+      <!-- Сесія 65, за запитом: 🕒 «за період» і ⚔️ «походи» злито в одну вкладку ⚔️ з чипсами Походи · Тиждень · Місяць · Рівні CEFR -->
+      <button class="lb-tab active" data-tab="period" title="Рекорди: походи, тиждень, місяць, рівні CEFR · Shift гортає">⚔️</button>
       <button class="lb-tab" data-tab="days" title="Найкращі ігрові дні">📅</button>
       <button class="lb-tab" data-tab="xpdays" title="Найкращі XP-дні">⚡</button>
       <button class="lb-tab" data-tab="streaks" title="Серії днів">🔥</button>
@@ -6666,7 +6666,7 @@ document.addEventListener("keydown", e => {
       closeLhScreen();
       return;
     }
-    const tabs = ["period", "quests", "days", "xpdays", "streaks", "gaps", "ach"];
+    const tabs = ["period", "days", "xpdays", "streaks", "gaps", "ach"];   // ⚔️ походи — чипс у «period» (сесія 65)
     const i = tabs.indexOf(lbActiveTab);
     const next = tabs[(i + (e.shiftKey ? tabs.length - 1 : 1)) % tabs.length];
     document.querySelector('.lb-tab[data-tab="' + next + '"]').click();
@@ -8975,7 +8975,15 @@ function renderGameRow(s, cls, rank, ctx) {
       + (isTodayGame ? " is-today-game" : "")
       + (isYesterdayGame ? " lb-yesterday-date" : "")
       + (isLatestGame ? " is-latest-game" : "");
-    const poolStr = s.wordCount ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
+    // ⚔️ ПОХІД — однаково в будь-якому списку (сесія 65, за запитом): без «· 14.0k», зате монстри за видом
+    // і 🦉 📚 💬 з журналу походів, підпис коротко «⚔️ дата».
+    const isQuest = s.tag === "quest";
+    let qExtra = "";
+    if (isQuest) {
+      let qlog = []; try { qlog = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]"); } catch (e) {}   // літерал: TDZ QUEST_LOG_KEY на старті
+      qExtra = questKillsHtml(questKills(s, qlog)) + questSideHtml(qlog.find(x => x.ts === s.ts));
+    }
+    const poolStr = s.wordCount && !isQuest ? ' <span class="lb-pool">· ' + fmtPool(s.wordCount) + '</span>' : '';
     // ⚠️ За замовчуванням номер місця НЕ показуємо для CEFR-ігор і «не дались» — вони
     // поза загальним рейтингом (сесія 42). Вкладка 🕒 просить `rankAnyPool`: там рейтинг
     // ВНУТРІШНІЙ (у межах періоду), тож місце осмислене для будь-якого пулу.
@@ -8984,7 +8992,8 @@ function renderGameRow(s, cls, rank, ctx) {
     return '<li class="' + klass + '"' + (showRank ? ' data-rank="' + rank + '" title="' + rankTip + '"' : '') + '>' +
       '<span class="lb-score">' + s.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (s.wrong + s.skipped) + '</span>/<span class="lb-total">' + (s.score + s.wrong + s.skipped) + '</span>)' + poolStr + '</span>' +
-      '<span class="lb-mode">' + modeStr + ' · ' + fmtDate(s.ts) + '</span>' +
+      qExtra +
+      '<span class="lb-mode">' + (isQuest ? "⚔️" : modeStr) + ' · ' + fmtDate(s.ts) + '</span>' +
     '</li>';
 }
 function renderTabGames() {
@@ -9062,6 +9071,8 @@ function renderTabCefr() {
   const agg = new Map();      // мітка рівнів → сума по ВСІХ іграх (і походах) цим пулом (сесія 45)
   const qCount = new Map();   // мітка рівнів → скільки походів (сесія 64)
   const qLast = new Map();    // мітка рівнів → останній похід (для рядка без жодної гри)
+  const ALL_KEY = "🌐";      // рядок «усі слова» (сесія 65)
+  const lvLabel = k => k === ALL_KEY ? '<span title="ігри без режиму рівнів — увесь словник">🌐 усі слова</span>' : cefrLabelHtml(k);
   const addAgg = (k, g) => {
     const a = agg.get(k) || { score: 0, bad: 0, total: 0 };
     const bad = (g.wrong || 0) + (g.skipped || 0);
@@ -9073,6 +9084,13 @@ function renderTabCefr() {
     count.set(k, (count.get(k) || 0) + 1);
     addAgg(k, g);
     if (!best.has(k) || isBetter(best.get(k), g)) best.set(k, g);
+  });
+  // 🌐 УСІ СЛОВА (сесія 65, за запитом): ігри БЕЗ режиму рівнів і без особливого пулу (тег відсутній —
+  // увесь словник) — окремим рядком у кінці списку (diffOrder для ALL_KEY дає [99…]).
+  log.filter(g => !g.tag).forEach(g => {
+    count.set(ALL_KEY, (count.get(ALL_KEY) || 0) + 1);
+    addAgg(ALL_KEY, g);
+    if (!best.has(ALL_KEY) || isBetter(best.get(ALL_KEY), g)) best.set(ALL_KEY, g);
   });
   quests.forEach(g => {
     const k = g.cefr;
@@ -9130,11 +9148,11 @@ function renderTabCefr() {
     }
     // Розмір словника («· 13.8k») тут НЕ показуємо (сесія 65, за запитом): пул задає набір рівнів, не словник.
     const isQ = g.tag === "quest";   // «ост» може бути й походом (сесія 64)
-    return '<li class="' + klass + '" title="' + (isQ ? "останній похід рівнями (рекорду не ставить)" : isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
+    return '<li class="' + klass + '" title="' + (isQ ? "останній похід рівнями (рекорду не ставить)" : isExtra ? "остання гра рівнями" : label === ALL_KEY ? "рекорд ігор без режиму рівнів (увесь словник)" : "рекорд цього набору рівнів") + '">' +
       '<span class="lb-score">' + g.score + '</span>' +
       '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)</span>' +
       gamesStr +
-      '<span class="lb-mode">' + (isQ ? "⚔️ " : "") + cefrLabelHtml(label) + ' · ' + fmtDate(g.ts) + '</span>' +
+      '<span class="lb-mode">' + (isQ ? "⚔️ " : "") + lvLabel(label) + ' · ' + fmtDate(g.ts) + '</span>' +
     '</li>';
   };
   // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
@@ -9180,28 +9198,27 @@ const LB_PERIODS = [
   // росте монотонно: тиждень → місяць → 30 днів → 300 ігор → усе. НЕ міняти назад.
   // Сесія 61, за запитом: «7 днів» → «Тиждень», «30 днів» → «Місяць» (вікна ті самі,
   // id не міняємо — збережений вибір лишається дійсним); календарний «Цей місяць» прибрано.
+  // ⚠️ СЕСІЯ 65, ЗА ЗАПИТОМ: вкладки 🕒 і ⚔️ злито в одну ⚔️, «акцент на походах». Чипси — рівно
+  // «Походи · Тиждень · Місяць · Рівні CEFR»; «300 ігор» і «За весь час» прибрано (користувач перелічив
+  // саме ці чотири). Рендер чипса «Походи» — renderTabQuests (рейтинг лише походів, за весь час).
+  { id: "quests", label: "Походи",     sub: "за весь час",         kind: "quests" },
   { id: "d7",    label: "Тиждень",    sub: "останні 7 днів",     kind: "days",  n: 7 },
   { id: "d30",   label: "Місяць",     sub: "останні 30 днів",    kind: "days",  n: 30 },
-  { id: "g300",  label: "300 ігор",   sub: "останні 300 ігор",   kind: "games", n: 300 },
-  // ⚠️ Сесія 57, за запитом: замість вікна «500 ігор» — увесь журнал. Вікно на 500 ігор
-  // при 422 зіграних нічого не відсікало, тобто чип уже показував «за весь час», лише
-  // під назвою, що обіцяла обмеження. `oxford_games_log_v1` тримає останні 5000 ігор.
-  { id: "all",   label: "За весь час", sub: "усі ігри журналу",  kind: "all" },
-  // Сесія 61, за запитом: «Рекорди за рівнями CEFR» переїхали з окремої вкладки 🎓 сюди,
-  // чипсом після «За весь час». Рендер — той самий renderTabCefr.
+  // Сесія 61, за запитом: «Рекорди за рівнями CEFR» переїхали з окремої вкладки 🎓 сюди.
+  // Рендер — той самий renderTabCefr (сесія 65: + рядок «🌐 усі слова» — ігри без режиму рівнів).
   { id: "cefr",  label: "Рівні CEFR",  sub: "рекорд кожного набору рівнів", kind: "cefr" },
 ];
 let lbPeriod = (() => {
   const saved = localStorage.getItem(LB_PERIOD_KEY);
-  if (saved === "g500") return "all";                 // міграція: вікно 500 ігор → весь час
-  if (saved === "g100") return "g300";                // міграція сесії 58: 100 ігор → 300
-  return LB_PERIODS.some(p => p.id === saved) ? saved : "d30";
+  // збережені «300 ігор» / «За весь час» / старі вікна — прибрані чипси → «Походи»
+  return LB_PERIODS.some(p => p.id === saved) ? saved : "quests";
 })();
 
 // Ігри періоду, вже відсортовані за силою результату (рахунок ↓, помилки ↑, час ↑) —
 // той самий порядок, що в `gameRanks`, щоб рейтинги не розходились між вкладками.
 function lbPeriodGames(periodId) {
-  const per = LB_PERIODS.find(p => p.id === periodId) || LB_PERIODS[1];
+  // "all" — уже не чипс (сесія 65), але смужка «ост. гра» ранжує по всьому журналу
+  const per = LB_PERIODS.find(p => p.id === periodId) || { id: periodId, kind: "all", sub: "усі ігри журналу" };
   let games = loadGamesLog().slice();
   if (per.kind === "days") {
     // ⚠️ Вікно рахується від ПОЧАТКУ дня N-1 день тому, а не «мінус N×24 год»:
@@ -9228,9 +9245,9 @@ function renderTabPeriod() {
   const chipsHtml = () => LB_PERIODS.map(p =>
     '<button class="lb-chip' + (p.id === lbPeriod ? " active" : "") + '" data-per="' + p.id + '">' +
     p.label + "</button>").join("");
-  if (lbPeriod === "cefr") {
-    lbListEl.classList.add("lb-cefr");
-    renderTabCefr();
+  if (lbPeriod === "cefr" || lbPeriod === "quests") {
+    lbListEl.classList.toggle("lb-cefr", lbPeriod === "cefr");
+    if (lbPeriod === "cefr") renderTabCefr(); else renderTabQuests();
     const ce = document.getElementById("lb-period-chips");
     ce.innerHTML = chipsHtml(); ce.classList.remove("hidden");
     return;
@@ -9586,16 +9603,12 @@ function renderTodayStrip() {
     const pool = isQ ? questGames().sort((a, b) => b.score - a.score || bad(a) - bad(b) || b.ts - a.ts)
                      : lbPeriodGames("all").games.filter(g => g.tag !== "quest");
     const at = pool.findIndex(g => g.ts === last.ts);
-    // похід — як у ⚔️: без «· 14.0k», зате монстри за видом і 🦉 📚 💬 (сесія 65, за запитом)
-    let qlog = []; if (isQ) try { qlog = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]"); } catch (e) {}
-    const qExtra = isQ ? questKillsHtml(questKills(last, qlog)) + questSideHtml(qlog.find(x => x.ts === last.ts)) : "";
-    html += renderGameRow(isQ ? { ...last, wordCount: 0 } : last, "", at >= 0 ? at + 1 : null,
+    // похід (монстри, 🦉 📚 💬, без «· 14.0k») малює сам renderGameRow (сесія 65)
+    html += renderGameRow(last, "", at >= 0 ? at + 1 : null,
         { latest: null, today, rankAnyPool: true, rankTitle: "остання гра · місце серед усіх " + pool.length + " " +
           (isQ ? plural(pool.length, "походу", "походів", "походів") : "ігор журналу") })
       .replace('<span class="lb-score">', cap("ост. гра") + '<span class="lb-score">')
-      .replace('<span class="lb-mode">', qExtra + '<span class="lb-mode">')
-      .replace("⚔️ Похід · ", "⚔️ ")   // похід — коротко: значок + дата (місце)
-      .replace('<li ', last.tag === "quest" ? '<li data-qts="' + last.ts + '" ' : '<li ');   // похід — клікабельний (результат як у ⚔️)
+      .replace('<li ',last.tag === "quest" ? '<li data-qts="' + last.ts + '" ' : '<li ');   // похід — клікабельний (результат як у ⚔️)
   }
   if (t && (t.games > 0 || t.correct + t.wrong + t.skipped > 0)) {
     const all = Object.entries(days).map(([key, st]) => ({ key, ...st }))
@@ -13475,7 +13488,7 @@ document.addEventListener("keydown", e => {   // capture: Enter позаду н�
   if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); closeQuestRecord(); }
 }, true);
 lbListEl.addEventListener("click", e => {
-  if (lbActiveTab !== "quests") return;
+  if (!(lbActiveTab === "period" && lbPeriod === "quests")) return;   // ⚔️ походи — чипс вкладки period (сесія 65)
   const li = e.target.closest("li[data-ts]");
   if (li) openQuestRecord(Number(li.dataset.ts));
 });

@@ -182,12 +182,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     score: log[0] && log[0].score, wrong: log[0] && log[0].wrong, latest: (loadLatest() || {}).tag, ranks: gameRanks().size }; });
   t("похід у журналі ігор із тегом «quest» (1 ✓ / 1 ✗)", lb.log === 1 && lb.tag === "quest" && lb.score === 1 && lb.wrong === 1, JSON.stringify(lb));
   t("похід — «остання гра», але не в «Найкращих іграх» і не в рейтингу", lb.latest === "quest" && lb.scores === 0 && lb.ranks === 0, JSON.stringify(lb));
-  const row = await p.evaluate(() => { lbActiveTab = "period"; lbPeriod = "all"; renderLeaderboard();
-    const li = document.querySelector("#lb-list li.lb-latest"); return li ? { text: li.textContent, rank: li.dataset.rank || "" } : null; });
-  t("у 🕒 «За весь час» похід — рядком «ост» із підписом «⚔️ Похід», без місця", row && /Похід/.test(row.text) && !row.rank, JSON.stringify(row));
+  // сесія 65: чипс «За весь час» прибрано; похід у будь-якому списку — «⚔️ · дата», без «· 14.0k»
   const rowW = await p.evaluate(() => { lbActiveTab = "period"; lbPeriod = "d7"; renderLeaderboard();
     return { rows: [...document.querySelectorAll("#lb-list li")].map(l => l.className + "|" + l.textContent), sum: document.getElementById("lb-period-chips").textContent }; });
-  t("у 🕒 «Тиждень» похід — у рейтингу (не «ост»), у підсумку «1 похід»", rowW.rows.length === 1 && /Похід/.test(rowW.rows[0]) && !/lb-latest/.test(rowW.rows[0]) && /1 похід/.test(rowW.sum), JSON.stringify(rowW));
+  t("у 🕒 «Тиждень» похід — у рейтингу (не «ост»), у підсумку «1 похід»", rowW.rows.length === 1 && /⚔️ ·/.test(rowW.rows[0]) && !/\dk\b/.test(rowW.rows[0]) && !/lb-latest/.test(rowW.rows[0]) && /1 похід/.test(rowW.sum), JSON.stringify(rowW));
 
   // 4. Обірваний похід: утечений монстр чекає й відкриває НАСТУПНИЙ похід ареною
   await p.click("#quest-btn"); await p.waitForTimeout(200);
@@ -361,7 +359,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     ql.push({ ts, time: { road: 10, fight: 20, study: 5, drill: 8, arena: 6, pause: 0, total: 49 }, n: { fights: 3, drills: 1, arena: 1 }, won: 2, fled: 1, pts: 0, answers: 4, xp: 7,
       monsters: [{ w: wordKey(WORDS[10]), ok: true }, { w: wordKey(WORDS[11]), ok: true }, { w: wordKey(WORDS[12]), ok: false }], arena: [{ w: wordKey(WORDS[12]), tries: 4 }] });
     localStorage.setItem("oxford_quest_log_v1", JSON.stringify(ql));
-    window.__qts = ts; lbActiveTab = "quests"; renderLeaderboard(); });
+    window.__qts = ts; (lbActiveTab = "period", lbPeriod = "quests", renderLeaderboard()); });
   await p.click('#lb-list li[data-ts="' + await p.evaluate(() => window.__qts) + '"]'); await p.waitForTimeout(200);
   const rc = await p.evaluate(() => ({ open: !document.getElementById("qrec-modal").classList.contains("hidden"),
     txt: document.getElementById("qrec-card").textContent, words: document.querySelectorAll("#qrec-card .qw-row").length,

@@ -91,10 +91,15 @@ function chromePath() {
   await openTab("period");
   let v = await read();
   t("вкладка 🕒 існує", (await page.$('.lb-tab[data-tab="period"]')) !== null);
-  t("заголовок про період", /Рекорди за період/.test(v.title), v.title);
-  t("дефолтний період — Місяць (30 днів)", v.active === "Місяць", String(v.active));
-  t("п'ять чипсів періоду («Цей місяць» прибрано, «Рівні CEFR» додано — сесія 61)", v.chips.length === 5, v.chips.join("|"));
+  // сесія 65: 🕒 і ⚔️ злито — дефолт «Походи», чипси рівно «Походи · Тиждень · Місяць · Рівні CEFR»
+  t("дефолтний чипс — Походи", v.active === "Походи", String(v.active));
+  t("чотири чипси: Походи · Тиждень · Місяць · Рівні CEFR", v.chips.join("|") === "Походи|Тиждень|Місяць|Рівні CEFR", v.chips.join("|"));
+  t("на «Походах» — рейтинг походів", /Рекорди походів/.test(v.title), v.title);
   t("кошик-reset схований", v.resetHidden);
+  await page.click('#lb-period-chips .lb-chip[data-per="d30"]');
+  await page.waitForTimeout(120);
+  v = await read();
+  t("заголовок про період", /Рекорди за період/.test(v.title), v.title);
 
   // 2. вікно «30 днів»: без давніх ігор (400 і 45 днів тому)
   t("30 днів: 5 ігор", v.rows.length === 5, String(v.rows.length));
@@ -117,31 +122,28 @@ function chromePath() {
   t("7 днів: гра 20-денної давнини випала", !v.rows.some((r) => /^20/.test(r)), v.rows.join(" | "));
   t("7 днів: заголовок оновився", /останні 7 днів/.test(v.title), v.title);
 
-  // 6. «За весь час» (сесія 57, замінив вікно «500 ігор») — журнал без відсікання
-  await page.click('#lb-period-chips .lb-chip[data-per="all"]');
-  await page.waitForTimeout(120);
-  v = await read();
-  t("за весь час: усі 7 ігор журналу", v.rows.length === 7, String(v.rows.length));
-  t("за весь час: давня гра на 30 — перша", /^30/.test(v.rows[0]), v.rows[0]);
-  t("за весь час: заголовок оновився", /усі ігри журналу/.test(v.title), v.title);
+  // 6. «300 ігор» і «За весь час» прибрано (сесія 65)
+  t("чипсів «300 ігор» / «За весь час» немає",
+    !(await page.$('#lb-period-chips .lb-chip[data-per="all"]')) && !(await page.$('#lb-period-chips .lb-chip[data-per="g300"]')));
 
   // 7. персист вибору між перезавантаженнями
   await page.reload();
   await page.waitForTimeout(900);
   await openTab("period");
   v = await read();
-  t("вибір періоду переживає reload", v.active === "За весь час", String(v.active));
+  t("вибір періоду переживає reload", v.active === "Тиждень", String(v.active));
   const inBackup = await page.evaluate(() => BACKUP_KEYS.includes("oxford_lb_period_v1"));
   t("ключ періоду НЕ в BACKUP_KEYS (UI-налаштування)", inBackup === false);
 
   // 7б. МІГРАЦІЯ старого збереженого вибору (сесія 57): у localStorage лежить "g500",
   // якого в LB_PERIODS уже немає — без міграції вкладка мовчки падала б на «30 днів».
-  await page.evaluate(() => localStorage.setItem("oxford_lb_period_v1", "g500"));
+  await page.evaluate(() => localStorage.setItem("oxford_lb_period_v1", "all"));
   await page.reload();
   await page.waitForTimeout(900);
   await openTab("period");
   v = await read();
-  t("старий вибір «500 ігор» мігрує на «За весь час»", v.active === "За весь час", String(v.active));
+  t("збережений прибраний чипс («За весь час») → «Походи»", v.active === "Походи", String(v.active));
+  await page.evaluate(() => localStorage.setItem("oxford_lb_period_v1", "d7"));
 
   // 8. чипси не течуть на чужі вкладки
   await openTab("games");
@@ -155,14 +157,14 @@ function chromePath() {
   const order = await page.evaluate(() =>
     [...document.querySelectorAll(".lb-tab")].map(b => b.dataset.tab));
   // сесія 61: 🏆 прибрано; анти-топ ⏸️ — після 🔥 серій (за запитом)
-  t("порядок вкладок: 🕒 · ⚔️ · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️ (⚔️ — одразу після 🕒, за запитом)",
-    order.join(",") === "period,quests,days,xpdays,streaks,gaps,ach", order.join(","));
+  t("порядок вкладок: ⚔️ · 📅 · ⚡ · 🔥 · ⏸️ · 🎖️ (🕒 і ⚔️ злито — сесія 65)",
+    order.join(",") === "period,days,xpdays,streaks,gaps,ach", order.join(","));
   const cycle = await page.evaluate(() => {
     document.querySelector('.lb-tab[data-tab="period"]').click();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
     return lbActiveTab;
   });
-  t("Tab із 🕒 веде на ⚔️", cycle === "quests", cycle);
+  t("Tab із ⚔️ веде на 📅", cycle === "days", cycle);
 
   // 10. кап топ-10 і порожній період
   await page.evaluate(() => {
@@ -284,13 +286,13 @@ function chromePath() {
   const stored = await page.evaluate(() => localStorage.getItem("oxford_lb_period_v1"));
   t("гортання зберігається у localStorage", stored === "d30", String(stored));
 
-  // коло замикається (сесія 61): d30 → g300 → all → d7 → d30
+  // коло замикається (сесія 65): d30 → cefr → quests → d7 → d30
   const seq = [];
   for (let i = 0; i < 4; i++) {
     await page.keyboard.press("Shift"); await page.waitForTimeout(120);
     seq.push(await page.evaluate(() => lbPeriod));
   }
-  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "g300,all,cefr,d7", seq.join(","));
+  t("лівий Shift іде вперед і замикає коло", seq.join(",") === "cefr,quests,d7,d30", seq.join(","));
 
   // ⚠️ ПРАВИЙ Shift — назад (сесія 51, прямий вибір користувача). Playwright'ів
   // `press("Shift")` шле саме ShiftLeft, тож правий тиснемо явно через down/up.
@@ -300,7 +302,7 @@ function chromePath() {
     await page.waitForTimeout(120);
     back.push(await page.evaluate(() => lbPeriod));
   }
-  t("правий Shift гортає назад", back.join(",") === "cefr,all", back.join(","));
+  t("правий Shift гортає назад", back.join(",") === "d7,quests", back.join(","));
 
   // «⚙️ Режим» відкриває модалку (з сесії 64 Enter у меню = похід), Shift усередині — напрямок
   const perBeforeModal = await page.evaluate(() => lbPeriod);
@@ -450,24 +452,24 @@ function chromePath() {
       { score: 5, wrong: 2, skipped: 0, ts: now - 9e6, tag: "quest", time: { total: 300 }, n: { arena: 2 } },
       { score: 12, wrong: 4, skipped: 0, ts: now - 5e6, tag: "quest", time: { total: 754 }, n: { arena: 4 } },
       { score: 30, wrong: 1, skipped: 0, ts: now - 4e6, mode: "ua-en" },
-      { score: 3, wrong: 1, skipped: 0, ts: now - 1e6, tag: "quest", time: { total: 95 }, n: { arena: 0 } }];
+      { score: 3, wrong: 1, skipped: 0, ts: now - 1e3, tag: "quest", time: { total: 95 }, n: { arena: 0 } }];   // 1 с тому: о 00:10 «−1e6» був би ВЧОРА
     localStorage.setItem("oxford_games_log_v1", JSON.stringify(log));
-    document.querySelector('.lb-tab[data-tab="quests"]').click();
+    (lbActiveTab = "period", lbPeriod = "quests", renderLeaderboard());
     const rows = [...document.querySelectorAll("#lb-list li")].map(l => l.textContent);
     renderLbTotals();
     const labels = [...document.querySelectorAll("#lb-totals .lb-stat-row")].map(r => r.textContent);
     return { rows, title: document.getElementById("lb-title").textContent, labels,
       reset: getComputedStyle(document.getElementById("lb-reset")).visibility };
   });
-  const qcls = await page.evaluate(() => { document.querySelector('.lb-tab[data-tab="quests"]').click();
+  const qcls = await page.evaluate(() => { (lbActiveTab = "period", lbPeriod = "quests", renderLeaderboard());
     return [...document.querySelectorAll("#lb-list li")].map(l => l.className); });
   t("⚔️ вкладка: останній похід сьогодні — жовта смужка (is-new), не синя; решта без", /is-new/.test(qcls[2]) && !/is-latest-game/.test(qcls.join()) && !/is-new/.test(qcls[0] + qcls[1]), JSON.stringify(qcls));
   const qcls2 = await page.evaluate(() => { const log = loadGamesLog().map(g => ({ ...g, ts: g.ts - 2 * 864e5 }));
-    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log)); document.querySelector('.lb-tab[data-tab="quests"]').click();
+    localStorage.setItem("oxford_games_log_v1", JSON.stringify(log)); (lbActiveTab = "period", lbPeriod = "quests", renderLeaderboard());
     const r = [...document.querySelectorAll("#lb-list li")].map(l => l.className); localStorage.setItem("oxford_games_log_v1", JSON.stringify(log.map(g => ({ ...g, ts: g.ts + 2 * 864e5 })))); return r; });
   const kil = await page.evaluate(() => { const log = loadGamesLog(); localStorage.setItem("oxford_games_log_v1", JSON.stringify(
       [{ ts: Date.now(), tag: "quest", score: 5, wrong: 1, skipped: 0, n: { arena: 1 }, kills: { A1: 2, B1: 3, C2: 1 } }]));
-    document.querySelector('.lb-tab[data-tab="quests"]').click(); const li = document.querySelector("#lb-list li");
+    (lbActiveTab = "period", lbPeriod = "quests", renderLeaderboard()); const li = document.querySelector("#lb-list li");
     const r = { mons: li.querySelectorAll(".lb-mon svg").length, txt: li.textContent }; localStorage.setItem("oxford_games_log_v1", JSON.stringify(log)); return r; });
   t("⚔️ вкладка: убиті монстри міні-копіями за видом замість 🏟️", kil.mons === 3 && !/🏟️/.test(kil.txt) && /2.*3.*1/.test(kil.txt), JSON.stringify(kil));
   t("⚔️ вкладка: сьогодні ще не ходив — останній похід синьою смужкою (без жовтої)", /is-latest-game/.test(qcls2[2]) && !/is-new/.test(qcls2.join()), JSON.stringify(qcls2));
@@ -490,7 +492,7 @@ function chromePath() {
   await page.reload(); await page.waitForTimeout(1000);
   const gap2 = await page.evaluate(() => {
     const qs = loadGamesLog().filter(g => g.tag === "quest");
-    document.querySelector('.lb-tab[data-tab="quests"]').click();
+    (lbActiveTab = "period", lbPeriod = "quests", renderLeaderboard());
     renderLbTotals();
     const qRow = [...document.querySelectorAll("#lb-totals .lb-stat-row")].map(r => r.textContent).find(x => /^⚔️Походів/.test(x));
     return { n: qs.length, rec: qs.filter(g => g.rec).map(g => [g.score, g.wrong]), title: document.getElementById("lb-title").textContent, qRow,

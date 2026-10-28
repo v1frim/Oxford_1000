@@ -168,7 +168,8 @@ const DAY = 86400000;
   const body = tab.rows.filter(r => !r.sep);
   t("заголовок вкладки", tab.title === "Рекорди за рівнями CEFR", tab.title);
   t("список у режимі 🎓", tab.hasClass);
-  t("рядок на кожен набір рівнів", body.length === 4, JSON.stringify(body.map(r => r.mode)));
+  // сесія 65: + рядок «🌐 усі слова» (ігри без режиму рівнів) — останнім
+  t("рядок на кожен набір рівнів + «🌐 усі слова» в кінці", body.length === 5 && /🌐 усі слова/.test(body[4].mode), JSON.stringify(body.map(r => r.mode)));
   t("рекорд A1 = найкраща гра пулу (16)", body[0] && body[0].score === "16" && /A1 ·/.test(body[0].mode),
     JSON.stringify(body[0]));
   t("лічильник ігор рівня", body[0] && /🎮2/.test(body[0].games || ""), String(body[0] && body[0].games));
@@ -204,7 +205,7 @@ const DAY = 86400000;
     JSON.stringify(extra));
   t("«ост»-рядок без лічильника ігор", !extra.games, JSON.stringify(extra));
   t("рекорд A1 не змінився після слабкої гри",
-    extra.rows === 6 && extra.mode.startsWith("A1"), JSON.stringify(extra));
+    extra.rows === 7 && extra.mode.startsWith("A1"), JSON.stringify(extra));   // 5 рядків (з 🌐) + риска + «ост»
   t("кнопка очищення схована на вкладці 🎓", tab.resetHidden === "hidden", tab.resetHidden);
 
   // перемикання назад на «Найкращі ігри» знімає режим 🎓
