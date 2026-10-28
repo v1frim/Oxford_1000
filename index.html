@@ -212,7 +212,8 @@
   #lb-today-strip li { border-bottom: none; background: transparent !important; box-shadow: none !important; counter-increment: none; }
   #lb-today-strip li::before { content: attr(data-rank) "."; font-size: 12px; opacity: 0.7; }
   #lb-today-strip li:not([data-rank])::before { content: "–"; }
-  #lb-today-strip li[data-qts] { cursor: pointer; } #lb-today-strip li[data-qts]:hover .lb-score { text-decoration: underline; }
+  /* похід у «ост. гра» клікабельний — підсвітка всього рядка, як у ⚔️ (.q-row:hover); !important — бо вище transparent !important */
+  #lb-today-strip li[data-qts] { cursor: pointer; border-radius: 8px; } #lb-today-strip li[data-qts]:hover { background: rgba(255,209,102,.07) !important; }
   /* Сесія 65: два рядки — «ост. гра» і «за день»; підпис фіксованої ширини, щоб числа стояли в колонку */
   #lb-today-strip li + li { border-top: 1px dashed rgba(255,255,255,0.12); }
   #lb-today-strip .lb-strip-cap { flex: 0 0 auto; width: 52px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.55; white-space: nowrap; }
