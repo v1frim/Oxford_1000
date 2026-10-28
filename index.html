@@ -7294,14 +7294,19 @@ function getTotalExprCards() {
 // ⚠️ Механіка 1-в-1 як у закритих «📒 Помилок»: рахунок КУМУЛЯТИВНИЙ наскрізь
 // через дні, залишок < 12 переноситься вперед (13 сьогодні = 1 пункт, наступні
 // 11 будь-коли = ще 1). Інакше 11 карток щодня давали б нуль вічно.
-const EXPR_POINT_EVERY = 12;
+// ⚠️ Сесія 64, за запитом: з 28.10.2026 пункт — за кожні 15 карток (було 12). Минулі дні НЕ переписуємо: до цієї дати
+// крок 12. Рахунок — «залишок у кошику»: rem накопичує картки, кожен повний крок = пункт; для сталого кроку це рівно
+// стара кумулятивна формула, а на зміні кроку залишок (< 12) просто переходить у новий кошик на 15.
+const EXPR_POINT_EVERY = 15;
+const EXPR_POINT_OLD = 12, EXPR_POINT_FROM = "2026-10-28";
+const exprPointStep = d => (d < EXPR_POINT_FROM ? EXPR_POINT_OLD : EXPR_POINT_EVERY);
 function exprPointsByDate(log) {
   const out = {};
-  let cum = 0;
+  let rem = 0;
   for (const d of Object.keys(log || {}).sort()) {
-    const before = cum;
-    cum += (log[d] && log[d].r) || 0;
-    const p = Math.floor(cum / EXPR_POINT_EVERY) - Math.floor(before / EXPR_POINT_EVERY);
+    rem += (log[d] && log[d].r) || 0;
+    const step = exprPointStep(d), p = Math.floor(rem / step);
+    rem -= p * step;
     if (p) out[d] = p;
   }
   return out;
@@ -7748,7 +7753,7 @@ function _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr, quest
   if (lh > 0)    h += _pgCell("📚", lh, "prog-lh");
   if (gpt > 0)   h += _pgCell("🤖", gpt, "prog-gpt");
   if (movies > 0) h += _pgCell("🎬", movies, "prog-movie");
-  // 💬 пройдені картки «Вирази і сленг» (сесія 47). 12 карток = 1 пункт «Плани».
+  // 💬 пройдені картки «Вирази і сленг» (сесія 47). 15 карток = 1 пункт «Плани» (до 28.10.2026 — 12).
   if (expr > 0) h += _pgCell("💬", expr, "prog-expr");
   if (songSess > 0) h += _pgCell("🎧", songSess, "prog-songsess");
   if (songs > 0) h += _pgCell("🎵", songs, "prog-song");
@@ -9266,6 +9271,10 @@ function renderTabPeriod() {
 // Активності поза іграми за ДЕНЬ або за НАБІР днів (серія 🔥 — сума по всіх її днях).
 function dayActsHtml(d) { return daysActsHtml([d]); }
 function daysActsHtml(keys, noQuests) {
+  const parts = daysActsParts(keys, noQuests);
+  return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
+}
+function daysActsParts(keys, noQuests) {
   const set = new Set(keys), days = loadDays(), sum = o => keys.reduce((a, k) => a + ((o || {})[k] || 0), 0);
   const inSet = o => Object.values(o).filter(v => set.has(v)).length;
   const qn = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
@@ -9275,7 +9284,7 @@ function daysActsHtml(keys, noQuests) {
   [["🦉", sum(loadDuoSessions())], ["📚", inSet(loadLhDone())], ["🤖", sum(loadGptRequests())],
    ["🎬", sum(loadMovieSessions())], ["💬", ex], ["🎧", sum(loadSongSessions())], ["🎵", inSet(loadSongsXpAwarded())]]
     .forEach(([i, n]) => { if (n) parts.push(i + n); });
-  return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
+  return parts;
 }
 // ⚔️ РЕКОРДИ ПОХОДІВ (сесія 61, за запитом «додай походи в лідерборд» → «окрема вкладка ⚔️»).
 // Походи свідомо НЕ змішані з іграми в 🕒 (там вони «ост» поза місцями): безстроковий похід
@@ -9406,11 +9415,6 @@ function renderTabXpDays() {
   setLbTitle("Найкращі XP-дні");
   const xpMap = xpDayNoSongs();
   const days = loadDays();
-  const duo = loadDuoSessions();
-  const lhDone = loadLhDone();
-  const gpt = loadGptRequests();
-  const songSess = loadSongSessions();
-  const songsAwarded = loadSongsXpAwarded();
   const today = todayKey();
   const entries = Object.entries(xpMap)
     .map(([key, xp]) => ({ key, xp }))
@@ -9425,18 +9429,10 @@ function renderTabXpDays() {
   lbEmptyEl.classList.add("hidden");
   const renderEntry = (e, cls) => {
     const d = e.key;
-    const acts = [];
+    // ⚠️ Сесія 64 (скарга «по виразах криво — день із самими виразами показує «—»»): заняття — спільним
+    // daysActsParts (той самий набір, що в 🔥 серіях): ⚔️ 🦉 📚 🤖 🎬 💬 🎧 🎵; ігри — першими.
     const g = (days[d] && days[d].games) || 0;
-    if (g) acts.push("🎮" + g);
-    const qn = (days[d] && days[d].quests) || 0;
-    if (qn) acts.push("⚔️" + qn);
-    if (duo[d]) acts.push("🦉" + duo[d]);
-    const lh = Object.values(lhDone).filter(v => v === d).length;
-    if (lh) acts.push("📚" + lh);
-    if (gpt[d]) acts.push("🤖" + gpt[d]);
-    if (songSess[d]) acts.push("🎧" + songSess[d]);
-    const sg = Object.values(songsAwarded).filter(v => v === d).length;
-    if (sg) acts.push("🎵" + sg);
+    const acts = (g ? ["🎮" + g] : []).concat(daysActsParts([d]));
     return '<li class="' + cls + '">' +
       '<span class="lb-score" style="color:#ffd166">⚡' + e.xp + '</span>' +
       '<span class="lb-games">· ' + (acts.join(" ") || "—") + '</span>' +
@@ -9797,7 +9793,7 @@ function thermoRawForDate(date, days, duo, lh, songSess, gpt, mrPts, movies, sel
   pts += (mrPts && mrPts[date]) || 0;   // помилки: 1 пункт за кожні 15 пройдених (з перенесенням)
   pts += ((movies && movies[date]) || 0) * 2;   // 🎬 кіно: 2 пункти за сеанс (сесія 39; було 1 у сесії 36)
   pts += ((selfRev && selfRev[date]) || 0) * 1; // 📚 повторення слів: 1 пункт (сесія 40)
-  pts += (exprPts && exprPts[date]) || 0;   // 💬 вирази: 1 пункт за кожні 12 карток (з перенесенням, сесія 47)
+  pts += (exprPts && exprPts[date]) || 0;   // 💬 вирази: 1 пункт за кожні 15 карток (до 28.10 — 12; з перенесенням)
   Object.entries(lh).forEach(([k, dt]) => { if (dt === date) pts += lhPts(k, dt); });
   return pts;
 }
@@ -10120,10 +10116,22 @@ function toggleLhLesson(n) {
   checkThermoMilestones();
   checkAchievements(true);
 }
+// 📚 ПРЯМІ ПОСИЛАННЯ НА УРОКИ LingoHut (сесія 64, за запитом «відкривати одразу відповідний урок»). Адреса уроку має
+// власний id (/uk/v758886/…) — вгадати не можна, тож мапа заповнюється з реальних посилань. Немає уроку в мапі —
+// відкривається список уроків. ⚠️ Домен lingohut.com був закритий для мережі сесії — решту адрес додати, коли
+// користувач дасть список або дозволить домен.
+const LH_LESSON_URLS = {
+  24: "https://www.lingohut.com/uk/v758886/%D1%83%D1%80%D0%BE%D0%BA%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D0%BE%D1%97-%D0%BC%D1%83%D0%B7%D0%B8%D1%87%D0%BD%D1%96-%D1%96%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B8",
+};
+const LH_LIST_URL = "https://www.lingohut.com/uk/l1/%D0%B2%D1%87%D0%B8%D1%82%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D1%83";
+function lhLessonUrl(n) { return (n && LH_LESSON_URLS[n]) || LH_LIST_URL; }
+function lhNextLesson() { const d = loadLhDone(); for (let n = 1; n <= LH_TOTAL; n++) if (!d[n]) return n; return null; }
 function renderLhGrid() {
   const done = loadLhDone();
   const today = lhToday();
   const count = Object.keys(done).length;
+  const lnk = document.getElementById("lh-link"), nx = lhNextLesson();   // «Відкрити LingoHut» — одразу наступний урок
+  if (lnk) { lnk.href = lhLessonUrl(nx); lnk.textContent = LH_LESSON_URLS[nx] ? "Відкрити урок " + nx + " ↗" : "Відкрити LingoHut ↗"; }
   document.getElementById("lh-progress-text").textContent = count + " / " + LH_TOTAL;
   document.getElementById("lh-xp-info").textContent =
     count > 0 ? "⚡ " + Object.keys(done).reduce((s, k) => s + getLhXp(+k), 0) + " XP отримано з уроків" : "";
@@ -12595,8 +12603,7 @@ function qPhraseRate(status) {
 // «Іти» відкриває сайт і ставить похід на паузу; «✓ Виконав» = звичайне заняття (XP + пункт, як з кнопок меню)
 // + QUEST_SIDE_XP бонусу. LingoHut: урок обирається числом (за замовчуванням — найменший непройдений) і
 // ставиться галочкою так само, як у сітці уроків.
-const LH_URL = "https://www.lingohut.com/uk/l1/%D0%B2%D1%87%D0%B8%D1%82%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D1%83";
-function qLhNext() { const d = loadLhDone(); for (let n = 1; n <= 125; n++) if (!d[n]) return n; return null; }
+function qLhNext() { return lhNextLesson(); }
 function qSideKinds() { return ["duo"].concat(qLhNext() ? ["lh"] : []); }
 function qSideOffer() {
   if (!Q || Q.stage !== "road" || Q.phase !== "walk") return;
@@ -12622,7 +12629,7 @@ function qSideRender() {
 }
 function qSideGo() {
   const S = Q.sideQ; if (!S) return;
-  window.open(S.kind === "duo" ? "https://www.duolingo.com/learn" : LH_URL, "_blank", "noopener");
+  window.open(S.kind === "duo" ? "https://www.duolingo.com/learn" : lhLessonUrl(S.lesson), "_blank", "noopener");   // LingoHut — одразу урок
   Q.phase = "side";
   qT("pause");                                   // поки займаєшся на іншому сайті — це не час походу
   qSideRender();
@@ -12647,10 +12654,11 @@ function qSideDone() {
   Q.sideQ = null;
   qWalk();
 }
-function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card").classList.add("hidden"); Q.phase = "walk"; qT("road"); qFight(); }
-function qFight() {
+// «Битися далі» = саме МОНСТР (не фраза): накладок квест → фраза не буває (сесія 64, «щоби не було накладки»)
+function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card").classList.add("hidden"); Q.phase = "walk"; qT("road"); qFight(true); }
+function qFight(noPhrase) {
   if (!Q || Q.stage !== "road") return;
-  if (Math.random() < QUEST_CHANCE.phrase && qPhraseStart()) return;   // 💬 10% — фраза замість монстра
+  if (noPhrase !== true && Math.random() < QUEST_CHANCE.phrase && qPhraseStart()) return;   // 💬 10% — фраза замість монстра
   const idx = qNextIdx(), dir = qDirFor(idx);
   Q.side = Math.random() < 0.5 ? "left" : "right";
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
