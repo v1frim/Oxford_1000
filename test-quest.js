@@ -121,9 +121,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   await p.keyboard.press("Escape"); await p.waitForTimeout(300);
   const pause = await p.evaluate(() => document.getElementById("q-card").textContent);
   const feed = await p.evaluate(() => [...document.querySelectorAll("#q-feed .qf-row")].map(r => r.textContent));
-  t("стрічка XP: монстри з розкладом «за що» (перемога, нове слово, вивчив)",
-    feed.length === 2 && /перемога/.test(feed[1]) && /нове слово/.test(feed[1]) && /вивчив/.test(feed[0]), JSON.stringify(feed));
-  t("стрічка XP: «втік» видно навіть поруч із бонусом слова", /втік/.test(feed[0]) && /вивчив/.test(feed[0]), feed[0]);
+  t("стрічка XP: монстри з розкладом «за що» (перемога, нове слово, підівчив)",
+    feed.length === 2 && /перемога/.test(feed[1]) && /нове слово/.test(feed[1]) && /підівчив/.test(feed[0]), JSON.stringify(feed));
+  t("стрічка XP: «втік» видно навіть поруч із бонусом слова", /втік/.test(feed[0]) && /підівчив/.test(feed[0]), feed[0]);
   t("Esc — привал із правильними / неправильними", /1\s*правильних/.test(pause) && /1\s*неправильних/.test(pause), pause.slice(0, 80));
   t("на привалі кличе на арену", /На арену/.test(pause));
   await p.keyboard.press("Enter"); await p.waitForTimeout(900);

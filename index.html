@@ -12590,7 +12590,7 @@ function qSetInput(on, placeholder) {
 }
 function qHint(text) { qEl("q-hint").textContent = text || ""; }
 // ── 📜 СТРІЧКА XP (за запитом «скільки і за що давали XP по кожному з монстрів, по останніх 5») ──
-// Рядок = ОДНА ЗУСТРІЧ із монстром на дорозі (+ «вивчив», якщо втік), а вся арена — ОДИН рядок
+// Рядок = ОДНА ЗУСТРІЧ із монстром на дорозі (+ «підівчив», якщо втік), а вся арена — ОДИН рядок
 // (уточнення користувача). Бонуси mastery — різницею XP до/після updateMastery: +3 — нове слово
 // (Нові → Вивчаю), +5 — у «Знаю», −3 — випало зі «Знаю». 5 останніх, найсвіжіший зверху.
 function qBonusLabel(b) { return b === 3 ? "нове слово" : b === 5 ? "у «Знаю»" : b === 8 ? "нове → «Знаю»" : b === -3 ? "випало зі «Знаю»" : "бонус слова"; }
@@ -12974,7 +12974,7 @@ function qDrillAnswer(val, auto) {
     if (d.n >= QUEST_DRILL) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
       addXp(QUEST_DRILL_XP); qDayAdd("questDrill2");   // questDrill2 = по 2 XP (сесія 63), не questDrill
-      qFeed(Q.cur.idx, [["+" + QUEST_DRILL_XP, "вивчив"]], "drill");
+      qFeed(Q.cur.idx, [["+" + QUEST_DRILL_XP, "підівчив"]], "drill");   // не «вивчив»: слово НЕ йде у «Знаю» (сесія 65)
       qCountAnswer();   // завершене повторення = 1 очко до пункту «Плани»
       Q.rec.dr = qNow() - Q.rec.d0; delete Q.rec.d0;   // ⏱ повторення
       qFloat("+" + QUEST_DRILL_XP + " XP", "xp", 50);
