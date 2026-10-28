@@ -31,21 +31,21 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   }, D);
   await p.reload(); await p.waitForTimeout(1200);
   const r = await p.evaluate(D => ({ xp: loadXp(), day: JSON.parse(localStorage.getItem("oxford_xp_day_v1") || "{}")[D],
-    ak: loadDays()[D].arenaKill, rc: loadDays()[D].reviewCorrect, flag: localStorage.getItem("oxford_xp_formula_v18"),
+    ak: loadDays()[D].arenaKill, rc: loadDays()[D].reviewCorrect, flag: localStorage.getItem("oxford_xp_formula_v18"), flag19: localStorage.getItem("oxford_xp_formula_v19"),
     before: localStorage.getItem("oxford_xp_before_v18") }), D);
   // 10 відповідей + (6−2)×5 повторення + 2×2 арена + (2+1)×5 вивчені в поході + 25 Duolingo + 25+30+35 LingoHut
-  // + 2×17 GPT + 75 пісні + 75 кіно + 3×2+1×5 вирази = 359
+  // + 2×17 GPT + 75 пісні + 75 кіно + 3×1+1×3 вирази (v19) = 354
   t("arenaKill дня відновлено з журналу походів (2), reviewCorrect не чіпали", r.ak === 2 && r.rc === 6, JSON.stringify(r));
-  t("XP дня перераховано новими ставками = 359", r.day === 359, JSON.stringify(r));
-  t("загальний XP = сума днів (359), прапор v18 стоїть", r.xp === 359 && r.flag === "1", JSON.stringify(r));
+  t("XP дня перераховано новими ставками = 354 (v19: вирази 1/3)", r.day === 354, JSON.stringify(r));
+  t("загальний XP = сума днів (354), прапори v18 і v19 стоять", r.xp === 354 && r.flag === "1" && r.flag19 === "1", JSON.stringify(r));
   // ідемпотентність: повторне завантаження нічого не міняє
   await p.reload(); await p.waitForTimeout(900);
-  t("повторне завантаження не перераховує вдруге", await p.evaluate(() => loadXp()) === 359);
+  t("повторне завантаження не перераховує вдруге", await p.evaluate(() => loadXp()) === 354);
   // живі ставки збігаються з формулою
   const live = await p.evaluate(() => ({ gpt: GPT_XP, song: SONGSESS_XP, movie: MOVIE_XP, lh: [getLhXp(1), getLhXp(50), getLhXp(100)].join("/"),
     card: EXPR_CARD_XP, know: EXPR_KNOW_XP, drill: QUEST_DRILL_XP, rev: REVIEW_WORD_XP, arena: ARENA_KILL_XP, duo: DUO_XP }));
-  t("ставки: GPT 17 · пісні 75 · кіно 75 · LingoHut 25/30/35 · картка 2 · «Знаю» 5 · вивчене 5 · повторення 5 · арена 2 · Duolingo 25",
-    live.gpt === 17 && live.song === 75 && live.movie === 75 && live.lh === "25/30/35" && live.card === 2 && live.know === 5 &&
+  t("ставки: GPT 17 · пісні 75 · кіно 75 · LingoHut 25/30/35 · картка 1 · «Знаю» 3 · вивчене 5 · повторення 5 · арена 2 · Duolingo 25",
+    live.gpt === 17 && live.song === 75 && live.movie === 75 && live.lh === "25/30/35" && live.card === 1 && live.know === 3 &&
     live.drill === 5 && live.rev === 5 && live.arena === 2 && live.duo === 25, JSON.stringify(live));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");

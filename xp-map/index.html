@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 🗺️ КАРТА XP (сесія 64). Копія артефакту https://claude.ai/artifact/G9URxKXAX5ydq2ixNnQxn9 — усі джерела XP
+     тренажера, ставки (колонка «XP» = ставки formula_v19) і час користувача на кожне заняття. Поза claude.ai
+     значення зберігаються в localStorage браузера; якщо там порожньо — підтягується знімок values.json.
+     Оновлюючи ставки в index.html гри — онови й SECTIONS тут. Сайт: /Oxford_1000/xp-map/ -->
+</head><body>
+<title>Карта XP</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: одна колонка-документ; кожен розділ — таблиця з редагованими комірками XP і часу. */
+:root {
+  --bg: #f6f4ee; --surface: #ffffff; --line: #e3ddcf; --fg: #1d1a14; --mut: #6f6857;
+  --gold: #b07a00; --gold-soft: #fff3cf; --new: #1d6fd1; --neg: #c2412d; --ok: #2c7a3a;
+  --display: "Unbounded", "Golos Text", system-ui, sans-serif;
+  --body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12141c; --surface: #1a1d28; --line: #2b3040; --fg: #ecebe6; --mut: #9a9cab;
+  --gold: #ffd166; --gold-soft: #3a3115; --new: #7cb8ff; --neg: #ff8a7a; --ok: #7be07b; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12141c; --surface: #1a1d28; --line: #2b3040; --fg: #ecebe6; --mut: #9a9cab;
+  --gold: #ffd166; --gold-soft: #3a3115; --new: #7cb8ff; --neg: #ff8a7a; --ok: #7be07b; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+main { max-width: 960px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1 { font-family: var(--display); font-weight: 800; font-size: 28px; margin: 0 0 6px; letter-spacing: -.01em; text-wrap: balance; }
+.lead { color: var(--mut); margin: 0 0 18px; max-width: 68ch; }
+.how { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--mut); margin-bottom: 26px; }
+.how b { color: var(--fg); font-weight: 600; }
+.avg { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; padding: 12px 16px; margin: -8px 0 6px; border-radius: 12px;
+  background: color-mix(in srgb, var(--gold-soft) 55%, var(--surface)); border: 1px solid var(--line); }
+.avg .big { font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--gold); font-variant-numeric: tabular-nums; }
+.avg .big .chg { color: var(--new); font-size: 18px; }
+.avg .lab { font-weight: 600; }
+.avg .note { font-size: 12.5px; color: var(--mut); }
+.status { font-size: 12.5px; color: var(--mut); margin-left: auto; }
+section { margin-top: 26px; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 16px; margin: 0 0 8px; display: flex; gap: 10px; align-items: baseline; }
+h2 small { font-family: var(--body); font-weight: 500; font-size: 12.5px; color: var(--mut); }
+.wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; min-width: 640px; table-layout: fixed; }
+col.m1 { width: 32%; } col.m2 { width: 18%; } col.m3 { width: 13%; } col.m4 { width: 21%; } col.m5 { width: 16%; }
+col.c1 { width: 42%; } col.c2 { width: 20%; } col.c3 { width: 22%; } col.c4 { width: 16%; }
+th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+th { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--mut); background: color-mix(in srgb, var(--surface) 70%, var(--bg)); }
+td.act { min-width: 0; }
+td.act .n { font-weight: 600; }
+td.act .note { display: block; font-size: 12.5px; color: var(--mut); margin-top: 2px; }
+td.xp, td.tm, td.rate { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.orig { font-weight: 700; color: var(--gold); display: inline-block; min-width: 44px; }
+.orig.neg { color: var(--neg); }
+.orig.zero { color: var(--mut); }
+.edit { display: inline-flex; align-items: center; gap: 1px; }
+.edit .p { color: var(--new); font-weight: 700; visibility: hidden; }
+.edit.on .p { visibility: visible; }
+input { font: inherit; font-variant-numeric: tabular-nums; color: var(--fg); background: transparent; border: 1px dashed var(--line);
+  border-radius: 6px; padding: 3px 6px; width: 64px; }
+input:focus { outline: 2px solid var(--new); outline-offset: 1px; border-color: transparent; }
+.edit.on input { color: var(--new); font-weight: 700; border-style: solid; border-color: color-mix(in srgb, var(--new) 40%, transparent); }
+select { font: inherit; font-size: 13px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 3px 4px; margin-left: 4px; }
+td.rate { color: var(--mut); font-size: 13.5px; }
+td.rate b { color: var(--fg); }
+td.rate .chg { color: var(--new); }
+td.tm > .note { color: var(--mut); font-size: 12.5px; }
+.src { font-size: 12.5px; color: var(--mut); margin: 0 0 8px; max-width: 80ch; }
+td.shared .note { display: block; font-size: 12px; color: var(--mut); margin-bottom: 3px; }
+td.shared input { border-style: solid; font-weight: 600; }
+tr.total td { background: color-mix(in srgb, var(--gold-soft) 55%, var(--surface)); }
+tr.total .n { font-weight: 700; }
+.foot { margin-top: 28px; font-size: 13px; color: var(--mut); max-width: 72ch; }
+.foot b { color: var(--fg); }
+@media (max-width: 520px) { h1 { font-size: 22px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<main>
+  <h1>Карта XP</h1>
+  <p class="lead">Усе, за що тренажер дає досвід, з числами прямо з коду гри. Впиши, скільки часу в тебе йде на кожну дію, і, якщо хочеш, свій варіант XP: він стане поруч у дужках, а стовпчик праворуч порахує XP за хвилину.</p>
+  <div class="how">
+    <span><b>+1 (2)</b> — було 1, пропоную 2</span>
+    <span><b>Час</b> — на одну дію (урок, сеанс); для гри — один на всю гру</span>
+    <span><b>Очистити поле</b> — повернути як було</span>
+    <span class="status" id="status">Завантаження…</span>
+  </div>
+  <div class="avg" id="avg"></div>
+  <div id="sections"></div>
+  <p class="foot"><b>Більше не нараховується, але лишилось в історії XP:</b> 📒 «Помилки» (30 XP за пункт, закрито в сесії 45) і 📚 «Повторив» (30 XP, закрито в сесії 47). Бонуси «нове слово» і «у Знаю» спрацьовують однаково в грі й поході: дорога похода оновлює ті самі статуси слів, арена — ні.</p>
+</main>
+
+<script>
+const SECTIONS = [
+  { id: "game", title: "🎮 Гра на 60 секунд", sub: "один спільний час на всю гру", shared: { t: "7.5", u: "m", label: "Час гри з повторенням", per: "гру", note: "гра + повторення помилок після неї" },
+    src: "Стартові «разів за гру» — твої середні: відповіді з 126 ігор A1+A2+B1 (560 правильних, 595 помилок), нові слова й «Знаю» — з прогресу за жовтень (+112 і +50 на 59 ігор і походів). Впиши свої, якщо інакше.", rows: [
+    { id: "g_ok", n: "Правильна відповідь", xp: 1, k: 4.4 },
+    { id: "g_bad", n: "Помилка або пропуск", xp: 0, k: 4.7 },
+    { id: "g_new", n: "Нове слово (Нові → Вивчаю)", note: "перша зустріч зі словом, навіть з помилкою", xp: 3, k: 1.9 },
+    { id: "g_known", n: "Слово перейшло у «Знаю»", note: "третя правильна поспіль", xp: 5, k: 0.85 },
+    { id: "g_drop", n: "Слово випало зі «Знаю»", note: "помилка в слові, яке вже знав", xp: -3, k: 0 },
+    { id: "r_close", n: "🔁 Закрите слово в повторенні після гри", note: "3 правильні; поки не впишеш своє — дорівнює «Помилка або пропуск» (повторюєш усі)", xp: 5, kFrom: "g_bad" },
+  ]},
+  { id: "quest", title: "⚔️ Похід", sub: "бонуси «нове слово» / «у Знаю» — як у грі", rows: [
+    { id: "q_win", n: "Перемога над монстром", note: "правильна відповідь з першої спроби", xp: 1 },
+    { id: "q_flee", n: "Втеча від монстра", note: "помилка або пропуск; монстр іде на арену", xp: 0 },
+    { id: "q_drill", n: "Слово вивчене після поразки", note: "картка + 3 правильні в обидва боки", xp: 5 },
+    { id: "a_kill", n: "Добитий монстр", note: "3 правильні відповіді", xp: 2 },
+    { id: "a_bad", n: "Помилка на арені", xp: 0 },
+  ]},
+  { id: "daily", title: "📅 Щоденні заняття", sub: "за одне заняття", rows: [
+    { id: "d_duo", n: "🦉 Duolingo", note: "одне заняття", xp: 25 },
+    { id: "d_lh1", n: "📚 LingoHut, уроки 1–35", xp: 25 },
+    { id: "d_lh2", n: "📚 LingoHut, уроки 36–70", xp: 30 },
+    { id: "d_lh3", n: "📚 LingoHut, уроки 71–125", xp: 35 },
+    { id: "d_gpt", n: "🤖 Запит GPT", xp: 17 },
+    { id: "d_song", n: "🎧 Урок з піснею", xp: 75 },
+    { id: "d_movie", n: "🎬 Сеанс кіно з субтитрами", xp: 75 },
+    { id: "d_learned", n: "🎵 Пісня вивчена", note: "разово, залежить від пісні: від 400 до 1600; тут — середнє по 41 пісні", xp: 925 },
+  ]},
+  { id: "expr", title: "💬 Вирази і сленг", sub: "за картку", rows: [
+    { id: "e_card", n: "Показати переклад картки", xp: 1 },
+    { id: "e_know", n: "«✓ Знаю» — картка вивчена", xp: 3 },
+  ]},
+];
+const DOC = "tables/xp-map";
+const LS = "xp-map-v1";
+let state = {};          // id → { xp: "2", t: "3", u: "s" }
+let db = null, saveTimer = null, dirty = false;   // dirty — у цьому відкритті вже щось правили
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmtXp = n => (n > 0 ? "+" : "") + n;
+const num = v => { const x = parseFloat(String(v).replace(",", ".")); return isFinite(x) ? x : null; };
+
+function rateHtml(r) {
+  const s = state[r.id] || {}, t = num(s.t);
+  if (!t || t <= 0) return '<span>—</span>';
+  const min = (s.u || "s") === "m" ? t : t / 60;
+  const fmt = x => (Math.round(x * 10) / 10).toString().replace(".", ",");
+  const a = r.xp / min, nx = num(s.xp);
+  return '<b>' + fmt(a) + '</b>' + (nx !== null && nx !== r.xp ? ' <span class="chg">(' + fmt(nx / min) + ')</span>' : '') + ' /хв';
+}
+const fmt1 = x => (Math.round(x * 10) / 10).toString().replace(".", ",");
+const secKey = sec => "sec:" + sec.id;
+function secTime(sec) {   // хвилини спільного часу розділу (дефолт — з SECTIONS)
+  const s = state[secKey(sec)] || {}, t = num(s.t != null && s.t !== "" ? s.t : sec.shared.t), u = s.u || sec.shared.u;
+  return t && t > 0 ? (u === "m" ? t : t / 60) : null;
+}
+function newXp(r) { const nx = num((state[r.id] || {}).xp); return nx === null ? r.xp : nx; }
+function xpCell(r) {
+  const s = state[r.id] || {}, changed = num(s.xp) !== null && num(s.xp) !== r.xp;
+  return '<td class="xp"><span class="orig' + (r.xp < 0 ? ' neg' : r.xp === 0 ? ' zero' : '') + '">' + fmtXp(r.xp) + '</span>' +
+    '<span class="edit' + (changed ? ' on' : '') + '"><span class="p">(</span><input autocomplete="off" data-k="xp-' + r.id + '" data-f="xp" inputmode="decimal" aria-label="Новий XP: ' + esc(r.n) + '" placeholder="нове" value="' + esc(s.xp || "") + '"><span class="p">)</span></span></td>';
+}
+const actCell = r => '<td class="act"><span class="n">' + esc(r.n) + '</span>' + (r.note ? '<span class="note">' + esc(r.note) + '</span>' : '') + '</td>';
+const pair = (a, b, unit) => '<b>' + fmt1(a) + '</b>' + (Math.abs(a - b) > 1e-9 ? ' <span class="chg">(' + fmt1(b) + ')</span>' : '') + (unit || '');
+const kOf = r => { const v = (state[r.id] || {}).k; if (v != null && v !== "") return num(v);
+  if (r.kFrom) return kOf(rowOf(r.kFrom)); return r.k != null ? r.k : null; };
+function perGameHtml(r) {
+  const k = kOf(r);
+  return k ? pair(r.xp * k, newXp(r) * k, ' XP') : '<span>—</span>';
+}
+// Підсумковий рядок: ліворуч назва, у колонці «Разів за …» — спільний час (поле), праворуч — XP разом і /хв.
+function totalResult(sec) {
+  let a = 0, b = 0, any = false;
+  sec.rows.forEach(r => { const k = kOf(r); if (k) { any = true; a += r.xp * k; b += newXp(r) * k; } });
+  const min = secTime(sec);
+  if (!any) return '—';
+  return pair(a, b, ' XP') + '<br>' + (min ? pair(a / min, b / min, ' /хв') : '—');
+}
+function totalRow(sec) {
+  const s = state[secKey(sec)] || {}, t = s.t != null ? s.t : sec.shared.t, u = s.u || sec.shared.u;
+  return '<tr class="total"><td colspan="2" class="act"><span class="n">Разом за ' + sec.shared.per + ' — твій середній XP</span><span class="note">' + esc(sec.shared.note) + '</span></td>' +
+    '<td class="tm shared" data-sec="' + sec.id + '"><span class="note">' + esc(sec.shared.label) + '</span>' +
+      '<input autocomplete="off" data-k="t-' + secKey(sec) + '" data-f="t" inputmode="decimal" aria-label="' + esc(sec.shared.label) + '" value="' + esc(String(t).replace(".", ",")) + '">' +
+      '<select autocomplete="off" data-k="u-' + secKey(sec) + '" data-f="u" aria-label="Одиниці часу"><option value="s"' + (u === "s" ? " selected" : "") + '>сек</option><option value="m"' + (u === "m" ? " selected" : "") + '>хв</option></select></td>' +
+    '<td class="rate tot">' + totalResult(sec) + '</td></tr>';
+}
+function minOf(r) { const s = state[r.id] || {}, t = num(s.t); return t && t > 0 ? ((s.u || "s") === "m" ? t : t / 60) : null; }
+function render() {
+  document.getElementById("sections").innerHTML = SECTIONS.map(sec => {
+    const cols = '<colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>';
+    if (sec.shared) return '<section data-sec="' + sec.id + '"><h2>' + esc(sec.title) + ' <small>' + esc(sec.sub) + '</small></h2>' +
+      (sec.src ? '<p class="src">' + esc(sec.src) + '</p>' : '') +
+      '<div class="wrap"><table>' + cols + '<thead><tr><th>Дія</th><th>XP</th><th>Разів за ' + sec.shared.per + '</th><th>XP за ' + sec.shared.per + '</th></tr></thead><tbody>' +
+      sec.rows.map(r => '<tr data-id="' + r.id + '">' + actCell(r) + xpCell(r) +
+        '<td class="tm"><input autocomplete="off" data-k="k-' + r.id + '" data-f="k" inputmode="decimal" aria-label="Разів за ' + sec.shared.per + ': ' + esc(r.n) + '" placeholder="—" value="' + esc(kOf(r) != null ? String(kOf(r)).replace(".", ",") : "") + '"></td>' +
+        '<td class="rate">' + perGameHtml(r) + '</td></tr>').join("") +
+      totalRow(sec) + '</tbody></table></div></section>';
+    return '<section><h2>' + esc(sec.title) + ' <small>' + esc(sec.sub) + '</small></h2><div class="wrap"><table>' + cols +
+      '<thead><tr><th>Дія</th><th>XP</th><th>Час на одну дію</th><th>XP за хвилину</th></tr></thead><tbody>' +
+      sec.rows.map(r => {
+        const s = state[r.id] || {};
+        return '<tr data-id="' + r.id + '">' + actCell(r) + xpCell(r) +
+          '<td class="tm"><input autocomplete="off" data-k="t-' + r.id + '" data-f="t" inputmode="decimal" aria-label="Час: ' + esc(r.n) + '" placeholder="—" value="' + esc(s.t || "") + '">' +
+            '<select autocomplete="off" data-k="u-' + r.id + '" data-f="u" aria-label="Одиниці часу"><option value="s"' + ((s.u || "s") === "s" ? " selected" : "") + '>сек</option><option value="m"' + (s.u === "m" ? " selected" : "") + '>хв</option></select></td>' +
+          '<td class="rate">' + rateHtml(r) + '</td></tr>';
+      }).join("") + '</tbody></table></div></section>';
+  }).join("");
+  markSeen();
+}
+function rowOf(id) { for (const s of SECTIONS) for (const r of s.rows) if (r.id === id) return r; }
+function onEdit(e) {
+  const el = e.target.closest("[data-f]"); if (!el) return;
+  const shared = el.closest(".shared");
+  if (shared) {                                   // спільний час розділу
+    const sec = SECTIONS.find(x => x.id === shared.dataset.sec), k = secKey(sec);
+    const s = state[k] = state[k] || {};
+    shared.querySelectorAll("[data-f]").forEach(f => { s[f.dataset.f] = f.value.trim(); });   // уся комірка з екрана
+    dirty = true;
+    const cell = document.querySelector('section[data-sec="' + sec.id + '"] tr.total .tot');
+    if (cell) cell.innerHTML = totalResult(sec);
+    markSeen();
+    scheduleSave(); return;
+  }
+  const tr = el.closest("tr"), id = tr.dataset.id, r = rowOf(id);
+  const s = state[id] = state[id] || {};
+  // весь рядок з екрана, а не лише змінене поле: інакше значення, яке state «загубив», не враховувалось
+  tr.querySelectorAll("[data-f]").forEach(f => { s[f.dataset.f] = f.value.trim(); });
+  if ((r.k != null && num(s.k) === r.k) || (r.kFrom && num(s.k) === kOf(rowOf(r.kFrom)))) delete s.k;   // стартове середнє не зберігаємо як правку
+  dirty = true;
+  if (!s.xp && !s.t && !s.k && (s.u || "s") === "s") delete state[id];
+  const nx = num((state[id] || {}).xp);
+  tr.querySelector(".edit").classList.toggle("on", nx !== null && nx !== r.xp);
+  const sec = SECTIONS.find(x => x.rows.includes(r));
+  if (sec.shared) {
+    tr.querySelector(".rate").innerHTML = perGameHtml(r);
+    sec.rows.filter(x => x.kFrom === id && !(state[x.id] || {}).k).forEach(x => {   // залежний рядок підхоплює нове число
+      const row = tr.closest("tbody").querySelector('tr[data-id="' + x.id + '"]');
+      const v = kOf(x); row.querySelector('[data-f="k"]').value = v != null ? String(v).replace(".", ",") : "";
+      row.querySelector(".rate").innerHTML = perGameHtml(x);
+    });
+    tr.closest("tbody").querySelector("tr.total .tot").innerHTML = totalResult(sec);
+  } else tr.querySelector(".rate").innerHTML = rateHtml(r);
+  markSeen();
+  scheduleSave();
+}
+function setStatus(t) { document.getElementById("status").textContent = t; }
+function scheduleSave() {
+  setStatus("Зберігаю…");
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(save, 700);
+}
+let saving = Promise.resolve();
+function save() {
+  try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {}
+  if (!db) { setStatus("Збережено в цьому браузері"); return; }
+  const snap = JSON.parse(JSON.stringify(state));
+  saving = saving.then(() => db.doc(DOC).set({ rows: snap })).then(
+    () => setStatus("Збережено"),
+    () => setStatus("Не вдалось зберегти — значення лишились у цьому браузері"));
+}
+// ⚠️ ЗАПУСК ЧЕРЕЗ hot.ready: коли сторінку перевидають, поки вона відкрита, переглядач підміняє її на льоту.
+// Без цього поля лишались на екрані, але вже не рахували й не зберігали (скарга «знову не рахує в реальному часі»).
+// ЗВІРКА ЕКРАН ↔ ПАМ'ЯТЬ: переглядач може сам відновити значення полів, не повідомивши сторінку (так поле
+// показувало порожнє, а XP рахувався з «1»). Пам'ятаємо, що МИ поклали в кожне поле, і раз на секунду
+// перевіряємо: поле змінилось без події — обробляємо як звичайну правку.
+const seen = new WeakMap();
+// 📊 СЕРЕДНЄ XP/хв по всіх заняттях, де вписано час: гра — одним числом («разом за гру»), решта — кожен рядок.
+// Просте середнє занять (без ваги частоти). У дужках — з твоїми новими XP.
+function renderAvg() {
+  const el = document.getElementById("avg"); if (!el) return;
+  const a = [], b = [];
+  SECTIONS.forEach(sec => {
+    if (sec.shared) {
+      const min = secTime(sec); let x = 0, y = 0, any = false;
+      sec.rows.forEach(r => { const k = kOf(r); if (k) { any = true; x += r.xp * k; y += newXp(r) * k; } });
+      if (any && min) { a.push(x / min); b.push(y / min); }
+    } else sec.rows.forEach(r => { const m = minOf(r); if (m) { a.push(r.xp / m); b.push(newXp(r) / m); } });
+  });
+  if (!a.length) { el.innerHTML = '<span class="lab">Середнє XP за хвилину</span><span class="note">з\'явиться, щойно впишеш час хоча б одного заняття</span>'; return; }
+  const avg = v => v.reduce((p, q) => p + q, 0) / v.length;
+  el.innerHTML = '<span class="lab">Середнє XP за хвилину</span><span class="big">' + pair(avg(a), avg(b), '') + '</span>' +
+    '<span class="note">по ' + a.length + ' ' + (a.length % 10 === 1 && a.length % 100 !== 11 ? 'заняттю' : 'заняттях') + ' з уписаним часом; гра — одним числом «разом за гру»</span>';
+}
+function markSeen() {
+  renderAvg(); document.querySelectorAll("#sections [data-f]").forEach(el => seen.set(el, el.value)); }
+function syncFromDom() {
+  document.querySelectorAll("#sections [data-f]").forEach(el => {
+    if (seen.has(el) && seen.get(el) !== el.value) onEdit({ target: el });
+  });
+}
+function start(data) {
+  const sec = document.getElementById("sections");
+  sec.addEventListener("input", onEdit);
+  sec.addEventListener("change", onEdit);
+  setInterval(syncFromDom, 1000);
+  if (data && data.state) { state = data.state; dirty = !!data.dirty; }
+  else { try { state = JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { state = {}; } }
+  render();
+  setStatus("Збережено в цьому браузері");
+  (async () => {
+    try { db = window.claude && window.claude.use ? await window.claude.use("db") : null; } catch (e) { db = null; }
+    if (!db) {
+      // поза claude.ai (копія в репозиторії): нічого не збережено в браузері — беремо знімок values.json поруч
+      if (!Object.keys(state).length && !dirty) {
+        try { const r = await fetch("values.json"); if (r.ok) { const v = await r.json(); if (v && v.rows) { state = v.rows; render(); } } } catch (e) {}
+      }
+      return;
+    }
+    try {
+      const snap = await db.doc(DOC).get();
+      // Збереження з сервера приходить із затримкою: якщо за цей час уже щось вписали — зливаємо (нове головніше).
+      const saved = (snap.exists && snap.data() && snap.data().rows) || {};
+      if (dirty) {
+        state = Object.assign({}, saved, state);
+        const active = document.activeElement && document.activeElement.closest && document.activeElement.closest("[data-f]");
+        if (!active) render();
+        save(); return;
+      }
+      state = saved; render();
+      setStatus("Збережено");
+    } catch (e) { setStatus("Збережено в цьому браузері"); }
+  })();
+}
+const hot = window.claude && window.claude.hot;
+if (hot && hot.snapshot) { try { hot.snapshot(() => ({ state, dirty })); } catch (e) {} }
+if (hot && hot.ready) hot.ready(start); else start(hot && hot.data ? hot.data : {});
+</script>
+
+</body></html>

@@ -7276,8 +7276,8 @@ function computeRetroXp() {
 // лога зникло б при першій же наступній міграції.
 // ⚠️ Оголошено ДО computeDayStatsXp і ДО блоку міграцій — інакше TDZ (як GPT/selfRev).
 const EXPR_XP_KEY  = "oxford_expr_xp_v1";   // {date: {r: показів картки, k: «знаю»}}
-const EXPR_CARD_XP = 2;                     // «Показати переклад» — за кожну картку (сесія 64: 1 → 2, formula_v18)
-const EXPR_KNOW_XP = 5;                     // «✓ Знаю» — перехід картки у «вивчено» (сесія 64: 3 → 5)
+const EXPR_CARD_XP = 1;                     // «Показати переклад» — за кожну картку (сесія 64: 1→2 у v18, назад 1 у v19)
+const EXPR_KNOW_XP = 3;                     // «✓ Знаю» — перехід картки у «вивчено» (сесія 64: 3→5 у v18, назад 3 у v19)
 function loadExprXpLog() {
   try { return JSON.parse(localStorage.getItem(EXPR_XP_KEY) || "{}"); } catch(e) { return {}; }
 }
@@ -11216,6 +11216,37 @@ if (!localStorage.getItem("oxford_xp_formula_v18")) {
     localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
     saveXp(_total);
     localStorage.setItem("oxford_xp_formula_v18", "1");
+  } catch(e) {}
+}
+// ⚠️ v19 (сесія 64, за запитом «щодо виразів передумав»): 💬 картка 2→1, «Знаю» 5→3 — решта ставок v18 без змін.
+// Тіло = перерахунок v18 (поле arenaKill вже відновлене прапором oxford_fix_arena_kill_v1).
+if (!localStorage.getItem("oxford_xp_formula_v19")) {
+  try {
+    const _days = loadDays(), _hist = loadMasteryHistory(), _hdates = Object.keys(_hist).sort();
+    const _duo = loadDuoSessions(), _lh = loadLhDone(), _gpt = loadGptRequests(), _ss = loadSongSessions(), _mv = loadMovieSessions();
+    const _mrWords = loadMistakeReviews(), _mrPts = mistakeReviewPointsByDate(_mrWords), _sr = loadSelfReviews(), _ex = loadExprXpLog();
+    const _awarded = loadSongsXpAwarded(), _side = loadQuestSide();
+    const _allDates = new Set([
+      ...Object.keys(_days), ..._hdates, ...Object.keys(_duo), ...Object.values(_lh),
+      ...Object.keys(_gpt), ...Object.values(_awarded),
+      ...Object.keys(_ss), ...Object.keys(_mv), ...Object.keys(_mrPts), ...Object.keys(_sr),
+      ...Object.keys(_ex), ...Object.keys(_side)
+    ]);
+    const _xpd = {};
+    let _total = 0;
+    _allDates.forEach(date => {
+      const v = computeDayStatsXp(date, _hist, _hdates, _days, _duo, _lh, _gpt, _ss, _mv, _mrPts, _sr, _mrWords, _ex);
+      if (v > 0) _xpd[date] = v;
+      _total += v;
+    });
+    Object.entries(_awarded).forEach(([id, date]) => {
+      const song = SONGS.find(s => s.id === id);
+      if (song && song.xp) { _xpd[date] = (_xpd[date] || 0) + song.xp; _total += song.xp; }
+    });
+    localStorage.setItem("oxford_xp_before_v19", String(loadXp()));
+    localStorage.setItem(XP_DAY_KEY, JSON.stringify(_xpd));
+    saveXp(_total);
+    localStorage.setItem("oxford_xp_formula_v19", "1");
   } catch(e) {}
 }
 renderXpBar();

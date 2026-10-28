@@ -380,10 +380,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("💬 фраза замість монстра: картка виразу US→UA, монстра нема", ph0.phase === "phrase" && ph0.dir === "en2ua" && ph0.card.includes(ph0.en) && !ph0.mon, JSON.stringify(ph0).slice(0, 200));
   await p.keyboard.press("Enter"); await p.waitForTimeout(150);
   const ph1 = await p.evaluate(() => ({ open: Q.phrase && Q.phrase.open, xp: loadXp(), r: (loadExprXpLog()[todayKey()] || {}).r || 0 }));
-  t("💬 Enter — переклад: +" + 2 + " XP і картка в журналі виразів (пункти «Плани»)", ph1.open && ph1.xp - ph0.xp === 2 && ph1.r === ph0.r + 1, JSON.stringify(ph1));
+  t("💬 Enter — переклад: +1 XP і картка в журналі виразів (пункти «Плани»)", ph1.open && ph1.xp - ph0.xp === 1 && ph1.r === ph0.r + 1, JSON.stringify(ph1));
   await p.keyboard.press("Enter"); await p.waitForTimeout(150);
   const ph2 = await p.evaluate(en => ({ st: getExprStatus(en, "en2ua"), stUa: getExprStatus(en, "ua2en"), xp: loadXp(), phase: Q.phase, feed: document.getElementById("q-feed").textContent }), ph0.en);
-  t("💬 Enter — «Знаю»: статус US→UA «вивчено» (+5 XP), UA→US не чіпає, похід іде далі", ph2.st === "learned" && ph2.stUa === "queue" && ph2.xp - ph1.xp === 5 && ph2.phase === "walk" && /фраза/.test(ph2.feed), JSON.stringify(ph2));
+  t("💬 Enter — «Знаю»: статус US→UA «вивчено» (+3 XP), UA→US не чіпає, похід іде далі", ph2.st === "learned" && ph2.stUa === "queue" && ph2.xp - ph1.xp === 3 && ph2.phase === "walk" && /фраза/.test(ph2.feed), JSON.stringify(ph2));
   const ph3 = await p.evaluate(() => { clearTimeout(Q.timer); QUEST_CHANCE.phrase = 1; qFight(); QUEST_CHANCE.phrase = 0; return Q.phrase.c.en; });
   await p.keyboard.press(" "); await p.waitForTimeout(100); await p.keyboard.press(" "); await p.waitForTimeout(150);
   t("💬 Пробіл, Пробіл — показати й «ще вчу»", await p.evaluate(en => getExprStatus(en, "en2ua") === "learning" && Q.phase === "walk", ph3));
