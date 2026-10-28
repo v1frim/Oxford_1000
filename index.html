@@ -9583,10 +9583,14 @@ function renderTodayStrip() {
     const pool = isQ ? questGames().sort((a, b) => b.score - a.score || bad(a) - bad(b) || b.ts - a.ts)
                      : lbPeriodGames("all").games.filter(g => g.tag !== "quest");
     const at = pool.findIndex(g => g.ts === last.ts);
-    html += renderGameRow(last, "", at >= 0 ? at + 1 : null,
+    // похід — як у ⚔️: без «· 14.0k», зате монстри за видом і 🦉 📚 💬 (сесія 65, за запитом)
+    let qlog = []; if (isQ) try { qlog = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]"); } catch (e) {}
+    const qExtra = isQ ? questKillsHtml(questKills(last, qlog)) + questSideHtml(qlog.find(x => x.ts === last.ts)) : "";
+    html += renderGameRow(isQ ? { ...last, wordCount: 0 } : last, "", at >= 0 ? at + 1 : null,
         { latest: null, today, rankAnyPool: true, rankTitle: "остання гра · місце серед усіх " + pool.length + " " +
           (isQ ? plural(pool.length, "походу", "походів", "походів") : "ігор журналу") })
       .replace('<span class="lb-score">', cap("ост. гра") + '<span class="lb-score">')
+      .replace('<span class="lb-mode">', qExtra + '<span class="lb-mode">')
       .replace('<li ', last.tag === "quest" ? '<li data-qts="' + last.ts + '" ' : '<li ');   // похід — клікабельний (результат як у ⚔️)
   }
   if (t && (t.games > 0 || t.correct + t.wrong + t.skipped > 0)) {
