@@ -3340,7 +3340,8 @@ EN→EN і `setMode`.
      `playwright-core` стоїть глобально (`npm i -g`), браузер — Chrome користувача. Усі тести беруть `process.env.PW_CHROME ||`
      старий шлях `/opt/pw-browsers`. У PowerShell: `$env:PW_CORE="$env:APPDATA\npm\node_modules\playwright-core";
      $env:PW_CHROME="C:\Program Files\Google\Chrome\Application\chrome.exe"; node test-quest.js`. Стан на кінець сесії 65:
-     16 з 17 зелені; ⚠️ `test-panel.js` — 3 перевірки «дірка/порожній день» падають і ДО сесії 65 (залежать від дати, не чіпав).
+     **усі 17 зелені**. `test-panel.js` падав (і до сесії 65) через перехід на зимовий час: дати рахувались «мінус n×24 год»,
+     а 25.10.2026 мав 25 годин → два однакові дні. Тепер календарний зсув `setDate` — так і писати дати в нових тестах.
   1а. ⚠️ **БАГ `add-batch.js` (виправлено):** `enAlt`-пари шукали `enAlt` лише в КІНЦІ картки; якщо він стояв перед `uaAlt`,
      дописувався ДРУГИЙ ключ `enAlt` → у JS виграє останній, старі варіанти губились (`safety belt`, `to sign in`,
      `bus terminal`, `bureau de change` — відновлено). Знайшов `test-hints.js`. Тепер у `verify.sh` вартовий «❌ ДУБЛЬ КЛЮЧА».

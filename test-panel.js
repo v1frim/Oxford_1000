@@ -220,7 +220,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const pg = await b.newPage();
     await pg.goto(PAGE); await pg.waitForTimeout(900);
     const av = await pg.evaluate(() => {
-      const shift = (n) => { const d = new Date(Date.now() - n * 86400000);
+      // ⚠️ КАЛЕНДАРНИЙ зсув (setDate), не «мінус n×24 год»: день переходу на зимовий час має 25 годин,
+      // і 24-годинний крок давав дві однакові дати (сесія 65: 25.10.2026 → d(3) === d(4), тест падав).
+      const shift = (n) => { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - n);
         return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") +
                "-" + String(d.getDate()).padStart(2, "0"); };
       const dayNum = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) / 86400000;
@@ -261,7 +263,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const pg = await b.newPage();
     await pg.goto(PAGE); await pg.waitForTimeout(900);
     const cells = await pg.evaluate(() => {
-      const d = (n) => { const x = new Date(Date.now() - n * 86400000);
+      const d = (n) => { const x = new Date(); x.setHours(12, 0, 0, 0); x.setDate(x.getDate() - n);   // календарно (див. вище)
         return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") +
                "-" + String(x.getDate()).padStart(2, "0"); };
       // ⚠️ БЕЗ reload: `saveMasterySnapshot()` на старті перезаписав би СЬОГОДНІШНІЙ
@@ -367,7 +369,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const pg = await b.newPage();
     await pg.goto(PAGE); await pg.waitForTimeout(900);
     const gaps = await pg.evaluate(() => {
-      const d = (n) => { const x = new Date(Date.now() - n * 86400000);
+      const d = (n) => { const x = new Date(); x.setHours(12, 0, 0, 0); x.setDate(x.getDate() - n);   // календарно (див. вище)
         return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") +
                "-" + String(x.getDate()).padStart(2, "0"); };
       localStorage.clear();
