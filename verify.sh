@@ -2,7 +2,7 @@
 # Передкомітна перевірка словника. ⚠️ БЕЗ пайпів після check-coverage:
 # `node check-coverage.js | tail` маскує код виходу (успіх tail'а), через що
 # в сесії 41 двічі пройшов коміт із непокритим словом. Тут exit-код вирішує все.
-cd /home/user/Oxford_1000 || exit 1
+cd "$(dirname "$0")" || exit 1
 node check-coverage.js > /tmp/_cov.txt 2>&1 || { echo "❌ COVERAGE:"; tail -20 /tmp/_cov.txt; exit 1; }
 tail -2 /tmp/_cov.txt
 node -e '
