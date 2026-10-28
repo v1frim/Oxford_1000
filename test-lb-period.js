@@ -35,7 +35,7 @@ function chromePath() {
 }
 
 (async () => {
-  const browser = await loadChromium().launch({ executablePath: chromePath(), args: ["--no-sandbox"] });
+  const browser = await loadChromium().launch({ executablePath: process.env.PW_CHROME || chromePath(), args: ["--no-sandbox"] });
   const page = await browser.newPage();
   const errors = [];
   page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });

@@ -10,7 +10,11 @@ const fs=require("fs");const h=fs.readFileSync("index.html","utf8");
 const re=/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g;let m;
 while((m=re.exec(h))){try{new Function(m[1]);}catch(e){console.log("❌ SYNTAX index.html: "+e.message);process.exit(1);}}
 // dict.js — дані винесені з index.html (сесія 48), синтаксис перевіряємо окремо
-try{new Function(fs.readFileSync("dict.js","utf8"));}catch(e){console.log("❌ SYNTAX dict.js: "+e.message);process.exit(1);}
+const dj=fs.readFileSync("dict.js","utf8");
+try{new Function(dj);}catch(e){console.log("❌ SYNTAX dict.js: "+e.message);process.exit(1);}
+// Дубль ключа в картці (сесія 65): {…enAlt:[a]…,enAlt:[b]} синтаксично валідний, але перший мовчки губиться
+const dup=(dj.match(/\{en:"[^{}]*\}/g)||[]).filter(c=>{const k=c.match(/\b(en|ua|uaAlt|enAlt):/g)||[];return new Set(k).size!==k.length;});
+if(dup.length){console.log("❌ ДУБЛЬ КЛЮЧА в картці:\n"+dup.slice(0,10).join("\n"));process.exit(1);}
 console.log("✅ синтаксис (index.html + dict.js)");' || exit 1
 node loadtest.js || exit 1
 # Рівні CEFR для НОВИХ слів (сесія 46): без цього слово мовчки падає в кошик

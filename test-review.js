@@ -10,7 +10,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   if(!d){console.log("⚠️  немає Chromium");process.exit(2);} return "/opt/pw-browsers/"+d+"/chrome-linux/chrome"; }
 
 (async () => {
-  const b = await chromium().launch({ executablePath: exe(), args:["--no-sandbox"] });
+  const b = await chromium().launch({ executablePath: process.env.PW_CHROME || exe(), args:["--no-sandbox"] });
   const p = await b.newPage({ viewport:{width:1500,height:1000} }); const errs=[];
   p.on("pageerror", e=>errs.push(e.message)); p.on("console", m=>{ if(m.type()==="error") errs.push(m.text()); });
   await p.goto(PAGE); await p.evaluate(()=>localStorage.clear()); await p.reload(); await p.waitForTimeout(1100);

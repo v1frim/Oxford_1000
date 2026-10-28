@@ -36,12 +36,15 @@ insert(/^const EXAMPLES_UA = \{$/,/^\};$/,mk("exUa"));
 const ALT=JSON.parse(process.argv[4]||"[]");
 let txt=L.join("\n");
 for(const [base,alt] of ALT){
-  const re=new RegExp('(\\{en:"'+base.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+'",[^}]*?)(,enAlt:\\[([^\\]]*)\\])?\\}');
+  // ⚠️ enAlt може стояти БУДЬ-ДЕ в картці (часто перед uaAlt). До сесії 65 регекс бачив його лише в кінці й
+  // дописував ДРУГИЙ ключ enAlt — у JS-літералі виграє останній, тож старі варіанти мовчки губились.
+  const re=new RegExp('\\{en:"'+base.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+'",[^}]*\\}');
   const m=txt.match(re);
   if(!m){console.log("⚠️ не знайшов картку",base);continue;}
-  if(m[3]&&m[3].includes('"'+alt+'"')){console.log("вже є",base,"←",alt);continue;}
-  const cur=m[3]?m[3]+",":"";
-  txt=txt.replace(re,m[1]+",enAlt:["+cur+'"'+alt+'"]}');
+  const card=m[0], ea=card.match(/,enAlt:\[([^\]]*)\]/);
+  if(ea&&ea[1].includes('"'+alt+'"')){console.log("вже є",base,"←",alt);continue;}
+  const next=ea?card.replace(ea[0],",enAlt:["+ea[1]+',"'+alt+'"]'):card.replace(/\}$/,',enAlt:["'+alt+'"]}');
+  txt=txt.replace(card,()=>next);
   console.log("enAlt:",base,"←",alt);
 }
 fs.writeFileSync(P,txt);

@@ -3336,8 +3336,14 @@ EN→EN і `setMode`.
      (локальний `git config` репо). ⚠️ **`core.autocrlf=false` у репо ОБОВ'ЯЗКОВО** — системний Git для Windows ставить `true`,
      файли виходять з CRLF, і `check-coverage.js`/`add-batch.js` не знаходять блоки (`/^const WORDS = \[$/`). `verify.sh`
      кличеться через Git Bash (`"C:\Program Files\Git\bin\bash.exe" -c "./verify.sh; echo EXIT=$?"`); він тепер робить
-     `cd "$(dirname "$0")"` замість `/home/user/...`. ⚠️ Браузерні тести `test-*.js` досі шукають Chromium у `/opt/pw-browsers`
-     — локально НЕ запускаються, доки їх не перевести на змінну шляху.
+     `cd "$(dirname "$0")"` замість `/home/user/...`. **Браузерні тести `test-*.js` локально ЗАПУСКАЮТЬСЯ** (кінець сесії 65):
+     `playwright-core` стоїть глобально (`npm i -g`), браузер — Chrome користувача. Усі тести беруть `process.env.PW_CHROME ||`
+     старий шлях `/opt/pw-browsers`. У PowerShell: `$env:PW_CORE="$env:APPDATA\npm\node_modules\playwright-core";
+     $env:PW_CHROME="C:\Program Files\Google\Chrome\Application\chrome.exe"; node test-quest.js`. Стан на кінець сесії 65:
+     16 з 17 зелені; ⚠️ `test-panel.js` — 3 перевірки «дірка/порожній день» падають і ДО сесії 65 (залежать від дати, не чіпав).
+  1а. ⚠️ **БАГ `add-batch.js` (виправлено):** `enAlt`-пари шукали `enAlt` лише в КІНЦІ картки; якщо він стояв перед `uaAlt`,
+     дописувався ДРУГИЙ ключ `enAlt` → у JS виграє останній, старі варіанти губились (`safety belt`, `to sign in`,
+     `bus terminal`, `bureau de change` — відновлено). Знайшов `test-hints.js`. Тепер у `verify.sh` вартовий «❌ ДУБЛЬ КЛЮЧА».
   2. **LingoHut-добір, частина «СЛОВА» — ЗРОБЛЕНО.** Уроки 1–125 скачано напряму з ПК (lingohut.com відкритий; слова лежать у
      `.vocab-box`: `vocab-box-english` = укр., `vocab-box-spalan` = англ.). Усього 1738 позицій → після звірки з WORDS/enAlt/
      EXPRESSIONS (з множиною й «to/the») нових 644: 281 коротка + 363 фрази-речення. Зі слів відібрано **81 нову картку**

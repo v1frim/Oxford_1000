@@ -12786,6 +12786,7 @@ function qPhraseOpen() {
   awardExprXp("r");
   Q.phr++;
   qExtraPts(exPts() - p0, "за фрази");
+  qHud();   // 💬 і ⚡ — одразу (qExtraPts перемальовує шапку лише коли капнув пункт; скарга сесії 65 «💬 із затримкою»)
   qFloat("+" + EXPR_CARD_XP + " XP", "xp", 50);
   qPhraseRender();
 }
@@ -12797,6 +12798,7 @@ function qPhraseRate(status) {
   if (know) { awardExprXp("k"); qFloat("+" + EXPR_KNOW_XP + " XP", "xp", 50); }
   qFeedRaw("💬 " + P.c.en, [[EXPR_CARD_XP, "фраза"]].concat(know ? [[EXPR_KNOW_XP, "у «Знаю»"]] : status === "learning" ? [[0, "ще вчу"]] : []));
   Q.phrase = null;
+  qHud();   // ⚡ +XP за «Знаю» — одразу
   exprFlushXpUi();
   qWalk();
 }
@@ -12854,6 +12856,7 @@ function qSideDone() {
   localStorage.setItem(QUEST_SIDE_KEY, JSON.stringify(side));
   addXp(QUEST_SIDE_XP);
   renderXpBar();
+  qHud();   // ⚡ з бонусом квесту — одразу
   qFloat("+" + (label[0][0] + QUEST_SIDE_XP) + " XP", "xp", 50);
   qFeedRaw("🗺️ Побічний квест", label.concat([[QUEST_SIDE_XP, "бонус"]]));
   Q.sideQ = null;

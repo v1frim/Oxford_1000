@@ -8,7 +8,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   if(!d){console.log("⚠️  немає Chromium");process.exit(2);} return "/opt/pw-browsers/"+d+"/chrome-linux/chrome"; }
 
 (async () => {
-  const b = await chromium().launch({ executablePath: exe(), args:["--no-sandbox"] });
+  const b = await chromium().launch({ executablePath: process.env.PW_CHROME || exe(), args:["--no-sandbox"] });
   const p = await b.newPage({ viewport:{width:1500,height:900} }); const errs=[];
   p.addInitScript(() => { window.__QUEST_CHANCE = { phrase: 0, side: 0 }; });   // сесія 64: фраза/квест — випадкові, тут вимкнено
   p.on("pageerror", e=>errs.push(e.message));
@@ -379,8 +379,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
              card: document.getElementById("q-card").textContent, mon: !!(Q.mon && document.body.contains(Q.mon) && Q.phase === "fight") }; });
   t("💬 фраза замість монстра: картка виразу US→UA, монстра нема", ph0.phase === "phrase" && ph0.dir === "en2ua" && ph0.card.includes(ph0.en) && !ph0.mon, JSON.stringify(ph0).slice(0, 200));
   await p.keyboard.press("Enter"); await p.waitForTimeout(150);
-  const ph1 = await p.evaluate(() => ({ open: Q.phrase && Q.phrase.open, xp: loadXp(), r: (loadExprXpLog()[todayKey()] || {}).r || 0 }));
+  const ph1 = await p.evaluate(() => ({ open: Q.phrase && Q.phrase.open, xp: loadXp(), r: (loadExprXpLog()[todayKey()] || {}).r || 0, hud: document.getElementById("q-hud-stats").textContent }));
   t("💬 Enter — переклад: +1 XP і картка в журналі виразів (пункти «Плани»)", ph1.open && ph1.xp - ph0.xp === 1 && ph1.r === ph0.r + 1, JSON.stringify(ph1));
+  t("💬 лічильник фраз у шапці — одразу, без чекання наступного монстра (сесія 65)", /💬 1/.test(ph1.hud), ph1.hud);
   await p.keyboard.press("Enter"); await p.waitForTimeout(150);
   const ph2 = await p.evaluate(en => ({ st: getExprStatus(en, "en2ua"), stUa: getExprStatus(en, "ua2en"), xp: loadXp(), phase: Q.phase, feed: document.getElementById("q-feed").textContent }), ph0.en);
   t("💬 Enter — «Знаю»: статус US→UA «вивчено» (+3 XP), UA→US не чіпає, похід іде далі", ph2.st === "learned" && ph2.stUa === "queue" && ph2.xp - ph1.xp === 3 && ph2.phase === "walk" && /фраза/.test(ph2.feed), JSON.stringify(ph2));
