@@ -11,6 +11,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
 (async () => {
   const b = await chromium().launch({ executablePath: exe(), args:["--no-sandbox"] });
   const p = await b.newPage({ viewport:{width:1500,height:900} }); const errs=[];
+  p.addInitScript(() => { window.__QUEST_CHANCE = { phrase: 0, side: 0 }; });   // сесія 64: фраза/квест — випадкові, тут вимкнено
   p.on("pageerror", e=>errs.push(e.message));
   p.on("console", m=>{ if (m.type()==="error") errs.push(m.text()); });
   await p.goto(PAGE);

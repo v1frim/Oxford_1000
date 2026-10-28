@@ -1726,6 +1726,14 @@
     border-radius: 18px; padding: 18px 22px; box-shadow: 0 18px 50px rgba(0,0,0,.5); text-align: center;
   }
   .q-card.hidden { display: none; }
+  /* 💬 фраза й 🗺️ побічний квест у поході (сесія 64) */
+  .qc-phr-cat { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.55); margin-left: 6px; }
+  .qc-phr { font-size: 30px; }
+  .qc-phr-back { font-size: 22px; font-weight: 700; color: #c4b5fd; margin: 2px 0 6px; }
+  .qc-say { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 8px; padding: 2px 8px; font-size: 15px; cursor: pointer; vertical-align: middle; width: auto; margin: 0; }
+  .qc-xp { color: #ffd166; }
+  .qc-lhpick input { width: 70px; font: inherit; font-weight: 700; text-align: center; background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,209,102,.45); border-radius: 8px; padding: 3px 6px; }
+  .qc-lhpick input.bad { border-color: #ff6b6b; }
   /* 📜 результат минулого походу (сесія 64) — картка фіналу у власному вікні над лідербордом */
   #qrec-modal { position: fixed; inset: 0; z-index: 230; display: flex; align-items: center; justify-content: center; background: rgba(5,8,18,.6); padding: 16px; }
   #qrec-modal.hidden { display: none; }
@@ -7087,7 +7095,7 @@ const BACKUP_KEYS = [
   "oxford_achievements_v1","oxford_gpt_v1","oxford_mistake_reviews_v1",
   "oxford_expr_status_v1","oxford_games_log_v1","oxford_movies_v1","oxford_mastery_trans_v1","oxford_words_added_v1",
   "oxford_self_reviews_v1","oxford_due_v1","oxford_day_wrong_v1",
-  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1","oxford_quest_log_v1","oxford_quest_carry_v1"
+  "oxford_expr_status_ua_v1","oxford_expr_xp_v1","oxford_seen_v1","oxford_quest_arena_v1","oxford_quest_log_v1","oxford_quest_carry_v1","oxford_quest_side_v1"
 ];
 const BACKUP_IDB = "oxford_backup";
 const BACKUP_IDB_STORE = "handles";
@@ -7313,6 +7321,12 @@ const QUEST_DRILL_XP_OLD = 5;
 // з журналу походів), а формула: REVIEW_WORD_XP × (reviewCorrect − arenaKill) + ARENA_KILL_XP × arenaKill.
 const REVIEW_WORD_XP = 5;
 const ARENA_KILL_XP = 2;
+// 🗺️ ПОБІЧНИЙ КВЕСТ У ПОХОДІ (сесія 64, за запитом): Duolingo / LingoHut посеред походу = звичайне заняття
+// (XP і пункт — як з кнопок меню) + бонус QUEST_SIDE_XP. Бонус має СВІЙ журнал {date: n} — інакше перерахунок
+// formula_vN його з'їсть (правило: джерело XP без журналу по днях зникає).
+const QUEST_SIDE_XP = 10;
+const QUEST_SIDE_KEY = "oxford_quest_side_v1";
+function loadQuestSide() { try { return JSON.parse(localStorage.getItem(QUEST_SIDE_KEY) || "{}") || {}; } catch (e) { return {}; } }
 function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSess, movies, mrPts, selfRev, mrWords, exprXp) {
   let xp = 0;
   const d = days[date] || {};
@@ -7360,6 +7374,7 @@ function computeDayStatsXp(date, history, hdates, days, duo, lhDone, gpt, songSe
   // 💬 картки «Вирази і сленг» (сесія 47): показ картки ×1 + «знаю» ×3.
   // Параметр опційний — старі блоки міграцій (v3…v16) кличуть без нього.
   xp += exprXpForDate(exprXp, date);
+  xp += (loadQuestSide()[date] || 0) * QUEST_SIDE_XP;   // 🗺️ бонус за побічний квест у поході (сесія 64)
   return xp;
 }
 function computeXpFromStats() {
@@ -10166,6 +10181,10 @@ function renderDuoBtn() {
 
 document.getElementById("duo-btn").addEventListener("click", () => {
   window.open("https://www.duolingo.com/learn", "_blank", "noopener");
+  addDuoSession();
+});
+// +1 заняття Duolingo сьогодні: XP, пункт (термометр рахує сам), ачівки. Кличуть кнопка меню і квест походу.
+function addDuoSession() {
   const sessions = loadDuoSessions();
   const today = duoToday();
   sessions[today] = (sessions[today] || 0) + 1;
@@ -10178,7 +10197,7 @@ document.getElementById("duo-btn").addEventListener("click", () => {
   renderProgressPanel();
   checkThermoMilestones();
   checkAchievements(true);
-});
+}
 
 document.getElementById("duo-minus").addEventListener("click", () => {
   const sessions = loadDuoSessions();
@@ -12407,10 +12426,18 @@ function qHint(text) { qEl("q-hint").textContent = text || ""; }
 // (Нові → Вивчаю), +5 — у «Знаю», −3 — випало зі «Знаю». 5 останніх, найсвіжіший зверху.
 function qBonusLabel(b) { return b === 3 ? "нове слово" : b === 5 ? "у «Знаю»" : b === 8 ? "нове → «Знаю»" : b === -3 ? "випало зі «Знаю»" : "бонус слова"; }
 // kind: "fight" — нова зустріч; "drill" — доповнити поточну зустріч; "arena" — рядок поточної арени
+// Рядок стрічки без слова-монстра (фраза, побічний квест — сесія 64)
+function qFeedRaw(label, items) {
+  if (!Q) return;
+  const e = { w: label, items: items.map(([v, l]) => ({ v: +v, l })) };
+  Q.feed.unshift(e); Q.feedCur = null;
+  qFeed(null, [], "redraw");
+}
 function qFeed(idx, items, kind) {
   if (!Q) return;
   let e;
-  if (kind === "drill" && Q.feedCur) e = Q.feedCur;
+  if (kind === "redraw") e = Q.feed[0];
+  else if (kind === "drill" && Q.feedCur) e = Q.feedCur;
   else if (kind === "arena") {
     e = Q.feedArena;
     if (!e) { e = Q.feedArena = { w: Q.pre === "mid" ? "🏟️ Арена посеред походу" : Q.pre ? "🏟️ Арена (минулий похід)" : "🏟️ Арена", items: [], kills: 0 }; Q.feed.unshift(e); }
@@ -12471,12 +12498,128 @@ function qWalk() {
   qHero("walking");
   qSetInput(false, "…йдемо далі");
   qHint("Герой іде дорогою…");
+  qEl("q-card").classList.add("hidden");
   clearTimeout(Q.timer);
+  // 🗺️ 5% — посеред паузи з'являється пропозиція побічного квесту (Duolingo / LingoHut)
+  if (Math.random() < QUEST_CHANCE.side && qSideKinds().length) { Q.timer = setTimeout(qSideOffer, 900 + Math.random() * 1300); return; }
   // пауза до нового монстра — випадкові 2-5 с (за запитом: «щоби додати елемент неочікуваності»)
   Q.timer = setTimeout(qFight, 2000 + Math.random() * 3000);
 }
+// ── 💬 ФРАЗА ЗАМІСТЬ МОНСТРА (сесія 64, за запитом) ─────────────────────────────────────────────
+// 10% зустрічей — картка «Вирази і сленг», як у тренажері карток: Enter — показати переклад (+EXPR_CARD_XP),
+// далі Enter — «✓ Знаю» (+EXPR_KNOW_XP, лише перехід у «вивчено»), Пробіл — «↻ Ще вчу». XP і пункт «Плани»
+// (кожні 12 карток) — тими самими awardExprXp / exprPointsByDate, статус — у сховище напрямку походу.
+// Очок походу й лічильників монстрів фраза НЕ чіпає.
+// ймовірності — об'єктом (не const-числами), щоб тести могли їх вимкнути/форсувати
+const QUEST_CHANCE = window.__QUEST_CHANCE || { phrase: 0.10, side: 0.05 };   // тести підставляють свої (addInitScript)
+function qPhraseStart() {
+  const dir = (Q.auto ? Math.random() < 0.5 : Q.dir === "ua-en") ? "ua2en" : "en2ua";
+  const st = loadExprStatus(dir), seen = Q.phrases || (Q.phrases = new Set());
+  const pool = EXPR_BANK.filter(x => st[x.en] !== "learned" && !seen.has(x.en));
+  if (!pool.length) return false;
+  const c = pool[Math.floor(Math.random() * pool.length)];
+  seen.add(c.en);
+  Q.phrase = { c, dir, open: false };
+  Q.phase = "phrase"; Q.speedTo = 0;
+  qHero("");
+  qSetInput(false);
+  qPhraseRender();
+  return true;
+}
+function qPhraseRender() {
+  const { c, dir, open } = Q.phrase, ua = dir === "ua2en";
+  const front = ua ? c.ua : c.en, back = ua ? c.en : c.ua;
+  const sayBtn = s => ' <button class="qc-say" data-q="phrasesay" title="Озвучити">🔊</button>';
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">💬 Фраза на дорозі <small class="qc-phr-cat">' + (c.cat === "idiom" ? "ідіома / вираз" : "сленг · " + esc(c.src)) + ' · ' + (ua ? "UA→US" : "US→UA") + '</small></div>' +
+    '<div class="qc-prompt qc-phr">' + esc(front) + (!ua ? sayBtn() : '') + '</div>' +
+    (open ? '<div class="qc-phr-back">' + esc(back) + (ua ? sayBtn() : '') + '</div>' + (c.note ? '<div class="qc-hint">' + esc(c.note) + '</div>' : '') : '') +
+    '<div class="qc-btns">' + (open
+      ? '<button class="qc-go alt" data-q="phrase-learning">↻ Ще вчу <small>Пробіл</small></button><button class="qc-go" data-q="phrase-learned">✓ Знаю <small>Enter</small></button>'
+      : '<button class="qc-go" data-q="phrase-open">Показати переклад <small>Enter</small></button>') + '</div>' +
+    '<div class="qc-hint">+' + EXPR_CARD_XP + ' XP за картку · +' + EXPR_KNOW_XP + ' XP за «Знаю» · пункт «Плани» за кожні ' + EXPR_POINT_EVERY + ' карток</div>';
+  qEl("q-card").classList.remove("hidden");
+  qHint(open ? "Enter — знаю · Пробіл — ще вчу · Esc — стоп" : "Enter / Пробіл — показати переклад · Esc — стоп");
+}
+function qPhraseOpen() {
+  if (!Q.phrase || Q.phrase.open) return;
+  Q.phrase.open = true;
+  awardExprXp("r");
+  qFloat("+" + EXPR_CARD_XP + " XP", "xp", 50);
+  qPhraseRender();
+}
+function qPhraseRate(status) {
+  const P = Q.phrase; if (!P || !P.open) return;
+  const prev = getExprStatus(P.c.en, P.dir);
+  setExprStatus(P.c.en, status, P.dir);
+  const know = status === "learned" && prev !== "learned";
+  if (know) { awardExprXp("k"); qFloat("+" + EXPR_KNOW_XP + " XP", "xp", 50); }
+  qFeedRaw("💬 " + P.c.en, [[EXPR_CARD_XP, "фраза"]].concat(know ? [[EXPR_KNOW_XP, "у «Знаю»"]] : status === "learning" ? [[0, "ще вчу"]] : []));
+  Q.phrase = null;
+  exprFlushXpUi();
+  qWalk();
+}
+// ── 🗺️ ПОБІЧНИЙ КВЕСТ (сесія 64, за запитом) ───────────────────────────────────────────────────
+// 5% пауз між монстрами — пропозиція Duolingo або LingoHut (порівну). Enter — битися далі (пропозиція зникає).
+// «Іти» відкриває сайт і ставить похід на паузу; «✓ Виконав» = звичайне заняття (XP + пункт, як з кнопок меню)
+// + QUEST_SIDE_XP бонусу. LingoHut: урок обирається числом (за замовчуванням — найменший непройдений) і
+// ставиться галочкою так само, як у сітці уроків.
+const LH_URL = "https://www.lingohut.com/uk/l1/%D0%B2%D1%87%D0%B8%D1%82%D0%B8-%D0%B0%D0%BD%D0%B3%D0%BB%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D1%83";
+function qLhNext() { const d = loadLhDone(); for (let n = 1; n <= 125; n++) if (!d[n]) return n; return null; }
+function qSideKinds() { return ["duo"].concat(qLhNext() ? ["lh"] : []); }
+function qSideOffer() {
+  if (!Q || Q.stage !== "road" || Q.phase !== "walk") return;
+  const kinds = qSideKinds(), kind = kinds[Math.floor(Math.random() * kinds.length)];
+  Q.sideQ = { kind, lesson: kind === "lh" ? qLhNext() : null };
+  Q.phase = "offer"; Q.speedTo = 0;
+  qHero("");
+  qSideRender();
+}
+function qSideRender() {
+  const S = Q.sideQ, duo = S.kind === "duo", away = Q.phase === "side";
+  const name = duo ? "🦉 Duolingo" : "📚 LingoHut", base = duo ? DUO_XP : getLhXp(S.lesson);
+  const what = duo ? "одне заняття" : "урок №" + S.lesson;
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">🗺️ Побічний квест · ' + name + '</div>' +
+    '<div class="qc-sub">Пройди ' + what + ' і повертайся: <b class="qc-xp">+' + base + ' XP</b> за заняття, <b class="qc-xp">+' + QUEST_SIDE_XP + ' XP</b> бонус за квест, 1 пункт «Плани»</div>' +
+    (away
+      ? (duo ? '' : '<div class="qc-sub qc-lhpick">Пройдений урок № <input id="q-lh-n" type="number" min="1" max="125" value="' + S.lesson + '"></div>') +
+        '<div class="qc-btns"><button class="qc-go" data-q="side-done">✓ Виконав <small>Enter</small></button><button class="qc-go alt" data-q="side-cancel">✗ Не вийшло <small>Esc</small></button></div>'
+      : '<div class="qc-btns"><button class="qc-go alt" data-q="side-go">' + name + ' ↗ Іти на квест</button><button class="qc-go" data-q="side-skip">⚔️ Битися далі <small>Enter</small></button></div>');
+  qEl("q-card").classList.remove("hidden");
+  qHint(away ? "Заняття відкрито в новій вкладці · Enter — виконав · Esc — не вийшло" : "Enter — пропустити квест і битися далі");
+}
+function qSideGo() {
+  const S = Q.sideQ; if (!S) return;
+  window.open(S.kind === "duo" ? "https://www.duolingo.com/learn" : LH_URL, "_blank", "noopener");
+  Q.phase = "side";
+  qT("pause");                                   // поки займаєшся на іншому сайті — це не час походу
+  qSideRender();
+}
+function qSideDone() {
+  const S = Q.sideQ; if (!S) return;
+  let label;
+  if (S.kind === "duo") { addDuoSession(); label = [[DUO_XP, "Duolingo"]]; }
+  else {
+    const inp = document.getElementById("q-lh-n"), n = Math.round(+(inp ? inp.value : S.lesson));
+    const d = loadLhDone();
+    if (!(n >= 1 && n <= 125) || d[n]) { if (inp) { inp.classList.add("bad"); inp.title = d[n] ? "Цей урок уже позначено" : "Урок від 1 до 125"; } return; }
+    toggleLhLesson(n); label = [[getLhXp(n), "LingoHut №" + n]];
+  }
+  const side = loadQuestSide(), k = todayKey();
+  side[k] = (side[k] || 0) + 1;
+  localStorage.setItem(QUEST_SIDE_KEY, JSON.stringify(side));
+  addXp(QUEST_SIDE_XP);
+  renderXpBar();
+  qFloat("+" + (label[0][0] + QUEST_SIDE_XP) + " XP", "xp", 50);
+  qFeedRaw("🗺️ Побічний квест", label.concat([[QUEST_SIDE_XP, "бонус"]]));
+  Q.sideQ = null;
+  qWalk();
+}
+function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card").classList.add("hidden"); Q.phase = "walk"; qT("road"); qFight(); }
 function qFight() {
   if (!Q || Q.stage !== "road") return;
+  if (Math.random() < QUEST_CHANCE.phrase && qPhraseStart()) return;   // 💬 10% — фраза замість монстра
   const idx = qNextIdx(), dir = qDirFor(idx);
   Q.side = Math.random() < 0.5 ? "left" : "right";
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
@@ -13217,6 +13360,9 @@ function questClose(again) {
 function qEnter() {
   if (!Q) return;
   if (Q.phase === "study") { qDrillStart(); return; }
+  if (Q.phase === "phrase") { Q.phrase.open ? qPhraseRate("learned") : qPhraseOpen(); return; }
+  if (Q.phase === "offer") { qSideSkip(); return; }
+  if (Q.phase === "side") { qSideDone(); return; }
   if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart(false) : questFinal(); return; }
   if (Q.stage === "final") { questClose(false); return; }
   if (!qAnswerEl.disabled) qOnAnswer(qAnswerEl.value, false);
@@ -13240,6 +13386,14 @@ questOverlay.addEventListener("click", e => {
   else if (a === "again") questClose(true);
   else if (a === "stop") { Q.stage === "arena" ? (Q.pre === "mid" ? qRoadAfterArena() : questFinal()) : questStop(); }
   else if (a === "midarena") qMidArena();
+  else if (a === "phrase-open") qPhraseOpen();
+  else if (a === "phrase-learned") qPhraseRate("learned");
+  else if (a === "phrase-learning") qPhraseRate("learning");
+  else if (a === "phrasesay" && Q.phrase) speak(Q.phrase.c.en);
+  else if (a === "side-go") qSideGo();
+  else if (a === "side-skip") qSideSkip();
+  else if (a === "side-done") qSideDone();
+  else if (a === "side-cancel") { Q.sideQ = null; qWalk(); }
   else if (a === "skip" && !qAnswerEl.disabled) qOnAnswer("", false);
 });
 document.getElementById("quest-btn").addEventListener("click", questStart);
@@ -13251,7 +13405,8 @@ document.addEventListener("keydown", e => {
   if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) qEnter(); }
   else if (e.key === "Escape") {
     e.preventDefault();
-    if (Q.stage === "road") questStop();
+    if (Q.phase === "side") { Q.sideQ = null; qWalk(); }   // 🗺️ квест «не вийшло» — далі дорогою
+    else if (Q.stage === "road") questStop();
     else if (Q.stage === "arena") Q.pre === "mid" ? qRoadAfterArena() : questFinal();
     else if (Q.stage === "final") questClose(false);
     // Сесія 64 (скарга «не можу вийти, Esc не спрацьовує»): на привалі Esc не мав дії — тепер одразу
@@ -13260,9 +13415,13 @@ document.addEventListener("keydown", e => {
   } else if (e.key === "Tab") {
     e.preventDefault();
     if (Q.phase === "study") speak(Q.say);
+    else if (Q.phase === "phrase" && Q.phrase && (Q.phrase.dir === "en2ua" || Q.phrase.open)) speak(Q.phrase.c.en);
     // ⚠️ currentShown, а НЕ Q.cur.shown: у повторенні напрямок міняється, і Q.cur.shown лишався
     // українським промптом бою — Tab озвучував українське слово (скарга користувача)
     else if (mode === "en-ua" && (Q.phase === "fight" || Q.phase === "drill" || Q.phase === "arena")) speak(currentShown);
+  } else if (e.key === " " && Q.phase === "phrase") {
+    e.preventDefault();                            // 💬 фраза: Пробіл — показати / «ще вчу» (як у тренажері карток)
+    Q.phrase.open ? qPhraseRate("learning") : qPhraseOpen();
   } else if (e.key === " " && Q.phase === "study") {
     e.preventDefault();                            // Пробіл на картці — озвучити речення-приклад
     if (Q.sayEx) speak(Q.sayEx);

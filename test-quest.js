@@ -10,6 +10,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
 (async () => {
   const b = await chromium().launch({ executablePath: exe(), args:["--no-sandbox"] });
   const p = await b.newPage({ viewport:{width:1500,height:900} }); const errs=[];
+  p.addInitScript(() => { window.__QUEST_CHANCE = { phrase: 0, side: 0 }; });   // сесія 64: фраза/квест — випадкові, тут вимкнено
   p.on("pageerror", e=>errs.push(e.message));
   p.on("console", m=>{ if (m.type()==="error") errs.push(m.text()); });
   await p.goto(PAGE); await p.evaluate(()=>localStorage.clear()); await p.reload(); await p.waitForTimeout(1200);
@@ -368,6 +369,56 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("⚔️ клік по рядку — повний результат походу (плитки, час, слова)", rc.open && rc.words === 3 && rc.time && /\+7XP/.test(rc.txt) && /0:49/.test(rc.txt), JSON.stringify(rc).slice(0, 300));
   await p.keyboard.press("Escape"); await p.waitForTimeout(200);
   t("⚔️ Esc закриває результат і не стартує похід", await p.evaluate(() => document.getElementById("qrec-modal").classList.contains("hidden") && !Q));
+
+  // 💬 ФРАЗА замість монстра (сесія 64): Enter — переклад (+EXPR_CARD_XP), Enter — «Знаю» (+EXPR_KNOW_XP), Пробіл — «ще вчу»
+  await p.evaluate(() => { if (Q) questClose(false); }); await p.waitForTimeout(200);
+  await p.click("#quest-btn"); await p.waitForTimeout(300);
+  const ph0 = await p.evaluate(() => { clearTimeout(Q.timer); Q.stage = "road"; Q.phase = "walk"; Q.dir = "en-ua"; Q.auto = false;
+    QUEST_CHANCE.phrase = 1; qFight(); QUEST_CHANCE.phrase = 0;
+    return { phase: Q.phase, en: Q.phrase && Q.phrase.c.en, dir: Q.phrase && Q.phrase.dir, xp: loadXp(), r: (loadExprXpLog()[todayKey()] || {}).r || 0,
+             card: document.getElementById("q-card").textContent, mon: !!(Q.mon && document.body.contains(Q.mon) && Q.phase === "fight") }; });
+  t("💬 фраза замість монстра: картка виразу US→UA, монстра нема", ph0.phase === "phrase" && ph0.dir === "en2ua" && ph0.card.includes(ph0.en) && !ph0.mon, JSON.stringify(ph0).slice(0, 200));
+  await p.keyboard.press("Enter"); await p.waitForTimeout(150);
+  const ph1 = await p.evaluate(() => ({ open: Q.phrase && Q.phrase.open, xp: loadXp(), r: (loadExprXpLog()[todayKey()] || {}).r || 0 }));
+  t("💬 Enter — переклад: +" + 2 + " XP і картка в журналі виразів (пункти «Плани»)", ph1.open && ph1.xp - ph0.xp === 2 && ph1.r === ph0.r + 1, JSON.stringify(ph1));
+  await p.keyboard.press("Enter"); await p.waitForTimeout(150);
+  const ph2 = await p.evaluate(en => ({ st: getExprStatus(en, "en2ua"), stUa: getExprStatus(en, "ua2en"), xp: loadXp(), phase: Q.phase, feed: document.getElementById("q-feed").textContent }), ph0.en);
+  t("💬 Enter — «Знаю»: статус US→UA «вивчено» (+5 XP), UA→US не чіпає, похід іде далі", ph2.st === "learned" && ph2.stUa === "queue" && ph2.xp - ph1.xp === 5 && ph2.phase === "walk" && /фраза/.test(ph2.feed), JSON.stringify(ph2));
+  const ph3 = await p.evaluate(() => { clearTimeout(Q.timer); QUEST_CHANCE.phrase = 1; qFight(); QUEST_CHANCE.phrase = 0; return Q.phrase.c.en; });
+  await p.keyboard.press(" "); await p.waitForTimeout(100); await p.keyboard.press(" "); await p.waitForTimeout(150);
+  t("💬 Пробіл, Пробіл — показати й «ще вчу»", await p.evaluate(en => getExprStatus(en, "en2ua") === "learning" && Q.phase === "walk", ph3));
+
+  // 🗺️ ПОБІЧНИЙ КВЕСТ: пропозиція посеред паузи, Enter — битися далі; «Іти» → «Виконав» = заняття + бонус
+  await p.evaluate(() => { clearTimeout(Q.timer); QUEST_CHANCE.side = 1; Q.phase = "walk"; qWalk(); QUEST_CHANCE.side = 0; });
+  await p.waitForFunction(() => Q && Q.phase === "offer", null, { timeout: 4000 });
+  const of0 = await p.evaluate(() => ({ kind: Q.sideQ.kind, card: document.getElementById("q-card").textContent }));
+  t("🗺️ пропозиція квесту між монстрами (Duolingo / LingoHut, +10 XP бонус)", /Побічний квест/.test(of0.card) && /\+10 XP/.test(of0.card) && ["duo", "lh"].includes(of0.kind), JSON.stringify(of0).slice(0, 200));
+  await p.keyboard.press("Enter"); await p.waitForTimeout(250);
+  t("🗺️ Enter — битися далі: квест зник, з'явився монстр", await p.evaluate(() => !Q.sideQ && Q.phase === "fight" && document.getElementById("q-card").classList.contains("hidden")));
+  const sd = await p.evaluate(() => {
+    clearTimeout(Q.timer); if (Q.mon) Q.mon.remove(); Q.phase = "walk";
+    const x0 = loadXp(), d0 = loadDuoSessions()[todayKey()] || 0;
+    Q.sideQ = { kind: "duo" }; Q.phase = "offer"; window.open = () => null; qSideGo();
+    const away = Q.phase; qSideDone();
+    const r1 = { away, dxp: loadXp() - x0, duo: (loadDuoSessions()[todayKey()] || 0) - d0, side: loadQuestSide()[todayKey()], phase: Q.phase };
+    const n = qLhNext(), x1 = loadXp();
+    Q.sideQ = { kind: "lh", lesson: n }; Q.phase = "offer"; qSideGo(); qSideDone();
+    const r2 = { n, done: loadLhDone()[n] === todayKey(), dxp: loadXp() - x1, side: loadQuestSide()[todayKey()] };
+    // уже пройдений урок не зараховується вдруге
+    const x2 = loadXp(); Q.sideQ = { kind: "lh", lesson: n }; Q.phase = "offer"; qSideGo(); qSideDone();
+    const r3 = { stays: Q.phase === "side", dxp: loadXp() - x2 };
+    return { r1, r2, r3 };
+  });
+  t("🗺️ Duolingo-квест: +1 заняття (пункт), +25 +10 XP, бонус у журналі дня", sd.r1.away === "side" && sd.r1.dxp === 35 && sd.r1.duo === 1 && sd.r1.side === 1 && sd.r1.phase === "walk", JSON.stringify(sd.r1));
+  t("🗺️ LingoHut-квест: галочка на уроці №N сьогодні, XP уроку +10", sd.r2.done && sd.r2.dxp === 25 + 10 && sd.r2.side === 2, JSON.stringify(sd.r2));
+  t("🗺️ LingoHut: уже позначений урок не зараховується вдруге", sd.r3.stays && sd.r3.dxp === 0, JSON.stringify(sd.r3));
+  const fx = await p.evaluate(() => { const d = todayKey();
+    const base = computeDayStatsXp(d, loadMasteryHistory(), Object.keys(loadMasteryHistory()).sort(), loadDays(), loadDuoSessions(), loadLhDone(), loadGptRequests(), loadSongSessions(), loadMovieSessions(), {}, {}, null, loadExprXpLog());
+    const side = loadQuestSide(); side[d] = 0; localStorage.setItem(QUEST_SIDE_KEY, JSON.stringify(side));
+    const without = computeDayStatsXp(d, loadMasteryHistory(), Object.keys(loadMasteryHistory()).sort(), loadDays(), loadDuoSessions(), loadLhDone(), loadGptRequests(), loadSongSessions(), loadMovieSessions(), {}, {}, null, loadExprXpLog());
+    side[d] = 2; localStorage.setItem(QUEST_SIDE_KEY, JSON.stringify(side)); return base - without; });
+  t("🗺️ бонус квестів входить у перерахунок XP (formula): 2 × 10", fx === 20, String(fx));
+  await p.evaluate(() => questClose(false));
 
   console.log(bad.length ? "❌ ПРОВАЛЕНО:\n  " + bad.join("\n  ") : "✅ " + ok.length + " перевірок пройдено");
   console.log(errs.length ? "❌ помилки консолі:\n  " + errs.join("\n  ") : "✅ 0 помилок консолі");
