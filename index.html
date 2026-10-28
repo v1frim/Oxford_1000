@@ -12735,8 +12735,9 @@ function qWalk() {
   qHint("Герой іде дорогою…");
   qEl("q-card").classList.add("hidden");
   clearTimeout(Q.timer);
-  // 🗺️ 5% — посеред паузи з'являється пропозиція побічного квесту (Duolingo / LingoHut)
-  if (Math.random() < QUEST_CHANCE.side && qSideKinds().length) { Q.timer = setTimeout(qSideOffer, 900 + Math.random() * 1300); return; }
+  // 🗺️ 6% (Duolingo 3,5% + LingoHut 2,5%) — посеред паузи з'являється пропозиція побічного квесту
+  const side = qSideRoll();
+  if (side) { Q.timer = setTimeout(() => qSideOffer(side), 900 + Math.random() * 1300); return; }
   // пауза до нового монстра — випадкові 2-5 с (за запитом: «щоби додати елемент неочікуваності»)
   Q.timer = setTimeout(qFight, 2000 + Math.random() * 3000);
 }
@@ -12746,7 +12747,9 @@ function qWalk() {
 // (кожні 12 карток) — тими самими awardExprXp / exprPointsByDate, статус — у сховище напрямку походу.
 // Очок походу й лічильників монстрів фраза НЕ чіпає.
 // ймовірності — об'єктом (не const-числами), щоб тести могли їх вимкнути/форсувати
-const QUEST_CHANCE = window.__QUEST_CHANCE || { phrase: 0.10, side: 0.05 };   // тести підставляють свої (addInitScript)
+// 🗺️ побічні квести (сесія 65, за запитом): разом 6% на паузу — 🦉 Duolingo 3,5% + 📚 LingoHut 2,5% (було 5% порівну).
+// Усі уроки LingoHut пройдено → лишається тільки Duolingo зі своїми 3,5%.
+const QUEST_CHANCE = window.__QUEST_CHANCE || { phrase: 0.10, duo: 0.035, lh: 0.025 };   // тести підставляють свої (addInitScript)
 function qPhraseStart() {
   const dir = (Q.auto ? Math.random() < 0.5 : Q.dir === "ua-en") ? "ua2en" : "en2ua";
   const st = loadExprStatus(dir), seen = Q.phrases || (Q.phrases = new Set());
@@ -12798,15 +12801,18 @@ function qPhraseRate(status) {
   qWalk();
 }
 // ── 🗺️ ПОБІЧНИЙ КВЕСТ (сесія 64, за запитом) ───────────────────────────────────────────────────
-// 5% пауз між монстрами — пропозиція Duolingo або LingoHut (порівну). Enter — битися далі (пропозиція зникає).
+// 6% пауз між монстрами — пропозиція Duolingo (3,5%) або LingoHut (2,5%) — сесія 65; до того 5% порівну. Enter — битися далі (пропозиція зникає).
 // «Іти» відкриває сайт і ставить похід на паузу; «✓ Виконав» = звичайне заняття (XP + пункт, як з кнопок меню)
 // + QUEST_SIDE_XP бонусу. LingoHut: урок обирається числом (за замовчуванням — найменший непройдений) і
 // ставиться галочкою так само, як у сітці уроків.
 function qLhNext() { return lhNextLesson(); }
-function qSideKinds() { return ["duo"].concat(qLhNext() ? ["lh"] : []); }
-function qSideOffer() {
+// Один кидок на паузу: r < duo → Duolingo, duo ≤ r < duo+lh → LingoHut (якщо є непройдений урок), інакше нічого.
+function qSideRoll() {
+  const r = Math.random(), d = QUEST_CHANCE.duo || 0, l = QUEST_CHANCE.lh || 0;
+  return r < d ? "duo" : r < d + l && qLhNext() ? "lh" : null;
+}
+function qSideOffer(kind) {
   if (!Q || Q.stage !== "road" || Q.phase !== "walk") return;
-  const kinds = qSideKinds(), kind = kinds[Math.floor(Math.random() * kinds.length)];
   Q.sideQ = { kind, lesson: kind === "lh" ? qLhNext() : null };
   Q.phase = "offer"; Q.speedTo = 0;
   qHero("");

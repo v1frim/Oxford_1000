@@ -389,7 +389,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("💬 Пробіл, Пробіл — показати й «ще вчу»", await p.evaluate(en => getExprStatus(en, "en2ua") === "learning" && Q.phase === "walk", ph3));
 
   // 🗺️ ПОБІЧНИЙ КВЕСТ: пропозиція посеред паузи, Enter — битися далі; «Іти» → «Виконав» = заняття + бонус
-  await p.evaluate(() => { clearTimeout(Q.timer); QUEST_CHANCE.side = 1; Q.phase = "walk"; qWalk(); QUEST_CHANCE.side = 0; });
+  await p.evaluate(() => { clearTimeout(Q.timer); QUEST_CHANCE.duo = 1; Q.phase = "walk"; qWalk(); QUEST_CHANCE.duo = 0; });   // сесія 65: шанси duo/lh окремо
   await p.waitForFunction(() => Q && Q.phase === "offer", null, { timeout: 4000 });
   const of0 = await p.evaluate(() => ({ kind: Q.sideQ.kind, card: document.getElementById("q-card").textContent }));
   t("🗺️ пропозиція квесту між монстрами (Duolingo / LingoHut, +10 XP бонус)", /Побічний квест/.test(of0.card) && /\+10 XP/.test(of0.card) && ["duo", "lh"].includes(of0.kind), JSON.stringify(of0).slice(0, 200));
