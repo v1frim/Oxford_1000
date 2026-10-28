@@ -12565,8 +12565,19 @@ function qHud() {
     '<span class="ok" title="Правильних — монстрів переможено з першої спроби">⚔️ ✓ <b>' + Q.won + '</b></span>' +
     '<span class="bad" title="Неправильних — від стількох монстрів утік (чекають на арені)">💨 ✗ <b>' + Q.fled.length + '</b></span>' +
     (Q.arena ? '<span title="Добито на арені">🏟️ <b>' + Q.arenaWon + '</b></span>' : '') +
+    (Q.phr ? '<span title="Фраз «Вирази і сленг» у цьому поході">💬 <b>' + Q.phr + '</b></span>' : '') +
+    (Q.duo + Q.lh ? '<span title="Побічних квестів: Duolingo ' + Q.duo + ' · LingoHut ' + Q.lh + '">🗺️ <b>' + (Q.duo + Q.lh) + '</b></span>' : '') +
     '<span title="XP за похід (разом із бонусами за переходи Нові → Вивчаю → Знаю)">⚡ +' + qXp() + '</span>' +
     qPtsHtml();
+}
+// ⚠️ ПУНКТИ ФРАЗ І ПОБІЧНИХ КВЕСТІВ У 🌡️ ПОХОДУ — ЛИШЕ ПОКАЗ (сесія 65, за запитом «це ж усе було в межах походу»).
+// У денний термометр вони вже йдуть своїми журналами (вирази — exprPointsByDate, Duolingo, LingoHut), тож у
+// questPts їх НЕ писати — інакше подвійне зарахування. Q.xPts лише додається до числа в шапці, на фіналі й у журналі.
+function qExtraPts(n, why) {
+  if (!Q || !(n > 0)) return;
+  Q.xPts += n;
+  qFloat("🌡️ +" + n + " " + plural(n, "пункт", "пункти", "пунктів") + " " + why, "pt", 50);
+  qHud();
 }
 // 🌡️ Пункти в шапці походу (сесія 64, скарга «малозрозуміло, усе на купу» про «0 · 1+0 оч. (ще 13)»):
 // число пунктів + міні-шкала до НАСТУПНОГО пункту (сіро-блакитна частина — очки, перенесені з минулого
@@ -12574,9 +12585,11 @@ function qHud() {
 function qPtsHtml() {
   const base = questPointNeed(Q.pts), have = Q.answers - base, carry = Q.pts ? 0 : Math.min(Q.carry || 0, have);
   const pct = n => (n / QUEST_PT_STEP * 100).toFixed(1) + "%";
+  const all = Q.pts + Q.xPts;
   const tip = "Пункти «Плани» за похід: 1 пункт за кожні " + QUEST_PT_STEP + " очок. Очко — відповідь монстру, завершене повторення або добитий на арені. " +
-    "До наступного пункту: " + have + " з " + QUEST_PT_STEP + (Q.carry ? " (з них " + Q.carry + " перенесено з минулого походу)" : "") + ".";
-  return '<span class="q-pts" title="' + tip + '">🌡️ <b>' + Q.pts + '</b><span class="q-pts-lab">' + plural(Q.pts, "пункт", "пункти", "пунктів") + '</span>' +
+    "До наступного пункту: " + have + " з " + QUEST_PT_STEP + (Q.carry ? " (з них " + Q.carry + " перенесено з минулого походу)" : "") + "." +
+    (Q.xPts ? " Разом " + all + ": монстри " + Q.pts + " + фрази й побічні квести " + Q.xPts + "." : "");
+  return '<span class="q-pts" title="' + tip + '">🌡️ <b>' + all + '</b><span class="q-pts-lab">' + plural(all, "пункт", "пункти", "пунктів") + '</span>' +
     '<span class="q-pts-bar"><i class="c" style="width:' + pct(carry) + '"></i><i class="n" style="width:' + pct(have - carry) + '"></i></span>' +
     '<small>' + have + '/' + QUEST_PT_STEP + ' оч.</small></span>';
 }
@@ -12713,7 +12726,10 @@ function qPhraseRender() {
 function qPhraseOpen() {
   if (!Q.phrase || Q.phrase.open) return;
   Q.phrase.open = true;
+  const exPts = () => exprPointsByDate(loadExprXpLog())[gptToday()] || 0, p0 = exPts();
   awardExprXp("r");
+  Q.phr++;
+  qExtraPts(exPts() - p0, "за фрази");
   qFloat("+" + EXPR_CARD_XP + " XP", "xp", 50);
   qPhraseRender();
 }
@@ -12767,12 +12783,12 @@ function qSideGo() {
 function qSideDone() {
   const S = Q.sideQ; if (!S) return;
   let label;
-  if (S.kind === "duo") { addDuoSession(); label = [[DUO_XP, "Duolingo"]]; }
+  if (S.kind === "duo") { addDuoSession(); label = [[DUO_XP, "Duolingo"]]; Q.duo++; qExtraPts(1, "за Duolingo"); }
   else {
     const inp = document.getElementById("q-lh-n"), n = Math.round(+(inp ? inp.value : S.lesson));
     const d = loadLhDone();
     if (!(n >= 1 && n <= 125) || d[n]) { if (inp) { inp.classList.add("bad"); inp.title = d[n] ? "Цей урок уже позначено" : "Урок від 1 до 125"; } return; }
-    toggleLhLesson(n); label = [[getLhXp(n), "LingoHut №" + n]];
+    toggleLhLesson(n); label = [[getLhXp(n), "LingoHut №" + n]]; Q.lh++; qExtraPts(lhPts(n, todayKey()), "за LingoHut");
   }
   const side = loadQuestSide(), k = todayKey();
   side[k] = (side[k] || 0) + 1;
@@ -13247,7 +13263,8 @@ function qLogQuest(ts) {
   updateLatest(g);
   // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
   qSaveLog({ ts: g.ts, t0: Q.t0, dir: g.mode, time: ts.sec, n: ts.n, won: Q.won, fled: Q.fled.length, pts: Q.pts, answers: Q.answers,
-             xp: qXp(), monsters: Q.mlog, arena: Q.alog });
+             xp: qXp(), monsters: Q.mlog, arena: Q.alog,
+             ...(Q.phr || Q.duo || Q.lh ? { phr: Q.phr, duo: Q.duo, lh: Q.lh, xPts: Q.xPts } : {}) });   // сесія 65
 }
 addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } catch (e) {} });
 // 📜 СЛОВА ПОХОДУ на фіналі (сесія 63, за запитом: «після гри можна було подивитися слова, які відповів
@@ -13296,16 +13313,23 @@ function questFinal() {
       '<div><b>' + (Q.won + Q.fled.length) + '</b>монстрів' + (left ? '<small class="qc-pts">🏟️ ' + left + ' чекають на наступний похід</small>' : '') + '</div>' +
       // 🌡️ і пункти, і ОЧКИ (сесія 63, за запитом «невідомо скільки очок дало»): +зароблені цим походом
       // (без залишку з минулого) · до наступного пункту
-      '<div><b>' + Q.pts + '</b>пунктів «Плани»<small class="qc-pts">🌡️ ' + (Q.carry ? Q.carry + '+' : '+') + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
-        (questPointNeed(Q.pts + 1) - Q.answers) + ' до пункту</small></div>' +
+      '<div><b>' + (Q.pts + Q.xPts) + '</b>пунктів «Плани»<small class="qc-pts">🌡️ ' + (Q.carry ? Q.carry + '+' : '+') + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
+        (questPointNeed(Q.pts + 1) - Q.answers) + ' до пункту' + (Q.xPts ? ' · +' + Q.xPts + ' за фрази й квести' : '') + '</small></div>' +
       '<div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div>' +
-      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div></div>' +
+      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div>' + qSideTiles(Q) + '</div>' +
     qTimeHtml(ts) +
     // слова, що цей похід перевів у «Знаю», — позначкою в рядку «Слів походу» (сесія 63; було окремим рядком чипсів)
     qWordsHtml(new Set(newKeys)) +
     '<div class="qc-btns"><button class="qc-go" data-q="home">🏠 На головну <small>Enter</small></button><button class="qc-go alt" data-q="again">⚔️ Новий похід</button></div>';
   qEl("q-card").classList.remove("hidden");
   qHint("");
+}
+// 💬 фрази й 🗺️ побічні квести — плитками на фіналі й у минулому поході (сесія 65); r — Q або запис журналу
+function qSideTiles(r) {
+  const t = (v, lab) => '<div><b>' + v + '</b>' + lab + '</div>';
+  return (r.phr ? t(r.phr, plural(r.phr, "фраза", "фрази", "фраз")) : '') +
+    (r.duo || r.lh ? t((r.duo || 0) + (r.lh || 0), 'уроків<small class="qc-pts">' +
+      [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '');
 }
 function qTimeHtml(ts, tmMs) {   // tmMs — мс по етапах для минулого походу (сесія 64); без нього — поточний Q.tm
   const tm = tmMs || Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
@@ -13333,8 +13357,8 @@ function openQuestRecord(ts) {
   const tile = (v, lab, cls) => '<div><b' + (cls ? ' class="' + cls + '"' : '') + '>' + v + '</b>' + lab + '</div>';
   let html = '<div class="qc-title">⚔️ Похід · ' + fmtDate(ts) + ' · ' + hm + (g && g.cefr ? ' · ' + cefrLabelHtml(g.cefr) : '') + '</div>' +
     '<div class="qc-stats qc-fin">' + tile(won, "правильних", "ok") + tile(fled, "неправильних", "bad") + tile(won + fled, "монстрів") +
-      (r ? tile(r.pts, "пунктів «Плани»") : '') + (sec && sec.total ? tile(qFmtT(sec.total * 1000), "тривалість") : '') +
-      (r && r.xp != null ? tile('+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile(r.arena.length, "добито на арені") : '') + '</div>';
+      (r ? tile(r.pts + (r.xPts || 0), "пунктів «Плани»") : '') + (sec && sec.total ? tile(qFmtT(sec.total * 1000), "тривалість") : '') +
+      (r && r.xp != null ? tile('+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile(r.arena.length, "добито на арені") : '') + (r ? qSideTiles(r) : '') + '</div>';
   if (sec && n) {
     const ms = {}; ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => (ms[k] = (sec[k] || 0) * 1000));
     html += qTimeHtml({ n }, ms);
@@ -13487,7 +13511,8 @@ function questStart() {
         scale, gap: Math.round(85 * scale + 18),
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
-        tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null, feed: [] };
+        tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null, feed: [],
+        phr: 0, duo: 0, lh: 0, xPts: 0 };   // 💬 фрази, 🦉/📚 побічні квести і їхні пункти «Плани» в межах походу (сесія 65)
   Q.answers = Q.carry = qLoadCarry();   // недобрані 🌡️ очки минулого походу
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
