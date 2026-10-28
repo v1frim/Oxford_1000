@@ -9126,11 +9126,11 @@ function renderTabCefr() {
         '<span class="lb-score">—</span><span class="lb-detail"></span>' + gamesStr +
         '<span class="lb-mode">' + cefrLabelHtml(label) + ' · ' + fmtDate(lq.ts) + '</span></li>';
     }
-    const poolStr = g.wordCount ? ' <span class="lb-pool">· ' + fmtPool(g.wordCount) + '</span>' : '';
+    // Розмір словника («· 13.8k») тут НЕ показуємо (сесія 65, за запитом): пул задає набір рівнів, не словник.
     const isQ = g.tag === "quest";   // «ост» може бути й походом (сесія 64)
     return '<li class="' + klass + '" title="' + (isQ ? "останній похід рівнями (рекорду не ставить)" : isExtra ? "остання гра рівнями" : "рекорд цього набору рівнів") + '">' +
       '<span class="lb-score">' + g.score + '</span>' +
-      '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)' + poolStr + '</span>' +
+      '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)</span>' +
       gamesStr +
       '<span class="lb-mode">' + (isQ ? "⚔️ " : "") + cefrLabelHtml(label) + ' · ' + fmtDate(g.ts) + '</span>' +
     '</li>';
