@@ -13422,14 +13422,15 @@ function questFinal() {
     // ⚠️ «Добито на арені» ЗАМІНЕНО на «монстрів» (✓ + ✗) — сесія 63: «добито» ≈ «неправильних», дублювало.
     // Плитки — 4 в ряд (qc-fin), щоб «Словам походу» лишилось місця.
     '<div class="qc-stats qc-fin">' +
-      '<div><b class="ok">' + Q.won + '</b>правильних</div><div><b class="bad">' + Q.fled.length + '</b>неправильних</div>' +
-      '<div><b>' + (Q.won + Q.fled.length) + '</b>монстрів' + (left ? '<small class="qc-pts">🏟️ ' + left + ' чекають на наступний похід</small>' : '') + '</div>' +
+      // емодзі біля підписів плиток (сесія 66, за запитом: «не просто "1 фраза", а ще + 💬») — ті самі, що в шапці походу
+      '<div><b class="ok">' + Q.won + '</b>⚔️ правильних</div><div><b class="bad">' + Q.fled.length + '</b>💨 неправильних</div>' +
+      '<div><b>' + (Q.won + Q.fled.length) + '</b>👾 монстрів' + (left ? '<small class="qc-pts">🏟️ ' + left + ' чекають на наступний похід</small>' : '') + '</div>' +
       // 🌡️ і пункти, і ОЧКИ (сесія 63, за запитом «невідомо скільки очок дало»): +зароблені цим походом
       // (без залишку з минулого) · до наступного пункту
-      '<div><b>' + (Q.pts + Q.xPts) + '</b>пунктів «Плани»<small class="qc-pts">🌡️ ' + (Q.carry ? Q.carry + '+' : '+') + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
+      '<div><b>' + (Q.pts + Q.xPts) + '</b>📋 пунктів «Плани»<small class="qc-pts">🌡️ ' + (Q.carry ? Q.carry + '+' : '+') + (Q.answers - (Q.carry || 0)) + ' очок · ще ' +
         (questPointNeed(Q.pts + 1) - Q.answers) + ' до пункту' + (Q.xPts ? ' · +' + Q.xPts + ' за фрази й квести' : '') + '</small></div>' +
-      '<div><b>' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div>' +
-      '<div><b class="xp">+' + qXp() + '</b>XP</div><div><b>+' + newK + '</b>у «Знаю»</div>' + qSideTiles(Q) + '</div>' +
+      '<div><b>' + qFmtT(ts.sec.total * 1000) + '</b>⏱ тривалість</div>' +
+      '<div><b class="xp">+' + qXp() + '</b>⚡ XP</div><div><b>+' + newK + '</b>⭐ у «Знаю»</div>' + qSideTiles(Q) + '</div>' +
     qSplitHtml(qXpHtml(Q.xpBy, qXp()), qTimeHtml(ts)) +
     // слова, що цей похід перевів у «Знаю», — позначкою в рядку «Слів походу» (сесія 63; було окремим рядком чипсів)
     qWordsHtml(new Set(newKeys)) +
@@ -13440,8 +13441,8 @@ function questFinal() {
 // 💬 фрази й 🗺️ побічні квести — плитками на фіналі й у минулому поході (сесія 65); r — Q або запис журналу
 function qSideTiles(r) {
   const t = (v, lab) => '<div><b>' + v + '</b>' + lab + '</div>';
-  return (r.phr ? t(r.phr, plural(r.phr, "фраза", "фрази", "фраз")) : '') +
-    (r.duo || r.lh ? t((r.duo || 0) + (r.lh || 0), 'уроків<small class="qc-pts">' +
+  return (r.phr ? t(r.phr, "💬 " + plural(r.phr, "фраза", "фрази", "фраз")) : '') +
+    (r.duo || r.lh ? t((r.duo || 0) + (r.lh || 0), '🗺️ уроків<small class="qc-pts">' +
       [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '');
 }
 // Фінал / минулий похід: зліва ✨ XP за джерелами, справа ⏱ час по етапах (сесія 65). Без XP — час на всю ширину.
