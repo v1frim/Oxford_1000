@@ -1040,6 +1040,7 @@
     transition: background 0.15s;
   }
   .speak-btn:hover { background: rgba(255,255,255,0.22); }
+  a.img-btn { text-decoration: none; display: inline-flex; align-items: center; }
   .speak-btn-sm { font-size: 12px; padding: 2px 6px; }
   .corr-example-row { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
   .corr-example-row.hidden { display: none; }
@@ -2051,6 +2052,7 @@
       <div class="corr-top">
         <div class="corr-answer" id="correction-answer"></div>
         <button class="speak-btn" id="corr-speak" title="Прослухати">🔊</button>
+        <a class="speak-btn img-btn" id="corr-img" target="_blank" rel="noopener" title="Google Зображення з цим словом">🖼️</a>
       </div>
       <div class="corr-example-row hidden" id="corr-example-row">
         <div class="corr-example" id="corr-example"></div>
@@ -3946,6 +3948,7 @@ function showCorrection(answer) {
   }
   const speakBtn = document.getElementById("corr-speak");
   speakBtn.onclick = () => speak(enWord);
+  document.getElementById("corr-img").href = imgSearchUrl(enWord);
   const exEl  = document.getElementById("corr-example");
   const exRow = document.getElementById("corr-example-row");
   const exSpeak = document.getElementById("corr-example-speak");
@@ -6360,6 +6363,9 @@ function wrapOnePart(word) {
          (hint ? ' <span class="ans-hint">(' + esc(hint) + ')</span>' : '');
 }
 
+// 🖼️ Google Зображення з англійським словом (сесія 66, за запитом: «інколи ще гуглю зовнішній вигляд») —
+// на панелі «Правильна відповідь», у рядках помилок фіналу гри й на картці вивчення в поході
+function imgSearchUrl(en) { return "https://www.google.com/search?udm=2&q=" + encodeURIComponent(en); }
 function renderList() {
   const rows = records.filter(r =>
     currentFilter === "all" ? true : r.status !== "correct");
@@ -6392,7 +6398,8 @@ function renderList() {
     const exSpk = ex ? '<button class="speak-btn speak-btn-sm" data-sentence="' + esc(ex) + '" title="Прослухати речення">🔊</button>' : "";
     const exHtml = ex ? '<div class="row-example-row"><div class="row-example">«' + wrapSentence(ex) + '»</div>' + exSpk + '</div>' : "";
     const exUaHtml = exUa ? '<div class="row-example-ua">«' + esc(exUa) + '»</div>' : "";
-    const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' : "";
+    const spk = enW ? '<button class="speak-btn" data-word="' + esc(enW) + '">🔊</button>' +
+      '<a class="speak-btn img-btn" href="' + esc(imgSearchUrl(enW)) + '" target="_blank" rel="noopener" title="Google Зображення з цим словом">🖼️</a>' : "";
     if (r.status === "correct") {
       return '<div class="row correct"><span>' + pair + '</span><span class="mark">✓</span></div>';
     } else if (r.status === "wrong") {
@@ -13042,6 +13049,7 @@ function qStudyCard(userVal, title, btn) {
     (exUa ? '<div class="qc-exua" data-q="exua">«' + esc(exUa) + '»</div>' : '') +
     // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
     '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
+      '<a class="gt-link" href="' + esc(imgSearchUrl(en)) + '" target="_blank" rel="noopener" title="Google Зображення з цим словом">🖼️ Картинки</a>' +
       '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a><span class="gpt-ctl"></span></div>' +
     btn;
   qEl("q-card").classList.remove("hidden");
