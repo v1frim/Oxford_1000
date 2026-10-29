@@ -13016,16 +13016,21 @@ function qFightAnswer(val, auto) {
 }
 // ── вивчення посеред походу: слово + приклад із перекладом → «Готово» → 3 правильні ──
 function qStudy(userVal) {
-  const c = Q.cur;
   Q.phase = "study";
   qT("study");
   Q.rec.s0 = qNow();
+  qStudyCard(userVal, "💨 Монстр сильніший — вивчи слово, і втечеш",
+    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>');
+}
+// Картка «слово + приклад + переклад» — спільна для поразки на дорозі й помилки на арені
+function qStudyCard(userVal, title, btn) {
+  const c = Q.cur;
   mode = c.dir; currentWord = WORDS[c.idx]; currentShown = c.shown; currentWordIndex = c.idx;
   const ans = getCorrectAnswer();
   const en = getEn(currentWord)[0], ua = getUa(currentWord)[0];
   const ex = lookupExample(EXAMPLES, en, ua), exUa = lookupExample(EXAMPLES_UA, en, ua);
   qEl("q-card").innerHTML =
-    '<div class="qc-title">💨 Монстр сильніший — вивчи слово, і втечеш</div>' +
+    '<div class="qc-title">' + title + '</div>' +
     // US→UA: показане англійське слово — з ховером (переклади + транскрипція) і озвученням по кліку,
     // як відповідь у UA→US (скарга «shovel без варіантів перекладу та транскрипції»)
     '<div class="qc-word"><span class="qc-shown">' + (c.dir === "en-ua" ? wrapEnWord(c.shown) : esc(c.shown)) + '</span> = <b>' + (c.dir === "ua-en" ? wrapEnWord(ans) : esc(ans)) + '</b>' +
@@ -13038,7 +13043,7 @@ function qStudy(userVal) {
     // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
     '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
       '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a><span class="gpt-ctl"></span></div>' +
-    '<button class="qc-go" data-q="ready">✓ Готово — повторити ' + QUEST_DRILL + ' рази <small>Enter</small></button>';
+    btn;
   qEl("q-card").classList.remove("hidden");
   renderGptBtn();   // заповнити ± лічильник GPT на картці
   Q.say = en; Q.sayEx = ex;
@@ -13297,7 +13302,15 @@ function qArenaAnswer(val, auto) {
     // як у повторенні (сесія 63): наступного разу цей монстр питає у ЗВОРОТНОМУ напрямку, далі чергується
     const pl = A.plan[idx], n = (A.cnt[idx] || 0) % pl.length, flip = x => x === "ua-en" ? "en-ua" : "ua-en";
     for (let i = n, x = flip(pl[n]); i < pl.length; i++, x = flip(x)) pl[i] = x;
-    Q.timer = setTimeout(() => { el.classList.remove("strike-back"); qArenaNext(); }, 1900);
+    // ⚠️ Сесія 66 (скарга: «слово лиш на ~1 секунду, без прикладу — не встигаю повторити»): було
+    // ✗ у бульбашці на 1.9 с і одразу далі. Тепер — картка як у поході (приклад, 🔊), чекає Enter.
+    Q.timer = setTimeout(() => {
+      el.classList.remove("strike-back");
+      el.querySelector(".qm-word").style.visibility = "hidden";   // бульбашка «✗ …» просвічувала крізь картку
+      Q.phase = "arenaStudy";
+      qStudyCard(val.trim(), "🏟️ Монстр устояв — глянь ще раз",
+        '<button class="qc-go" data-q="arena-next">✓ Далі <small>Enter</small></button>');
+    }, 450);
   }
 }
 // 🏟️ АРЕНА ПОСЕРЕД ПОХОДУ (сесія 63, за запитом): щойно втечених монстрів назбиралось ≥ QUEST_MID_ARENA,
@@ -13323,8 +13336,17 @@ function qMidArena() {
   if (m) { m.classList.remove("fighting"); m.classList.add("behind"); setTimeout(() => m.remove(), 1300); }   // монстр відступає
   Q.timer = setTimeout(() => { if (!Q || Q.phase !== "toarena") return; Q.arenaPool = qArenaPending(); qArenaStart("mid"); }, m ? 800 : 200);
 }
+function qArenaStudyDone() {
+  if (!Q || Q.phase !== "arenaStudy") return;
+  Q.phase = "arena";
+  qEl("q-card").classList.add("hidden");
+  const el = Q.arena.els[Q.cur.idx];
+  if (el) el.querySelector(".qm-word").style.visibility = "";
+  qArenaNext();
+}
 function qRoadAfterArena() {
   if (!Q || Q.stage !== "arena") return;
+  qEl("q-card").classList.add("hidden");
   Q.pre = false; Q.arena = null;
   Q.stage = "road";
   qT("road");
@@ -13668,6 +13690,7 @@ function questClose(again) {
 function qEnter() {
   if (!Q) return;
   if (Q.phase === "study") { qDrillStart(); return; }
+  if (Q.phase === "arenaStudy") { qArenaStudyDone(); return; }
   if (Q.phase === "phrase") { Q.phrase.open ? qPhraseRate("learned") : qPhraseOpen(); return; }
   if (Q.phase === "offer") { qSideSkip(); return; }
   if (Q.phase === "side") { qSideDone(); return; }
@@ -13688,6 +13711,7 @@ questOverlay.addEventListener("click", e => {
   else if (a === "exua") b.classList.toggle("open");
   else if (a === "gpt") countGptRequest();          // як GPT-лінк фінал-екрана: клік = запит
   else if (a === "ready") qDrillStart();
+  else if (a === "arena-next") qArenaStudyDone();
   else if (a === "arena") qArenaStart(false);
   else if (a === "final") questFinal();
   else if (a === "home") questClose(false);
@@ -13722,7 +13746,7 @@ document.addEventListener("keydown", e => {
     else if (Q.stage === "pause") questFinal();
   } else if (e.key === "Tab") {
     e.preventDefault();
-    if (Q.phase === "study") speak(Q.say);
+    if (Q.phase === "study" || Q.phase === "arenaStudy") speak(Q.say);
     else if (Q.phase === "phrase" && Q.phrase && (Q.phrase.dir === "en2ua" || Q.phrase.open)) speak(Q.phrase.c.en);
     // ⚠️ currentShown, а НЕ Q.cur.shown: у повторенні напрямок міняється, і Q.cur.shown лишався
     // українським промптом бою — Tab озвучував українське слово (скарга користувача)
@@ -13730,7 +13754,7 @@ document.addEventListener("keydown", e => {
   } else if (e.key === " " && Q.phase === "phrase") {
     e.preventDefault();                            // 💬 фраза: Пробіл — показати / «ще вчу» (як у тренажері карток)
     Q.phrase.open ? qPhraseRate("learning") : qPhraseOpen();
-  } else if (e.key === " " && Q.phase === "study") {
+  } else if (e.key === " " && (Q.phase === "study" || Q.phase === "arenaStudy")) {
     e.preventDefault();                            // Пробіл на картці — озвучити речення-приклад
     if (Q.sayEx) speak(Q.sayEx);
   }

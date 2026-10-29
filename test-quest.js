@@ -132,6 +132,13 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("на арені — саме втечене слово", ar.target === idx2);
   const aMode0 = await p.evaluate(() => mode);
   await p.fill("#q-answer", "абракадабра"); await p.keyboard.press("Enter"); await p.waitForTimeout(2100);
+  // сесія 66: помилка на арені → картка з прикладом, чекає Enter (не зникає сама)
+  const aCard = await p.evaluate(() => ({ ph: Q.phase, vis: !document.getElementById("q-card").classList.contains("hidden"),
+    t: document.getElementById("q-card").textContent, dis: document.getElementById("q-answer").disabled }));
+  t("арена: помилка → картка «глянь ще раз» із твоєю відповіддю, чекає Enter", aCard.ph === "arenaStudy" && aCard.vis && aCard.dis &&
+    /глянь ще раз/.test(aCard.t) && /абракадабра/.test(aCard.t), JSON.stringify(aCard).slice(0, 200));
+  await p.keyboard.press("Enter"); await p.waitForTimeout(300);
+  t("арена: Enter на картці — картка сховалась, знову питання", await p.evaluate(() => Q.phase === "arena" && document.getElementById("q-card").classList.contains("hidden") && !document.getElementById("q-answer").disabled));
   const aMode1 = await p.evaluate(() => ({ mode, cnt: Q.arena.cnt[Q.cur.idx] || 0, idx: Q.cur.idx }));
   t("арена: після помилки той самий монстр питає у зворотному напрямку", aMode1.mode !== aMode0 && aMode1.cnt === 0 && aMode1.idx === idx2, aMode0 + " → " + JSON.stringify(aMode1));
   for (let i = 0; i < 3; i++) { await p.fill("#q-answer", await right()); await p.waitForTimeout(1100); }
