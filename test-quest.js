@@ -147,7 +147,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     words: [...document.querySelectorAll("#q-card .qw-row")].map(r => ({ t: r.textContent, hw: !!r.querySelector(".hw"), miss: r.classList.contains("miss") })) }));
   t("фінал: «Слова походу» — кожне слово раз, ✓ / ✗+🏟️, англійське з ховером", fin.words.length === 2 && fin.words.every(w => w.hw) &&
     fin.words.filter(w => w.miss).length === 1 && fin.words.some(w => /✓/.test(w.t)) && fin.words.some(w => /✗/.test(w.t) && /🏟️1/.test(w.t)), JSON.stringify(fin.words));
-  t("фінал: «монстрів» = правильні + неправильні (замість «добито на арені»), XP золотистим", /2👾 монстрів/.test(fin.card) && !/добито на арені/.test(fin.card) &&
+  t("фінал: «монстрів» = правильні + неправильні (замість «добито на арені»), XP золотистим", /👾 2монстрів/.test(fin.card) && !/добито на арені/.test(fin.card) &&
     await p.evaluate(() => getComputedStyle(document.querySelector("#q-card .qc-stats .xp")).color === "rgb(255, 209, 102)"), fin.card.slice(0, 200));
   t("фінал: 🌡️ показує очки походу", /🌡️ \+\d+ очок · ще \d+ до пункту/.test(fin.card), fin.card.slice(0, 300));
   t("3 правильні на арені — монстр добитий, фінал", fin.stage === "final" && /Похід завершено/.test(fin.card), fin.stage);
