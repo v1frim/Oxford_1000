@@ -204,7 +204,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
       return { rows: e.querySelectorAll(".lb-stat-row").length, html: e.textContent };
     });
     t(`«Загальна статистика» не обірвана (${vw}px)`, totals.rows >= 16, "рядків " + totals.rows);
-    for (const label of ["Досвід", "Уроки з кіно", "Уроки LingoHut", "Вивчені пісні", "Активних днів"])
+    for (const label of ["Досвід", "Вирази", "Уроки з кіно", "Уроки LingoHut", "Вивчені пісні", "Активних днів"])
       t(`статистика містить «${label}» (${vw}px)`, totals.html.includes(label));
     await pg.close();
   }
