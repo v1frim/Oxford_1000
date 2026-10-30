@@ -13027,7 +13027,7 @@ function qSideGo() {
   const S = Q.sideQ; if (!S) return;
   window.open(S.kind === "duo" ? "https://www.duolingo.com/learn" : lhLessonUrl(S.lesson), "_blank", "noopener");   // LingoHut — одразу урок
   Q.phase = "side";
-  qT("pause");                                   // поки займаєшся на іншому сайті — це не час походу
+  qT(S.kind);                                    // час на іншому сайті — окремим етапом 🦉/📚 (до 30.10.2026 — «Привал»)
   qSideRender();
 }
 function qSideDone() {
@@ -13083,6 +13083,9 @@ function qFight(noPhrase) {
 const QUEST_LOG_KEY = "oxford_quest_log_v1";
 const QUEST_LOG_MAX = 200;
 function qNow() { return Date.now(); }
+// етапи часу походу; duo / lh — час на сайті побічного квесту від «Перейти» до «Готово» (30.10.2026, за запитом;
+// до того йшов у «Привал»)
+const Q_TIME_KEYS = ["road", "fight", "study", "drill", "arena", "pause", "duo", "lh"];
 function qT(bucket) {
   if (!Q) return;
   const now = qNow();
@@ -13518,9 +13521,9 @@ function qRoadAfterArena() {
   qWalk();
 }
 function questTimeSummary() {
-  const tm = Q.tm, n = { fights: Q.mlog.length, drills: Q.mlog.filter(r => r.dr != null).length, arena: Q.alog.length };
+  const tm = Q.tm, n = { fights: Q.mlog.length, drills: Q.mlog.filter(r => r.dr != null).length, arena: Q.alog.length, duo: Q.duo || 0, lh: Q.lh || 0 };
   const sec = {}; let total = 0;
-  ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => { sec[k] = Math.round((tm[k] || 0) / 1000); total += tm[k] || 0; });
+  Q_TIME_KEYS.forEach(k => { sec[k] = Math.round((tm[k] || 0) / 1000); total += tm[k] || 0; });
   sec.total = Math.round(total / 1000);
   return { sec, n };
 }
@@ -13623,7 +13626,7 @@ function qXpHtml(by, total) {
     (rest ? '<div class="qt-row"><span>· інше</span><b>' + (rest > 0 ? '+' : '') + rest + '</b></div>' : '') + '</div>';
 }
 function qTimeHtml(ts, tmMs) {   // tmMs — мс по етапах для минулого походу (сесія 64); без нього — поточний Q.tm
-  const tm = tmMs || Q.tm, n = ts.n, total = ["road", "fight", "study", "drill", "arena", "pause"].reduce((a, k) => a + (tm[k] || 0), 0);
+  const tm = tmMs || Q.tm, n = ts.n, total = Q_TIME_KEYS.reduce((a, k) => a + (tm[k] || 0), 0);
   const row = (ic, name, ms, extra) => '<div class="qt-row"><span>' + ic + ' ' + name + '</span><b>' + qFmtT(ms || 0) + '</b><small>' + (extra || '') + '</small></div>';
   return '<div class="qc-time"><div class="qt-h">⏱ Час по етапах · разом <b>' + qFmtT(total) + '</b></div>' +
     row("⚔️", "Бої · " + n.fights, tm.fight, "сер. " + qFmtAvg(tm.fight || 0, n.fights) + " на бій") +
@@ -13631,6 +13634,8 @@ function qTimeHtml(ts, tmMs) {   // tmMs — мс по етапах для ми�
     row("🔁", "3 правильні після картки · " + n.drills, tm.drill, "сер. " + qFmtAvg(tm.drill || 0, n.drills) + " на слово") +
     row("🏟️", "Арена · " + n.arena, tm.arena, "сер. " + qFmtAvg(tm.arena || 0, n.arena) + " на монстра") +
     row("🛣️", "Дорога, удари, втечі", tm.road, "") +
+    (tm.duo ? row("🦉", "Duolingo" + (n.duo ? " · " + n.duo : ""), tm.duo, n.duo ? "сер. " + qFmtT(tm.duo / n.duo) + " на заняття" : "") : "") +
+    (tm.lh ? row("📚", "LingoHut" + (n.lh ? " · " + n.lh : ""), tm.lh, n.lh ? "сер. " + qFmtT(tm.lh / n.lh) + " на урок" : "") : "") +
     (tm.pause ? row("🏁", "Привал", tm.pause, "") : "") + '</div>';
 }
 // 📜 РЕЗУЛЬТАТ МИНУЛОГО ПОХОДУ (сесія 64, за запитом «можеш показати результати за останній похід?»):
@@ -13652,7 +13657,7 @@ function openQuestRecord(ts) {
       (r ? tile("📋", r.pts + (r.xPts || 0), "пунктів «Плани»") : '') + (sec && sec.total ? tile("⏱", qFmtT(sec.total * 1000), "тривалість") : '') +
       (r && r.xp != null ? tile("⚡", '+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile("🏟️", r.arena.length, "добито на арені") : '') + (r ? qSideTiles(r) : '') + '</div>';
   if (sec && n) {
-    const ms = {}; ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => (ms[k] = (sec[k] || 0) * 1000));
+    const ms = {}; Q_TIME_KEYS.forEach(k => (ms[k] = (sec[k] || 0) * 1000));
     html += qSplitHtml(r && r.xpBy ? qXpHtml(r.xpBy, r.xp || 0) : "", qTimeHtml({ n }, ms));
   }
   html += r ? qWordsHtml(null, r.monsters, r.arena)
