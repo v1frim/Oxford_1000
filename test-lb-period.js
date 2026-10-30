@@ -433,7 +433,7 @@ function chromePath() {
     return { txt: li.textContent, over: li.scrollWidth > li.clientWidth };
   });
   t("🔥 серія: у дужках лише кількість відповідей (без неправильних)", !/\/\d/.test(stk.txt), stk.txt);
-  t("🔥 серія: «🎮3 (6) ⚔️6 (24)» — у дужках відповіді окремо для ігор і походів", /🎮3 \(6\) ⚔️6 \(24\)/.test(stk.txt) && !/ігор|ігри/.test(stk.txt), stk.txt);
+  t("🔥 серія: «🎮3 ⚔️6 (30)» — одне спільне число відповідей ігор + походів (6 + 24; 30.10.2026)", /🎮3 ⚔️6 \(30\)/.test(stk.txt) && !/ігор|ігри/.test(stk.txt), stk.txt);
   // денна сума НЕ містить походів (реальні дані сесії 63), а журнал має звичайні ігри → ігри з журналу, походи окремо
   const stk2 = await page.evaluate(() => {
     const k = todayKey(), now = Date.now();
@@ -442,7 +442,7 @@ function chromePath() {
       { ts: now - 6e5, score: 6, wrong: 2, skipped: 0, mode: "ua-en" }, { ts: now - 3e5, tag: "quest", score: 8, wrong: 6, skipped: 0 }]));
     lbActiveTab = "streaks"; renderLeaderboard();
     return document.querySelector("#lb-list li").textContent; });
-  t("🔥 серія: ігри — їхня сума з журналу, походи — додатково своєю (🎮2 (20) ⚔️1 (14))", /🎮2 \(20\) ⚔️1 \(14\)/.test(stk2), stk2);
+  t("🔥 серія: ігри й походи — одним числом відповідей (🎮2 ⚔️1 (34) = 20 з ігор + 14 з походів; 30.10.2026)", /🎮2 ⚔️1 \(34\)/.test(stk2), stk2);
   t("🔥 серія: лише ігри й походи (🦉 нема), ⚔️ не дублюється", !/🦉/.test(stk.txt) && (stk.txt.match(/⚔️/g) || []).length === 1, stk.txt);
   t("🔥 серія: рядок не вилазить за панель", !stk.over, stk.txt);
 

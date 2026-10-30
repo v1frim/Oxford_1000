@@ -8948,8 +8948,9 @@ function computeStreaks(days) {
   // новіша серія вище (стабільний порядок при повній рівності).
   // Рекорд (`bestStreakLength`) і поточна (`currentStreakLength`) від порядку не залежать:
   // перший бере лише ДОВЖИНУ [0], друга шукає через find.
-  // ⚠️ «ІГОР» = ігри + ПОХОДИ (30.10.2026, за скаргою: серія 🎮9 ⚔️17 стояла під 🎮20 — рахувались лише ігри).
-  return streaks.sort((a, b) => b.length - a.length || (b.games + b.quests) - (a.games + a.quests) || b.words - a.words ||
+  // ⚠️ З 30.10.2026 (за запитом) перший ключ нічиєї — ВІДПОВІДІ ігор + походів (те саме число, що в дужках рядка
+  // «🎮9 ⚔️17 (251)»), лише потім кількість ігор + походів. До того — лише ігри, без походів.
+  return streaks.sort((a, b) => b.length - a.length || b.words - a.words || (b.games + b.quests) - (a.games + a.quests) ||
     (a.end < b.end ? 1 : a.end > b.end ? -1 : 0));
 }
 // ⚠️ Винесено з `renderTabGames` у сесії 51 — той самий рядок гри малює тепер і вкладка
@@ -9540,7 +9541,8 @@ function renderTabStreaks() {
       const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
       keys.push(k); if (k >= s.end || keys.length > 400) break;
     }
-    // Рядок: 🎮 ігри (їхні відповіді) ⚔️ походи (їхні відповіді) — сесія 63, за запитом: було одне
+    // ⚠️ З 30.10.2026 — «🎮9 ⚔️17 (251)»: ОДНЕ число відповідей ігор + походів (за запитом «не розбивати на 2»).
+    // Історія: рядок 🎮 ігри (їхні відповіді) ⚔️ походи (їхні відповіді) — сесія 63, за запитом: було одне
     // спільне «🎮8 ⚔️5 (73)», і 73 — це відповіді ІГОР; походи додаються СВОЄЮ сумою → «🎮8 (73) ⚔️6 (38)».
     // ⚠️ Обидва числа — з журналу ігор, НЕ різницею від денних correct/wrong: перша спроба
     // (gAns = день − походи) дала «🎮8 (35)» — у реальних даних денна сума походів не містила.
@@ -9552,8 +9554,8 @@ function renderTabStreaks() {
     const gAns = Math.max(keys.reduce((a, k) => a + (gAnsDay[k] || 0), 0), totalWords - qAns);
     const gamesStr = (s.games || quests)
       ? '<span class="lb-games" title="ігри й походи серії · у дужках — їхні відповіді">· ' +
-        (s.games ? "🎮" + s.games + (gAns > 0 ? " (" + gAns + ")" : "") : "") + (s.games && quests ? " " : "") +
-        (quests ? "⚔️" + quests + (qAns > 0 ? " (" + qAns + ")" : "") : "") + '</span>' : "";
+        (s.games ? "🎮" + s.games : "") + (s.games && quests ? " " : "") + (quests ? "⚔️" + quests : "") +
+        (gAns + qAns > 0 ? " (" + (gAns + qAns) + ")" : "") + '</span>' : "";   // одне спільне число відповідей (30.10.2026, за запитом)
     const wordsStr = "";
     return '<li class="lb-streak ' + cls + '">' +
       '<span class="lb-score">' + s.length + '</span>' +
