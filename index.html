@@ -12622,7 +12622,7 @@ document.addEventListener("keydown", e => {
   if (!cb || !modal) return;
   const sync = () => { cb.checked = kbAutoOn(); };
   sync();
-  new MutationObserver(sync).observe(modal, { attributes: true, attributeFilter: ["class"] });
+  if (typeof MutationObserver === "function") new MutationObserver(sync).observe(modal, { attributes: true, attributeFilter: ["class"] });   // loadtest-стенд його не має
   cb.addEventListener("change", () => { try { localStorage.setItem(KB_AUTO_KEY, cb.checked ? "1" : "0"); } catch (e) {} });
 })();
 let Q = null;                            // стан поточного походу (null — похід не йде)
