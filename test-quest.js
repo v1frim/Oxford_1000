@@ -301,6 +301,12 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("арена посеред: Esc → назад на дорогу, недобиті чекають", back.stage === "road" && !back.pre && back.left === 5, JSON.stringify(back));
   await fight(); await p.waitForTimeout(200);
   t("арена посеред: на дорозі кнопка знову є", await p.isVisible("#q-arena-go"));
+  // ⇧ Enter — та сама дія, що кнопка (30.10.2026)
+  t("арена посеред: на кнопці підказка «⇧ Enter»", /⇧ Enter/.test(await p.textContent("#q-arena-go")));
+  await p.focus("#q-answer"); await p.keyboard.press("Shift+Enter"); await p.waitForTimeout(1200);
+  const se = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre }));
+  t("арена посеред: Shift+Enter → арена", se.stage === "arena" && se.pre === "mid", JSON.stringify(se));
+  await p.keyboard.press("Escape"); await p.waitForTimeout(400); await fight(); await p.waitForTimeout(200);
 
   // 🌄 краєвид за рівнями (сесія 64): шари беруться з різних тем, A1 = колишня сцена
   const sc = await p.evaluate(() => {

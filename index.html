@@ -449,6 +449,9 @@
   }
   .tm-sec::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
   .tm-sets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tm-kb { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 14px 0 -4px; font-size: 13px; cursor: pointer; opacity: .85; user-select: none; }
+  .tm-kb small { opacity: .5; font-size: 11px; }
+  .tm-kb input { accent-color: #ffd166; width: 15px; height: 15px; cursor: pointer; }
   .tm-dirs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   /* «⇄ По черзі» (сесія 61): напрямок, що піде НАСТУПНИМ, позначено пунктиром і «далі» */
   .tm-dir.next { border: 1px dashed rgba(255,209,102,0.6); }
@@ -1803,7 +1806,8 @@
   .qc-dots i.on { background: #7be07b; border-color: #7be07b; }
   .qc-sub { font-size: 13px; opacity: .8; margin: 10px 0 4px; line-height: 1.9; }
   .qc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 6px 0; }
-  .qc-stats > div { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 8px; font-size: 12px; opacity: .9; }
+  .qc-stats > div { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 8px; font-size: 12px; opacity: .9;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }   /* вміст плитки — по центру й по вертикалі (30.10.2026, за запитом) */
   .qc-stats b { display: block; font-size: 26px; }
   .qc-stats .ok { color: #7be07b; } .qc-stats .bad { color: #ff8a8a; } .qc-stats .xp { color: #ffd166; }   /* XP — золотистий, як у стрічці XP (сесія 63) */
   .qc-stats.qc-fin { grid-template-columns: repeat(4, 1fr); gap: 6px; } .qc-stats.qc-fin > div { padding: 5px 4px; } .qc-stats.qc-fin b { font-size: 22px; }
@@ -1839,6 +1843,7 @@
   @keyframes qArenaPulse { 50% { box-shadow: 0 0 14px rgba(255,209,102,.45); } }
   #q-answer { width: min(460px, 70vw); font-size: 22px; padding: 12px 16px; border-radius: 14px; text-align: center; font-family: inherit;
     background: rgba(255,255,255,.07); color: #fff; border: 2px solid rgba(255,209,102,.6); outline: none; }
+  .q-kbd { font-size: 10px; opacity: .55; font-weight: 600; margin-left: 4px; }
   #q-answer:disabled { opacity: .45; border-color: rgba(255,255,255,.2); }
   #q-answer.wrong { border-color: #ff6b6b; }
   .q-skip { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; padding: 0 16px; cursor: pointer; font-family: inherit; font-weight: 700; }
@@ -2102,6 +2107,7 @@
       <button class="tm-dir" data-dir="en-ua"><b>US → UA</b></button>
       <button class="tm-dir" data-dir="auto" title="Напрямок чергується щогри: раз UA → US, раз US → UA"><b>⇄ По черзі</b><small></small></button>
     </div>
+    <label class="tm-kb" title="Гра сама підставляє літери потрібної мови за фізичною клавішею — розкладку Windows перемикати не треба"><input type="checkbox" id="tm-kb"> ⌨️ Автомова клавіатури <small>набирай на будь-якій розкладці</small></label>
     <button id="tm-go">✓ Готово<small></small></button>
     <button id="tm-cancel">Скасувати</button>
   </div>
@@ -2219,7 +2225,7 @@
   </div>
   <div class="q-bottom">
     <div id="q-hint" class="q-hint"></div>
-    <div class="q-inrow"><input id="q-answer" type="text" autocomplete="off" autocorrect="off" spellcheck="false" disabled><button id="q-skip" class="q-skip" data-q="skip" title="Порожній Enter — те саме">💨 Втекти</button><button id="q-arena-go" class="q-skip q-arena-go hidden" data-q="midarena" title="Добити втечених монстрів зараз, а потім — далі дорогою"></button></div>
+    <div class="q-inrow"><input id="q-answer" type="text" autocomplete="off" autocorrect="off" spellcheck="false" disabled><button id="q-skip" class="q-skip" data-q="skip" title="Порожній Enter — те саме">💨 Втекти</button><button id="q-arena-go" class="q-skip q-arena-go hidden" data-q="midarena" title="Shift+Enter — добити втечених монстрів зараз, а потім — далі дорогою"></button></div>
   </div>
 </div>
 <!-- Fallback: показати лейаут на window load, навіть якщо основний скрипт кинув помилку
@@ -12571,6 +12577,54 @@ function qArenaAdd(idx) { const k = wordKey(WORDS[idx]), a = loadQArena(); if (!
 function qArenaDel(idx) { const k = wordKey(WORDS[idx]); saveQArena(loadQArena().filter(x => x !== k)); }
 const questOverlay = document.getElementById("quest-overlay");
 const qAnswerEl = document.getElementById("q-answer");
+// ── ⌨️ АВТОМОВА КЛАВІАТУРИ (30.10.2026, за запитом «щоразу вручну перемикаю розкладку») ─────────────────
+// Сторінка НЕ може перемкнути розкладку Windows — зате бачить ФІЗИЧНУ клавішу (`e.code`) і знає, якою
+// мовою чекають відповідь. Тож літеру підставляємо самі: на укр. розкладці «і-р-щ-е» дає `shoe`, на
+// англ. «d-p-e-n-n-z» — `взуття`. Працює в полі гри (#answer) і походу (#q-answer, бій/повторення/арена).
+// Мова: гра — `mode` ("en-ua" → укр., решта → англ.), похід — плейсхолдер «англійською…/українською…».
+// ⚠️ Лише ЧИСТІ натискання (без Ctrl/Alt/Meta — копіювання, вставка, гарячі клавіші недоторкані);
+// виняток — правий Alt+г = ґ (як у системній укр. розкладці). Вставка й автозаповнення не чіпаються.
+// ⚠️ e.code порожній / key "Unidentified" (мобільні клавіатури) → нічого не робимо, працює як було.
+// Цифри, пробіл, дефіс не мапимо: вони однакові або потрібні як є.
+const KB_AUTO_KEY = "oxford_kb_auto_v1";   // UI-налаштування; за замовчуванням увімкнено ("0" — вимкнено)
+const kbAutoOn = () => { try { return localStorage.getItem(KB_AUTO_KEY) !== "0"; } catch (e) { return true; } };
+const KB_UA = { Backquote:"'", KeyQ:"й", KeyW:"ц", KeyE:"у", KeyR:"к", KeyT:"е", KeyY:"н", KeyU:"г", KeyI:"ш", KeyO:"щ",
+  KeyP:"з", BracketLeft:"х", BracketRight:"ї", Backslash:"ґ", KeyA:"ф", KeyS:"і", KeyD:"в", KeyF:"а", KeyG:"п", KeyH:"р",
+  KeyJ:"о", KeyK:"л", KeyL:"д", Semicolon:"ж", Quote:"є", KeyZ:"я", KeyX:"ч", KeyC:"с", KeyV:"м", KeyB:"и", KeyN:"т",
+  KeyM:"ь", Comma:"б", Period:"ю", Slash:"." };
+const KB_EN = { Backquote:"`", BracketLeft:"[", BracketRight:"]", Backslash:"\\", Semicolon:";", Quote:"'", Comma:",",
+  Period:".", Slash:"/" };
+"abcdefghijklmnopqrstuvwxyz".split("").forEach(c => { KB_EN["Key" + c.toUpperCase()] = c; });
+function kbTargetLang(el) {
+  if (el === answerEl) return mode === "en-ua" ? "ua" : "en";
+  if (el === qAnswerEl) return /англ/.test(el.placeholder) ? "en" : /укр/.test(el.placeholder) ? "ua" : null;
+  return null;
+}
+document.addEventListener("keydown", e => {
+  const el = e.target;
+  if ((el !== answerEl && el !== qAnswerEl) || el.disabled || e.isComposing || !kbAutoOn()) return;
+  if (!e.key || e.key.length !== 1 || e.ctrlKey || e.metaKey) return;
+  const lang = kbTargetLang(el);
+  if (!lang) return;
+  let ch;
+  if (e.altKey) { if (lang === "ua" && e.code === "KeyU") ch = "ґ"; else return; }   // правий Alt (AltGr) + г
+  else ch = (lang === "ua" ? KB_UA : KB_EN)[e.code];
+  if (!ch) return;
+  if (e.shiftKey) { if (ch.toUpperCase() === ch.toLowerCase()) return; ch = ch.toUpperCase(); }   // Shift+знак — хай буде системний
+  if (ch === e.key) return;                      // розкладка й так правильна — хай браузер вставить сам
+  e.preventDefault();
+  const a = el.selectionStart, b = el.selectionEnd;
+  el.setRangeText(ch, a, b, "end");
+  el.dispatchEvent(new Event("input", { bubbles: true }));   // слухачі «input» (автоперевірка походу) — як від звичайного набору
+}, true);
+(() => {   // вимикач у «⚙️ Режим»: стан читаємо при кожному відкритті модалки (MutationObserver на class) і пишемо одразу
+  const cb = document.getElementById("tm-kb"), modal = document.getElementById("train-modal");
+  if (!cb || !modal) return;
+  const sync = () => { cb.checked = kbAutoOn(); };
+  sync();
+  new MutationObserver(sync).observe(modal, { attributes: true, attributeFilter: ["class"] });
+  cb.addEventListener("change", () => { try { localStorage.setItem(KB_AUTO_KEY, cb.checked ? "1" : "0"); } catch (e) {} });
+})();
 let Q = null;                            // стан поточного походу (null — похід не йде)
 function qEl(id) { return document.getElementById(id); }
 function qSfx(kind) {
@@ -13341,7 +13395,7 @@ function qArenaGoBtn() {
   if (!b) return;
   const n = Q && Q.stage === "road" && (Q.phase === "walk" || Q.phase === "fight") ? qArenaPending().length : 0;
   b.classList.toggle("hidden", n < QUEST_MID_ARENA);
-  if (n >= QUEST_MID_ARENA) b.textContent = "🏟️ На арену · " + n;
+  if (n >= QUEST_MID_ARENA) b.innerHTML = "🏟️ На арену · " + n + ' <small class="q-kbd">⇧ Enter</small>';
 }
 function qMidArena() {
   if (!Q || Q.stage !== "road" || !(Q.phase === "walk" || Q.phase === "fight")) return;
@@ -13753,7 +13807,9 @@ document.getElementById("quest-btn").addEventListener("click", questStart);
 document.addEventListener("keydown", e => {
   if (!Q) return;
   e.stopPropagation();
-  if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) qEnter(); }
+  // 🏟️ Shift+Enter — «На арену» (30.10.2026, за запитом), лише коли кнопка видима; інакше — звичайний Enter
+  if (e.key === "Enter" && e.shiftKey && !document.getElementById("q-arena-go").classList.contains("hidden")) { e.preventDefault(); if (!e.repeat) qMidArena(); }
+  else if (e.key === "Enter") { e.preventDefault(); if (!e.repeat) qEnter(); }
   else if (e.key === "Escape") {
     e.preventDefault();
     if (Q.phase === "side") { Q.sideQ = null; qWalk(); }   // 🗺️ квест «не вийшло» — далі дорогою
