@@ -13472,7 +13472,7 @@ function qArenaGoBtn() {
   if (!b) return;
   const n = Q && Q.stage === "road" && (Q.phase === "walk" || Q.phase === "fight") ? qArenaPending().length : 0;
   b.classList.toggle("hidden", n < QUEST_MID_ARENA);
-  if (n >= QUEST_MID_ARENA) b.innerHTML = "🏟️ На арену · " + n + ' <small class="q-kbd">⇧ Enter</small>';
+  if (n >= QUEST_MID_ARENA) b.innerHTML = "🏟️ На арену · " + n + ' <small class="q-kbd">Shift+Enter</small>';
 }
 function qMidArena() {
   if (!Q || Q.stage !== "road" || !(Q.phase === "walk" || Q.phase === "fight")) return;
