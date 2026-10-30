@@ -9791,8 +9791,8 @@ function renderLbTotals() {
     row("🎬", "Уроки з кіно", getTotalMovieSessions(), "#ffa94d", "Повноцінні уроки (~20 хв) англійської на кіно (2sub.movie)") +
     // 💬 Вирази (30.10.2026, за запитом): пройдені картки (подія «Показати переклад», як 💬 у «Прогресі по днях») ·
     // у дужках — сума «Знаю» по ОБОХ напрямках (en2ua + ua2en; вираз в обидва боки = 2), як у досягненні «Харизма»
-    row("💬", "Вирази", getTotalExprCards() + ' <span style="opacity:.6;font-size:.85em">(вивчено ' +
-        ["en2ua", "ua2en"].reduce((n, d) => n + Object.values(loadExprStatus(d)).filter(v => v === "learned").length, 0) + ')</span>',
+    row("💬", "Вирази", getTotalExprCards() + ' <span style="color:#7be07b;font-size:.85em"><span style="opacity:.55">✓</span>' +
+        ["en2ua", "ua2en"].reduce((n, d) => n + Object.values(loadExprStatus(d)).filter(v => v === "learned").length, 0) + '</span>',
         "#ff9ecf", "Пройдені картки «Вирази і сленг» за весь час (тренажер + фрази в поході) · у дужках — «Знаю» в обох напрямках разом: вираз, вивчений лише US→UA, дає 1, а в обидва боки — 2") +
     row("⚡", "Досвід (XP)", xp, "#ffd166") +
     '<div class="lb-variable">' +
@@ -11837,7 +11837,11 @@ function renderExprHead() {
   exprHead.innerHTML =
     '<div><h2>💬 Вирази і сленг</h2> <span class="sh-sub">' + EXPR_BANK.length + ' ' +
       plural(EXPR_BANK.length, "вираз", "вирази", "виразів") + ' · вивчено ' + learned +
-      ' <span class="ex-dirtag">' + dirLabel + '</span></span></div>' +
+      ' <span class="ex-dirtag">' + dirLabel + '</span>' +
+      // сума обох напрямків — те саме число, що зелене ✓ у «Загальній статистиці» (30.10.2026: «розбіжність 9 і 13»)
+      ' · <span style="color:#7be07b" title="«Знаю» в обох напрямках разом (US→UA + UA→US) — як у «Загальній статистиці»">✓' +
+      ["en2ua", "ua2en"].reduce((n, d) => n + Object.values(loadExprStatus(d)).filter(v => v === "learned").length, 0) + '</span> разом' +
+      '</span></div>' +
     '<button class="songs-close" data-act="close">✕</button>';
 }
 
@@ -13641,11 +13645,12 @@ function openQuestRecord(ts) {
   const won = r ? r.won : g.score, fled = r ? r.fled : (g.wrong || 0) + (g.skipped || 0);
   const when = new Date(ts), hm = String(when.getHours()).padStart(2, "0") + ":" + String(when.getMinutes()).padStart(2, "0");
   const sec = (r && r.time) || (g && g.time), n = (r && r.n) || (g && g.n);
-  const tile = (v, lab, cls) => '<div><b' + (cls ? ' class="' + cls + '"' : '') + '>' + v + '</b>' + lab + '</div>';
+  // емодзі біля числа — як у фіналі походу (30.10.2026, за запитом «синхронізуй»)
+  const tile = (ic, v, lab, cls) => '<div><b' + (cls ? ' class="' + cls + '"' : '') + '>' + ic + ' ' + v + '</b>' + lab + '</div>';
   let html = '<div class="qc-title">⚔️ Похід · ' + fmtDate(ts) + ' · ' + hm + (g && g.cefr ? ' · ' + cefrLabelHtml(g.cefr) : '') + '</div>' +
-    '<div class="qc-stats qc-fin">' + tile(won, "правильних", "ok") + tile(fled, "неправильних", "bad") + tile(won + fled, "монстрів") +
-      (r ? tile(r.pts + (r.xPts || 0), "пунктів «Плани»") : '') + (sec && sec.total ? tile(qFmtT(sec.total * 1000), "тривалість") : '') +
-      (r && r.xp != null ? tile('+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile(r.arena.length, "добито на арені") : '') + (r ? qSideTiles(r) : '') + '</div>';
+    '<div class="qc-stats qc-fin">' + tile("⚔️", won, "правильних", "ok") + tile("💨", fled, "неправильних", "bad") + tile("👾", won + fled, "монстрів") +
+      (r ? tile("📋", r.pts + (r.xPts || 0), "пунктів «Плани»") : '') + (sec && sec.total ? tile("⏱", qFmtT(sec.total * 1000), "тривалість") : '') +
+      (r && r.xp != null ? tile("⚡", '+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile("🏟️", r.arena.length, "добито на арені") : '') + (r ? qSideTiles(r) : '') + '</div>';
   if (sec && n) {
     const ms = {}; ["road", "fight", "study", "drill", "arena", "pause"].forEach(k => (ms[k] = (sec[k] || 0) * 1000));
     html += qSplitHtml(r && r.xpBy ? qXpHtml(r.xpBy, r.xp || 0) : "", qTimeHtml({ n }, ms));
