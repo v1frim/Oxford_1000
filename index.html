@@ -1843,6 +1843,11 @@
   @keyframes qArenaPulse { 50% { box-shadow: 0 0 14px rgba(255,209,102,.45); } }
   #q-answer { width: min(460px, 70vw); font-size: 22px; padding: 12px 16px; border-radius: 14px; text-align: center; font-family: inherit;
     background: rgba(255,255,255,.07); color: #fff; border: 2px solid rgba(255,209,102,.6); outline: none; }
+  .gt-pop { position: fixed; z-index: 9999; max-width: min(420px, 90vw); padding: 9px 14px; border-radius: 12px; text-align: center;
+    background: #233a6b; border: 1px solid rgba(255,255,255,.22); box-shadow: 0 8px 24px rgba(0,0,0,.4); color: #fff; font-size: 14px; }
+  .gt-pop .gt-src { font-size: 11px; opacity: .6; margin-bottom: 3px; }
+  .gt-pop .gt-main { font-weight: 700; color: #ffd166; font-size: 16px; }
+  .gt-pop .gt-alts { font-size: 12px; opacity: .8; margin-top: 4px; }
   .q-kbd { font-size: 10px; opacity: .55; font-weight: 600; margin-left: 4px; }
   #q-answer:disabled { opacity: .45; border-color: rgba(255,255,255,.2); }
   #q-answer.wrong { border-color: #ff6b6b; }
@@ -12617,6 +12622,78 @@ document.addEventListener("keydown", e => {
   el.setRangeText(ch, a, b, "end");
   el.dispatchEvent(new Event("input", { bubbles: true }));   // слухачі «input» (автоперевірка походу) — як від звичайного набору
 }, true);
+// ── 🌐 Alt+Q — ПЕРЕКЛАД GOOGLE ПРЯМО НА КАРТЦІ (30.10.2026, за запитом: «виділяю і перекладаю гуглом у межах
+// вкладки — це дає ще альтернативний варіант»). Вбудований перекладач Chrome з контекстного меню сторінка
+// викликати не може, тож беремо той самий Google напряму: виділений текст, а без виділення — англійське
+// слово картки, коли відповідь уже показана (похід: Q.say, гра: currentWord). Кирилиця → uk→en, інакше en→uk.
+// Показує основний переклад + словникові варіанти (dt=bd). Якщо мережа/ендпоінт не відповів — пробуємо
+// вбудований Translator API Chrome (138+, на пристрої). Підказка зникає від кліку, Esc чи будь-якої клавіші.
+// ⚠️ Слухач на window у capture — інакше клавіатура походу (document, stopPropagation) його б не пропустила.
+let gtPop = null;
+function gtHide() { if (gtPop) { gtPop.remove(); gtPop = null; } }
+async function gtTranslate(text, sl, tl) {
+  try {
+    const r = await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&dt=bd&sl=" + sl + "&tl=" + tl + "&q=" + encodeURIComponent(text));
+    const d = await r.json();
+    const main = (d[0] || []).map(x => x && x[0] || "").join("").trim();
+    const alts = [];
+    (d[1] || []).forEach(p => (p[1] || []).forEach(w => { if (w && w !== main && !alts.includes(w)) alts.push(w); }));
+    if (main) return { main, alts: alts.slice(0, 6) };
+  } catch (e) {}
+  try {
+    if (self.Translator) {
+      const t = await Translator.create({ sourceLanguage: sl, targetLanguage: tl });
+      return { main: await t.translate(text), alts: [] };
+    }
+  } catch (e) {}
+  return null;
+}
+async function gtShow() {
+  const sel = (getSelection() || "").toString().trim();
+  // без виділення — лише там, де відповідь УЖЕ показана (картка вивчення походу, панель «Правильна відповідь»
+  // гри), щоб Alt+Q посеред бою/питання не підказував
+  const corr = document.getElementById("correction");
+  const text = sel || (Q ? ((Q.phase === "study" || Q.phase === "arenaStudy") && Q.say) :
+    (corr && !corr.classList.contains("hidden") && currentWord ? getEn(currentWord)[0] : ""));
+  if (!text) return;
+  const ua = /[а-яіїєґ]/i.test(text), sl = ua ? "uk" : "en", tl = ua ? "en" : "uk";
+  let rect = null;
+  try { if (sel) rect = getSelection().getRangeAt(0).getBoundingClientRect(); } catch (e) {}
+  if (!sel) {   // без виділення — під карткою (похід) / під панеллю відповіді (гра), щоб не закривати саме слово
+    const box = Q ? document.getElementById("q-card") : document.getElementById("correction");
+    if (box) rect = box.getBoundingClientRect();
+  }
+  gtHide();
+  const pop = gtPop = document.createElement("div");
+  pop.className = "gt-pop";
+  pop.innerHTML = '<div class="gt-src">🌐 ' + esc(text) + '</div><div class="gt-main">…</div>';
+  document.body.appendChild(pop);
+  const place = () => {
+    const w = pop.offsetWidth, h = pop.offsetHeight;
+    let x = rect && rect.width ? rect.left + rect.width / 2 - w / 2 : innerWidth / 2 - w / 2;
+    let y = rect && rect.width ? rect.bottom + 8 : 90;
+    if (y + h > innerHeight - 8) y = Math.max(8, (rect ? rect.top - h - 8 : 8));
+    pop.style.left = Math.max(8, Math.min(x, innerWidth - w - 8)) + "px"; pop.style.top = y + "px";
+  };
+  place();
+  const r = await gtTranslate(text, sl, tl);
+  if (gtPop !== pop) return;                     // встигли закрити / відкрити нову
+  pop.querySelector(".gt-main").textContent = r ? r.main : "не вдалося отримати переклад";
+  if (r && r.alts.length) pop.insertAdjacentHTML("beforeend", '<div class="gt-alts">' + r.alts.map(esc).join(" · ") + '</div>');
+  place();
+}
+addEventListener("keydown", e => {
+  if (e.altKey && !e.ctrlKey && !e.metaKey && e.code === "KeyQ") {
+    e.preventDefault(); e.stopPropagation();
+    if (!e.repeat) gtShow();
+    return;
+  }
+  if (gtPop && !["Alt", "Shift", "Control", "Meta"].includes(e.key)) {
+    gtHide();
+    if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); }   // Esc лише ховає підказку, не зупиняє похід
+  }
+}, true);
+addEventListener("mousedown", e => { if (gtPop && !gtPop.contains(e.target)) gtHide(); }, true);
 (() => {   // вимикач у «⚙️ Режим»: стан читаємо при кожному відкритті модалки (MutationObserver на class) і пишемо одразу
   const cb = document.getElementById("tm-kb"), modal = document.getElementById("train-modal");
   if (!cb || !modal) return;
@@ -13112,7 +13189,7 @@ function qStudyCard(userVal, title, btn) {
     // легко підглянути»). Спершу спробуй зрозуміти англійське сам.
     (exUa ? '<div class="qc-exua" data-q="exua">«' + esc(exUa) + '»</div>' : '') +
     // Перекладач і ChatGPT — як на фінал-екрані звичайної гри; Перекладач одразу з цим словом
-    '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом">🌐 Перекладач</a>' +
+    '<div class="qc-links"><a class="gt-link" href="https://translate.google.com/?sl=en&tl=uk&op=translate&text=' + encodeURIComponent(en) + '" target="_blank" rel="noopener" title="Google Перекладач з цим словом (Alt+Q — переклад прямо тут)">🌐 Перекладач</a>' +
       '<a class="gt-link" href="' + esc(imgSearchUrl(en)) + '" target="_blank" rel="noopener" title="Google Зображення з цим словом">🖼️ Картинки</a>' +
       '<a class="gt-link gpt" data-q="gpt" href="https://chatgpt.com/" target="_blank" rel="noopener" title="Відкрити ChatGPT у новій вкладці">🤖 GPT</a><span class="gpt-ctl"></span></div>' +
     btn;
@@ -13121,7 +13198,7 @@ function qStudyCard(userVal, title, btn) {
   Q.say = en; Q.sayEx = ex;
   qSetInput(false);
   // Клавіші — у нижній підказці над полем/«Втекти» (сесія 63, за запитом; раніше рядок `.qc-keys` на картці)
-  qHint("Tab — озвучити слово · Пробіл — озвучити речення" + (exUa ? " · наведи на розмите — переклад" : ""));
+  qHint("Tab — озвучити слово · Пробіл — озвучити речення" + (exUa ? " · наведи на розмите — переклад" : "") + " · Alt+Q — переклад Google");
 }
 function qDrillStart() {
   const c = Q.cur, other = c.dir === "ua-en" ? "en-ua" : "ua-en";
