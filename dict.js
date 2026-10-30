@@ -4215,7 +4215,7 @@ const WORDS = [
   {en:"vinegar",ua:"оцет"},
   {en:"vodka",ua:"горілка"},
   {en:"waffle",ua:"вафля"},
-  {en:"waitress",ua:"офіціантка",uaAlt:["подавальниця"]},
+  {en:"waitress",ua:"офіціантка",uaAlt:["подавальниця"],enAlt:["server"]},
   {en:"walnut",ua:"волоський горіх"},
   {en:"whisky",ua:"віскі",enAlt:["whiskey"]},
   {en:"white bread",ua:"білий хліб"},
