@@ -8921,18 +8921,25 @@ function computeStreaks(days) {
   }
   streaks.push(current);
   const today = todayKey();
+  // відповіді за днями з журналу (ігри + походи) — та сама сума, що в рядку серії «🎮N (x) ⚔️M (y)» = x + y
+  const logAns = {};
+  loadGamesLog().forEach(g => { const k = tsToDayKey(g.ts); logAns[k] = (logAns[k] || 0) + (g.score || 0) + (g.wrong || 0) + (g.skipped || 0); });
   streaks.forEach(s => {
     s.ongoing = s.end === today;
+    let logW = 0;
     // ігри й відповіді серії — рахуються тут, щоб ними можна було сортувати (рендер читає готові)
-    s.games = 0; s.words = 0;
+    s.games = 0; s.words = 0; s.quests = 0;
     for (let d = new Date(s.start); d <= new Date(s.end); d.setDate(d.getDate() + 1)) {
       const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+      logW += logAns[k] || 0;
       const x = days[k];
       if (!x) continue;
       s.games += x.games || 0;
+      s.quests += x.quests || 0;   // ⚔️ походи — окремим лічильником дня, у games не входять
       s.words += (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0);   // ігри + походи (обидва пишуть у день)
       s.bad = (s.bad || 0) + (x.wrong || 0) + (x.skipped || 0);
     }
+    s.words = Math.max(s.words, logW);   // = «🎮 (x)» + «⚔️ (y)» рядка: денна сума походів містить не завжди
   });
   // ⚠️ НІЧИЯ ЗА ДОВЖИНОЮ → БІЛЬШЕ ІГОР, ПОТІМ БІЛЬШЕ ВІДПОВІДЕЙ (сесія 60, за скаргою: три
   // серії по «1 день», і сьогоднішня з 2 іграми стояла над учорашньою з 4). Було
@@ -8941,7 +8948,8 @@ function computeStreaks(days) {
   // новіша серія вище (стабільний порядок при повній рівності).
   // Рекорд (`bestStreakLength`) і поточна (`currentStreakLength`) від порядку не залежать:
   // перший бере лише ДОВЖИНУ [0], друга шукає через find.
-  return streaks.sort((a, b) => b.length - a.length || b.games - a.games || b.words - a.words ||
+  // ⚠️ «ІГОР» = ігри + ПОХОДИ (30.10.2026, за скаргою: серія 🎮9 ⚔️17 стояла під 🎮20 — рахувались лише ігри).
+  return streaks.sort((a, b) => b.length - a.length || (b.games + b.quests) - (a.games + a.quests) || b.words - a.words ||
     (a.end < b.end ? 1 : a.end > b.end ? -1 : 0));
 }
 // ⚠️ Винесено з `renderTabGames` у сесії 51 — той самий рядок гри малює тепер і вкладка
