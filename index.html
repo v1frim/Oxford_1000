@@ -11724,7 +11724,10 @@ document.addEventListener("keydown", e => {
 const EXPR_STATUS_KEY    = "oxford_expr_status_v1";      // US→UA (історичний ключ)
 const EXPR_STATUS_KEY_UA = "oxford_expr_status_ua_v1";   // UA→US (сесія 47)
 let exprDir = "en2ua";      // en2ua (US→UA) | ua2en (UA→US)
-function exprStatusKeyFor(dir) { return (dir || exprDir) === "ua2en" ? EXPR_STATUS_KEY_UA : EXPR_STATUS_KEY; }
+// ⚠️ ЛІТЕРАЛИ, а не EXPR_STATUS_KEY(_UA) (30.10.2026): «Загальна статистика» (рядок 💬 Вирази) і досягнення малюються
+// на старті сторінки РАНІШЕ, ніж виконуються ці const → TDZ-помилка, яку try/catch у loadExprStatus тихо перетворював
+// на {} — «вивчено 0» до першого перемальовування. Рядки мусять збігатися з константами вище.
+function exprStatusKeyFor(dir) { return (dir || exprDir) === "ua2en" ? "oxford_expr_status_ua_v1" : "oxford_expr_status_v1"; }
 function loadExprStatus(dir) {
   try { return JSON.parse(localStorage.getItem(exprStatusKeyFor(dir)) || "{}"); } catch(e) { return {}; }
 }
