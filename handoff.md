@@ -3267,6 +3267,8 @@ EN→EN і `setMode`.
      посеред бою НЕ підказує. Ендпоінт `translate.googleapis.com/translate_a/single?client=gtx&dt=t&dt=bd` (CORS `*`;
      `d[0]` — переклад, `d[1]` — словникові варіанти) → запасний `Translator` API Chrome. Слухач на `window` capture
      (інакше похід з `stopPropagation` не пропустить); Esc лише ховає підказку.
+     **(31.10) Alt+Q і для 💬 фраз:** фраза в поході (`Q.phase === "phrase"`, лише після показу перекладу) і картка
+     тренажера «Вирази» (`exprRevealed`); підказка — під `.exf-card`.
   7. **🏟️ Shift+Enter — «На арену»** (коли видно `#q-arena-go`); на кнопці підпис **«Shift+Enter»** (було «⇧ Enter» —
      користувач читав як просто Enter). Звичайний Enter СВІДОМО не чіпали: бій/порожній Enter = втекти.
   8. **💬 «Вирази» в «Загальній статистиці»:** `30 (✓13)` — картки за весь час (`getTotalExprCards`) і зелене ✓ =

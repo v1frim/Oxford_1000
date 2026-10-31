@@ -12665,14 +12665,17 @@ async function gtShow() {
   // без виділення — лише там, де відповідь УЖЕ показана (картка вивчення походу, панель «Правильна відповідь»
   // гри), щоб Alt+Q посеред бою/питання не підказував
   const corr = document.getElementById("correction");
-  const text = sel || (Q ? ((Q.phase === "study" || Q.phase === "arenaStudy") && Q.say) :
+  // 💬 фрази (31.10.2026, за запитом): фраза в поході й картка тренажера «Вирази» — теж лише ПІСЛЯ показу перекладу
+  const exprCard = !exprOverlay.classList.contains("hidden") && exprView === "card" && exprRevealed && exprDeck[exprPos];
+  const text = sel || (exprCard ? exprCard.en : Q ? ((Q.phase === "study" || Q.phase === "arenaStudy") ? Q.say :
+      Q.phase === "phrase" && Q.phrase && Q.phrase.open ? Q.phrase.c.en : "") :
     (corr && !corr.classList.contains("hidden") && currentWord ? getEn(currentWord)[0] : ""));
   if (!text) return;
   const ua = /[а-яіїєґ]/i.test(text), sl = ua ? "uk" : "en", tl = ua ? "en" : "uk";
   let rect = null;
   try { if (sel) rect = getSelection().getRangeAt(0).getBoundingClientRect(); } catch (e) {}
   if (!sel) {   // без виділення — під карткою (похід) / під панеллю відповіді (гра), щоб не закривати саме слово
-    const box = Q ? document.getElementById("q-card") : document.getElementById("correction");
+    const box = exprCard ? document.querySelector(".exf-card") : Q ? document.getElementById("q-card") : document.getElementById("correction");
     if (box) rect = box.getBoundingClientRect();
   }
   gtHide();
@@ -12967,7 +12970,7 @@ function qPhraseRender() {
       : '<button class="qc-go" data-q="phrase-open">Показати переклад <small>Enter</small></button>') + '</div>' +
     '<div class="qc-hint">+' + EXPR_CARD_XP + ' XP за картку · +' + EXPR_KNOW_XP + ' XP за «Знаю» · пункт «Плани» за кожні ' + EXPR_POINT_EVERY + ' карток</div>';
   qEl("q-card").classList.remove("hidden");
-  qHint(open ? "Enter — знаю · Пробіл — ще вчу · Esc — стоп" : "Enter / Пробіл — показати переклад · Esc — стоп");
+  qHint(open ? "Enter — знаю · Пробіл — ще вчу · Alt+Q — переклад Google · Esc — стоп" : "Enter / Пробіл — показати переклад · Esc — стоп");
 }
 function qPhraseOpen() {
   if (!Q.phrase || Q.phrase.open) return;
