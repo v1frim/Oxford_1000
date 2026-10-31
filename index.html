@@ -13608,7 +13608,7 @@ function questFinal() {
 function qSideTiles(r) {
   const t = (ic, v, lab) => '<div><b>' + ic + ' ' + v + '</b>' + lab + '</div>';   // емодзі — біля числа, не біля підпису
   return (r.phr ? t("💬", r.phr, plural(r.phr, "фраза", "фрази", "фраз")) : '') +
-    (r.duo || r.lh ? t("🗺️", (r.duo || 0) + (r.lh || 0), 'уроків<small class="qc-pts">' +
+    (r.duo || r.lh ? t("🗺️", (r.duo || 0) + (r.lh || 0), plural((r.duo || 0) + (r.lh || 0), "квест", "квести", "квестів") + '<small class="qc-pts">' +
       [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '');
 }
 // Фінал / минулий похід: зліва ✨ XP за джерелами, справа ⏱ час по етапах (сесія 65). Без XP — час на всю ширину.
