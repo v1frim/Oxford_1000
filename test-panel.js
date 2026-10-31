@@ -190,10 +190,10 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     t(`компенсація == різниця ширин панелей (${vw}px)`, geo.mr === geo.progW - geo.lbW,
       "margin-right " + geo.mr + " vs " + geo.progW + "−" + geo.lbW);
     if (vw >= 1860) {
-      t("широкий екран: панель прогресу 480px", geo.progW === 480, String(geo.progW));
+      t("широкий екран: панель прогресу 487px", geo.progW === 487, String(geo.progW));
       t("щільний місячний рядок НЕ переноситься", geo.monthWrapped === false);
     } else {
-      t("вузький екран: стара ширина 440px", geo.progW === 440, String(geo.progW));
+      t("вузький екран: ширина 447px", geo.progW === 447, String(geo.progW));
     }
     // ⚠️ ПОВНОТА «Загальної статистики» (сесія 50). Привід: я дописав коментар `//`
     // У КІНЦІ рядка всередині конкатенації `row(...) + row(...) + …` — він з'їв

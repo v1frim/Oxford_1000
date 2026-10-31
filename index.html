@@ -44,7 +44,7 @@
   /* Коли видно лише картку + leaderboard (панель прогресу схована),
      зсуваємо групу праворуч, щоб центральна картка лишалась по центру екрана. */
   @media (min-width: 1500px) {
-    .layout.shift-right { margin-left: 222px; }
+    .layout.shift-right { margin-left: 225.5px; }   /* = (ширина лідерборду 427 + gap 24) / 2 */
     /* ⚠️ ФОРМУЛА, А НЕ МАГІЧНЕ ЧИСЛО: margin-right = ширина прогресу − ширина лідерборду.
        Лейаут центрується в (vw − margin-right), тож така компенсація повертає центр
        КАРТКИ рівно на центр екрана. Було 20 (440−420), стало 80 (500−420).
@@ -63,7 +63,7 @@
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 20px;
     padding: 32px;
-    width: 460px;
+    width: 450px;   /* 31.10.2026, за запитом: центральна −10px, бокові +7px кожна (було 460 / 420 / 440·480) */
     max-width: 94vw;
     text-align: center;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,0.12);
@@ -75,7 +75,7 @@
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 20px;
     padding: 22px 20px;
-    width: 420px;
+    width: 427px;
     max-width: 94vw;
     height: 560px;
     color: #fff;
@@ -1772,8 +1772,8 @@
   .qc-ex { transition: filter .2s; }
   .q-card:has(.qc-exua:hover) .qc-ex { filter: blur(5px); }
   .lb-mon { display: inline-block; width: 17px; height: 15px; vertical-align: -3px; margin-right: 1px; }   /* сесія 65: було 20×18 — місце в рядку */
-  .lb-list li.q-row, #lb-today-strip li[data-qts], .lb-list li:has(.lb-kills) { gap: 8px; }   /* без «·» між групами — трохи ширший проміжок */
-  .lb-acts span + span, .lb-kills .lb-mon ~ .lb-mon { margin-left: 2px; }
+  .lb-list li.q-row, #lb-today-strip li[data-qts], .lb-list li:has(.lb-kills) { gap: 5px; }   /* без «·» між групами; 31.10.2026 — 8→5px, рядок походу не вміщався */
+  .lb-acts span + span, .lb-kills .lb-mon ~ .lb-mon { margin-left: 1px; }
   .lb-mon svg { width: 100%; height: 100%; }
   .lb-kills { white-space: nowrap; }
   .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
@@ -1950,7 +1950,7 @@
      статистики» (41px) не з'їдається. Ліворуч запас обмежують `#bottom-left-btns`
      (правий край 183px): при 500 лейаут починається з 206px, тобто 23px чистими.
      Стеля ≈513; більше — кнопки почнуть перекриватись, коли панель високa. */
-  #progress-panel { width: 440px; }
+  #progress-panel { width: 447px; }
   #progress-panel .lb-header { justify-content: space-between; }
   #prog-streak { font-size: 14px; font-weight: 700; color: #ffa94d; white-space: nowrap; }
   #prog-streak.pending { opacity: .55; }
@@ -1960,7 +1960,7 @@
      1408px + 60 компенсації, і нижче ~1854px його лівий край заходить під
      `#bottom-left-btns`, а близько 1500 взагалі переноситься й ламає центрування.
      Тому поріг 1860: ширше — комфортні місячні рядки, вужче — стара геометрія 440. */
-  @media (min-width: 1860px) { #progress-panel { width: 480px; } }
+  @media (min-width: 1860px) { #progress-panel { width: 487px; } }
   .prog-row { align-items: center; }
   .prog-date { flex: 0 0 auto; min-width: 52px; }
   .prog-cells { display: flex; flex: 1 1 auto; align-items: center; flex-wrap: wrap; min-width: 0; row-gap: 3px; }
@@ -7326,10 +7326,10 @@ function loadExprXpLog() {
 function saveExprXpLog(o) { localStorage.setItem(EXPR_XP_KEY, JSON.stringify(o)); }
 function exprXpForDate(log, date) {
   const r = log && log[date];
-  return r ? (r.r || 0) * EXPR_CARD_XP + (r.k || 0) * EXPR_KNOW_XP : 0;
+  return r ? ((r.r || 0) + (r.q || 0)) * EXPR_CARD_XP + (r.k || 0) * EXPR_KNOW_XP : 0;   // q — фрази походу (31.10.2026)
 }
 function getTotalExprCards() {
-  return Object.values(loadExprXpLog()).reduce((n, r) => n + (r.r || 0), 0);
+  return Object.values(loadExprXpLog()).reduce((n, r) => n + (r.r || 0) + (r.q || 0), 0);
 }
 // ── 🌡️ ПУНКТИ «ПЛАНИ» ЗА ВИРАЗИ (сесія 47, за запитом) ──────────────────────
 // Кожні 12 ПРОЙДЕНИХ карток (подія «Показати переклад», поле `r`) = 1 пункт.
@@ -7358,7 +7358,11 @@ function exprPointsByDate(log) {
 //          + GPT×15 + 🎧×30 + 🎬×60 + 📒пункти×30 + 📖повторення×30 (ставки сесії 41).
 // ⚠️ ОГОЛОШЕНО ТУТ (а не в модулі походу): questPointNeed кличе міграція splitQuestsFromGames ще під час
 // завантаження — const нижче за текстом був би в TDZ, і міграція тихо падала б у try/catch.
-const QUEST_PT_STEP = 15;   // ⚔️ похід: очок на 1 пункт «Плани» (сесія 64, за запитом: 14 → 15)
+// ⚔️ похід: очок на 1 пункт «Плани». 31.10.2026 (за запитом «пункт ≈ 6–7 хв»): 15 → 24, а очки — пропорційно ЧАСУ:
+// бій (перша відповідь) 1 ≈16 с · картка + «3 правильні» 4 · добитий на арені 2 · 💬 фраза 3 (за заміром 3 походів:
+// виграний ≈16 с, програний з усім ≈106 с). До того (сесія 64): 15 очок, 1 · 1 · 1, фрази — у лічильник «Виразів».
+const QUEST_PT_STEP = 24;
+const QUEST_PTS = { fight: 1, drill: 4, arena: 2, phrase: 3 };
 // ⚔️ похід: слово, вивчене посеред бою (3 правильні після картки). Сесія 63: 1 → 2 (історію НЕ переписували —
 // два поля дня questDrill/questDrill2); СЕСІЯ 64, за запитом «перераховувати»: 5 XP і для ВСІЄЇ історії (formula_v18).
 const QUEST_DRILL_XP = 5;
@@ -7780,7 +7784,7 @@ function _progAggregate(dates, history, allDates, days) {
   const gptRequests = loadGptRequests();
   const movieSessions = loadMovieSessions();
   const exprLog = loadExprXpLog();
-  for (const d of dates) { if (days[d]) { games += days[d].games||0; quests += days[d].quests||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; expr += (exprLog[d] && exprLog[d].r) || 0; }
+  for (const d of dates) { if (days[d]) { games += days[d].games||0; quests += days[d].quests||0; rev += days[d].reviewCorrect||0; } duo += duoSessions[d] || 0; songSess += songSessions[d] || 0; gpt += gptRequests[d] || 0; movies += movieSessions[d] || 0; expr += (exprLog[d] && (exprLog[d].r || 0) + (exprLog[d].q || 0)) || 0; }
   const dateSet = new Set(dates);
   const lh    = Object.values(loadLhDone()).filter(v => dateSet.has(v)).length;
   const songs = Object.values(loadSongsXpAwarded()).filter(v => dateSet.has(v)).length;
@@ -7872,7 +7876,7 @@ function renderProgressPanel() {
     const songSess = songSessions[date] || 0;
     const gpt = gptRequests[date] || 0;
     const movies = movieSessions[date] || 0;
-    const expr = (exprLog[date] && exprLog[date].r) || 0;
+    const expr = (exprLog[date] && (exprLog[date].r || 0) + (exprLog[date].q || 0)) || 0;   // + q — фрази походу
     const metaHtml = _progMetaHtml(games, lh, duo, songs, songSess, gpt, movies, expr, (days[date] && days[date].quests) || 0);
     const dt = (cur.t || WORDS.length) - (prev.t || WORDS.length);
     const dk = cur.k - prev.k, dl = cur.l - prev.l;
@@ -9346,7 +9350,7 @@ function daysActsParts(keys, noQuests) {
   const set = new Set(keys), days = loadDays(), sum = o => keys.reduce((a, k) => a + ((o || {})[k] || 0), 0);
   const inSet = o => Object.values(o).filter(v => set.has(v)).length;
   const qn = keys.reduce((a, k) => a + ((days[k] || {}).quests || 0), 0);
-  const ex = keys.reduce((a, k) => a + (((loadExprXpLog() || {})[k] || {}).r || 0), 0);
+  const ex = keys.reduce((a, k) => { const r = (loadExprXpLog() || {})[k] || {}; return a + (r.r || 0) + (r.q || 0); }, 0);
   const parts = [];
   if (qn && !noQuests) parts.push("⚔️" + qn);   // походи — окремо від «· N ігор» (у 🔥 — у рядку з іграми)
   [["🦉", sum(loadDuoSessions())], ["📚", inSet(loadLhDone())], ["🤖", sum(loadGptRequests())],
@@ -12818,9 +12822,10 @@ function qPtsHtml() {
   const base = questPointNeed(Q.pts), have = Q.answers - base, carry = Q.pts ? 0 : Math.min(Q.carry || 0, have);
   const pct = n => (n / QUEST_PT_STEP * 100).toFixed(1) + "%";
   const all = Q.pts + Q.xPts;
-  const tip = "Пункти «Плани» за похід: 1 пункт за кожні " + QUEST_PT_STEP + " очок. Очко — відповідь монстру, завершене повторення або добитий на арені. " +
+  const tip = "Пункти «Плани» за похід: 1 пункт за кожні " + QUEST_PT_STEP + " очок. Бій — " + QUEST_PTS.fight + ", картка + 3 правильні — " + QUEST_PTS.drill +
+    ", добитий на арені — " + QUEST_PTS.arena + ", фраза — " + QUEST_PTS.phrase + " (≈ пункт за 6–7 хв). " +
     "До наступного пункту: " + have + " з " + QUEST_PT_STEP + (Q.carry ? " (з них " + Q.carry + " перенесено з минулого походу)" : "") + "." +
-    (Q.xPts ? " Разом " + all + ": монстри " + Q.pts + " + фрази й побічні квести " + Q.xPts + "." : "");
+    (Q.xPts ? " Разом " + all + ": монстри " + Q.pts + " + побічні квести " + Q.xPts + "." : "");
   return '<span class="q-pts" title="' + tip + '">🌡️ <b>' + all + '</b><span class="q-pts-lab">' + plural(all, "пункт", "пункти", "пунктів") + '</span>' +
     '<span class="q-pts-bar"><i class="c" style="width:' + pct(carry) + '"></i><i class="n" style="width:' + pct(have - carry) + '"></i></span>' +
     '<small>' + have + '/' + QUEST_PT_STEP + ' оч.</small></span>';
@@ -12970,17 +12975,18 @@ function qPhraseRender() {
     '<div class="qc-btns">' + (open
       ? '<button class="qc-go alt" data-q="phrase-learning">↻ Ще вчу <small>Пробіл</small></button><button class="qc-go" data-q="phrase-learned">✓ Знаю <small>Enter</small></button>'
       : '<button class="qc-go" data-q="phrase-open">Показати переклад <small>Enter</small></button>') + '</div>' +
-    '<div class="qc-hint">+' + EXPR_CARD_XP + ' XP за картку · +' + EXPR_KNOW_XP + ' XP за «Знаю» · пункт «Плани» за кожні ' + EXPR_POINT_EVERY + ' карток</div>';
+    '<div class="qc-hint">+' + EXPR_CARD_XP + ' XP за картку · +' + EXPR_KNOW_XP + ' XP за «Знаю» · +' + QUEST_PTS.phrase + ' очки походу (до пункту «Плани»)</div>';
   qEl("q-card").classList.remove("hidden");
   qHint(open ? "Enter — знаю · Пробіл — ще вчу · Alt+Q — переклад Google · Esc — стоп" : "Enter / Пробіл — показати переклад · Esc — стоп");
 }
 function qPhraseOpen() {
   if (!Q.phrase || Q.phrase.open) return;
   Q.phrase.open = true;
-  const exPts = () => exprPointsByDate(loadExprXpLog())[gptToday()] || 0, p0 = exPts();
-  awardExprXp("r");
+  // ⚠️ 31.10.2026: фраза походу — поле «q» журналу виразів (XP і лічильник карток — як «r»), але НЕ в 15-карткові
+  // пункти «Виразів» (exprPointsByDate читає лише r) — замість них QUEST_PTS.phrase очок походу. Без подвійного заліку.
+  awardExprXp("q");
   Q.phr++;
-  qExtraPts(exPts() - p0, "за фрази");
+  qCountAnswer(QUEST_PTS.phrase);
   qHud();   // 💬 і ⚡ — одразу (qExtraPts перемальовує шапку лише коли капнув пункт; скарга сесії 65 «💬 із затримкою»)
   qFloat("+" + EXPR_CARD_XP + " XP", "xp", 50);
   qPhraseRender();
@@ -13121,8 +13127,8 @@ function questPointsFor(n) { let k = 0; while (questPointNeed(k + 1) <= n) k++; 
 // Q.answers = збережений залишок, і після кожного очка залишок (очки понад останній пункт) пишеться.
 const QUEST_CARRY_KEY = "oxford_quest_carry_v1";
 function qLoadCarry() { const v = parseInt(localStorage.getItem(QUEST_CARRY_KEY), 10); return v > 0 && v < QUEST_PT_STEP ? v : 0; }
-function qCountAnswer() {
-  Q.answers++;
+function qCountAnswer(n) {
+  Q.answers += n || 1;
   while (questPointNeed(Q.pts + 1) <= Q.answers) {
     Q.pts++;
     qDayAdd("questPts");
@@ -13145,7 +13151,7 @@ function qFightAnswer(val, auto) {
   qT("road");
   Q.rec = { w: wordKey(WORDS[c.idx]), dir: c.dir, ok, t: qNow() - Q.mAt };   // ⏱ скільки думав над монстром
   Q.mlog.push(Q.rec);
-  qCountAnswer();
+  qCountAnswer(QUEST_PTS.fight);
   bumpSeen();                                    // показ для планувальника — як у звичайній грі
   if (!Q.counted) { Q.counted = true; qDayAdd("quests"); }   // ⚔️ окремий режим — не «гра»
   qSetInput(false);
@@ -13258,7 +13264,7 @@ function qDrillAnswer(val, auto) {
       // вивчене слово = +QUEST_DRILL_XP; журнал для перерахунку XP — поле дня questDrill
       addXp(QUEST_DRILL_XP); qDayAdd("questDrill2");   // questDrill2 = по 2 XP (сесія 63), не questDrill
       qFeed(Q.cur.idx, [["+" + QUEST_DRILL_XP, "підівчив"]], "drill");   // не «вивчив»: слово НЕ йде у «Знаю» (сесія 65)
-      qCountAnswer();   // завершене повторення = 1 очко до пункту «Плани»
+      qCountAnswer(QUEST_PTS.drill);   // завершене повторення (картка + 3 правильні) — очки до пункту «Плани»
       Q.rec.dr = qNow() - Q.rec.d0; delete Q.rec.d0;   // ⏱ повторення
       qFloat("+" + QUEST_DRILL_XP + " XP", "xp", 50);
       qFlee(); return;
@@ -13453,7 +13459,7 @@ function qArenaAnswer(val, auto) {
       // закритий монстр = закрите слово повторення: +2 XP і +1 «Повторень» (як post-game review)
       addXp(ARENA_KILL_XP); Q.arenaWon++; qDayAdd("arenaKill");   // арена — своє поле дня (сесія 64)
       qFeed(idx, [], "arena");
-      qCountAnswer();   // добитий на арені = 1 очко до пункту «Плани»
+      qCountAnswer(QUEST_PTS.arena);   // добитий на арені — очки до пункту «Плани»
       Q.alog.push(ar);
       recordReviewStats(1);
       A.left.delete(idx);
