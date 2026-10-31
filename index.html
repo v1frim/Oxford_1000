@@ -12948,6 +12948,7 @@ function qPhraseStart() {
   seen.add(c.en);
   Q.phrase = { c, dir, open: false };
   Q.phase = "phrase"; Q.speedTo = 0;
+  qT("phrase");
   qHero("");
   qSetInput(false);
   qPhraseRender();
@@ -13085,7 +13086,8 @@ const QUEST_LOG_MAX = 200;
 function qNow() { return Date.now(); }
 // етапи часу походу; duo / lh — час на сайті побічного квесту від «Перейти» до «Готово» (30.10.2026, за запитом;
 // до того йшов у «Привал»)
-const Q_TIME_KEYS = ["road", "fight", "study", "drill", "arena", "pause", "duo", "lh"];
+// phrase — картка 💬 фрази замість монстра (31.10.2026, за запитом; до того йшла в «Дорогу»)
+const Q_TIME_KEYS = ["road", "fight", "study", "drill", "arena", "pause", "duo", "lh", "phrase"];
 function qT(bucket) {
   if (!Q) return;
   const now = qNow();
@@ -13521,7 +13523,7 @@ function qRoadAfterArena() {
   qWalk();
 }
 function questTimeSummary() {
-  const tm = Q.tm, n = { fights: Q.mlog.length, drills: Q.mlog.filter(r => r.dr != null).length, arena: Q.alog.length, duo: Q.duo || 0, lh: Q.lh || 0 };
+  const tm = Q.tm, n = { fights: Q.mlog.length, drills: Q.mlog.filter(r => r.dr != null).length, arena: Q.alog.length, duo: Q.duo || 0, lh: Q.lh || 0, phr: Q.phr || 0 };
   const sec = {}; let total = 0;
   Q_TIME_KEYS.forEach(k => { sec[k] = Math.round((tm[k] || 0) / 1000); total += tm[k] || 0; });
   sec.total = Math.round(total / 1000);
@@ -13633,6 +13635,7 @@ function qTimeHtml(ts, tmMs) {   // tmMs — мс по етапах для ми�
     row("📖", "Картка зі словом після поразки (до «Готово»)", tm.study, "сер. " + qFmtAvg(tm.study || 0, n.drills) + " на слово") +
     row("🔁", "3 правильні після картки · " + n.drills, tm.drill, "сер. " + qFmtAvg(tm.drill || 0, n.drills) + " на слово") +
     row("🏟️", "Арена · " + n.arena, tm.arena, "сер. " + qFmtAvg(tm.arena || 0, n.arena) + " на монстра") +
+    (tm.phrase ? row("💬", "Фрази" + (n.phr ? " · " + n.phr : ""), tm.phrase, n.phr ? "сер. " + qFmtAvg(tm.phrase, n.phr) + " на фразу" : "") : "") +
     row("🛣️", "Дорога, удари, втечі", tm.road, "") +
     (tm.duo ? row("🦉", "Duolingo" + (n.duo ? " · " + n.duo : ""), tm.duo, n.duo ? "сер. " + qFmtT(tm.duo / n.duo) + " на заняття" : "") : "") +
     (tm.lh ? row("📚", "LingoHut" + (n.lh ? " · " + n.lh : ""), tm.lh, n.lh ? "сер. " + qFmtT(tm.lh / n.lh) + " на урок" : "") : "") +
