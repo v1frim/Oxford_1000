@@ -12201,83 +12201,115 @@ function heroDefs(u, gear, look) {
 }
 // h = { tier: 0..4, gear: {sword,bow,shield,boots,amulet,scroll,lute,crown}: ліги 0..5 }
 // opt.bust — лише голова й плечі (для смужки рівня та «Шляху героя»)
+// 🎨 СТИЛЬ 01.11.2026 (за запитом «графіка застаріла», макет погоджено): чібі з кольоровим контуром (HOL)
+// і двотоновою «cel»-тінню — праву половину кожної деталі накриває темніший тон (hDk). Система координат
+// та сама, що до того (голова ~(100,74), стопи ~y 224) — бюст/wide-кадри смужки рівня не зсуваються.
+const HOL = "#2b2340";
+function hDk(c, k) {   // темніший тон кольору (тінь): змішування з глибоким фіолетовим
+  if (!/^#[0-9a-f]{6}$/i.test(c)) return c;
+  const p = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)), t = [26, 16, 48];
+  return "#" + p.map((v, i) => Math.round(v + (t[i] - v) * (k == null ? .28 : k)).toString(16).padStart(2, "0")).join("");
+}
 function heroSvg(h, opt) {
   opt = opt || {};
   const u = "h" + Math.random().toString(36).slice(2, 8), look = HERO_LOOKS[h.tier], G = h.gear, M = k => "url(#m" + k + u + ")";
   const D = c => HERO_METAL[G[c]][2];
+  const S = (fill, w) => 'fill="' + fill + '" stroke="' + HOL + '" stroke-width="' + (w || 2.4) + '" stroke-linejoin="round"';
+  const arm = (d, c) => '<path d="' + d + '" fill="none" stroke="' + HOL + '" stroke-width="20.8" stroke-linecap="round"/><path d="' + d + '" fill="none" stroke="' + c + '" stroke-width="16" stroke-linecap="round"/>';
+  const tunic = look.tunic[0], tunicSh = look.tunic[1], skin = "#ffd7b8", skinSh = "#f3b996";
   let s = heroDefs(u, G, look);
-  if (!opt.bust) s += '<circle cx="100" cy="122" r="98" fill="url(#au' + u + ')"/><ellipse cx="100" cy="228" rx="54" ry="8" fill="rgba(0,0,0,.35)"/>';
-  // плащ
-  if (look.cape) s += '<path d="M70 110 Q100 100 130 110 L146 214 Q100 226 54 214 Z" fill="url(#ca' + u + ')"/>';
+  if (!opt.bust) s += '<circle cx="100" cy="122" r="98" fill="url(#au' + u + ')"/><ellipse cx="100" cy="229" rx="52" ry="7" fill="rgba(0,0,0,.3)"/>';
+  // плащ (Лицар/Маг/Легенда) або короткий плащ-накидка Слідопита
+  if (look.cape) s += '<path d="M70 106 Q100 94 132 106 L150 214 Q124 228 100 220 Q76 228 50 214 Z" ' + S("url(#ca" + u + ")") + '/>' +
+    '<path d="M100 98 Q118 100 132 106 L150 214 Q126 226 104 220 Q114 160 100 98 Z" fill="rgba(20,10,40,.22)"/>';
+  if (look.hood) s += '<path d="M70 106 Q100 94 132 106 L150 200 Q126 214 100 205 Q74 214 50 200 Z" ' + S(look.hood[1]) + '/>';
   // лук за правим плечем
-  if (G.bow) s += '<path d="M128 62 Q172 112 140 176" fill="none" stroke="' + M("bow") + '" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M128 62 L140 176" stroke="#f1ead8" stroke-width="1.2"/>';
+  if (G.bow) s += '<path d="M138 58 Q188 118 148 190" fill="none" stroke="' + HOL + '" stroke-width="11" stroke-linecap="round"/>' +
+    '<path d="M138 58 Q188 118 148 190" fill="none" stroke="' + M("bow") + '" stroke-width="6.4" stroke-linecap="round"/><path d="M138 58 L148 190" stroke="#f6ecd8" stroke-width="1.4"/>';
   // лютня за лівим плечем
-  if (G.lute) s += '<g transform="rotate(-28 64 120)"><rect x="60" y="56" width="7" height="46" rx="2" fill="#7a4a24"/><rect x="58" y="50" width="11" height="10" rx="2" fill="' + D("lute") + '"/>' +
-    '<ellipse cx="63.5" cy="122" rx="17" ry="21" fill="' + M("lute") + '" stroke="' + D("lute") + '" stroke-width="1.5"/><circle cx="63.5" cy="118" r="5" fill="#3a2414"/></g>';
-  // ноги / мантія
-  if (!look.robe) s += '<rect x="83" y="170" width="14" height="44" rx="6" fill="' + look.pants + '"/><rect x="103" y="170" width="14" height="44" rx="6" fill="' + look.pants + '"/>';
-  // чоботи
+  if (G.lute) s += '<g transform="rotate(-28 64 120)"><rect x="60" y="56" width="8" height="46" rx="2" ' + S("#8a5a30", 2) + '/><rect x="57" y="48" width="14" height="11" rx="3" ' + S(M("lute"), 2) + '/>' +
+    '<ellipse cx="64" cy="122" rx="18" ry="22" ' + S(M("lute")) + '/><circle cx="64" cy="118" r="5.5" fill="#3a2414"/></g>';
+  // ноги
+  if (!look.robe) s += '<rect x="82" y="168" width="16" height="44" rx="8" ' + S(look.pants) + '/><rect x="103" y="168" width="16" height="44" rx="8" ' + S(look.pants) + '/>' +
+    '<rect x="108" y="172" width="9" height="36" rx="4.5" fill="' + hDk(look.pants, .25) + '"/>';
+  // чоботи: металеві (ліга «днів занять») або шкіряні
   s += G.boots
-    ? '<path d="M99 196 h-17 v16 l-7 2 q-5 1.5 -5 5 v3 h29 z M101 196 h17 v16 l7 2 q5 1.5 5 5 v3 h-29 z" fill="' + M("boots") + '" stroke="' + D("boots") + '" stroke-width="1.2"/>' +
-      '<rect x="81" y="193" width="19" height="6" rx="2" fill="' + D("boots") + '"/><rect x="100" y="193" width="19" height="6" rx="2" fill="' + D("boots") + '"/>'
-    : '<rect x="78" y="210" width="21" height="12" rx="5" fill="#5b3a22"/><rect x="101" y="210" width="21" height="12" rx="5" fill="#5b3a22"/>';
-  // тулуб
+    ? '<path d="M100 198 h-20 q-12 0 -12 14 v6 q0 6 6 6 h26 z" ' + S(M("boots")) + '/><path d="M102 198 h20 q12 0 12 14 v6 q0 6 -6 6 h-26 z" ' + S(M("boots")) + '/>' +
+      '<rect x="79" y="194" width="22" height="8" rx="3" ' + S(D("boots"), 2) + '/><rect x="101" y="194" width="22" height="8" rx="3" ' + S(D("boots"), 2) + '/>' +
+      '<path d="M72 216 h26 M104 216 h26" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>'
+    : '<path d="M100 204 h-20 q-12 0 -12 12 v2 q0 6 6 6 h26 z" ' + S("#8a5a36") + '/><path d="M102 204 h20 q12 0 12 12 v2 q0 6 -6 6 h-26 z" ' + S("#8a5a36") + '/>' +
+      '<path d="M72 216 h26 M104 216 h26" stroke="#d1a47a" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>';
+  // тулуб: туніка або мантія; права половина — у тіні, ліва — відблиск
   s += look.robe
-    ? '<path d="M74 110 Q100 100 126 110 L142 216 Q100 228 58 216 Z" fill="url(#tu' + u + ')"/><path d="M100 112 L100 222" stroke="rgba(255,215,120,.7)" stroke-width="3"/>'
-    : '<path d="M74 110 Q100 100 126 110 L131 178 Q100 188 69 178 Z" fill="url(#tu' + u + ')"/>';
-  if (look.armor) s += '<path d="M82 120 Q100 112 118 120 L116 150 Q100 158 84 150 Z" fill="rgba(255,255,255,.22)"/><path d="M100 116 V156" stroke="rgba(0,0,0,.18)" stroke-width="2"/>' +
-    '<ellipse cx="74" cy="114" rx="11" ry="8" fill="url(#tu' + u + ')" stroke="rgba(0,0,0,.2)"/><ellipse cx="126" cy="114" rx="11" ry="8" fill="url(#tu' + u + ')" stroke="rgba(0,0,0,.2)"/>';
-  // пояс + сувій
-  s += '<rect x="70" y="160" width="60" height="8" rx="3" fill="' + (look.robe ? "#d8a530" : "#4a3020") + '"/><rect x="95" y="159" width="10" height="10" rx="2" fill="#e8c35a" stroke="#8a6a1a"/>';
+    ? '<path d="M72 108 Q100 96 128 108 L144 218 Q100 232 56 218 Z" ' + S("url(#tu" + u + ")") + '/>' +
+      '<path d="M110 100 Q124 103 128 108 L144 218 Q126 226 110 228 Q120 160 110 100 Z" fill="rgba(20,10,40,.22)"/>' +
+      '<path d="M100 112 L100 226" stroke="#e8c35a" stroke-width="3.4"/>'
+    : '<path d="M72 108 Q100 96 128 108 L135 178 Q100 194 65 178 Z" ' + S("url(#tu" + u + ")") + '/>' +
+      '<path d="M110 100 Q124 103 128 108 L135 178 Q122 185 110 188 Q118 142 110 100 Z" fill="rgba(20,10,40,.2)"/>' +
+      '<path d="M75 113 Q77 140 71 170" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".28"/>';
+  // кіраса (Лицар, Легенда) + наплічники
+  if (look.armor) s += '<path d="M80 116 Q100 106 120 116 L118 152 Q100 162 82 152 Z" ' + S(tunic, 2) + '/><path d="M100 110 Q114 110 120 116 L118 152 Q108 158 100 160 Z" fill="' + tunicSh + '"/>' +
+    '<path d="M86 122 Q90 136 88 148" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".5"/>' +
+    '<ellipse cx="73" cy="112" rx="13" ry="9" ' + S(tunic) + '/><ellipse cx="127" cy="112" rx="13" ry="9" ' + S(tunicSh) + '/>';
+  // комір-капюшон Слідопита
+  if (look.hood) s += '<path d="M74 104 Q100 126 126 104 Q120 122 100 126 Q80 122 74 104 Z" ' + S(look.hood[0]) + '/>';
+  // пояс
+  s += '<rect x="67" y="154" width="66" height="11" rx="5" ' + S(look.robe ? "#d8a530" : "#7a4a2a") + '/>' +
+    '<rect x="93" y="151" width="15" height="17" rx="4" ' + S("#f2c457", 2) + '/><rect x="97" y="155" width="7" height="9" rx="2" fill="#c48f20"/>';
   // сувій — на ЛІВОМУ стегні (справа його цілком затуляв щит)
-  if (G.scroll) s += '<g transform="rotate(14 86 174)"><rect x="73" y="168" width="28" height="11" rx="5.5" fill="#f4e7c3" stroke="#bfa66a" stroke-width="1.2"/>' +
-    '<path d="M79 171.5 h16 M79 175.5 h12" stroke="#a8916a" stroke-width="1"/><rect x="84" y="167" width="5" height="13" fill="' + M("scroll") + '"/></g>';
+  if (G.scroll) s += '<g transform="rotate(14 86 176)"><rect x="71" y="169" width="30" height="13" rx="6.5" ' + S("#f6ecd0", 2) + '/>' +
+    '<path d="M78 173.5 h16 M78 177.5 h12" stroke="#a8916a" stroke-width="1.2"/><rect x="83" y="167" width="6" height="17" rx="1.5" ' + S(M("scroll"), 1.6) + '/></g>';
   // амулет
-  if (G.amulet) s += '<path d="M86 108 Q100 128 114 108" fill="none" stroke="' + D("amulet") + '" stroke-width="1.6"/><path d="M100 122 l7 7 l-7 9 l-7 -9 z" fill="' + M("amulet") + '" stroke="#fff" stroke-width="1"/>';
-  // ліва рука (меч)
-  s += '<path d="M76 116 L64 156" stroke="' + look.sleeve + '" stroke-width="13" stroke-linecap="round"/>';
-  // меч: 0 — дерев'яний
-  s += '<polygon points="61,146 67,146 66.5,70 64,62 61.5,70" fill="' + M("sword") + '" stroke="' + D("sword") + '" stroke-width="1"/>' +
-    '<line x1="64" y1="70" x2="64" y2="144" stroke="rgba(255,255,255,.45)" stroke-width="1"/>' +
-    '<rect x="52" y="145" width="24" height="5" rx="2.5" fill="' + D("sword") + '"/><rect x="61.5" y="150" width="5" height="14" rx="2" fill="#5b3a22"/><circle cx="64" cy="166" r="3.6" fill="' + D("sword") + '"/>';
-  s += '<circle cx="64" cy="156" r="6.5" fill="#f2c9a0" stroke="#d9a77c"/>';
-  // права рука (щит)
-  s += '<path d="M124 116 L136 154" stroke="' + look.sleeve + '" stroke-width="13" stroke-linecap="round"/><circle cx="136" cy="156" r="6.5" fill="#f2c9a0" stroke="#d9a77c"/>';
+  if (G.amulet) s += '<path d="M86 108 Q100 128 114 108" fill="none" stroke="' + HOL + '" stroke-width="3.6"/><path d="M86 108 Q100 128 114 108" fill="none" stroke="' + D("amulet") + '" stroke-width="1.8"/>' +
+    '<path d="M100 120 l8 8 l-8 10 l-8 -10 z" ' + S(M("amulet"), 2) + '/><path d="M100 123 l4 5 l-4 5" fill="rgba(255,255,255,.55)"/>';
+  // права рука + щит: металевий геральдичний (ліга серії) або дерев'яний круглий
+  s += arm("M122 114 Q142 128 140 150", hDk(look.sleeve, .05));
   s += G.shield
-    ? '<path d="M118 134 h38 v20 q0 22 -19 32 q-19 -10 -19 -32 z" fill="' + M("shield") + '" stroke="' + D("shield") + '" stroke-width="2"/>' +
-      '<path d="M137 141 v36 M124 155 h26" stroke="' + D("shield") + '" stroke-width="3.5" stroke-linecap="round" opacity=".75"/>'
-    : '<circle cx="137" cy="158" r="17" fill="#8b6340" stroke="#5b3a22" stroke-width="2"/><path d="M125 152 h24 M124 162 h26" stroke="#5b3a22" stroke-width="1.4"/><circle cx="137" cy="158" r="3.5" fill="#bfa06a"/>';
-  // голова
-  if (look.head === "hood") s += '<path d="M56 98 Q50 26 100 24 Q150 26 144 98 Q100 112 56 98 Z" fill="url(#ho' + u + ')"/>';
-  s += '<rect x="93" y="98" width="14" height="12" fill="#e9bc92"/>';
-  s += '<circle cx="68" cy="78" r="6" fill="#efc39a"/><circle cx="132" cy="78" r="6" fill="#efc39a"/><circle cx="100" cy="74" r="32" fill="#f4cda6"/>';
+    ? '<path d="M118 124 h46 v22 q0 30 -23 42 q-23 -12 -23 -42 z" ' + S(M("shield")) + '/><path d="M141 124 h23 v22 q0 30 -23 42 z" fill="rgba(20,10,40,.22)"/>' +
+      '<path d="M125 131 h32 v15 q0 22 -16 31 q-16 -9 -16 -31 z" fill="none" stroke="' + D("shield") + '" stroke-width="2.4" opacity=".85"/>' +
+      '<path d="M141 137 v34 M129 151 h24" stroke="' + D("shield") + '" stroke-width="4" stroke-linecap="round"/>'
+    : '<circle cx="141" cy="152" r="21" ' + S("#a8743f") + '/><path d="M141 131 a21 21 0 0 1 0 42 z" fill="rgba(20,10,40,.22)"/>' +
+      '<path d="M122 145 h38 M121 158 h40" stroke="#6b4423" stroke-width="2"/><circle cx="141" cy="152" r="5" ' + S("#d8b878", 2) + '/>';
+  // ліва рука + меч (метал — ліга «Знаю»; 0 — дерев'яний)
+  s += arm("M78 114 Q60 126 58 148", look.sleeve) +
+    '<g transform="rotate(-24 58 150)"><path d="M54 142 L54 58 L58 46 L62 58 L62 142 Z" ' + S(M("sword"), 2.2) + '/><path d="M58 50 L58 140" stroke="#fff" stroke-width="1.6" opacity=".7"/>' +
+    '<rect x="42" y="140" width="32" height="8" rx="4" ' + S(D("sword"), 2) + '/><rect x="54.5" y="148" width="7" height="18" rx="3" ' + S("#7a4a2a", 2) + '/><circle cx="58" cy="168" r="5" ' + S(D("sword"), 2) + '/></g>' +
+    '<circle cx="58" cy="150" r="9" ' + S(skin) + '/>';
+  // ── голова ──
+  if (look.head === "hood") s += '<path d="M56 98 Q46 18 100 16 Q154 18 144 98 Q120 112 100 112 Q80 112 56 98 Z" ' + S(look.hood[0]) + '/>' +
+    '<path d="M100 16 Q154 18 144 98 Q124 108 110 110 Q140 60 100 16 Z" fill="' + look.hood[1] + '"/>';
+  s += '<rect x="92" y="98" width="16" height="14" ' + S(skinSh, 2) + '/>';
+  if (look.head !== "hood") s += '<circle cx="65" cy="78" r="7" ' + S(skin, 2) + '/><circle cx="135" cy="78" r="7" ' + S(skinSh, 2) + '/>';
+  s += '<circle cx="100" cy="74" r="34" ' + S(skin) + '/><path d="M116 46 Q138 62 133 90 Q127 103 115 106 Q131 80 116 46 Z" fill="' + skinSh + '"/>';
   // волосся
-  if (look.head === "band") s += '<path d="M68 70 Q66 38 100 38 Q134 38 132 70 Q128 52 116 50 Q120 60 108 56 Q104 46 92 52 Q86 46 80 56 Q74 54 68 70 Z" fill="' + look.hair + '"/>';
-  if (look.head === "hat") s += '<path d="M70 78 Q66 104 84 110 Q78 96 80 84 Z M130 78 Q134 104 116 110 Q122 96 120 84 Z" fill="' + look.hair + '"/><path d="M84 96 Q100 126 116 96 Q110 106 100 106 Q90 106 84 96 Z" fill="' + look.hair + '"/>';
-  // обличчя
-  s += '<ellipse cx="89" cy="78" rx="3.4" ry="4.4" fill="#2b2222"/><ellipse cx="111" cy="78" rx="3.4" ry="4.4" fill="#2b2222"/>' +
-    '<circle cx="90.2" cy="76.4" r="1.2" fill="#fff"/><circle cx="112.2" cy="76.4" r="1.2" fill="#fff"/>' +
-    '<circle cx="82" cy="88" r="4.5" fill="#f19a8a" opacity=".45"/><circle cx="118" cy="88" r="4.5" fill="#f19a8a" opacity=".45"/>' +
-    (look.head === "hat" ? '' : '<path d="M93 89 Q100 95 107 89" fill="none" stroke="#8a4b3a" stroke-width="2" stroke-linecap="round"/>') +
-    '<path d="M84 68 Q88.5 65 93 67 M107 67 Q111.5 65 116 68" fill="none" stroke="' + (look.head === "hat" ? "#c9c9d2" : "#4a2c1a") + '" stroke-width="2" stroke-linecap="round"/>';
+  if (look.head === "band") s += '<path d="M66 70 Q62 36 100 36 Q138 36 134 70 Q128 52 116 50 Q120 62 107 56 Q103 45 91 52 Q85 45 79 56 Q71 54 66 70 Z" ' + S(look.hair) + '/>';
+  if (look.head === "hood") s += '<path d="M68 66 Q80 40 104 42 Q126 42 134 64 Q120 54 110 60 Q104 50 92 58 Q80 52 68 66 Z" ' + S(look.hair) + '/>';
+  if (look.head === "hat") s += '<path d="M68 76 Q62 106 84 114 Q78 98 80 84 Z M132 76 Q138 106 116 114 Q122 98 120 84 Z" ' + S(look.hair, 2) + '/>' +
+    '<path d="M82 94 Q100 132 118 94 Q111 104 100 104 Q89 104 82 94 Z" ' + S(look.hair, 2) + '/>';
+  // обличчя: великі очі з відблисками
+  s += '<ellipse cx="88" cy="78" rx="5.4" ry="7.2" fill="' + HOL + '"/><ellipse cx="112" cy="78" rx="5.4" ry="7.2" fill="' + HOL + '"/>' +
+    '<circle cx="86.4" cy="75" r="2.2" fill="#fff"/><circle cx="110.4" cy="75" r="2.2" fill="#fff"/><circle cx="90" cy="81.5" r="1.1" fill="#fff" opacity=".8"/><circle cx="114" cy="81.5" r="1.1" fill="#fff" opacity=".8"/>' +
+    '<ellipse cx="77" cy="90" rx="6" ry="3.5" fill="#ff8a8a" opacity=".5"/><ellipse cx="123" cy="90" rx="6" ry="3.5" fill="#ff8a8a" opacity=".5"/>' +
+    (look.head === "hat" ? '' : '<path d="M94 92 Q100 98 106 92" fill="none" stroke="#a34a3a" stroke-width="2.4" stroke-linecap="round"/>') +
+    '<path d="M81 66 Q87 62 94 65 M106 65 Q113 62 119 66" fill="none" stroke="' + (look.head === "hat" ? "#c9c9d2" : "#5a341c") + '" stroke-width="2.6" stroke-linecap="round"/>';
   // головний убір
-  if (look.head === "band") s += '<path d="M68 62 Q100 50 132 62 L132 69 Q100 58 68 69 Z" fill="#c0392b"/><path d="M131 64 l10 6 l-4 -10 z" fill="#c0392b"/>';
-  if (look.head === "hood") s += '<path d="M66 74 Q68 36 100 34 Q132 36 134 74 Q124 50 100 48 Q76 50 66 74 Z" fill="url(#ho' + u + ')"/>';
+  if (look.head === "band") s += '<path d="M66 62 Q100 49 134 62 L134 70 Q100 57 66 70 Z" ' + S("#d64532", 2) + '/><path d="M132 64 l14 4 l-6 -12 z M132 66 l12 12 l0 -10 z" ' + S("#d64532", 2) + '/>';
+  if (look.head === "hood") s += '<path d="M62 82 Q60 30 100 26 Q140 30 138 82 Q134 48 100 44 Q66 48 62 82 Z" ' + S(look.hood[0]) + '/>' +
+    '<path d="M86 32 Q100 28 116 32" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".35"/>';
   if (look.head === "helm" || look.head === "gold") {
-    const c1 = look.head === "gold" ? "#ffe28a" : "#e6ebf2", c2 = look.head === "gold" ? "#c48f12" : "#8e99ab";
-    s += '<path d="M64 80 Q60 34 100 32 Q140 34 136 80 L128 80 Q126 56 100 54 Q74 56 72 80 Z" fill="' + c1 + '" stroke="' + c2 + '" stroke-width="2"/>' +
-      '<path d="M100 32 V54" stroke="' + c2 + '" stroke-width="3"/>';
-    if (look.head === "gold") s += '<path d="M64 60 Q44 50 40 34 Q56 44 66 48 Z M136 60 Q156 50 160 34 Q144 44 134 48 Z" fill="#fff" stroke="#d8d8d8"/>' +
-      '<ellipse cx="100" cy="16" rx="24" ry="6" fill="none" stroke="#ffe28a" stroke-width="3" opacity=".9"/>';
-    else s += '<path d="M100 32 Q112 10 128 16 Q114 18 104 34 Z" fill="#c0392b"/>';
+    const c1 = look.head === "gold" ? "#ffe28a" : "#e6ebf2", c2 = look.head === "gold" ? "#d9a520" : "#a3adbd";
+    if (look.head === "gold") s += '<path d="M64 60 Q42 50 36 30 Q54 42 60 40 Q56 50 68 50 Z M136 60 Q158 50 164 30 Q146 42 140 40 Q144 50 132 50 Z" ' + S("#ffffff", 2) + '/>' +
+      '<ellipse cx="100" cy="14" rx="25" ry="6.5" fill="none" stroke="' + HOL + '" stroke-width="5.6" opacity=".5"/><ellipse cx="100" cy="14" rx="25" ry="6.5" fill="none" stroke="#ffe28a" stroke-width="3.2"/>';
+    else s += '<path d="M100 34 Q112 8 132 14 Q120 18 106 36 Z" ' + S("#d64532", 2) + '/>';
+    s += '<path d="M62 82 Q58 32 100 30 Q142 32 138 82 L128 82 Q126 56 100 54 Q74 56 72 82 Z" ' + S(c1) + '/>' +
+      '<path d="M100 30 Q142 32 138 82 L128 82 Q126 58 104 54 Z" fill="' + c2 + '"/><path d="M100 31 V54" stroke="' + HOL + '" stroke-width="2.4"/>';
   }
-  if (look.head === "hat") s += '<path d="M70 54 Q96 46 106 2 Q110 -4 114 4 Q112 30 130 54 Z" fill="#4c2f91"/>' +
-    '<ellipse cx="100" cy="54" rx="42" ry="8" fill="#3b2275"/><path d="M76 50 Q100 42 124 50" stroke="#e8c35a" stroke-width="3" fill="none"/>' +
-    '<path d="M98 26 l2 5 l5 0 l-4 3 l2 5 l-5 -3 l-5 3 l2 -5 l-4 -3 l5 0 z" fill="#ffe28a"/>';
+  if (look.head === "hat") s += '<path d="M68 56 Q96 46 106 0 Q110 -6 114 2 Q112 30 132 56 Z" ' + S("#5a38a8") + '/><path d="M110 -2 Q112 30 132 56 L104 54 Q114 30 110 -2 Z" fill="#3e2580"/>' +
+    '<ellipse cx="100" cy="55" rx="44" ry="9" ' + S("#3b2275") + '/><path d="M76 51 Q100 43 124 51" stroke="#e8c35a" stroke-width="3.4" fill="none"/>' +
+    '<path d="M98 24 l2 5 l5 0 l-4 3 l2 5 l-5 -3 l-5 3 l2 -5 l-4 -3 l5 0 z" fill="#ffe28a" stroke="' + HOL + '" stroke-width="1"/>';
   // корона (ліга «Пунктів за місяць»)
-  if (G.crown) s += '<g transform="translate(46 22) rotate(-16)"><path d="M0 18 L2 2 L9 10 L15 0 L21 10 L28 2 L30 18 Z" fill="' + M("crown") + '" stroke="' + D("crown") + '" stroke-width="1.2"/>' +
-    '<rect x="0" y="16" width="30" height="5" rx="2" fill="' + D("crown") + '"/><circle cx="15" cy="12" r="2.4" fill="#e11d48"/></g>';
+  if (G.crown) s += '<g transform="translate(46 20) rotate(-16)"><path d="M0 18 L2 2 L9 10 L15 0 L21 10 L28 2 L30 18 Z" ' + S(M("crown"), 2) + '/>' +
+    '<rect x="0" y="16" width="30" height="6" rx="2" ' + S(D("crown"), 1.6) + '/><circle cx="15" cy="12" r="2.6" fill="#e11d48"/></g>';
   // wide — віддалений кадр для шестикутника смужки рівня: уся голова з убором, корона й плечі
   // (у бюсті 120×120 обличчя «ледь визирало»; крупний план користувач відхилив — «навпаки віддали»)
   const vb = opt.wide ? "14 -14 172 172" : opt.bust ? "40 4 120 120" : "0 -6 200 246";
@@ -12300,7 +12332,10 @@ function heroGearIcon(type, L) {
     '<ellipse cx="24" cy="33" rx="12" ry="13" fill="' + M + '" stroke="' + D + '" stroke-width="1.4"/><circle cx="24" cy="30" r="3.6" fill="#3a2414"/><path d="M22.5 6 V40 M25.5 6 V40" stroke="#f1ead8" stroke-width=".6"/></g>';
   if (type === "crown") s += '<path d="M6 36 L8 12 L17 22 L24 8 L31 22 L40 12 L42 36 Z" fill="' + M + '" stroke="' + D + '" stroke-width="1.5"/><rect x="6" y="34" width="36" height="7" rx="2" fill="' + D + '"/>' +
     '<circle cx="24" cy="28" r="3" fill="#e11d48"/><circle cx="14" cy="30" r="2" fill="#2563eb"/><circle cx="34" cy="30" r="2" fill="#2563eb"/>';
-  return '<svg class="gear-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">' + s + '</svg>';
+  // 🎨 01.11.2026: той самий кольоровий контур, що в героя (HOL) — обвідка силуету фільтром
+  const ol = '<filter id="o' + u + '" x="-15%" y="-15%" width="130%" height="130%"><feMorphology in="SourceAlpha" operator="dilate" radius="1.4" result="d"/>' +
+    '<feFlood flood-color="' + HOL + '"/><feComposite in2="d" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  return '<svg class="gear-svg" viewBox="-2 -2 52 52" xmlns="http://www.w3.org/2000/svg"><defs>' + ol + '</defs><g filter="url(#o' + u + ')">' + s + '</g></svg>';
 }
 
 // ── 🧙 ГЕРОЙ (сесія 61, за запитом) ─────────────────────────────────────────────
