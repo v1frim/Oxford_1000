@@ -8889,7 +8889,7 @@ const WORDS = [
   {en:"self-conscious",ua:"надто свідомий себе",uaAlt:["ніяковий"]},
   {en:"apologetic",ua:"сповнений бажання вибачитися",uaAlt:["винуватий"]},
   {en:"inferior",ua:"нижчий за становищем",uaAlt:["гірший"]},
-  {en:"worthless",ua:"нічого не вартий",uaAlt:["нікчемний"]},
+  {en:"worthless",ua:"нічого не вартий",uaAlt:["нікчемний","безвартісний","марний"]},
   {en:"humiliation",ua:"приниження"},
   {en:"self-esteem",ua:"самооцінка",uaAlt:["самоповага"]},
   {en:"self-confidence",ua:"упевненість у собі",uaAlt:["впевненість у собі"]},
