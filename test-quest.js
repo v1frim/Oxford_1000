@@ -149,7 +149,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     fin.words.filter(w => w.miss).length === 1 && fin.words.some(w => /✓/.test(w.t)) && fin.words.some(w => /✗/.test(w.t) && /🏟️1/.test(w.t)), JSON.stringify(fin.words));
   t("фінал: «монстрів» = правильні + неправильні (замість «добито на арені»), XP золотистим", /👾 2монстрів/.test(fin.card) && !/добито на арені/.test(fin.card) &&
     await p.evaluate(() => getComputedStyle(document.querySelector("#q-card .qc-stats .xp")).color === "rgb(255, 209, 102)"), fin.card.slice(0, 200));
-  t("фінал: 🌡️ показує очки походу", /🌡️ \+\d+ очок · ще \d+ до пункту/.test(fin.card), fin.card.slice(0, 300));
+  t("фінал: 🌡️ показує очки походу", /🌡️ \+\d+ за монстрів \(\d+ очок\)/.test(fin.card), fin.card.slice(0, 300));
   t("3 правильні на арені — монстр добитий, фінал", fin.stage === "final" && /Похід завершено/.test(fin.card), fin.stage);
   t("XP походу = реальний приріст (1 перемога + 1 вивчення + 2 арена + бонуси mastery)", fin.xp === fin.real && fin.real >= 3 && fin.real - xp0 * 0 === (await p.evaluate(() => loadXp())) - xp0, fin.xp + " / " + fin.real);
   d = await day();
@@ -160,7 +160,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("пункти «Плани»: кожні 24 очки (31.10.2026; було 15)", pts.need === "24,48,72,96,120,144,168" && pts.at10 === 0 && pts.at45 === 1 && pts.at62 === 2, JSON.stringify(pts));
   // очки (31.10.2026): монстр ✓ (1) + монстр ✗ (1) + завершене повторення (4) + добитий на арені (2) = 8;
   // помилки в повторенні й на арені очок НЕ дають
-  t("очки походу: бій 1 + бій 1 + повторення 4 + арена 2 = 8", pts.ans === 8, JSON.stringify(pts));
+  t("очки походу: бій 1 + бій 1 + повторення 4 + арена 1 = 7 (ставки 01.11.2026)", pts.ans === 7, JSON.stringify(pts));
   t("пункти = очки / сходинки (і записані в день)", pts.q === pts.exp && pts.d === pts.q, JSON.stringify(pts));
   await p.keyboard.press("Enter"); await p.waitForTimeout(400);
   const tim = await p.evaluate(() => {
@@ -172,7 +172,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("фінал: таблиця часу — бої з кількістю, картка, 3 правильні, арена", /Бої · 2/.test(tim.card) && /Картка зі словом/.test(tim.card) && /3 правильні після картки · 1/.test(tim.card) && /Арена · 1/.test(tim.card), tim.card.slice(0, 200));
   t("фінал: замість «Втік від» — слова, що перейшли у «Знаю»", !/Втік від/.test(tim.card), tim.card.slice(-160));
-  t("недобрані очки збережено для наступного походу", await p.evaluate(() => localStorage.getItem("oxford_quest_carry_v1")) === "8");   // 8 очок, пункт — за 24
+  t("недобрані очки збережено для наступного походу", await p.evaluate(() => localStorage.getItem("oxford_quest_carry_v1")) === "7");   // 7 очок, пункт — за 24
   t("журнал ігор: секунди по етапах і лічильники", tim.gTime && "fight" in tim.gTime && "arena" in tim.gTime && tim.gTime.total >= 0 && tim.gN && tim.gN.fights === 2 && tim.gN.drills === 1 && tim.gN.arena === 1, JSON.stringify([tim.gTime, tim.gN]));
   t("журнал походів: кожен монстр із часом відповіді", tim.mons === 2 && tim.wrongRec && tim.wrongRec.t >= 0 && tim.wrongRec.st >= 0 && tim.wrongRec.dr >= 0 && tim.wrongRec.da >= 3, JSON.stringify(tim.wrongRec));
   t("журнал походів: монстр арени — час і спроби (1 помилка + 3 правильні = 4)", tim.arena === 1 && tim.arenaRec.tries === 4 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
@@ -308,16 +308,25 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("арена посеред: Shift+Enter → арена", se.stage === "arena" && se.pre === "mid", JSON.stringify(se));
   await p.keyboard.press("Escape"); await p.waitForTimeout(400); await fight(); await p.waitForTimeout(200);
 
-  // 🌄 краєвид за рівнями (сесія 64): шари беруться з різних тем, A1 = колишня сцена
+  // 🌄 краєвид = рівні CEFR × пора дня (сесія 64 / 01.11.2026): шари з різних тем, небо — з data-tod
   const sc = await p.evaluate(() => {
-    const get = () => ["q-scene", "q-far", "q-near", "q-ground"].map(id => { const st = document.getElementById(id).style; return id === "q-scene" ? st.background : st.backgroundImage; });
+    const ids = ["q-scene", "q-far", "q-mid", "q-near", "q-ground"];
+    const get = () => ids.map(id => { const st = document.getElementById(id).style; return id === "q-scene" ? st.background : st.backgroundImage; });
+    const H = document.documentElement, was = H.dataset.tod;
+    H.dataset.tod = "day";
     const one = qApplyScene(["A1"]), a1 = get(), mix = qApplyScene(["A1", "A2", "B1"]), m = get(), c2 = (qApplyScene(["C2"]), get());
-    return { one, mix, a1, m, c2, sky0: /90, 167, 230|5aa7e6/i.test(a1[0]) };
+    const sky = t => { H.dataset.tod = t; qApplyScene(["A1"]); return [get(), document.getElementById("q-scene").dataset.tod, document.querySelectorAll("#q-fx i.ff").length]; };
+    const day = sky("day"), night = sky("night"), eve = sky("evening"), morn = sky("morning");
+    const bogus = (H.dataset.tod = "xyz", qApplyScene(["A1"]), document.getElementById("q-scene").dataset.tod);
+    H.dataset.tod = was; qApplyScene(["A1"]);
+    return { one, mix, a1, m, c2, day, night, eve, morn, bogus };
   });
-  t("краєвид A1 — колишнє небо", sc.sky0, sc.a1[0].slice(0, 120));
-  t("A1+A2+B1: небо B1, гори A2, луг і дорога A1", sc.mix.sky === "B1" && sc.mix.far === "A2" && sc.mix.near === "A1" && sc.mix.ground === "A1", JSON.stringify(sc.mix));
-  t("A1+A2+B1: пагорби = як у A1, небо інше", sc.m[2] === sc.a1[2] && sc.m[0] !== sc.a1[0]);
+  t("A1+A2+B1: обрій B1, гори A2, луг і дорога A1", sc.mix.sky === "B1" && sc.mix.far === "A2" && sc.mix.near === "A1" && sc.mix.ground === "A1", JSON.stringify(sc.mix));
+  t("A1+A2+B1: пагорби = як у A1, небо інше", sc.m[3] === sc.a1[3] && sc.m[0] !== sc.a1[0]);
   t("C2 — усі шари інші, ніж у A1", sc.c2.every((x, i) => x !== sc.a1[i]));
+  t("пора дня: 4 різні неба, усі шари перефарбовані вночі", new Set([sc.day, sc.night, sc.eve, sc.morn].map(x => x[0][0])).size === 4 && sc.night[0].every((x, i) => x !== sc.day[0][i]));
+  t("пора дня: data-tod на сцені, світлячки ввечері/вночі, пилок вдень", sc.night[1] === "night" && sc.night[2] > 0 && sc.eve[2] > 0 && sc.day[2] === 0 && sc.morn[2] === 0);
+  t("пора дня: невідоме значення → день", sc.bogus === "day");
 
   // бульбашка довгого слова на дорозі не перекриває героя (сесія 64) — на кількох ширинах, з обох боків
   for (const [vw, vh] of [[1920, 950], [1280, 720], [900, 700], [560, 800]]) {
@@ -391,7 +400,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("💬 фраза замість монстра: картка виразу US→UA, монстра нема", ph0.phase === "phrase" && ph0.dir === "en2ua" && ph0.card.includes(ph0.en) && !ph0.mon, JSON.stringify(ph0).slice(0, 200));
   await p.keyboard.press("Enter"); await p.waitForTimeout(150);
   const ph1 = await p.evaluate(() => ({ open: Q.phrase && Q.phrase.open, xp: loadXp(), r: (loadExprXpLog()[todayKey()] || {}).r || 0, q: (loadExprXpLog()[todayKey()] || {}).q || 0, ans: Q.answers, hud: document.getElementById("q-hud-stats").textContent }));
-  t("💬 Enter — переклад: +1 XP, картка в журналі виразів як «q» (НЕ в 15-карткові пункти «r»), +3 очки походу (31.10.2026)", ph1.open && ph1.xp - ph0.xp === 1 && ph1.r === ph0.r && ph1.q === ph0.q + 1 && ph1.ans - ph0.ans === 3, JSON.stringify(ph1));
+  t("💬 Enter — переклад: +1 XP, картка в журналі виразів як «q» (НЕ в 15-карткові пункти «r»), +2 очки походу (01.11.2026)", ph1.open && ph1.xp - ph0.xp === 1 && ph1.r === ph0.r && ph1.q === ph0.q + 1 && ph1.ans - ph0.ans === 2, JSON.stringify(ph1));
   t("💬 лічильник фраз у шапці — одразу, без чекання наступного монстра (сесія 65)", /💬 1/.test(ph1.hud), ph1.hud);
   await p.keyboard.press("Enter"); await p.waitForTimeout(150);
   const ph2 = await p.evaluate(en => ({ st: getExprStatus(en, "en2ua"), stUa: getExprStatus(en, "ua2en"), xp: loadXp(), phase: Q.phase, feed: document.getElementById("q-feed").textContent }), ph0.en);

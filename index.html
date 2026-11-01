@@ -1644,14 +1644,28 @@
   .q-hud-stats .ok { color: #7be07b; font-weight: 700; } .q-hud-stats .bad { color: #ff8a8a; font-weight: 700; }
   .q-stop { background: rgba(255,107,107,.16); border: 1px solid rgba(255,107,107,.5); color: #ffb3b3; border-radius: 10px; padding: 7px 14px; font-weight: 800; cursor: pointer; font-family: inherit; }
   .q-stop small { opacity: .6; font-weight: 600; }
-  .q-scene { position: relative; flex: 1 1 auto; overflow: hidden; background: linear-gradient(180deg, #5aa7e6 0%, #9fd2f5 55%, #cdeaf9 100%); }
+  .q-scene { position: relative; flex: 1 1 auto; overflow: hidden; background: #9fc1ea; }
   .q-layer { position: absolute; left: 0; right: 0; background-repeat: repeat-x; }
-  .q-far { bottom: 120px; height: 260px; opacity: .9;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='260'%3E%3Cpath d='M0 260 L0 150 L90 80 L170 140 L250 50 L360 150 L450 95 L540 165 L640 70 L720 140 L800 150 L800 260Z' fill='%2389a9d1'/%3E%3Cpath d='M250 50 L282 80 L263 76 L250 90 L237 76 L218 80Z M640 70 L670 98 L652 94 L640 106 L628 94 L610 98Z M90 80 L112 100 L98 98 L90 106 L82 98 L68 100Z' fill='white' opacity='.85'/%3E%3C/svg%3E"); }
-  .q-near { bottom: 84px; height: 200px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200'%3E%3Cpath d='M0 200 L0 120 Q75 72 150 108 Q225 146 300 100 Q375 62 450 104 Q525 140 600 120 L600 200Z' fill='%2365a85a'/%3E%3Cg fill='%236b4a2b'%3E%3Crect x='76' y='96' width='6' height='22'/%3E%3Crect x='326' y='78' width='6' height='24'/%3E%3Crect x='486' y='96' width='6' height='22'/%3E%3C/g%3E%3Cg fill='%23387a3c'%3E%3Ccircle cx='79' cy='86' r='16'/%3E%3Ccircle cx='70' cy='96' r='11'/%3E%3Ccircle cx='89' cy='95' r='11'/%3E%3Ccircle cx='329' cy='68' r='18'/%3E%3Ccircle cx='318' cy='79' r='12'/%3E%3Ccircle cx='341' cy='79' r='12'/%3E%3Ccircle cx='489' cy='86' r='15'/%3E%3Ccircle cx='480' cy='96' r='10'/%3E%3C/g%3E%3C/svg%3E"); }
-  .q-ground { bottom: 0; height: 96px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='96'%3E%3Crect width='200' height='96' fill='%23b38c5c'/%3E%3Crect width='200' height='16' fill='%2358a24a'/%3E%3Cpath d='M0 16 q10 7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0' fill='%2358a24a'/%3E%3Cellipse cx='40' cy='52' rx='9' ry='3' fill='%23977149'/%3E%3Cellipse cx='150' cy='74' rx='12' ry='3.5' fill='%23977149'/%3E%3Ccircle cx='100' cy='40' r='3' fill='%23d1b07f'/%3E%3Ccircle cx='178' cy='46' r='2.4' fill='%23d1b07f'/%3E%3C/svg%3E"); }
+  /* 🌄 Шари краєвиду малює qApplyScene (рівні CEFR × пора дня); висоти = розмірам плиток SVG */
+  .q-clouds { top: 3%; height: 200px; animation: qClouds 140s linear infinite; }
+  @keyframes qClouds { to { background-position-x: -1280px; } }
+  .q-far { bottom: 150px; height: 300px; }
+  .q-mid { bottom: 110px; height: 220px; }
+  .q-near { bottom: 76px; height: 180px; }
+  .q-ground { bottom: 0; height: 96px; }
+  .q-fx { position: absolute; inset: 0; pointer-events: none; }
+  .q-fx i { position: absolute; width: 4px; height: 4px; border-radius: 50%; }
+  .q-fx i.mote { animation: qMote 6s ease-in-out infinite; }
+  .q-fx i.ff { width: 5px; height: 5px; box-shadow: 0 0 10px 3px currentColor; animation: qFf 4.5s ease-in-out infinite; }
+  @keyframes qMote { 0%,100% { transform: translateY(0); opacity: .15; } 50% { transform: translateY(-22px); opacity: .9; } }
+  @keyframes qFf { 0%,100% { transform: translate(0,0); opacity: .1; } 30% { opacity: 1; } 50% { transform: translate(14px,-18px); opacity: .9; } 80% { opacity: .2; } }
+  /* Підсвітка героя й монстрів під пору дня (контрове світло сонця/місяця) */
+  .q-scene { --todfx: brightness(1); }
+  .q-scene[data-tod="morning"] { --todfx: drop-shadow(-2px -1px .6px rgba(255,190,200,.85)); }
+  .q-scene[data-tod="evening"] { --todfx: sepia(.12) drop-shadow(2.5px -1px .6px rgba(255,170,110,.9)); }
+  .q-scene[data-tod="night"]   { --todfx: brightness(.86) saturate(.85) drop-shadow(2.5px -1px .6px rgba(159,232,255,.85)); }
+  .q-hero > svg, .q-mon .qm-svg { filter: var(--todfx); }
+  @media (prefers-reduced-motion: reduce) { .q-clouds, .q-fx i { animation: none; } }
   /* z-index тут = окремий шар: z-index монстрів арени (до 200, «ціль поверх натовпу») живе ВСЕРЕДИНІ
      і не перекриває картку (80) та стрічку XP (70). Без цього недобитий монстр вилазив поверх фіналу. */
   .q-actors { position: absolute; inset: 0; z-index: 5; }
@@ -1708,10 +1722,10 @@
   .qm-hp i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4); }
   .qm-hp i.on { background: #ffd166; border-color: #ffd166; }
   .q-mon.lined { transition: transform .65s cubic-bezier(.2,.8,.3,1), left .5s ease, bottom .5s ease, width .5s ease, opacity .3s; }
-  .q-mon.lined .qm-svg { filter: brightness(var(--row-dim, 1)); }
+  .q-mon.lined .qm-svg { filter: brightness(var(--row-dim, 1)) var(--todfx); }
   .q-mon.lined:not(.target) { opacity: .8; }
   .q-mon.lined:not(.target) .qm-word { opacity: 0; }
-  .q-mon.target .qm-svg { filter: drop-shadow(0 0 10px rgba(255,209,102,.8)); }
+  .q-mon.target .qm-svg { filter: var(--todfx) drop-shadow(0 0 10px rgba(255,209,102,.8)); }
   .qm-fly { animation: qFly 1.6s ease-in-out infinite alternate; }
   @keyframes qFly { from { transform: translateY(0); } to { transform: translateY(-10px); } }
   .qm-wing { transform-origin: 80px 80px; animation: qWing .35s ease-in-out infinite alternate; }
@@ -2223,7 +2237,7 @@
     <button class="q-stop" data-q="stop">🏁 Стоп <small>Esc</small></button>
   </div>
   <div id="q-scene" class="q-scene">
-    <div id="q-far" class="q-layer q-far"></div><div id="q-near" class="q-layer q-near"></div><div id="q-ground" class="q-layer q-ground"></div>
+    <div id="q-clouds" class="q-layer q-clouds"></div><div id="q-far" class="q-layer q-far"></div><div id="q-mid" class="q-layer q-mid"></div><div id="q-near" class="q-layer q-near"></div><div id="q-ground" class="q-layer q-ground"></div><div id="q-fx" class="q-fx"></div>
     <div id="q-actors" class="q-actors"><div id="q-hero" class="q-hero"></div></div>
     <div id="q-card" class="q-card hidden"></div>
     <div id="q-feed" class="q-feed hidden" title="XP за останніх монстрів"></div>
@@ -12776,7 +12790,8 @@ function qLoop(ts) {
   Q.lastTs = ts;
   Q.speed += (Q.speedTo - Q.speed) * Math.min(1, dt / 160);
   Q.off -= Q.speed * dt * 0.09;
-  qEl("q-far").style.backgroundPositionX = (Q.off * 0.25) + "px";
+  qEl("q-far").style.backgroundPositionX = (Q.off * 0.18) + "px";
+  qEl("q-mid").style.backgroundPositionX = (Q.off * 0.35) + "px";
   qEl("q-near").style.backgroundPositionX = (Q.off * 0.6) + "px";
   qEl("q-ground").style.backgroundPositionX = Q.off + "px";
   Q.raf = requestAnimationFrame(qLoop);
@@ -13702,95 +13717,159 @@ document.getElementById("lb-today-strip").addEventListener("click", e => {
   const li = e.target.closest("li[data-qts]");
   if (li) openQuestRecord(Number(li.dataset.qts));
 });
-// 🌄 КРАЄВИД ПОХОДУ ЗА РІВНЯМИ CEFR (сесія 64, за запитом: «чим далі рівень — тим моторошніші краєвиди,
-// і їх комбінація по-різному комбінується; але не надто мрачно»). Шість тем: A1 весна (колишня сцена 1-в-1)
-// → A2 літо → B1 осінь → B2 туманний ліс у сутінках → C1 скелі під місяцем → C2 вулканічна пустка.
-// ⚠️ КОМБІНАЦІЯ — ПО ШАРАХ (обраних рівнів зазвичай ≤3): небо й далекі гори — від НАЙВИЩОГО рівня
-// (на обрії видно, куди йдеш), середній рівень — гори, якщо рівнів 3+; пагорби й дорога — від НАЙНИЖЧОГО.
-//   A1 → усе весна · A1+A2 → літнє небо над весняним лугом · A1+A2+B1 → осіннє небо, літні гори, весняний луг.
-// «—» (без рівня) рахується як B1; набір «весь словник» / «незасвоєні» = A1…C2.
-// Розміри SVG = старим (800×260, 600×200, 200×96) — паралакс qLoop крутить backgroundPositionX.
+// 🌄 КРАЄВИД ПОХОДУ = МІСЦЕВІСТЬ ЗА РІВНЯМИ CEFR × ПОРА ДНЯ (01.11.2026, за запитом: «гра змінюється відносно
+// пори дня … і домалюй ще кілька пейзажів під CEFR»). Новий стиль (макети погоджено: світанок/день/вечір/ніч).
+// • МІСЦЕВІСТЬ (сесія 64): A1 весна → A2 літо → B1 осінь → B2 туманний ліс → C1 скелі → C2 вулканічна пустка.
+//   Комбінація по шарах як і була: обрій (небо-відтінок, далекі гори, середній план) — від вищого рівня,
+//   пагорби й дорога — від найнижчого (questSceneMix).
+// • ПОРА ДНЯ — з `data-tod` на <html> (той самий сезонний розклад, що й фон меню; `?tod=night` — форс):
+//   вона малює небо (сонце/місяць, зорі, хмари), «освітлює» шари (qLit змішує кольори місцевості з
+//   барвою пори: що далі шар, то сильніше) і підсвічує героя й монстрів (--todfx у CSS).
+// ⚠️ Плитки шарів — repeat-x: кожен контур починається й закінчується на ОДНІЙ висоті, інакше видно шов.
+// ⚠️ Розміри плиток = висотам шарів у CSS (.q-far 300 · .q-mid 220 · .q-near 180 · .q-ground 96).
 const QUEST_SCENES = {
-  A1: { sky: ["#5aa7e6", "#9fd2f5", "#cdeaf9"],
-        far: { fill: "#89a9d1", snow: .85, jag: 0 },
-        near: { hill: "#65a85a", tree: "round", leaf: ["#387a3c"], trunk: "#6b4a2b" },
-        ground: { soil: "#b38c5c", grass: "#58a24a", spot: "#977149", peb: "#d1b07f" } },
-  A2: { sky: ["#4f9ee0", "#a8d4f0", "#f6e6b8"], sun: { x: "80%", y: "17%", r: 30, c: "#fff3b8", g: "rgba(255,232,150,.55)" },
-        far: { fill: "#8fa3cc", snow: .7, jag: 0 },
-        near: { hill: "#7fb24e", tree: "round", leaf: ["#4e8a34", "#5c9a3a"], trunk: "#6b4a2b", flowers: ["#ffd84d", "#ff8fb1", "#ffffff"] },
-        ground: { soil: "#c49a62", grass: "#79b043", spot: "#a67f4e", peb: "#e0c28f" } },
-  B1: { sky: ["#6aa2d4", "#f0c597", "#f8deb2"], sun: { x: "76%", y: "44%", r: 38, c: "#ffd59a", g: "rgba(255,170,90,.5)" },
-        far: { fill: "#9a8fb8", snow: .45, jag: 0 },
-        near: { hill: "#a39f4c", tree: "round", leaf: ["#d9772b", "#c4462f", "#e3a93a"], trunk: "#5e3f25" },
-        ground: { soil: "#a57a4c", grass: "#9a9a45", spot: "#87603a", peb: "#d9772b" } },
-  B2: { sky: ["#5f6f9c", "#a99bbf", "#e2c9c9"], sun: { x: "18%", y: "16%", r: 22, c: "#f4efe0", g: "rgba(240,236,220,.35)" }, stars: .35,
-        far: { fill: "#5d6a8c", snow: 0, jag: 0, fog: "#d9cbd6" },
-        near: { hill: "#3f6b4f", tree: "pine", leaf: ["#24493a", "#2c5543"], trunk: "#3d2c20", dense: 1 },
-        ground: { soil: "#7f6448", grass: "#4a7748", spot: "#665036", peb: "#9c8566" } },
-  C1: { sky: ["#3e3a6e", "#7d5f8f", "#c98d8f"], sun: { x: "22%", y: "20%", r: 34, c: "#f3e9d2", g: "rgba(243,233,210,.35)" }, stars: .7,
-        far: { fill: "#4a4566", snow: 0, jag: 1, fog: "#b98a98" },
-        near: { hill: "#5d5a5e", tree: "dead", leaf: ["#2f2a2c"], trunk: "#2f2a2c", rocks: "#77727a" },
-        ground: { soil: "#6e6258", grass: "#6f7556", spot: "#584d45", peb: "#8d8580" } },
-  C2: { sky: ["#2a1f3d", "#5e2d4a", "#c0583f"], sun: { x: "78%", y: "22%", r: 30, c: "#ffd2a8", g: "rgba(255,150,100,.4)" }, stars: .8,
-        far: { fill: "#2f2433", snow: 0, jag: 1, rim: "#ff7a3d" },
-        near: { hill: "#3c3036", tree: "dead", leaf: ["#1c1418"], trunk: "#1c1418", rocks: "#4e4048" },
-        ground: { soil: "#4a3a36", grass: "#5a4640", spot: "#3a2d2a", peb: "#7a5a50", lava: "#ff7b3a" } },
+  A1: { haze: null,
+        far: { fill: "#b4bfe0", sh: "#9faad3", snow: .9 },
+        mid: { hill: "#8fbf9a", tree: "pine", leaf: ["#6ea984", "#5a9473"] },
+        near: { hill: "#5fa86e", tree: "pine", leaf: ["#3f8d58", "#2f744a"], trunk: "#5a3a24" },
+        ground: { dirt: ["#d9a86c", "#a87444"], grass: "#4c9a5c", tuft: "#3f8d58", peb: "#8f6038", hi: "#f0cc94" } },
+  A2: { haze: null,
+        far: { fill: "#a9bde6", sh: "#93a8d6", snow: .75 },
+        mid: { hill: "#9cc76a", tree: "round", leaf: ["#6aa84a", "#57923c"] },
+        near: { hill: "#6fb24e", tree: "round", leaf: ["#4e9a34", "#3d8228"], trunk: "#6b4a2b", flowers: ["#ffd84d", "#ff8fb1", "#ffffff"] },
+        ground: { dirt: ["#ddb070", "#b07c48"], grass: "#6aae3e", tuft: "#4e9a34", peb: "#9a6a3a", hi: "#f6d898" } },
+  B1: { haze: ["#ffb070", .16],
+        far: { fill: "#b8a8c8", sh: "#a090b8", snow: .5 },
+        mid: { hill: "#c4b46a", tree: "round", leaf: ["#e3a93a", "#c98a2a"] },
+        near: { hill: "#a8a04c", tree: "round", leaf: ["#d9772b", "#c4462f"], trunk: "#5e3f25", leaves: ["#d9772b", "#e3a93a", "#c4462f"] },
+        ground: { dirt: ["#c09060", "#94683e"], grass: "#9a9a45", tuft: "#7f8038", peb: "#87603a", hi: "#e3a93a" } },
+  B2: { haze: ["#d6dbe6", .3],
+        far: { fill: "#8a96b4", sh: "#7884a4", snow: 0, fog: "#e2e6ee" },
+        mid: { hill: "#4f7a64", tree: "pine", leaf: ["#3d6a55", "#335c4a"], dense: 1, fog: "#e2e6ee" },
+        near: { hill: "#3f6b4f", tree: "pine", leaf: ["#2c5543", "#24493a"], trunk: "#3d2c20", dense: 1 },
+        ground: { dirt: ["#8f7354", "#6a523a"], grass: "#4a7748", tuft: "#3a6338", peb: "#5a4632", hi: "#a89878" } },
+  C1: { haze: ["#b08ab8", .22],
+        far: { fill: "#7a7090", sh: "#665c7e", snow: 0, jag: 1 },
+        mid: { hill: "#7c7682", tree: "rock", leaf: ["#8e8894", "#6c6672"] },
+        near: { hill: "#5d5a5e", tree: "dead", leaf: ["#2f2a2c"], trunk: "#2f2a2c", rocks: ["#8a848e", "#6a646e"] },
+        ground: { dirt: ["#80746a", "#5e544c"], grass: "#6f7556", tuft: "#585e44", peb: "#4a423c", hi: "#a8a098" } },
+  C2: { haze: ["#ff5a2a", .32],
+        far: { fill: "#4a3644", sh: "#3a2a36", snow: 0, jag: 1, rim: "#ff7a3d", volcano: 1 },
+        mid: { hill: "#4e3e46", tree: "rock", leaf: ["#5e4a52", "#463840"] },
+        near: { hill: "#3c3036", tree: "dead", leaf: ["#1c1418"], trunk: "#1c1418", rocks: ["#5a4a50", "#46383e"] },
+        ground: { dirt: ["#5a4642", "#3a2c2a"], grass: "#5a4640", tuft: "#46363a", peb: "#2a1e1c", hi: "#7a5a50", lava: "#ff7b3a" } }
 };
 const QUEST_SCENE_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
+// Пора дня: небо + «освітлення» шарів (lit: [барва, сила для далекого … ближнього шару]) + рухомі частинки
+const QUEST_TOD = {
+  morning: { sky: ["#7c8fd0", "#c9a8d8", "#ffc4b0", "#ffe8c8"], sun: { x: .57, y: .3, r: 46, c: "#fff6e6", glow: "#ffc8b0" },
+             lit: ["#ffb8c8", .2, .08], clouds: ["#fff0ec", .85], stars: 0, motes: ["#ffe9d6", 14, 0] },
+  day:     { sky: ["#6fa3e0", "#9fc1ea", "#d6e4f2", "#fff0d6"], sun: { x: .73, y: .26, r: 54, c: "#fffaf0", glow: "#ffe2a8", rays: 1 },
+             lit: null, clouds: ["#ffffff", .9], stars: 0, motes: ["#fff6dc", 14, 0] },
+  evening: { sky: ["#3a2d6e", "#a0477a", "#ff6f4f", "#ffb347"], sun: { x: .78, y: .42, r: 66, c: "#ffd27a", glow: "#ff7a3a" },
+             lit: ["#4a2a5a", .5, .22], warm: "#ff8a50", clouds: ["#ff9a7a", .75], stars: 14, motes: ["#ffd27a", 12, 1] },
+  night:   { sky: ["#070a26", "#141546", "#2a2160", "#3d2a6e"], moon: { x: .79, y: .2, r: 44 },
+             lit: ["#16163e", .72, .7], clouds: ["#6a6aa8", .25], stars: 110, motes: ["#d8ff7a", 20, 1] }
+};
 const qSvgUrl = s => 'url("data:image/svg+xml,' + encodeURIComponent(s) + '")';
-function qFarSvg(t) {
-  const soft = "M0 260 L0 150 L90 80 L170 140 L250 50 L360 150 L450 95 L540 165 L640 70 L720 140 L800 150 L800 260Z";
-  const jag = "M0 260 L0 160 L60 90 L95 130 L140 60 L190 120 L230 95 L280 40 L330 125 L380 80 L430 140 L480 70 L520 110 L570 50 L630 135 L680 85 L730 120 L770 75 L800 160 L800 260Z";
-  const d = t.jag ? jag : soft;
-  let s = "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='260'>" +
-    (t.fog ? "<defs><linearGradient id='f' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='" + t.fog + "' stop-opacity='0'/><stop offset='1' stop-color='" + t.fog + "' stop-opacity='.55'/></linearGradient></defs>" : "") +
-    "<path d='" + d + "' fill='" + t.fill + "'/>";
-  if (t.snow) s += "<path d='M250 50 L282 80 L263 76 L250 90 L237 76 L218 80Z M640 70 L670 98 L652 94 L640 106 L628 94 L610 98Z M90 80 L112 100 L98 98 L90 106 L82 98 L68 100Z' fill='white' opacity='" + t.snow + "'/>";
-  if (t.rim) s += "<path d='" + d.replace(/ L800 260Z$/, "").replace(/^M0 260 L/, "M") + "' fill='none' stroke='" + t.rim + "' stroke-width='2.5' opacity='.45'/>";
-  if (t.fog) s += "<rect x='0' y='150' width='800' height='110' fill='url(#f)'/>";
-  return s + "</svg>";
+const qSvg = (w, h, body) => "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>" + body + "</svg>";
+function qMix(a, b, k) {   // змішати два #rrggbb: k=0 → a, k=1 → b
+  const p = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+  const x = p(a), y = p(b);
+  return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * k).toString(16).padStart(2, "0")).join("");
 }
-function qNearSvg(t) {
-  const L = i => t.leaf[i % t.leaf.length];
-  const tree = (x, y, h, i) => {          // x — центр, y — основа стовбура, h — розмір
-    if (t.tree === "pine") return "<rect x='" + (x - 3) + "' y='" + (y - 12) + "' width='6' height='12' fill='" + t.trunk + "'/>" +
-      "<path d='M" + x + " " + (y - h - 22) + " L" + (x + h * .55) + " " + (y - 10) + " L" + (x - h * .55) + " " + (y - 10) + "Z' fill='" + L(i) + "'/>" +
-      "<path d='M" + x + " " + (y - h - 34) + " L" + (x + h * .42) + " " + (y - h * .55 - 10) + " L" + (x - h * .42) + " " + (y - h * .55 - 10) + "Z' fill='" + L(i + 1) + "'/>";
-    if (t.tree === "dead") return "<path d='M" + x + " " + y + " L" + (x + 1) + " " + (y - h - 6) + " M" + (x + 1) + " " + (y - h * .55) + " L" + (x + h * .45) + " " + (y - h - 2) +
-      " M" + x + " " + (y - h * .35) + " L" + (x - h * .45) + " " + (y - h * .8) + " M" + (x - h * .3) + " " + (y - h * .65) + " L" + (x - h * .38) + " " + (y - h - 4) +
-      " M" + (x + h * .3) + " " + (y - h * .8) + " L" + (x + h * .52) + " " + (y - h * .78) + "' stroke='" + t.trunk + "' stroke-width='3.2' stroke-linecap='round' fill='none'/>";
-    return "<rect x='" + (x - 3) + "' y='" + (y - 22) + "' width='6' height='22' fill='" + t.trunk + "'/>" +
-      "<g fill='" + L(i) + "'><circle cx='" + x + "' cy='" + (y - 32) + "' r='" + (h * .5) + "'/><circle cx='" + (x - 9) + "' cy='" + (y - 22) + "' r='" + (h * .34) + "'/><circle cx='" + (x + 10) + "' cy='" + (y - 23) + "' r='" + (h * .34) + "'/></g>";
-  };
-  let s = "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='200'>" +
-    "<path d='M0 200 L0 120 Q75 72 150 108 Q225 146 300 100 Q375 62 450 104 Q525 140 600 120 L600 200Z' fill='" + t.hill + "'/>";
-  if (t.rocks) s += "<g fill='" + t.rocks + "'><ellipse cx='205' cy='160' rx='14' ry='7'/><ellipse cx='218' cy='163' rx='8' ry='5'/><ellipse cx='420' cy='150' rx='11' ry='6'/><ellipse cx='560' cy='165' rx='16' ry='7'/></g>";
-  if (t.flowers) [[30, 150], [120, 140], [175, 160], [250, 150], [390, 125], [430, 150], [540, 160], [585, 145]]
-    .forEach(([x, y], i) => (s += "<circle cx='" + x + "' cy='" + y + "' r='3' fill='" + t.flowers[i % t.flowers.length] + "'/>"));
-  const trees = [[79, 118, 32, 0], [329, 102, 36, 1], [489, 118, 30, 2]];
-  if (t.dense) trees.push([210, 150, 26, 1], [420, 140, 28, 0], [560, 150, 24, 1], [140, 140, 22, 0]);
-  trees.forEach(([x, y, h, i]) => (s += tree(x, y, h, i)));
-  return s + "</svg>";
+function qTod() { const t = document.documentElement.dataset.tod; return QUEST_TOD[t] ? t : "day"; }
+// «Освітлення» кольору шару під пору дня: depth 0 — обрій, 1 — передній план
+function qLit(c, tod, depth) {
+  const T = QUEST_TOD[tod];
+  if (!T.lit) return c;
+  let r = qMix(c, T.lit[0], T.lit[1] + (T.lit[2] - T.lit[1]) * depth);
+  if (T.warm) r = qMix(r, T.warm, .08);
+  return r;
 }
-function qGroundSvg(t) {
-  let s = "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='96'><rect width='200' height='96' fill='" + t.soil + "'/>";
-  if (t.lava) s += "<path d='M20 40 L38 52 L30 66 L52 78 M120 34 L136 48 L128 60 M160 70 L178 80 L172 92' stroke='" + t.lava + "' stroke-width='2' fill='none' opacity='.75' stroke-linecap='round'/>";
-  s += "<rect width='200' height='16' fill='" + t.grass + "'/><path d='M0 16 q10 7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0' fill='" + t.grass + "'/>" +
-    "<ellipse cx='40' cy='52' rx='9' ry='3' fill='" + t.spot + "'/><ellipse cx='150' cy='74' rx='12' ry='3.5' fill='" + t.spot + "'/>" +
-    "<circle cx='100' cy='40' r='3' fill='" + t.peb + "'/><circle cx='178' cy='46' r='2.4' fill='" + t.peb + "'/>";
-  return s + "</svg>";
+const qRnd = s => () => (s = (s * 9301 + 49297) % 233280) / 233280;   // детермінований «рандом» — плитки однакові
+// Дерева/каміння (x — центр, y — основа, s — масштаб): двотонові, як у макеті
+function qProp(kind, x, y, s, a, b, trunk) {
+  const g = "<g transform='translate(" + x + " " + y + ") scale(" + s + ")'>";
+  if (kind === "pine") return g + "<rect x='-4' y='-6' width='8' height='18' fill='" + (trunk || b) + "'/>" +
+    "<path d='M0 -92 L26 -46 L14 -48 L34 -12 L-34 -12 L-14 -48 L-26 -46 Z' fill='" + a + "'/><path d='M0 -92 L26 -46 L14 -48 L34 -12 L0 -12 Z' fill='" + b + "'/></g>";
+  if (kind === "round") return g + "<rect x='-4' y='-30' width='8' height='34' rx='3' fill='" + (trunk || b) + "'/>" +
+    "<circle cx='0' cy='-52' r='28' fill='" + a + "'/><path d='M4 -80 a28 28 0 0 1 0 56 a34 34 0 0 0 0 -56z' fill='" + b + "'/>" +
+    "<circle cx='-10' cy='-62' r='7' fill='#fff' opacity='.14'/></g>";
+  if (kind === "dead") return g + "<path d='M0 4 L2 -70 M1 -38 L26 -64 M0 -24 L-24 -50 M-16 -40 L-20 -66 M16 -54 L30 -52 M2 -70 L-8 -84' stroke='" + a +
+    "' stroke-width='5' stroke-linecap='round' fill='none'/></g>";
+  if (kind === "rock") return g + "<path d='M-34 0 L-26 -26 L-8 -40 L14 -34 L30 -14 L36 0 Z' fill='" + a + "'/><path d='M-8 -40 L14 -34 L30 -14 L36 0 L4 0 Z' fill='" + b + "'/></g>";
+  return "";
 }
-function qSkyCss(t) {
-  const bg = [];
-  if (t.stars) {
-    let st = "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'>";
-    [[22, 30], [70, 80], [118, 18], [160, 60], [205, 110], [248, 34], [290, 88], [335, 20], [372, 66], [52, 140], [180, 150], [310, 140], [95, 196], [262, 186]]
-      .forEach(([x, y], i) => (st += "<circle cx='" + x + "' cy='" + y + "' r='" + (i % 3 ? 1.1 : 1.6) + "' fill='white' opacity='" + t.stars + "'/>"));
-    bg.push(qSvgUrl(st + "</svg>") + " top left / 400px 220px repeat-x");
+function qSkySvg(tod, haze) {
+  const T = QUEST_TOD[tod], r = qRnd(7), G = T.sun ? T.sun.glow : "#8fa0ff";
+  let s = "<defs><linearGradient id='s' x1='0' y1='0' x2='0' y2='1'>" + T.sky.map((c, i) => "<stop offset='" + (i / 3).toFixed(2) + "' stop-color='" + c + "'/>").join("") + "</linearGradient>" +
+    "<radialGradient id='g'><stop offset='0' stop-color='" + G + "' stop-opacity='.75'/><stop offset='1' stop-color='" + G + "' stop-opacity='0'/></radialGradient>" +
+    (haze ? "<linearGradient id='h' x1='0' y1='0' x2='0' y2='1'><stop offset='.35' stop-color='" + haze[0] + "' stop-opacity='0'/><stop offset='1' stop-color='" + haze[0] + "' stop-opacity='" + haze[1] + "'/></linearGradient>" : "") +
+    "</defs><rect width='1280' height='560' fill='url(#s)'/>";
+  for (let i = 0; i < T.stars; i++) s += "<circle cx='" + (r() * 1280).toFixed(0) + "' cy='" + (r() * (tod === "night" ? 330 : 170)).toFixed(0) +
+    "' r='" + (.6 + r() * 1.3).toFixed(2) + "' fill='#fff' opacity='" + (.35 + r() * .6).toFixed(2) + "'/>";
+  if (T.sun) { const x = T.sun.x * 1280, y = T.sun.y * 560;
+    s += "<circle cx='" + x + "' cy='" + y + "' r='" + T.sun.r * 4.5 + "' fill='url(#g)'/><circle cx='" + x + "' cy='" + y + "' r='" + T.sun.r + "' fill='" + T.sun.c + "'/>";
+    if (T.sun.rays) s += [[-170, -80], [80, 170], [250, 350]].map(([a, b]) => "<path d='M" + x + " " + y + " L" + (x + a) + " 560 L" + (x + b) + " 560Z' fill='#fff6dc' opacity='.16'/>").join("");
   }
-  if (t.sun) bg.push("radial-gradient(circle at " + t.sun.x + " " + t.sun.y + ", " + t.sun.c + " 0 " + t.sun.r + "px, " + t.sun.g + " " + (t.sun.r + 2) + "px, transparent " + (t.sun.r * 3.2) + "px)");
-  bg.push("linear-gradient(180deg, " + t.sky[0] + " 0%, " + t.sky[1] + " 55%, " + t.sky[2] + " 100%)");
-  return bg.join(", ");
+  if (T.moon) { const x = T.moon.x * 1280, y = T.moon.y * 560;
+    s += "<circle cx='" + x + "' cy='" + y + "' r='" + T.moon.r * 3.8 + "' fill='url(#g)'/><circle cx='" + x + "' cy='" + y + "' r='" + T.moon.r + "' fill='#eef1ff'/>" +
+      "<circle cx='" + (x - 14) + "' cy='" + (y - 10) + "' r='8' fill='#d6dcf5'/><circle cx='" + (x + 14) + "' cy='" + (y + 16) + "' r='6' fill='#d6dcf5'/><circle cx='" + (x + 10) + "' cy='" + (y - 18) + "' r='4' fill='#d6dcf5'/>";
+  }
+  if (haze) s += "<rect width='1280' height='560' fill='url(#h)'/>";
+  return qSvg(1280, 560, s);
+}
+function qCloudSvg(tod) {
+  const T = QUEST_TOD[tod], c = (x, y, k) => "<path transform='translate(" + x + " " + y + ") scale(" + k + ")' d='M0 0 q10 -26 40 -20 q16 -22 42 -6 q28 -6 30 20 q18 4 12 18 h-130 q-12 -6 6 -12z'/>";
+  return qSvg(1280, 200, "<g fill='" + T.clouds[0] + "' opacity='" + T.clouds[1] + "'>" + c(120, 120, 1) + c(520, 70, .75) + c(800, 130, 1.05) + c(1110, 80, .7) + "</g>");
+}
+function qFarSvg(t, tod) {
+  const L = c => qLit(c, tod, 0), H = t.fog || QUEST_TOD[tod].sky[3];
+  const d = t.jag ? "M0 300 L0 180 L60 110 L95 150 L140 70 L190 140 L230 110 L280 40 L330 140 L380 90 L430 160 L480 80 L520 130 L570 60 L630 150 L680 100 L730 140 L770 90 L830 150 L900 70 L960 140 L1010 100 L1060 150 L1120 60 L1180 130 L1230 110 L1280 180 L1280 300Z"
+    : "M0 300 L0 170 L120 70 L210 130 L330 30 L450 140 L560 80 L700 160 L820 50 L960 150 L1080 80 L1200 140 L1280 170 L1280 300Z";
+  let s = "<defs><linearGradient id='h' x1='0' y1='0' x2='0' y2='1'><stop offset='.3' stop-color='" + H + "' stop-opacity='0'/><stop offset='1' stop-color='" + H + "' stop-opacity='" + (tod === "night" ? .18 : t.fog ? .6 : .45) + "'/></linearGradient></defs>";
+  if (t.volcano) s += "<path d='M560 300 L640 120 L700 120 L790 300Z' fill='" + L(t.sh) + "'/><path d='M640 120 Q670 108 700 120 L692 132 Q670 124 648 132Z' fill='" + (t.rim || "#ff7a3d") + "'/>" +
+    "<g fill='" + (tod === "night" ? "#5a4a5a" : "#8a7a82") + "' opacity='.55'><circle cx='672' cy='96' r='16'/><circle cx='690' cy='72' r='20'/><circle cx='718' cy='44' r='24'/></g>";
+  s += "<path d='" + d + "' fill='" + L(t.fill) + "'/>";
+  if (!t.jag) s += "<path d='M330 30 L450 140 L380 140Z M820 50 L960 150 L880 150Z M120 70 L210 130 L150 130Z M560 80 L700 160 L620 160Z M1080 80 L1200 140 L1130 140Z' fill='" + L(t.sh) + "'/>";
+  else s += "<path d='M280 40 L330 140 L300 140Z M570 60 L630 150 L600 150Z M900 70 L960 140 L930 140Z M1120 60 L1180 130 L1150 130Z M140 70 L190 140 L160 140Z' fill='" + L(t.sh) + "'/>";
+  if (t.snow) s += "<path d='M330 30 L360 56 L344 54 L330 68 L318 54 L300 56Z M820 50 L848 76 L832 72 L820 86 L808 72 L792 76Z M120 70 L142 90 L130 88 L120 98 L110 88 L98 90Z' fill='" +
+    qLit("#ffffff", tod, .3) + "' opacity='" + t.snow + "'/>";
+  if (t.rim) s += "<path d='" + d.replace(/ L1280 300Z$/, "").replace(/^M0 300 L/, "M") + "' fill='none' stroke='" + t.rim + "' stroke-width='2.5' opacity='.5'/>";
+  return qSvg(1280, 300, s + "<rect width='1280' height='300' fill='url(#h)'/>");
+}
+function qMidSvg(t, tod) {
+  const L = c => qLit(c, tod, .35);
+  let s = "<path d='M0 220 L0 90 Q160 10 320 60 Q480 110 640 40 Q800 -20 960 50 Q1120 110 1280 90 L1280 220Z' fill='" + L(t.hill) + "'/>";
+  const spots = t.dense ? Array.from({ length: 28 }, (_, i) => [i * 46 + (i % 2) * 12, 150 + (i * 29 % 50)]) : [[60, 96], [210, 62], [470, 96], [720, 52], [1010, 70], [1180, 108]];
+  spots.forEach(([x, y], i) => (s += qProp(t.tree, x, y, t.dense ? .7 + (i % 3) * .12 : .55, L(t.leaf[0]), L(t.leaf[1] || t.leaf[0]))));
+  const F = t.fog || QUEST_TOD[tod].sky[3];
+  s += "<defs><linearGradient id='m' x1='0' y1='0' x2='0' y2='1'><stop offset='.4' stop-color='" + F + "' stop-opacity='0'/><stop offset='1' stop-color='" + F + "' stop-opacity='" + (t.fog ? .45 : tod === "night" ? .12 : .3) + "'/></linearGradient></defs><rect width='1280' height='220' fill='url(#m)'/>";
+  return qSvg(1280, 220, s);
+}
+function qNearSvg(t, tod) {
+  const L = c => qLit(c, tod, .8), r = qRnd(5);
+  let s = "<path d='M0 180 L0 70 Q200 10 420 50 Q640 90 860 40 Q1060 0 1280 70 L1280 180Z' fill='" + L(t.hill) + "'/>" +
+    "<path d='M0 70 Q200 10 420 50 Q640 90 860 40 Q1060 0 1280 70' fill='none' stroke='#fff' stroke-opacity='" + (tod === "night" ? .06 : .18) + "' stroke-width='3'/>";
+  if (t.rocks) [[300, 120, .7], [560, 140, .5], [760, 110, .6], [980, 130, .45]].forEach(([x, y, k]) => (s += qProp("rock", x, y, k, L(t.rocks[0]), L(t.rocks[1]))));
+  if (t.flowers) for (let i = 0; i < 26; i++) s += "<circle cx='" + (r() * 1280).toFixed(0) + "' cy='" + (100 + r() * 70).toFixed(0) + "' r='3' fill='" + L(t.flowers[i % 3]) + "'/>";
+  if (t.leaves) for (let i = 0; i < 22; i++) s += "<ellipse cx='" + (r() * 1280).toFixed(0) + "' cy='" + (110 + r() * 60).toFixed(0) + "' rx='4' ry='2' fill='" + L(t.leaves[i % 3]) + "'/>";
+  const trees = t.dense ? [[30, 112, 1], [150, 108, .95], [260, 120, .8], [1020, 112, .85], [1120, 106, 1], [1240, 114, .95]] : [[30, 108, .9], [150, 114, .9], [1120, 108, .9], [1240, 114, .9]];
+  trees.forEach(([x, y, k]) => (s += qProp(t.tree, x, y, k, L(t.leaf[0]), L(t.leaf[1] || t.leaf[0]), L(t.trunk))));
+  return qSvg(1280, 180, s);
+}
+function qGroundSvg(t, tod) {
+  const L = c => qLit(c, tod, 1), rg = qRnd(3);
+  let s = "<defs><linearGradient id='d' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='" + L(t.dirt[0]) + "'/><stop offset='1' stop-color='" + L(t.dirt[1]) + "'/></linearGradient></defs>" +
+    "<rect y='8' width='400' height='88' fill='url(#d)'/>";
+  if (t.lava) s += "<path d='M20 40 L38 52 L30 66 L52 78 M220 34 L236 48 L228 60 M320 60 L338 72 L332 86' stroke='" + t.lava + "' stroke-width='2.4' fill='none' opacity='.8' stroke-linecap='round'/>";
+  s += "<path d='M0 20 L0 8 " + "q10 -10 20 0 ".repeat(20) + "L400 20Z' fill='" + L(t.grass) + "'/>" +
+    "<path d='M0 18 Q200 26 400 18' fill='none' stroke='" + L(t.tuft) + "' stroke-width='3' opacity='.6'/>";
+  for (let i = 0; i < 9; i++) s += "<ellipse cx='" + (20 + i * 44 + rg() * 16).toFixed(0) + "' cy='" + (36 + rg() * 52).toFixed(0) + "' rx='" + (6 + rg() * 8).toFixed(0) + "' ry='2.6' fill='" + L(t.peb) + "' opacity='.55'/>";
+  for (let i = 0; i < 5; i++) s += "<circle cx='" + (30 + i * 80 + rg() * 30).toFixed(0) + "' cy='" + (44 + rg() * 46).toFixed(0) + "' r='2.4' fill='" + L(t.hi) + "'/>";
+  for (let i = 0; i < 7; i++) { const x = 20 + i * 58; s += "<path d='M" + x + " 10 q-2 -12 -6 -16 M" + (x + 4) + " 10 q1 -14 4 -18 M" + (x + 8) + " 11 q4 -9 9 -11' stroke='" + L(t.tuft) + "' stroke-width='2.4' fill='none' stroke-linecap='round'/>"; }
+  return qSvg(400, 96, s);
 }
 // Рівні походу → які теми на яких шарах
 function questSceneLevels() {
@@ -13801,23 +13880,29 @@ function questSceneLevels() {
 }
 function questSceneMix(ls) {
   const lo = ls[0], hi = ls[ls.length - 1], mid = ls.length >= 3 ? ls[Math.floor((ls.length - 1) / 2)] : hi;
-  return { sky: hi, far: mid, near: lo, ground: lo };
+  return { sky: hi, far: mid, mid, near: lo, ground: lo };
 }
 function qApplyScene(ls) {
-  const m = questSceneMix(ls || questSceneLevels()), S = QUEST_SCENES;
-  qEl("q-scene").style.background = qSkyCss(S[m.sky]);
-  qEl("q-far").style.backgroundImage = qSvgUrl(qFarSvg(S[m.far].far));
-  qEl("q-near").style.backgroundImage = qSvgUrl(qNearSvg(S[m.near].near));
-  qEl("q-ground").style.backgroundImage = qSvgUrl(qGroundSvg(S[m.near].ground));
-  // Сутінки на ближніх шарах (сесія 64, за фідбеком: «світлий осінній луг під нічним небом C1 — неузгоджено»):
-  // що темніше небо за шар, то шар трохи темніший. Різниця 1 рівень — без змін; далі −8% яскравості за рівень.
-  const I = L => QUEST_SCENE_ORDER.indexOf(L), dusk = (a, b) => { const d = I(a) - I(b);
-    return d >= 2 ? "brightness(" + (1 - 0.08 * (d - 1)).toFixed(2) + ") saturate(" + (1 - 0.05 * (d - 1)).toFixed(2) + ")" : ""; };
-  qEl("q-far").style.filter = dusk(m.sky, m.far);
-  qEl("q-near").style.filter = qEl("q-ground").style.filter = dusk(m.sky, m.near);
-  qEl("q-scene").dataset.scene = ls ? ls.join("+") : "";
+  ls = ls || questSceneLevels();
+  const m = questSceneMix(ls), S = QUEST_SCENES, tod = qTod(), T = QUEST_TOD[tod], sc = qEl("q-scene");
+  sc.style.background = qSvgUrl(qSkySvg(tod, S[m.sky].haze)) + " center / cover no-repeat, " + T.sky[1];
+  qEl("q-clouds").style.backgroundImage = qSvgUrl(qCloudSvg(tod));
+  qEl("q-far").style.backgroundImage = qSvgUrl(qFarSvg(S[m.far].far, tod));
+  qEl("q-mid").style.backgroundImage = qSvgUrl(qMidSvg(S[m.mid].mid, tod));
+  qEl("q-near").style.backgroundImage = qSvgUrl(qNearSvg(S[m.near].near, tod));
+  qEl("q-ground").style.backgroundImage = qSvgUrl(qGroundSvg(S[m.ground].ground, tod));
+  // частинки: вдень/на світанку — пилок, увечері/вночі — світлячки
+  const [mc, mn, glow] = T.motes, r = qRnd(11);
+  qEl("q-fx").innerHTML = Array.from({ length: mn }, (_, i) => "<i class='" + (glow ? "ff" : "mote") + "' style='left:" + (3 + r() * 94).toFixed(1) + "%;bottom:" +
+    (120 + r() * 260).toFixed(0) + "px;background:" + mc + ";color:" + mc + ";animation-delay:" + (-r() * 6).toFixed(2) + "s'></i>").join("");
+  sc.dataset.tod = tod;
+  sc.dataset.scene = ls.join("+");
   return m;
 }
+// Пора дня змінилась посеред походу (сезонний таймер раз на 10 хв) → перемалювати краєвид
+if (typeof MutationObserver === "function")   // ⚠️ стенд loadtest.js без DOM — там його немає
+  new MutationObserver(() => { if (Q && Q.sceneLs) qApplyScene(Q.sceneLs); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ["data-tod"] });
 function questStart() {
   if (Q) return;
   const pool = trainPool() || [...Array(WORDS.length).keys()];
@@ -13839,7 +13924,7 @@ function questStart() {
   qEl("q-scene").classList.remove("arena");
   qEl("q-card").classList.add("hidden");
   qEl("q-feed").innerHTML = ""; qEl("q-feed").classList.add("hidden");
-  qApplyScene(questSceneLevels());   // 🌄 краєвид за обраними рівнями (сесія 64)
+  Q.sceneLs = questSceneLevels(); qApplyScene(Q.sceneLs);   // 🌄 краєвид: рівні × пора дня (сесія 64 / 01.11.2026)
   qEl("q-hero").innerHTML = heroSvg(heroState());
   qEl("q-hero").style.width = Math.round(170 * scale) + "px";
   qEl("q-set").innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());
