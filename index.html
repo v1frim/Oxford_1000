@@ -1834,6 +1834,8 @@
   .q-feed.hidden { display: none; }
   .qf-row { display: flex; align-items: center; gap: 6px; background: rgba(10,14,30,.72); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 3px 9px; font-size: 12px; }
   .qf-row:first-child { border-color: rgba(255,209,102,.5); }
+  .qf-w.say { pointer-events: auto; cursor: pointer; }
+  .qf-w.say:hover { text-decoration: underline dotted; }
   .qf-row:not(:first-child) { opacity: .78; }
   .qf-w { font-weight: 700; margin-right: 2px; }
   .qf-it { color: #06d6a0; } .qf-it.neg { color: #ff8a8a; } .qf-it.zero { color: rgba(255,255,255,.5); }
@@ -12933,7 +12935,7 @@ function qFeed(idx, items, kind) {
     e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
     items = [];
     qXpBy("arena", ARENA_KILL_XP);
-  } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], items: [] }; Q.feed.unshift(e); }
+  } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], say: 1, items: [] }; Q.feed.unshift(e); }
   if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
   items.forEach(([v, l]) => qXpBy(QUEST_XP_CAT[l] || "bonus", +v));
   e.items = e.items.concat(items.map(([v, l]) => ({ v: +v, l })));
@@ -12941,7 +12943,7 @@ function qFeed(idx, items, kind) {
   const box = qEl("q-feed");
   box.innerHTML = Q.feed.slice(0, 5).map(x => {
     const sum = x.items.reduce((a, it) => a + it.v, 0);
-    return '<div class="qf-row"><span class="qf-w">' + esc(x.w) + '</span>' +
+    return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say" data-say="' + escAttr(x.w) + '" title="🔊 Озвучити"' : '"') + '>' + esc(x.w) + '</span>' +
       x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") +
       '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
   }).join("");
@@ -13193,6 +13195,15 @@ function qCountAnswer(n) {
   try { localStorage.setItem(QUEST_CARRY_KEY, String(Q.answers - questPointNeed(Q.pts))); } catch (e) {}
   qHud();
 }
+// 🔊 ОЗВУЧКА ПІСЛЯ ПЕРЕМОГИ (02.11.2026, за запитом: «укр. слово я переклав на англ., а як воно звучить —
+// не почую»). У UA→US правильна англійська відповідь звучить сама, поки монстр падає (герой іде далі —
+// тиша в цей момент нікому не заважає). У US→UA слово й так можна було озвучити до відповіді, тож автоматом
+// не говоримо, але Tab на дорозі / клік по слову в стрічці XP (праворуч угорі) — повтор останнього слова.
+function qSayWon(idx, val, dir) {
+  const en = dir === "ua-en" ? val.trim() : getEn(WORDS[idx])[0];
+  Q.lastEn = en;
+  if (dir === "ua-en") setTimeout(() => speak(en), 280);
+}
 function qOnAnswer(val, auto) {
   if (!Q) return;
   if (Q.phase === "fight") return qFightAnswer(val, auto);
@@ -13218,6 +13229,7 @@ function qFightAnswer(val, auto) {
     updateMastery(t, true);
     if (t !== c.idx) schedTouch(c.idx);
     const bonus = loadXp() - xpA - 1;
+    qSayWon(c.idx, val, c.dir);
     qFeed(c.idx, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight");
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
@@ -13508,6 +13520,7 @@ function qArenaAnswer(val, auto) {
   ar.t += qNow() - Q.aAt; ar.tries++;               // ⏱ час і спроби на кожного монстра арени
   if (ok) {
     A.cnt[idx] = (A.cnt[idx] || 0) + 1;
+    qSayWon(idx, val, mode);
     qHero("strike face-right arena");
     qSfx("hit");
     el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit");
@@ -14037,6 +14050,7 @@ questOverlay.addEventListener("click", e => {
   else if (a === "skip" && !qAnswerEl.disabled) qOnAnswer("", false);
 });
 document.getElementById("quest-btn").addEventListener("click", questStart);
+document.getElementById("q-feed").addEventListener("click", e => { const w = e.target.closest("[data-say]"); if (w) speak(w.dataset.say); });   // 🔊 слово зі стрічки XP
 // Клавіатура походу (capture): Enter — відповідь / «Готово» / далі, Esc — стоп, Tab — озвучити
 // англійське слово (лише коли воно вже на екрані). Решта до меню позаду НЕ доходить.
 document.addEventListener("keydown", e => {
@@ -14061,6 +14075,7 @@ document.addEventListener("keydown", e => {
     // ⚠️ currentShown, а НЕ Q.cur.shown: у повторенні напрямок міняється, і Q.cur.shown лишався
     // українським промптом бою — Tab озвучував українське слово (скарга користувача)
     else if (mode === "en-ua" && (Q.phase === "fight" || Q.phase === "drill" || Q.phase === "arena")) speak(currentShown);
+    else if (Q.lastEn && (Q.phase === "walk" || Q.phase === "kill")) speak(Q.lastEn);   // 🔊 повтор щойно переможеного слова
   } else if (e.key === " " && Q.phase === "phrase") {
     e.preventDefault();                            // 💬 фраза: Пробіл — показати / «ще вчу» (як у тренажері карток)
     Q.phrase.open ? qPhraseRate("learning") : qPhraseOpen();
