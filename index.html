@@ -12693,7 +12693,7 @@ document.addEventListener("keydown", e => {
 // ── 🌐 Alt+Q — ПЕРЕКЛАД GOOGLE ПРЯМО НА КАРТЦІ (30.10.2026, за запитом: «виділяю і перекладаю гуглом у межах
 // вкладки — це дає ще альтернативний варіант»). Вбудований перекладач Chrome з контекстного меню сторінка
 // викликати не може, тож беремо той самий Google напряму: виділений текст, а без виділення — англійське
-// слово картки, коли відповідь уже показана (похід: Q.say, гра: currentWord). Кирилиця → uk→en, інакше en→uk.
+// слово картки, коли відповідь уже показана — у мові ПРОМПТУ (UA→US: українське → en, US→UA: англійське → uk).
 // Показує основний переклад + словникові варіанти (dt=bd). Якщо мережа/ендпоінт не відповів — пробуємо
 // вбудований Translator API Chrome (138+, на пристрої). Підказка зникає від кліку, Esc чи будь-якої клавіші.
 // ⚠️ Слухач на window у capture — інакше клавіатура походу (document, stopPropagation) його б не пропустила.
@@ -12723,9 +12723,14 @@ async function gtShow() {
   const corr = document.getElementById("correction");
   // 💬 фрази (31.10.2026, за запитом): фраза в поході й картка тренажера «Вирази» — теж лише ПІСЛЯ показу перекладу
   const exprCard = !exprOverlay.classList.contains("hidden") && exprView === "card" && exprRevealed && exprDeck[exprPos];
-  const text = sel || (exprCard ? exprCard.en : Q ? ((Q.phase === "study" || Q.phase === "arenaStudy") ? Q.say :
-      Q.phase === "phrase" && Q.phrase && Q.phrase.open ? Q.phrase.c.en : "") :
-    (corr && !corr.classList.contains("hidden") && currentWord ? getEn(currentWord)[0] : ""));
+  // ⚠️ НАПРЯМОК (02.11.2026, скарга «в обох випадках дає лиш україномовний переклад»): у UA→US перекладаємо
+  // ПОКАЗАНЕ УКРАЇНСЬКЕ (uk→en — англійські варіанти, як і питали), у US→UA — англійське (en→uk), як було.
+  // `mode`/`currentShown` перед карткою виставляють qStudyCard (похід) і гра; фраза й «Вирази» — свій dir.
+  const word = () => mode === "ua-en" && currentShown ? currentShown : getEn(currentWord)[0];
+  const phr = (c, dir) => dir === "ua2en" ? c.ua : c.en;
+  const text = sel || (exprCard ? phr(exprCard, exprDir) : Q ? ((Q.phase === "study" || Q.phase === "arenaStudy") ? word() :
+      Q.phase === "phrase" && Q.phrase && Q.phrase.open ? phr(Q.phrase.c, Q.phrase.dir) : "") :
+    (corr && !corr.classList.contains("hidden") && currentWord ? word() : ""));
   if (!text) return;
   const ua = /[а-яіїєґ]/i.test(text), sl = ua ? "uk" : "en", tl = ua ? "en" : "uk";
   let rect = null;
