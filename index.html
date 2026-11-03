@@ -3615,8 +3615,17 @@ function isCorrect(input) {
     // НЕ приймається. Дужка лише з одного боку (або однакова) — збіг як і раніше.
     const shownFull = getUa(currentWord);
     const paren = u => { const m = String(u).match(/\(([^)]*)\)\s*$/); return m ? m[1].trim().toLowerCase() : ""; };
-    return wordsByEnNorm(inpNorm).some(w => getUa(w).some(u => shownFull.some(su =>
-      uaBare(su) === uaBare(u) && (!paren(su) || !paren(u) || paren(su) === paren(u)))));
+    const cands = wordsByEnNorm(inpNorm);
+    if (cands.some(w => getUa(w).some(u => shownFull.some(su =>
+      uaBare(su) === uaBare(u) && (!paren(su) || !paren(u) || paren(su) === paren(u)))))) return true;
+    // ⚠️ ДЕФІС ≡ ПРОБІЛ В АНГЛІЙСЬКІЙ — ЛИШЕ ЗІ ЗАПОБІЖНИКОМ (03.11.2026, привід `soft-spoken` ← «soft spoken»).
+    // Загальне зведення в `normEn` заборонене (див. коментар на початку функції: pick up/pick-up, check in/
+    // check-in — дефіс розрізняє сенс). Тут приймаємо інше написання ЛИШЕ коли набране саме по собі НЕ є
+    // жодною карткою словника (`cands` порожній) — тож «pick up» на pick-up і далі ✗, а «soft spoken» ✓.
+    // Лише ця картка (en + enAlt), без перехресних карток.
+    const dh = x => x.replace(/[-\s]+/g, " ").trim();
+    return !cands.length && /[-\s]/.test(inpNorm) &&
+      getEn(currentWord).concat(currentWord.enAlt || []).some(e => dh(normEn(e)) === dh(inpNorm));
   } else if (mode === "en-def" || mode === "en-cloze") {
     // Answer is the English word itself
     return getEn(currentWord).some(e => normEn(e) === inpNorm);
