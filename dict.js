@@ -8956,7 +8956,7 @@ const WORDS = [
   {en:"kind-hearted",ua:"добросердий"},
   {en:"open-minded",ua:"відкритий до нового",uaAlt:["неупереджений"]},
   {en:"forgiving",ua:"схильний пробачати"},
-  {en:"easy-going",ua:"легкий у спілкуванні",uaAlt:["невимушений"]},
+  {en:"easy-going",ua:"легкий у спілкуванні",uaAlt:["невимушений","легкий у розмові","безтурботний"]},
   {en:"good-natured",ua:"добродушний"},
   {en:"faithful",ua:"вірний",uaAlt:["відданий"]},
   {en:"committed",ua:"відданий справі"},
