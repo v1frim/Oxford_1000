@@ -4246,7 +4246,7 @@ const WORDS = [
   {en:"asparagus",ua:"спаржа"},
   {en:"bacon",ua:"бекон",uaAlt:["грудинка"]},
   {en:"baguette",ua:"багет"},
-  {en:"baked",ua:"запечений",uaAlt:["печений"]},
+  {en:"baked",ua:"запечений",uaAlt:["печений","випечений"]},
   {en:"baker",ua:"пекар"},
   {en:"bartender",ua:"бармен"},
   {en:"basil",ua:"базилік"},
