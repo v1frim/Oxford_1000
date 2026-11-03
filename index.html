@@ -12928,7 +12928,7 @@ function qFeedRaw(label, items) {
   if (!Q) return;
   const phr = label.indexOf("💬") === 0;
   items.forEach(([v, l]) => qXpBy(phr ? (l === "фраза" ? "phr" : "phrK") : l === "бонус" ? "side" : l === "Duolingo" ? "duo" : "lh", +v));
-  const e = { w: label, items: items.map(([v, l]) => ({ v: +v, l })) };
+  const e = { w: label, say: phr ? label.replace(/^💬\s*/, "") : "", items: items.map(([v, l]) => ({ v: +v, l })) };   // 🔊 фразу теж можна озвучити кліком
   Q.feed.unshift(e); Q.feedCur = null;
   qFeed(null, [], "redraw");
 }
@@ -12944,7 +12944,7 @@ function qFeed(idx, items, kind) {
     e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
     items = [];
     qXpBy("arena", ARENA_KILL_XP);
-  } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], say: 1, items: [] }; Q.feed.unshift(e); }
+  } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], items: [] }; e.say = e.w; Q.feed.unshift(e); }
   if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
   items.forEach(([v, l]) => qXpBy(QUEST_XP_CAT[l] || "bonus", +v));
   e.items = e.items.concat(items.map(([v, l]) => ({ v: +v, l })));
@@ -12952,7 +12952,7 @@ function qFeed(idx, items, kind) {
   const box = qEl("q-feed");
   box.innerHTML = Q.feed.slice(0, 5).map(x => {
     const sum = x.items.reduce((a, it) => a + it.v, 0);
-    return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say" data-say="' + escAttr(x.w) + '" title="🔊 Озвучити"' : '"') + '>' + esc(x.w) + '</span>' +
+    return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say" data-say="' + escAttr(x.say) + '" title="🔊 Озвучити"' : '"') + '>' + esc(x.w) + '</span>' +
       x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") +
       '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
   }).join("");
@@ -13064,6 +13064,7 @@ function qPhraseRate(status) {
   setExprStatus(P.c.en, status, P.dir);
   const know = status === "learned" && prev !== "learned";
   if (know) { awardExprXp("k"); qFloat("+" + EXPR_KNOW_XP + " XP", "xp", 50); }
+  Q.lastEn = P.c.en;   // Tab на дорозі після фрази — озвучує її
   qFeedRaw("💬 " + P.c.en, [[EXPR_CARD_XP, "фраза"]].concat(know ? [[EXPR_KNOW_XP, "у «Знаю»"]] : status === "learning" ? [[0, "ще вчу"]] : []));
   Q.phrase = null;
   qHud();   // ⚡ +XP за «Знаю» — одразу
@@ -13335,6 +13336,7 @@ function qDrillAnswer(val, auto) {
   Q.rec.da++;                                      // спроб у повторенні (і правильних, і ні)
   if (ok) {
     d.n++;
+    qSayWon(Q.cur.idx, val, mode);   // 🔊 повторення теж: UA→US звучить, і Tab на дорозі — САМЕ це слово (не попереднє)
     qSfx("hit");
     qClash(true);
     if (d.n >= QUEST_DRILL) {
