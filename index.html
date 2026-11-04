@@ -12115,6 +12115,20 @@ function computeRecords() {
     const p = thermoRawForDate(d, days, duo, lh, songSess, gpt, mrPts, movies, selfRev, exprPts);
     if (p > bestPts.v) bestPts = { v: p, d };
   });
+  // ⚔️ СЕРІЯ ПРАВИЛЬНИХ У ПОХОДІ (04.11.2026, за запитом): найдовша низка монстрів дороги, переможених з ПЕРШОЇ
+  // відповіді поспіль, в одному поході. Джерело — детальний журнал походів (`monsters[].ok` у порядку боїв);
+  // втеча (✗) обриває серію, повторення/арена її не продовжують. Дата рекорду — день того походу.
+  // ⚠️ Ключ — літералом: const QUEST_LOG_KEY оголошено нижче (TDZ на старті).
+  let qStreak = { v: 0, d: null };
+  try {
+    const ql = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]");
+    (Array.isArray(ql) ? ql : []).forEach(q => {
+      let run = 0, best = 0;
+      (q.monsters || []).forEach(m => { run = m.ok ? run + 1 : 0; if (run > best) best = run; });
+      if (best > qStreak.v) { const dt = new Date(q.ts || q.t0 || 0);
+        qStreak = { v: best, d: dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0") }; }
+    });
+  } catch (e) {}
   const g = _maxOf(days, x => x.games || 0);
   const c = _maxOf(days, x => x.correct || 0);
   const t = _maxOf(days, x => (x.correct || 0) + (x.wrong || 0) + (x.skipped || 0));
@@ -12131,7 +12145,8 @@ function computeRecords() {
     { id: "know",     ic: "🧠", label: "Слів у «Знаю» за день",   ...bestK, color: "#7be07b" },
     { id: "learn",    ic: "↗",  label: "Слів у «Вивчаю» за день", ...bestL, color: "#87b4ff" },
     { id: "xp",       ic: "⚡", label: "XP за день · без пісень", ..._maxOf(xpNoSongs), color: "#ffd166" },
-    { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" }
+    { id: "pts",      ic: "🌡️", label: "Пунктів «Плани» за день", ...bestPts, color: "#ffa94d" },
+    { id: "qstreak",  ic: "⚔️", label: "Серія правильних у поході", ...qStreak, color: "#ff8a5c" }
   ];
 }
 
@@ -12174,7 +12189,7 @@ function checkRecordMilestones() {
 }
 function openRecords() {
   document.getElementById("records-head").innerHTML =
-    '<div><h2>🏆 Рекорди</h2> <span class="sh-sub">найкращі показники за день</span></div>' +
+    '<div><h2>🏆 Рекорди</h2> <span class="sh-sub">найкращі показники</span></div>' +
     '<button class="songs-close" data-act="close">✕</button>';
   const recs = computeRecords();
   let html = '<div class="rec-list">';
@@ -13009,7 +13024,8 @@ function qFeedRaw(label, items) {
   if (!Q) return;
   const phr = label.indexOf("💬") === 0;
   items.forEach(([v, l]) => qXpBy(phr ? (l === "фраза" ? "phr" : "phrK") : l === "бонус" ? "side" : l === "Duolingo" ? "duo" : "lh", +v));
-  const e = { w: label, say: phr ? label.replace(/^💬\s*/, "") : "", items: items.map(([v, l]) => ({ v: +v, l })) };   // 🔊 фразу теж можна озвучити кліком
+  const e = { w: label, say: phr ? label.replace(/^💬\s*/, "") : "", items: items.map(([v, l]) => ({ v: +v, l })) };
+  if (phr && Q.phrase) e.tr = Q.phrase.c.ua;   // 🔍 ховер фрази — її переклад   // 🔊 фразу теж можна озвучити кліком
   Q.feed.unshift(e); Q.feedCur = null;
   qFeed(null, [], "redraw");
 }
@@ -13025,7 +13041,10 @@ function qFeed(idx, items, kind) {
     e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
     items = [];
     qXpBy("arena", ARENA_KILL_XP);
-  } else { e = Q.feedCur = { w: getEn(WORDS[idx])[0], items: [] }; e.say = e.w; Q.feed.unshift(e); }
+  } else { const W = WORDS[idx]; e = Q.feedCur = { w: getEn(W)[0], items: [] }; e.say = e.w;
+    // 🔍 ховер (04.11.2026, за запитом): переклади САМЕ цієї картки + транскрипція — як .hw на картках
+    e.tr = [...new Set(getUa(W).concat(W.uaAlt || []))].join(", "); e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
+    Q.feed.unshift(e); }
   if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
   items.forEach(([v, l]) => qXpBy(QUEST_XP_CAT[l] || "bonus", +v));
   e.items = e.items.concat(items.map(([v, l]) => ({ v: +v, l })));
@@ -13033,7 +13052,7 @@ function qFeed(idx, items, kind) {
   const box = qEl("q-feed");
   box.innerHTML = Q.feed.slice(0, 5).map(x => {
     const sum = x.items.reduce((a, it) => a + it.v, 0);
-    return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say" data-say="' + escAttr(x.say) + '" title="🔊 Озвучити"' : '"') + '>' + esc(x.w) + '</span>' +
+    return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say hw" data-say="' + escAttr(x.say) + '"' + (x.tr ? ' data-trans="' + escAttr(x.tr) + '"' : '') + (x.ipa ? ' data-ipa="' + escAttr(x.ipa) + '"' : '') : '"') + '>' + esc(x.w) + '</span>' +
       x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") +
       '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
   }).join("");
@@ -14113,7 +14132,7 @@ qAnswerEl.addEventListener("input", () => { if (Q && !qAnswerEl.disabled && qAns
 questOverlay.addEventListener("click", e => {
   // слова відповіді й речення на картці — клік озвучує, як на панелі правильної відповіді в грі
   const hw = e.target.closest(".hw");
-  if (hw) { speak(hw.textContent); return; }
+  if (hw) { speak(hw.dataset.say || hw.textContent); return; }   // data-say — стрічка XP (у фразі без «💬»)
   const b = e.target.closest("[data-q]");
   if (!b || !Q) return;
   const a = b.dataset.q;
@@ -14140,7 +14159,6 @@ questOverlay.addEventListener("click", e => {
   else if (a === "skip" && !qAnswerEl.disabled) qOnAnswer("", false);
 });
 document.getElementById("quest-btn").addEventListener("click", questStart);
-document.getElementById("q-feed").addEventListener("click", e => { const w = e.target.closest("[data-say]"); if (w) speak(w.dataset.say); });   // 🔊 слово зі стрічки XP
 // Клавіатура походу (capture): Enter — відповідь / «Готово» / далі, Esc — стоп, Tab — озвучити
 // англійське слово (лише коли воно вже на екрані). Решта до меню позаду НЕ доходить.
 document.addEventListener("keydown", e => {
