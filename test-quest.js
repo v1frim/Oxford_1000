@@ -157,7 +157,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("добитий на арені монстр зник зі збереженої арени", await p.evaluate(() => loadQArena().length === 0));
   const pts = await p.evaluate(() => ({ need: [1,2,3,4,5,6,7].map(questPointNeed).join(","), d: loadDays()[todayKey()].questPts || 0,
     ans: Q.answers, q: Q.pts, exp: questPointsFor(Q.answers), at10: questPointsFor(10), at45: questPointsFor(45), at62: questPointsFor(62) }));
-  t("пункти «Плани»: кожні 24 очки (31.10.2026; було 15)", pts.need === "24,48,72,96,120,144,168" && pts.at10 === 0 && pts.at45 === 1 && pts.at62 === 2, JSON.stringify(pts));
+  t("пункти «Плани»: кожні 27 очок (04.11.2026; було 24, ще раніше 15)", pts.need === "27,54,81,108,135,162,189" && pts.at10 === 0 && pts.at45 === 1 && pts.at62 === 2, JSON.stringify(pts));
   // очки (31.10.2026): монстр ✓ (1) + монстр ✗ (1) + завершене повторення (4) + добитий на арені (2) = 8;
   // помилки в повторенні й на арені очок НЕ дають
   t("очки походу: бій 1 + бій 1 + повторення 4 + арена 1 = 7 (ставки 01.11.2026)", pts.ans === 7, JSON.stringify(pts));
@@ -172,7 +172,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("фінал: таблиця часу — бої з кількістю, картка, 3 правильні, арена", /Бої · 2/.test(tim.card) && /Картка зі словом/.test(tim.card) && /3 правильні після картки · 1/.test(tim.card) && /Арена · 1/.test(tim.card), tim.card.slice(0, 200));
   t("фінал: замість «Втік від» — слова, що перейшли у «Знаю»", !/Втік від/.test(tim.card), tim.card.slice(-160));
-  t("недобрані очки збережено для наступного походу", await p.evaluate(() => localStorage.getItem("oxford_quest_carry_v1")) === "7");   // 7 очок, пункт — за 24
+  t("недобрані очки збережено для наступного походу", await p.evaluate(() => localStorage.getItem("oxford_quest_carry_v1")) === "7");   // 7 очок, пункт — за 27
   t("журнал ігор: секунди по етапах і лічильники", tim.gTime && "fight" in tim.gTime && "arena" in tim.gTime && tim.gTime.total >= 0 && tim.gN && tim.gN.fights === 2 && tim.gN.drills === 1 && tim.gN.arena === 1, JSON.stringify([tim.gTime, tim.gN]));
   t("журнал походів: кожен монстр із часом відповіді", tim.mons === 2 && tim.wrongRec && tim.wrongRec.t >= 0 && tim.wrongRec.st >= 0 && tim.wrongRec.dr >= 0 && tim.wrongRec.da >= 3, JSON.stringify(tim.wrongRec));
   t("журнал походів: монстр арени — час і спроби (1 помилка + 3 правильні = 4)", tim.arena === 1 && tim.arenaRec.tries === 4 && tim.arenaRec.t > 0, JSON.stringify(tim.arenaRec));
@@ -206,7 +206,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   // сесія 64: «🌡️ 0 пунктів» + шкала до наступного пункту (перенесене — окремим кольором) + «N/14 оч.»
   const hud = await p.evaluate(() => { qHud(); const el = document.querySelector("#q-hud-stats .q-pts");
     return { txt: el.textContent, carry: parseFloat(el.querySelector(".q-pts-bar i.c").style.width), now: parseFloat(el.querySelector(".q-pts-bar i.n").style.width), tip: el.title }; });
-  t("шапка: пункти + шкала з перенесеними очками + «N/24 оч.»", /🌡️ 0пунктів[1-9]\d*\/24 оч\./.test(hud.txt) && hud.carry > 0 && hud.now === 0 && /перенесено/.test(hud.tip), JSON.stringify(hud));
+  t("шапка: пункти + шкала з перенесеними очками + «N/27 оч.»", /🌡️ 0пунктів[1-9]\d*\/27 оч\./.test(hud.txt) && hud.carry > 0 && hud.now === 0 && /перенесено/.test(hud.tip), JSON.stringify(hud));
   const pre = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, idx: Q.cur && Q.cur.idx, hint: document.getElementById("q-hint").textContent }));
   t("новий похід починається з арени недобитих", pre.stage === "arena" && pre.pre && pre.n === 1 && pre.idx === idx3, JSON.stringify(pre));
   t("підказка: «спершу добий монстрів із минулого походу»", /минулого походу/.test(pre.hint), pre.hint);
