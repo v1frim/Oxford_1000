@@ -13338,7 +13338,9 @@ function qFightAnswer(val, auto) {
     if (t !== c.idx) schedTouch(c.idx);
     const bonus = loadXp() - xpA - 1;
     qSayWon(c.idx, val, c.dir);
-    qFeed(c.idx, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight");
+    // ⚠️ у стрічці — картка, ЯКУ ЗАРАХОВАНО (`t`), а не картка монстра (04.11.2026, скарга: на «піднімати» відповів
+    // raise, а в стрічці стояло lift). Mastery й бонус «у Знаю» теж ідуть на `t`, тож так і чесніше.
+    qFeed(t, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight");
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
     qHero("strike face-" + Q.side);
