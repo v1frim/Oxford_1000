@@ -10627,7 +10627,7 @@ const WORDS = [
   {en:"green space",ua:"зелена зона",uaAlt:["зелені насадження","зелена територія"]},
   {en:"bandstand",ua:"естрада для оркестру"},
   {en:"gazebo",ua:"альтанка",enAlt:["pavilion"]},
-  {en:"walking path",ua:"пішохідна доріжка",uaAlt:["пішохідна стежка","доріжка для прогулянок"]},
+  {en:"walking path",ua:"пішохідна доріжка",uaAlt:["пішохідна стежка","доріжка для прогулянок"],enAlt:["footpath","walkway"]},
   {en:"cycle path",ua:"велодоріжка",enAlt:["bike path"]},
   {en:"riverbank",ua:"берег річки"},
   {en:"scenic view",ua:"мальовничий краєвид",uaAlt:["гарний краєвид","мальовничий вид"]},
@@ -12351,7 +12351,7 @@ const WORDS = [
   {en:"crop failure",ua:"неврожай"},
   {en:"to sow",ua:"сіяти",uaAlt:["посіяти","засіяти"]},
   {en:"to irrigate",ua:"зрошувати",uaAlt:["зросити"]},
-  {en:"footpath",ua:"пішохідна стежка",uaAlt:["пішохідна доріжка"]},
+  {en:"footpath",ua:"пішохідна стежка",uaAlt:["пішохідна доріжка"],enAlt:["walking path","walkway"]},
   {en:"trailhead",ua:"початок туристичного маршруту"},
   {en:"turning",ua:"відгалуження дороги"},
   {en:"signpost",ua:"вказівник"},
@@ -24782,7 +24782,9 @@ const TRANS = {
   "seagull":"/ˈsiːɡʌl/","airplane":"/ˈerpleɪn/","afterward":"/ˈæftərwərd/","tie pin":"/ˈtaɪ ˌpɪn/",
   "bus station":"/ˈbʌs ˌsteɪʃən/","stuffed animal":"/ˌstʌft ˈænɪməl/","baby wipe":"/ˈbeɪbi ˌwaɪp/","seatbelt":"/ˈsiːt ˌbelt/",
   "hanger":"/ˈhæŋər/","everyone":"/ˈevriwʌn/","to log on":"/tə ˌlɑːɡ ˈɑːn/","money exchange":"/ˈmʌni ɪksˌtʃeɪndʒ/",
-  "paperclip":"/ˈpeɪpərklɪp/","litchi":"/ˈliːtʃi/"
+  "paperclip":"/ˈpeɪpərklɪp/","litchi":"/ˈliːtʃi/",
+  // ── ipa-add ──
+  "walkway":"/ˈwɔːkˌweɪ/"
 };
 const HINTS = {
   "wonderful": "загальне захоплення",
