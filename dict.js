@@ -4307,7 +4307,7 @@ const WORDS = [
   {en:"gherkin",ua:"корнішон"},
   {en:"ginger",ua:"імбир"},
   {en:"glaze",ua:"глазур кондитерська",uaAlt:["полива"]},
-  {en:"goat",ua:"коза",uaAlt:["цап"]},
+  {en:"goat",ua:"коза",uaAlt:["цап","козел"]},
   {en:"goose",ua:"гуска",uaAlt:["гусак"]},
   {en:"gooseberry",ua:"аґрус"},
   {en:"green tea",ua:"зелений чай"},
