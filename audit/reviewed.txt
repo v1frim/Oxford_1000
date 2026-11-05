@@ -484,3 +484,34 @@ U|meal|прийом їжі|прийом їжі
 U|rather|досить|досить
 U|web|мережа|мережа
 U|predominantly|переважно|переважно
+E|excellent|відмінний (чудовий)
+E|promotion|просування
+E|assignment|завдання
+E|destination|місце призначення
+E|awful|жахливий
+E|comfortable|комфортний
+E|uncomfortable|незручний
+E|complex|складний
+E|equal|рівний
+E|mud|бруд
+E|download|завантажувати
+E|upload|вивантажувати
+E|breathtaking|захопливий
+U|amazing|дивовижний|разючий
+U|anxious|тривожний|тривожний
+U|uncomfortable|незручний|незручний
+U|eager|охочий|охочий
+U|knuckle|кісточка (пальця руки)|кісточка
+U|grade|оцінка (у школі)|оцінка
+U|embarrassed|збентежений (зніяковілий)|збентежений
+U|excellent|відмінний (чудовий)|відмінний
+U|departure|відправлення|відправлення
+U|upload|вивантажувати|вивантажувати
+U|breathtaking|захопливий|захопливий
+U|aware|усвідомлений|усвідомлений
+U|eager|охочий|завзятий
+U|likely|ймовірний|ймовірний
+U|captivating|захопливий|захопливий
+U|engaging|цікавий|захопливий
+U|exciting|захопливий|захопливий
+U|fascinating|захопливий|захопливий
