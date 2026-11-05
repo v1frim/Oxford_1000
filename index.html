@@ -3575,8 +3575,12 @@ function isCorrect(input) {
   const CONJ = new Set(["й", "і", "та"]);
   const dropConj = w => { const k = w.filter(x => !CONJ.has(x));
     return (w.length >= 3 && k.length >= 2) ? k : w; };
+  // ⚠️ -ТИСЬ ≡ -ТИСЯ В ІНФІНІТИВІ (05.11.2026, звірка з Google: «лаятись», «розтягнутись»). Обидві форми
+  // літературні, а глоси записані лише через -ся — та сама орфографічна пастка, що в/у і дефіс.
+  // Лише кінцеве «-тись»: «десь», «колись», «якось» не чіпаємо.
+  const sya = w => w.length > 5 && w.endsWith("тись") ? w.slice(0, -1) + "я" : w;
   const normUaSoft = s => dropConj(normUa(s).replace(/[,;:]/g, "").replace(/[-\s]+/g, " ").trim()
-    .split(" ").map(uvWord)).join(" ");
+    .split(" ").map(uvWord).map(sya)).join(" ");
   const inp = normUa(input);
   if (inp === "") return false;
   const inpSoft = normUaSoft(input);
