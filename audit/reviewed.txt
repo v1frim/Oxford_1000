@@ -815,3 +815,141 @@ E|recollect|пригадувати
 E|recommend|рекомендувати
 E|reject|відхиляти
 E|remain|залишатися
+U|bank|берег (річки)|берег
+U|board|правління (компанії)|правління
+U|chapter|розділ (книги)|розділ
+U|define|визначати (давати означення)|визначати
+U|delayed|затриманий (про рейс)|затриманий
+U|steady|стійкий (стабільний)|стійкий
+U|vulnerable|вразливий (беззахисний)|вразливий
+U|cool|крутий (класний)|крутий
+U|band|гурт (музичний)|гурт
+U|chuckle|хихикати (тихо, сам до себе)|хихикати
+U|destitute|знедолений (злиденний)|знедолений
+U|gorgeous|розкішний (дуже гарний)|розкішний
+U|hike|похід (пішохідний)|похід
+U|insolent|зухвалий|зухвалий
+U|latest|найновіший|найновіший
+U|leisurely|неспішний|неспішний
+U|lethargic|млявий|млявий
+U|livid|несамовитий|несамовитий
+U|locked|замкнений|замкнений
+U|lofty|піднесений|піднесений
+U|lunch|обід|обід
+U|messy|неохайний|неохайний
+U|messy|неохайний|неприбраний
+U|messy|неохайний|захаращений
+U|miserable|нещасний|нещасний
+U|muddy|болотистий|болотистий
+U|murky|каламутний|каламутний
+U|oppose|протидіяти|протидіяти
+U|penniless|без гроша|без гроша
+U|percent|відсоток|відсоток
+U|petite|невисока|невисока
+U|petite|невисока|дрібна
+U|reckless|безрозсудний|безрозсудний
+U|reflect|роздумувати|роздумувати
+U|reserved|стриманий|стриманий
+U|respectful|поважний|поважний
+U|scorching|спекотний|спекотний
+U|seize|захоплювати|вилучати
+U|sense|відчуття|відчуття
+U|sensation|фізичне відчуття|фізичне відчуття
+U|shadowy|тіньовий|тіньовий
+U|shared|спільний|спільний
+U|shift|зміна|зсув
+U|slack|млявий (про справи)|млявий
+U|sluggish|млявий|млявий
+U|sob|ридати|схлипувати
+U|state|стверджувати|стверджувати
+U|stir|перемішувати|перемішувати
+U|stride|крокувати|крокувати
+U|stuffed|ситий|ситий
+U|stuffed|ситий|наїдений
+U|horrified|у жаху|у жаху
+U|startled|сполоханий|сполоханий
+U|to startle|сполохати|сполохати
+U|petrified|заціпенілий|заціпенілий
+U|thoughtless|необдуманий|необдуманий
+U|toward|до|до
+U|unhurried|неспішний|неспішний
+U|hiking|похід|похід
+U|untroubled|безтурботний|безтурботний
+U|percentage|відсоток|відсоток
+U|to reinforce|підсилювати|підсилювати
+U|to assert|стверджувати|стверджувати
+U|to contend|стверджувати|стверджувати
+U|to confiscate|вилучати|вилучати
+E|remarkable|видатний
+E|remote|віддалений
+E|reply|відповідати
+E|required|потрібний
+E|retain|зберігати
+E|reveal|розкривати
+E|risky|ризикований
+E|robust|міцний
+E|select|вибирати
+E|separate|окремий
+E|sheltered|захищений
+E|shut|закривати
+E|slack|млявий (про справи)
+E|snug|затишний
+E|sob|ридати
+E|sociable|товариський
+E|sorrowful|сумний
+E|speech|промова
+E|stir|перемішувати
+E|stroll|прогулюватися
+E|stuffed|ситий
+E|subtract|віднімати
+E|suppose|припускати
+E|worried|стурбований
+E|thoughtful|задумливий
+E|toast|тост
+E|slim|стрункий
+E|motivated|вмотивований
+E|adjust|налаштовувати
+E|affordable|доступний за ціною
+E|fluency|вільне володіння мовою
+E|attention|увага
+E|awake|пробуджений
+E|blaring|гучний
+E|booming|гучний
+E|caring|дбайливий
+E|challenging|складний
+E|compassionate|милосердний
+E|disliked|непопулярний
+E|distinguished|видатний
+E|doable|здійсненний
+E|draft|чернетка
+E|drained|виснажений
+E|enable|уможливлювати
+E|flawed|недосконалий
+E|forceful|сильний
+E|freezing|дуже холодний
+E|giving|щедрий
+E|gracious|люб'язний
+E|hilarious|дуже смішний
+E|hushed|тихий
+E|imaginative|творчий
+E|jog|бігати підтюпцем
+E|livid|несамовитий
+E|locate|знаходити
+E|locked|замкнений
+E|matching|відповідний
+E|misleading|оманливий
+E|oppose|протидіяти
+E|packed|переповнений
+E|penniless|без гроша
+E|percent|відсоток
+E|questioning|допитливий
+E|relax|розслаблятися
+E|rush|поспішати
+E|scenic|мальовничий
+E|shared|спільний
+E|shatter|розбивати
+E|smash|розбивати
+E|spotless|бездоганний
+E|horrified|у жаху
+E|startled|сполоханий
+E|total|загальний
