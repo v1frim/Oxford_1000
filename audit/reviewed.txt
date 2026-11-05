@@ -2695,3 +2695,303 @@ E|duster|ганчірка для пилу
 E|underscore|нижнє підкреслення
 E|ellipsis|три крапки
 E|one o'clock|перша година
+U|comma|кома (розділовий знак)|кома
+U|beside|поруч з|поруч з
+U|receipt|чек|чек
+U|leaflet|листівка|листівка
+U|instant|мить|мить
+U|to find out|дізнаватися|дізнаватися
+U|to let down|підводити|підводити
+U|to cheat|обманювати|обманювати
+U|to dwell|мешкати|мешкати
+U|single|єдиний|єдиний
+U|to lash|шмагати|шмагати
+U|to back down|відступати|відступати
+U|to hold back|стримувати|стримувати
+U|to stick to|дотримуватися|дотримуватися
+U|to play down|применшувати|применшувати
+U|belt|пояс|ремінь
+U|briefcase|портфель|портфель
+U|pendant|кулон|кулон
+U|shoelace|шнурок|шнурок
+U|reborn|відроджений|відроджений
+U|contamination|зараження|зараження
+U|chill|озноб|озноб
+U|stomachache|біль у животі|біль у животі
+U|inoculation|щеплення|щеплення
+U|scales|ваги|ваги
+U|to vomit|блювати|блювати
+U|ward|палата|палата
+U|maternity|материнство|материнство
+U|filling|пломба|пломба
+U|nearsighted|короткозорий|короткозорий
+U|to undergo|зазнавати|зазнавати
+U|chart|діаграма|графік
+U|gap|проміжок|проміжок
+U|individual|індивідуальний|особа
+U|sir|пан|пан
+U|to annoy|дратувати|дратувати
+U|approximately|приблизно|приблизно
+U|to bury|ховати|ховати
+U|convenient|зручний|зручний
+U|definite|визначений|визначений
+U|diagram|схема|схема
+U|directly|прямо|прямо
+U|eastern|східний|східний
+U|medium|середній|середній
+U|poisonous|отруйний|отруйний
+U|prediction|передбачення|передбачення
+U|primary|початковий|початковий
+U|related|пов'язаний|пов'язаний
+U|secondary|другорядний|другорядний
+U|surely|напевно|напевно
+U|trick|хитрість|хитрість
+U|to abandon|покидати|покидати
+U|to accommodate|розміщувати|розміщувати
+U|to accuse|звинувачувати|звинувачувати
+U|afterwards|згодом|згодом
+U|to assign|доручати|доручати
+U|bullet|куля|куля
+U|to capture|захоплювати|полонити
+U|to cheer|підбадьорювати|підбадьорювати
+U|command|наказ|наказ
+U|to comprise|охоплювати|охоплювати
+U|consequently|отже|отже
+U|considerably|значно|значно
+U|contest|конкурс|конкурс
+U|convention|з'їзд|з'їзд
+U|creature|істота|істота
+U|to derive|походити|походити
+U|dot|крапка|крапка
+U|expense|витрата|витрата
+U|extent|ступінь|міра
+U|feather|перо|перо
+U|fellow|товариш|товариш
+U|framework|каркас|каркас
+U|furthermore|крім того|крім того
+U|to govern|правити|правити
+U|hence|звідси|звідси
+U|hunger|голод|голод
+U|implication|підтекст|підтекст
+U|to imply|мати на увазі|мати на увазі
+U|incentive|стимул|стимул
+U|to infer|робити висновок|робити висновок
+U|initial|первинний|первинний
+U|junior|молодший|молодший
+U|lifetime|тривалість життя|тривалість життя
+U|nevertheless|проте|проте
+U|notion|поняття|поняття
+U|nowadays|нині|нині
+U|nutrition|харчування|харчування
+U|organ|орган|орган
+U|overseas|закордонний|закордонний
+U|perspective|перспектива|перспектива
+U|pursuit|переслідування|переслідування
+U|short-term|короткостроковий|короткостроковий
+U|shortage|дефіцит|дефіцит
+U|formerly|раніше|раніше
+U|intended|призначений|призначений
+U|remarkably|надзвичайно|надзвичайно
+U|sometime|колись|колись
+U|to speculate|міркувати|міркувати
+U|to spill|розливати|розливати
+U|steep|стрімкий|стрімкий
+U|sympathy|співчуття|співчуття
+U|upwards|догори|догори
+U|usage|вживання|вживання
+U|whereas|тоді як|тоді як
+U|accordance|відповідність|відповідність
+U|to adhere|дотримуватися|дотримуватися
+U|adolescent|юнак|юнак
+U|adverse|несприятливий|несприятливий
+U|advocate|прибічник|прибічник
+U|affection|прихильність|прихильність
+U|aftermath|наслідки|наслідки
+U|alert|насторожений|насторожений
+U|assault|напад|напад
+U|asylum|притулок|притулок
+U|clash|сутичка|сутичка
+U|closure|закриття|закриття
+U|to conceal|приховувати|приховувати
+U|conception|уявлення|уявлення
+U|to confer|радитися|радитися
+U|to confine|обмежувати|обмежувати
+U|to confront|протистояти|протистояти
+U|to conquer|завойовувати|завойовувати
+U|contempt|зневага|зневага
+U|contender|претендент|претендент
+U|credible|правдоподібний|правдоподібний
+U|curiosity|цікавість|цікавість
+U|custody|опіка|опіка
+U|deed|вчинок|вчинок
+U|to deem|вважати|вважати
+U|deficiency|нестача|нестача
+U|to defy|кидати виклик|кидати виклик
+U|demon|демон|демон
+U|to depict|зображати|зображати
+U|to devastate|спустошувати|спустошувати
+U|dip|занурювати|занурювати
+U|to drown|тонути|тонути
+U|duo|дует|дует
+U|to encompass|охоплювати|охоплювати
+U|to enroll|записуватися|записуватися
+U|to entitle|давати право|давати право
+U|excellence|досконалість|досконалість
+U|to facilitate|сприяти|сприяти
+U|forth|уперед|уперед
+U|frustration|розчарування|розчарування
+U|to gaze|вдивлятися|вдивлятися
+U|guerrilla|партизан|партизан
+U|guilt|провина|провина
+U|to heighten|посилювати|посилювати
+U|homeland|батьківщина|батьківщина
+E|batsman|відбивач (у крикеті)
+E|putter|патер (ключка для гольфу)
+E|fat|жир
+E|calorie|калорія
+E|soy|соя
+E|supplement|доповнення
+E|to calm down|заспокоюватися
+E|to find out|дізнаватися
+E|to let down|підводити
+E|single|єдиний
+E|to lash|шмагати
+E|to call off|скасовувати (захід)
+E|to play down|применшувати
+E|lining|підкладка
+E|lapel|лацкан
+E|waistband|пояс одягу
+E|raincoat|дощовик
+E|strap|ремінець
+E|beret|берет
+E|to roll|котити
+E|moisturizer|зволожувальний крем
+E|cleanser|очищувач
+E|clippers|машинка для стрижки
+E|ski|лижа
+E|heaven|рай
+E|unite|об'єднувати
+E|surround|оточувати
+E|inject|вколювати
+E|contamination|зараження
+E|lighter|запальничка
+E|splinter|скалка
+E|sunburn|сонячний опік
+E|waiting room|приймальня
+E|painkiller|знеболювальне
+E|passage|прохід
+E|cardiology|кардіологія
+E|surgical|хірургічний
+E|decay|карієс
+E|to undergo|зазнавати
+E|paragraph|абзац
+E|penny|пенні
+E|electronic|електронний
+E|particular|конкретний
+E|to attach|прикріплювати
+E|to bother|набридати
+E|to determine|з'ясовувати
+E|disappointing|розчарувальний
+E|favor|ласка
+E|poetry|поезія
+E|related|пов'язаний
+E|to summarize|підсумовувати
+E|union|союз
+E|to abandon|покидати
+E|to accommodate|розміщувати
+E|to acknowledge|визнавати
+E|to activate|активувати
+E|altogether|цілком
+E|to anticipate|передбачати
+E|anxiety|тривожність
+E|awkward|незграбний
+E|beneficial|сприятливий
+E|to bet|закладатися
+E|bug|жук
+E|characteristic|характерна риса
+E|coincidence|збіг
+E|collapse|обвал
+E|to comprise|охоплювати
+E|beyond|за межами
+E|convention|з'їзд
+E|conventional|загальноприйнятий
+E|to cope|давати раду
+E|council|рада
+E|county|округ
+E|cure|зцілення
+E|to dare|наважуватися
+E|deliberate|навмисний
+E|depressing|гнітючий
+E|to devote|присвячувати
+E|to disappoint|розчаровувати
+E|discipline|дисципліна
+E|to discourage|відбивати охоту
+E|dot|крапка
+E|editorial|редакційна стаття
+E|to ensure|гарантувати
+E|to equip|оснащувати
+E|ethnic|етнічний
+E|excessive|надмірний
+E|to exclude|виключати
+E|expense|витрата
+E|extensive|обширний
+E|fond|прихильний
+E|fortunate|везучий
+E|framework|каркас
+E|to govern|правити
+E|grand|величний
+E|identical|ідентичний
+E|inevitable|неминучий
+E|icon|іконка
+E|innovation|інновація
+E|to invade|вторгатися
+E|litter|вуличне сміття
+E|long-term|довгостроковий
+E|motion|порух
+E|nevertheless|проте
+E|nowadays|нині
+E|numerous|численний
+E|ongoing|триваючий
+E|ownership|право власності
+E|prime|найголовніший
+E|probability|імовірність
+E|protection|захист
+E|to regard|розцінювати
+E|relevant|доречний
+E|to relieve|полегшувати
+E|ridiculous|безглуздий
+E|to satisfy|задовольняти
+E|sector|сектор
+E|self|власне я
+E|session|сесія
+E|severe|тяжкий
+E|short-term|короткостроковий
+E|so-called|так званий
+E|remarkably|надзвичайно
+E|speculation|здогади
+E|subsequent|пізніший
+E|territory|територія
+E|truly|щиро
+E|unacceptable|неприйнятний
+E|welfare|добробут
+E|willing|згодний
+E|absurd|абсурдний
+E|academy|академія
+E|to accelerate|прискорювати
+E|accountability|підзвітність
+E|adjacent|суміжний
+E|advocate|прибічник
+E|alert|насторожений
+E|to allege|голослівно стверджувати
+E|to allocate|виділяти кошти
+E|to amend|вносити поправки
+E|applicable|застосовний
+E|assembly|асамблея
+E|attribute|ознака
+E|capability|спроможність
+E|chamber|палата парламенту
+E|circulation|обіг
+E|clash|сутичка
+E|cluster|скупчення
+E|combat|бойові дії
+E|complement|доповнювати
