@@ -1253,3 +1253,303 @@ E|pretzel|претцель
 E|packet|пакетик
 E|daisy|стокротка
 E|marigold|нагідки
+U|log|колода (дерева)|колода
+U|ligament|зв'язка (в суглобі)|зв'язка
+U|row|ряд (сидінь)|ряд
+U|socket|розетка (електрична)|розетка
+U|front|перед (передня частина)|перед
+U|title|назва (книги, фільму)|назва
+U|species|вид (біологічний)|вид
+U|queue|черга (людей)|черга
+U|stubble|щетина (на обличчі)|щетина
+U|braid|коса (зачіска)|коса
+U|bun|пучок (зачіска)|пучок
+U|pore|пора (на шкірі)|пора
+U|fetus|плід (ембріон)|плід
+U|eraser|гумка (для стирання)|гумка
+U|to run out|закінчуватися (про запаси)|закінчуватися
+U|gate|ворота (в'їзні)|ворота
+U|to wait up|не лягати спати (чекаючи когось)|не лягати спати
+U|shot|удар (по воротах)|удар
+U|pomegranate|гранат (фрукт)|гранат
+U|cloakroom|гардероб|гардероб
+U|uncomplicated|нескладний (простий)|нескладний
+U|upgrade|оновлювати (покращувати)|оновлювати
+U|withdrawn|замкнутий (про людину)|замкнутий
+U|alien|прибулець (інопланетянин)|прибулець
+U|enroll|записувати|зараховувати
+U|fee|плата|збір
+U|flip|перевертати|перевертати
+U|heal|лікувати|лікувати
+U|install|встановлювати|встановлювати
+U|involve|залучати|залучати
+U|involve|залучати|стосуватися
+U|logo|логотип|логотип
+U|management|управління|керівництво
+U|rib cage|грудна клітка|грудна клітка
+U|gum|ясна|ясна
+U|shoulder blade|лопатка|лопатка
+U|deltoid|дельтоподібний м'яз|дельтоподібний м'яз
+U|hamstring|задній м'яз стегна|задній м'яз стегна
+U|Adam's apple|кадик|кадик
+U|plug|вилка|вилка
+U|scramble|збивати|збивати
+U|fidget|соватися|соватися
+U|fidget|соватися|вертітися
+U|submit|подавати|подавати
+U|twist|крутити|поворот
+U|wept|плакав|плакав
+U|wept|плакав|ридав
+U|to heat|нагрівати|підігрівати
+U|to forgive|пробачати|прощати
+U|to preheat|розігрівати|розігрівати
+U|to post|відправляти поштою|відправляти поштою
+U|to frown|хмуритися|хмуритися
+U|builder|будівельник|будівельник
+U|dedication|відданість|відданість
+U|speaker|динамік|динамік
+U|detector|датчик|датчик
+U|congratulations|вітаю|вітання
+U|to marry|одружитися|одружитися
+U|to marry|одружитися|вийти заміж
+U|hello|привіт|привіт
+U|thanks|дякую|дякую
+U|appointment|запис|запис
+U|peak|вершина|вершина
+U|interruption|переривання|переривання
+U|disorganized|неорганізований|неорганізований
+U|repetitive|одноманітний|одноманітний
+U|repetitive|одноманітний|повторюваний
+U|spice|спеція|прянощі
+U|jigsaw|пазл|пазл
+U|margin|відрив|відрив
+U|recovery|одужання|відновлення
+U|doorway|дверний прохід|одвірок
+U|spelling|правопис|орфографія
+U|hilltop|вершина пагорба|вершина пагорба
+U|skyline|силует міста|силует міста
+U|drain|стік|стік
+U|drain|стік|каналізація
+U|luck|удача|везіння
+U|estate|маєток|нерухомість
+U|firefighter|пожежник|пожежник
+U|highway|шосе|траса
+U|parent|батько чи мати|батько чи мати
+U|goatee|борідка|борідка
+U|pigtails|хвостики|хвостики
+U|middle-aged|середнього віку|середнього віку
+U|crew cut|їжачок|їжачок
+U|frizzy|пухнастий|пухнастий
+U|to spell|називати по літерах|називати по літерах
+U|secretive|потайливий|потайливий
+U|laid-back|невимушений|невимушений
+U|adventurous|авантюрний|авантюрний
+U|unapproachable|неприступний|неприступний
+U|groceries|продукти|продукти
+U|to mow|косити|косити
+U|spinning top|дзиґа|дзиґа
+U|yo-yo|йо-йо|йо-йо
+U|building blocks|кубики|кубики
+U|high chair|дитячий стільчик|дитячий стільчик
+U|umbilical cord|пуповина|пуповина
+U|obstetrician|акушер|акушер-гінеколог
+U|stroller|дитячий візок|дитячий візок
+U|balloon|повітряна кулька|повітряна кулька
+U|puppet|лялька-маріонетка|лялька-маріонетка
+U|wet wipe|волога серветка|волога серветка
+U|hula hoop|обруч|обруч
+U|Thanksgiving|День подяки|День подяки
+U|denim|джинсова тканина|джинсова тканина
+U|cropped|укорочений|укорочений
+U|polka dot|у горошок|у горошок
+U|scrubs|медична роба|медична роба
+U|high-visibility jacket|світловідбивна куртка|світловідбивна куртка
+U|snowsuit|зимовий комбінезон|зимовий комбінезон
+U|onesie|піжама-комбінезон|піжама-комбінезон
+U|pencil sharpener|точилка|точилка
+U|lunch box|ланчбокс|контейнер для їжі
+U|highlighter|текстовиділювач|текстовиділювач
+U|crayon|воскова крейда|воскова крейда
+U|paintbrush|пензлик|пензлик
+U|tape|скотч|скотч
+U|paper clip|скріпка|скріпка
+U|whiteboard|маркерна дошка|маркерна дошка
+U|bell|дзвінок|дзвінок
+U|recess|шкільна перерва|шкільна перерва
+U|timetable|розклад уроків|розклад уроків
+U|mark|позначати|позначати
+U|tank top|майка|майка
+U|polo shirt|поло|поло
+U|undershirt|майка|майка
+U|panties|труси|труси
+U|boxer shorts|труси-боксери|труси-боксери
+U|camisole|топ|топ
+U|eye mask|маска для сну|маска для сну
+U|to put on|одягати|одягати
+U|to take off|скидати|злітати
+U|to fasten|застібати|застібати
+U|to unfasten|розстібати|розстібати
+U|to turn up|заявлятися|заявлятися
+U|to throw away|викидати|викидати
+U|to take out|виносити|виносити
+U|to pile|складати купою|складати купою
+U|annoying|дратівливий|дратівливий
+U|exhausting|виснажливий|виснажливий
+U|incredible|неймовірний|неймовірний
+U|nasty|гидкий|гидкий
+U|shocking|обурливий|обурливий
+U|useless|марний|марний
+U|old-fashioned|старомодний|старомодний
+U|to dress up|вбиратися|вбиратися
+U|to give out|видавати|видавати
+U|to pile up|накопичуватися|накопичуватися
+E|front|перед (передня частина)
+E|species|вид (біологічний)
+E|queue|черга (людей)
+E|deciduous|листопадний
+E|den|барліг
+E|washer|шайба-прокладка
+E|transmission|трансмісія
+E|turntable|програвач вінілу
+E|watercress|водяний крес
+E|radish|редиска
+E|reptile|плазун
+E|seashore|морський берег
+E|shortbread|пісочне печиво
+E|shrub|кущ
+E|sightseeing|огляд визначних місць
+E|snowdrift|замет
+E|pasteurized|пастеризований
+E|pickaxe|кайло
+E|postgraduate|аспірант
+E|kebab|кебаб
+E|laundromat|пральня самообслуговування
+E|marinated|витриманий у маринаді
+E|greeting|привітальні слова
+E|herb|трава пряна
+E|district|адміністративний район
+E|dustpan|совок для сміття
+E|frightening|лякаючий
+E|chessboard|шахівниця
+E|chestnut|каштан
+E|cloakroom|гардероб
+E|coconut|кокос
+E|cosmetics|косметика
+E|crossroads|роздоріжжя
+E|towering|велетенський
+E|uncomplicated|нескладний (простий)
+E|unhurried|неспішний
+E|unlocked|відімкнений
+E|wages|зарплата
+E|welcoming|гостинний
+E|withdrawn|замкнутий (про людину)
+E|hiking|похід
+E|scary|страшний
+E|flip|перевертати
+E|install|встановлювати
+E|deltoid|дельтоподібний м'яз
+E|hamstring|задній м'яз стегна
+E|intestine|кишківник
+E|small intestine|тонкий кишківник
+E|scramble|збивати
+E|to preheat|розігрівати
+E|to post|відправляти поштою
+E|repetitive|одноманітний
+E|commuter|пасажир
+E|jigsaw|пазл
+E|margin|відрив
+E|doorway|дверний прохід
+E|skyline|силует міста
+E|parent|батько чи мати
+E|blond|білявий
+E|crew cut|їжачок
+E|frizzy|пухнастий
+E|assertive|асертивний
+E|secretive|потайливий
+E|building blocks|кубики
+E|rocking horse|конячка-гойдалка
+E|high chair|дитячий стільчик
+E|bowling pin|кегля
+E|Halloween|Геловін
+E|denim|джинсова тканина
+E|fitted|приталений
+E|cropped|укорочений
+E|high-visibility jacket|світловідбивна куртка
+E|snowsuit|зимовий комбінезон
+E|onesie|піжама-комбінезон
+E|snap|кнопка (застібка)
+E|pencil sharpener|точилка
+E|highlighter|текстовиділювач
+E|crayon|воскова крейда
+E|tape|скотч
+E|paper clip|скріпка
+E|recess|шкільна перерва
+E|timetable|розклад уроків
+E|slippers|капці
+E|undershirt|майка
+E|boxer shorts|труси-боксери
+E|camisole|топ
+E|hem|підгин
+E|to pile|складати купою
+E|incredible|неймовірний
+E|to dress up|вбиратися
+E|to go away|іти геть
+E|to go down|спускатися
+E|to pile up|накопичуватися
+E|to sleep in|проспати допізна
+E|to wait up|не лягати спати (чекаючи когось)
+E|to wait on|обслуговувати
+E|hinge|петля
+E|to float|плавати на поверхні
+E|paperback|книжка в м'якій оправі
+E|clef|нотний ключ
+E|inbox|вхідні повідомлення
+E|gliding|планерний спорт
+E|to restart|перезапускати
+E|lettuce|салат листовий
+E|marmalade|джем цитрусовий
+E|muffin|мафін
+E|loaf|буханець
+E|dresser|туалетний столик
+E|hob|варильна панель
+E|tumbler|склянка висока
+E|wiper|двірник склоочисний
+E|wharf|причал вантажний
+E|to nibble|гризти потроху
+E|tableware|столовий набір
+E|tagine|таджин
+E|tailgate|задній борт
+E|takeaway|їжа на винос
+E|teapot|чайник заварювальний
+E|terrifying|страхітливий
+E|thermals|термобілизна
+E|thumbtack|канцелярська кнопка
+E|tie-break|тайбрейк
+E|tollbooth|пункт оплати проїзду
+E|typeface|шрифт друкарський
+E|upmarket|преміальний
+E|vlog|влог
+E|vlogger|влогер
+E|waders|болотні чоботи
+E|waterfront|набережна міська
+E|webcam|вебкамера
+E|weedkiller|гербіцид побутовий
+E|well-qualified|висококваліфікований
+E|wellies|гумові чоботи
+E|wetlands|заболочені землі
+E|wi-fi|вайфай
+E|windbreak|вітрозахисна смуга
+E|wineglass|келих для вина
+E|rapeseed|ріпак
+E|reiki|рейкі
+E|reins|віжки
+E|restroom|вбиральня громадська
+E|resume|резюме документ
+E|risotto|різото
+E|rowboat|весловий човен
+E|sandcastle|замок із піску
+E|satnav|навігатор
+E|screenplay|кіносценарій
+E|seesaw|гойдалка-балансир
+E|shears|садові ножиці
+E|shiatsu|шіацу
