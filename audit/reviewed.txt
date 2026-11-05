@@ -3827,3 +3827,303 @@ E|treacherous|підступний
 E|trifle|дрібничка
 E|unsuspected|непідозрюваний
 E|virtuoso|віртуоз
+U|callous|черствий (про людину)|черствий
+U|syllabic|складовий (про склад слова)|складовий
+U|incisor|різець (зуб)|різець
+U|semen|сперма|сперма
+U|chickenpox|вітрянка (хвороба)|вітрянка
+U|sprain|розтягнення (зв'язок)|розтягнення
+U|pad|подушечка (пальця, лапи)|подушечка
+U|to discharge|виписувати (з лікарні)|виписувати
+U|cavity|дупло (у зубі)|дупло
+U|grandparent|дідусь або бабуся|дідусь або бабуся
+U|sure|впевнений|звісно
+U|anyway|все одно|все одно
+U|guy|хлопака|хлопака
+U|stair|сходинка|сходинка
+U|survey|опитування|опитування
+U|to bury|ховати (у землю)|закопувати
+U|clause|пункт договору|пункт договору
+U|clue|зачіпка|зачіпка
+U|colored|кольоровий|кольоровий
+U|to determine|з'ясовувати|з'ясовувати
+U|excitement|хвилювання|хвилювання
+U|fancy|шикарний|шикарний
+U|favor|ласка|ласка
+U|to highlight|виділяти|виділяти
+U|incredibly|неймовірно|неймовірно
+U|lack|брак|брак
+U|mall|торговий центр|торговий центр
+U|outdoor|вуличний|вуличний
+U|sensible|розсудливий|розсудливий
+U|statistic|статистичний показник|статистичний показник
+U|stuff|речі|речі
+U|summary|підсумок|підсумок
+U|technique|методика|методика
+U|addiction|залежність|залежність
+U|altogether|цілком|цілком
+U|artwork|витвір мистецтва|витвір мистецтва
+U|to assess|оцінювати|оцінювати
+U|asset|актив|актив
+U|beneficial|сприятливий|сприятливий
+U|to bet|закладатися|закладатися
+U|bid|ставка|ставка
+U|brief|стислий|стислий
+U|chairman|голова зборів|голова зборів
+U|to cheer|підбадьорювати|вітати вигуками
+U|alongside|поруч із|поруч із
+U|confidence|упевненість|упевненість
+U|controversial|суперечливий|суперечливий
+U|controversy|полеміка|полеміка
+U|to cope|давати раду|давати раду
+U|coverage|висвітлення|висвітлення
+U|crop|урожай|сільськогосподарська культура
+U|cure|зцілення|зцілення
+U|disabled|з інвалідністю|з інвалідністю
+U|dump|звалище|звалище
+U|to elect|обирати на посаду|обирати на посаду
+U|to engage|залучати|залучати
+U|to ensure|гарантувати|гарантувати
+U|era|епоха|епоха
+U|to evaluate|давати оцінку|давати оцінку
+U|exposure|розголос|розголос
+U|to extract|видобувати|видобувати
+U|fabulous|казковий|казковий
+U|facility|заклад|заклад
+U|fond|прихильний|прихильний
+U|fortunate|везучий|везучий
+U|fortune|статок|статок
+U|full-time|на повну ставку|на повну ставку
+U|guideline|настанова|настанова
+U|increasingly|дедалі більше|дедалі більше
+U|interpretation|трактування|трактування
+U|jet|реактивний літак|реактивний літак
+U|likewise|так само|так само
+U|litter|вуличне сміття|вуличне сміття
+U|lyric|текст пісні|текст пісні
+U|lyric|текст пісні|лірика
+U|martial|бойовий|бойовий
+U|mate|приятель|приятель
+U|mode|режим|режим
+U|to monitor|відстежувати|відстежувати
+U|moreover|більше того|більше того
+U|motion|порух|порух
+U|obesity|ожиріння|ожиріння
+U|output|випуск|вихідні дані
+U|part-time|на неповну ставку|на неповну ставку
+U|peer|ровесник|ровесник
+U|prime|найголовніший|найголовніший
+U|prompt|підказка|підказка
+U|to reckon|гадати|гадати
+U|to recruit|набирати персонал|набирати персонал
+U|recruitment|набір персоналу|набір персоналу
+U|regulation|регламент|регламент
+U|relieved|з полегшенням|з полегшенням
+U|revenue|виторг|виторг
+U|scheme|задум|задум
+U|scholar|знавець|знавець
+U|to scream|верещати|верещати
+U|self|власне я|власне я
+U|somewhat|дещо|дещо
+U|sophisticated|витончений|витончений
+U|downwards|донизу|донизу
+U|speculation|здогади|здогади
+U|spite|злоба|злоба
+U|subsequent|пізніший|пізніший
+U|subsequently|відтак|відтак
+U|sustainable|сталий|сталий
+U|teens|підлітковий вік|підлітковий вік
+U|thus|таким чином|таким чином
+U|trait|риса характеру|риса характеру
+U|troop|військовий загін|військовий загін
+U|truly|щиро|щиро
+U|ultimate|граничний|граничний
+U|urge|сильне бажання|сильне бажання
+U|via|шляхом|шляхом
+U|wildlife|дика природа|дика природа
+U|willing|згодний|згодний
+U|workforce|робоча сила|робоча сила
+U|abundance|велика кількість|велика кількість
+U|albeit|хоч і|хоч і
+U|to align|вирівнювати|вирівнювати
+U|alignment|вирівнювання|вирівнювання
+U|allegation|звинувачення|звинувачення
+U|to allege|голослівно стверджувати|голослівно стверджувати
+U|to allocate|виділяти кошти|виділяти кошти
+U|allocation|виділення|виділення
+U|to amend|вносити поправки|вносити поправки
+U|to appoint|призначати на посаду|призначати на посаду
+U|array|масив|масив
+U|to articulate|чітко висловлювати|чітко висловлювати
+U|to aspire|мати за мету|мати за мету
+U|assassination|політичне вбивство|політичне вбивство
+U|attribute|ознака|ознака
+U|availability|доступність|доступність
+U|backup|резервна копія|резервна копія
+U|ballot|бюлетень|бюлетень
+U|behalf|від імені|від імені
+U|benchmark|еталон|еталон
+U|blast|потужний вибух|потужний вибух
+U|breakdown|поломка|поломка
+U|broadband|широкосмуговий інтернет|широкосмуговий інтернет
+U|buck|бакс|бакс
+U|buddy|друзяка|друзяка
+U|bulk|основна маса|основна маса
+U|capability|спроможність|спроможність
+U|chamber|палата парламенту|палата парламенту
+U|chunk|великий шматок|великий шматок
+U|commentary|коментування|коментування
+U|to compile|укладати збірку|укладати збірку
+U|to comply|виконувати вимоги|виконувати вимоги
+U|to concede|визнавати поразку|визнавати поразку
+U|confrontation|протистояння|протистояння
+E|vortex|вир
+E|wayward|свавільний
+E|whirlwind|смерч
+E|angularity|кутастість
+E|astringent|в'яжучий засіб
+E|treacherously|підступно
+E|exultant|тріумфуючий
+E|left|лівий
+E|molar|кутній зуб
+E|pharynx|глотка
+E|larynx|гортань
+E|pelvis|таз
+E|shinbone|великогомілкова кістка
+E|vertebra|хребець
+E|trachea|трахея
+E|pancreas|підшлункова залоза
+E|rectum|пряма кишка
+E|capillary|капіляр
+E|urine|сеча
+E|erection|ерекція
+E|pad|подушечка (пальця, лапи)
+E|to discharge|виписувати (з лікарні)
+E|span|охоплювати період
+E|to steer|кермувати
+E|suite|номер люкс
+E|tenure|термін перебування на посаді
+E|terrain|місцевість
+E|terrific|приголомшливо гарний
+E|to testify|свідчити в суді
+E|thereafter|після того
+E|thereby|у такий спосіб
+E|thought-provoking|що спонукає до роздумів
+E|trademark|торгова марка
+E|to uphold|обстоювати
+E|utterly|украй
+E|vicious|злобний
+E|whatsoever|жоднісінький
+E|whereby|згідно з чим
+E|worthwhile|вартий зусиль
+E|dvd|відеодиск
+E|id|посвідчення особи
+E|environmental|природоохоронний
+E|expertise|фаховість
+E|to incorporate|включати до складу
+E|input|введення даних
+E|to resolve|розв'язувати
+E|survivor|той, хто вижив
+E|to undertake|братися за справу
+E|councillor|радник міськради
+E|to disclose|розкривати таємницю
+E|disclosure|оприлюднення
+E|entity|суб'єкт
+E|guidance|керівні вказівки
+E|infamous|ганебно відомий
+E|intake|спожита кількість
+E|to reassure|заспокоювати
+E|to recount|переповідати
+E|to regain|повертати собі
+E|regardless|незважаючи
+E|respective|відповідний своєму
+E|underlying|глибинний
+E|aberration|відхилення від норми
+E|to ad-lib|імпровізувати
+E|adept|вправний
+E|to adulterate|розбавляти домішками
+E|aghast|приголомшений жахом
+E|angst|екзистенційна тривога
+E|angsty|сповнений тривоги
+E|antithetical|протилежний за суттю
+E|to apprehend|затримувати злочинця
+E|arcane|незрозумілий для сторонніх
+E|archetypal|архетипний
+E|arduous|виснажливий
+E|artifice|викрут
+E|attuned|чутливий до
+E|austerity|жорстка економія
+E|baroque|бароковий
+E|bauble|дешева цяцька
+E|blandishment|улесливі вмовляння
+E|blight|згубний вплив
+E|blubber|китовий жир
+E|blurb|анотація на обкладинці
+E|bout|напад хвороби
+E|to brandish|розмахувати зброєю
+E|breadwinner|годувальник родини
+E|to brim|бути повним по вінця
+E|brink|межа перед прірвою
+E|to brood|похмуро роздумувати
+E|brouhaha|переполох
+E|buffoonery|блазнювання
+E|burgeoning|стрімко зростаючий
+E|cinematography|операторське мистецтво
+E|to circumnavigate|обпливати навколо
+E|to clinch|остаточно вирішити
+E|cloister|монастирська галерея
+E|cloistered|відлюдний
+E|collider|колайдер
+E|combustion|згоряння
+E|concurrence|одностайна згода
+E|condensation|конденсат
+E|to condone|виправдовувати вчинок
+E|confection|кондитерський виріб
+E|to connote|мати додатковий відтінок
+E|to consign|відправляти на продаж
+E|consternation|сум'яття
+E|contraption|дивний пристрій
+E|to contrive|примудритися
+E|to cordon off|оточити кордоном
+E|corpus|корпус текстів
+E|counsel|порада фахівця
+E|crippling|непосильний
+E|crony|поплічник
+E|to curate|курувати добірку
+E|to dampen|пригнічувати запал
+E|to daunt|лякати складністю
+E|daunting|страхітливо складний
+E|demystification|розвінчання таємничості
+E|to demystify|пояснювати простими словами
+E|denotation|пряме значення слова
+E|to deprecate|висловлювати несхвалення
+E|deterrent|стримувальний засіб
+E|to detract|применшувати цінність
+E|diffuse|м'яко розсіяний
+E|to disparage|принижувати цінність
+E|disparagement|зневажливе ставлення
+E|to dissemble|приховувати справжні почуття
+E|dissemination|поширення інформації
+E|dissension|розкол у групі
+E|distillation|перегонка
+E|to dole out|роздавати потроху
+E|domesticity|домашній побут
+E|to dribble|вести м'яч
+E|drudgery|виснажлива рутина
+E|eccentricity|дивакуватість
+E|edifice|велична споруда
+E|egalitarian|рівноправний
+E|to eke out|сяк-так наскрібати
+E|emulation|наслідування взірця
+E|enabler|той, хто уможливлює
+E|to enthuse|захоплено говорити
+E|equable|рівний за вдачею
+E|to etch|витравлювати
+E|ethos|дух спільноти
+E|euphoric|ейфорійний
+E|exalted|високопоставлений
+E|exorcism|вигнання злих духів
+E|extant|збережений донині
+E|extracurricular|позанавчальний
+E|to exude|випромінювати впевненість
+E|fallacy|хибне уявлення
