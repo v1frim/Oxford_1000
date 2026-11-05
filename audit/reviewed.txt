@@ -4727,3 +4727,303 @@ E|hauntingly|незабутньо тривожно
 E|histrionically|театрально награно
 E|imperceptibly|непомітно для ока
 E|inchoately|зародково
+U|to recycle|переробляти (відходи)|переробляти
+U|predictable|передбачуваний (прогнозований)|передбачуваний
+U|to clinch|остаточно вирішити|остаточно вирішити
+U|cloister|монастирська галерея|монастирська галерея
+U|cloistered|відлюдний|відлюдний
+U|to coax|лагідно вмовляти|лагідно вмовляти
+U|cogent|вагомий|вагомий
+U|to collide|зіштовхуватися|зіштовхуватися
+U|colloquium|наукова конференція|наукова конференція
+U|combustion|згоряння|згоряння
+U|conciliatory|примирливий|примирливий
+U|concurrence|одностайна згода|одностайна згода
+U|condensation|конденсат|конденсат
+U|to condone|виправдовувати вчинок|виправдовувати вчинок
+U|conduit|канал передачі|канал передачі
+U|confection|кондитерський виріб|кондитерський виріб
+U|to conjecture|робити припущення|робити припущення
+U|to connote|мати додатковий відтінок|мати додатковий відтінок
+U|to consign|відправляти на продаж|відправляти на продаж
+U|consternation|сум'яття|сум'яття
+U|contagion|поширення зарази|поширення зарази
+U|contraption|дивний пристрій|дивний пристрій
+U|to contrive|примудритися|примудритися
+U|to cordon off|оточити кордоном|оточити кордоном
+U|corpus|корпус текстів|корпус текстів
+U|counsel|порада фахівця|порада фахівця
+U|crippling|непосильний|непосильний
+U|crony|поплічник|поплічник
+U|to crystallize|набувати чіткої форми|набувати чіткої форми
+U|to cull|відбирати найкраще|відбирати найкраще
+U|cultish|сектантський|сектантський
+U|to curate|курувати добірку|курувати добірку
+U|to dampen|пригнічувати запал|пригнічувати запал
+U|to daunt|лякати складністю|лякати складністю
+U|daunting|страхітливо складний|страхітливо складний
+U|deficient|з нестачею чогось|з нестачею чогось
+U|demystification|розвінчання таємничості|розвінчання таємничості
+U|to demystify|пояснювати простими словами|пояснювати простими словами
+U|denotation|пряме значення слова|пряме значення слова
+U|denunciation|публічний осуд|публічний осуд
+U|depravity|моральне падіння|моральне падіння
+U|to deprecate|висловлювати несхвалення|висловлювати несхвалення
+U|depressive|депресивний|депресивний
+U|derelict|занедбаний|занедбаний
+U|derision|глузування|глузування
+U|to detract|применшувати цінність|применшувати цінність
+U|diffuse|м'яко розсіяний|м'яко розсіяний
+U|to disparage|принижувати цінність|принижувати цінність
+U|disparagement|зневажливе ставлення|зневажливе ставлення
+U|disparaging|принизливий|принизливий
+U|to dissemble|приховувати справжні почуття|приховувати справжні почуття
+U|to disseminate|поширювати інформацію|поширювати інформацію
+U|dissemination|поширення інформації|поширення інформації
+U|dissension|розкол у групі|розкол у групі
+U|to dole out|роздавати потроху|роздавати потроху
+U|domesticity|домашній побут|домашній побут
+U|drabness|сірість|сірість
+U|to dribble|вести м'яч|вести м'яч
+U|drudgery|виснажлива рутина|виснажлива рутина
+U|eccentricity|дивакуватість|дивакуватість
+U|to economize|ощадливо витрачати|ощадливо витрачати
+U|edifice|велична споруда|велична споруда
+U|egalitarian|рівноправний|рівноправний
+U|to eke out|сяк-так наскрібати|сяк-так наскрібати
+U|elation|піднесення|піднесення
+U|elephantine|громіздкий|громіздкий
+U|eminence|визначність|визначність
+U|to emulate|брати за взірець|брати за взірець
+U|emulation|наслідування взірця|наслідування взірця
+U|to encumber|обтяжувати|обтяжувати
+U|encumbrance|обтяження|обтяження
+U|to engender|спричиняти появу|спричиняти появу
+U|to enthuse|захоплено говорити|захоплено говорити
+U|to envisage|уявляти майбутнє|уявляти майбутнє
+U|ephemeral|швидкоплинний|швидкоплинний
+U|epoxy|епоксидна смола|епоксидна смола
+U|equable|рівний за вдачею|рівний за вдачею
+U|ethos|дух спільноти|дух спільноти
+U|exalted|високопоставлений|високопоставлений
+U|exhibitionist|любитель привертати увагу|любитель привертати увагу
+U|exorcism|вигнання злих духів|вигнання злих духів
+U|extant|збережений донині|збережений донині
+U|to exude|випромінювати впевненість|випромінювати впевненість
+U|to fabricate|сфабрикувати|сфабрикувати
+U|facsimile|точна копія|точна копія
+U|fallacy|хибне уявлення|хибне уявлення
+U|to familiarize|ознайомлювати|ознайомлювати
+U|farcical|безглуздий як фарс|безглуздий як фарс
+U|to feign|удавати|удавати
+U|fete|святковий ярмарок|святковий ярмарок
+U|figurative|переносний за значенням|переносний за значенням
+U|flagging|слабнучий|слабнучий
+U|flighty|вітряний у поведінці|вітряний у поведінці
+U|to flit|пурхати|пурхати
+U|floe|крижина|крижина
+U|floodgates|шлюзи|шлюзи
+U|forfeiture|втрата права|втрата права
+U|forlorn|покинутий і сумний|покинутий і сумний
+U|formidable|грізно потужний|грізно потужний
+U|fractious|сварливий|сварливий
+U|to frolic|пустувати|пустувати
+U|fruition|здійснення задуму|здійснення задуму
+U|gambit|початковий хід|початковий хід
+U|gauche|незграбний у поведінці|незграбний у поведінці
+U|to glint|зблискувати|зблискувати
+U|glitz|показний блиск|показний блиск
+U|glitzy|показно розкішний|показно розкішний
+U|to glory in|упиватися чимось|упиватися чимось
+U|graft|пересадка тканини|пересадка тканини
+U|to gravitate|тяжіти до|тяжіти до
+U|grievance|скарга на несправедливість|скарга на несправедливість
+U|to grumble|бурчати|бурчати
+U|habitation|людське житло|людське житло
+U|happenstance|випадковий збіг|випадковий збіг
+U|haven|прихисток|прихисток
+U|headmistress|директорка школи|директорка школи
+U|to herald|сповіщати про прихід|сповіщати про прихід
+U|hindsight|погляд назад|погляд назад
+U|histrionic|театрально награний|театрально награний
+U|hitch|дрібна заковика|дрібна заковика
+U|to hoist|піднімати вантаж|піднімати вантаж
+U|hotelier|власник готелю|власник готелю
+U|to hover|зависати в повітрі|зависати в повітрі
+U|to huddle|тулитися купкою|тулитися купкою
+U|hull|корпус судна|корпус судна
+U|idiosyncrasy|індивідуальна дивина|індивідуальна дивина
+U|idiosyncratic|своєрідний до дивацтва|своєрідний до дивацтва
+U|imperceptible|непомітний оку|непомітний оку
+U|imposition|нав'язаний тягар|нав'язаний тягар
+U|inchoate|зародковий|зародковий
+U|incipient|що зароджується|що зароджується
+U|incongruous|недоладний|недоладний
+U|incumbent|чинний посадовець|чинний посадовець
+U|indiscretion|необачний вчинок|необачний вчинок
+U|inducement|спонука|спонука
+U|indulgence|потурання собі|потурання собі
+U|infallible|непогрішний|непогрішний
+U|ingenuous|простодушний|простодушний
+U|ingrate|невдячна людина|невдячна людина
+U|to ingratiate|підлещуватися|підлещуватися
+U|ingratiating|улесливий|улесливий
+U|innuendo|двозначний натяк|двозначний натяк
+U|inscrutable|незбагненний|незбагненний
+U|insular|замкнений у своєму колі|замкнений у своєму колі
+U|interlocking|зчеплений між собою|зчеплений між собою
+U|interlude|перерва між частинами|перерва між частинами
+U|to intersperse|перемежовувати|перемежовувати
+U|to interweave|переплітати|переплітати
+U|irrelevancy|недоречність|недоречність
+U|jargon|фаховий жаргон|фаховий жаргон
+E|to clean up|прибирати після себе
+E|incongruously|недоладно
+E|indolently|ліниво
+E|infallibly|непогрішно
+E|ingratiatingly|улесливо
+E|intrinsically|внутрішньо за суттю
+E|luridly|моторошно яскраво
+E|maliciously|зі злим наміром
+E|menacingly|загрозливо
+E|meticulously|прискіпливо ретельно
+E|nonchalantly|безтурботно недбало
+E|nostalgically|ностальгійно
+E|notoriously|сумнозвісно
+E|opulently|пишно розкішно
+E|painstakingly|кропітко
+E|patchily|нерівномірно
+E|patronizingly|поблажливо зверхньо
+E|philanthropically|філантропічно
+E|ponderously|важко й незграбно
+E|precociously|не по роках розвинено
+E|rapturously|захоплено-нестямно
+E|resoundingly|гучно й переможно
+E|secularly|світськи
+E|spuriously|фальшиво обґрунтовано
+E|stringently|жорстко суворо
+E|stultifyingly|притупляючи розум
+E|summarily|без зайвих формальностей
+E|superfluously|зайво
+E|surreptitiously|крадькома
+E|tacitly|мовчазно за згодою
+E|tantalizingly|дражнячи недосяжним
+E|tenaciously|чіпко наполегливо
+E|undemonstratively|стримано в почуттях
+E|unexceptionally|нічим не вирізняючись
+E|unnervingly|вибиваючи з рівноваги
+E|venomously|отруйно злобно
+E|vestigially|як рудимент
+E|wistfully|сумовито-мрійливо
+E|chips|чипси
+E|to work out|тренуватися
+E|superlative|найвищого ґатунку
+E|incensed|оскаженілий
+E|tear duct|слізна протока
+E|nasal cavity|носова порожнина
+E|tooth enamel|зубна емаль
+E|nape|задня частина шиї
+E|pubic hair|лобкове волосся
+E|birthmark|родима пляма
+E|flank|бік тулуба
+E|back of the knee|підколінна ділянка
+E|ankle bone|кісточка на щиколотці
+E|ball of the foot|подушечка стопи
+E|instep|підйом стопи
+E|glute|сідничний м'яз
+E|abs|м'язи преса
+E|windpipe|дихальне горло
+E|plasma|плазма крові
+E|red blood cell|еритроцит
+E|white blood cell|лейкоцит
+E|pathogen|збудник хвороби
+E|urinary system|сечовидільна система
+E|sperm|сперматозоїд
+E|sense of touch|дотик
+E|bowel movement|випорожнення кишечника
+E|stiffness|скутість
+E|vomiting|блювання
+E|urine test|аналіз сечі
+E|semi-detached house|будинок на дві сім'ї
+E|terraced house|будинок у рядовій забудові
+E|homeowner|власник житла
+E|maintenance fee|плата за утримання будинку
+E|shingle|покрівельний ґонт
+E|eaves|карниз даху
+E|driveway|під'їзна доріжка
+E|rainwater tank|бак для дощової води
+E|landing|сходовий майданчик
+E|utility room|технічне приміщення
+E|fire escape|пожежні сходи
+E|hardwood flooring|масивна дерев'яна підлога
+E|vinyl flooring|вінілове покриття
+E|molding|декоративний профіль
+E|cornice|стельовий карниз
+E|woodwork|дерев'яні елементи
+E|window pane|віконна шибка
+E|double glazing|подвійний склопакет
+E|Venetian blind|горизонтальні жалюзі
+E|sheer curtain|прозора штора
+E|net curtain|тюлева фіранка
+E|curtain ring|кільце для штори
+E|doorknob|кругла дверна ручка
+E|deadbolt|врізний засув
+E|door chain|дверний ланцюжок
+E|peephole|дверне вічко
+E|en suite bathroom|ванна кімната при спальні
+E|window ledge|віконний виступ
+E|recliner|крісло з відкидною спинкою
+E|rocking chair|крісло-гойдалка
+E|footstool|ослінчик під ноги
+E|side table|приставний столик
+E|shoe rack|полиця для взуття
+E|swivel chair|обертове крісло
+E|drawer unit|тумба з шухлядами
+E|folding chair|складаний стілець
+E|upholstery|оббивка меблів
+E|footboard|спинка в ногах ліжка
+E|mattress topper|топер
+E|fitted sheet|простирадло на резинці
+E|duvet cover|підковдра
+E|comforter|товста стьобана ковдра
+E|bedspread|покривало на ліжко
+E|wardrobe organizer|органайзер для шафи
+E|clothes hanger|вішак
+E|picture frame|рамка для фотографії
+E|flowerpot|квітковий горщик
+E|alternating current|змінний струм
+E|direct current|постійний струм
+E|power strip|подовжувач із розетками
+E|fuse box|щиток із запобіжниками
+E|electrical panel|електричний щиток
+E|surge protector|мережевий фільтр
+E|to plug in|підключати до розетки
+E|to unplug|витягати вилку
+E|kitchen unit|кухонна секція
+E|wall cabinet|навісна шафка
+E|base cabinet|нижня кухонна тумба
+E|breakfast bar|барна стійка
+E|cooker|кухонна плита
+E|cooktop|варильна поверхня
+E|mixer|міксер
+E|air fryer|аерогриль
+E|utensil holder|підставка для кухонного приладдя
+E|cookware|посуд для готування
+E|baking tray|деко
+E|casserole dish|глибока форма для запікання
+E|can opener|консервний ніж
+E|oven glove|кухонна рукавиця
+E|placemat|підкладка під тарілку
+E|dryer|сушильна машина
+E|drying rack|сушарка для білизни
+E|clothes peg|прищіпка
+E|laundry detergent|засіб для прання
+E|fabric softener|кондиціонер для білизни
+E|showerhead|душова лійка
+E|shower screen|душова перегородка
+E|shower curtain|шторка для душу
+E|toilet bowl|чаша унітаза
+E|toilet seat|сидіння унітаза
+E|drain plug|пробка для зливу
+E|towel rail|тримач для рушників
+E|heated towel rail|рушникосушарка
