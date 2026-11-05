@@ -2995,3 +2995,303 @@ E|clash|сутичка
 E|cluster|скупчення
 E|combat|бойові дії
 E|complement|доповнювати
+U|leaflet|листівка (рекламна)|листівка
+U|to back down|відступати (від своєї позиції)|відступати
+U|briefcase|портфель (сумка)|портфель
+U|pendant|кулон (прикраса)|кулон
+U|ward|палата (лікарняна)|палата
+U|filling|пломба (зубна)|пломба
+U|to bury|ховати (у землю)|ховати
+U|bullet|куля (вогнепальна)|куля
+U|feather|перо (пташине)|перо
+U|organ|орган (тіла)|орган
+U|pursuit|переслідування (погоня)|переслідування
+U|to spill|розливати (випадково)|розливати
+U|steep|стрімкий (крутий)|стрімкий
+U|contempt|зневага (презирство)|зневага
+U|to enroll|записуватися (на курси)|записуватися
+U|inclined|схильний|схильний
+U|to indulge|потурати|потурати
+U|to inhibit|стримувати|стримувати
+U|interference|втручання|втручання
+U|large-scale|великомасштабний|великомасштабний
+U|leak|витік|витік
+U|lesser|менший|менший
+U|accordingly|відповідно|відповідно
+U|amid|посеред|посеред
+U|lifelong|довічний|довічний
+U|long-standing|давній|давній
+U|magnitude|величина|величина
+U|meantime|проміжок часу|проміжок часу
+U|merely|лише|лише
+U|misery|злидні|злидні
+U|to originate|брати початок|брати початок
+U|overwhelming|непереборний|непереборний
+U|poll|голосування|голосування
+U|rebel|повстанець|повстанець
+U|residue|осад|осад
+U|whilst|тоді як|тоді як
+U|to restrict|обмежувати|обмежувати
+U|venomous|отруйний|отруйний
+U|used to|колись (робив)|колись
+U|propeller|гвинт (корабля, літака)|гвинт
+U|junction|розв'язка (дорожня)|розв'язка
+U|walkie-talkie|рація (радіостанція)|рація
+U|to retake|перескладати (іспит)|перескладати
+U|treadmill|бігова доріжка (тренажер)|бігова доріжка
+U|batsman|відбивач (у крикеті)|відбивач
+U|conversion|реалізація (у регбі)|реалізація
+U|par|пар (у гольфі)|пар
+U|putter|патер (ключка для гольфу)|патер
+U|bench|лава (для сидіння)|лава
+U|presenter|ведучий (програми)|ведучий
+U|retail|роздрібна торгівля|роздрібна торгівля
+U|shipping|морські перевезення|морські перевезення
+U|silo|силос|силос
+U|barber|перукар чоловічий|перукар чоловічий
+U|bin|бак для сміття|бак для сміття
+U|business trip|відрядження|відрядження
+U|casualty|постраждалий|постраждалий
+U|counterfeit money|фальшиві гроші|фальшиві гроші
+U|determined|сповнений рішучості|сповнений рішучості
+U|expenditure|витрати|витрати
+U|filing cabinet|шафа для документів|шафа для документів
+U|bass drum|великий барабан|великий барабан
+U|broomstick|держак мітли|держак мітли
+U|cooler|переносний холодильник|переносний холодильник
+U|current affairs|поточні події|поточні події
+U|dress circle|бельетаж|бельетаж
+U|fret|лад гітари|лад гітари
+U|gnome|садовий гном|садовий гном
+U|hook and eye|гачок із петелькою|гачок із петелькою
+U|knitting|в'язання спицями|в'язання спицями
+U|notation|нотний запис|нотний запис
+U|ogre|людожер|людожер
+U|piccolo|флейта-пікколо|флейта-пікколо
+U|pick-up|звукознімач|звукознімач
+U|post-impressionism|постімпресіонізм|постімпресіонізм
+U|potter's wheel|гончарний круг|гончарний круг
+U|quilting|стьобання|стьобання
+U|self-help|саморозвиток|саморозвиток
+U|tailor's dummy|кравецький манекен|кравецький манекен
+U|to take in|вбирати в себе|вбирати в себе
+U|to tune in|налаштовувати приймач|налаштовувати приймач
+U|to light a fire|розпалювати вогонь|розпалювати вогонь
+U|navy blue|темно-синій|темно-синій
+U|non-fiction|документальна література|документальна література
+U|patchwork|клаптикове шиття|клаптикове шиття
+U|percussion|ударні інструменти|ударні інструменти
+U|promenade|набережна|набережна
+U|quest|пошук|пошук
+U|record player|програвач|програвач
+U|romance|романтичні стосунки|романтичні стосунки
+U|rook|тура|тура
+U|site|місце розташування|місце розташування
+U|sound engineer|звукооператор|звукооператор
+U|stereo|стереосистема|стереосистема
+U|string|мотузочка|мотузочка
+U|tutu|пачка балетна|пачка балетна
+U|viola|альт скрипковий|альт скрипковий
+U|admission fee|вхідна плата|вхідна плата
+U|audition|прослуховування|прослуховування
+U|boardwalk|дощаний настил|дощаний настил
+U|camping|відпочинок у наметах|відпочинок у наметах
+U|cymbals|тарілки музичні|тарілки музичні
+U|donation|пожертва|пожертва
+U|dorm|гуртожиток|гуртожиток
+U|drawing|малювання|малювання
+U|encore|біс|біс
+U|french horn|валторна|валторна
+U|hamper|кошик із кришкою|кошик із кришкою
+U|hardback|книжка у твердій оправі|книжка у твердій оправі
+U|harmonica|губна гармошка|губна гармошка
+U|red currant|порічки|порічки
+U|rind|шкоринка сиру|шкоринка сиру
+U|savoury|несолодкий|несолодкий
+U|scallop|морський гребінець|морський гребінець
+U|seedless|без кісточок|без кісточок
+U|segment|часточка|часточка
+U|sip|маленький ковток|маленький ковток
+U|sparkling|газований|газований
+U|starter|перша страва|перша страва
+U|stew|тушкована страва|тушкована страва
+U|streaky bacon|бекон із прошарками|бекон із прошарками
+U|topping|начинка зверху|начинка зверху
+U|tray|таця|таця
+U|zest|цедра|цедра
+U|black pudding|кров'янка|кров'янка
+U|blood orange|корольок|корольок
+U|brown bread|хліб із висівками|хліб із висівками
+U|camomile tea|ромашковий чай|ромашковий чай
+U|dairy produce|молочна продукція|молочна продукція
+U|french toast|грінка|грінка
+U|salt beef|солонина яловича|солонина яловича
+U|allspice|запашний перець|запашний перець
+U|baked|запечений|запечений
+U|black currant|чорна смородина|чорна смородина
+U|broth|бульйон|бульйон
+U|buffet|шведський стіл|шведський стіл
+U|carton|картонна упаковка|картонна упаковка
+U|cereal|пластівці|пластівці
+U|clam|молюск їстівний|молюск їстівний
+U|corned beef|солонина|солонина
+U|dried fruit|сухофрукти|сухофрукти
+U|glaze|глазур кондитерська|глазур кондитерська
+U|gulp|ковток великий|ковток великий
+U|kale|кучерява капуста|кучерява капуста
+U|kernel|зернятко|зернятко
+U|hot-water bottle|грілка|грілка
+U|hut|халупа|халупа
+U|knob|кругла ручка|кругла ручка
+U|landlord|орендодавець|орендодавець
+U|lease|договір оренди|договір оренди
+E|to comply|виконувати вимоги
+E|to concede|визнавати поразку
+E|to confer|радитися
+E|to conserve|ощадливо витрачати
+E|contradiction|суперечність
+E|credibility|довіра
+E|dedicated|відданий
+E|deficiency|нестача
+E|to defy|кидати виклик
+E|to depict|зображати
+E|diagnosis|діагноз
+E|to diminish|зменшуватися
+E|dip|занурювати
+E|directory|довідник
+E|dismissal|звільнення з роботи
+E|to drown|тонути
+E|to empower|надавати повноваження
+E|enterprise|підприємство
+E|faculty|факультет
+E|feat|подвиг
+E|flaw|вада
+E|to flee|тікати
+E|to gaze|вдивлятися
+E|glorious|славетний
+E|grace|грація
+E|congregation|громада вірян
+E|to dub|дублювати фільм
+E|imminent|що ось-ось настане
+E|indictment|обвинувальний акт
+E|indigenous|корінний
+E|to inflict|завдавати шкоди
+E|intact|неушкоджений
+E|integral|невід'ємний
+E|irrelevant|не стосується справи
+E|lap|коліна
+E|large-scale|великомасштабний
+E|legislature|законодавчий орган
+E|liable|відповідальний за законом
+E|beneath|попід
+E|lesbian|лесбійка
+E|likelihood|імовірність
+E|long-standing|давній
+E|maintenance|технічне обслуговування
+E|manifest|очевидний
+E|marketplace|ринок збуту
+E|mere|звичайнісінький
+E|merger|злиття компаній
+E|merit|заслуга
+E|midst|розпал
+E|mob|юрба
+E|neighboring|сусідній
+E|nonetheless|попри те
+E|notably|зокрема
+E|to obsess|бути одержимим
+E|to originate|брати початок
+E|outing|вилазка
+E|overwhelming|непереборний
+E|parliamentary|парламентський
+E|pathway|шлях розвитку
+E|to portray|змальовувати
+E|premium|надбавка
+E|problematic|проблемний
+E|proposition|ділова пропозиція
+E|magistrate|мировий суддя
+E|residue|осад
+E|javelin|метальний спис
+E|presenter|ведучий (програми)
+E|cholesterol|холестерин
+E|convenience food|готова їжа
+E|lactose intolerant|з непереносимістю лактози
+E|to bring up|порушувати тему
+E|to cut down on|скорочувати споживання
+E|to get along|ладнати
+E|to get over|оговтуватися
+E|to hold on|зачекати
+E|to show up|з'являтися (прийти на місце)
+E|to sort out|владнувати
+E|to fend|боронитися
+E|to come down to|зводитися до
+E|to end up|зрештою опинятися
+E|to get across|доносити думку
+E|to get away with|уникати покарання
+E|to go through|переживати
+E|to hold back|стримувати
+E|to live up to|виправдовувати очікування
+E|to look down on|дивитися звисока
+E|to look into|розслідувати
+E|to take over|перебирати контроль
+E|to turn down|відмовляти
+E|to boil down to|мати головною суттю
+E|to crack down on|жорстко боротися з
+E|to dwell on|зациклюватися на
+E|to fend off|відбиватися від
+E|to lash out|накидатися
+E|to step down|іти з посади
+E|to stem from|походити від
+E|to zero in on|зосереджуватися на
+E|tailored|пошитий на замовлення
+E|strapless|без бретельок
+E|buttonhole|петля для ґудзика
+E|snorkel|трубка для плавання
+E|fins|ласти
+E|handkerchief|носовичок
+E|beanie|шапка-біні
+E|stud|сережка-гвоздик
+E|bangle|жорсткий браслет
+E|anklet|браслет на щиколотку
+E|loafer|лофер
+E|clog|сабо
+E|flats|балетки
+E|slider|спортивний шльопанець
+E|eyelet|люверс
+E|cleat|бутса
+E|toner|тонік
+E|aftershave|лосьйон після гоління
+E|dizzy|запаморочений
+E|sling|косинкова пов'язка
+E|neck brace|шийний комір
+E|electric shock|удар струмом
+E|check-up|профілактичний огляд
+E|test results|результати аналізів
+E|dressing|перев'язка
+E|safety pin|англійська шпилька
+E|to lose weight|худнути
+E|pad|подушечка
+E|stretcher|ноші
+E|recovery room|післяопераційна палата
+E|to discharge|виписувати
+E|outpatient|амбулаторний пацієнт
+E|extraction|видалення зуба
+E|dental hygienist|зубний гігієніст
+E|to floss|чистити зубною ниткою
+E|lens case|футляр для лінз
+E|grandparent|дідусь або бабуся
+E|stair|сходинка
+E|clause|пункт договору
+E|embarrassing|ніяковий
+E|fancy|шикарний
+E|narrative|наратив
+E|outdoor|вуличний
+E|to qualify|кваліфікуватися
+E|artwork|витвір мистецтва
+E|to assess|оцінювати
+E|chairman|голова зборів
+E|confusion|плутанина
+E|curriculum|навчальна програма
+E|database|база даних
+E|disabled|з інвалідністю
+E|to elect|обирати на посаду
+E|to engage|залучати
