@@ -3527,3 +3527,303 @@ E|reportedly|за повідомленнями
 E|to retrieve|отримувати назад
 E|sake|заради
 E|to slash|різко скорочувати
+U|spotlight|прожектор|прожектор
+U|strain|напруження|напруження
+U|to surrender|капітулювати|капітулювати
+U|tactic|тактика|тактика
+U|treaty|договір|договір
+U|verse|строфа|строфа
+U|vessel|судно|судно
+U|workout|тренування|тренування
+U|during|протягом|протягом
+U|hers|її (без іменника)|її
+U|due|належний|належний
+U|lot|безліч|безліч
+U|cd|компакт-диск|компакт-диск
+U|arrangement|домовленість|домовленість
+U|announcement|оголошення|оголошення
+U|disadvantage|недолік|недолік
+U|import|імпорт|імпорт
+U|quotation|цитата|цитата
+U|basically|по суті|по суті
+U|division|поділ|поділ
+U|negotiation|переговори|переговори
+U|placement|розміщення|розміщення
+U|probable|імовірний|імовірний
+U|resolution|постанова|постанова
+U|tension|напруга|напруга
+U|to unfold|розгортатися|розгортатися
+U|unfortunate|невдалий|невдалий
+U|acceptance|прийняття|прийняття
+U|columnist|оглядач|оглядач
+U|consultation|консультація|консультація
+U|distinctive|характерний|характерний
+U|educator|педагог|педагог
+U|emergence|поява|поява
+U|encouragement|заохочення|заохочення
+U|execution|виконання|виконання
+U|exploitation|експлуатація|експлуатація
+U|inadequate|невідповідний|невідповідний
+U|operational|операційний|операційний
+U|provision|забезпечення|забезпечення
+U|realization|усвідомлення|усвідомлення
+U|to reside|проживати|проживати
+U|willingness|готовність|готовність
+U|abject|жалюгідний|жалюгідний
+U|affectation|манірність|манірність
+U|to allude|натякати|натякати
+U|amorphous|безформний|безформний
+U|aptitude|хист|хист
+U|armory|арсенал|арсенал
+U|autonomous|автономний|автономний
+U|averse|несхильний|несхильний
+U|avian|пташиний|пташиний
+U|behest|веління|веління
+U|belligerence|войовничість|войовничість
+U|bona fide|добросовісний|добросовісний
+U|calamitous|згубний|згубний
+U|callous|черствий|черствий
+U|calorific|калорійний|калорійний
+U|conciliation|примирення|примирення
+U|contemptuous|зневажливий|зневажливий
+U|cosmic|космічний|космічний
+U|to deaden|притупляти|притупляти
+U|derisive|глузливий|глузливий
+U|disdainful|презирливий|презирливий
+U|to disperse|розсіювати|розсіювати
+U|to edify|повчати|повчати
+U|equilibrium|рівновага|рівновага
+U|ferocity|лютість|лютість
+U|hermetic|герметичний|герметичний
+U|hitherto|досі|досі
+U|homestead|садиба|садиба
+U|ignominious|ганебний|ганебний
+U|incongruity|невідповідність|невідповідність
+U|indolence|лінощі|лінощі
+U|infernal|пекельний|пекельний
+U|intermediary|посередник|посередник
+U|locomotion|пересування|пересування
+U|magnanimity|великодушність|великодушність
+U|magnanimous|великодушний|великодушний
+U|materialistic|матеріалістичний|матеріалістичний
+U|melodious|мелодійний|мелодійний
+U|mercantile|торговельний|торговельний
+U|midwifery|акушерство|акушерство
+U|mutinous|бунтівний|бунтівний
+U|phantom|примара|примара
+U|superfluous|зайвий|зайвий
+U|syllabic|складовий|складовий
+U|taciturnity|мовчазність|мовчазність
+U|topographical|топографічний|топографічний
+U|treacherous|підступний|підступний
+U|verbatim|дослівно|дослівно
+U|verisimilitude|правдоподібність|правдоподібність
+U|vestigial|рудиментарний|рудиментарний
+U|vortex|вир|вир
+U|wayward|свавільний|свавільний
+U|whirlwind|смерч|смерч
+U|inexorability|невблаганність|невблаганність
+U|to whir|дзижчати|дзижчати
+U|diligently|старанно|старанно
+U|exultant|тріумфуючий|тріумфуючий
+U|incisor|різець|різець
+U|molar|кутній зуб|кутній зуб
+U|pimple|прищ|прищ
+U|torso|тулуб|тулуб
+U|pinch|дрібка (солі)|дрібка
+U|vegetable garden|город (грядки)|город
+U|cistern|бачок (унітаза)|бачок
+U|protein|білок (поживна речовина)|білок
+U|additive|домішка (харчова добавка)|домішка
+U|to get along|ладнати (з людьми)|ладнати
+U|lipstick|помада (для губ)|помада
+U|mascara|туш (для вій)|туш
+U|eyeshadow|тіні (для повік)|тіні
+U|inject|вколювати (ліки)|вколювати
+U|runny nose|нежить|нежить
+U|chickenpox|вітрянка|вітрянка
+U|nosebleed|кровотеча з носа|кровотеча з носа
+U|backache|біль у спині|біль у спині
+U|sprain|розтягнення|розтягнення
+U|broken bone|перелом кістки|перелом кістки
+U|sling|косинкова пов'язка|косинкова пов'язка
+U|neck brace|шийний комір|шийний комір
+U|sting|укус комахи|укус комахи
+U|medical examination|медичний огляд|медичний огляд
+U|check-up|профілактичний огляд|профілактичний огляд
+U|test results|результати аналізів|результати аналізів
+U|medication|медикамент|медикамент
+U|face mask|медична маска|медична маска
+U|adhesive bandage|лейкопластир|лейкопластир
+U|safety pin|англійська шпилька|англійська шпилька
+U|chest compressions|непрямий масаж серця|непрямий масаж серця
+U|pad|подушечка|подушечка
+U|passage|прохід|прохід
+U|drip|крапельниця|крапельниця
+U|stretcher|ноші|ноші
+U|scan|сканування|сканування
+U|emergency room|приймальне відділення|приймальне відділення
+U|intensive care unit|реанімація|реанімація
+U|recovery room|післяопераційна палата|післяопераційна палата
+U|to discharge|виписувати|виписувати
+U|outpatient|амбулаторний пацієнт|амбулаторний пацієнт
+U|ENT|лор|лор
+U|kit|набір|набір
+U|plaque|зубний наліт|зубний наліт
+U|decay|карієс|карієс
+U|cavity|дупло|дупло
+U|extraction|видалення зуба|видалення зуба
+U|dentures|зубні протези|зубні протези
+U|whitening|відбілювання|відбілювання
+U|to floss|чистити зубною ниткою|чистити зубною ниткою
+U|lens case|футляр для лінз|футляр для лінз
+E|strain|напруження
+E|substitute|замінник
+E|succession|спадкоємність
+E|superior|вищий за якістю
+E|to sustain|підтримувати життєдіяльність
+E|systematic|систематичний
+E|toll|плата за проїзд
+E|tuition|плата за навчання
+E|to undermine|підривати довіру
+E|verbal|словесний
+E|to verify|перевіряти достовірність
+E|to violate|порушувати закон
+E|vocal|голосистий
+E|whip|батіг
+E|wholly|цілковито
+E|due|належний
+E|arrangement|домовленість
+E|electrical|електричний
+E|fashionable|модний
+E|impressive|вражаючий
+E|indoor|кімнатний
+E|unable|нездатний
+E|underwear|спідня білизна
+E|assistance|сприяння
+E|collector|колекціонер
+E|to dismiss|відкидати думку
+E|exploration|розвідування
+E|goodness|добро
+E|indication|вказівка
+E|to overcome|долати
+E|probable|імовірний
+E|to rebuild|відбудовувати
+E|resolution|постанова
+E|to restore|відновлювати
+E|unfortunate|невдалий
+E|contributor|дописувач
+E|countless|незліченний
+E|desirable|бажаний
+E|to dissolve|розчинятися
+E|distinctive|характерний
+E|educator|педагог
+E|engagement|залученість
+E|exploitation|експлуатація
+E|fatal|фатальний
+E|to imprison|ув'язнювати
+E|inadequate|невідповідний
+E|manipulation|маніпуляція
+E|occurrence|випадок появи
+E|operational|операційний
+E|organizational|організаційний
+E|prospective|потенційний
+E|provision|забезпечення
+E|realization|усвідомлення
+E|removal|вилучення
+E|rental|оренда
+E|separation|відокремлення
+E|statistical|статистичний
+E|to unveil|оприлюднювати
+E|withdrawal|зняття коштів
+E|abundant|рясний
+E|to accrue|нараховуватися
+E|adhesion|прилипання
+E|advantageous|вигідний
+E|affectation|манірність
+E|to allot|виділяти частку
+E|angular|кутастий
+E|annex|прибудова
+E|aptitude|хист
+E|armory|арсенал
+E|articulation|чітка вимова
+E|austere|суворо простий
+E|averse|несхильний
+E|to babble|белькотіти
+E|to banish|виганяти з країни
+E|behest|веління
+E|bogus|фальшивий
+E|calorific|калорійний
+E|to carbonize|обвуглювати
+E|to cascade|спадати каскадом
+E|to coax|лагідно вмовляти
+E|to collide|зіштовхуватися
+E|consignment|партія товару
+E|constrained|скутий
+E|contagion|поширення зарази
+E|contractual|договірний
+E|to deaden|притупляти
+E|deficient|з нестачею чогось
+E|derisive|глузливий
+E|disdainful|презирливий
+E|dispersal|розсіювання
+E|to disperse|розсіювати
+E|to disseminate|поширювати інформацію
+E|elephantine|громіздкий
+E|eminence|визначність
+E|ephemeral|швидкоплинний
+E|etching|офорт
+E|fabled|легендарний
+E|to fabricate|сфабрикувати
+E|fabrication|фабрикація
+E|to familiarize|ознайомлювати
+E|farcical|безглуздий як фарс
+E|flighty|вітряний у поведінці
+E|to gravitate|тяжіти до
+E|haphazard|безсистемний
+E|hapless|бідолашний
+E|to herald|сповіщати про прихід
+E|hysteria|істерія
+E|to loiter|тинятися без діла
+E|lyrical|ліричний
+E|malleability|ковкість
+E|malleable|податливий формуванню
+E|marvel|предмет захвату
+E|to mediate|бути посередником
+E|menacing|загрозливий
+E|methodological|методологічний
+E|nigh|зовсім близько
+E|oblique|непрямий
+E|ornate|пишно оздоблений
+E|palate|піднебіння
+E|pedestal|п'єдестал
+E|to perch|сідати на сідало
+E|phantom|примара
+E|philanthropic|філантропічний
+E|philanthropy|філантропія
+E|polysyllabic|багатоскладовий
+E|portraiture|портретний живопис
+E|to posit|висувати як засновок
+E|posterity|майбутні покоління
+E|proprietary|власницький
+E|recitation|декламування
+E|to reconcile|примирювати
+E|recourse|звернення по допомогу
+E|to recuperate|відновлювати сили
+E|recuperation|відновлення сил
+E|remorseful|сповнений каяття
+E|retrospective|ретроспективний
+E|rhetorical|риторичний
+E|seismic|сейсмічний
+E|solitude|усамітнення
+E|sterility|безплідність
+E|superfluous|зайвий
+E|syllabic|складовий
+E|taciturn|небалакучий
+E|taciturnity|мовчазність
+E|to teem|кишіти
+E|temper|норов
+E|treacherous|підступний
+E|trifle|дрібничка
+E|unsuspected|непідозрюваний
+E|virtuoso|віртуоз
