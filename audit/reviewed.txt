@@ -515,3 +515,303 @@ U|captivating|захопливий|захопливий
 U|engaging|цікавий|захопливий
 U|exciting|захопливий|захопливий
 U|fascinating|захопливий|захопливий
+U|anxious|тривожний (неспокійний)|тривожний
+U|strict|суворий|суворий
+U|bank|берег|берег
+U|mean|підлий|підлий
+U|board|правління|правління
+U|absent|відсутній|відсутній
+U|adore|обожнювати|обожнювати
+U|admit|визнавати|визнавати
+U|explanation|пояснення|тлумачення
+U|ailing|хворий|хворий
+U|asleep|сплячий|сплячий
+U|attention|увага|увага
+U|big|великий|великий
+U|cabin|хатина|хатина
+U|chapter|розділ|розділ
+U|clothes|одяг|одяг
+U|committee|комітет|комісія
+U|crucial|вирішальний|вирішальний
+U|to dash|кидатися|кидатися
+U|define|визначати|визначати
+U|delayed|затриманий|затриманий
+U|generally|загалом|загалом
+U|discontinue|припиняти|припиняти
+U|diseased|хворий|хворий
+U|dishonest|нечесний|нечесний
+U|distinct|виразний|виразний
+U|distinct|виразний|чіткий
+U|domestic|домашній|домашній
+U|elevated|підвищений|підвищений
+U|exit|виходити|виходити
+U|finished|закінчений|закінчений
+U|foolish|нерозумний|нерозумний
+U|frail|кволий|кволий
+U|gigantic|гігантський|гігантський
+U|grant|надавати|надавати
+U|terminate|припиняти|припиняти
+U|harsh|суворий|суворий
+U|hinder|заважати|заважати
+U|icy|крижаний|крижаний
+U|ill|хворий|хворий
+U|impatient|нетерплячий|нетерплячий
+U|labor|праця|праця
+U|large|великий|великий
+U|lofty|піднесений|величний
+U|lower|знижувати|знижувати
+U|mad|шалений|шалений
+U|memorize|запам'ятовувати|запам'ятовувати
+U|messy|неохайний|безладний
+U|needy|нужденний|нужденний
+U|pace|темп|темп
+U|petite|невисока|маленька
+U|plenty|достаток|достаток
+U|powerless|безсилий|безсилий
+U|primeval|первісний|первісний
+U|query|запит|запит
+U|recollect|пригадувати|пригадувати
+U|restricted|обмежений|обмежений
+U|reveal|розкривати|розкривати
+U|seize|захоплювати|захоплювати
+U|sense|відчуття|чуття
+U|shift|зміна|зміна
+U|shrink|зменшуватися|зменшуватися
+U|sick|хворий|хворий
+U|steady|стійкий|стійкий
+U|stern|суворий|суворий
+U|straightforward|прямолінійний|прямолінійний
+U|rate|темп|темп
+U|shore|берег|берег
+U|to acknowledge|визнавати|визнавати
+U|altogether|цілком|загалом
+U|to capture|захоплювати|захоплювати
+U|inquiry|запит|запит
+U|grand|величний|величний
+U|to diminish|зменшуватися|зменшуватися
+U|indolent|ледачий|ледачий
+U|ice-cold|крижаний|крижаний
+U|departure|відправлення (поїзда, рейсу)|відправлення
+U|upload|вивантажувати (в інтернет)|вивантажувати
+U|slim|стрункий|худорлявий
+U|brilliant|геніальний|геніальний
+U|ignorant|неосвічений|неосвічений
+U|vulnerable|вразливий|вразливий
+U|to bear|терпіти|зносити
+U|cool|крутий|крутий
+U|content|вміст|вміст
+U|affordable|доступний за ціною|доступний за ціною
+U|afraid|наляканий|боятися
+U|aim|мати на меті|мати на меті
+U|fluency|вільне володіння мовою|вільне володіння мовою
+U|fluency|вільне володіння мовою|плавність мовлення
+U|awake|пробуджений|пробуджений
+U|band|гурт|гурт
+U|bizarre|химерний|химерний
+U|bloom|квітнути|квітнути
+U|boost|підсилювати|підсилювати
+U|broke|без грошей|без грошей
+U|camp|табір|кемпінг
+U|careless|недбалий|необережний
+U|careless|недбалий|безтурботний
+U|caring|дбайливий|дбайливий
+U|cherish|дорожити|дорожити
+U|chop|нарізати|нарізати
+U|chuckle|хихикати|хихикати
+U|comical|комічний|комічний
+U|compassionate|милосердний|милосердний
+U|compelling|переконливий|переконливий
+U|demanding|вимогливий|вимогливий
+U|destitute|знедолений|знедолений
+U|dislike|не любити|не любити
+U|dislike|не любити|не подобатися
+U|haul|перевозити вантаж|перевозити вантаж
+U|haul|перевозити вантаж|волокти
+U|wrap|загортати|обгортати
+U|mail|пошта|надсилати поштою
+U|drop off|завезти|завезти
+U|drop off|завезти|висадити
+U|pick up|забрати|забрати
+U|convey|доносити (думку)|доносити
+U|relay|переказувати|переказувати
+U|deploy|розгортати|направляти
+U|dominant|домінуючий|домінуючий
+U|effortless|без зусиль|без зусиль
+U|elaborate|детальний|ретельно розроблений
+U|elaborate|детальний|вишуканий
+U|elated|окрилений|окрилений
+U|elated|окрилений|у піднесенні
+U|email|електронна пошта|електронна пошта
+U|entire|весь|весь
+U|exhibit|виставляти|виставляти
+U|faulty|несправний|несправний
+U|fearful|лякливий|лякливий
+U|featherweight|напівлегка вага|напівлегка вага
+U|filled|заповнений|заповнений
+U|filled|заповнений|наповнений
+U|finance|фінанси|фінанси
+U|fit|у формі|у формі
+U|freezing|дуже холодний|дуже холодний
+U|friendless|без друзів|без друзів
+U|giggle|хихотіти|хихотіти
+U|glance|поглянути|поглянути
+U|gorgeous|розкішний|розкішний
+U|gracious|люб'язний|люб'язний
+U|great|чудовий|чудово
+U|grin|широко усміхатися|широко усміхатися
+U|smirk|єхидно посміхатися|єхидно посміхатися
+U|guard|охороняти|охоронець
+U|abort|перервати|перервати
+U|hike|похід|похід
+U|hilarious|дуже смішний|дуже смішний
+U|innate|вроджений|вроджений
+E|lovely|чудовий
+E|lucky|щасливий
+E|mayor|мер
+E|reasonable|розумний
+E|strict|суворий
+E|suitable|підходящий
+E|various|різноманітний
+E|visible|видимий
+E|essential|необхідний
+E|precise|точний
+E|bank|берег (річки)
+E|fine|чудовий
+E|fine|штраф
+E|to mean|означати
+E|mean|підлий
+E|like|подібний
+E|present|подарунок
+E|present|теперішній
+E|to lead|вести
+E|address|адреса
+E|accomplish|досягати
+E|accurate|точний
+E|acquire|набувати
+E|adore|обожнювати
+E|admit|визнавати
+E|advance|просуватися
+E|gymnast|гімнаст
+E|advice|порада
+E|advise|радити
+E|afraid|наляканий
+E|aim|мати на меті
+E|alike|схожий
+E|amusing|кумедний
+E|antique|антикварний
+E|approve|схвалювати
+E|arrive|прибувати
+E|asleep|сплячий
+E|assemble|збирати
+E|assist|допомагати
+E|assume|припускати
+E|assured|впевнений
+E|atrocious|жахливий
+E|attain|досягати
+E|bloom|квітнути
+E|boiling|киплячий
+E|boisterous|галасливий
+E|boost|підсилювати
+E|broke|без грошей
+E|brutal|жорстокий
+E|captivating|захопливий
+E|cash|готівка
+E|cease|припиняти
+E|celebrated|знаменитий
+E|children|діти
+E|chuckle|хихикати (тихо, сам до себе)
+E|commence|починати
+E|composed|спокійний
+E|conclude|закінчувати
+E|confirm|підтверджувати
+E|construct|будувати
+E|crucial|вирішальний
+E|decrease|зменшувати
+E|define|визначати (давати означення)
+E|delayed|затриманий (про рейс)
+E|delete|видаляти
+E|delightful|чудовий
+E|demolish|руйнувати
+E|demonstrate|демонструвати
+E|detect|виявляти
+E|detest|ненавидіти
+E|discontinue|припиняти
+E|dish|страва
+E|dispatch|відправляти
+E|convey|доносити (думку)
+E|deploy|розгортати
+E|diverse|різноманітний
+E|domestic|домашній
+E|drag|тягнути
+E|dreary|похмурий
+E|earnest|щирий
+E|easy|легкий
+E|economical|економний
+E|elaborate|детальний
+E|elderly|літній
+E|email|електронна пошта
+E|encounter|зустрічати
+E|engaged|зайнятий
+E|engaging|цікавий
+E|enhance|покращувати
+E|enjoyable|приємний
+E|exciting|захопливий
+E|existing|існуючий
+E|fascinating|захопливий
+E|feasible|здійсненний
+E|finished|закінчений
+E|fit|у формі
+E|foreign|іноземний
+E|forfeit|втрачати
+E|giggle|хихотіти
+E|glowing|сяючий
+E|grasp|схоплювати
+E|grin|широко усміхатися
+E|smirk|єхидно посміхатися
+E|guard|охороняти
+E|guide|гід
+E|to guide|вести
+E|halt|зупиняти
+E|cancel|скасовувати
+E|postpone|відкладати
+E|suspend|призупиняти
+E|handsome|вродливий
+E|heartless|безсердечний
+E|high|високий
+E|hollow|порожній
+E|hop|стрибати
+E|humorous|гумористичний
+E|idle|ледачий
+E|impoverished|збіднілий
+E|inaccurate|неточний
+E|incorrect|неправильний
+E|inquire|запитувати
+E|labor|праця
+E|launch|запускати
+E|leisurely|неспішний
+E|little|маленький
+E|lower|знижувати
+E|lying|брехня
+E|memorize|запам'ятовувати
+E|microscopic|мікроскопічний
+E|midnight|північ
+E|mistaken|помилковий
+E|monotonous|монотонний
+E|grieve|горювати
+E|muddy|болотистий
+E|noisy|галасливий
+E|notify|повідомляти
+E|obey|коритися
+E|obtain|отримувати
+E|organic|органічний
+E|personality|особистість
+E|petite|невисока
+E|pick|вибирати
+E|posture|постава
+E|preserve|зберігати
+E|pretty|гарний
+E|proper|правильний
+E|recollect|пригадувати
+E|recommend|рекомендувати
+E|reject|відхиляти
+E|remain|залишатися
