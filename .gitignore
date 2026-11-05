@@ -5,3 +5,8 @@ package.json
 # Тимчасові прев'ю/скріни (бета-експерименти; НЕ деплоїти на сайт)
 _theme_preview.html
 _*.png
+
+# audit/ — робочі файли розбору (кеш gt-cache.jsonl і reviewed.txt — комітимо)
+audit/cmp.json
+audit/batch-keys.json
+audit/ops*.json

@@ -1,0 +1,486 @@
+U|swear|клястися|присягатися
+U|proceed|переходити|переходити
+U|to watch|спостерігати|стежити
+U|decisively|рішуче|рішуче
+U|turn|повертати|повертати
+U|cook|готувати|готувати
+U|to clean|прибирати|прибирати
+U|return|повертатися|повертатися
+U|rise|зростати|зростати
+U|slam|грюкати|грюкати
+U|introduce|знайомити|знайомити
+U|own|володіти|володіти
+U|warn|попереджати|попереджати
+U|person|людина|людина
+U|vendor|торговець|торговець
+U|abdomen|живіт|живіт
+U|hazel|карий|карий
+U|bow|кланятися|кланятися
+U|shiver|тремтіти|тремтіти
+U|cake|торт|торт
+U|home|дім|дім
+U|stove|плита|плита
+U|castle|фортеця|фортеця
+U|factory|завод|завод
+U|car|машина|машина
+U|photograph|фотографія|фотографія
+U|answer|відповідь|відповідь
+U|sadness|сум|сум
+U|quantity|кількість|кількість
+U|number|число|число
+U|condition|умова|стан
+U|accident|випадок|випадок
+U|mystery|загадка|таємниця
+U|job|робота|робота
+U|edge|край|край
+U|youth|молодь|молодь
+U|next|наступний|наступний
+U|beautiful|красивий|гарний
+U|nice|приємний|гарний
+U|nice|приємний|хороший
+U|sad|сумний|засмучений
+U|angry|злий|злий
+U|bored|знуджений|знуджений
+U|correct|правильний|вірно
+U|fake|фальшивий|фальшивий
+U|ready|готовий|готовий
+U|different|різний|інший
+U|salty|солоний|солоний
+U|alive|живий|живий
+U|clever|кмітливий|хитрий
+U|silly|безглуздий|безглуздий
+U|hardworking|працьовитий|працьовитий
+U|probably|мабуть|мабуть
+U|certainly|звичайно|звичайно
+U|slowly|повільно|повільно
+U|easily|легко|легко
+U|well|добре|добре
+U|alone|один|сам
+U|deeply|глибоко|глибоко
+U|apart|окремо|окремо
+U|thorough|ретельний|ретельний
+U|arm|рука|рука
+U|heel|п'ята|п'ята
+U|great-grandmother|прабабуся|прабабуся
+U|great-grandfather|прадідусь|прадід
+U|great-grandson|правнук|правнук
+U|great-granddaughter|правнучка|правнучка
+U|mother-in-law|теща|теща
+U|mother-in-law|теща|свекруха
+U|father-in-law|тесть|тесть
+U|father-in-law|тесть|свекор
+U|fold|складати|складати
+U|to shape|формувати|формувати
+U|mention|згадувати|згадувати
+U|predict|передбачати|передбачати
+U|react|реагувати|реагувати
+U|skip|пропускати|пропускати
+U|alarm|будильник|тривога
+U|character|характер|характер
+U|limit|обмеження|обмеження
+U|meaning|значення|значення
+U|sight|зір|зір
+U|view|вигляд|вигляд
+U|trash|сміття|сміття
+U|fever|гарячка|жар
+U|fund|фонд|фонд
+U|compose|складати|складати
+U|response|відповідь|відповідь
+U|correctly|правильно|правильно
+U|living|живий|живий
+U|meticulous|ретельний|ретельний
+U|personality|особистість|характер
+U|pretty|гарний|гарний
+U|recall|згадувати|згадувати
+U|senseless|безглуздий|безглуздий
+U|tricky|хитрий|хитрий
+U|upset|засмучений|засмучений
+U|occasion|нагода|випадок
+U|human|людина|людина
+U|amount|кількість|кількість
+U|eyesight|зір|зір
+U|to put away|прибирати (на місце)|прибирати
+U|mama|мама|мама
+U|to anticipate|передбачати|передбачати
+U|to possess|володіти|володіти
+U|restriction|обмеження|обмеження
+U|ridiculous|безглуздий|безглуздий
+U|bogus|фальшивий|фальшивий
+U|belly|живіт (розмовно)|живіт
+U|pointless|безглуздий|безглуздий
+U|either|або (один із двох)|теж
+U|wristband|напульсник|напульсник
+U|proceed|переходити|прямувати
+U|stall|зволікати|зволікати
+U|make|виготовляти|виготовляти
+U|to drop|впускати|впускати
+U|include|включати|включати
+U|raise|піднімати|виховувати
+U|receive|отримати|отримати
+U|application|застосування|додаток
+E|commit|вчиняти
+E|swear|клястися
+E|trigger|курок
+E|proceed|переходити
+E|say|казати
+E|get|отримувати
+E|think|думати
+E|come|приходити
+E|see|бачити
+E|want|хотіти
+E|look|дивитися
+E|find|знаходити
+E|give|давати
+E|try|намагатися
+E|ask|питати
+E|leave|залишати
+E|put|класти
+E|keep|тримати
+E|let|дозволяти
+E|begin|починати
+E|lose|губити
+E|meet|зустрічати
+E|learn|вчитися
+E|understand|розуміти
+E|stop|зупинятися
+E|create|створювати
+E|to open|відчиняти
+E|win|вигравати
+E|remember|пам'ятати
+E|buy|купувати
+E|die|вмирати
+E|send|надсилати
+E|stay|залишатися
+E|reach|досягати
+E|pass|передавати
+E|decide|вирішувати
+E|decisive|рішучий
+E|help|допомагати
+E|turn|повертати
+E|drive|їздити
+E|choose|вибирати
+E|count|рахувати
+E|cover|покривати
+E|connect|з'єднувати
+E|cross|перетинати
+E|describe|описувати
+E|drop|краплина
+E|enter|входити
+E|exist|існувати
+E|explain|пояснювати
+E|fill|наповнювати
+E|happen|траплятися
+E|improve|покращувати
+E|increase|збільшувати
+E|kill|вбивати
+E|raise|піднімати
+E|reduce|зменшувати
+E|remove|видаляти
+E|repeat|повторювати
+E|replace|замінювати
+E|save|зберігати
+E|solve|вирішувати
+E|throw|кидати
+E|travel|подорожувати
+E|visit|відвідувати
+E|accept|приймати
+E|add|додавати
+E|agree|погоджуватися
+E|allow|дозволяти
+E|apply|застосовувати
+E|avoid|уникати
+E|deliver|доставляти
+E|discover|відкривати
+E|earn|заробляти
+E|forget|забувати
+E|hit|вдаряти
+E|punch|вдарити кулаком
+E|hurt|боліти
+E|inform|інформувати
+E|introduce|знайомити
+E|invite|запрошувати
+E|land|земля
+E|to order|замовляти
+E|own|володіти
+E|prefer|воліти
+E|prevent|запобігати
+E|protect|захищати
+E|prove|доводити
+E|provide|забезпечувати
+E|realize|усвідомлювати
+E|recognize|впізнавати
+E|refuse|відмовлятися
+E|release|випускати
+E|rent|орендувати
+E|survive|виживати
+E|warn|попереджати
+E|wake|будити
+E|fall|осінь
+E|people|люди
+E|hand|кисть руки
+E|skin|шкіра
+E|eyelid|повіка
+E|eyelash|вія
+E|hazel|карий
+E|arch|арка
+E|sheep|вівця
+E|water|вода
+E|vegetable|овоч
+E|household|домогосподарство
+E|market|ринок
+E|bank|банк
+E|earth|земля
+E|pen|ручка
+E|plate|тарілка
+E|fork|виделка
+E|brush|щітка
+E|sock|шкарпетка
+E|button|кнопка
+E|information|інформація
+E|war|війна
+E|shape|форма
+E|situation|ситуація
+E|condition|умова
+E|right|право
+E|right|правий
+E|meeting|зустріч
+E|culture|культура
+E|society|суспільство
+E|energy|енергія
+E|technology|технологія
+E|education|освіта
+E|art|мистецтво
+E|history|історія
+E|company|компанія
+E|thousand|тисяча
+E|type|тип
+E|area|площа
+E|top|верхівка
+E|edge|край
+E|corner|кут
+E|surface|поверхня
+E|rubber|гума
+E|good|добрий
+E|bad|поганий
+E|narrow|вузький
+E|light|легкий
+E|cool|прохолодний
+E|hard|важкий
+E|youth|молодь
+E|beautiful|красивий
+E|nice|приємний
+E|kind|лагідний
+E|interesting|цікавий
+E|bored|знуджений
+E|tearful|заплаканий
+E|funny|смішний
+E|strange|дивний
+E|excellent|відмінний
+E|important|важливий
+E|necessary|необхідний
+E|possible|можливий
+E|difficult|складний
+E|tired|втомлений
+E|free|вільний
+E|same|однаковий
+E|different|різний
+E|similar|схожий
+E|special|особливий
+E|public|публічний
+E|artificial|штучний
+E|frozen|заморожений
+E|whole|цілий
+E|lost|загублений
+E|clear|ясний
+E|loud|гучний
+E|tight|щільний
+E|political|політичний
+E|economic|економічний
+E|social|соціальний
+E|specific|конкретний
+E|normal|нормальний
+E|open|відкритий
+E|closed|закритий
+E|alone|один
+E|mostly|переважно
+E|seventh|сьомий
+E|eighth|восьмий
+E|tenth|десятий
+E|thank|дякувати
+E|January|січень
+E|May|травень
+E|granddaughter|онука
+E|to adopt|усиновлювати
+E|born|народжений
+E|announce|оголошувати
+E|apologize|вибачатися
+E|compare|порівнювати
+E|concentrate|зосереджуватися
+E|consider|розглядати
+E|contain|містити
+E|deserve|заслуговувати
+E|destroy|руйнувати
+E|disappear|зникати
+E|discuss|обговорювати
+E|expand|розширювати
+E|fold|складати (папір, одяг)
+E|gain|отримувати
+E|hide|ховатися
+E|hire|наймати
+E|sway|схиляти
+E|occur|відбуватися
+E|pack|пакувати
+E|quit|кидати
+E|skip|пропускати
+E|stretch|розтягуватися
+E|study|навчатися
+E|wear|носити
+E|access|доступ
+E|border|кордон
+E|data|дані
+E|evidence|доказ
+E|exercise|вправа
+E|feedback|відгук
+E|form|форма
+E|nature|природа
+E|policy|політика
+E|view|вигляд (з вікна)
+E|fever|гарячка
+E|conference|конференція
+E|duty|обов'язок
+E|kind|тип
+E|bank|берег
+E|stall|зволікати
+E|become|ставати
+E|hold|тримати
+E|change|змінювати
+E|cut|різати
+E|to drop|впускати (з рук)
+E|fix|ремонтувати
+E|imagine|уявляти
+E|include|включати
+E|join|приєднуватися
+E|catch|ловити
+E|smack|шльопнути
+E|stab|вдарити ножем
+E|whack|влупити
+E|bang|грюкіт
+E|kick|бити ногою
+E|miss|скучати
+E|afternoon|друга половина дня
+E|nipple|сосок
+E|toe|палець ноги
+E|shrug|знизувати плечима
+E|giraffe|жираф
+E|card|картка
+E|project|проект
+E|boring|нудний
+E|stressed|у стресі
+E|hopeful|сповнений надії
+E|amused|розвеселений
+E|distracted|розсіяний
+E|ecstatic|в екстазі
+E|disgusted|з огидою
+E|wrong|неправильний
+E|recently|нещодавно
+E|sibling|брат або сестра
+E|spouse|член подружжя
+E|disagree|не погоджуватися
+E|to handle|справлятися
+E|injure|травмувати
+E|predict|передбачати
+E|recover|одужувати
+E|shake|трясти
+E|background|фон
+E|network|мережа
+U|proceed|переходити (до наступного кроку)|переходити
+U|turn|повертати (ліворуч, праворуч)|повертати
+U|cook|готувати (їжу)|готувати
+U|return|повертатися (назад)|повертатися
+U|warn|попереджати (про небезпеку)|попереджати
+U|stove|плита (кухонна)|плита
+U|car|машина (автомобіль)|машина
+U|job|робота (посада)|робота
+U|angry|злий (розсерджений)|злий
+U|arm|рука (від плеча до кисті)|рука
+U|fold|складати (папір, одяг)|складати
+U|mention|згадувати (у розмові)|згадувати
+U|view|вигляд (з вікна)|вигляд
+U|compose|складати (текст, музику)|складати
+U|proceed|переходити (до наступного кроку)|прямувати
+U|to drop|впускати (з рук)|впускати
+U|slap|ляснути|ляснути
+U|smack|шльопнути|шльопнути
+U|pat|поплескати|поплескати
+U|whack|влупити|влупити
+U|bang|грюкіт|грюкіт
+U|bang|грюкіт|бахнути
+U|land|земля|суходіл
+U|lock|замикати|замикати
+U|miss|скучати|сумувати
+U|prevent|запобігати|запобігати
+U|release|випускати|випускати
+U|afternoon|друга половина дня|друга половина дня
+U|supplier|постачальник|постачальник
+U|hand|кисть руки|кисть руки
+U|iris|райдужка|райдужка
+U|knuckle|кісточка|кісточка
+U|town|містечко|містечко
+U|camera|камера|камера
+U|photography|фотографування|фотомистецтво
+U|story|розповідь|розповідь
+U|anger|злість|злість
+U|failure|невдача|невдача
+U|relationship|стосунки|стосунки
+U|chemical|хімічний|хімічна речовина
+U|grade|оцінка|оцінка
+U|amazed|вражений|вражений
+U|confused|розгублений|розгублений
+U|embarrassed|збентежений|збентежений
+U|stressed|у стресі|у стресі
+U|hopeful|сповнений надії|сповнений надії
+U|thrilled|у захваті|у захваті
+U|distracted|розсіяний|розсіяний
+U|ecstatic|в екстазі|в екстазі
+U|disgusted|з огидою|з огидою
+U|excellent|відмінний|відмінний
+U|fake|фальшивий|несправжній
+U|same|однаковий|однаковий
+U|famous|відомий|відомий
+U|sharp|гострий|різкий
+U|quite|досить|досить
+U|certainly|звичайно|безперечно
+U|everywhere|скрізь|всюди
+U|inside|всередині|всередині
+U|loudly|голосно|голосно
+U|recently|нещодавно|нещодавно
+U|mostly|переважно|переважно
+U|instead|натомість|натомість
+U|nearby|поруч|поруч
+U|billion|мільярд|мільярд
+U|purple|фіолетовий|фіолетовий
+U|sibling|брат або сестра|брат або сестра
+U|spouse|член подружжя|член подружжя
+U|great-grandfather|прадідусь|прадідусь
+U|great-granddaughter|правнучка|правнука
+U|greet|вітати|вітати
+U|to handle|справлятися|справлятися
+U|injure|травмувати|травмувати
+U|sway|схиляти|схиляти
+U|perform|виконувати|виступати
+U|recover|одужувати|одужувати
+U|slip|ковзнути|ковзнути
+U|alarm|будильник|сигнал тривоги
+U|alarm|будильник|сигналізація
+U|emergency|надзвичайна ситуація|надзвичайна ситуація
+U|feedback|відгук|відгук
+U|network|мережа|мережа
+U|option|варіант|варіант
+U|pattern|шаблон|закономірність
+U|section|секція|підрозділ
+U|skill|навичка|навичка
+U|view|вигляд (з вікна)|краєвид
+U|meal|прийом їжі|прийом їжі
+U|rather|досить|досить
+U|web|мережа|мережа
+U|predominantly|переважно|переважно
