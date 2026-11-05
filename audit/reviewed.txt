@@ -953,3 +953,303 @@ E|spotless|бездоганний
 E|horrified|у жаху
 E|startled|сполоханий
 E|total|загальний
+U|transform|перетворювати|перетворювати
+U|to transport|перевозити|перевозити
+U|trim|підрізати|підрізати
+U|uncertain|невпевнений|невизначений
+U|unhealthy|нездоровий|нездоровий
+U|unlike|на відміну від|неподібний
+U|unwell|нездоровий|нездоровий
+U|vault|сховище|сховище
+U|vintage|старовинний|старовинний
+U|divorce|розлучення|розлучатися
+U|to withdraw|знімати|знімати
+U|matter|справа|справа
+U|poem|вірш|вірш
+U|several|декілька|кілька
+U|painting|картина|картина
+U|stamp|марка|марка
+U|spread|поширюватися|поширювати
+U|shout|кричати|кричати
+U|explorer|дослідник|дослідник
+U|ambition|амбіція|прагнення
+U|fur|хутро|шерсть
+U|upstairs|нагорі|нагорі
+U|charge|плата|плата
+U|connection|з'єднання|зв'язок
+U|cookie|печиво|печиво
+U|fee|плата|плата
+U|entry|вхід|вхід
+U|flavor|смак|аромат
+U|knit|в'язати|в'язати
+U|lean|спиратися|нахилятися
+U|lid|кришка|кришка
+U|log|колода|колода
+U|rib|ребро|ребро
+U|ligament|зв'язка|зв'язка
+U|pulp|м'якоть|м'якуш
+U|nutritious|поживний|поживний
+U|outline|контур|контур
+U|peel|шкірка|чистити
+U|pipe|труба|труба
+U|pot|горщик|каструля
+U|row|ряд|ряд
+U|smell|запах|запах
+U|socket|розетка|розетка
+U|staff|персонал|штат
+U|stripe|смуга|смуга
+U|forbidden|заборонений|заборонений
+U|to impress|вражати|вражати
+U|to evoke|викликати|викликати
+U|to evoke|викликати|пробуджувати
+U|front|перед|перед
+U|manner|манера|спосіб
+U|pool|басейн|басейн
+U|disaster|катастрофа|катастрофа
+U|disaster|катастрофа|лихо
+U|classical|класичний|класичний
+U|figurine|статуетка|статуетка
+U|title|назва|назва
+U|entrance|вхід|вхід
+U|safety|безпека|безпека
+U|cupboard|шафа|шафа
+U|cupboard|шафа|буфет
+U|species|вид|вид
+U|approval|схвалення|згода
+U|queue|черга|черга
+U|chip|щербина|щербина
+U|stubble|щетина|щетина
+U|sideburns|бакенбарди|бакенбарди
+U|braid|коса|коса
+U|bun|пучок|пучок
+U|curly|кучерявий|кучерявий
+U|mole|родимка|родимка
+U|greasy|жирний|жирний
+U|pore|пора|пора
+U|to creep|крастися|крастися
+U|considerate|тактовний|тактовний
+U|fetus|плід|плід
+U|sort|сортувати|різновид
+U|eraser|гумка|гумка
+U|case|чохол|чохол
+U|clip|кліп|затискач
+U|bathrobe|халат|халат
+U|nightie|нічна сорочка|нічна сорочка
+U|pleat|складка|складка
+U|to take off|скидати|скидати
+U|to suit|личити|личити
+U|to run out|закінчуватися|закінчуватися
+U|to look after|доглядати|доглядати
+U|gate|ворота|ворота
+U|tiring|стомливий|стомливий
+U|thrilling|хвилюючий|хвилюючий
+U|stiff|жорсткий|жорсткий
+U|fun|розвага|розвага
+U|to give away|віддавати|віддавати
+U|to hand out|роздавати|роздавати
+U|to show off|хизуватися|хизуватися
+U|to sleep in|проспати допізна|проспати допізна
+U|to wait up|не лягати спати|не лягати спати
+U|to crush|чавити|чавити
+U|delight|насолода|насолода
+U|camomile|ромашка|ромашка
+U|admission|вхід|вхід
+U|affair|справа|справа
+U|shot|удар|удар
+U|rear|задній|задній
+U|to ease|полегшувати|полегшувати
+U|metallic|металевий|металевий
+U|pomegranate|гранат|гранат
+U|marigold|нагідки|нагідки
+U|den|барліг|барліг
+U|tugboat|буксир|буксир
+U|racecourse|іподром|іподром
+U|pickaxe|кайло|кайло
+U|prune|чорнослив|чорнослив
+U|to relieve|полегшувати|полегшувати
+U|aspiration|прагнення|прагнення
+U|calamity|лихо|лихо
+U|to radiate|віддавати (про біль)|віддавати
+U|respectful|поважний (шанобливий)|поважний
+U|towering|велетенський|велетенський
+U|transfer|передавати|переказ
+U|transfer|передавати|перевести
+U|unachievable|недосяжний|недосяжний
+U|uncommon|нечастий|нечастий
+U|uncomplicated|нескладний|нескладний
+U|unfilled|незаповнений|незаповнений
+U|unlit|неосвітлений|неосвітлений
+U|upgrade|оновлювати|оновлювати
+U|vacation|відпустка|відпустка
+U|vary|змінюватися|змінюватися
+U|watchful|пильний|пильний
+U|couple|пара|подружжя
+U|triplets|трійнята|трійнята
+U|welcoming|гостинний|гостинний
+U|withdrawn|замкнутий|замкнутий
+U|remorse|каяття|каяття
+U|rather|досить|доволі
+U|several|декілька|декілька
+U|overnight|на ніч|на ніч
+U|overnight|на ніч|всю ніч
+U|spread|поширюватися|намазувати
+U|hiking|похід|піший туризм
+U|worry|хвилюватися|турбуватися
+U|downtown|центр міста|центр міста
+U|supportive|підтримуючий|підтримуючий
+U|shop|магазин|робити покупки
+U|scary|страшний|страшний
+U|downstairs|внизу|вниз
+U|alien|прибулець|прибулець
+U|crash|аварія|розбити
+U|creativity|творчість|творчість
+E|transfer|передавати
+E|triumph|тріумф
+E|uncommon|нечастий
+E|uncover|відкривати
+E|unfinished|незавершений
+E|unhappy|нещасливий
+E|uninteresting|нецікавий
+E|unnatural|неприродний
+E|unpopular|непопулярний
+E|untrue|неправдивий
+E|unwell|нездоровий
+E|unwind|розслаблятися
+E|vacant|вільний
+E|varied|різноманітний
+E|vault|сховище
+E|vegetarian|вегетаріанець
+E|triplets|трійнята
+E|weird|дивний
+E|widespread|поширений
+E|working|робочий
+E|worth|вартий
+E|wreck|аварія
+E|excuse|виправдання
+E|rather|досить
+E|human|людина
+E|pocket|кишеня
+E|burn|горіти
+E|explorer|дослідник
+E|action|дія
+E|ambition|амбіція
+E|charge|плата
+E|enroll|записувати
+E|fertile|родючий
+E|hang|вішати
+E|heal|лікувати
+E|endocrine|ендокринний
+E|cardiovascular|серцево-судинний
+E|female|жіночий
+E|vagina|піхва
+E|womb|матка
+E|prostate|простата
+E|page|сторінка
+E|pan|сковорода
+E|row|ряд
+E|fidget|соватися
+E|seem|здаватися
+E|sore|болючий
+E|square|площа
+E|square|квадрат
+E|submit|подавати
+E|wage|зарплата
+E|to offend|ображати
+E|to frown|хмуритися
+E|to knead|місити
+E|to spin|крутитися
+E|front|перед
+E|user|користувач
+E|neighborhood|район
+E|organization|організація
+E|rate|темп
+E|appearance|зовнішність
+E|documentary|документальний фільм
+E|grip|хватка
+E|theft|крадіжка
+E|deal|угода
+E|safety|безпека
+E|boot|черевик
+E|inappropriate|недоречний
+E|development|розвиток
+E|spice|спеція
+E|species|вид
+E|approval|схвалення
+E|queue|черга
+E|hedge|живопліт
+E|industrial|промисловий
+E|drain|стік
+E|ground|земля
+E|unequal|нерівний
+E|firefighter|пожежник
+E|tasty|смачний
+E|detailed|детальний
+E|stubble|щетина
+E|wig|перука
+E|wavy|хвилястий
+E|mole|родимка
+E|hairbrush|щітка для волосся
+E|highlights|мелірування
+E|to creep|крастися
+E|to spell|називати по літерах
+E|unreasonable|нерозсудливий
+E|immature|незрілий
+E|considerate|тактовний
+E|puppet|лялька-маріонетка
+E|acquaintance|знайомий
+E|loose|вільний
+E|overalls|комбінезон
+E|folder|папка
+E|bell|дзвінок
+E|mark|позначати
+E|case|чохол
+E|nightie|нічна сорочка
+E|to put on|одягати
+E|to hang up|класти слухавку
+E|to turn on|вмикати
+E|to turn off|вимикати
+E|to take out|виносити
+E|to wake up|прокидатися
+E|annoying|дратівливий
+E|disastrous|катастрофічний
+E|tiring|стомливий
+E|nasty|гидкий
+E|shocking|обурливий
+E|thrilling|хвилюючий
+E|to go up|підніматися
+E|to show off|хизуватися
+E|circular|круглий
+E|flush|злив
+E|to grind|молоти
+E|cutting|живець
+E|nomad|кочівник
+E|porridge|каша
+E|to melt|танути
+E|to pop|вискакувати
+E|pickled|маринований
+E|delight|насолода
+E|candy|цукерка
+E|army|армія
+E|to pitch|ставити намет
+E|to employ|наймати
+E|poultry|свійська птиця
+E|deck|палуба
+E|to sharpen|гострити
+E|to split|розділяти
+E|underground|підземний
+E|to register|реєструвати
+E|to prescribe|призначати ліки
+E|to soften|пом'якшувати
+E|to paddle|гребти веслом
+E|to scrape|шкребти
+E|shuttle|човниковий рейс
+E|hemisphere|півкуля
+E|cellar|погріб
+E|remedy|засіб лікування
+E|painful|болючий
+E|lobster|омар
+E|oatmeal|вівсянка
+E|pretzel|претцель
+E|packet|пакетик
+E|daisy|стокротка
+E|marigold|нагідки
