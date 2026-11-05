@@ -17071,3 +17071,1662 @@
 {"sl":"uk","q":"ахіллове сухожилля","main":"Achilles tendon","bd":[]}
 {"sl":"en","q":"Achilles tendon","main":"Ахіллове сухожилля","bd":[]}
 {"sl":"uk","q":"подушечка стопи","main":"foot pad","bd":[]}
+{"sl":"en","q":"ball of the foot","main":"кулька стопи","bd":[]}
+{"sl":"uk","q":"підйом стопи","main":"foot lift","bd":[]}
+{"sl":"en","q":"instep","main":"натоптиш","bd":[["noun",["підйом","преплесно"]]]}
+{"sl":"uk","q":"великий палець ноги","main":"big toe","bd":[]}
+{"sl":"en","q":"big toe","main":"великий палець ноги","bd":[]}
+{"sl":"uk","q":"мізинець ноги","main":"little toe","bd":[]}
+{"sl":"en","q":"little toe","main":"мізинець ноги","bd":[["noun",["мізинець"]]]}
+{"sl":"uk","q":"квадрицепс","main":"quadriceps","bd":[]}
+{"sl":"en","q":"quadriceps","main":"квадрицепс","bd":[["noun",["чотириголовий м'яз"]]]}
+{"sl":"uk","q":"сідничний м'яз","main":"buttock muscle","bd":[]}
+{"sl":"en","q":"glute","main":"сідниці","bd":[]}
+{"sl":"uk","q":"кістковий мозок","main":"marrow","bd":[["noun",["marrow","medulla"]]]}
+{"sl":"en","q":"bone marrow","main":"кістковий мозок","bd":[]}
+{"sl":"uk","q":"хрящ","main":"cartilage","bd":[["noun",["cartilage","gristle"]]]}
+{"sl":"en","q":"cartilage","main":"хрящ","bd":[["noun",["хрящ"]]]}
+{"sl":"uk","q":"м'язове волокно","main":"muscle fiber","bd":[]}
+{"sl":"en","q":"muscle fiber","main":"м'язове волокно","bd":[]}
+{"sl":"uk","q":"хребець","main":"vertebra","bd":[["noun",["vertebra"]]]}
+{"sl":"en","q":"vertebra","main":"хребця","bd":[["noun",["хребець"]]]}
+{"sl":"uk","q":"м'язи преса","main":"press muscles","bd":[]}
+{"sl":"en","q":"abs","main":"абс","bd":[]}
+{"sl":"uk","q":"грудний м'яз","main":"pectoral muscle","bd":[]}
+{"sl":"en","q":"pectoral muscle","main":"грудний м'яз","bd":[]}
+{"sl":"uk","q":"дихальні шляхи","main":"respiratory tract","bd":[]}
+{"sl":"en","q":"airway","main":"дихальні шляхи","bd":[["noun",["авіалінія","авіаційна компанія","вентиляційний штрек"]]]}
+{"sl":"uk","q":"дихальне горло","main":"windpipe","bd":[]}
+{"sl":"en","q":"windpipe","main":"трахея","bd":[["noun",["трахея"]]]}
+{"sl":"uk","q":"трахея","main":"trachea","bd":[["noun",["trachea","windpipe"]]]}
+{"sl":"en","q":"trachea","main":"трахеї","bd":[["noun",["трахея"]]]}
+{"sl":"uk","q":"бронх","main":"bronchus","bd":[["noun",["bronchus"]]]}
+{"sl":"en","q":"bronchus","main":"бронх","bd":[["noun",["бронх"]]]}
+{"sl":"uk","q":"діафрагма","main":"diaphragm","bd":[["noun",["diaphragm","midriff"]]]}
+{"sl":"en","q":"diaphragm","main":"діафрагма","bd":[["noun",["діафрагма","мембрана","перегородка","перетинка"]]]}
+{"sl":"uk","q":"жовчний міхур","main":"gall bladder","bd":[["noun",["gall bladder","gall"]]]}
+{"sl":"en","q":"gallbladder","main":"жовчний міхур","bd":[["noun",["жовчний міхур"]]]}
+{"sl":"uk","q":"підшлункова залоза","main":"pancreas","bd":[["noun",["pancreas"]]]}
+{"sl":"en","q":"pancreas","main":"підшлункової залози","bd":[["noun",["підшлункова залоза"]]]}
+{"sl":"uk","q":"селезінка","main":"spleen","bd":[["noun",["spleen"]]]}
+{"sl":"en","q":"spleen","main":"селезінка","bd":[["noun",["злоба","нуд","нудота","селезінка","сплін","хандра"]]]}
+{"sl":"uk","q":"сечовий міхур","main":"bladder","bd":[["noun",["bladder"]]]}
+{"sl":"en","q":"bladder","main":"сечовий міхур","bd":[["noun",["міхур","пузир","сечовий міхур"]]]}
+{"sl":"uk","q":"травна система","main":"digestive system","bd":[]}
+{"sl":"en","q":"digestive system","main":"система травлення","bd":[]}
+{"sl":"uk","q":"травний тракт","main":"digestive tract","bd":[["noun",["bowel"]]]}
+{"sl":"en","q":"digestive tract","main":"травний тракт","bd":[]}
+{"sl":"uk","q":"кишечник","main":"intestine","bd":[["noun",["intestine","bowels"]]]}
+{"sl":"en","q":"bowel","main":"кишечник","bd":[["noun",["кишка","надра","травний тракт"]]]}
+{"sl":"uk","q":"пряма кишка","main":"rectum","bd":[["noun",["rectum"]]]}
+{"sl":"en","q":"rectum","main":"прямої кишки","bd":[["noun",["пряма кишка"]]]}
+{"sl":"uk","q":"щитоподібна залоза","main":"thyroid gland","bd":[]}
+{"sl":"en","q":"thyroid","main":"щитоподібна залоза","bd":[["adjective",["щитовидний"]],["noun",["щитовидна залоза"]]]}
+{"sl":"uk","q":"лімфатичний вузол","main":"lymph node","bd":[]}
+{"sl":"en","q":"lymph node","main":"лімфатичний вузол","bd":[["noun",["лімфовузол"]]]}
+{"sl":"uk","q":"залоза","main":"gland","bd":[["noun",["gland"]]]}
+{"sl":"en","q":"gland","main":"залоза","bd":[["noun",["залоза"]]]}
+{"sl":"uk","q":"нервова система","main":"nervous system","bd":[["noun",["nerve"]]]}
+{"sl":"en","q":"nervous system","main":"нервова система","bd":[]}
+{"sl":"uk","q":"дихальна система","main":"respiratory system","bd":[]}
+{"sl":"en","q":"respiratory system","main":"дихальна система","bd":[]}
+{"sl":"uk","q":"кровоносна система","main":"circulatory system","bd":[["noun",["circulatory system"]]]}
+{"sl":"en","q":"circulatory system","main":"система кровообігу","bd":[["noun",["кровоносна система"]]]}
+{"sl":"uk","q":"кровоносна судина","main":"blood vessel","bd":[]}
+{"sl":"en","q":"blood vessel","main":"кровоносна судина","bd":[]}
+{"sl":"uk","q":"капіляр","main":"capillary","bd":[["noun",["capillary","duct"]]]}
+{"sl":"en","q":"capillary","main":"капілярний","bd":[["adjective",["капілярний","тонкий","тонкостінний"]],["noun",["капіляр"]]]}
+{"sl":"uk","q":"плазма крові","main":"blood plasma","bd":[]}
+{"sl":"en","q":"plasma","main":"плазма","bd":[["noun",["геліотроп","плазма"]]]}
+{"sl":"uk","q":"еритроцит","main":"erythrocyte","bd":[["noun",["erythrocyte"]]]}
+{"sl":"en","q":"red blood cell","main":"еритроцитів","bd":[]}
+{"sl":"uk","q":"лейкоцит","main":"leucocyte","bd":[["noun",["leucocyte"]]]}
+{"sl":"en","q":"white blood cell","main":"лейкоцитів","bd":[]}
+{"sl":"uk","q":"тромбоцит","main":"platelet","bd":[["noun",["platelet"]]]}
+{"sl":"en","q":"platelet","main":"тромбоцит","bd":[["noun",["тромбоцит"]]]}
+{"sl":"uk","q":"гемоглобін","main":"hemoglobin","bd":[["noun",["hemoglobin","haemoglobin"]]]}
+{"sl":"en","q":"hemoglobin","main":"гемоглобін","bd":[["noun",["гемоглобін"]]]}
+{"sl":"uk","q":"тромб","main":"clot","bd":[["noun",["clot"]]]}
+{"sl":"en","q":"blood clot","main":"тромб","bd":[]}
+{"sl":"uk","q":"імунна система","main":"immune system","bd":[]}
+{"sl":"en","q":"immune system","main":"імунна система","bd":[]}
+{"sl":"uk","q":"імунітет","main":"immunity","bd":[["noun",["immunity"]]]}
+{"sl":"en","q":"immunity","main":"імунітет","bd":[["noun",["вільгота","звільнення","імунітет","недоторканність","непідсудність"]]]}
+{"sl":"uk","q":"антитіло","main":"antibody","bd":[["noun",["antibody"]]]}
+{"sl":"en","q":"antibody","main":"антитіло","bd":[["noun",["антиречовина","антитіло"]]]}
+{"sl":"uk","q":"збудник хвороби","main":"the causative agent of the disease","bd":[]}
+{"sl":"en","q":"pathogen","main":"збудник","bd":[["noun",["хвороботворний мікроорганизм"]]]}
+{"sl":"uk","q":"мікроорганізм","main":"microorganism","bd":[["noun",["microorganism"]]]}
+{"sl":"en","q":"microorganism","main":"мікроорганізм","bd":[["noun",["мікроорганізм"]]]}
+{"sl":"uk","q":"грибок","main":"fungus","bd":[["noun",["fungus","fungal"]]]}
+{"sl":"en","q":"fungus","main":"грибок","bd":[["noun",["гриб","грибок","пліснява","цвіль"]]]}
+{"sl":"uk","q":"паразит","main":"parasite","bd":[["noun",["parasite","pest","tapeworm","caterpillar","bleeder","dead-beat"]]]}
+{"sl":"en","q":"parasite","main":"паразит","bd":[["verb",["паразитувати"]],["noun",["дармоїд","жлоб","паразит","повзуча рослина"]]]}
+{"sl":"uk","q":"запалення","main":"inflammation","bd":[["noun",["inflammation","pneumonia"]]]}
+{"sl":"en","q":"inflammation","main":"запалення","bd":[["noun",["завогнення","запалення","роздратування"]]]}
+{"sl":"uk","q":"сечовидільна система","main":"urinary system","bd":[]}
+{"sl":"en","q":"urinary system","main":"сечовидільної системи","bd":[]}
+{"sl":"uk","q":"сеча","main":"urine","bd":[["noun",["urine","pee","piss"]]]}
+{"sl":"en","q":"urine","main":"сечі","bd":[["noun",["моч","сеча"]]]}
+{"sl":"uk","q":"сечовід","main":"ureter","bd":[["noun",["ureter"]]]}
+{"sl":"en","q":"ureter","main":"сечовід","bd":[["noun",["сечовід"]]]}
+{"sl":"uk","q":"сечівник","main":"ureter","bd":[]}
+{"sl":"en","q":"urethra","main":"уретра","bd":[["noun",["уретра"]]]}
+{"sl":"uk","q":"репродуктивна система","main":"reproductive system","bd":[]}
+{"sl":"en","q":"reproductive system","main":"репродуктивна система","bd":[]}
+{"sl":"uk","q":"крайня плоть","main":"foreskin","bd":[["noun",["foreskin","prepuce"]]]}
+{"sl":"en","q":"foreskin","main":"крайня плоть","bd":[["noun",["крайня плоть"]]]}
+{"sl":"uk","q":"сперма","main":"sperm","bd":[["noun",["sperm","semen"]]]}
+{"sl":"en","q":"semen","main":"сперма","bd":[["noun",["сперма"]]]}
+{"sl":"uk","q":"сперматозоїд","main":"spermatozoon","bd":[["noun",["spermatozoon"]]]}
+{"sl":"en","q":"sperm","main":"сперма","bd":[["noun",["кашалот","сім'я","сперма"]]]}
+{"sl":"uk","q":"ерекція","main":"erection","bd":[["noun",["erection","hard-on"]]]}
+{"sl":"en","q":"erection","main":"зведення","bd":[["noun",["випрямляння","ерекція","монтаж","побудова","споруда"]]]}
+{"sl":"uk","q":"вульва","main":"vulva","bd":[["noun",["vulva"]]]}
+{"sl":"en","q":"vulva","main":"вульва","bd":[["noun",["вульва"]]]}
+{"sl":"uk","q":"клітор","main":"the clitoris","bd":[]}
+{"sl":"en","q":"clitoris","main":"клітор","bd":[]}
+{"sl":"uk","q":"яєчник","main":"ovary","bd":[["noun",["ovary"]]]}
+{"sl":"en","q":"ovary","main":"яєчник","bd":[["noun",["зав'язь","яєчник"]]]}
+{"sl":"uk","q":"яйцеклітина","main":"egg","bd":[["noun",["egg"]]]}
+{"sl":"en","q":"egg cell","main":"яйцеклітина","bd":[]}
+{"sl":"uk","q":"маткова труба","main":"fallopian tube","bd":[]}
+{"sl":"en","q":"fallopian tube","main":"маткова труба","bd":[]}
+{"sl":"uk","q":"шийка матки","main":"cervix","bd":[]}
+{"sl":"en","q":"cervix","main":"шийка матки","bd":[["noun",["шийка","шия"]]]}
+{"sl":"uk","q":"менструальний цикл","main":"menstrual cycle","bd":[]}
+{"sl":"en","q":"menstrual cycle","main":"менструальний цикл","bd":[]}
+{"sl":"uk","q":"серцебиття","main":"palpitation","bd":[["noun",["palpitation"]]]}
+{"sl":"en","q":"heartbeat","main":"серцебиття","bd":[["noun",["пульсація серця","хвилювання"]]]}
+{"sl":"uk","q":"обмін речовин","main":"metabolism","bd":[["noun",["metabolism"]]]}
+{"sl":"en","q":"metabolism","main":"метаболізм","bd":[["noun",["метаболізм","обмін речовин"]]]}
+{"sl":"uk","q":"рефлекс","main":"reflex","bd":[["noun",["reflex"]]]}
+{"sl":"en","q":"reflex","main":"рефлекс","bd":[["adjective",["відбитий","рефлекторний"]],["noun",["відбиття","відблиск","зображення","рефлекс"]]]}
+{"sl":"uk","q":"слух","main":"hearing","bd":[["noun",["hearing","ear","audition"]]]}
+{"sl":"en","q":"hearing","main":"слухання","bd":[["noun",["вислухання","слух","слухання","межа чутності"]]]}
+{"sl":"uk","q":"нюх","main":"smell","bd":[["noun",["smell","nose","smelling","scent","olfaction","flair"]]]}
+{"sl":"en","q":"sense of smell","main":"нюх","bd":[["noun",["нюхаль"]]]}
+{"sl":"uk","q":"смакове відчуття","main":"sense of taste","bd":[]}
+{"sl":"en","q":"sense of taste","main":"відчуття смаку","bd":[]}
+{"sl":"uk","q":"дотик","main":"touch","bd":[["noun",["touch","touching","contact","dab","feel of touching","tip","osculation"]]]}
+{"sl":"en","q":"sense of touch","main":"відчуття дотику","bd":[]}
+{"sl":"uk","q":"слиз","main":"mucus","bd":[["noun",["mucus","slime","phlegm","mucilage"]]]}
+{"sl":"en","q":"mucus","main":"слизу","bd":[["noun",["мокротиння","слиз"]]]}
+{"sl":"uk","q":"мокротиння","main":"sputum","bd":[["noun",["sputum","phlegm","mucus","spit"]]]}
+{"sl":"en","q":"phlegm","main":"мокрота","bd":[["noun",["мокротиння","слиз","флегма","флегматичність"]]]}
+{"sl":"uk","q":"вушна сірка","main":"cerumen","bd":[["noun",["cerumen","earwax"]]]}
+{"sl":"en","q":"earwax","main":"вушна сірка","bd":[["noun",["вушна сірка"]]]}
+{"sl":"uk","q":"випорожнення кишечника","main":"bowel movements","bd":[]}
+{"sl":"en","q":"bowel movement","main":"спорожнення кишечника","bd":[]}
+{"sl":"uk","q":"гострий біль","main":"sting","bd":[["noun",["sting","stitch","bite"]]]}
+{"sl":"en","q":"sharp pain","main":"різкий біль","bd":[]}
+{"sl":"uk","q":"тупий біль","main":"ache","bd":[["noun",["ache"]]]}
+{"sl":"en","q":"dull pain","main":"тупий біль","bd":[]}
+{"sl":"uk","q":"пульсуючий біль","main":"throbbing pain","bd":[]}
+{"sl":"en","q":"throbbing pain","main":"пульсуючий біль","bd":[]}
+{"sl":"uk","q":"пекучий біль","main":"smart","bd":[["noun",["smart"]]]}
+{"sl":"en","q":"burning pain","main":"пекучий біль","bd":[]}
+{"sl":"uk","q":"спазм","main":"spasm","bd":[["noun",["spasm","cramp","throe"]]]}
+{"sl":"en","q":"spasm","main":"спазм","bd":[["noun",["приступ","спазм"]]]}
+{"sl":"uk","q":"скутість","main":"constraint","bd":[["noun",["constraint"]]]}
+{"sl":"en","q":"stiffness","main":"жорсткість","bd":[["noun",["густота","жорсткість","нерухомість","одубілість"]]]}
+{"sl":"uk","q":"оніміння","main":"numbness","bd":[["noun",["torpidity","torpor"]]]}
+{"sl":"en","q":"numbness","main":"оніміння","bd":[["noun",["задубіння","заклякання","закляклість","заціпеніння","нечутливість"]]]}
+{"sl":"uk","q":"поколювання","main":"tingle","bd":[["noun",["tingle"]]]}
+{"sl":"en","q":"tingling","main":"поколювання","bd":[["noun",["кишнява"]]]}
+{"sl":"uk","q":"свербіж","main":"itch","bd":[["noun",["itch","pruritus","prurience","pruriency","tingle"]]]}
+{"sl":"en","q":"itch","main":"свербіж","bd":[["noun",["свербіж"]],["verb",["свербіти"]]]}
+{"sl":"uk","q":"набряк","main":"edema","bd":[["noun",["edema","swelling","oedema"]]]}
+{"sl":"en","q":"swelling","main":"набряк","bd":[["noun",["видим","набреск","набряк","опухання","опухлість","переповнення"]]]}
+{"sl":"uk","q":"ґуля","main":"lump","bd":[["noun",["lump"]]]}
+{"sl":"en","q":"lump","main":"грудка","bd":[["adjective",["кусковий"]],["noun",["брила","ґуля","опух","вахлай","купа","грудка"]],["verb",["утворювати грудки","змішувати в купу","брати оптом"]]]}
+{"sl":"uk","q":"кровотеча","main":"bleeding","bd":[["noun",["bleeding","hemorrhage","haemorrhage"]]]}
+{"sl":"en","q":"bleeding","main":"кровотечі","bd":[["adjective",["знекровлений","знесилений"]],["noun",["кровотеча","спуск рідини"]]]}
+{"sl":"uk","q":"запаморочення","main":"dizziness","bd":[["noun",["dizziness","vertigo","giddiness","swimming","swim","aberration","disorder"]]]}
+{"sl":"en","q":"dizziness","main":"запаморочення","bd":[["noun",["заморока","запаморочення","затьмарення"]]]}
+{"sl":"uk","q":"втома","main":"fatigue","bd":[["noun",["fatigue","weariness"]]]}
+{"sl":"en","q":"fatigue","main":"втома","bd":[["noun",["втома","стомлення","фатига","зморення","стомливість"]],["verb",["зморювати","стомлювати","фатигувати","змучити","стомлюватися"]]]}
+{"sl":"uk","q":"блювання","main":"vomiting","bd":[]}
+{"sl":"en","q":"vomiting","main":"блювота","bd":[["verb",["блювати","векати","виригати","заблювати","звергати"]]]}
+{"sl":"uk","q":"закреп","main":"constipation","bd":[["noun",["constipation"]]]}
+{"sl":"en","q":"constipation","main":"запор","bd":[["noun",["закреп","запір","запор","запрет"]]]}
+{"sl":"uk","q":"задишка","main":"dyspnea","bd":[["noun",["dyspnea","breathlessness","dyspnoea","wheeze","pant"]]]}
+{"sl":"en","q":"shortness of breath","main":"задишка","bd":[]}
+{"sl":"uk","q":"закладений ніс","main":"stuffy nose","bd":[]}
+{"sl":"en","q":"blocked nose","main":"закладений ніс","bd":[]}
+{"sl":"uk","q":"вивих","main":"dislocation","bd":[["noun",["dislocation","wrench","contortion"]]]}
+{"sl":"en","q":"dislocation","main":"вивих","bd":[["noun",["безладдя","вивих","звихнення","зміщення","порушення"]]]}
+{"sl":"uk","q":"алергічна реакція","main":"allergic reaction","bd":[]}
+{"sl":"en","q":"allergic reaction","main":"алергічна реакція","bd":[]}
+{"sl":"uk","q":"історія хвороби","main":"medical history","bd":[]}
+{"sl":"en","q":"medical history","main":"історія хвороби","bd":[]}
+{"sl":"uk","q":"аналіз сечі","main":"urine analysis","bd":[]}
+{"sl":"en","q":"urine test","main":"дослідження сечі","bd":[]}
+{"sl":"uk","q":"побічний ефект","main":"side effect","bd":[]}
+{"sl":"en","q":"side effect","main":"побічний ефект","bd":[]}
+{"sl":"uk","q":"набряклий","main":"swollen","bd":[["adjective",["swollen","hydropic","bulging","bloated","humid","puffy"]]]}
+{"sl":"en","q":"swollen","main":"набряклі","bd":[["adjective",["бундючний","видувний","надто високий","дутий","запухлий","здутий","набресклий","набряклий"]]]}
+{"sl":"uk","q":"гормон","main":"hormone","bd":[["noun",["hormone"]]]}
+{"sl":"en","q":"hormone","main":"гормон","bd":[["noun",["гормон"]]]}
+{"sl":"uk","q":"багатоквартирний будинок","main":"multi-apartment building","bd":[]}
+{"sl":"en","q":"apartment building","main":"багатоквартирний будинок","bd":[]}
+{"sl":"uk","q":"висотний будинок","main":"high-rise building","bd":[]}
+{"sl":"en","q":"high-rise","main":"багатоповерхівка","bd":[["adjective",["багатоповерховий","точковий"]]]}
+{"sl":"uk","q":"окремий приватний будинок","main":"separate private house","bd":[]}
+{"sl":"en","q":"detached house","main":"окремий будинок","bd":[]}
+{"sl":"uk","q":"будинок на дві сім'ї","main":"house for two families","bd":[]}
+{"sl":"en","q":"semi-detached house","main":"напівбудинку","bd":[]}
+{"sl":"uk","q":"будинок у рядовій забудові","main":"a house in an ordinary building","bd":[]}
+{"sl":"en","q":"terraced house","main":"рядовий будинок","bd":[]}
+{"sl":"uk","q":"квартира-студія","main":"studio apartment","bd":[]}
+{"sl":"en","q":"studio apartment","main":"квартира-студія","bd":[]}
+{"sl":"uk","q":"пентхаус","main":"penthouse","bd":[["noun",["penthouse"]]]}
+{"sl":"en","q":"penthouse","main":"пентхаус","bd":[["noun",["надбудова на даху","пентхаус"]]]}
+{"sl":"uk","q":"квартира у приватній власності","main":"apartment in private ownership","bd":[]}
+{"sl":"en","q":"condominium","main":"ОСББ","bd":[["noun",["спільне володіння","кондомініум"]]]}
+{"sl":"uk","q":"приміщення","main":"rooms","bd":[["noun",["rooms","building","apartment","accommodation","quarters","lodgment","lodgement","cantonment"]]]}
+{"sl":"en","q":"premises","main":"приміщення","bd":[["noun",["власність, що підлягає передачі"]]]}
+{"sl":"uk","q":"власник житла","main":"home owner","bd":[]}
+{"sl":"en","q":"homeowner","main":"домовласник","bd":[["noun",["домовласник"]]]}
+{"sl":"uk","q":"комунальні послуги","main":"utilities","bd":[["noun",["utilities"]]]}
+{"sl":"en","q":"utilities","main":"комунальні послуги","bd":[["noun",["комунальні послуги","комунальні споруди"]]]}
+{"sl":"uk","q":"плата за утримання будинку","main":"house maintenance fee","bd":[]}
+{"sl":"en","q":"maintenance fee","main":"плата за обслуговування","bd":[]}
+{"sl":"uk","q":"фасад","main":"facade","bd":[["noun",["facade","front","frontage"]]]}
+{"sl":"en","q":"facade","main":"фасад","bd":[["noun",["фасад"]]]}
+{"sl":"uk","q":"плоский дах","main":"flat roof","bd":[]}
+{"sl":"en","q":"flat roof","main":"плоский дах","bd":[]}
+{"sl":"uk","q":"скатний дах","main":"pitched roof","bd":[]}
+{"sl":"en","q":"pitched roof","main":"скатний дах","bd":[]}
+{"sl":"uk","q":"черепиця","main":"tiling","bd":[["noun",["tiling","tile"]]]}
+{"sl":"en","q":"roof tile","main":"черепиця","bd":[]}
+{"sl":"uk","q":"покрівельний ґонт","main":"roofing shingle","bd":[]}
+{"sl":"en","q":"shingle","main":"черепиця","bd":[["noun",["галька","покрівельна дранка","гонт"]],["verb",["обшивати гонтом","ляскати"]]]}
+{"sl":"uk","q":"карниз даху","main":"roof eaves","bd":[]}
+{"sl":"en","q":"eaves","main":"карнизи","bd":[["noun",["карниз","піддашок"]]]}
+{"sl":"uk","q":"водостічна труба","main":"spout","bd":[["noun",["waterspout","spout"]]]}
+{"sl":"en","q":"downpipe","main":"водостічна труба","bd":[]}
+{"sl":"uk","q":"веранда","main":"veranda","bd":[["noun",["veranda","porch","verandah","terrace","piazza"]]]}
+{"sl":"en","q":"veranda","main":"веранда","bd":[["noun",["веранда"]]]}
+{"sl":"uk","q":"під'їзна доріжка","main":"driveway","bd":[]}
+{"sl":"en","q":"driveway","main":"під'їзд","bd":[["noun",["дорога","проїзд"]]]}
+{"sl":"uk","q":"навіс для автомобіля","main":"carport","bd":[]}
+{"sl":"en","q":"carport","main":"навіс для автомобіля","bd":[]}
+{"sl":"en","q":"loft","main":"лофт","bd":[["noun",["вишка","голубник","горище","під","сінник"]]]}
+{"sl":"uk","q":"сонячна панель","main":"solar panel","bd":[]}
+{"sl":"en","q":"solar panel","main":"сонячна панель","bd":[]}
+{"sl":"uk","q":"супутникова антена","main":"satellite dish","bd":[]}
+{"sl":"en","q":"satellite dish","main":"супутникова антена","bd":[]}
+{"sl":"uk","q":"бак для дощової води","main":"rainwater tank","bd":[]}
+{"sl":"en","q":"rainwater tank","main":"резервуар для дощової води","bd":[]}
+{"sl":"uk","q":"септик","main":"septic tank","bd":[]}
+{"sl":"en","q":"septic tank","main":"септик","bd":[]}
+{"sl":"uk","q":"тамбур","main":"tambour","bd":[["noun",["tambour","corridor"]]]}
+{"sl":"en","q":"vestibule","main":"тамбур","bd":[["noun",["вестибюль","передпокій","тамбур вагона"]]]}
+{"sl":"uk","q":"сходова клітка","main":"staircase","bd":[["noun",["staircase","stairwell"]]]}
+{"sl":"en","q":"stairwell","main":"сходова клітка","bd":[["noun",["сходова клітка"]]]}
+{"sl":"uk","q":"сходовий майданчик","main":"landing","bd":[]}
+{"sl":"en","q":"landing","main":"посадка","bd":[["adjective",["злітно-посадочний","посадочний"]],["noun",["висаджування","посадка","приземлення","висадка","місце висадки","висадка на берег","висідання","десант"]]]}
+{"sl":"uk","q":"ліфтова шахта","main":"elevator shaft","bd":[]}
+{"sl":"en","q":"elevator shaft","main":"шахта ліфта","bd":[]}
+{"sl":"uk","q":"технічне приміщення","main":"technical room","bd":[]}
+{"sl":"en","q":"utility room","main":"підсобне приміщення","bd":[]}
+{"sl":"uk","q":"сміттєпровід","main":"rubbish chute","bd":[["noun",["rubbish chute"]]]}
+{"sl":"en","q":"garbage chute","main":"сміттєпровід","bd":[]}
+{"sl":"uk","q":"пожежні сходи","main":"fire escape","bd":[]}
+{"sl":"en","q":"fire escape","main":"пожежна драбина","bd":[]}
+{"sl":"uk","q":"перегородка","main":"partition","bd":[["noun",["partition","septum","bulkhead","diaphragm","closure"]]]}
+{"sl":"en","q":"partition wall","main":"перегородка","bd":[]}
+{"sl":"uk","q":"несуча стіна","main":"bearing wall","bd":[]}
+{"sl":"en","q":"load-bearing wall","main":"несуча стіна","bd":[]}
+{"sl":"uk","q":"підлогове покриття","main":"floor covering","bd":[]}
+{"sl":"en","q":"flooring","main":"підлогове покриття","bd":[["noun",["долівка","підлога","настилання підлоги"]]]}
+{"sl":"uk","q":"масивна дерев'яна підлога","main":"massive wooden floor","bd":[]}
+{"sl":"en","q":"hardwood flooring","main":"паркет","bd":[]}
+{"sl":"uk","q":"паркет","main":"parquet","bd":[["noun",["parquet","parquetry"]]]}
+{"sl":"en","q":"parquet","main":"паркет","bd":[["noun",["паркет","передні ряди партеру"]]]}
+{"sl":"uk","q":"ламінат","main":"laminate","bd":[]}
+{"sl":"en","q":"laminate flooring","main":"ламінат","bd":[]}
+{"sl":"uk","q":"вінілове покриття","main":"vinyl coating","bd":[]}
+{"sl":"en","q":"vinyl flooring","main":"вінілове покриття для підлоги","bd":[]}
+{"sl":"uk","q":"лінолеум","main":"linoleum","bd":[["noun",["linoleum","oilcloth"]]]}
+{"sl":"en","q":"linoleum","main":"лінолеум","bd":[["noun",["лінолеум"]]]}
+{"sl":"uk","q":"декоративний профіль","main":"decorative profile","bd":[]}
+{"sl":"en","q":"molding","main":"формування","bd":[["noun",["ліпнина","формування"]]]}
+{"sl":"uk","q":"стельовий карниз","main":"ceiling cornice","bd":[]}
+{"sl":"en","q":"cornice","main":"карниз","bd":[["noun",["карниз"]]]}
+{"sl":"uk","q":"гіпсокартон","main":"plasterboard","bd":[]}
+{"sl":"en","q":"drywall","main":"гіпсокартон","bd":[]}
+{"sl":"uk","q":"дерев'яні елементи","main":"wooden elements","bd":[]}
+{"sl":"en","q":"woodwork","main":"вироби з дерева","bd":[["noun",["дерев'яні вироби","столярна работа"]]]}
+{"sl":"uk","q":"звукоізоляція","main":"soundproofing","bd":[]}
+{"sl":"en","q":"soundproofing","main":"звукоізоляція","bd":[["verb",["робити звуконепроникним"]]]}
+{"sl":"uk","q":"гідроізоляція","main":"waterproofing","bd":[]}
+{"sl":"en","q":"waterproofing","main":"гідроізоляція","bd":[["verb",["надавати водонепроникності"]]]}
+{"sl":"uk","q":"віконна рама","main":"window frame","bd":[["noun",["window frame","window","chess"]]]}
+{"sl":"en","q":"window frame","main":"віконна рама","bd":[["noun",["варцаб","віконна рама"]]]}
+{"sl":"uk","q":"віконна шибка","main":"window pane","bd":[]}
+{"sl":"en","q":"window pane","main":"шибка","bd":[["noun",["шибка"]]]}
+{"sl":"uk","q":"подвійний склопакет","main":"double glazing","bd":[]}
+{"sl":"en","q":"double glazing","main":"склопакет","bd":[]}
+{"sl":"en","q":"windowsill","main":"підвіконня","bd":[["noun",["підвіконня"]]]}
+{"sl":"uk","q":"рулонна штора","main":"roller blind","bd":[]}
+{"sl":"en","q":"roller blind","main":"рулонна штора","bd":[]}
+{"sl":"uk","q":"горизонтальні жалюзі","main":"horizontal blinds","bd":[]}
+{"sl":"en","q":"Venetian blind","main":"Жалюзі","bd":[]}
+{"sl":"uk","q":"прозора штора","main":"transparent curtain","bd":[]}
+{"sl":"en","q":"sheer curtain","main":"прозора завіса","bd":[]}
+{"sl":"uk","q":"тюлева фіранка","main":"tulle curtain","bd":[]}
+{"sl":"en","q":"net curtain","main":"сітчаста завіса","bd":[]}
+{"sl":"uk","q":"тюль","main":"tulle","bd":[["noun",["tulle","net","bobbin net"]]]}
+{"sl":"en","q":"tulle","main":"тюль","bd":[["noun",["тюль"]]]}
+{"sl":"uk","q":"карниз для штор","main":"cornice for curtains","bd":[]}
+{"sl":"en","q":"curtain rod","main":"карниз для штор","bd":[]}
+{"sl":"uk","q":"кільце для штори","main":"curtain ring","bd":[]}
+{"sl":"en","q":"curtain ring","main":"шторне кільце","bd":[]}
+{"sl":"uk","q":"міжкімнатні двері","main":"interior door","bd":[]}
+{"sl":"en","q":"interior door","main":"міжкімнатні двері","bd":[]}
+{"sl":"uk","q":"розсувні двері","main":"sliding doors","bd":[]}
+{"sl":"en","q":"sliding door","main":"розсувні двері","bd":[]}
+{"sl":"uk","q":"дверна коробка","main":"door frame","bd":[]}
+{"sl":"en","q":"doorframe","main":"дверна коробка","bd":[["noun",["одвірки"]]]}
+{"sl":"uk","q":"дверна ручка","main":"door handle","bd":[]}
+{"sl":"en","q":"door handle","main":"дверна ручка","bd":[]}
+{"sl":"uk","q":"кругла дверна ручка","main":"round door handle","bd":[]}
+{"sl":"en","q":"doorknob","main":"дверна ручка","bd":[["noun",["ручка"]]]}
+{"sl":"uk","q":"засувка","main":"latch","bd":[["noun",["shutter","fast","detent","obex"]]]}
+{"sl":"en","q":"latch","main":"засувка","bd":[["noun",["засов","клямка","засув","шпінгалет"]],["verb",["зачиняти на засув","зачинятися на засув"]]]}
+{"sl":"uk","q":"врізний засув","main":"mortise bolt","bd":[]}
+{"sl":"en","q":"deadbolt","main":"засув","bd":[]}
+{"sl":"uk","q":"дверний ланцюжок","main":"door chain","bd":[]}
+{"sl":"en","q":"door chain","main":"дверний ланцюг","bd":[]}
+{"sl":"uk","q":"дверне вічко","main":"door eye","bd":[]}
+{"sl":"en","q":"peephole","main":"вічко","bd":[["noun",["вічко"]]]}
+{"sl":"uk","q":"запасний ключ","main":"spare key","bd":[]}
+{"sl":"en","q":"spare key","main":"запасний ключ","bd":[]}
+{"sl":"uk","q":"вітальня","main":"living room","bd":[["noun",["living room","drawing room","salon","keeping room"]]]}
+{"sl":"en","q":"living room","main":"вітальня","bd":[["noun",["вітальня","загальна кімната"]]]}
+{"sl":"uk","q":"їдальня","main":"dining room","bd":[["noun",["dining room","canteen","dining hall","eatery","refectory","mess","cook shop"]]]}
+{"sl":"en","q":"dining room","main":"їдальня","bd":[["noun",["їдальня"]]]}
+{"sl":"uk","q":"домашній кабінет","main":"home office","bd":[]}
+{"sl":"en","q":"home office","main":"домашній офіс","bd":[]}
+{"sl":"uk","q":"гостьова кімната","main":"guest room","bd":[]}
+{"sl":"en","q":"guest room","main":"кімната для гостей","bd":[]}
+{"sl":"uk","q":"складське приміщення","main":"warehouse","bd":[]}
+{"sl":"en","q":"storage room","main":"складське приміщення","bd":[]}
+{"sl":"uk","q":"пральня","main":"laundry","bd":[["noun",["laundry","washhouse"]]]}
+{"sl":"en","q":"laundry room","main":"пральня","bd":[]}
+{"sl":"uk","q":"гардеробна кімната","main":"dressing room","bd":[]}
+{"sl":"en","q":"walk-in closet","main":"гардеробна","bd":[]}
+{"sl":"uk","q":"кухня відкритого планування","main":"open plan kitchen","bd":[]}
+{"sl":"en","q":"open-plan kitchen","main":"кухня відкритого планування","bd":[]}
+{"sl":"uk","q":"ванна кімната при спальні","main":"bathroom next to the bedroom","bd":[]}
+{"sl":"en","q":"en suite bathroom","main":"окрема ванна кімната","bd":[]}
+{"sl":"uk","q":"план приміщення","main":"floor plan","bd":[]}
+{"sl":"en","q":"floor plan","main":"план поверху","bd":[]}
+{"sl":"uk","q":"віконний виступ","main":"window ledge","bd":[]}
+{"sl":"en","q":"window ledge","main":"підвіконник","bd":[]}
+{"sl":"uk","q":"диван-ліжко","main":"sofa bed","bd":[["noun",["divan bed","sofa-bed"]]]}
+{"sl":"en","q":"sofa bed","main":"розкладний диван","bd":[["noun",["диван-ліжко"]]]}
+{"sl":"uk","q":"крісло з відкидною спинкою","main":"a chair with a folding back","bd":[]}
+{"sl":"en","q":"recliner","main":"крісло","bd":[]}
+{"sl":"uk","q":"крісло-гойдалка","main":"rocking chair","bd":[["noun",["rocker"]]]}
+{"sl":"en","q":"rocking chair","main":"крісло-качалка","bd":[]}
+{"sl":"uk","q":"барний стілець","main":"bar stool","bd":[]}
+{"sl":"en","q":"bar stool","main":"барний стілець","bd":[]}
+{"sl":"uk","q":"ослінчик під ноги","main":"donkey underfoot","bd":[]}
+{"sl":"en","q":"footstool","main":"підніжка","bd":[["noun",["ослінчик для ніг"]]]}
+{"sl":"uk","q":"крісло-мішок","main":"beanbag chair","bd":[]}
+{"sl":"en","q":"beanbag","main":"крісло-мішок","bd":[]}
+{"sl":"uk","q":"обідній стіл","main":"dining table","bd":[["noun",["dining table"]]]}
+{"sl":"en","q":"dining table","main":"обідній стіл","bd":[["noun",["обідній стіл"]]]}
+{"sl":"uk","q":"журнальний столик","main":"coffee table","bd":[]}
+{"sl":"en","q":"coffee table","main":"журнальний столик","bd":[]}
+{"sl":"uk","q":"приставний столик","main":"side table","bd":[]}
+{"sl":"en","q":"side table","main":"бічний столик","bd":[]}
+{"sl":"uk","q":"тумба під телевізор","main":"TV stand","bd":[]}
+{"sl":"en","q":"TV stand","main":"тумба під телевізор","bd":[]}
+{"sl":"uk","q":"вішалка для верхнього одягу","main":"coat hanger","bd":[]}
+{"sl":"en","q":"coat rack","main":"вішалка для одягу","bd":[]}
+{"sl":"uk","q":"полиця для взуття","main":"shelf for shoes","bd":[]}
+{"sl":"en","q":"shoe rack","main":"підставка для взуття","bd":[]}
+{"sl":"uk","q":"шафа для взуття","main":"shoe cabinet","bd":[]}
+{"sl":"en","q":"shoe cabinet","main":"взуттєва шафа","bd":[]}
+{"sl":"uk","q":"офісне крісло","main":"office chair","bd":[]}
+{"sl":"en","q":"office chair","main":"офісне крісло","bd":[]}
+{"sl":"uk","q":"обертове крісло","main":"swivel chair","bd":[]}
+{"sl":"en","q":"swivel chair","main":"крісло, що обертається","bd":[]}
+{"sl":"uk","q":"тумба з шухлядами","main":"cabinet with drawers","bd":[]}
+{"sl":"en","q":"drawer unit","main":"висувний блок","bd":[]}
+{"sl":"uk","q":"вітрина","main":"showcase","bd":[["noun",["showcase","window","window case","shop-front"]]]}
+{"sl":"en","q":"display cabinet","main":"вітрина","bd":[]}
+{"sl":"uk","q":"складаний стілець","main":"hammock chair","bd":[["noun",["hammock chair"]]]}
+{"sl":"en","q":"folding chair","main":"розкладне крісло","bd":[]}
+{"sl":"uk","q":"складаний стіл","main":"folding table","bd":[]}
+{"sl":"en","q":"folding table","main":"розкладний стіл","bd":[]}
+{"sl":"uk","q":"оббивка меблів","main":"furniture upholstery","bd":[]}
+{"sl":"en","q":"upholstery","main":"оббивка","bd":[["noun",["ремесло оббивальника","оббивка"]]]}
+{"sl":"uk","q":"двоярусне ліжко","main":"bunk bed","bd":[]}
+{"sl":"en","q":"bunk bed","main":"двоярусне ліжко","bd":[]}
+{"sl":"uk","q":"каркас ліжка","main":"bed frame","bd":[]}
+{"sl":"en","q":"bed frame","main":"каркас ліжка","bd":[]}
+{"sl":"uk","q":"спинка в ногах ліжка","main":"back at the foot of the bed","bd":[]}
+{"sl":"en","q":"footboard","main":"підніжка","bd":[["noun",["педаль","підніжка"]]]}
+{"sl":"uk","q":"топер","main":"top","bd":[]}
+{"sl":"en","q":"mattress topper","main":"наматрацник","bd":[]}
+{"sl":"uk","q":"постільна білизна","main":"bedclothes","bd":[["noun",["bedclothes"]]]}
+{"sl":"en","q":"bed linen","main":"постільна білизна","bd":[]}
+{"sl":"uk","q":"простирадло на резинці","main":"a sheet on an elastic band","bd":[]}
+{"sl":"en","q":"fitted sheet","main":"припасована простирадло","bd":[]}
+{"sl":"uk","q":"підковдра","main":"duvet cover","bd":[]}
+{"sl":"en","q":"duvet cover","main":"підодіяльник","bd":[]}
+{"sl":"uk","q":"товста стьобана ковдра","main":"thick quilted blanket","bd":[]}
+{"sl":"en","q":"comforter","main":"ковдра","bd":[["noun",["кашне","соска","утішник"]]]}
+{"sl":"uk","q":"покривало на ліжко","main":"bed cover","bd":[]}
+{"sl":"en","q":"bedspread","main":"покривало","bd":[["noun",["легке покривало для ліжка"]]]}
+{"sl":"uk","q":"чохол на подушку","main":"pillow cover","bd":[]}
+{"sl":"en","q":"cushion cover","main":"чохол для подушки","bd":[]}
+{"sl":"uk","q":"органайзер для шафи","main":"closet organizer","bd":[]}
+{"sl":"en","q":"wardrobe organizer","main":"гардеробний органайзер","bd":[]}
+{"sl":"uk","q":"вішак","main":"coat hanger","bd":[]}
+{"sl":"en","q":"clothes hanger","main":"вішалка для одягу","bd":[]}
+{"sl":"uk","q":"штанга для одягу","main":"clothes rail","bd":[]}
+{"sl":"en","q":"clothes rail","main":"штанга для одягу","bd":[]}
+{"sl":"uk","q":"домашній декор","main":"home decor","bd":[]}
+{"sl":"en","q":"home decor","main":"домашній декор","bd":[]}
+{"sl":"uk","q":"настінне дзеркало","main":"wall mirror","bd":[]}
+{"sl":"en","q":"wall mirror","main":"настінне дзеркало","bd":[]}
+{"sl":"uk","q":"дзеркало на повний зріст","main":"full length mirror","bd":[]}
+{"sl":"en","q":"full-length mirror","main":"дзеркало в повний зріст","bd":[]}
+{"sl":"uk","q":"рамка для фотографії","main":"photo frame","bd":[]}
+{"sl":"en","q":"picture frame","main":"рамка для картини","bd":[]}
+{"sl":"uk","q":"настінний годинник","main":"wall clock","bd":[]}
+{"sl":"en","q":"wall clock","main":"настінний годинник","bd":[]}
+{"sl":"uk","q":"квітковий горщик","main":"flower pot","bd":[]}
+{"sl":"en","q":"flowerpot","main":"вазон","bd":[["noun",["вазон","вазонок"]]]}
+{"sl":"uk","q":"штучна рослина","main":"artificial plant","bd":[]}
+{"sl":"en","q":"artificial plant","main":"штучна рослина","bd":[]}
+{"sl":"uk","q":"світлодіодна лампочка","main":"LED bulb","bd":[]}
+{"sl":"en","q":"LED bulb","main":"світлодіодна лампочка","bd":[]}
+{"sl":"uk","q":"люстра","main":"chandelier","bd":[["noun",["chandelier","luster","lustre"]]]}
+{"sl":"en","q":"chandelier","main":"люстра","bd":[["noun",["канделябр","люстра","панікадило"]]]}
+{"sl":"uk","q":"стельовий світильник","main":"ceiling lamp","bd":[]}
+{"sl":"en","q":"ceiling light","main":"стельовий світильник","bd":[]}
+{"sl":"uk","q":"підвісний світильник","main":"pendant lamp","bd":[]}
+{"sl":"en","q":"pendant light","main":"підвісний світильник","bd":[]}
+{"sl":"uk","q":"настінний світильник","main":"wall lamp","bd":[]}
+{"sl":"en","q":"wall light","main":"настінний світильник","bd":[]}
+{"sl":"uk","q":"торшер","main":"floor lamp","bd":[]}
+{"sl":"en","q":"floor lamp","main":"торшер","bd":[]}
+{"sl":"uk","q":"настільна лампа","main":"table lamp","bd":[]}
+{"sl":"en","q":"table lamp","main":"настільна лампа","bd":[]}
+{"sl":"uk","q":"лампа для робочого столу","main":"desk lamp","bd":[]}
+{"sl":"en","q":"desk lamp","main":"настільна лампа","bd":[]}
+{"sl":"uk","q":"світлодіодна стрічка","main":"LED strip","bd":[]}
+{"sl":"en","q":"LED strip","main":"світлодіодна стрічка","bd":[]}
+{"sl":"uk","q":"вимикач світла","main":"light switch","bd":[]}
+{"sl":"en","q":"light switch","main":"вимикач світла","bd":[]}
+{"sl":"uk","q":"регулятор яскравості","main":"brightness control","bd":[]}
+{"sl":"en","q":"dimmer switch","main":"диммер","bd":[]}
+{"sl":"uk","q":"датчик руху","main":"motion sensor","bd":[]}
+{"sl":"en","q":"motion sensor","main":"датчик руху","bd":[]}
+{"sl":"uk","q":"електричний струм","main":"electric current","bd":[]}
+{"sl":"en","q":"electric current","main":"електричний струм","bd":[]}
+{"sl":"uk","q":"змінний струм","main":"alternating current","bd":[]}
+{"sl":"en","q":"alternating current","main":"змінного струму","bd":[]}
+{"sl":"uk","q":"постійний струм","main":"direct current","bd":[]}
+{"sl":"en","q":"direct current","main":"постійного струму","bd":[]}
+{"sl":"uk","q":"настінна розетка","main":"wall outlet","bd":[]}
+{"sl":"en","q":"wall socket","main":"настінна розетка","bd":[]}
+{"sl":"uk","q":"подовжувач із розетками","main":"extension cord with sockets","bd":[]}
+{"sl":"en","q":"power strip","main":"подовжувач живлення","bd":[]}
+{"sl":"uk","q":"перехідник","main":"adapter","bd":[]}
+{"sl":"en","q":"adapter","main":"адаптер","bd":[["noun",["адаптер","звукознімач","наконечник","ніпель","перехідна муфта","тримач","адаптор"]]]}
+{"sl":"uk","q":"зарядний пристрій","main":"charger","bd":[]}
+{"sl":"en","q":"charger","main":"зарядний пристрій","bd":[["noun",["бойовий кінь","завантажувальний пристрій","зарядний агрегат","зарядник","касета","обвинувач","патронна обойма"]]]}
+{"sl":"uk","q":"запобіжник","main":"fuse","bd":[["noun",["fuse","safeguard","protector","pawl","cut-out"]]]}
+{"sl":"en","q":"fuse","main":"запобіжник","bd":[["noun",["детонатор","плавка","вогнепровідний шнур","запал","пробка","запобіжник"]],["verb",["плавити","сплавляти","плавитися"]]]}
+{"sl":"uk","q":"автоматичний вимикач","main":"automatic switch","bd":[]}
+{"sl":"en","q":"circuit breaker","main":"автоматичний вимикач","bd":[]}
+{"sl":"uk","q":"щиток із запобіжниками","main":"shield with fuses","bd":[]}
+{"sl":"en","q":"fuse box","main":"коробка запобіжників","bd":[]}
+{"sl":"uk","q":"електричний щиток","main":"electric shield","bd":[]}
+{"sl":"en","q":"electrical panel","main":"електрощит","bd":[]}
+{"sl":"uk","q":"електролічильник","main":"electric meter","bd":[]}
+{"sl":"en","q":"electric meter","main":"електролічильник","bd":[]}
+{"sl":"uk","q":"коротке замикання","main":"short circuit","bd":[]}
+{"sl":"en","q":"short circuit","main":"коротке замикання","bd":[["noun",["зкоротке замикання"]]]}
+{"sl":"uk","q":"відключення електроенергії","main":"power outage","bd":[]}
+{"sl":"en","q":"power cut","main":"відключення електроенергії","bd":[]}
+{"sl":"uk","q":"мережевий фільтр","main":"network filter","bd":[]}
+{"sl":"en","q":"surge protector","main":"захист від перенапруг","bd":[]}
+{"sl":"uk","q":"підключати до розетки","main":"connect to the outlet","bd":[]}
+{"sl":"en","q":"to plug in","main":"підключати","bd":[]}
+{"sl":"uk","q":"витягати вилку","main":"pull out the plug","bd":[]}
+{"sl":"en","q":"to unplug","main":"вимкнути","bd":[["verb",["вимкнути","відкрити"]]]}
+{"sl":"uk","q":"кухонна секція","main":"kitchen section","bd":[]}
+{"sl":"en","q":"kitchen unit","main":"кухонний гарнітур","bd":[["noun",["кухонний комбайн"]]]}
+{"sl":"uk","q":"навісна шафка","main":"hanging locker","bd":[]}
+{"sl":"en","q":"wall cabinet","main":"настінна шафа","bd":[]}
+{"sl":"uk","q":"нижня кухонна тумба","main":"lower kitchen cabinet","bd":[]}
+{"sl":"en","q":"base cabinet","main":"базова шафа","bd":[]}
+{"sl":"uk","q":"кухонний острів","main":"kitchen island","bd":[]}
+{"sl":"en","q":"kitchen island","main":"кухонний острів","bd":[]}
+{"sl":"uk","q":"барна стійка","main":"bar counter","bd":[]}
+{"sl":"en","q":"breakfast bar","main":"бар для сніданку","bd":[]}
+{"sl":"uk","q":"кухонна плита","main":"kitchen stove","bd":[["noun",["cookstove","kitchener","kitchenrange"]]]}
+{"sl":"en","q":"cooker","main":"плита","bd":[["noun",["каструля","піч","плита"]]]}
+{"sl":"uk","q":"варильна поверхня","main":"cooking surface","bd":[]}
+{"sl":"en","q":"cooktop","main":"варильна панель","bd":[]}
+{"sl":"uk","q":"газова конфорка","main":"gas burner","bd":[]}
+{"sl":"en","q":"gas burner","main":"газовий пальник","bd":[]}
+{"sl":"uk","q":"індукційна варильна поверхня","main":"induction cooking surface","bd":[]}
+{"sl":"en","q":"induction hob","main":"індукційна плита","bd":[]}
+{"sl":"uk","q":"кухонна витяжка","main":"kitchen hood","bd":[]}
+{"sl":"en","q":"range hood","main":"кухонна витяжка","bd":[]}
+{"sl":"uk","q":"мікрохвильова піч","main":"microwave oven","bd":[]}
+{"sl":"en","q":"microwave","main":"мікрохвильова піч","bd":[["adjective",["мікрохвильовий"]],["noun",["мікрохвиля"]]]}
+{"sl":"uk","q":"електрочайник","main":"electric kettle","bd":[]}
+{"sl":"en","q":"electric kettle","main":"електричний чайник","bd":[]}
+{"sl":"uk","q":"кавоварка","main":"coffee maker","bd":[]}
+{"sl":"en","q":"coffee maker","main":"кавоварка","bd":[]}
+{"sl":"uk","q":"занурювальний блендер","main":"immersion blender","bd":[]}
+{"sl":"en","q":"hand blender","main":"ручний блендер","bd":[]}
+{"sl":"uk","q":"міксер","main":"mixer","bd":[]}
+{"sl":"en","q":"mixer","main":"змішувач","bd":[["noun",["змішувач","мікшер","мішалка"]]]}
+{"sl":"uk","q":"кухонний комбайн","main":"kitchen unit","bd":[["noun",["kitchen unit"]]]}
+{"sl":"en","q":"food processor","main":"кухонний комбайн","bd":[]}
+{"sl":"uk","q":"м'ясорубка","main":"meat grinder","bd":[["noun",["hasher","mincer","meat-chopper","chopper","mincing machine"]]]}
+{"sl":"en","q":"meat grinder","main":"м'ясорубка","bd":[]}
+{"sl":"uk","q":"аерогриль","main":"air grill","bd":[]}
+{"sl":"en","q":"air fryer","main":"аерофритюрниця","bd":[]}
+{"sl":"uk","q":"мультиварка","main":"slow cooker","bd":[]}
+{"sl":"en","q":"slow cooker","main":"мультиварка","bd":[]}
+{"sl":"uk","q":"скороварка","main":"pressure cooker","bd":[]}
+{"sl":"en","q":"pressure cooker","main":"скороварка","bd":[]}
+{"sl":"uk","q":"рисоварка","main":"rice cooker","bd":[]}
+{"sl":"en","q":"rice cooker","main":"рисоварка","bd":[]}
+{"sl":"uk","q":"сендвічниця","main":"sandwich maker","bd":[]}
+{"sl":"en","q":"sandwich maker","main":"сендвічниця","bd":[]}
+{"sl":"uk","q":"вафельниця","main":"waffle maker","bd":[]}
+{"sl":"en","q":"waffle maker","main":"вафельниця","bd":[]}
+{"sl":"uk","q":"кухонні ваги","main":"kitchen scales","bd":[]}
+{"sl":"en","q":"kitchen scale","main":"кухонні ваги","bd":[]}
+{"sl":"uk","q":"сушарка для посуду","main":"dish dryer","bd":[]}
+{"sl":"en","q":"dish rack","main":"підставка для посуду","bd":[]}
+{"sl":"uk","q":"полиця для спецій","main":"shelf for spices","bd":[]}
+{"sl":"en","q":"spice rack","main":"підставка для спецій","bd":[]}
+{"sl":"uk","q":"підставка для кухонного приладдя","main":"stand for kitchen utensils","bd":[]}
+{"sl":"en","q":"utensil holder","main":"тримач для посуду","bd":[]}
+{"sl":"uk","q":"посуд для готування","main":"utensils for cooking","bd":[]}
+{"sl":"en","q":"cookware","main":"посуд","bd":[["noun",["кухонний посуд"]]]}
+{"sl":"uk","q":"деко","main":"deco","bd":[["noun",["deck","sounding board","belly","covering"]]]}
+{"sl":"en","q":"baking tray","main":"деко для запікання","bd":[]}
+{"sl":"uk","q":"форма для запікання","main":"baking form","bd":[]}
+{"sl":"en","q":"baking dish","main":"форма для запікання","bd":[]}
+{"sl":"uk","q":"глибока форма для запікання","main":"deep baking dish","bd":[]}
+{"sl":"en","q":"casserole dish","main":"запіканка","bd":[]}
+{"sl":"uk","q":"дошка для нарізання","main":"cutting board","bd":[]}
+{"sl":"en","q":"cutting board","main":"обробна дошка","bd":[]}
+{"sl":"uk","q":"кухонний ніж","main":"kitchen knife","bd":[]}
+{"sl":"en","q":"kitchen knife","main":"кухонний ніж","bd":[]}
+{"sl":"uk","q":"ніж для хліба","main":"bread knife","bd":[]}
+{"sl":"en","q":"bread knife","main":"хлібний ніж","bd":[]}
+{"sl":"uk","q":"мірна склянка","main":"measuring cup","bd":[]}
+{"sl":"en","q":"measuring cup","main":"мірний стакан","bd":[]}
+{"sl":"uk","q":"мірна ложка","main":"measuring spoon","bd":[]}
+{"sl":"en","q":"measuring spoon","main":"мірна ложка","bd":[]}
+{"sl":"uk","q":"качалка","main":"rocking chair","bd":[["noun",["battledore","calender"]]]}
+{"sl":"en","q":"rolling pin","main":"скалка","bd":[["noun",["валець","вальківниця","макогін"]]]}
+{"sl":"uk","q":"консервний ніж","main":"opener","bd":[["noun",["opener"]]]}
+{"sl":"en","q":"can opener","main":"консервний ножик","bd":[]}
+{"sl":"uk","q":"відкривачка для пляшок","main":"bottle opener","bd":[]}
+{"sl":"en","q":"bottle opener","main":"відкривачка для пляшок","bd":[]}
+{"sl":"uk","q":"кухонна рукавиця","main":"kitchen glove","bd":[]}
+{"sl":"en","q":"oven glove","main":"рукавичка для духовки","bd":[["noun",["рукавичка для печі"]]]}
+{"sl":"uk","q":"прихватка","main":"tack","bd":[]}
+{"sl":"en","q":"potholder","main":"прихватка","bd":[]}
+{"sl":"uk","q":"блюдце","main":"saucer","bd":[["noun",["saucer"]]]}
+{"sl":"en","q":"saucer","main":"блюдце","bd":[["noun",["блюдце","піддонник","соусник"]]]}
+{"sl":"uk","q":"харчовий контейнер","main":"food container","bd":[]}
+{"sl":"en","q":"food container","main":"харчовий контейнер","bd":[]}
+{"sl":"uk","q":"харчова плівка","main":"food film","bd":[]}
+{"sl":"en","q":"cling film","main":"харчова плівка","bd":[]}
+{"sl":"uk","q":"алюмінієва фольга","main":"aluminum foil","bd":[]}
+{"sl":"en","q":"aluminum foil","main":"алюмінієва фольга","bd":[]}
+{"sl":"uk","q":"паперовий рушник","main":"paper towel","bd":[]}
+{"sl":"en","q":"paper towel","main":"паперовий рушник","bd":[]}
+{"sl":"uk","q":"підкладка під тарілку","main":"lining for the plate","bd":[]}
+{"sl":"en","q":"placemat","main":"серветка","bd":[]}
+{"sl":"uk","q":"кухонний рушник","main":"dish-cloth","bd":[["noun",["dish-cloth","dish rag"]]]}
+{"sl":"en","q":"tea towel","main":"кухонний рушник","bd":[]}
+{"sl":"uk","q":"кухонний таймер","main":"kitchen timer","bd":[]}
+{"sl":"en","q":"kitchen timer","main":"кухонний таймер","bd":[]}
+{"sl":"uk","q":"пральна машина","main":"washing machine","bd":[["noun",["washing machine","washer"]]]}
+{"sl":"en","q":"washing machine","main":"пральна машина","bd":[["noun",["мийна машина","пральна машина"]]]}
+{"sl":"uk","q":"сушильна машина","main":"dryer","bd":[]}
+{"sl":"en","q":"dryer","main":"сушарка","bd":[["noun",["сушарка","сушильник","сушильня"]]]}
+{"sl":"uk","q":"сушарка для білизни","main":"clothes dryer","bd":[]}
+{"sl":"en","q":"drying rack","main":"сушарка","bd":[]}
+{"sl":"uk","q":"прищіпка","main":"clothes pin","bd":[["noun",["clothes pin"]]]}
+{"sl":"en","q":"clothes peg","main":"прищіпка для одягу","bd":[]}
+{"sl":"uk","q":"засіб для прання","main":"abstergent","bd":[["noun",["abstergent"]]]}
+{"sl":"en","q":"laundry detergent","main":"пральний порошок","bd":[]}
+{"sl":"uk","q":"пральний порошок","main":"washing powder","bd":[["noun",["washing powder","soap powder"]]]}
+{"sl":"en","q":"washing powder","main":"пральний порошок","bd":[["noun",["пральний порошок"]]]}
+{"sl":"uk","q":"кондиціонер для білизни","main":"laundry conditioner","bd":[]}
+{"sl":"en","q":"fabric softener","main":"пом'якшувач тканини","bd":[["noun",["кондиціонер для тканини"]]]}
+{"sl":"uk","q":"засіб для виведення плям","main":"stain remover","bd":[]}
+{"sl":"en","q":"stain remover","main":"засіб для виведення плям","bd":[]}
+{"sl":"uk","q":"парова праска","main":"steam iron","bd":[]}
+{"sl":"en","q":"steam iron","main":"парова праска","bd":[]}
+{"sl":"uk","q":"відпарювач для одягу","main":"steamer for clothes","bd":[]}
+{"sl":"en","q":"garment steamer","main":"відпарювач для одягу","bd":[]}
+{"sl":"uk","q":"цикл прання","main":"wash cycle","bd":[]}
+{"sl":"en","q":"wash cycle","main":"цикл прання","bd":[]}
+{"sl":"uk","q":"режим віджимання","main":"spin mode","bd":[]}
+{"sl":"en","q":"spin cycle","main":"цикл віджимання","bd":[]}
+{"sl":"uk","q":"делікатне прання","main":"delicate wash","bd":[]}
+{"sl":"en","q":"delicate wash","main":"делікатне прання","bd":[]}
+{"sl":"uk","q":"душова лійка","main":"shower head","bd":[]}
+{"sl":"en","q":"showerhead","main":"насадка для душа","bd":[]}
+{"sl":"uk","q":"ручний душ","main":"hand shower","bd":[]}
+{"sl":"en","q":"hand shower","main":"ручний душ","bd":[]}
+{"sl":"uk","q":"душова кабіна","main":"shower cabin","bd":[]}
+{"sl":"en","q":"shower cubicle","main":"душова кабіна","bd":[]}
+{"sl":"uk","q":"душова перегородка","main":"shower partition","bd":[]}
+{"sl":"en","q":"shower screen","main":"душова сітка","bd":[]}
+{"sl":"uk","q":"шторка для душу","main":"shower curtain","bd":[]}
+{"sl":"en","q":"shower curtain","main":"фіранка для душу","bd":[]}
+{"sl":"uk","q":"змішувач","main":"mixer","bd":[["noun",["mixer","blender"]]]}
+{"sl":"en","q":"mixer tap","main":"змішувач","bd":[]}
+{"sl":"uk","q":"чаша унітаза","main":"toilet bowl","bd":[]}
+{"sl":"en","q":"toilet bowl","main":"унітаз","bd":[]}
+{"sl":"uk","q":"сидіння унітаза","main":"toilet seat","bd":[]}
+{"sl":"en","q":"toilet seat","main":"сидіння для унітазу","bd":[]}
+{"sl":"uk","q":"кришка унітаза","main":"toilet lid","bd":[]}
+{"sl":"en","q":"toilet lid","main":"кришка унітазу","bd":[]}
+{"sl":"uk","q":"бачок унітаза","main":"toilet tank","bd":[]}
+{"sl":"en","q":"toilet tank","main":"бачок унітазу","bd":[]}
+{"sl":"uk","q":"кнопка змиву","main":"flush button","bd":[]}
+{"sl":"en","q":"flush button","main":"кнопка змиву","bd":[]}
+{"sl":"uk","q":"пробка для зливу","main":"drain plug","bd":[]}
+{"sl":"en","q":"drain plug","main":"зливна пробка","bd":[]}
+{"sl":"uk","q":"банний рушник","main":"bath towel","bd":[]}
+{"sl":"en","q":"bath towel","main":"банний рушник","bd":[]}
+{"sl":"uk","q":"рушник для рук","main":"hand towel","bd":[]}
+{"sl":"en","q":"hand towel","main":"рушник для рук","bd":[]}
+{"sl":"uk","q":"тримач для рушників","main":"towel holder","bd":[]}
+{"sl":"en","q":"towel rail","main":"вішалка для рушників","bd":[]}
+{"sl":"uk","q":"рушникосушарка","main":"towel dryer","bd":[]}
+{"sl":"en","q":"heated towel rail","main":"полотенцесушитель","bd":[]}
+{"sl":"uk","q":"шафка для ліків","main":"medicine cabinet","bd":[]}
+{"sl":"en","q":"medicine cabinet","main":"аптечка","bd":[]}
+{"sl":"uk","q":"засоби особистої гігієни","main":"personal hygiene products","bd":[]}
+{"sl":"en","q":"toiletries","main":"туалетні приналежності","bd":[["noun",["туалетні належності"]]]}
+{"sl":"uk","q":"шампунь","main":"shampoo","bd":[["noun",["shampoo"]]]}
+{"sl":"en","q":"shampoo","main":"шампунь","bd":[["noun",["миття голови","шампунь"]],["verb",["мити голову","масажувати"]]]}
+{"sl":"uk","q":"кондиціонер для волосся","main":"hair conditioner","bd":[]}
+{"sl":"en","q":"conditioner","main":"кондиціонер","bd":[["noun",["гарт","кондиціонер"]]]}
+{"sl":"uk","q":"гель для душу","main":"shower gel","bd":[]}
+{"sl":"en","q":"shower gel","main":"гель для душу","bd":[]}
+{"sl":"uk","q":"бритва","main":"razor","bd":[["noun",["razor","shaver"]]]}
+{"sl":"en","q":"razor","main":"бритва","bd":[["noun",["бритва"]],["verb",["голити"]]]}
+{"sl":"uk","q":"мильниця","main":"soapbox","bd":[["noun",["soapbox"]]]}
+{"sl":"en","q":"soap dish","main":"мильниця","bd":[]}
+{"sl":"uk","q":"дозатор для мила","main":"soap dispenser","bd":[]}
+{"sl":"en","q":"soap dispenser","main":"дозатор мила","bd":[]}
+{"sl":"uk","q":"тримач для зубних щіток","main":"holder for toothbrushes","bd":[]}
+{"sl":"en","q":"toothbrush holder","main":"тримач для зубної щітки","bd":[]}
+{"sl":"uk","q":"туалетний папір","main":"toilet paper","bd":[["noun",["toilet paper"]]]}
+{"sl":"en","q":"toilet paper","main":"туалетний папір","bd":[["noun",["туалетний папір"]]]}
+{"sl":"uk","q":"тримач для туалетного паперу","main":"toilet paper holder","bd":[]}
+{"sl":"en","q":"toilet roll holder","main":"тримач туалетного паперу","bd":[]}
+{"sl":"uk","q":"йоржик для унітаза","main":"toilet seat","bd":[]}
+{"sl":"en","q":"toilet brush","main":"туалетна щітка","bd":[]}
+{"sl":"uk","q":"витяжний вентилятор","main":"exhaust fan","bd":[["noun",["air exhauster"]]]}
+{"sl":"en","q":"extractor fan","main":"витяжний вентилятор","bd":[]}
+{"sl":"uk","q":"водонагрівач","main":"water heater","bd":[]}
+{"sl":"en","q":"water heater","main":"водонагрівач","bd":[["noun",["нагрівач води","кип'ятильник"]]]}
+{"sl":"uk","q":"електричний бойлер","main":"electric boiler","bd":[]}
+{"sl":"en","q":"electric boiler","main":"електричний котел","bd":[]}
+{"sl":"uk","q":"електробритва","main":"electric shaver","bd":[]}
+{"sl":"en","q":"electric shaver","main":"електробритва","bd":[["noun",["електрична бритва"]]]}
+{"sl":"uk","q":"домашня робота","main":"homework","bd":[]}
+{"sl":"en","q":"housework","main":"робота по дому","bd":[["noun",["домашня праця"]]]}
+{"sl":"uk","q":"домашній обов'язок","main":"homework","bd":[]}
+{"sl":"en","q":"chore","main":"рутинна робота","bd":[["noun",["поденщина","поденна робота"]]]}
+{"sl":"uk","q":"наведення порядку","main":"bringing order","bd":[["noun",["police"]]]}
+{"sl":"en","q":"tidying","main":"прибирання","bd":[["verb",["охаювати","прибирати","прибратися"]]]}
+{"sl":"uk","q":"пилосос","main":"vacuum cleaner","bd":[["noun",["vacuum cleaner","vacuum","hoover","exhauster","carpet-sweeper"]]]}
+{"sl":"en","q":"vacuum cleaner","main":"пилосос","bd":[["noun",["пилосос"]]]}
+{"sl":"uk","q":"робот-пилосос","main":"robot vacuum cleaner","bd":[]}
+{"sl":"en","q":"robot vacuum","main":"робот-пилосос","bd":[]}
+{"sl":"uk","q":"ганчірка для прибирання","main":"cleaning cloth","bd":[]}
+{"sl":"en","q":"cleaning cloth","main":"серветка для чищення","bd":[]}
+{"sl":"uk","q":"ганчірка","main":"rag","bd":[["noun",["rag","duster","clout","wiper","tatter"]]]}
+{"sl":"en","q":"rag","main":"ганчірка","bd":[["noun",["ганчірка","дранка","клапоть","жмут","гострий кут","лах","лаха","мотлох"]],["verb",["дражнити","дробити каміння","сварити","скандалити"]]]}
+{"sl":"uk","q":"серветка з мікрофібри","main":"microfiber cloth","bd":[]}
+{"sl":"en","q":"microfiber cloth","main":"серветка з мікрофібри","bd":[]}
+{"sl":"uk","q":"жорстка щітка для чищення","main":"stiff brush for cleaning","bd":[]}
+{"sl":"en","q":"scrubbing brush","main":"щітка для чищення","bd":[]}
+{"sl":"uk","q":"гумові рукавички","main":"rubber gloves","bd":[]}
+{"sl":"en","q":"rubber gloves","main":"гумові рукавички","bd":[]}
+{"sl":"uk","q":"мийний засіб","main":"detergent","bd":[]}
+{"sl":"en","q":"detergent","main":"миючий засіб","bd":[["adjective",["що миє"]],["noun",["засіб для миття"]]]}
+{"sl":"uk","q":"дезінфекційний засіб","main":"disinfectant","bd":[]}
+{"sl":"en","q":"disinfectant","main":"дезінфікуючий засіб","bd":[["adjective",["дезінфікуючий"]],["noun",["дезінфікуючий засіб"]]]}
+{"sl":"uk","q":"засіб для миття скла","main":"glass cleaner","bd":[]}
+{"sl":"en","q":"glass cleaner","main":"очищувач скла","bd":[]}
+{"sl":"uk","q":"засіб для миття підлоги","main":"floor cleaner","bd":[]}
+{"sl":"en","q":"floor cleaner","main":"засіб для миття підлоги","bd":[]}
+{"sl":"uk","q":"засіб для миття посуду","main":"dishwashing liquid","bd":[]}
+{"sl":"en","q":"dishwashing liquid","main":"засіб для миття посуду","bd":[]}
+{"sl":"uk","q":"пакет для сміття","main":"garbage bag","bd":[]}
+{"sl":"en","q":"bin bag","main":"мішок для сміття","bd":[]}
+{"sl":"uk","q":"ретельно протирати","main":"wipe thoroughly","bd":[]}
+{"sl":"en","q":"to wipe down","main":"витирати","bd":[]}
+{"sl":"uk","q":"відтирати","main":"wipe off","bd":[]}
+{"sl":"en","q":"to scrub","main":"скрабувати","bd":[["verb",["забути","терти","чистити","харити"]]]}
+{"sl":"uk","q":"віджимати","main":"wring out","bd":[["verb",["wring out","wring"]]]}
+{"sl":"en","q":"to wring out","main":"віджимати","bd":[]}
+{"sl":"uk","q":"наводити лад","main":"put things in order","bd":[]}
+{"sl":"en","q":"to tidy up","main":"навести порядок","bd":[["verb",["чепурити"]]]}
+{"sl":"uk","q":"позбуватися зайвих речей","main":"get rid of unnecessary things","bd":[]}
+{"sl":"en","q":"to declutter","main":"розбиратися","bd":[]}
+{"sl":"uk","q":"прибирати після себе","main":"clean up after yourself","bd":[]}
+{"sl":"en","q":"to clean up","main":"прибирати","bd":[["verb",["зчинювати","підбирати","прибирати","прибратися"]]]}
+{"sl":"uk","q":"контейнер для вторсировини","main":"container for recycling","bd":[]}
+{"sl":"en","q":"recycling bin","main":"відро для сміття","bd":[]}
+{"sl":"uk","q":"компостер","main":"punch","bd":[["noun",["punch","puncher","cancel"]]]}
+{"sl":"en","q":"compost bin","main":"контейнер для компосту","bd":[]}
+{"sl":"uk","q":"датчик диму","main":"smoke sensor","bd":[]}
+{"sl":"en","q":"smoke detector","main":"детектор диму","bd":[]}
+{"sl":"uk","q":"датчик чадного газу","main":"carbon monoxide sensor","bd":[]}
+{"sl":"en","q":"carbon monoxide detector","main":"детектор чадного газу","bd":[]}
+{"sl":"uk","q":"вогнегасник","main":"extinguisher","bd":[["noun",["extinguisher","grenade","hand grenade"]]]}
+{"sl":"en","q":"fire extinguisher","main":"вогнегасник","bd":[]}
+{"sl":"uk","q":"протипожежне покривало","main":"fire blanket","bd":[]}
+{"sl":"en","q":"fire blanket","main":"протипожежна ковдра","bd":[]}
+{"sl":"uk","q":"аптечка","main":"first aid kit","bd":[]}
+{"sl":"en","q":"first-aid kit","main":"аптечка першої допомоги","bd":[]}
+{"sl":"uk","q":"охоронна сигналізація","main":"security alarm system","bd":[]}
+{"sl":"en","q":"burglar alarm","main":"охоронна сигналізація","bd":[]}
+{"sl":"uk","q":"система безпеки","main":"security system","bd":[]}
+{"sl":"en","q":"security system","main":"система безпеки","bd":[]}
+{"sl":"uk","q":"шкідник","main":"pest","bd":[["noun",["pest","wrecker","saboteur"]]]}
+{"sl":"en","q":"pest","main":"шкідник","bd":[["noun",["паразит","помір","сільськогосподарський шкідник","чума","шкідник"]]]}
+{"sl":"uk","q":"тарган","main":"cockroach","bd":[["noun",["cockroach"]]]}
+{"sl":"en","q":"cockroach","main":"тарган","bd":[["noun",["кракоч","манджак","тарган"]]]}
+{"sl":"uk","q":"міль","main":"moth","bd":[["noun",["moth","tineid","tinea"]]]}
+{"sl":"en","q":"moth","main":"моль","bd":[["noun",["метелик","міль","нетля"]]]}
+{"sl":"uk","q":"спрей від комах","main":"insect spray","bd":[]}
+{"sl":"en","q":"insect spray","main":"спрей від комах","bd":[]}
+{"sl":"uk","q":"мишоловка","main":"mousetrap","bd":[["noun",["mousetrap"]]]}
+{"sl":"en","q":"mouse trap","main":"мишоловка","bd":[["noun",["мишоловка"]]]}
+{"sl":"uk","q":"боротьба зі шкідниками","main":"pest control","bd":[]}
+{"sl":"en","q":"pest control","main":"боротьба зі шкідниками","bd":[]}
+{"sl":"uk","q":"опалення","main":"heating","bd":[["noun",["heating"]]]}
+{"sl":"en","q":"heating","main":"опалення","bd":[["adjective",["зігрівальний","нагрівний","опалювальний"]],["noun",["нагрівання","опалення"]]]}
+{"sl":"uk","q":"центральне опалення","main":"central heating","bd":[]}
+{"sl":"en","q":"central heating","main":"центральне опалення","bd":[]}
+{"sl":"uk","q":"індивідуальне опалення","main":"individual heating","bd":[]}
+{"sl":"en","q":"individual heating","main":"індивідуальне опалення","bd":[]}
+{"sl":"uk","q":"газовий котел","main":"gas boiler","bd":[]}
+{"sl":"en","q":"gas boiler","main":"газовий котел","bd":[]}
+{"sl":"uk","q":"термостат","main":"thermostat","bd":[["noun",["thermostat","incubator"]]]}
+{"sl":"en","q":"thermostat","main":"термостат","bd":[["noun",["термостат"]]]}
+{"sl":"uk","q":"тепла підлога","main":"warm floor","bd":[]}
+{"sl":"en","q":"underfloor heating","main":"тепла підлога","bd":[]}
+{"sl":"uk","q":"обігрівач","main":"heater","bd":[["noun",["heater"]]]}
+{"sl":"en","q":"heater","main":"обігрівач","bd":[["adjective",["пічний"]],["noun",["обігрівач","огрівник","піч","радіатор"]]]}
+{"sl":"uk","q":"переносний обігрівач","main":"portable heater","bd":[]}
+{"sl":"en","q":"space heater","main":"обігрівач приміщення","bd":[]}
+{"sl":"uk","q":"кондиціонування повітря","main":"air conditioning","bd":[]}
+{"sl":"en","q":"air conditioning","main":"кондиціонер","bd":[["noun",["кондиціонер","кондиціювання повітря"]]]}
+{"sl":"uk","q":"стельовий вентилятор","main":"ceiling fan","bd":[]}
+{"sl":"en","q":"ceiling fan","main":"стельовий вентилятор","bd":[]}
+{"sl":"uk","q":"вентиляція","main":"ventilation","bd":[["noun",["ventilation","venting","airing"]]]}
+{"sl":"en","q":"ventilation","main":"вентиляція","bd":[["noun",["вентиляція","публічне обговорення"]]]}
+{"sl":"uk","q":"вентиляційна шахта","main":"air shaft","bd":[["noun",["air shaft"]]]}
+{"sl":"en","q":"ventilation shaft","main":"вентиляційна шахта","bd":[]}
+{"sl":"uk","q":"зволожувач повітря","main":"air humidifier","bd":[]}
+{"sl":"en","q":"humidifier","main":"зволожувач повітря","bd":[]}
+{"sl":"uk","q":"осушувач повітря","main":"air dryer","bd":[]}
+{"sl":"en","q":"dehumidifier","main":"осушувач повітря","bd":[]}
+{"sl":"uk","q":"очищувач повітря","main":"air purifier","bd":[]}
+{"sl":"en","q":"air purifier","main":"очищувач повітря","bd":[]}
+{"sl":"uk","q":"кімнатна температура","main":"room temperature","bd":[]}
+{"sl":"en","q":"room temperature","main":"кімнатної температури","bd":[]}
+{"sl":"uk","q":"утеплювати","main":"insulate","bd":[]}
+{"sl":"en","q":"to insulate","main":"ізолювати","bd":[["verb",["ізолювати"]]]}
+{"sl":"uk","q":"водопровідна труба","main":"water pipe","bd":[]}
+{"sl":"en","q":"water pipe","main":"водопровід","bd":[]}
+{"sl":"uk","q":"каналізаційна труба","main":"soil pipe","bd":[["noun",["soil pipe"]]]}
+{"sl":"en","q":"sewer pipe","main":"каналізаційна труба","bd":[]}
+{"sl":"uk","q":"каналізаційна система","main":"sewerage","bd":[["noun",["sewerage"]]]}
+{"sl":"en","q":"sewer","main":"каналізація","bd":[["noun",["клоака","кравець","риштак","стічна труба","швачка"]]]}
+{"sl":"uk","q":"стічні води","main":"waste water","bd":[["noun",["effluents"]]]}
+{"sl":"en","q":"sewage","main":"стічні води","bd":[["noun",["каналізація","нечистоти"]]]}
+{"sl":"uk","q":"водопостачання","main":"water supply","bd":[["noun",["water supply","water system"]]]}
+{"sl":"en","q":"water supply","main":"водопостачання","bd":[["noun",["водопостачання"]]]}
+{"sl":"uk","q":"централізоване водопостачання","main":"centralized water supply","bd":[]}
+{"sl":"en","q":"mains water","main":"водопроводу","bd":[]}
+{"sl":"uk","q":"тиск води","main":"water pressure","bd":[]}
+{"sl":"en","q":"water pressure","main":"тиск води","bd":[]}
+{"sl":"uk","q":"лічильник води","main":"water meter","bd":[]}
+{"sl":"en","q":"water meter","main":"лічильник води","bd":[["noun",["водомір"]]]}
+{"sl":"uk","q":"запірний кран","main":"stopcock","bd":[["noun",["stopcock"]]]}
+{"sl":"en","q":"shut-off valve","main":"запірна арматура","bd":[]}
+{"sl":"uk","q":"гнучкий шланг","main":"flexible hose","bd":[]}
+{"sl":"en","q":"flexible hose","main":"гнучкий шланг","bd":[]}
+{"sl":"uk","q":"кран, що капає","main":"a dripping faucet","bd":[]}
+{"sl":"en","q":"dripping tap","main":"капає кран","bd":[]}
+{"sl":"uk","q":"засмічений злив","main":"clogged drain","bd":[]}
+{"sl":"en","q":"clogged drain","main":"забитий дренаж","bd":[]}
+{"sl":"uk","q":"засмічення","main":"clog","bd":[["noun",["clog","fouling","chokage"]]]}
+{"sl":"en","q":"blockage","main":"блокування","bd":[["noun",["блокування"]]]}
+{"sl":"uk","q":"труба, що лопнула","main":"a burst pipe","bd":[]}
+{"sl":"en","q":"burst pipe","main":"лопнула труба","bd":[]}
+{"sl":"uk","q":"пошкодження від води","main":"water damage","bd":[]}
+{"sl":"en","q":"water damage","main":"пошкодження водою","bd":[]}
+{"sl":"uk","q":"побутовий прилад","main":"household appliance","bd":[]}
+{"sl":"en","q":"home appliance","main":"побутова техніка","bd":[]}
+{"sl":"uk","q":"електронний пристрій","main":"electronic device","bd":[]}
+{"sl":"en","q":"electronic device","main":"електронний пристрій","bd":[]}
+{"sl":"uk","q":"телевізійна приставка","main":"television set-top box","bd":[]}
+{"sl":"en","q":"set-top box","main":"приставка","bd":[]}
+{"sl":"uk","q":"пристрій для потокового відео","main":"video streaming device","bd":[]}
+{"sl":"en","q":"streaming device","main":"потоковий пристрій","bd":[]}
+{"sl":"uk","q":"модем","main":"modem","bd":[["noun",["modem"]]]}
+{"sl":"en","q":"modem","main":"модем","bd":[["noun",["модем"]]]}
+{"sl":"uk","q":"мережа Wi-Fi","main":"Wi-Fi network","bd":[]}
+{"sl":"en","q":"Wi-Fi network","main":"мережа Wi-Fi","bd":[]}
+{"sl":"uk","q":"настільний комп'ютер","main":"desktop computer","bd":[]}
+{"sl":"en","q":"desktop computer","main":"настільний комп'ютер","bd":[]}
+{"sl":"uk","q":"килимок для миші","main":"mouse pad","bd":[]}
+{"sl":"en","q":"mouse pad","main":"килимок для миші","bd":[]}
+{"sl":"uk","q":"саундбар","main":"sound bar","bd":[]}
+{"sl":"en","q":"soundbar","main":"звукова панель","bd":[]}
+{"sl":"uk","q":"ігрова консоль","main":"game console","bd":[]}
+{"sl":"en","q":"game console","main":"ігрова приставка","bd":[]}
+{"sl":"uk","q":"розумна колонка","main":"smart column","bd":[]}
+{"sl":"en","q":"smart speaker","main":"розумний динамік","bd":[]}
+{"sl":"uk","q":"розумний дім","main":"smart home","bd":[]}
+{"sl":"en","q":"smart home","main":"розумний будинок","bd":[]}
+{"sl":"uk","q":"камера спостереження","main":"surveillance camera","bd":[]}
+{"sl":"en","q":"security camera","main":"камера безпеки","bd":[]}
+{"sl":"uk","q":"кабель для заряджання","main":"charging cable","bd":[]}
+{"sl":"en","q":"charging cable","main":"зарядний кабель","bd":[]}
+{"sl":"uk","q":"косметичний ремонт","main":"cosmetic repair","bd":[]}
+{"sl":"en","q":"redecoration","main":"косметичний ремонт","bd":[]}
+{"sl":"uk","q":"самостійний ремонт","main":"independent repair","bd":[]}
+{"sl":"en","q":"DIY","main":"DIY","bd":[]}
+{"sl":"uk","q":"пласка викрутка","main":"flat screwdriver","bd":[]}
+{"sl":"en","q":"flat-head screwdriver","main":"плоска викрутка","bd":[]}
+{"sl":"uk","q":"хрестова викрутка","main":"Phillips screwdriver","bd":[]}
+{"sl":"en","q":"Phillips screwdriver","main":"Хрестова викрутка","bd":[]}
+{"sl":"uk","q":"свердло","main":"drill","bd":[]}
+{"sl":"en","q":"drill bit","main":"свердло","bd":[]}
+{"sl":"uk","q":"плоскогубці","main":"pliers","bd":[["noun",["pliers"]]]}
+{"sl":"en","q":"pliers","main":"плоскогубці","bd":[["noun",["кусачки","обценьки","плоскогубці","щипці"]]]}
+{"sl":"uk","q":"кусачки","main":"nippers","bd":[["noun",["nippers","pliers","cutters","wirecutter"]]]}
+{"sl":"en","q":"wire cutters","main":"кусачки для дроту","bd":[]}
+{"sl":"uk","q":"розвідний ключ","main":"wrench","bd":[]}
+{"sl":"en","q":"adjustable wrench","main":"розвідний ключ","bd":[]}
+{"sl":"uk","q":"шестигранний ключ","main":"hex key","bd":[]}
+{"sl":"en","q":"Allen key","main":"шестигранний ключ","bd":[]}
+{"sl":"uk","q":"рулетка","main":"roulette","bd":[["noun",["roulette","tape measure","tape"]]]}
+{"sl":"en","q":"tape measure","main":"рулетка","bd":[["noun",["рулетка","сантиметр"]]]}
+{"sl":"uk","q":"монтажний ніж","main":"mounting knife","bd":[]}
+{"sl":"en","q":"utility knife","main":"канцелярський ніж","bd":[]}
+{"sl":"uk","q":"дюбель","main":"dowel","bd":[]}
+{"sl":"en","q":"wall plug","main":"дюбель","bd":[]}
+{"sl":"uk","q":"герметик","main":"sealant","bd":[]}
+{"sl":"en","q":"sealant","main":"герметик","bd":[]}
+{"sl":"uk","q":"армована клейка стрічка","main":"reinforced adhesive tape","bd":[]}
+{"sl":"en","q":"duct tape","main":"клейка стрічка","bd":[]}
+{"sl":"uk","q":"малярна стрічка","main":"masking tape","bd":[]}
+{"sl":"en","q":"masking tape","main":"малярський скотч","bd":[]}
+{"sl":"uk","q":"малярний валик","main":"paint roller","bd":[]}
+{"sl":"en","q":"paint roller","main":"малярний валик","bd":[]}
+{"sl":"uk","q":"лоток для фарби","main":"paint tray","bd":[]}
+{"sl":"en","q":"paint tray","main":"лоток для фарби","bd":[]}
+{"sl":"uk","q":"замазка","main":"putty","bd":[["noun",["putty","cement"]]]}
+{"sl":"en","q":"putty","main":"шпаклівка","bd":[["adjective",["жовтувато-сірий"]],["noun",["віск","жовтувато-сірий колір","замазка","мастика","шпаклівка"]],["verb",["шпаклювати"]]]}
+{"sl":"uk","q":"послаблювати","main":"weaken","bd":[["verb",["weaken","relax","reduce","loosen","ease","allay","damp"]]]}
+{"sl":"en","q":"to loosen","main":"послабити","bd":[["verb",["відпускати","ослабляти","попускати","послаблювати","розв'язувати","розв'язуватися","розпушувати","розхитувати"]]]}
+{"sl":"uk","q":"робити ремонт","main":"make repairs","bd":[]}
+{"sl":"en","q":"to renovate","main":"відремонтувати","bd":[["verb",["відновити","новити","оновлювати","оновляти","оновлятися","підновлювати","поновлювати"]]]}
+{"sl":"uk","q":"перефарбовувати","main":"repaint","bd":[]}
+{"sl":"en","q":"to repaint","main":"перефарбувати","bd":[["verb",["перефарбувати"]]]}
+{"sl":"uk","q":"запилений","main":"dusty","bd":[["adjective",["dusty","dingy","pollinated"]]]}
+{"sl":"en","q":"dusty","main":"запорошений","bd":[["adjective",["запилений","запорошений","курний","пильний","порошковий","сірувато-брунатний","сухий"]]]}
+{"sl":"uk","q":"просторий","main":"spacious","bd":[["adjective",["spacious","space","extensive","roomy","ample","wide","loose","commodious"]]]}
+{"sl":"en","q":"spacious","main":"просторий","bd":[["adjective",["всеосяжний","засібний","привільний","просторий","розлогий","тривалий"]]]}
+{"sl":"uk","q":"тісний","main":"close","bd":[["adjective",["close","tight","narrow","intimate","cramp","pinched","poky","pokey"]]]}
+{"sl":"en","q":"cramped","main":"тісно","bd":[["adjective",["здавлений","нерозбірливий","нечиткий","обмежений","стиснутий","зведений судорогою"]]]}
+{"sl":"uk","q":"добре обладнаний","main":"well equipped","bd":[["adjective",["well-found"]]]}
+{"sl":"en","q":"well-equipped","main":"добре обладнаний","bd":[]}
+{"sl":"en","q":"run-down","main":"запущений","bd":[["adjective",["незаведений","що розрядився","стомлений"]]]}
+{"sl":"uk","q":"запліснявілий","main":"moldy","bd":[["adjective",["moldy","musty","fenny","mouldy"]]]}
+{"sl":"en","q":"moldy","main":"запліснявілий","bd":[["noun",["міна","торпеда"]],["adjective",["запліснявілий","застарілий","кепський","цвілий"]]]}
+{"sl":"uk","q":"вм'ятина","main":"a dent","bd":[]}
+{"sl":"en","q":"dent","main":"вм'ятина","bd":[["noun",["вибоїна","западина","ум'ятина","вищерб","зуб","заглиблення","зубець"]],["verb",["вдавлювати","зазублювати","нарізувати","уминати","насікати"]]]}
+{"sl":"uk","q":"застряглий","main":"stuck","bd":[]}
+{"sl":"en","q":"stuck","main":"застряг","bd":[["verb",["втикати","липнути","приклеювати","заїдати","прилипати","заколоти","приставати","застромити"]]]}
+{"sl":"uk","q":"заклинений","main":"keyed","bd":[["adjective",["keyed"]]]}
+{"sl":"en","q":"jammed","main":"заклинило","bd":[["verb",["загачувати","защемляти","набиватися","стискати","заставляти","нагнітати","застрявати","надавлювати"]]]}
+{"sl":"uk","q":"протікає","main":"flowing","bd":[["verb",["flow","leak","run","spring a leak"]]]}
+{"sl":"en","q":"leaking","main":"витік","bd":[["verb",["затікати","просочуватися","протікати","текти"]]]}
+{"sl":"uk","q":"засмічений","main":"weedy","bd":[["adjective",["weedy","foul","wasty"]]]}
+{"sl":"en","q":"clogged","main":"забитий","bd":[["verb",["заважати","засмічувати","обтяжувати","перешкоджати","путати"]]]}
+{"sl":"uk","q":"мерехтливий","main":"winking","bd":[["adjective",["winking"]]]}
+{"sl":"en","q":"flickering","main":"мерехтіння","bd":[["noun",["блимання","мигання"]]]}
+{"sl":"uk","q":"предмет одягу","main":"garment","bd":[["noun",["garment","wearable"]]]}
+{"sl":"en","q":"garment","main":"одяг","bd":[["noun",["ноша","предмет одягу"]]]}
+{"sl":"uk","q":"дитячий одяг","main":"children's clothes","bd":[["noun",["children's wear"]]]}
+{"sl":"en","q":"childrenswear","main":"дитячий одяг","bd":[["noun",["дитячий одяг"]]]}
+{"sl":"uk","q":"повсякденний одяг","main":"casual clothes","bd":[]}
+{"sl":"en","q":"casual wear","main":"повсякденний одяг","bd":[]}
+{"sl":"uk","q":"офіційний одяг","main":"formal wear","bd":[]}
+{"sl":"en","q":"formal wear","main":"формальний одяг","bd":[]}
+{"sl":"uk","q":"вечірній одяг","main":"evening wear","bd":[]}
+{"sl":"en","q":"evening wear","main":"вечірній одяг","bd":[]}
+{"sl":"uk","q":"діловий одяг","main":"business clothes","bd":[]}
+{"sl":"en","q":"business attire","main":"діловий одяг","bd":[]}
+{"sl":"uk","q":"робочий одяг","main":"work clothes","bd":[]}
+{"sl":"en","q":"workwear","main":"спецодяг","bd":[]}
+{"sl":"uk","q":"вуличний стиль одягу","main":"street style clothing","bd":[]}
+{"sl":"en","q":"streetwear","main":"вуличний одяг","bd":[]}
+{"sl":"uk","q":"спортивний одяг","main":"sportswear","bd":[["noun",["sportswear"]]]}
+{"sl":"en","q":"sportswear","main":"спортивний одяг","bd":[["noun",["спортивний одяг"]]]}
+{"sl":"uk","q":"одяг для тренувань","main":"training clothes","bd":[]}
+{"sl":"en","q":"activewear","main":"активний одяг","bd":[]}
+{"sl":"uk","q":"верхній одяг","main":"outerwear","bd":[["noun",["outerwear","overdress","overgarment","wraps"]]]}
+{"sl":"en","q":"outerwear","main":"верхній одяг","bd":[["noun",["верхній одяг"]]]}
+{"sl":"uk","q":"взуттєвий асортимент","main":"footwear assortment","bd":[]}
+{"sl":"en","q":"footwear","main":"взуття","bd":[["noun",["взуття"]]]}
+{"sl":"uk","q":"аксесуар","main":"accessory","bd":[["noun",["accompaniment"]]]}
+{"sl":"en","q":"accessory","main":"аксесуар","bd":[["adjective",["бічний","сприятливий","додатковий","допоміжний","другорядний","побічний"]],["noun",["співвинуватець","співучасник"]]]}
+{"sl":"uk","q":"дизайнерський одяг","main":"designer clothes","bd":[]}
+{"sl":"en","q":"designer clothes","main":"дизайнерський одяг","bd":[]}
+{"sl":"uk","q":"стильний","main":"stylish","bd":[["adjective",["stylish","trendy","nifty","saucy","scrumptious","doggish","cheesy"]]]}
+{"sl":"en","q":"stylish","main":"стильний","bd":[["adjective",["модний","стильний"]]]}
+{"sl":"uk","q":"трендовий","main":"trendy","bd":[]}
+{"sl":"en","q":"trendy","main":"модний","bd":[["adjective",["наймодніший","стильний"]]]}
+{"sl":"uk","q":"елегантно-повсякденний","main":"elegant and casual","bd":[]}
+{"sl":"en","q":"smart-casual","main":"смарт-кежуал","bd":[]}
+{"sl":"uk","q":"мінімалістичний","main":"minimalistic","bd":[]}
+{"sl":"en","q":"minimalist","main":"мінімалістичний","bd":[]}
+{"sl":"uk","q":"роздягатися","main":"undress","bd":[["verb",["undress","strip","disrobe","unclothe","peel"]]]}
+{"sl":"en","q":"to undress","main":"роздягатися","bd":[["verb",["знімати одяг","розбинтовувати","роздягати","роздягатися"]]]}
+{"sl":"uk","q":"зимове пальто","main":"winter coat","bd":[]}
+{"sl":"en","q":"winter coat","main":"зимове пальто","bd":[]}
+{"sl":"uk","q":"довге верхнє пальто","main":"long top coat","bd":[]}
+{"sl":"en","q":"overcoat","main":"пальто","bd":[["noun",["пальто","чоловіче пальто","шинель"]]]}
+{"sl":"uk","q":"шкіряна куртка","main":"leather jacket","bd":[]}
+{"sl":"en","q":"leather jacket","main":"шкіряна куртка","bd":[]}
+{"sl":"uk","q":"джинсова куртка","main":"denim jacket","bd":[]}
+{"sl":"en","q":"denim jacket","main":"джинсова куртка","bd":[]}
+{"sl":"uk","q":"куртка-бомбер","main":"bomber jacket","bd":[]}
+{"sl":"en","q":"bomber jacket","main":"бомбер","bd":[]}
+{"sl":"uk","q":"стьобана куртка","main":"quilted jacket","bd":[]}
+{"sl":"en","q":"puffer jacket","main":"пуховик","bd":[]}
+{"sl":"uk","q":"пуховик","main":"down jacket","bd":[]}
+{"sl":"en","q":"down jacket","main":"пуховик","bd":[]}
+{"sl":"uk","q":"вітровка","main":"windbreaker","bd":[]}
+{"sl":"en","q":"windbreaker","main":"вітровка","bd":[["noun",["захисна лісосмуга","макінтош","штормівка"]]]}
+{"sl":"uk","q":"парка","main":"park","bd":[["noun",["parka"]]]}
+{"sl":"en","q":"parka","main":"парка","bd":[["noun",["білий маскхалат","парка"]]]}
+{"sl":"uk","q":"флісова кофта","main":"fleece jacket","bd":[]}
+{"sl":"en","q":"fleece jacket","main":"флісова куртка","bd":[]}
+{"sl":"uk","q":"університетська куртка","main":"varsity jacket","bd":[]}
+{"sl":"en","q":"varsity jacket","main":"університетський піджак","bd":[]}
+{"sl":"uk","q":"блейзер","main":"blazer","bd":[["noun",["blazer"]]]}
+{"sl":"en","q":"blazer","main":"піджак","bd":[["noun",["блейзер"]]]}
+{"sl":"uk","q":"піджак від костюма","main":"suit jacket","bd":[]}
+{"sl":"en","q":"suit jacket","main":"піджак","bd":[]}
+{"sl":"uk","q":"утеплена безрукавка","main":"insulated tank top","bd":[]}
+{"sl":"en","q":"body warmer","main":"тілогрійка","bd":[]}
+{"sl":"uk","q":"шуба","main":"fur coat","bd":[["noun",["fur coat"]]]}
+{"sl":"en","q":"fur coat","main":"шуба","bd":[["noun",["шуба"]]]}
+{"sl":"uk","q":"дублянка","main":"sheepskin coat","bd":[]}
+{"sl":"en","q":"sheepskin coat","main":"дублянка","bd":[["noun",["кожух"]]]}
+{"sl":"uk","q":"знімний капюшон","main":"removable hood","bd":[]}
+{"sl":"en","q":"detachable hood","main":"знімний капюшон","bd":[]}
+{"sl":"uk","q":"водонепроникна куртка","main":"waterproof jacket","bd":[]}
+{"sl":"en","q":"waterproof jacket","main":"водонепроникна куртка","bd":[]}
+{"sl":"uk","q":"легка куртка","main":"light jacket","bd":[]}
+{"sl":"en","q":"lightweight jacket","main":"легка куртка","bd":[]}
+{"sl":"uk","q":"демісезонна куртка","main":"demi-season jacket","bd":[]}
+{"sl":"en","q":"mid-season jacket","main":"демісезонна куртка","bd":[]}
+{"sl":"uk","q":"футболка з довгим рукавом","main":"long sleeve t-shirt","bd":[]}
+{"sl":"en","q":"long-sleeved T-shirt","main":"футболка з довгим рукавом","bd":[]}
+{"sl":"uk","q":"майка без рукавів","main":"sleeveless tank top","bd":[]}
+{"sl":"en","q":"vest top","main":"жилет топ","bd":[]}
+{"sl":"uk","q":"класична сорочка","main":"classic shirt","bd":[]}
+{"sl":"en","q":"dress shirt","main":"сорочка","bd":[]}
+{"sl":"uk","q":"сорочка з коміром на ґудзиках","main":"shirt with a button-down collar","bd":[]}
+{"sl":"en","q":"button-down shirt","main":"сорочка на гудзиках","bd":[]}
+{"sl":"uk","q":"сорочка з коротким рукавом","main":"shirt with short sleeves","bd":[]}
+{"sl":"en","q":"short-sleeved shirt","main":"сорочка з короткими рукавами","bd":[]}
+{"sl":"uk","q":"сорочка з довгим рукавом","main":"long sleeve shirt","bd":[]}
+{"sl":"en","q":"long-sleeved shirt","main":"сорочка з довгим рукавом","bd":[]}
+{"sl":"uk","q":"туніка","main":"tunic","bd":[]}
+{"sl":"en","q":"tunic","main":"туніка","bd":[["noun",["блузка","гімнастерка","жакетка","мундир","оболонка"]]]}
+{"sl":"uk","q":"пуловер","main":"pullover","bd":[["noun",["pullover"]]]}
+{"sl":"en","q":"pullover","main":"пуловер","bd":[["adjective",["натягнутий через голову"]],["noun",["джемпер","пуловер","светр"]]]}
+{"sl":"uk","q":"водолазка","main":"turtleneck","bd":[["noun",["roll-neck"]]]}
+{"sl":"en","q":"turtleneck","main":"водолазка","bd":[["noun",["светр з високим коміром"]]]}
+{"sl":"uk","q":"худі","main":"skinny","bd":[["adjective",["thin","lean","emaciated","meager","spare","jejune","attenuate","emaciate"]]]}
+{"sl":"en","q":"hoodie","main":"толстовка з капюшоном","bd":[["noun",["сіра ворона"]]]}
+{"sl":"uk","q":"укорочений топ","main":"cropped top","bd":[]}
+{"sl":"en","q":"crop top","main":"кроп-топ","bd":[]}
+{"sl":"uk","q":"боді","main":"body","bd":[]}
+{"sl":"en","q":"bodysuit","main":"боді","bd":[]}
+{"sl":"uk","q":"топ із зав'язками на шиї","main":"top with ties on the neck","bd":[]}
+{"sl":"en","q":"halter top","main":"недоуздок","bd":[]}
+{"sl":"uk","q":"топ із відкритими плечима","main":"top with open shoulders","bd":[]}
+{"sl":"en","q":"off-the-shoulder top","main":"топ з відкритими плечима","bd":[]}
+{"sl":"uk","q":"в'язаний верх","main":"knitted top","bd":[]}
+{"sl":"en","q":"knitted top","main":"трикотажний топ","bd":[]}
+{"sl":"uk","q":"верх із круглим вирізом","main":"round neck top","bd":[]}
+{"sl":"en","q":"crew-neck top","main":"топ з круглим вирізом","bd":[]}
+{"sl":"uk","q":"верх із V-подібним вирізом","main":"V-neck top","bd":[]}
+{"sl":"en","q":"V-neck top","main":"Топ з V-подібним вирізом","bd":[]}
+{"sl":"uk","q":"вузькі джинси","main":"skinny jeans","bd":[]}
+{"sl":"en","q":"skinny jeans","main":"вузькі джинси","bd":[]}
+{"sl":"uk","q":"приталені джинси","main":"slim fit jeans","bd":[]}
+{"sl":"en","q":"slim-fit jeans","main":"приталені джинси","bd":[]}
+{"sl":"uk","q":"прямі джинси","main":"straight jeans","bd":[]}
+{"sl":"en","q":"straight-leg jeans","main":"прямі джинси","bd":[]}
+{"sl":"uk","q":"широкі штани","main":"wide pants","bd":[]}
+{"sl":"en","q":"wide-leg trousers","main":"широкі брюки","bd":[]}
+{"sl":"uk","q":"штани-кльош","main":"flared pants","bd":[]}
+{"sl":"en","q":"flared trousers","main":"брюки-кльош","bd":[]}
+{"sl":"uk","q":"штани з високою посадкою","main":"high rise pants","bd":[]}
+{"sl":"en","q":"high-waisted trousers","main":"брюки з високою талією","bd":[]}
+{"sl":"uk","q":"штани з низькою посадкою","main":"low-rise pants","bd":[]}
+{"sl":"en","q":"low-rise trousers","main":"брюки з низькою посадкою","bd":[]}
+{"sl":"uk","q":"чиноси","main":"chinos","bd":[]}
+{"sl":"en","q":"chinos","main":"чінос","bd":[]}
+{"sl":"uk","q":"джогери","main":"joggers","bd":[]}
+{"sl":"en","q":"joggers","main":"бігуни","bd":[["noun",["бігун підтюбцем"]]]}
+{"sl":"uk","q":"штани від спортивного костюма","main":"pants from a sports suit","bd":[]}
+{"sl":"en","q":"tracksuit bottoms","main":"спортивні штани","bd":[]}
+{"sl":"uk","q":"джинсові шорти","main":"denim shorts","bd":[]}
+{"sl":"en","q":"denim shorts","main":"джинсові шорти","bd":[]}
+{"sl":"uk","q":"довгі пляжні шорти","main":"long beach shorts","bd":[]}
+{"sl":"en","q":"board shorts","main":"борд шорти","bd":[]}
+{"sl":"uk","q":"велосипедки","main":"bicycles","bd":[]}
+{"sl":"en","q":"cycling shorts","main":"велосипедні шорти","bd":[]}
+{"sl":"uk","q":"мініспідниця","main":"mini skirt","bd":[["noun",["miniskirt"]]]}
+{"sl":"en","q":"mini skirt","main":"міні спідниця","bd":[["noun",["міні-спідниця"]]]}
+{"sl":"uk","q":"спідниця міді","main":"midi skirt","bd":[]}
+{"sl":"en","q":"midi skirt","main":"спідниця міді","bd":[]}
+{"sl":"uk","q":"спідниця максі","main":"maxi skirt","bd":[]}
+{"sl":"en","q":"maxi skirt","main":"спідниця максі","bd":[]}
+{"sl":"uk","q":"спідниця-олівець","main":"pencil skirt","bd":[]}
+{"sl":"en","q":"pencil skirt","main":"спідниця-олівець","bd":[]}
+{"sl":"uk","q":"плісирована спідниця","main":"pleated skirt","bd":[]}
+{"sl":"en","q":"pleated skirt","main":"плісирована спідниця","bd":[]}
+{"sl":"uk","q":"спідниця А-силуету","main":"A-line skirt","bd":[]}
+{"sl":"en","q":"A-line skirt","main":"Спідниця А-силуету","bd":[]}
+{"sl":"uk","q":"спідниця із запахом","main":"skirt with smell","bd":[]}
+{"sl":"en","q":"wrap skirt","main":"спідниця з обгорткою","bd":[]}
+{"sl":"uk","q":"кюлоти","main":"culottes","bd":[]}
+{"sl":"en","q":"culottes","main":"кюлоти","bd":[]}
+{"sl":"uk","q":"суцільний комбінезон","main":"one-piece overalls","bd":[]}
+{"sl":"en","q":"jumpsuit","main":"комбінезон","bd":[]}
+{"sl":"uk","q":"фліс","main":"fleece","bd":[]}
+{"sl":"en","q":"fleece","main":"фліс","bd":[["noun",["начос","овеча вовна","перисто-купчасті хмари"]],["verb",["стригти овець","дерти","зголити"]]]}
+{"sl":"uk","q":"дуже худий","main":"very thin","bd":[["adjective",["raw-boned"]]]}
+{"sl":"en","q":"skinny","main":"худий","bd":[["adjective",["висохлий","захлялий","схожий на плівку","худючий","шкіряний","щуплий"]]]}
+{"sl":"uk","q":"водонепроникний","main":"waterproof","bd":[["adjective",["waterproof","watertight","impermeable","repellent","showerproof","water-repellent"]]]}
+{"sl":"en","q":"waterproof","main":"водонепроникний","bd":[["adjective",["водонепроникливий","непромокальний","водонепроникний","непросякальний"]],["noun",["дощовик"]],["verb",["надавати водонепроникності"]]]}
+{"sl":"uk","q":"повсякденна сукня","main":"casual dress","bd":[]}
+{"sl":"en","q":"casual dress","main":"повсякденне плаття","bd":[]}
+{"sl":"uk","q":"коктейльна сукня","main":"cocktail dress","bd":[]}
+{"sl":"en","q":"cocktail dress","main":"коктейльне плаття","bd":[]}
+{"sl":"uk","q":"літня сукня","main":"summer dress","bd":[]}
+{"sl":"en","q":"summer dress","main":"літнє плаття","bd":[]}
+{"sl":"uk","q":"сарафан","main":"sundress","bd":[]}
+{"sl":"en","q":"sundress","main":"сарафан","bd":[]}
+{"sl":"uk","q":"сукня максі","main":"maxi dress","bd":[]}
+{"sl":"en","q":"maxi dress","main":"максі сукня","bd":[]}
+{"sl":"uk","q":"коротка сукня","main":"short dress","bd":[]}
+{"sl":"en","q":"mini dress","main":"міні-сукня","bd":[]}
+{"sl":"uk","q":"сукня із запахом","main":"a dress with a smell","bd":[]}
+{"sl":"en","q":"wrap dress","main":"сукня з обгорткою","bd":[]}
+{"sl":"uk","q":"сукня-сорочка","main":"shirt dress","bd":[]}
+{"sl":"en","q":"shirt dress","main":"плаття-сорочка","bd":[]}
+{"sl":"uk","q":"сукня-комбінація","main":"combination dress","bd":[]}
+{"sl":"en","q":"slip dress","main":"плаття-сліп","bd":[]}
+{"sl":"uk","q":"урочиста сукня","main":"formal dress","bd":[]}
+{"sl":"en","q":"gown","main":"плаття","bd":[["noun",["мантія","плаття","сукня"]],["verb",["облачати","одягати"]]]}
+{"sl":"uk","q":"сукня подружки нареченої","main":"bridesmaid dress","bd":[]}
+{"sl":"en","q":"bridesmaid dress","main":"плаття подружки нареченої","bd":[]}
+{"sl":"uk","q":"костюм-двійка","main":"two suit","bd":[["noun",["two-piece suit"]]]}
+{"sl":"en","q":"two-piece suit","main":"костюм-двійка","bd":[["noun",["костюм-двійка"]]]}
+{"sl":"uk","q":"костюм-трійка","main":"three-piece suit","bd":[["noun",["three-piece suit"]]]}
+{"sl":"en","q":"three-piece suit","main":"костюм-трійка","bd":[["noun",["костюм-трійка"]]]}
+{"sl":"uk","q":"жіночий брючний костюм","main":"women's trouser suit","bd":[]}
+{"sl":"en","q":"pantsuit","main":"брючний костюм","bd":[]}
+{"sl":"uk","q":"фрак","main":"evening dress","bd":[["noun",["evening dress","dress coat","dress suit","waiters"]]]}
+{"sl":"en","q":"tailcoat","main":"фрак","bd":[]}
+{"sl":"uk","q":"нагрудна хустинка","main":"handkerchief","bd":[]}
+{"sl":"en","q":"pocket square","main":"кишеньковий квадрат","bd":[]}
+{"sl":"uk","q":"пояс до смокінга","main":"tuxedo belt","bd":[]}
+{"sl":"en","q":"cummerbund","main":"каммербунд","bd":[["noun",["пасок","пояс"]]]}
+{"sl":"uk","q":"шкільна форма","main":"school uniform","bd":[]}
+{"sl":"en","q":"school uniform","main":"шкільна форма","bd":[]}
+{"sl":"uk","q":"робоча форма","main":"working form","bd":[]}
+{"sl":"en","q":"work uniform","main":"робоча форма","bd":[]}
+{"sl":"uk","q":"чоловічі труси","main":"men's underpants","bd":[]}
+{"sl":"en","q":"underpants","main":"труси","bd":[["noun",["кальсони"]]]}
+{"sl":"uk","q":"труси-сліпи","main":"blind cowards","bd":[]}
+{"sl":"en","q":"briefs","main":"труси","bd":[["noun",["труси"]]]}
+{"sl":"uk","q":"боксери","main":"boxers","bd":[["noun",["boxer","pugilist","sparrer","bruiser"]]]}
+{"sl":"en","q":"boxers","main":"боксери","bd":[["noun",["боксер"]]]}
+{"sl":"uk","q":"обтислі труси-боксери","main":"tight boxer briefs","bd":[]}
+{"sl":"en","q":"boxer briefs","main":"труси боксери","bd":[]}
+{"sl":"uk","q":"стринги","main":"thong","bd":[]}
+{"sl":"en","q":"thong","main":"стрінги","bd":[["noun",["батіг","ремінь"]]]}
+{"sl":"uk","q":"спортивний бюстгальтер","main":"sports bra","bd":[]}
+{"sl":"en","q":"sports bra","main":"спортивний бюстгальтер","bd":[]}
+{"sl":"uk","q":"бюстгальтер без бретелей","main":"strapless bra","bd":[]}
+{"sl":"en","q":"strapless bra","main":"бюстгальтер без бретелей","bd":[]}
+{"sl":"uk","q":"бралет","main":"bralette","bd":[]}
+{"sl":"en","q":"bralette","main":"бралетт","bd":[]}
+{"sl":"uk","q":"базовий шар одягу","main":"base layer of clothing","bd":[]}
+{"sl":"en","q":"base layer","main":"базовий шар","bd":[]}
+{"sl":"uk","q":"кальсони","main":"pants","bd":[["noun",["pants","underpants","drawers","underdrawers"]]]}
+{"sl":"en","q":"long johns","main":"довгі труси","bd":[]}
+{"sl":"uk","q":"одяг для спортзалу","main":"gym clothes","bd":[]}
+{"sl":"en","q":"gym clothes","main":"спортивний одяг","bd":[]}
+{"sl":"uk","q":"компресійна футболка","main":"compression shirt","bd":[]}
+{"sl":"en","q":"compression shirt","main":"компресійна сорочка","bd":[]}
+{"sl":"uk","q":"компресійні шорти","main":"compression shorts","bd":[]}
+{"sl":"en","q":"compression shorts","main":"компресійні шорти","bd":[]}
+{"sl":"uk","q":"суцільний купальник","main":"one piece swimsuit","bd":[]}
+{"sl":"en","q":"one-piece swimsuit","main":"суцільний купальник","bd":[]}
+{"sl":"uk","q":"чоловічі плавки","main":"men's swimming trunks","bd":[]}
+{"sl":"en","q":"swimming trunks","main":"плавки","bd":[["noun",["плавки"]]]}
+{"sl":"uk","q":"купальні шорти","main":"swimming shorts","bd":[]}
+{"sl":"en","q":"swim shorts","main":"шорти для плавання","bd":[]}
+{"sl":"uk","q":"купальний одяг","main":"swimwear","bd":[]}
+{"sl":"en","q":"swimwear","main":"купальники","bd":[]}
+{"sl":"uk","q":"пляжний одяг","main":"beach wear","bd":[]}
+{"sl":"en","q":"beachwear","main":"пляжний одяг","bd":[]}
+{"sl":"uk","q":"гідрокостюм","main":"diving suit","bd":[["noun",["diving suit"]]]}
+{"sl":"en","q":"wetsuit","main":"гідрокостюм","bd":[["noun",["костюма для дайвінгу"]]]}
+{"sl":"uk","q":"ботильйони","main":"ankle boots","bd":[]}
+{"sl":"en","q":"ankle boots","main":"ботильйони","bd":[]}
+{"sl":"uk","q":"чоботи до коліна","main":"knee high boots","bd":[]}
+{"sl":"en","q":"knee-high boots","main":"чоботи до коліна","bd":[]}
+{"sl":"uk","q":"зимові чоботи","main":"winter boots","bd":[]}
+{"sl":"en","q":"winter boots","main":"зимові черевики","bd":[]}
+{"sl":"uk","q":"туристичні черевики","main":"hiking boots","bd":[]}
+{"sl":"en","q":"hiking boots","main":"туристичне взуття","bd":[]}
+{"sl":"uk","q":"робочі черевики","main":"work boots","bd":[]}
+{"sl":"en","q":"work boots","main":"робочі черевики","bd":[]}
+{"sl":"uk","q":"черевики челсі","main":"Chelsea boots","bd":[]}
+{"sl":"en","q":"Chelsea boots","main":"черевики челсі","bd":[]}
+{"sl":"uk","q":"берці","main":"takers","bd":[]}
+{"sl":"en","q":"combat boots","main":"черевики бойові","bd":[]}
+{"sl":"uk","q":"кросівки","main":"sneakers","bd":[]}
+{"sl":"en","q":"sneakers","main":"кросівки","bd":[["noun",["кеди","кросовки","тапочки","тенісні черевики"]]]}
+{"sl":"uk","q":"бігові кросівки","main":"running shoes","bd":[]}
+{"sl":"en","q":"running shoes","main":"кросівки","bd":[]}
+{"sl":"uk","q":"спортивне взуття","main":"sports shoes","bd":[]}
+{"sl":"en","q":"gym shoes","main":"кеди","bd":[]}
+{"sl":"uk","q":"тенісні кросівки","main":"tennis shoes","bd":[]}
+{"sl":"en","q":"tennis shoes","main":"тенісні туфлі","bd":[]}
+{"sl":"uk","q":"повсякденне взуття","main":"casual shoes","bd":[]}
+{"sl":"en","q":"casual shoes","main":"повсякденне взуття","bd":[]}
+{"sl":"uk","q":"класичні туфлі","main":"classic shoes","bd":[]}
+{"sl":"en","q":"dress shoes","main":"парадне взуття","bd":[]}
+{"sl":"uk","q":"туфлі-оксфорди","main":"oxford shoes","bd":[]}
+{"sl":"en","q":"Oxford shoes","main":"Туфлі-оксфорди","bd":[]}
+{"sl":"uk","q":"туфлі-дербі","main":"derby shoes","bd":[]}
+{"sl":"en","q":"Derby shoes","main":"Туфлі дербі","bd":[]}
+{"sl":"uk","q":"лофери","main":"loafers","bd":[]}
+{"sl":"en","q":"loafers","main":"лофери","bd":[["noun",["туфлі типу мокасин"]]]}
+{"sl":"uk","q":"мокасини","main":"moccasins","bd":[["noun",["moccasins"]]]}
+{"sl":"en","q":"moccasins","main":"мокасини","bd":[["noun",["мокасини"]]]}
+{"sl":"uk","q":"туфлі на підборах","main":"high heels","bd":[]}
+{"sl":"en","q":"high heels","main":"високі підбори","bd":[]}
+{"sl":"uk","q":"класичні жіночі туфлі","main":"classic women's shoes","bd":[]}
+{"sl":"en","q":"pumps","main":"насоси","bd":[["noun",["туфлі-човники"]]]}
+{"sl":"uk","q":"шльопанці з широкою перемичкою","main":"flip flops with a wide bridge","bd":[]}
+{"sl":"en","q":"sliders","main":"повзунки","bd":[]}
+{"sl":"uk","q":"еспадрильї","main":"espadrilles","bd":[]}
+{"sl":"en","q":"espadrilles","main":"еспадрільї","bd":[]}
+{"sl":"uk","q":"взуття на шнурівці","main":"lace-up shoes","bd":[]}
+{"sl":"en","q":"lace-up shoes","main":"черевики на шнурівці","bd":[]}
+{"sl":"uk","q":"взуття на платформі","main":"platform shoes","bd":[]}
+{"sl":"en","q":"platform shoes","main":"взуття на платформі","bd":[]}
+{"sl":"uk","q":"взуття на танкетці","main":"wedge shoes","bd":[]}
+{"sl":"en","q":"wedge shoes","main":"взуття на танкетці","bd":[]}
+{"sl":"uk","q":"босоніж","main":"barefoot","bd":[["adverb",["barefoot"]]]}
+{"sl":"en","q":"barefoot","main":"босоніж","bd":[["adjective",["босий"]],["adverb",["босоніж"]]]}
+{"sl":"uk","q":"зовнішня підошва","main":"outer sole","bd":[]}
+{"sl":"en","q":"outsole","main":"підошва","bd":[["noun",["підметка"]]]}
+{"sl":"uk","q":"проміжна підошва","main":"midsole","bd":[]}
+{"sl":"en","q":"midsole","main":"проміжна підошва","bd":[]}
+{"sl":"uk","q":"високий підбор","main":"high heels","bd":[]}
+{"sl":"en","q":"high heel","main":"високий каблук","bd":[]}
+{"sl":"uk","q":"низький підбор","main":"low heel","bd":[]}
+{"sl":"en","q":"low heel","main":"низький каблук","bd":[]}
+{"sl":"uk","q":"укріплений носок взуття","main":"reinforced shoe toe","bd":[]}
+{"sl":"en","q":"toe cap","main":"носок","bd":[["noun",["носок"]]]}
+{"sl":"uk","q":"ремінець на щиколотці","main":"ankle strap","bd":[]}
+{"sl":"en","q":"ankle strap","main":"ремінь на щиколотці","bd":[]}
+{"sl":"uk","q":"розмір взуття","main":"shoe size","bd":[]}
+{"sl":"en","q":"shoe size","main":"розмір взуття","bd":[]}
+{"sl":"uk","q":"широка колодка","main":"wide pad","bd":[]}
+{"sl":"en","q":"wide fit","main":"широкий крій","bd":[]}
+{"sl":"uk","q":"вузька колодка","main":"narrow pad","bd":[]}
+{"sl":"en","q":"narrow fit","main":"вузький крій","bd":[]}
+{"sl":"uk","q":"нековзний","main":"antiskid","bd":[["adjective",["antiskid","non-slip","non-skid"]]]}
+{"sl":"en","q":"slip-resistant","main":"стійкий до ковзання","bd":[]}
+{"sl":"uk","q":"зношена підошва","main":"worn sole","bd":[]}
+{"sl":"en","q":"worn-out sole","main":"потерта підошва","bd":[]}
+{"sl":"uk","q":"зашнуровувати","main":"lace up","bd":[["verb",["lace up"]]]}
+{"sl":"en","q":"to lace up","main":"зашнурувати","bd":[["verb",["зашнуровувати","шнурувати"]]]}
+{"sl":"uk","q":"бейсболка","main":"baseball cap","bd":[]}
+{"sl":"en","q":"baseball cap","main":"бейсболка","bd":[]}
+{"sl":"uk","q":"тепла в'язана шапка","main":"warm knitted cap","bd":[]}
+{"sl":"en","q":"woolly hat","main":"вовняна шапка","bd":[]}
+{"sl":"uk","q":"панама","main":"Panama","bd":[["noun",["Panama"]]]}
+{"sl":"en","q":"bucket hat","main":"капелюх-відро","bd":[]}
+{"sl":"uk","q":"капелюх від сонця","main":"sun hat","bd":[]}
+{"sl":"en","q":"sun hat","main":"сонцезахисний капелюх","bd":[]}
+{"sl":"uk","q":"балаклава","main":"balaclava","bd":[]}
+{"sl":"en","q":"balaclava","main":"балаклава","bd":[]}
+{"sl":"uk","q":"хустка на голову","main":"headscarf","bd":[]}
+{"sl":"en","q":"headscarf","main":"хустка","bd":[["noun",["головна хустка"]]]}
+{"sl":"uk","q":"шаль","main":"shawl","bd":[["noun",["shawl","whittle"]]]}
+{"sl":"en","q":"shawl","main":"шаль","bd":[["noun",["хустка","шаль"]]]}
+{"sl":"uk","q":"підтяжки","main":"suspenders","bd":[["noun",["suspenders","brace"]]]}
+{"sl":"en","q":"suspenders","main":"підтяжки","bd":[["noun",["підтяжки"]]]}
+{"sl":"uk","q":"оправа окулярів","main":"glasses frame","bd":[]}
+{"sl":"en","q":"eyeglass frame","main":"оправа для окулярів","bd":[]}
+{"sl":"uk","q":"сумка через плече","main":"shoulder bag","bd":[]}
+{"sl":"en","q":"shoulder bag","main":"сумка через плече","bd":[]}
+{"sl":"uk","q":"сумка крос-боді","main":"cross body bag","bd":[]}
+{"sl":"en","q":"crossbody bag","main":"сумка через плече","bd":[]}
+{"sl":"uk","q":"сумка-шопер","main":"shopping bag","bd":[]}
+{"sl":"en","q":"tote bag","main":"сумка","bd":[]}
+{"sl":"uk","q":"дорожня спортивна сумка","main":"travel sports bag","bd":[]}
+{"sl":"en","q":"duffel bag","main":"речовий мішок","bd":[]}
+{"sl":"uk","q":"поясна сумка","main":"belt bag","bd":[]}
+{"sl":"en","q":"waist bag","main":"поясна сумка","bd":[]}
+{"sl":"uk","q":"гаманець для монет","main":"coin purse","bd":[]}
+{"sl":"en","q":"coin purse","main":"гаманець для монет","bd":[]}
+{"sl":"uk","q":"брелок","main":"keychain","bd":[["noun",["key ring"]]]}
+{"sl":"en","q":"keychain","main":"брелок","bd":[]}
+{"sl":"uk","q":"обручка","main":"wedding ring","bd":[["noun",["wedding ring","circlet"]]]}
+{"sl":"en","q":"wedding ring","main":"обручку","bd":[["noun",["каблучка","обручка"]]]}
+{"sl":"uk","q":"заручальна каблучка","main":"wedding ring","bd":[]}
+{"sl":"en","q":"engagement ring","main":"обручка","bd":[]}
+{"sl":"uk","q":"перстень-печатка","main":"signet ring","bd":[]}
+{"sl":"en","q":"signet ring","main":"перстень з печаткою","bd":[]}
+{"sl":"uk","q":"сережки-кільця","main":"earrings-rings","bd":[]}
+{"sl":"en","q":"hoop earrings","main":"сережки кільця","bd":[]}
+{"sl":"uk","q":"затискач для краватки","main":"tie clip","bd":[]}
+{"sl":"en","q":"tie clip","main":"затиск для краватки","bd":[]}
+{"sl":"uk","q":"ремінець годинника","main":"watch strap","bd":[]}
+{"sl":"en","q":"watch strap","main":"ремінець для годинника","bd":[]}
+{"sl":"uk","q":"циферблат","main":"dial","bd":[["noun",["dial","clockface"]]]}
+{"sl":"en","q":"watch face","main":"циферблат","bd":[]}
+{"sl":"uk","q":"шкала приладу","main":"instrument scale","bd":[]}
+{"sl":"en","q":"dial","main":"циферблат","bd":[["noun",["диск","циферблат","кругова шкала","шкала"]],["verb",["набирати","набрати","набрати номер","робити поділки"]]]}
+{"sl":"uk","q":"застібка прикраси","main":"jewelry clasp","bd":[]}
+{"sl":"en","q":"clasp","main":"застібка","bd":[["noun",["запинка","застібка","затискач","обійми","потиск","пряжка","клямра","стискання"]],["verb",["застібати","затискати","надівати","охоплювати","притискувати","стискати","обіймати","притиснути"]]]}
+{"sl":"uk","q":"дорогоцінний камінь","main":"precious stone","bd":[]}
+{"sl":"en","q":"gemstone","main":"дорогоцінний камінь","bd":[["noun",["коштовне каміння","камінь","коштовний камінь"]]]}
+{"sl":"uk","q":"біжутерія","main":"imitation jewelry","bd":[["noun",["imitation jewelry"]]]}
+{"sl":"en","q":"costume jewelry","main":"біжутерія","bd":[]}
+{"sl":"uk","q":"комір сорочки","main":"shirtband","bd":[["noun",["shirtband"]]]}
+{"sl":"en","q":"shirt collar","main":"комір сорочки","bd":[]}
+{"sl":"uk","q":"круглий виріз","main":"round cut","bd":[]}
+{"sl":"en","q":"crew neck","main":"круглий виріз","bd":[]}
+{"sl":"uk","q":"нагрудна кишеня","main":"breast pocket","bd":[]}
+{"sl":"en","q":"chest pocket","main":"нагрудна кишеня","bd":[]}
+{"sl":"uk","q":"бічна кишеня","main":"side pocket","bd":[]}
+{"sl":"en","q":"side pocket","main":"бічна кишеня","bd":[]}
+{"sl":"uk","q":"задня кишеня","main":"back pocket","bd":[]}
+{"sl":"en","q":"back pocket","main":"задня кишеня","bd":[]}
+{"sl":"uk","q":"внутрішня кишеня","main":"inner pocket","bd":[]}
+{"sl":"en","q":"inside pocket","main":"внутрішня кишеня","bd":[]}
+{"sl":"uk","q":"кишеня на блискавці","main":"zippered pocket","bd":[]}
+{"sl":"en","q":"zip pocket","main":"кишеня на блискавці","bd":[]}
+{"sl":"uk","q":"шльовка для ременя","main":"belt buckle","bd":[]}
+{"sl":"en","q":"belt loop","main":"петля для ременя","bd":[]}
+{"sl":"uk","q":"набивка","main":"stuffing","bd":[["noun",["stuffing","padding","wadding"]]]}
+{"sl":"en","q":"padding","main":"оббивка","bd":[["noun",["багатослівність","набивання","набивка","підкладка"]]]}
+{"sl":"uk","q":"підплічник","main":"shoulder pad","bd":[]}
+{"sl":"en","q":"shoulder pad","main":"підплечник","bd":[]}
+{"sl":"uk","q":"тонка бретель","main":"thin strap","bd":[]}
+{"sl":"en","q":"spaghetti strap","main":"ремінець спагетті","bd":[]}
+{"sl":"uk","q":"язичок блискавки","main":"lightning bolt","bd":[]}
+{"sl":"en","q":"zip pull","main":"блискавка","bd":[]}
+{"sl":"uk","q":"кнопка-застібка","main":"button-fastener","bd":[]}
+{"sl":"en","q":"snap fastener","main":"застібка-застібка","bd":[]}
+{"sl":"uk","q":"липучка","main":"velcro","bd":[]}
+{"sl":"en","q":"Velcro","main":"липучки","bd":[]}
+{"sl":"uk","q":"шнурок-затяжка","main":"drawstring","bd":[]}
+{"sl":"en","q":"drawstring","main":"шнурок","bd":[]}
+{"sl":"uk","q":"резинка","main":"rubber band","bd":[]}
+{"sl":"en","q":"elastic band","main":"гумка","bd":[]}
+{"sl":"uk","q":"ярлик з доглядом","main":"label with care","bd":[]}
+{"sl":"en","q":"care label","main":"етикетка догляду","bd":[]}
+{"sl":"uk","q":"ярлик із розміром","main":"label with size","bd":[]}
+{"sl":"en","q":"size tag","main":"тег розміру","bd":[]}
+{"sl":"uk","q":"органічна бавовна","main":"organic cotton","bd":[]}
+{"sl":"en","q":"organic cotton","main":"органічна бавовна","bd":[]}
+{"sl":"uk","q":"лляна тканина","main":"linen fabric","bd":[]}
+{"sl":"en","q":"linen","main":"білизна","bd":[["adjective",["лляний","льняний","полотняний"]],["noun",["лляне полотно","льон","полотно"]]]}
+{"sl":"uk","q":"мериносова вовна","main":"merino wool","bd":[]}
+{"sl":"en","q":"merino wool","main":"шерсть мериноса","bd":[]}
+{"sl":"uk","q":"кашемір","main":"cashmere","bd":[["noun",["cashmere","kashmir","kerseymere"]]]}
+{"sl":"en","q":"cashmere","main":"кашемір","bd":[["noun",["вовняна пряжа","кашемір","кашемірова шаль"]]]}
+{"sl":"uk","q":"сатин","main":"sateen","bd":[["noun",["sateen"]]]}
+{"sl":"en","q":"satin","main":"сатин","bd":[["adjective",["атласний","шовковистий"]],["noun",["атлас","джин","лунарія"]],["verb",["глянсувати","сатинувати"]]]}
+{"sl":"uk","q":"оксамит","main":"velvet","bd":[["noun",["velvet"]]]}
+{"sl":"en","q":"velvet","main":"оксамит","bd":[["adjective",["аксамитний","густий","оксамитовий","бархатистий"]],["noun",["аксамит","бархатистість","оксамит","шовк","вельвет"]]]}
+{"sl":"uk","q":"вельвет","main":"velvet","bd":[["noun",["velvet","fustian"]]]}
+{"sl":"en","q":"corduroy","main":"вельвет","bd":[["noun",["вельветові брюки","рубчастий вельвет","брусована дорога"]]]}
+{"sl":"uk","q":"замша","main":"suede","bd":[["noun",["suede","chamois","doeskin","shammy","deerskin","shammy leather"]]]}
+{"sl":"en","q":"suede","main":"замша","bd":[["noun",["замша"]]]}
+{"sl":"uk","q":"штучна шкіра","main":"artificial leather","bd":[]}
+{"sl":"en","q":"faux leather","main":"штучна шкіра","bd":[]}
+{"sl":"uk","q":"штучне хутро","main":"artificial fur","bd":[["noun",["chinchilla"]]]}
+{"sl":"en","q":"faux fur","main":"штучне хутро","bd":[]}
+{"sl":"uk","q":"трикотаж","main":"jersey","bd":[["noun",["jersey","knitwear","knitted fabric","knit","knitted goods"]]]}
+{"sl":"en","q":"knitwear","main":"трикотаж","bd":[["noun",["трикотаж","трикотажні вироби"]]]}
+{"sl":"uk","q":"шифон","main":"chiffon","bd":[["noun",["chiffon"]]]}
+{"sl":"en","q":"chiffon","main":"шифон","bd":[["noun",["жіноче убрання","шифон"]]]}
+{"sl":"uk","q":"нейлон","main":"nylon","bd":[["noun",["nylon"]]]}
+{"sl":"en","q":"nylon","main":"нейлон","bd":[["adjective",["нейлоновий"]],["noun",["нейлон","нейлонові панчохи"]]]}
+{"sl":"uk","q":"поліестер","main":"polyester","bd":[["noun",["polyester"]]]}
+{"sl":"en","q":"polyester","main":"поліестер","bd":[["noun",["поліестер"]]]}
+{"sl":"uk","q":"акрил","main":"acrylic","bd":[["noun",["acrylic"]]]}
+{"sl":"en","q":"acrylic","main":"акрилові","bd":[["adjective",["акриловий"]],["noun",["акрил","акрилова смола","фарба"]]]}
+{"sl":"uk","q":"віскоза","main":"viscose","bd":[["noun",["viscose","rayon"]]]}
+{"sl":"en","q":"viscose","main":"віскоза","bd":[["adjective",["віскозний"]],["noun",["віскоза"]]]}
+{"sl":"uk","q":"еластан","main":"elastane","bd":[]}
+{"sl":"en","q":"elastane","main":"еластан","bd":[]}
+{"sl":"uk","q":"мікрофібра","main":"microfiber","bd":[]}
+{"sl":"en","q":"microfiber","main":"мікрофібра","bd":[]}
+{"sl":"uk","q":"водостійка тканина","main":"waterproof fabric","bd":[]}
+{"sl":"en","q":"water-resistant fabric","main":"водостійка тканина","bd":[]}
+{"sl":"uk","q":"дихаюча тканина","main":"breathable fabric","bd":[]}
+{"sl":"en","q":"breathable fabric","main":"дихаюча тканина","bd":[]}
+{"sl":"uk","q":"еластична тканина","main":"elastic fabric","bd":[]}
+{"sl":"en","q":"stretch fabric","main":"стрейч тканина","bd":[]}
+{"sl":"uk","q":"однотонний","main":"plain","bd":[["adjective",["shadeless","self-coloured","self-colored"]]]}
+{"sl":"en","q":"solid-colored","main":"однотонний","bd":[]}
+{"sl":"uk","q":"з візерунком","main":"with a pattern","bd":[]}
+{"sl":"en","q":"patterned","main":"візерунчасті","bd":[["adjective",["узорчастий"]]]}
+{"sl":"uk","q":"квітковий","main":"floral","bd":[["adjective",["floral","flowery","angiospermous"]]]}
+{"sl":"en","q":"floral","main":"квітковий","bd":[["adjective",["квітковий","рослинний"]]]}
+{"sl":"uk","q":"тваринний принт","main":"animal print","bd":[]}
+{"sl":"en","q":"animal print","main":"тваринний принт","bd":[]}
+{"sl":"uk","q":"геометричний візерунок","main":"geometric pattern","bd":[]}
+{"sl":"en","q":"geometric pattern","main":"геометричний малюнок","bd":[]}
+{"sl":"uk","q":"абстрактний візерунок","main":"abstract pattern","bd":[]}
+{"sl":"en","q":"abstract pattern","main":"абстрактний візерунок","bd":[]}
+{"sl":"uk","q":"вишитий","main":"embroidered","bd":[["adjective",["embroidered"]]]}
+{"sl":"en","q":"embroidered","main":"вишиті","bd":[["adjective",["вишитий","мережаний"]]]}
+{"sl":"uk","q":"паєтки","main":"sequins","bd":[]}
+{"sl":"en","q":"sequins","main":"блискітки","bd":[["noun",["блискітка на сукні"]]]}
+{"sl":"uk","q":"намистини","main":"beads","bd":[["noun",["bead"]]]}
+{"sl":"en","q":"beads","main":"намистини","bd":[["noun",["бісер","вервиця"]]]}
+{"sl":"uk","q":"стрази","main":"rhinestones","bd":[["noun",["strass"]]]}
+{"sl":"en","q":"rhinestones","main":"стрази","bd":[["noun",["штучний діамант","гірський кришталь"]]]}
+{"sl":"uk","q":"бахрома","main":"fringe","bd":[["noun",["fringe","knotting","macrame","thrum"]]]}
+{"sl":"en","q":"fringe","main":"бахрома","bd":[["noun",["бахрома","кайма","криска"]],["verb",["прикрашати бахромою","облямовувати"]]]}
+{"sl":"uk","q":"оборка","main":"frill","bd":[["noun",["frill","ruffle","furbelow","flounce"]]]}
+{"sl":"en","q":"ruffle","main":"волан","bd":[["noun",["брижі","менкет","оборка"]],["verb",["брижити","скуйовдити","гофрувати","схвилювати","кошлатити","хвилювати"]]]}
+{"sl":"uk","q":"вицвілий","main":"faded","bd":[]}
+{"sl":"en","q":"faded","main":"вицвілий","bd":[["adjective",["бляклий","збляклий","зів'ялий","побляклий"]]]}
+{"sl":"uk","q":"штучно зістарений","main":"artificially aged","bd":[]}
+{"sl":"en","q":"distressed","main":"засмучений","bd":[["adjective",["заклопотаний","злигодній","що зазнає лиха"]]]}
+{"sl":"uk","q":"поєднувані кольори","main":"combined colors","bd":[]}
+{"sl":"en","q":"matching colors","main":"відповідні кольори","bd":[]}
+{"sl":"uk","q":"контрастні кольори","main":"contrasting colors","bd":[]}
+{"sl":"en","q":"contrasting colors","main":"контрастні кольори","bd":[]}
+{"sl":"uk","q":"розмір одягу","main":"clothing size","bd":[]}
+{"sl":"en","q":"clothing size","main":"розмір одягу","bd":[]}
+{"sl":"uk","q":"відповідає стандартному розміру","main":"corresponds to the standard size","bd":[]}
+{"sl":"en","q":"true to size","main":"відповідає розміру","bd":[]}
+{"sl":"uk","q":"єдиний універсальний розмір","main":"one universal size","bd":[]}
+{"sl":"en","q":"one size","main":"один розмір","bd":[]}
+{"sl":"uk","q":"великий розмір","main":"large size","bd":[["noun",["largeness"]]]}
+{"sl":"en","q":"plus size","main":"великий розмір","bd":[]}
+{"sl":"uk","q":"розмір для високого зросту","main":"size for tall height","bd":[]}
+{"sl":"en","q":"tall size","main":"високий розмір","bd":[]}
+{"sl":"uk","q":"стандартна посадка","main":"standard landing","bd":[]}
+{"sl":"en","q":"regular fit","main":"регулярна посадка","bd":[]}
+{"sl":"uk","q":"приталена посадка","main":"fitted fit","bd":[]}
+{"sl":"en","q":"slim fit","main":"тонкий крій","bd":[]}
+{"sl":"uk","q":"дуже обтисла посадка","main":"very tight fit","bd":[]}
+{"sl":"en","q":"skinny fit","main":"худий крій","bd":[]}
+{"sl":"uk","q":"вільна посадка","main":"free landing","bd":[]}
+{"sl":"en","q":"relaxed fit","main":"розслаблена посадка","bd":[]}
+{"sl":"uk","q":"вільний крій","main":"free cut","bd":[]}
+{"sl":"en","q":"loose fit","main":"вільний крій","bd":[]}
+{"sl":"uk","q":"оверсайз","main":"oversized","bd":[]}
+{"sl":"en","q":"oversized","main":"негабаритний","bd":[["adjective",["завищеного габариту"]]]}
+{"sl":"uk","q":"прямого крою","main":"straight cut","bd":[]}
+{"sl":"en","q":"straight-cut","main":"прямого крою","bd":[]}
+{"sl":"uk","q":"з високою посадкою","main":"with a high fit","bd":[]}
+{"sl":"en","q":"high-waisted","main":"з високою талією","bd":[]}
+{"sl":"uk","q":"із середньою посадкою","main":"with an average fit","bd":[]}
+{"sl":"en","q":"mid-rise","main":"середньої висоти","bd":[]}
+{"sl":"uk","q":"з низькою посадкою","main":"with a low landing","bd":[]}
+{"sl":"en","q":"low-rise","main":"малоповерхова","bd":[]}
+{"sl":"uk","q":"до коліна","main":"to the knee","bd":[]}
+{"sl":"en","q":"knee-length","main":"довжиною до коліна","bd":[]}
+{"sl":"uk","q":"до щиколотки","main":"to the ankle","bd":[]}
+{"sl":"en","q":"ankle-length","main":"довжиною до щиколотки","bd":[]}
+{"sl":"uk","q":"повної довжини","main":"full length","bd":[]}
+{"sl":"en","q":"full-length","main":"повнометражний","bd":[]}
+{"sl":"uk","q":"завеликий","main":"too big","bd":[["adjective",["too tall"]]]}
+{"sl":"en","q":"too big","main":"занадто великий","bd":[]}
+{"sl":"uk","q":"замалий","main":"too small","bd":[["adjective",["skimpy"]]]}
+{"sl":"en","q":"too small","main":"занадто малий","bd":[]}
+{"sl":"uk","q":"надто тісний","main":"too tight","bd":[]}
+{"sl":"en","q":"too tight","main":"занадто туго","bd":[["adjective",["затісний"]]]}
+{"sl":"uk","q":"надто вільний","main":"too loose","bd":[]}
+{"sl":"en","q":"too loose","main":"занадто вільний","bd":[]}
+{"sl":"uk","q":"пасувати до","main":"pass to","bd":[]}
+{"sl":"en","q":"to go with","main":"піти з","bd":[["verb",["супроводити"]]]}
+{"sl":"uk","q":"абсолютно новий","main":"brand new","bd":[]}
+{"sl":"en","q":"brand-new","main":"абсолютно новий","bd":[["adjective",["новісінький"]]]}
+{"sl":"uk","q":"секонд-хенд","main":"second hand","bd":[]}
+{"sl":"en","q":"second-hand","main":"секонд-хенд","bd":[["adjective",["другорозрядний","уживаний","запозичений"]],["noun",["посередник","секундна стрілка"]]]}
+{"sl":"uk","q":"у плямах","main":"in spots","bd":[]}
+{"sl":"en","q":"stained","main":"пофарбований","bd":[["adjective",["забруднений","заплямований","морений","пофарбований"]]]}
+{"sl":"uk","q":"пом'ятий","main":"crumpled","bd":[["adjective",["crumpled","creasy"]]]}
+{"sl":"en","q":"wrinkled","main":"зморшкуватий","bd":[["adjective",["збабчений","зморшкуватий","зморщений","м'ятий","насуплений","складчастий"]]]}
+{"sl":"uk","q":"порваний","main":"torn","bd":[["adjective",["torn","ragged"]]]}
+{"sl":"en","q":"torn","main":"порваний","bd":[["adjective",["драний","подертий","порваний","рваний"]]]}
+{"sl":"uk","q":"розірваний","main":"ruptured","bd":[["adjective",["ruptured","disrupt"]]]}
+{"sl":"en","q":"ripped","main":"розірваний","bd":[["adjective",["випорений"]]]}
+{"sl":"uk","q":"повністю зношений","main":"completely worn out","bd":[]}
+{"sl":"en","q":"worn-out","main":"зношений","bd":[["adjective",["вимотаний","виснажений","застарілий","змучений","ношений","потертий","стертий","стомлений"]]]}
+{"sl":"uk","q":"той, що сів після прання","main":"the one that sat down after washing","bd":[]}
+{"sl":"en","q":"shrunken","main":"зморщений","bd":[["adjective",["зіщулений","зморщений"]]]}
+{"sl":"uk","q":"розтягнутий","main":"stretched","bd":[["adjective",["protracted","lengthy","outstretched","bagged","redundant"]]]}
+{"sl":"en","q":"stretched","main":"розтягнутий","bd":[["adjective",["напружений"]]]}
+{"sl":"uk","q":"обтріпаний по краях","main":"frayed around the edges","bd":[]}
+{"sl":"en","q":"frayed","main":"потертий","bd":[["adjective",["обшарпаний","поношений","потертий"]]]}
+{"sl":"uk","q":"пошкоджений","main":"injured","bd":[["adjective",["injured","faulty"]]]}
+{"sl":"en","q":"damaged","main":"пошкоджений","bd":[["verb",["забити","підбити","пошкоджувати","ушкоджувати","шкодити","завдавати збитків","травити","збавляти"]]]}
+{"sl":"uk","q":"зламана блискавка","main":"broken zipper","bd":[]}
+{"sl":"en","q":"broken zipper","main":"зламана блискавка","bd":[]}
+{"sl":"uk","q":"залом","main":"hall","bd":[["noun",["hall","saloon","chamber","salle","aula"]]]}
+{"sl":"en","q":"crease","main":"складка","bd":[["noun",["гребінь даху","згин","складка","зморшка"]],["verb",["загинатися","м'ятися","робити складки","морщити","набрижжувати"]]]}
+{"sl":"uk","q":"ворсинки","main":"villi","bd":[]}
+{"sl":"en","q":"lint","main":"ворсинки","bd":[["noun",["волокно бавовнику"]]]}
+{"sl":"uk","q":"інструкції з прання","main":"washing instructions","bd":[]}
+{"sl":"en","q":"washing instructions","main":"інструкції з прання","bd":[]}
+{"sl":"uk","q":"придатний для машинного прання","main":"suitable for machine washing","bd":[]}
+{"sl":"en","q":"machine-washable","main":"машинне прання","bd":[]}
+{"sl":"uk","q":"ручне прання","main":"handwash","bd":[["noun",["handwash"]]]}
+{"sl":"en","q":"hand wash","main":"ручне прання","bd":[["noun",["ручне прання"]]]}
+{"sl":"uk","q":"лише хімчистка","main":"dry cleaning only","bd":[]}
+{"sl":"en","q":"dry-clean only","main":"тільки хімчистка","bd":[["phrase",["Тільки для хімчистки"]]]}
+{"sl":"uk","q":"хімчистка","main":"dry cleaner's","bd":[["noun",["dry cleaner's"]]]}
+{"sl":"en","q":"dry cleaning","main":"хімчистка","bd":[["noun",["хімічна чистка"]]]}
+{"sl":"uk","q":"зашивати","main":"sew up","bd":[["verb",["sew up","mend","needle","suture"]]]}
+{"sl":"en","q":"to mend","main":"виправити","bd":[["verb",["вилатати","заладнати","поліпшувати","зашивати","поліпшуватися","лагодити","штопати","ладнати"]]]}
+{"sl":"uk","q":"магазин одягу","main":"clothing store","bd":[]}
+{"sl":"en","q":"clothes shop","main":"магазин одягу","bd":[]}
+{"sl":"uk","q":"магазин взуття","main":"shoe store","bd":[]}
+{"sl":"en","q":"shoe shop","main":"взуттєва майстерня","bd":[]}
+{"sl":"uk","q":"примірочна","main":"fitting room","bd":[["noun",["fitting room"]]]}
+{"sl":"en","q":"changing room","main":"роздягальня","bd":[]}
+{"sl":"uk","q":"продавець-консультант","main":"seller-consultant","bd":[]}
+{"sl":"en","q":"shop assistant","main":"продавець магазину","bd":[]}
+{"sl":"uk","q":"таблиця розмірів","main":"size chart","bd":[]}
+{"sl":"en","q":"size chart","main":"таблиця розмірів","bd":[]}
+{"sl":"uk","q":"цінник","main":"price tag","bd":[]}
+{"sl":"en","q":"price tag","main":"цінник","bd":[]}
+{"sl":"uk","q":"правила повернення","main":"return policy","bd":[]}
+{"sl":"en","q":"return policy","main":"політика повернення","bd":[]}
+{"sl":"uk","q":"швачка","main":"seamstress","bd":[["noun",["seamstress","needlewoman","dressmaker","sewer"]]]}
+{"sl":"en","q":"seamstress","main":"швачка","bd":[["noun",["швачка"]]]}
+{"sl":"uk","q":"підгонка одягу","main":"fitting clothes","bd":[]}
+{"sl":"en","q":"alteration","main":"зміна","bd":[["noun",["деформація","зміна","перебудова","переміна","переробка"]]]}
+{"sl":"uk","q":"пошитий за мірками","main":"made to measure","bd":[]}
+{"sl":"en","q":"made-to-measure","main":"виготовлений на замовлення","bd":[["adjective",["пошитий за міркою"]]]}
+{"sl":"uk","q":"виготовлений на замовлення","main":"custom","bd":[["adjective",["custom","custom-made","tailor-made"]]]}
+{"sl":"en","q":"custom-made","main":"на замовлення","bd":[["adjective",["виготовлений на замовлення"]]]}
+{"sl":"uk","q":"фізична зовнішність","main":"physical appearance","bd":[]}
+{"sl":"en","q":"physical appearance","main":"зовнішній вигляд","bd":[]}
+{"sl":"uk","q":"гарний на вигляд","main":"sightly","bd":[["adjective",["sightly"]]]}
+{"sl":"en","q":"good-looking","main":"гарний на вигляд","bd":[["adjective",["вродливий","гарний"]]]}
+{"sl":"uk","q":"доглянутий","main":"well-groomed","bd":[]}
+{"sl":"en","q":"well-groomed","main":"доглянутий","bd":[["adjective",["випестуваний","пещений"]]]}
+{"sl":"uk","q":"недоглянутий","main":"unkempt","bd":[]}
+{"sl":"en","q":"scruffy","main":"пошарпаний","bd":[["adjective",["неохайний","нечесаний"]]]}
+{"sl":"uk","q":"середнього зросту","main":"medium height","bd":[]}
+{"sl":"en","q":"average height","main":"середній зріст","bd":[]}
+{"sl":"uk","q":"середньої статури","main":"medium build","bd":[]}
+{"sl":"en","q":"average build","main":"середньої статури","bd":[]}
+{"sl":"uk","q":"міцної статури","main":"strong build","bd":[]}
+{"sl":"en","q":"well-built","main":"добре складений","bd":[["adjective",["добре збудований","ставний"]]]}
+{"sl":"uk","q":"мускулистий","main":"muscular","bd":[["adjective",["muscular"]]]}
+{"sl":"en","q":"muscular","main":"м'язовий","bd":[["adjective",["мускулистий","мускульний","мускулярний","мускулястий"]]]}
+{"sl":"uk","q":"атлетичний","main":"athletic","bd":[["adjective",["athletic","agonistic"]]]}
+{"sl":"en","q":"athletic","main":"спортивний","bd":[["adjective",["атлетичний","мускулястий","сильний","спортивний"]]]}
+{"sl":"uk","q":"широкоплечий","main":"broad-shouldered","bd":[["adjective",["broad-shouldered"]]]}
+{"sl":"en","q":"broad-shouldered","main":"широкоплечий","bd":[["adjective",["широкоплечий"]]]}
+{"sl":"uk","q":"коренастий","main":"punch","bd":[["adjective",["stubby","sturdy","stumpy","punch","thick-set"]]]}
+{"sl":"en","q":"stocky","main":"кремезний","bd":[["adjective",["кремезний","присадкуватий"]]]}
+{"sl":"uk","q":"повненький","main":"plump","bd":[]}
+{"sl":"en","q":"plump","main":"пухкий","bd":[["adjective",["огрядний","повновагий","пухлий"]],["adverb",["зненацька","прямо","несподівано"]],["noun",["важке падіння","сплеск"]],["verb",["бухати","роздуватися","ускочити","бухатися","відгодовувати","влучити"]]]}
+{"sl":"uk","q":"із зайвою вагою","main":"with excess weight","bd":[]}
+{"sl":"en","q":"overweight","main":"надмірна вага","bd":[["noun",["надлишкова вага","перевага","зайвина ваги","переважання"]],["verb",["обтяжувати","перевантажувати"]]]}
+{"sl":"uk","q":"із виразними формами","main":"with expressive forms","bd":[]}
+{"sl":"en","q":"curvy","main":"пишні","bd":[]}
+{"sl":"uk","q":"фігура «пісочний годинник»","main":"hourglass shape","bd":[]}
+{"sl":"en","q":"hourglass figure","main":"фігура пісочного годинника","bd":[]}
+{"sl":"uk","q":"пряма постава","main":"straight posture","bd":[]}
+{"sl":"en","q":"upright posture","main":"вертикальна постава","bd":[]}
+{"sl":"uk","q":"сутулитися","main":"slouch","bd":[["verb",["slouch","stoop","hump"]]]}
+{"sl":"en","q":"to slouch","main":"сутулитися","bd":[["verb",["насувати на чоло","сутулитися"]]]}
+{"sl":"uk","q":"риси обличчя","main":"features","bd":[["noun",["features"]]]}
+{"sl":"en","q":"facial features","main":"риси обличчя","bd":[]}
+{"sl":"uk","q":"різкі риси обличчя","main":"sharp facial features","bd":[]}
+{"sl":"en","q":"sharp features","main":"гострі риси обличчя","bd":[]}
+{"sl":"uk","q":"м'які риси обличчя","main":"soft facial features","bd":[]}
+{"sl":"en","q":"soft features","main":"м'які риси","bd":[]}
+{"sl":"uk","q":"колір і стан шкіри обличчя","main":"color and condition of the skin of the face","bd":[]}
+{"sl":"en","q":"complexion","main":"колір обличчя","bd":[["noun",["аспект","вид","колір обличчя"]]]}
+{"sl":"uk","q":"світлий колір шкіри","main":"light skin color","bd":[]}
+{"sl":"en","q":"fair complexion","main":"світлий колір обличчя","bd":[]}
+{"sl":"uk","q":"смаглявий колір шкіри","main":"dark skin color","bd":[]}
+{"sl":"en","q":"dark complexion","main":"темний колір обличчя","bd":[]}
+{"sl":"uk","q":"засмаглий","main":"sunburnt","bd":[["adjective",["sunburnt","parched","adust","weather-beaten"]]]}
+{"sl":"en","q":"tanned","main":"засмаглі","bd":[["adjective",["вичинений","смаглявий","смуглявий"]]]}
+{"sl":"uk","q":"гладко поголений","main":"clean shaven","bd":[]}
+{"sl":"en","q":"clean-shaven","main":"чисто поголений","bd":[]}
+{"sl":"uk","q":"бородатий","main":"bearded","bd":[["adjective",["bearded","barbate"]]]}
+{"sl":"en","q":"bearded","main":"бородатий","bd":[["adjective",["бородатий","волосатий","покритий колючками"]]]}
+{"sl":"uk","q":"зачіска","main":"hairdo","bd":[["noun",["hairdo","coiffure","headdress","comb-out"]]]}
+{"sl":"en","q":"hairstyle","main":"зачіска","bd":[]}
+{"sl":"uk","q":"стрижка","main":"haircut","bd":[["noun",["haircut","cut","clipping","haircutting","clip"]]]}
+{"sl":"en","q":"haircut","main":"стрижка","bd":[["noun",["стрижка"]]]}
+{"sl":"uk","q":"волосся до плечей","main":"shoulder length hair","bd":[]}
+{"sl":"en","q":"shoulder-length hair","main":"волосся до плечей","bd":[]}
+{"sl":"uk","q":"волосся середньої довжини","main":"medium length hair","bd":[]}
+{"sl":"en","q":"medium-length hair","main":"волосся середньої довжини","bd":[]}
+{"sl":"uk","q":"хвилясте волосся","main":"wavy hair","bd":[]}
+{"sl":"en","q":"wavy hair","main":"хвилясте волосся","bd":[]}
+{"sl":"uk","q":"кучеряве волосся","main":"curly hair","bd":[]}
+{"sl":"en","q":"curly hair","main":"кучеряве волосся","bd":[]}
+{"sl":"uk","q":"дуже кучеряве волосся","main":"very curly hair","bd":[]}
+{"sl":"en","q":"coily hair","main":"кучеряве волосся","bd":[]}
+{"sl":"uk","q":"густе волосся","main":"thick hair","bd":[]}
+{"sl":"en","q":"thick hair","main":"густе волосся","bd":[]}
+{"sl":"uk","q":"негусте волосся","main":"thin hair","bd":[]}
+{"sl":"en","q":"thin hair","main":"тонке волосся","bd":[]}
+{"sl":"uk","q":"тонке волосся","main":"thin hair","bd":[]}
+{"sl":"en","q":"fine hair","main":"тонке волосся","bd":[]}
+{"sl":"uk","q":"світле волосся","main":"blonde hair","bd":[["noun",["towhead"]]]}
+{"sl":"en","q":"fair hair","main":"світле волосся","bd":[]}
+{"sl":"uk","q":"брюнетка","main":"brunette","bd":[["noun",["brunette"]]]}
+{"sl":"en","q":"brunette","main":"брюнетка","bd":[["noun",["брюнетка"]]]}
+{"sl":"uk","q":"руда людина","main":"redhead man","bd":[]}
+{"sl":"en","q":"redhead","main":"рудий","bd":[["adjective",["рудий","рудоволосий"]]]}
+{"sl":"uk","q":"фарбоване волосся","main":"dyed hair","bd":[]}
+{"sl":"en","q":"dyed hair","main":"фарбоване волосся","bd":[]}
+{"sl":"uk","q":"бічний проділ","main":"side parting","bd":[]}
+{"sl":"en","q":"side part","main":"бічна частина","bd":[]}
+{"sl":"uk","q":"дреди","main":"dreadlocks","bd":[]}
+{"sl":"en","q":"dreadlocks","main":"дреди","bd":[]}
+{"sl":"uk","q":"дуже коротка стрижка машинкою","main":"very short haircut with a machine","bd":[]}
+{"sl":"en","q":"buzz cut","main":"вирізка","bd":[]}
+{"sl":"uk","q":"андеркат","main":"undercut","bd":[]}
+{"sl":"en","q":"undercut","main":"підрізати","bd":[["noun",["вирізка","підсікання","підрізання"]],["verb",["підрізувати","підсікати"]]]}
+{"sl":"uk","q":"каре","main":"square","bd":[["adjective",["brown","hazel"]]]}
+{"sl":"en","q":"bob","main":"боб","bd":[["adjective",["веселий","жвавий","підрізаний","підстрижений"]],["adverb",["раптово","хутко","швидко"]],["noun",["бант","вузол","завиток","кучер","підвісок","поплавець","приспів","легкий удар"]],["verb",["вудити","гойдатися","кататися з гір","обманювати","підстрибувати","присідати","танцювати","коротко підрізати хвіст"]]]}
+{"sl":"uk","q":"барбершоп","main":"barber shop","bd":[]}
+{"sl":"en","q":"barbershop","main":"перукарня","bd":[["noun",["перукарня"]]]}
+{"sl":"uk","q":"перукарський салон","main":"hairdressing salon","bd":[]}
+{"sl":"en","q":"hair salon","main":"перукарня","bd":[]}
+{"sl":"uk","q":"випрямляч для волосся","main":"hair straightener","bd":[]}
+{"sl":"en","q":"hair straightener","main":"праска для волосся","bd":[]}
+{"sl":"uk","q":"плойка","main":"curling iron","bd":[]}
+{"sl":"en","q":"curling iron","main":"плойка","bd":[]}
+{"sl":"uk","q":"заколка","main":"hair clip","bd":[]}
+{"sl":"en","q":"hair clip","main":"заколка для волосся","bd":[]}
+{"sl":"uk","q":"резинка для волосся","main":"hair elastic","bd":[]}
+{"sl":"en","q":"hair tie","main":"гумка для волосся","bd":[]}
+{"sl":"uk","q":"пов'язка для волосся","main":"hair band","bd":[]}
+{"sl":"en","q":"headband","main":"пов'язка на голову","bd":[["noun",["головна пов'язка"]]]}
+{"sl":"uk","q":"догляд за зовнішністю","main":"appearance care","bd":[]}
+{"sl":"en","q":"grooming","main":"догляд","bd":[["verb",["доглядати коня","пестити"]]]}
+{"sl":"uk","q":"особистий догляд","main":"personal care","bd":[]}
+{"sl":"en","q":"personal care","main":"особистий догляд","bd":[]}
+{"sl":"uk","q":"догляд за шкірою","main":"skin care","bd":[]}
+{"sl":"en","q":"skincare","main":"догляд за шкірою","bd":[]}
+{"sl":"uk","q":"крем для обличчя","main":"face cream","bd":[]}
+{"sl":"en","q":"face cream","main":"крем для обличчя","bd":[]}
+{"sl":"uk","q":"лосьйон для тіла","main":"body lotion","bd":[]}
+{"sl":"en","q":"body lotion","main":"лосьйон для тіла","bd":[]}
+{"sl":"uk","q":"засіб для вмивання","main":"detergent","bd":[]}
+{"sl":"en","q":"face wash","main":"миття обличчя","bd":[]}
+{"sl":"uk","q":"сироватка","main":"serum","bd":[["noun",["serum","whey","serosity"]]]}
+{"sl":"en","q":"serum","main":"сироватка","bd":[["noun",["сироватка"]]]}
+{"sl":"uk","q":"антиперспірант","main":"antiperspirant","bd":[]}
+{"sl":"en","q":"antiperspirant","main":"антиперспірант","bd":[]}
+{"sl":"uk","q":"піна для гоління","main":"shaving foam","bd":[]}
+{"sl":"en","q":"shaving foam","main":"піна для гоління","bd":[]}
+{"sl":"uk","q":"щипчики для нігтів","main":"nail clippers","bd":[]}
+{"sl":"en","q":"nail clippers","main":"кусачки для нігтів","bd":[]}
+{"sl":"uk","q":"пилка для нігтів","main":"nail file","bd":[]}
+{"sl":"en","q":"nail file","main":"пилка для нігтів","bd":[["noun",["пилочка для нігтів"]]]}
+{"sl":"uk","q":"бронзер","main":"bronzer","bd":[]}
+{"sl":"en","q":"bronzer","main":"бронзер","bd":[]}
+{"sl":"uk","q":"блиск для губ","main":"lip gloss","bd":[]}
+{"sl":"en","q":"lip gloss","main":"блиск для губ","bd":[]}
+{"sl":"uk","q":"пензлик для макіяжу","main":"makeup brush","bd":[]}
+{"sl":"en","q":"makeup brush","main":"пензлик для макіяжу","bd":[]}
+{"sl":"uk","q":"спонж для макіяжу","main":"makeup sponge","bd":[]}
+{"sl":"en","q":"makeup sponge","main":"спонж для макіяжу","bd":[]}
+{"sl":"uk","q":"уживаний","main":"used","bd":[["adjective",["second-hand","common","in common use"]]]}
+{"sl":"en","q":"used","main":"використовується","bd":[["adjective",["використаний","викоростаний","звиклий","звичний","старий"]]]}
+{"sl":"uk","q":"випраний","main":"washed","bd":[["adjective",["washed"]]]}
+{"sl":"en","q":"washed","main":"вимитий","bd":[["adjective",["вимитий","випраний","змитий"]]]}
+{"sl":"uk","q":"ношений","main":"shabby","bd":[["adjective",["shabby","worn-out","hand-me-down"]]]}
+{"sl":"en","q":"worn","main":"потертий","bd":[["adjective",["банальний","вимотаний","виснажений","зношений","поношений","рваний","шаблонний"]]]}
+{"sl":"uk","q":"примірювання","main":"fitting","bd":[]}
+{"sl":"en","q":"fitting","main":"примірка","bd":[["adjective",["підхожий","придатний"]],["noun",["приладка","примірка"]]]}
+{"sl":"uk","q":"зовнішній вигляд","main":"appearance","bd":[["noun",["appearance","outward","superficies","mien"]]]}
+{"sl":"en","q":"looks","main":"виглядає","bd":[["noun",["вигляд","зовнішність","позір","стан","вираз","погляд"]],["verb",["вдивитися","глянути","подивитися","розбирати","вдивлятися","дивитися","розглядати","здаватися"]]]}
+{"sl":"uk","q":"відросле коріння волосся","main":"ingrown hair roots","bd":[]}
+{"sl":"en","q":"hair roots","main":"коріння волосся","bd":[]}
+{"sl":"uk","q":"каскадна стрижка","main":"cascade haircut","bd":[]}
+{"sl":"en","q":"layered haircut","main":"багатошарова стрижка","bd":[]}
+{"sl":"uk","q":"кулінарна традиція","main":"culinary tradition","bd":[]}
+{"sl":"en","q":"cuisine","main":"кухня","bd":[["noun",["кулінарна майстерність","кухня"]]]}
+{"sl":"uk","q":"пізня легка вечеря","main":"late light dinner","bd":[]}
+{"sl":"en","q":"supper","main":"вечеря","bd":[["verb",["подавати вечерю","вечеряти","повечеряти"]],["noun",["вечеря"]]]}
+{"sl":"uk","q":"основна страва","main":"main dish","bd":[]}
+{"sl":"en","q":"main course","main":"основна страва","bd":[["noun",["друга страва"]]]}
+{"sl":"uk","q":"гарнір","main":"garnish","bd":[["noun",["garnish","side dish","garniture"]]]}
+{"sl":"en","q":"side dish","main":"гарнір","bd":[["noun",["гарнір"]]]}
+{"sl":"uk","q":"одна порція","main":"one portion","bd":[]}
+{"sl":"en","q":"serving","main":"подача","bd":[["noun",["подача","порція"]]]}
+{"sl":"uk","q":"порція їжі","main":"portion of food","bd":[]}
+{"sl":"en","q":"helping","main":"допомагаючи","bd":[["noun",["допомога","порція"]]]}
+{"sl":"uk","q":"залишки готової їжі","main":"leftovers of ready-made food","bd":[]}
+{"sl":"en","q":"leftovers","main":"залишки","bd":[["noun",["залишок","пережиток"]]]}
+{"sl":"uk","q":"домашнього приготування","main":"home cooking","bd":[]}
