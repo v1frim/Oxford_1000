@@ -43,7 +43,10 @@ const EXAMPLES = new Function(src + "; return EXAMPLES;")();
 // ⚠️ `cheque` у BRIT_LEX не внесений навмисно, а не забутий: його амер. форма `check`
 // зайнята дієсловом «перевіряти», тож ця картка лишається британською свідомо.
 const ALLOW = new Set(["programmer", "programmers", "sombrero", "sombreros",
-                       "greyhound", "greyhounds"]);
+                       "greyhound", "greyhounds",
+                       // archaeology — основна форма і в США (Merriam-Webster, Society for American
+                       // Archaeology); archeology лежить в enAlt лише як прийнятний варіант (сесія 71)
+                       "archaeology"]);
 
 // A. структурні правила «британське → американське». Застосовуються ЛИШЕ до ключа,
 // і спрацьовують тільки якщо результат ДОСЛІВНО збігається з власним `enAlt` картки —

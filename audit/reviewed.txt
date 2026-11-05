@@ -1835,3 +1835,303 @@ E|bath mat|килимок для ванної
 E|biotechnology|біотехнологія
 E|blueberry|лохина
 E|bodyguard|особистий охоронець
+U|claim|вимога|вимога
+U|extension|подовження|подовження
+U|acquitted|виправданий|виправданий
+U|apprentice|підмайстер|підмайстер
+U|railing|поручень|поручень
+U|traffic jam|затор|затор
+U|verdict|вирок|вирок
+U|snowy|сніжний|сніжний
+U|drizzle|мряка|мряка
+U|estuary|гирло|гирло
+U|highland|нагір'я|нагір'я
+U|marsh|болото|болото
+U|mist|імла|імла
+U|rudder|стерно|стерно
+U|to set off|вирушати|вирушати
+U|airship|дирижабль|дирижабль
+U|axle|вісь|вісь
+U|carriage|вагон|вагон
+U|clothing|одежа|одежа
+U|dining car|вагон-ресторан|вагон-ресторан
+U|jetty|пірс|пірс
+U|kayak|байдарка|байдарка
+U|luggage|багаж|багаж
+U|trolley|візок|візок
+U|warehouse|склад|склад
+U|alley|провулок|провулок
+U|avenue|проспект|проспект
+U|baton|жезл|жезл
+U|bunch|в'язка|в'язка
+U|delicatessen|гастроном|гастроном
+U|foliage|листя|листя
+U|to haggle|торгуватися|торгуватися
+U|warfare|бойові дії|бойові дії
+U|lecturer|викладач|викладач
+U|lord|володар|володар
+U|principal|директор школи|директор школи
+U|to revise|переглядати|переглядати
+U|rhombus|ромб|ромб
+U|to take notes|занотовувати|занотовувати
+U|trapezium|трапеція|трапеція
+U|archaeology|археологія|археологія
+U|cannon|гармата|гармата
+U|dispersion|розсіювання|розсіювання
+U|dropper|піпетка|піпетка
+U|fossil|скам'янілість|скам'янілість
+U|jester|блазень|блазень
+U|shaft|держак|держак
+U|stance|стійка|стійка
+U|steward|розпорядник|розпорядник
+U|trot|рись|рись
+U|to flex|згинати|згинати
+U|lane|доріжка|доріжка
+U|chase|погоня|погоня
+U|girth|попруга|попруга
+U|lintel|перемичка|перемичка
+U|airman|льотчик|льотчик
+U|claimant|позивач|позивач
+U|manufacturing|виробництво|виробництво
+U|outlay|видатки|видатки
+U|rafter|кроква|кроква
+U|camouflage|маскування|маскування
+U|criminal|злочинець|злочинець
+U|fisherman|рибалка|рибалка
+U|flax|льон|льон
+U|girder|балка|балка
+U|bobbin|котушка|котушка
+U|genie|джин|джин
+U|hangman|кат|кат
+U|to unpick|розпорювати|розпорювати
+U|pincushion|гольник|гольник
+U|porter|швейцар|швейцар
+U|scarlet|яскраво-червоний|яскраво-червоний
+U|stunt|трюк|трюк
+U|wizard|чарівник|чарівник
+U|alto|альт|альт
+U|dwarf|гном|гном
+U|ribbon|стрічка|стрічка
+U|appetizer|закуска|закуска
+U|beverage|напій|напій
+U|buttermilk|маслянка|маслянка
+U|cola|кола|кола
+U|to dine|обідати|обідати
+U|housemate|співмешканець|співмешканець
+U|icing|глазур|глазур
+U|jug|глек|глек
+U|mallet|киянка|киянка
+U|to move in|в'їжджати|в'їжджати
+U|to move out|виїжджати|виїжджати
+U|paving|бруківка|бруківка
+U|stake|кілок|кілок
+U|rail|рейка|залізниця
+U|combat|бойові дії|бойові дії
+U|dispersal|розсіювання|розсіювання
+U|flush|злив (у туалеті)|злив
+U|hinge|петля (дверна)|петля
+U|folk|народний (фольклорний)|народний
+U|missile|ракета (бойова)|ракета
+U|tide|приплив (морський)|приплив
+U|to wring|викручувати (білизну)|викручувати
+U|suspension|підвіска (автомобіля)|підвіска
+U|tread|протектор (шини)|протектор
+U|lowercase|малі літери|малі літери
+U|uppercase|великі літери|великі літери
+U|lychee|лічі|лічі
+U|macadamia|макадамія|макадамія
+U|macaron|макарон|макарон
+U|mandoline|овочерізка|овочерізка
+U|manhole|люк каналізаційний|люк каналізаційний
+U|marinated|витриманий у маринаді|витриманий у маринаді
+U|womenswear|жіночий одяг|жіночий одяг
+U|midfielder|півзахисник|півзахисник
+U|milkshake|молочний коктейль|молочний коктейль
+U|mindfulness|усвідомленість|усвідомленість
+U|minibar|мінібар|мінібар
+U|mochi|мочі|мочі
+U|mocktail|безалкогольний коктейль|безалкогольний коктейль
+U|monkfish|морський чорт|морський чорт
+U|mortarboard|академічна шапочка|академічна шапочка
+U|motorbike|мотоцикл легкий|мотоцикл легкий
+U|mudslide|селевий потік|селевий потік
+U|gateau|торт бісквітний|торт бісквітний
+U|gearshift|важіль перемикання передач|важіль перемикання передач
+U|goalpost|штанга воріт|штанга воріт
+U|greeting|привітальні слова|привітальні слова
+U|gunfire|стрілянина|стрілянина
+U|hacksaw|ножівка по металу|ножівка по металу
+U|handbrake|ручне гальмо|ручне гальмо
+U|handcuffs|наручники|наручники
+U|handlebar|кермо велосипеда|кермо велосипеда
+U|handrail|поручень сходовий|поручень сходовий
+U|handsaw|ножівка|ножівка
+U|hang-gliding|дельтапланеризм|дельтапланеризм
+U|hardboard|деревоволокниста плита|деревоволокниста плита
+U|headboard|узголів'я ліжка|узголів'я ліжка
+U|headline|заголовок новини|заголовок новини
+U|healthcare|охорона здоров'я|охорона здоров'я
+U|herb|трава пряна|трава пряна
+U|hide-and-seek|хованки|хованки
+U|hip-hop|хіп-хоп|хіп-хоп
+U|hubcap|ковпак колеса|ковпак колеса
+U|ice-skating|катання на ковзанах|катання на ковзанах
+U|infrared|інфрачервоний|інфрачервоний
+U|jalapeno|халапеньйо|халапеньйо
+U|jujitsu|джиу-джитсу|джиу-джитсу
+U|dartboard|мішень для дротиків|мішень для дротиків
+U|deep-fried|смажений у фритюрі|смажений у фритюрі
+U|deli|гастрономічний відділ|гастрономічний відділ
+U|dimension|вимір|вимір
+U|dinnerware|столовий посуд обідній|столовий посуд обідній
+U|dipstick|щуп для мастила|щуп для мастила
+E|flush|злив (у туалеті)
+E|businesswoman|бізнесвумен
+E|intelligence|розум
+E|claim|вимога
+E|interest|відсотки
+E|appeal|апеляція
+E|apprentice|підмайстер
+E|to break down|ламатися
+E|commission|комісійні
+E|counsellor|психолог-консультант
+E|faucet|водопровідний кран
+E|headquarters|штаб-квартира
+E|loin|філейна частина
+E|railing|поручень
+E|reserve|заповідник
+E|woods|лісиста місцевість
+E|overcast|захмарене небо
+E|snowy|сніжний
+E|swamp|драговина
+E|thundery|грозовий
+E|breezy|вітряний
+E|estuary|гирло
+E|hailstone|градина
+E|highland|нагір'я
+E|mantle|мантія Землі
+E|marsh|болото
+E|mesa|столова гора
+E|mist|імла
+E|to get off|виходити з транспорту
+E|to get on|сідати в транспорт
+E|patch|латка
+E|prow|ніс судна
+E|quay|набережна причальна
+E|rim|обід колеса
+E|roundabout|кільцева розв'язка
+E|rudder|стерно
+E|to set off|вирушати
+E|to set sail|вирушати у плавання
+E|spoke|спиця
+E|carriage|вагон
+E|crane|підйомний кран
+E|dynamo|динамо-машина
+E|ferry|пором
+E|to indicate|вказувати напрямок
+E|jetty|пірс
+E|junction|розв'язка
+E|kayak|байдарка
+E|battlement|зубчаста стіна
+E|bollard|швартова тумба
+E|comic|комедійний актор
+E|postcard|поштова листівка
+E|sedative|заспокійливе
+E|turret|башточка
+E|avenue|проспект
+E|baton|жезл
+E|bookstore|книгарня
+E|cab|таксі
+E|column|колона
+E|confectionery|кондитерська
+E|counter|прилавок
+E|delicatessen|гастроном
+E|flare|спалах
+E|gladiolus|гладіолус
+E|hub|вузловий центр
+E|to retake|перескладати
+E|zoology|зоологія
+E|journal|науковий журнал
+E|metamorphosis|метаморфоза
+E|microbiology|мікробіологія
+E|nucleus|ядро клітини
+E|reflection|відображення
+E|remains|рештки
+E|to renew|поновлювати
+E|sociology|соціологія
+E|sphere|сфера
+E|vertebrate|хребетна тварина
+E|apex|вершина фігури
+E|cannon|гармата
+E|caterpillar|гусінь
+E|compound|сполука
+E|dropper|піпетка
+E|empire|імперія
+E|fossil|скам'янілість
+E|funnel|лійка
+E|hibernation|зимова сплячка
+E|invertebrate|безхребетна тварина
+E|rebound|підбір м'яча
+E|sled|санчата
+E|squat|присід (вправа)
+E|striker|нападник
+E|surf|прибій
+E|trot|рись
+E|backhand|удар зліва
+E|batsman|відбивач
+E|deuce|рівний рахунок
+E|to dunk|забивати зверху
+E|lane|доріжка
+E|offense|порушення
+E|parry|парирування
+E|putter|патер
+E|armband|нарукавна пов'язка
+E|bump|поштовх
+E|curling|керлінг
+E|diving|пірнання
+E|golfer|гравець у гольф
+E|helm|штурвал
+E|hilt|руків'я
+E|organized|організований
+E|to sum up|підсумовувати
+E|summons|судова повістка
+E|to supervise|наглядати
+E|supervisor|керівник групи
+E|trial|судовий процес
+E|vet|ветеринар
+E|administration|адміністрація
+E|broadcaster|телеведучий
+E|click|клацання
+E|digger|землекоп
+E|investment|інвестиція
+E|journalism|журналістика
+E|millet|просо
+E|mining|гірнича справа
+E|navy|військово-морський флот
+E|outlay|видатки
+E|production|виробництво продукції
+E|prosecution|обвинувачення
+E|rafter|кроква
+E|receptionist|адміністратор на рецепції
+E|bin|бак для сміття
+E|broadcast|радіопередача
+E|cleaner|прибиральник
+E|defendant|відповідач
+E|determined|сповнений рішучості
+E|farming|фермерство
+E|greengrocer|продавець овочів
+E|hairdresser|перукар
+E|housekeeper|економка
+E|bend|вигин
+E|classicism|класицизм
+E|installation|інсталяція
+E|latin|латина
+E|merman|водяник
+E|pick-up|звукознімач
+E|to let out|випускати назовні
+E|to unpick|розпорювати
+E|monster|чудовисько
+E|patchwork|клаптикове шиття
+E|pincushion|гольник
+E|quest|пошук
+E|to rewind|перемотувати
