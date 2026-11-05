@@ -1857,7 +1857,7 @@
   .qf-row:not(:first-child) { opacity: .78; }
   .qf-w { font-weight: 700; margin-right: 2px; }
   .qf-it { color: #06d6a0; } .qf-it.neg { color: #ff8a8a; } .qf-it.zero { color: rgba(255,255,255,.5); }
-  .qf-sum { color: #ffd166; margin-left: 4px; } .qf-sum.neg { color: #ff8a8a; }
+  .qf-sum { color: #ffd166; margin-left: 4px; pointer-events: auto; cursor: help; } .qf-sum.neg { color: #ff8a8a; }
   .qc-time { margin: 10px auto 0; max-width: 520px; text-align: left; font-size: 13px; }
   .qt-h { text-align: center; opacity: .8; margin-bottom: 6px; }
   .qt-row { display: grid; grid-template-columns: 1fr 52px 150px; gap: 8px; padding: 3px 8px; border-radius: 8px; }
@@ -2260,7 +2260,7 @@
     <div id="q-clouds" class="q-layer q-clouds"></div><div id="q-far" class="q-layer q-far"></div><div id="q-mid" class="q-layer q-mid"></div><div id="q-near" class="q-layer q-near"></div><div id="q-ground" class="q-layer q-ground"></div><div id="q-fx" class="q-fx"></div>
     <div id="q-actors" class="q-actors"><div id="q-hero" class="q-hero"></div></div>
     <div id="q-card" class="q-card hidden"></div>
-    <div id="q-feed" class="q-feed hidden" title="XP за останніх монстрів"></div>
+    <div id="q-feed" class="q-feed hidden"></div>
   </div>
   <div class="q-bottom">
     <div id="q-hint" class="q-hint"></div>
@@ -13057,7 +13057,7 @@ function qFeed(idx, items, kind) {
     const sum = x.items.reduce((a, it) => a + it.v, 0);
     return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say hw" data-say="' + escAttr(x.say) + '"' + (x.tr ? ' data-trans="' + escAttr(x.tr) + '"' : '') + (x.ipa ? ' data-ipa="' + escAttr(x.ipa) + '"' : '') : '"') + '>' + esc(x.w) + '</span>' +
       x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") +
-      '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
+      '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '" title="XP за це слово">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
   }).join("");
   box.classList.toggle("hidden", !Q.feed.length);
 }
