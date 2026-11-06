@@ -22315,3 +22315,1681 @@
 {"sl":"en","q":"version history","main":"історія версій","bd":[]}
 {"sl":"uk","q":"синхронізувати","main":"to synchronize","bd":[]}
 {"sl":"en","q":"to sync","main":"для синхронізації","bd":[]}
+{"sl":"uk","q":"створювати копію","main":"make a copy","bd":[]}
+{"sl":"en","q":"to duplicate","main":"дублювати","bd":[["verb",["знімати копію","подвоювати","розмножувати"]]]}
+{"sl":"uk","q":"автоматично зберігати","main":"automatically save","bd":[]}
+{"sl":"en","q":"to autosave","main":"для автозбереження","bd":[]}
+{"sl":"uk","q":"текстовий процесор","main":"word processor","bd":[]}
+{"sl":"en","q":"word processor","main":"текстовий процесор","bd":[]}
+{"sl":"uk","q":"електронна таблиця","main":"spreadsheet","bd":[]}
+{"sl":"en","q":"spreadsheet","main":"електронна таблиця","bd":[]}
+{"sl":"uk","q":"набір слайдів","main":"set of slides","bd":[]}
+{"sl":"en","q":"slide deck","main":"слайд-дека","bd":[]}
+{"sl":"uk","q":"PDF-документ","main":"PDF document","bd":[]}
+{"sl":"en","q":"PDF document","main":"PDF документ","bd":[]}
+{"sl":"uk","q":"орієнтація сторінки","main":"page orientation","bd":[]}
+{"sl":"en","q":"page orientation","main":"орієнтація сторінки","bd":[]}
+{"sl":"uk","q":"книжкова орієнтація","main":"book orientation","bd":[]}
+{"sl":"en","q":"portrait orientation","main":"портретна орієнтація","bd":[]}
+{"sl":"uk","q":"альбомна орієнтація","main":"landscape orientation","bd":[]}
+{"sl":"en","q":"landscape orientation","main":"альбомна орієнтація","bd":[]}
+{"sl":"uk","q":"верхній колонтитул","main":"header","bd":[]}
+{"sl":"en","q":"header","main":"заголовок","bd":[["noun",["водозбірня","ригель"]]]}
+{"sl":"uk","q":"нижній колонтитул","main":"footer","bd":[]}
+{"sl":"en","q":"footer","main":"колонтитул","bd":[["noun",["пішохід"]]]}
+{"sl":"uk","q":"розмір шрифту","main":"font size","bd":[]}
+{"sl":"en","q":"font size","main":"розмір шрифту","bd":[]}
+{"sl":"uk","q":"міжрядковий інтервал","main":"line spacing","bd":[]}
+{"sl":"en","q":"line spacing","main":"міжрядковий інтервал","bd":[]}
+{"sl":"uk","q":"маркер списку","main":"a list marker","bd":[]}
+{"sl":"en","q":"bullet point","main":"маркер","bd":[]}
+{"sl":"uk","q":"нумерований список","main":"numbered list","bd":[]}
+{"sl":"en","q":"numbered list","main":"нумерований список","bd":[]}
+{"sl":"uk","q":"перевірка правопису","main":"spell check","bd":[]}
+{"sl":"en","q":"spell checker","main":"перевірка орфографії","bd":[]}
+{"sl":"uk","q":"перевірка граматики","main":"grammar check","bd":[]}
+{"sl":"en","q":"grammar checker","main":"перевірка граматики","bd":[]}
+{"sl":"uk","q":"відстеження змін","main":"tracking changes","bd":[]}
+{"sl":"en","q":"track changes","main":"відстежувати зміни","bd":[]}
+{"sl":"uk","q":"редагування в реальному часі","main":"real-time editing","bd":[]}
+{"sl":"en","q":"real-time editing","main":"редагування в реальному часі","bd":[]}
+{"sl":"uk","q":"попередній перегляд друку","main":"print preview","bd":[]}
+{"sl":"en","q":"print preview","main":"попередній перегляд","bd":[]}
+{"sl":"uk","q":"черга друку","main":"print queue","bd":[]}
+{"sl":"en","q":"print queue","main":"чергу друку","bd":[]}
+{"sl":"uk","q":"підкреслювати","main":"emphasize","bd":[["verb",["emphasize","stress","underline","accentuate","underscore","accent","point up","italicize"]]]}
+{"sl":"en","q":"to underline","main":"підкреслити","bd":[["verb",["підкреслювати"]]]}
+{"sl":"uk","q":"скасовувати дію","main":"cancel action","bd":[]}
+{"sl":"en","q":"to undo","main":"щоб скасувати","bd":[["verb",["анулювати","відкривати","губити","розв'язувати"]]]}
+{"sl":"uk","q":"повторювати скасовану дію","main":"repeat the canceled action","bd":[]}
+{"sl":"en","q":"to redo","main":"переробляти","bd":[["verb",["відремонтувати","переробляти"]]]}
+{"sl":"uk","q":"шрифт","main":"type","bd":[["noun",["type","print","letter"]]]}
+{"sl":"en","q":"font","main":"шрифт","bd":[["noun",["купіль"]]]}
+{"sl":"uk","q":"граматика","main":"grammar","bd":[["noun",["grammar"]]]}
+{"sl":"en","q":"grammar","main":"граматика","bd":[["noun",["граматика","граматична система"]]]}
+{"sl":"uk","q":"мультимедіа","main":"multimedia","bd":[["noun",["multimedia"]]]}
+{"sl":"en","q":"multimedia","main":"мультимедіа","bd":[["adjective",["мультимедійний"]],["noun",["мультимедіа"]]]}
+{"sl":"uk","q":"запис звуку чи відео","main":"sound or video recording","bd":[]}
+{"sl":"en","q":"recording","main":"запис","bd":[["adjective",["записуючий","звукозаписний","реєструючий"]],["noun",["звукозапис","реєстрація"]]]}
+{"sl":"uk","q":"знімок екрана","main":"screenshot","bd":[]}
+{"sl":"en","q":"screenshot","main":"скріншот","bd":[]}
+{"sl":"uk","q":"запис екрана","main":"screen recording","bd":[]}
+{"sl":"en","q":"screen recording","main":"запис екрану","bd":[]}
+{"sl":"uk","q":"мініатюра","main":"miniature","bd":[["noun",["miniature"]]]}
+{"sl":"en","q":"thumbnail","main":"мініатюра","bd":[["noun",["ніготь великого пальця"]]]}
+{"sl":"uk","q":"роздільна здатність зображення","main":"image resolution","bd":[]}
+{"sl":"en","q":"image resolution","main":"роздільна здатність зображення","bd":[]}
+{"sl":"uk","q":"якість зображення","main":"image quality","bd":[]}
+{"sl":"en","q":"image quality","main":"якість зображення","bd":[]}
+{"sl":"uk","q":"якість відео","main":"video quality","bd":[]}
+{"sl":"en","q":"video quality","main":"якість відео","bd":[]}
+{"sl":"uk","q":"висока роздільна здатність","main":"high resolution","bd":[]}
+{"sl":"en","q":"high definition","main":"висока чіткість","bd":[]}
+{"sl":"uk","q":"роздільна здатність 4K","main":"4K resolution","bd":[]}
+{"sl":"en","q":"4K resolution","main":"Роздільна здатність 4K","bd":[]}
+{"sl":"uk","q":"кадри за секунду","main":"frames per second","bd":[]}
+{"sl":"en","q":"frames per second","main":"кадрів в секунду","bd":[]}
+{"sl":"uk","q":"бітрейт","main":"bitrate","bd":[]}
+{"sl":"en","q":"bitrate","main":"бітрейт","bd":[]}
+{"sl":"uk","q":"кодек","main":"codec","bd":[]}
+{"sl":"en","q":"codec","main":"кодек","bd":[]}
+{"sl":"uk","q":"стиснення без втрат","main":"lossless compression","bd":[]}
+{"sl":"en","q":"lossless compression","main":"стиснення без втрат","bd":[]}
+{"sl":"uk","q":"стиснення з втратами","main":"lossy compression","bd":[]}
+{"sl":"en","q":"lossy compression","main":"стиснення з втратами","bd":[]}
+{"sl":"uk","q":"відеоредактор","main":"video editor","bd":[]}
+{"sl":"en","q":"video editor","main":"редактор відео","bd":[]}
+{"sl":"uk","q":"графічний редактор","main":"graphic editor","bd":[]}
+{"sl":"en","q":"image editor","main":"редактор зображень","bd":[]}
+{"sl":"uk","q":"монтажна шкала","main":"assembly scale","bd":[]}
+{"sl":"en","q":"timeline","main":"шкала часу","bd":[]}
+{"sl":"uk","q":"творець контенту","main":"content creator","bd":[]}
+{"sl":"en","q":"content creator","main":"творець контенту","bd":[]}
+{"sl":"uk","q":"пряма трансляція","main":"live broadcast","bd":[]}
+{"sl":"en","q":"live stream","main":"пряма трансляція","bd":[]}
+{"sl":"uk","q":"машинне навчання","main":"machine learning","bd":[]}
+{"sl":"en","q":"machine learning","main":"машинне навчання","bd":[]}
+{"sl":"uk","q":"нейронна мережа","main":"neural network","bd":[]}
+{"sl":"en","q":"neural network","main":"нейронна мережа","bd":[]}
+{"sl":"uk","q":"мовна модель","main":"language model","bd":[]}
+{"sl":"en","q":"language model","main":"модель мови","bd":[]}
+{"sl":"uk","q":"велика мовна модель","main":"a large language model","bd":[]}
+{"sl":"en","q":"large language model","main":"велика модель мови","bd":[]}
+{"sl":"uk","q":"генеративний штучний інтелект","main":"generative artificial intelligence","bd":[]}
+{"sl":"en","q":"generative AI","main":"генеративний ШІ","bd":[]}
+{"sl":"uk","q":"ШІ-помічник","main":"AI assistant","bd":[]}
+{"sl":"en","q":"AI assistant","main":"ШІ помічник","bd":[]}
+{"sl":"uk","q":"чатбот","main":"chatbot","bd":[]}
+{"sl":"en","q":"chatbot","main":"чат-бот","bd":[]}
+{"sl":"uk","q":"проєктування промптів","main":"designing prompts","bd":[]}
+{"sl":"en","q":"prompt engineering","main":"оперативне проектування","bd":[]}
+{"sl":"uk","q":"контекстне вікно","main":"context window","bd":[]}
+{"sl":"en","q":"context window","main":"контекстне вікно","bd":[]}
+{"sl":"uk","q":"навчальні дані","main":"training data","bd":[]}
+{"sl":"en","q":"training data","main":"навчальні дані","bd":[]}
+{"sl":"uk","q":"донавчання моделі","main":"additional training of the model","bd":[]}
+{"sl":"en","q":"fine-tuning","main":"тонке налаштування","bd":[]}
+{"sl":"uk","q":"виконання моделі","main":"execution of the model","bd":[]}
+{"sl":"en","q":"inference","main":"висновок","bd":[["noun",["виведення","висновок","заключення","наведення","припущення"]]]}
+{"sl":"uk","q":"галюцинація моделі","main":"hallucination model","bd":[]}
+{"sl":"en","q":"hallucination","main":"галюцинація","bd":[["noun",["галюцинація","маячення"]]]}
+{"sl":"uk","q":"автоматизація","main":"automation","bd":[["noun",["automation","cybernation"]]]}
+{"sl":"en","q":"automation","main":"автоматизація","bd":[["noun",["автоматизація"]]]}
+{"sl":"uk","q":"конектор сервісів","main":"service connector","bd":[]}
+{"sl":"en","q":"service connector","main":"службовий роз'єм","bd":[]}
+{"sl":"uk","q":"вебхук","main":"webhook","bd":[]}
+{"sl":"en","q":"webhook","main":"вебхук","bd":[]}
+{"sl":"uk","q":"ключ API","main":"API key","bd":[]}
+{"sl":"en","q":"API key","main":"Ключ API","bd":[]}
+{"sl":"uk","q":"безкодовий","main":"codeless","bd":[]}
+{"sl":"en","q":"no-code","main":"без коду","bd":[]}
+{"sl":"uk","q":"малокодовий","main":"low code","bd":[]}
+{"sl":"en","q":"low-code","main":"низький код","bd":[]}
+{"sl":"uk","q":"вигадувати неправдиві дані","main":"fabricate false information","bd":[]}
+{"sl":"en","q":"to hallucinate","main":"галюцинувати","bd":[["verb",["викликати галюцинації","галюцинувати"]]]}
+{"sl":"uk","q":"чи","main":"or","bd":[["conjunction",["or","whether","if"]]]}
+{"sl":"en","q":"whether","main":"чи","bd":[["conjunction",["чи"]],["pronoun",["котрий з кількох"]]]}
+{"sl":"uk","q":"за одиницю","main":"per unit","bd":[]}
+{"sl":"en","q":"per","main":"пер","bd":[["preposition",["за","через"]]]}
+{"sl":"en","q":"viewer","main":"глядач","bd":[["noun",["глядач","доглядач"]]]}
+{"sl":"uk","q":"вихідний код","main":"source code","bd":[]}
+{"sl":"en","q":"source code","main":"вихідний код","bd":[]}
+{"sl":"uk","q":"кодова база","main":"code base","bd":[]}
+{"sl":"en","q":"codebase","main":"кодова база","bd":[]}
+{"sl":"uk","q":"мова програмування","main":"programming language","bd":[]}
+{"sl":"en","q":"programming language","main":"мова програмування","bd":[]}
+{"sl":"uk","q":"синтаксис","main":"syntax","bd":[["noun",["syntax"]]]}
+{"sl":"en","q":"syntax","main":"синтаксис","bd":[["noun",["синтаксис"]]]}
+{"sl":"uk","q":"тип даних","main":"data type","bd":[]}
+{"sl":"en","q":"data type","main":"тип даних","bd":[]}
+{"sl":"uk","q":"ціле число","main":"whole number","bd":[]}
+{"sl":"en","q":"integer","main":"ціле число","bd":[["noun",["одиниця вимірювання","щось ціле"]]]}
+{"sl":"uk","q":"логічне значення","main":"logical value","bd":[]}
+{"sl":"en","q":"Boolean value","main":"Логічне значення","bd":[]}
+{"sl":"uk","q":"функція електронної таблиці","main":"spreadsheet function","bd":[]}
+{"sl":"en","q":"spreadsheet function","main":"функція електронної таблиці","bd":[]}
+{"sl":"uk","q":"алгоритм","main":"algorithm","bd":[["noun",["algorithm"]]]}
+{"sl":"en","q":"algorithm","main":"алгоритм","bd":[["noun",["алгоритм"]]]}
+{"sl":"uk","q":"програмний інтерфейс застосунку","main":"application software interface","bd":[]}
+{"sl":"en","q":"application programming interface","main":"інтерфейс прикладного програмування","bd":[]}
+{"sl":"uk","q":"комплект засобів розробки","main":"a set of development tools","bd":[]}
+{"sl":"en","q":"software development kit","main":"набір для розробки програмного забезпечення","bd":[]}
+{"sl":"uk","q":"інтегроване середовище розробки","main":"integrated development environment","bd":[]}
+{"sl":"en","q":"integrated development environment","main":"інтегроване середовище розробки","bd":[]}
+{"sl":"uk","q":"редактор коду","main":"code editor","bd":[]}
+{"sl":"en","q":"code editor","main":"редактор коду","bd":[]}
+{"sl":"uk","q":"компілятор","main":"compiler","bd":[["noun",["compiler","grub","bookmaker"]]]}
+{"sl":"en","q":"compiler","main":"компілятор","bd":[["noun",["компілятор","складач","укладач","упорядник"]]]}
+{"sl":"uk","q":"інтерпретатор","main":"the interpreter","bd":[]}
+{"sl":"en","q":"interpreter","main":"перекладач","bd":[["noun",["драгоман","перекладач","тлумач"]]]}
+{"sl":"uk","q":"налагоджувач","main":"debugger","bd":[]}
+{"sl":"en","q":"debugger","main":"налагоджувач","bd":[]}
+{"sl":"uk","q":"налагодження коду","main":"code debugging","bd":[]}
+{"sl":"en","q":"debugging","main":"налагодження","bd":[]}
+{"sl":"uk","q":"модульний тест","main":"unit test","bd":[]}
+{"sl":"en","q":"unit test","main":"модульний тест","bd":[]}
+{"sl":"uk","q":"автоматизований тест","main":"automated test","bd":[]}
+{"sl":"en","q":"automated test","main":"автоматизований тест","bd":[]}
+{"sl":"uk","q":"система контролю версій","main":"version control system","bd":[]}
+{"sl":"en","q":"version control","main":"контроль версій","bd":[]}
+{"sl":"uk","q":"репозиторій","main":"repository","bd":[]}
+{"sl":"en","q":"repository","main":"сховище","bd":[["noun",["вмістилище","повірник","склеп"]]]}
+{"sl":"uk","q":"запит на злиття змін","main":"request to merge changes","bd":[]}
+{"sl":"en","q":"pull request","main":"запит на вилучення","bd":[]}
+{"sl":"uk","q":"клієнтська частина","main":"client part","bd":[]}
+{"sl":"en","q":"frontend","main":"інтерфейс","bd":[]}
+{"sl":"uk","q":"серверна частина","main":"server part","bd":[]}
+{"sl":"en","q":"backend","main":"бекенд","bd":[["noun",["задня частина","задній кінець","кінець сезону"]]]}
+{"sl":"uk","q":"система керування базами даних","main":"database management system","bd":[]}
+{"sl":"en","q":"database management system","main":"система управління базами даних","bd":[]}
+{"sl":"uk","q":"робоче середовище","main":"working environment","bd":[]}
+{"sl":"en","q":"production environment","main":"виробниче середовище","bd":[]}
+{"sl":"uk","q":"середовище розробки","main":"development environment","bd":[]}
+{"sl":"en","q":"development environment","main":"середовище розробки","bd":[]}
+{"sl":"uk","q":"передпродуктивне середовище","main":"preproductive environment","bd":[]}
+{"sl":"en","q":"staging environment","main":"постановочне середовище","bd":[]}
+{"sl":"uk","q":"умовний оператор","main":"conditional operator","bd":[]}
+{"sl":"en","q":"conditional statement","main":"умовне твердження","bd":[]}
+{"sl":"uk","q":"налагоджувати код","main":"debug the code","bd":[]}
+{"sl":"en","q":"to debug","main":"для налагодження","bd":[]}
+{"sl":"uk","q":"відкочувати до попередньої версії","main":"roll back to the previous version","bd":[]}
+{"sl":"en","q":"to roll back","main":"відкотити назад","bd":[["verb",["знижувати до попереднього рівня"]]]}
+{"sl":"uk","q":"двічі клацати","main":"double click","bd":[]}
+{"sl":"en","q":"to double-click","main":"для подвійного клацання","bd":[]}
+{"sl":"uk","q":"клацати правою кнопкою","main":"right click","bd":[]}
+{"sl":"en","q":"to right-click","main":"щоб клацнути правою кнопкою миші","bd":[]}
+{"sl":"uk","q":"проводити пальцем по екрану","main":"slide your finger across the screen","bd":[]}
+{"sl":"en","q":"to swipe","main":"провести пальцем","bd":[["verb",["бити щосили","красти"]]]}
+{"sl":"uk","q":"скасовувати виділення","main":"cancel selection","bd":[]}
+{"sl":"en","q":"to deselect","main":"щоб скасувати вибір","bd":[]}
+{"sl":"uk","q":"збільшувати масштаб","main":"zoom in","bd":[]}
+{"sl":"en","q":"to zoom in","main":"щоб збільшити масштаб","bd":[]}
+{"sl":"uk","q":"зменшувати масштаб","main":"scale down","bd":[]}
+{"sl":"en","q":"to zoom out","main":"щоб зменшити масштаб","bd":[]}
+{"sl":"uk","q":"режим сну","main":"sleep mode","bd":[]}
+{"sl":"en","q":"sleep mode","main":"сплячий режим","bd":[]}
+{"sl":"uk","q":"змінювати масштаб","main":"change the scale","bd":[]}
+{"sl":"en","q":"to zoom","main":"щоб збільшити","bd":[["verb",["гудіти","одержати безплатно","розбухати","дзижчати"]]]}
+{"sl":"uk","q":"64-бітний","main":"64-bit","bd":[]}
+{"sl":"en","q":"64-bit","main":"64-розрядний","bd":[]}
+{"sl":"uk","q":"32-бітний","main":"32-bit","bd":[]}
+{"sl":"en","q":"32-bit","main":"32-розрядний","bd":[]}
+{"sl":"uk","q":"попередження","main":"warning","bd":[["noun",["warning","prevention","notice","notification","caution","admonition","prediction","caveat"]]]}
+{"sl":"en","q":"warning","main":"УВАГА","bd":[["adjective",["застережливий","огороджувальний","попереджувальний","сигнальний","застережний","попереджуючий","сполошний"]],["noun",["застереження","застерігання","огороджувальний знак","попереднє оповіщення","хрипіння","засторога","осторога","провісник"]]]}
+{"sl":"en","q":"template","main":"шаблон","bd":[["noun",["зразок","калібр","шаблон"]]]}
+{"sl":"uk","q":"токен","main":"token","bd":[]}
+{"sl":"en","q":"token","main":"жетон","bd":[["adjective",["номінальний","формальний"]],["noun",["жетон","пам'ятка","знак","прикмета","знамено","символ","значок","сувенір"]]]}
+{"sl":"uk","q":"територіальна громада","main":"territorial community","bd":[]}
+{"sl":"en","q":"municipality","main":"муніципалітет","bd":[["noun",["комуна","муніципалітет","самоврядування"]]]}
+{"sl":"uk","q":"мегаполіс","main":"metropolis","bd":[]}
+{"sl":"en","q":"metropolis","main":"мегаполіс","bd":[["noun",["метрополія","столиця"]]]}
+{"sl":"uk","q":"обласний центр","main":"regional center","bd":[]}
+{"sl":"en","q":"regional center","main":"обласний центр","bd":[]}
+{"sl":"uk","q":"околиці міста","main":"outskirts of the city","bd":[]}
+{"sl":"en","q":"outskirts","main":"околиці","bd":[["noun",["прикордонна смуга"]]]}
+{"sl":"uk","q":"приміська зона","main":"suburban area","bd":[]}
+{"sl":"en","q":"suburban area","main":"приміська зона","bd":[]}
+{"sl":"uk","q":"торговельно-діловий район","main":"trade and business district","bd":[]}
+{"sl":"en","q":"commercial district","main":"комерційний район","bd":[]}
+{"sl":"uk","q":"діловий район","main":"business district","bd":[]}
+{"sl":"en","q":"business district","main":"діловий район","bd":[]}
+{"sl":"uk","q":"промислова зона","main":"industrial zone","bd":[]}
+{"sl":"en","q":"industrial area","main":"промислова зона","bd":[]}
+{"sl":"uk","q":"історичний район","main":"historical district","bd":[]}
+{"sl":"en","q":"historic district","main":"історичний район","bd":[]}
+{"sl":"uk","q":"міський квартал","main":"city ​​quarter","bd":[]}
+{"sl":"en","q":"city block","main":"міський квартал","bd":[]}
+{"sl":"uk","q":"міська територія","main":"urban area","bd":[]}
+{"sl":"en","q":"urban area","main":"міська зона","bd":[]}
+{"sl":"uk","q":"сільська територія","main":"rural area","bd":[]}
+{"sl":"en","q":"rural area","main":"сільська місцевість","bd":[]}
+{"sl":"uk","q":"міська агломерація","main":"urban agglomeration","bd":[]}
+{"sl":"en","q":"metropolitan area","main":"столична область","bd":[]}
+{"sl":"uk","q":"злиття кількох міст","main":"merger of several cities","bd":[]}
+{"sl":"en","q":"conurbation","main":"агломерація","bd":[]}
+{"sl":"uk","q":"місцевий житель","main":"local resident","bd":[]}
+{"sl":"en","q":"local resident","main":"місцевий житель","bd":[]}
+{"sl":"uk","q":"міський житель","main":"city ​​dweller","bd":[]}
+{"sl":"en","q":"city dweller","main":"міський житель","bd":[]}
+{"sl":"uk","q":"густота населення","main":"population density","bd":[]}
+{"sl":"en","q":"population density","main":"щільність населення","bd":[]}
+{"sl":"uk","q":"густонаселений","main":"populous","bd":[["adjective",["populous"]]]}
+{"sl":"en","q":"densely populated","main":"густонаселений","bd":[]}
+{"sl":"uk","q":"жвавий і гамірний","main":"lively and noisy","bd":[]}
+{"sl":"en","q":"bustling","main":"метушливий","bd":[["adjective",["метушливий"]]]}
+{"sl":"uk","q":"бульвар","main":"boulevard","bd":[["noun",["boulevard"]]]}
+{"sl":"en","q":"boulevard","main":"бульвар","bd":[["noun",["бульвар"]]]}
+{"sl":"uk","q":"бічна вулиця","main":"side street","bd":[]}
+{"sl":"en","q":"side street","main":"бічна вулиця","bd":[]}
+{"sl":"uk","q":"головна вулиця","main":"main street","bd":[]}
+{"sl":"en","q":"main street","main":"головна вулиця","bd":[]}
+{"sl":"uk","q":"головна торгова вулиця","main":"the main shopping street","bd":[]}
+{"sl":"en","q":"high street","main":"головна вулиця","bd":[]}
+{"sl":"uk","q":"пішохідна вулиця","main":"pedestrian street","bd":[]}
+{"sl":"en","q":"pedestrian street","main":"пішохідна вул","bd":[]}
+{"sl":"uk","q":"укріплений берег","main":"fortified shore","bd":[]}
+{"sl":"en","q":"embankment","main":"набережна","bd":[["noun",["дамба","кам'яна набережна","насип"]]]}
+{"sl":"uk","q":"поштова адреса будинку","main":"home mailing address","bd":[]}
+{"sl":"en","q":"street address","main":"адресу вулиці","bd":[]}
+{"sl":"uk","q":"номер будинку","main":"house number","bd":[]}
+{"sl":"en","q":"house number","main":"номер будинку","bd":[]}
+{"sl":"uk","q":"вуличне обладнання","main":"street equipment","bd":[]}
+{"sl":"en","q":"street furniture","main":"вуличні меблі","bd":[]}
+{"sl":"uk","q":"табличка з назвою вулиці","main":"street name plate","bd":[]}
+{"sl":"en","q":"street sign","main":"знак вулиці","bd":[]}
+{"sl":"uk","q":"карта міста","main":"city ​​map","bd":[]}
+{"sl":"en","q":"city map","main":"карта міста","bd":[]}
+{"sl":"uk","q":"карта вулиць","main":"street map","bd":[]}
+{"sl":"en","q":"street map","main":"карта вулиць","bd":[]}
+{"sl":"uk","q":"навігаційний застосунок","main":"navigation application","bd":[]}
+{"sl":"en","q":"navigation app","main":"навігаційний додаток","bd":[]}
+{"sl":"uk","q":"житловий будинок","main":"residential building","bd":[]}
+{"sl":"en","q":"residential building","main":"житловий будинок","bd":[]}
+{"sl":"uk","q":"громадська будівля","main":"public building","bd":[]}
+{"sl":"en","q":"public building","main":"громадська будівля","bd":[]}
+{"sl":"uk","q":"комплекс змішаного призначення","main":"mixed purpose complex","bd":[]}
+{"sl":"en","q":"mixed-use development","main":"багатофункціональна забудова","bd":[]}
+{"sl":"uk","q":"житловий масив","main":"block","bd":[["noun",["block"]]]}
+{"sl":"en","q":"housing estate","main":"житловий масив","bd":[]}
+{"sl":"uk","q":"головний вхід","main":"main entrance","bd":[]}
+{"sl":"en","q":"main entrance","main":"головний вхід","bd":[]}
+{"sl":"uk","q":"задній вхід","main":"back entrance","bd":[]}
+{"sl":"en","q":"rear entrance","main":"задній вхід","bd":[]}
+{"sl":"uk","q":"позначений аварійний вихід","main":"marked emergency exit","bd":[]}
+{"sl":"en","q":"marked emergency exit","main":"позначений запасний вихід","bd":[]}
+{"sl":"uk","q":"арковий прохід","main":"archway","bd":[]}
+{"sl":"en","q":"archway","main":"арка","bd":[["noun",["арка","склепінчастий прохід"]]]}
+{"sl":"uk","q":"архітектурний стиль","main":"architectural style","bd":[["noun",["architecture"]]]}
+{"sl":"en","q":"architectural style","main":"архітектурний стиль","bd":[]}
+{"sl":"uk","q":"історична будівля","main":"historical building","bd":[]}
+{"sl":"en","q":"historic building","main":"історична будівля","bd":[]}
+{"sl":"uk","q":"пам'ятка архітектури під охороною","main":"protected architectural monument","bd":[]}
+{"sl":"en","q":"listed building","main":"пам'ятник пам'ятки","bd":[]}
+{"sl":"uk","q":"покинута будівля","main":"abandoned building","bd":[]}
+{"sl":"en","q":"abandoned building","main":"занедбана будівля","bd":[]}
+{"sl":"uk","q":"громадський транспорт","main":"public transport","bd":[]}
+{"sl":"en","q":"public transport","main":"громадський транспорт","bd":[]}
+{"sl":"uk","q":"тролейбус","main":"trolleybus","bd":[["noun",["trolleybus"]]]}
+{"sl":"en","q":"trolleybus","main":"тролейбус","bd":[["noun",["тролейбус"]]]}
+{"sl":"uk","q":"приміський поїзд","main":"suburban train","bd":[]}
+{"sl":"en","q":"commuter train","main":"приміський поїзд","bd":[]}
+{"sl":"uk","q":"сервіс виклику авто","main":"car call service","bd":[]}
+{"sl":"en","q":"ride-hailing service","main":"послуга підвезення","bd":[]}
+{"sl":"uk","q":"автобусна зупинка","main":"bus stop","bd":[["noun",["bus stop"]]]}
+{"sl":"en","q":"bus stop","main":"автобусна зупинка","bd":[["noun",["автобусна зупинка"]]]}
+{"sl":"uk","q":"трамвайна зупинка","main":"tram stop","bd":[["noun",["tram stop"]]]}
+{"sl":"en","q":"tram stop","main":"трамвайна зупинка","bd":[["noun",["трамвайна зупинка"]]]}
+{"sl":"uk","q":"станція метро","main":"subway station","bd":[["noun",["subway station"]]]}
+{"sl":"en","q":"metro station","main":"станція метро","bd":[]}
+{"sl":"uk","q":"номер маршруту","main":"route number","bd":[]}
+{"sl":"en","q":"route number","main":"номер маршруту","bd":[]}
+{"sl":"uk","q":"табло відправлень","main":"dispatch board","bd":[]}
+{"sl":"en","q":"departure board","main":"дошка відправлення","bd":[]}
+{"sl":"uk","q":"час прибуття","main":"arrival time","bd":[]}
+{"sl":"en","q":"arrival time","main":"час прибуття","bd":[]}
+{"sl":"uk","q":"час відправлення","main":"departure time","bd":[["noun",["departure time"]]]}
+{"sl":"en","q":"departure time","main":"час відправлення","bd":[["noun",["час відправлення"]]]}
+{"sl":"uk","q":"скасування рейсу","main":"flight cancellation","bd":[]}
+{"sl":"en","q":"cancellation","main":"скасування","bd":[["noun",["анулювання","сітчаста будова","викреслювання","випис","погашення","припинення","скасування","скорочення"]]]}
+{"sl":"uk","q":"квиток туди й назад","main":"round trip ticket","bd":[]}
+{"sl":"en","q":"return ticket","main":"зворотний квиток","bd":[]}
+{"sl":"uk","q":"проїзний квиток","main":"travel ticket","bd":[]}
+{"sl":"en","q":"travel card","main":"проїзна картка","bd":[]}
+{"sl":"uk","q":"квитковий автомат","main":"ticket machine","bd":[]}
+{"sl":"en","q":"ticket machine","main":"квитковий автомат","bd":[]}
+{"sl":"uk","q":"контролер у транспорті","main":"controller in transport","bd":[]}
+{"sl":"en","q":"ticket inspector","main":"білетний контролер","bd":[]}
+{"sl":"uk","q":"громадський простір","main":"public space","bd":[]}
+{"sl":"en","q":"public space","main":"публічний простір","bd":[]}
+{"sl":"uk","q":"міська площа","main":"city ​​square","bd":[]}
+{"sl":"en","q":"plaza","main":"площа","bd":[["noun",["площа"]]]}
+{"sl":"uk","q":"ринкова площа","main":"market square","bd":[]}
+{"sl":"en","q":"market square","main":"ринкова площа","bd":[]}
+{"sl":"uk","q":"міський парк","main":"city ​​park","bd":[]}
+{"sl":"en","q":"city park","main":"міський парк","bd":[]}
+{"sl":"uk","q":"громадський сад","main":"public garden","bd":[]}
+{"sl":"en","q":"public garden","main":"сквер","bd":[]}
+{"sl":"uk","q":"спортивний майданчик","main":"playground","bd":[["noun",["playground"]]]}
+{"sl":"en","q":"sports ground","main":"спортивний майданчик","bd":[]}
+{"sl":"uk","q":"скейт-парк","main":"skate park","bd":[]}
+{"sl":"en","q":"skate park","main":"скейт-парк","bd":[]}
+{"sl":"uk","q":"майданчик для вигулу собак","main":"dog walking area","bd":[]}
+{"sl":"en","q":"dog park","main":"собачий парк","bd":[]}
+{"sl":"uk","q":"місце для пікніка","main":"picnic spot","bd":[]}
+{"sl":"en","q":"picnic area","main":"місце для пікніка","bd":[]}
+{"sl":"uk","q":"зона відпочинку","main":"recreation area","bd":[["noun",["rest area"]]]}
+{"sl":"en","q":"recreation area","main":"зона відпочинку","bd":[]}
+{"sl":"uk","q":"зелена зона","main":"green zone","bd":[]}
+{"sl":"en","q":"green space","main":"зелений насадження","bd":[]}
+{"sl":"uk","q":"естрада для оркестру","main":"bandstand","bd":[["noun",["bandstand"]]]}
+{"sl":"en","q":"bandstand","main":"естрада","bd":[["noun",["естрада для оркестру"]]]}
+{"sl":"uk","q":"альтанка","main":"gazebo","bd":[["noun",["garden house","alcove","cabinet"]]]}
+{"sl":"en","q":"gazebo","main":"альтанка","bd":[["noun",["бельведер","дача"]]]}
+{"sl":"uk","q":"пішохідна доріжка","main":"banquette","bd":[["noun",["banquette"]]]}
+{"sl":"en","q":"walking path","main":"пішохідна доріжка","bd":[]}
+{"sl":"uk","q":"велодоріжка","main":"bike path","bd":[]}
+{"sl":"en","q":"cycle path","main":"велосипедна доріжка","bd":[]}
+{"sl":"uk","q":"берег річки","main":"riverbank","bd":[["noun",["riverbank","riverside"]]]}
+{"sl":"en","q":"riverbank","main":"берег річки","bd":[["noun",["берег річки"]]]}
+{"sl":"uk","q":"мальовничий краєвид","main":"picturesque landscape","bd":[]}
+{"sl":"en","q":"scenic view","main":"мальовничий вид","bd":[]}
+{"sl":"uk","q":"просто неба","main":"outdoor","bd":[["adjective",["outdoor","out-of-door"]],["adverb",["outdoors","outside","out-of-door"]]]}
+{"sl":"en","q":"open-air","main":"під відкритим небом","bd":[]}
+{"sl":"uk","q":"доглянутий і справний","main":"well-kept and serviceable","bd":[]}
+{"sl":"en","q":"well-maintained","main":"доглянутий","bd":[]}
+{"sl":"en","q":"recreation","main":"відпочинок","bd":[["noun",["відпочинок","перерва"]]]}
+{"sl":"uk","q":"вулична урна","main":"street urn","bd":[]}
+{"sl":"en","q":"litter bin","main":"відро для сміття","bd":[]}
+{"sl":"uk","q":"верхній поверх","main":"upstairs","bd":[["noun",["upstairs"]]]}
+{"sl":"en","q":"upper floor","main":"верхній поверх","bd":[]}
+{"sl":"uk","q":"торговий центр міста","main":"shopping center of the city","bd":[]}
+{"sl":"en","q":"shopping center","main":"торговий центр","bd":[["noun",["торгівельний центр"]]]}
+{"sl":"uk","q":"продуктова крамниця","main":"grocery store","bd":[]}
+{"sl":"en","q":"grocery store","main":"продуктовий магазин","bd":[]}
+{"sl":"uk","q":"магазин біля дому","main":"shop near the house","bd":[]}
+{"sl":"en","q":"convenience store","main":"міні-маркет","bd":[]}
+{"sl":"uk","q":"місцева крамничка","main":"local shop","bd":[]}
+{"sl":"en","q":"corner shop","main":"кутовий магазин","bd":[]}
+{"sl":"uk","q":"ринковий прилавок","main":"market counter","bd":[]}
+{"sl":"en","q":"market stall","main":"базарна лавка","bd":[]}
+{"sl":"uk","q":"блошиний ринок","main":"flea market","bd":[]}
+{"sl":"en","q":"flea market","main":"барахолка","bd":[]}
+{"sl":"uk","q":"торгова галерея","main":"trade gallery","bd":[]}
+{"sl":"en","q":"shopping arcade","main":"торгова аркада","bd":[]}
+{"sl":"uk","q":"м'ясна крамниця","main":"butcher shop","bd":[["noun",["butchery"]]]}
+{"sl":"en","q":"butcher's","main":"м'ясний","bd":[["noun",["кат","м'ясар","м'ясник","рознощик","торговець м'ясом"]],["verb",["забивати","катувати","зіпсувати"]]]}
+{"sl":"uk","q":"магазин овочів і фруктів","main":"vegetable and fruit shop","bd":[]}
+{"sl":"en","q":"greengrocer's","main":"овочевий магазин","bd":[["noun",["продавець овочів"]]]}
+{"sl":"uk","q":"магазин преси","main":"press shop","bd":[]}
+{"sl":"en","q":"newsagent's","main":"газетний кіоск","bd":[["noun",["власник газетного кіоску","газетний кіоскер"]]]}
+{"sl":"uk","q":"магазин товарів для ремонту","main":"repair shop","bd":[]}
+{"sl":"en","q":"hardware store","main":"господарський магазин","bd":[]}
+{"sl":"uk","q":"благодійний магазин","main":"charity shop","bd":[]}
+{"sl":"en","q":"charity shop","main":"благодійний магазин","bd":[]}
+{"sl":"uk","q":"ресторанний дворик","main":"restaurant courtyard","bd":[]}
+{"sl":"en","q":"food court","main":"фудкорт","bd":[]}
+{"sl":"uk","q":"години роботи закладу","main":"opening hours of the institution","bd":[]}
+{"sl":"en","q":"opening hours","main":"години роботи","bd":[]}
+{"sl":"uk","q":"медичний центр","main":"medical center","bd":[]}
+{"sl":"en","q":"health center","main":"оздоровчий центр","bd":[["noun",["диспансер"]]]}
+{"sl":"uk","q":"стоматологічна клініка","main":"dental clinic","bd":[]}
+{"sl":"en","q":"dental clinic","main":"стоматологічна поліклініка","bd":[]}
+{"sl":"uk","q":"пологовий будинок","main":"maternity hospital","bd":[["noun",["lying-in hospital"]]]}
+{"sl":"en","q":"maternity hospital","main":"пологовий будинок","bd":[]}
+{"sl":"uk","q":"станція швидкої допомоги","main":"ambulance station","bd":[]}
+{"sl":"en","q":"ambulance station","main":"станція швидкої допомоги","bd":[]}
+{"sl":"uk","q":"пожежна частина","main":"fire department","bd":[]}
+{"sl":"en","q":"fire station","main":"пожежне депо","bd":[]}
+{"sl":"uk","q":"номер екстреної служби","main":"emergency service number","bd":[]}
+{"sl":"en","q":"emergency number","main":"екстрений номер","bd":[]}
+{"sl":"uk","q":"відділення невідкладної допомоги","main":"emergency department","bd":[]}
+{"sl":"en","q":"emergency department","main":"відділення невідкладної допомоги","bd":[]}
+{"sl":"uk","q":"центр невідкладної допомоги","main":"emergency center","bd":[]}
+{"sl":"en","q":"urgent care center","main":"центр невідкладної допомоги","bd":[]}
+{"sl":"uk","q":"центр здавання крові","main":"blood donation center","bd":[]}
+{"sl":"en","q":"blood donation center","main":"центр здачі крові","bd":[]}
+{"sl":"uk","q":"громадська безпека","main":"public safety","bd":[]}
+{"sl":"en","q":"public safety","main":"громадська безпека","bd":[]}
+{"sl":"uk","q":"рівень злочинності","main":"crime rate","bd":[]}
+{"sl":"en","q":"crime rate","main":"рівень злочинності","bd":[]}
+{"sl":"uk","q":"безпечний район","main":"safe area","bd":[]}
+{"sl":"en","q":"safe area","main":"безпечна зона","bd":[]}
+{"sl":"uk","q":"небезпечний район","main":"dangerous area","bd":[]}
+{"sl":"en","q":"unsafe area","main":"небезпечна зона","bd":[]}
+{"sl":"uk","q":"добре освітлений","main":"well lit","bd":[]}
+{"sl":"en","q":"well-lit","main":"добре освітлені","bd":[]}
+{"sl":"uk","q":"погано освітлений","main":"poorly lit","bd":[]}
+{"sl":"en","q":"poorly lit","main":"погано освітлений","bd":[]}
+{"sl":"uk","q":"поліцейський патруль","main":"police patrol","bd":[]}
+{"sl":"en","q":"police patrol","main":"поліцейський патруль","bd":[]}
+{"sl":"uk","q":"камера відеоспостереження","main":"video surveillance camera","bd":[]}
+{"sl":"en","q":"CCTV","main":"відеоспостереження","bd":[]}
+{"sl":"uk","q":"пункт першої допомоги","main":"emergency station","bd":[["noun",["emergency station"]]]}
+{"sl":"en","q":"first-aid point","main":"пункт першої допомоги","bd":[]}
+{"sl":"uk","q":"місце збору під час евакуації","main":"assembly point during evacuation","bd":[]}
+{"sl":"en","q":"assembly point","main":"збірний пункт","bd":[]}
+{"sl":"uk","q":"пожежна сигналізація","main":"fire alarm","bd":[]}
+{"sl":"en","q":"fire alarm","main":"пожежна сигналізація","bd":[]}
+{"sl":"uk","q":"евакуація","main":"evacuation","bd":[["noun",["evacuation"]]]}
+{"sl":"en","q":"evacuation","main":"евакуація","bd":[["noun",["випорожнення","евакуація","очищення"]]]}
+{"sl":"uk","q":"державна будівля","main":"government building","bd":[]}
+{"sl":"en","q":"government building","main":"урядова будівля","bd":[]}
+{"sl":"uk","q":"орган державної влади","main":"body of state power","bd":[]}
+{"sl":"en","q":"public authority","main":"орган державної влади","bd":[]}
+{"sl":"uk","q":"орган місцевого самоврядування","main":"local self-government body","bd":[]}
+{"sl":"en","q":"local authority","main":"місцева влада","bd":[]}
+{"sl":"uk","q":"міська рада","main":"city ​​council","bd":[]}
+{"sl":"en","q":"city council","main":"міської ради","bd":[]}
+{"sl":"uk","q":"ратуша","main":"town hall","bd":[]}
+{"sl":"en","q":"town hall","main":"ратуша","bd":[["noun",["мерія"]]]}
+{"sl":"uk","q":"муніципальна установа","main":"municipal institution","bd":[]}
+{"sl":"en","q":"municipal office","main":"муніципальний офіс","bd":[]}
+{"sl":"uk","q":"податкова служба","main":"tax service","bd":[]}
+{"sl":"en","q":"tax office","main":"податкова служба","bd":[]}
+{"sl":"uk","q":"установа соціального забезпечення","main":"social security institution","bd":[]}
+{"sl":"en","q":"social security office","main":"відділ соціального захисту","bd":[]}
+{"sl":"uk","q":"центр зайнятості","main":"employment center","bd":[]}
+{"sl":"en","q":"employment center","main":"центр зайнятості","bd":[]}
+{"sl":"uk","q":"міграційна служба","main":"migration service","bd":[]}
+{"sl":"en","q":"immigration office","main":"імміграційний офіс","bd":[]}
+{"sl":"uk","q":"консульство","main":"consulate","bd":[["noun",["consulate"]]]}
+{"sl":"en","q":"consulate","main":"консульство","bd":[["noun",["консульство","консульське звання"]]]}
+{"sl":"uk","q":"головне управління поліції","main":"the main police department","bd":[]}
+{"sl":"en","q":"police headquarters","main":"штаб поліції","bd":[]}
+{"sl":"uk","q":"поштове відділення","main":"post office","bd":[["noun",["station"]]]}
+{"sl":"en","q":"post office","main":"поштове відділення","bd":[["noun",["пошта","поштамт"]]]}
+{"sl":"uk","q":"сортувальний центр пошти","main":"mail sorting center","bd":[]}
+{"sl":"en","q":"sorting office","main":"сортувальна контора","bd":[]}
+{"sl":"uk","q":"поштомат","main":"post office","bd":[]}
+{"sl":"en","q":"parcel locker","main":"ящик для посилок","bd":[]}
+{"sl":"uk","q":"державна послуга","main":"public service","bd":[]}
+{"sl":"en","q":"public service","main":"державна служба","bd":[]}
+{"sl":"uk","q":"державний службовець","main":"civil servant","bd":[]}
+{"sl":"en","q":"civil servant","main":"державний службовець","bd":[]}
+{"sl":"uk","q":"центр надання адміністративних послуг","main":"administrative services center","bd":[]}
+{"sl":"en","q":"administrative service center","main":"центр надання адміністративних послуг","bd":[]}
+{"sl":"uk","q":"стійка прийому","main":"reception desk","bd":[]}
+{"sl":"en","q":"reception desk","main":"рецепція","bd":[]}
+{"sl":"uk","q":"інформаційна стійка","main":"information desk","bd":[]}
+{"sl":"en","q":"information desk","main":"довідкова стійка","bd":[]}
+{"sl":"uk","q":"талон електронної черги","main":"electronic queue ticket","bd":[]}
+{"sl":"en","q":"queue ticket","main":"квиток черги","bd":[]}
+{"sl":"uk","q":"обслуговування без запису","main":"service without an appointment","bd":[]}
+{"sl":"en","q":"walk-in service","main":"послуга прогулянки","bd":[]}
+{"sl":"uk","q":"вікно обслуговування громадян","main":"citizen service window","bd":[]}
+{"sl":"en","q":"public counter","main":"публічний лічильник","bd":[]}
+{"sl":"uk","q":"зона очікування","main":"waiting area","bd":[]}
+{"sl":"en","q":"waiting area","main":"зона очікування","bd":[]}
+{"sl":"uk","q":"відділення банку","main":"bank branch","bd":[]}
+{"sl":"en","q":"bank branch","main":"відділення банку","bd":[]}
+{"sl":"uk","q":"банкомат","main":"ATM","bd":[["abbreviation",["ATM"]],["noun",["cash machine","cash dispenser"]]]}
+{"sl":"en","q":"cash machine","main":"банкомат","bd":[["noun",["банкомат"]]]}
+{"sl":"uk","q":"касова стійка","main":"cash register","bd":[]}
+{"sl":"en","q":"cash desk","main":"каса","bd":[["phrase",["Каса"]]]}
+{"sl":"uk","q":"термінал самообслуговування","main":"self-service terminal","bd":[]}
+{"sl":"en","q":"self-service terminal","main":"термінал самообслуговування","bd":[]}
+{"sl":"uk","q":"сервісний центр","main":"service center","bd":[["noun",["service center"]]]}
+{"sl":"en","q":"service center","main":"сервісний центр","bd":[["noun",["сервісний центр"]]]}
+{"sl":"uk","q":"майстерня з ремонту телефонів","main":"telephone repair workshop","bd":[]}
+{"sl":"en","q":"phone repair shop","main":"майстерня по ремонту телефонів","bd":[]}
+{"sl":"uk","q":"майстерня хімчистки","main":"dry cleaning workshop","bd":[]}
+{"sl":"en","q":"dry cleaner's","main":"хімчистка","bd":[["noun",["хімчистка"]]]}
+{"sl":"uk","q":"кравецька майстерня","main":"tailor workshop","bd":[]}
+{"sl":"en","q":"tailor's","main":"кравецька","bd":[["adjective",["кравецький"]]]}
+{"sl":"uk","q":"майстерня ремонту взуття","main":"shoe repair workshop","bd":[]}
+{"sl":"en","q":"shoe repair shop","main":"майстерня по ремонту взуття","bd":[]}
+{"sl":"uk","q":"салон краси","main":"beauty salon","bd":[["noun",["beauty salon"]]]}
+{"sl":"en","q":"beauty salon","main":"салон краси","bd":[["noun",["салон краси"]]]}
+{"sl":"uk","q":"манікюрний салон","main":"nail salon","bd":[]}
+{"sl":"en","q":"nail salon","main":"манікюрний салон","bd":[]}
+{"sl":"uk","q":"перукарня","main":"hairdresser's","bd":[["noun",["hairdresser's","barber shop","hairdresser's shop"]]]}
+{"sl":"en","q":"hairdresser's","main":"перукарня","bd":[["noun",["перукарня"]]]}
+{"sl":"uk","q":"громадський туалет","main":"public toilet","bd":[]}
+{"sl":"en","q":"public toilet","main":"громадський туалет","bd":[]}
+{"sl":"uk","q":"туристична агенція","main":"travel agency","bd":[]}
+{"sl":"en","q":"travel agency","main":"турфірма","bd":[]}
+{"sl":"uk","q":"похоронне бюро","main":"funeral home","bd":[]}
+{"sl":"en","q":"funeral home","main":"похоронне бюро","bd":[]}
+{"sl":"uk","q":"бюро знахідок","main":"bureau of finds","bd":[["noun",["lost-and-found office","lost-and-found"]]]}
+{"sl":"en","q":"lost property office","main":"бюро знахідок","bd":[]}
+{"sl":"uk","q":"кімната для сповивання","main":"changing room","bd":[]}
+{"sl":"en","q":"baby-changing room","main":"роздягальня","bd":[]}
+{"sl":"uk","q":"стійка обслуговування клієнтів","main":"customer service desk","bd":[]}
+{"sl":"en","q":"customer service desk","main":"стійка обслуговування клієнтів","bd":[]}
+{"sl":"uk","q":"публічна бібліотека","main":"public library","bd":[]}
+{"sl":"en","q":"public library","main":"публічна бібліотека","bd":[]}
+{"sl":"uk","q":"громадський центр","main":"community center","bd":[]}
+{"sl":"en","q":"community center","main":"громадський центр","bd":[]}
+{"sl":"uk","q":"культурний центр","main":"cultural center","bd":[]}
+{"sl":"en","q":"cultural center","main":"культурний центр","bd":[]}
+{"sl":"uk","q":"молодіжний центр","main":"youth center","bd":[]}
+{"sl":"en","q":"youth center","main":"молодіжний центр","bd":[]}
+{"sl":"uk","q":"виставковий центр","main":"exhibition center","bd":[]}
+{"sl":"en","q":"exhibition center","main":"виставковий центр","bd":[]}
+{"sl":"uk","q":"концертна зала","main":"concert hall","bd":[]}
+{"sl":"en","q":"concert hall","main":"концертний зал","bd":[]}
+{"sl":"uk","q":"оперний театр","main":"opera house","bd":[["noun",["opera house"]]]}
+{"sl":"en","q":"opera house","main":"оперний театр","bd":[["noun",["опера","оперний театр"]]]}
+{"sl":"uk","q":"спортивний центр","main":"sports center","bd":[]}
+{"sl":"en","q":"sports center","main":"спортивний центр","bd":[]}
+{"sl":"uk","q":"центр дозвілля","main":"leisure center","bd":[]}
+{"sl":"en","q":"leisure center","main":"центр дозвілля","bd":[]}
+{"sl":"uk","q":"парк розваг","main":"amusement park","bd":[]}
+{"sl":"en","q":"amusement park","main":"парк розваг","bd":[]}
+{"sl":"uk","q":"океанаріум","main":"oceanarium","bd":[["noun",["oceanarium"]]]}
+{"sl":"en","q":"aquarium","main":"акваріум","bd":[["noun",["акваріум"]]]}
+{"sl":"uk","q":"туристична пам'ятка","main":"tourist attraction","bd":[]}
+{"sl":"en","q":"tourist attraction","main":"туристична привабливість","bd":[]}
+{"sl":"uk","q":"каса продажу квитків","main":"ticket office","bd":[]}
+{"sl":"en","q":"box office","main":"каса","bd":[["noun",["театральна каса"]]]}
+{"sl":"uk","q":"екскурсія з гідом","main":"guided tour","bd":[]}
+{"sl":"en","q":"guided tour","main":"екскурсія","bd":[]}
+{"sl":"uk","q":"години прийому відвідувачів","main":"hours of reception of visitors","bd":[]}
+{"sl":"en","q":"opening times","main":"час роботи","bd":[]}
+{"sl":"uk","q":"дитячі ясла","main":"nursery","bd":[["noun",["nursery"]]]}
+{"sl":"en","q":"daycare center","main":"дитячий садок","bd":[]}
+{"sl":"uk","q":"комунальне підприємство","main":"utility company","bd":[]}
+{"sl":"en","q":"public utility","main":"громадська корисність","bd":[]}
+{"sl":"uk","q":"електропостачання","main":"electricity supply","bd":[]}
+{"sl":"en","q":"electricity supply","main":"електропостачання","bd":[]}
+{"sl":"uk","q":"газопостачання","main":"gas supply","bd":[]}
+{"sl":"en","q":"gas supply","main":"газопостачання","bd":[]}
+{"sl":"uk","q":"централізоване теплопостачання","main":"centralized heat supply","bd":[]}
+{"sl":"en","q":"district heating","main":"теплопостачання","bd":[]}
+{"sl":"uk","q":"система каналізації міста","main":"city ​​sewage system","bd":[]}
+{"sl":"en","q":"sewage system","main":"система каналізації","bd":[]}
+{"sl":"uk","q":"водовідвідна система","main":"drainage system","bd":[]}
+{"sl":"en","q":"drainage system","main":"дренажна система","bd":[]}
+{"sl":"uk","q":"вивезення сміття","main":"garbage removal","bd":[]}
+{"sl":"en","q":"waste collection","main":"збір відходів","bd":[]}
+{"sl":"uk","q":"контейнер для відходів","main":"waste container","bd":[]}
+{"sl":"en","q":"waste container","main":"контейнер для сміття","bd":[]}
+{"sl":"uk","q":"прибирання вулиць","main":"street cleaning","bd":[]}
+{"sl":"en","q":"street cleaning","main":"прибирання вулиць","bd":[]}
+{"sl":"uk","q":"підмітальна машина","main":"sweeping machine","bd":[]}
+{"sl":"en","q":"street sweeper","main":"прибиральник вулиць","bd":[["noun",["підмітальник вулиць","машина для підмітання вулиць"]]]}
+{"sl":"uk","q":"прибирання снігу","main":"snow removal","bd":[]}
+{"sl":"en","q":"snow removal","main":"прибирання снігу","bd":[]}
+{"sl":"uk","q":"снігоочисна машина","main":"snow plow","bd":[]}
+{"sl":"en","q":"snowplow","main":"снігоочисник","bd":[["noun",["снігоочисник","снігорозорювач"]]]}
+{"sl":"uk","q":"утримання доріг","main":"road maintenance","bd":[]}
+{"sl":"en","q":"road maintenance","main":"утримання доріг","bd":[]}
+{"sl":"uk","q":"тимчасове перекриття","main":"temporary overlap","bd":[]}
+{"sl":"en","q":"temporary closure","main":"тимчасове закриття","bd":[]}
+{"sl":"uk","q":"відключення водопостачання","main":"disconnection of water supply","bd":[]}
+{"sl":"en","q":"water outage","main":"відключення води","bd":[]}
+{"sl":"uk","q":"витік газу","main":"gas leak","bd":[]}
+{"sl":"en","q":"gas leak","main":"витік газу","bd":[]}
+{"sl":"uk","q":"ремонтна бригада","main":"repair crew","bd":[]}
+{"sl":"en","q":"maintenance crew","main":"технічне обслуговування","bd":[]}
+{"sl":"uk","q":"працівник комунальної служби","main":"utility worker","bd":[]}
+{"sl":"en","q":"municipal worker","main":"муніципальний працівник","bd":[]}
+{"sl":"uk","q":"агентство нерухомості","main":"real estate agency","bd":[]}
+{"sl":"en","q":"real estate agency","main":"агентство нерухомості","bd":[]}
+{"sl":"uk","q":"кабінет сімейного лікаря","main":"family doctor's office","bd":[]}
+{"sl":"en","q":"doctor's surgery","main":"хірургія лікаря","bd":[]}
+{"sl":"uk","q":"відключення послуги","main":"disconnection of the service","bd":[]}
+{"sl":"en","q":"outage","main":"відключення","bd":[["noun",["випускний отвір","витік","вільний простір","зупинка роботи","перебій у роботі","перерва у подачі енергії","простій машини","утруска"]]]}
+{"sl":"uk","q":"доступний для візка","main":"wheelchair accessible","bd":[]}
+{"sl":"en","q":"wheelchair-accessible","main":"доступна для інвалідних візків","bd":[]}
+{"sl":"uk","q":"доступ без сходинок","main":"access without steps","bd":[]}
+{"sl":"en","q":"step-free access","main":"вільний доступ","bd":[]}
+{"sl":"uk","q":"доступний вхід","main":"accessible entrance","bd":[]}
+{"sl":"en","q":"accessible entrance","main":"доступний вхід","bd":[]}
+{"sl":"uk","q":"підйомна платформа","main":"lifting platform","bd":[]}
+{"sl":"en","q":"platform lift","main":"платформний підйомник","bd":[]}
+{"sl":"uk","q":"сходовий підйомник","main":"stair lift","bd":[]}
+{"sl":"en","q":"stairlift","main":"сходовий підйомник","bd":[]}
+{"sl":"uk","q":"автоматичні двері","main":"automatic doors","bd":[["noun",["automatic doors"]]]}
+{"sl":"en","q":"automatic door","main":"автоматичні двері","bd":[]}
+{"sl":"uk","q":"доступний туалет","main":"accessible toilet","bd":[]}
+{"sl":"en","q":"accessible toilet","main":"доступний туалет","bd":[]}
+{"sl":"uk","q":"тактильна плитка","main":"tactile tile","bd":[]}
+{"sl":"en","q":"tactile paving","main":"тактильна бруківка","bd":[]}
+{"sl":"uk","q":"таблички шрифтом Брайля","main":"Braille plates","bd":[]}
+{"sl":"en","q":"Braille signage","main":"Шрифт Брайля","bd":[]}
+{"sl":"uk","q":"звукове оголошення","main":"sound announcement","bd":[]}
+{"sl":"en","q":"audio announcement","main":"звукове оголошення","bd":[]}
+{"sl":"uk","q":"візуальне табло","main":"visual scoreboard","bd":[]}
+{"sl":"en","q":"visual display","main":"візуальне відображення","bd":[]}
+{"sl":"uk","q":"індукційна система для слухових апаратів","main":"induction system for hearing aids","bd":[]}
+{"sl":"en","q":"hearing loop","main":"слухова петля","bd":[]}
+{"sl":"uk","q":"собака-поводир","main":"guide dog","bd":[]}
+{"sl":"en","q":"guide dog","main":"собака-поводир","bd":[]}
+{"sl":"uk","q":"електроскутер для маломобільних","main":"electric scooter for people with reduced mobility","bd":[]}
+{"sl":"en","q":"mobility scooter","main":"мобільний скутер","bd":[]}
+{"sl":"uk","q":"пріоритетні місця","main":"priority places","bd":[]}
+{"sl":"en","q":"priority seating","main":"пріоритетне сидіння","bd":[]}
+{"sl":"uk","q":"пункт допомоги","main":"aid station","bd":[]}
+{"sl":"en","q":"assistance point","main":"пункт допомоги","bd":[]}
+{"sl":"uk","q":"безбар'єрний маршрут","main":"barrier-free route","bd":[]}
+{"sl":"en","q":"accessible route","main":"доступний маршрут","bd":[]}
+{"sl":"uk","q":"нерівна поверхня","main":"uneven surface","bd":[]}
+{"sl":"en","q":"uneven surface","main":"нерівна поверхня","bd":[]}
+{"sl":"uk","q":"міська проблема","main":"urban problem","bd":[]}
+{"sl":"en","q":"urban problem","main":"міська проблема","bd":[]}
+{"sl":"uk","q":"перевантаженість доріг","main":"road congestion","bd":[]}
+{"sl":"en","q":"traffic congestion","main":"затори","bd":[]}
+{"sl":"uk","q":"забруднення повітря","main":"air pollution","bd":[]}
+{"sl":"en","q":"air pollution","main":"забруднення повітря","bd":[]}
+{"sl":"uk","q":"шумове забруднення","main":"noise pollution","bd":[]}
+{"sl":"en","q":"noise pollution","main":"шумове забруднення","bd":[]}
+{"sl":"uk","q":"світлове забруднення","main":"light pollution","bd":[]}
+{"sl":"en","q":"light pollution","main":"світлове забруднення","bd":[]}
+{"sl":"uk","q":"викидання сміття на вулиці","main":"throwing garbage on the street","bd":[]}
+{"sl":"en","q":"littering","main":"сміття","bd":[["verb",["набарложити","підстилати","пороситися","смітити"]]]}
+{"sl":"uk","q":"незаконне викидання відходів","main":"illegal dumping of waste","bd":[]}
+{"sl":"en","q":"illegal dumping","main":"незаконне звалище","bd":[]}
+{"sl":"uk","q":"порушення громадського порядку","main":"violation of public order","bd":[]}
+{"sl":"en","q":"public nuisance","main":"порушення громадського порядку","bd":[]}
+{"sl":"uk","q":"бездомність","main":"homelessness","bd":[]}
+{"sl":"en","q":"homelessness","main":"безпритульність","bd":[]}
+{"sl":"uk","q":"людина, яка спить просто неба","main":"a man who sleeps in the open air","bd":[]}
+{"sl":"en","q":"rough sleeper","main":"грубий сплячий","bd":[]}
+{"sl":"uk","q":"жебрак","main":"beggar","bd":[["noun",["beggar","needy","cadger","panhandler","mendicant","scrounger","Lazarus","maunder"]]]}
+{"sl":"en","q":"beggar","main":"жебрак","bd":[["noun",["бідняк","лигир","прошак","старець","дід","незаможний","жебрак","злидар"]],["verb",["доводити до злиднів","перевершувати","розоряти"]]]}
+{"sl":"uk","q":"надмірне скупчення людей","main":"overcrowding","bd":[]}
+{"sl":"en","q":"overcrowding","main":"перенаселеність","bd":[["noun",["перенаселеність","перенаселеність міста"]]]}
+{"sl":"uk","q":"занепад міської забудови","main":"decline of urban development","bd":[]}
+{"sl":"en","q":"urban decay","main":"міський занепад","bd":[]}
+{"sl":"uk","q":"занедбаний район","main":"neglected area","bd":[]}
+{"sl":"en","q":"neglected area","main":"занедбана територія","bd":[]}
+{"sl":"uk","q":"порожня земельна ділянка","main":"empty plot of land","bd":[]}
+{"sl":"en","q":"vacant lot","main":"пустир","bd":[]}
+{"sl":"uk","q":"покинута нерухомість","main":"abandoned property","bd":[]}
+{"sl":"en","q":"abandoned property","main":"покинуте майно","bd":[]}
+{"sl":"uk","q":"погане освітлення","main":"poor lighting","bd":[]}
+{"sl":"en","q":"poor lighting","main":"погане освітлення","bd":[]}
+{"sl":"uk","q":"пошкоджений тротуар","main":"damaged pavement","bd":[]}
+{"sl":"en","q":"broken pavement","main":"розбитий тротуар","bd":[]}
+{"sl":"uk","q":"незаконне паркування","main":"illegal parking","bd":[]}
+{"sl":"en","q":"illegal parking","main":"незаконна парковка","bd":[]}
+{"sl":"uk","q":"забруднення вулиць собаками","main":"pollution of the streets by dogs","bd":[]}
+{"sl":"en","q":"dog fouling","main":"забруднення собаки","bd":[]}
+{"sl":"uk","q":"екологічна міська ініціатива","main":"ecological urban initiative","bd":[]}
+{"sl":"en","q":"green initiative","main":"зелена ініціатива","bd":[]}
+{"sl":"uk","q":"зона низьких викидів","main":"low emission zone","bd":[]}
+{"sl":"en","q":"low-emission zone","main":"зона з низьким рівнем викидів","bd":[]}
+{"sl":"uk","q":"перетворення вулиці на пішохідну","main":"turning the street into a pedestrian street","bd":[]}
+{"sl":"en","q":"pedestrianization","main":"пішохідність","bd":[]}
+{"sl":"uk","q":"оновлення міських районів","main":"renewal of urban areas","bd":[]}
+{"sl":"en","q":"urban renewal","main":"оновлення міст","bd":[]}
+{"sl":"uk","q":"антисоціальна поведінка","main":"antisocial behavior","bd":[]}
+{"sl":"en","q":"antisocial behavior","main":"асоціальна поведінка","bd":[]}
+{"sl":"uk","q":"житловий фонд","main":"housing stock","bd":[]}
+{"sl":"en","q":"housing","main":"житло","bd":[["noun",["житлове будівництво","забезпеченість житлом","навіс","сховище"]]]}
+{"sl":"uk","q":"кімната в оренду","main":"room for rent","bd":[]}
+{"sl":"en","q":"room to rent","main":"кімната в оренду","bd":[]}
+{"sl":"uk","q":"спільне орендоване житло","main":"shared rented housing","bd":[]}
+{"sl":"en","q":"shared accommodation","main":"спільне проживання","bd":[]}
+{"sl":"uk","q":"агент з оренди нерухомості","main":"real estate rental agent","bd":[]}
+{"sl":"en","q":"letting agent","main":"агент з оренди","bd":[]}
+{"sl":"uk","q":"рахунки за комунальні послуги","main":"utility bills","bd":[]}
+{"sl":"en","q":"utility bills","main":"комунальні платежі","bd":[]}
+{"sl":"uk","q":"адреса проживання","main":"address of residence","bd":[]}
+{"sl":"en","q":"residential address","main":"адреса проживання","bd":[]}
+{"sl":"uk","q":"постійна адреса","main":"permanent address","bd":[]}
+{"sl":"en","q":"permanent address","main":"постійна адреса","bd":[]}
+{"sl":"uk","q":"тимчасова адреса","main":"temporary address","bd":[]}
+{"sl":"en","q":"temporary address","main":"тимчасова адреса","bd":[]}
+{"sl":"uk","q":"сусідська програма нагляду","main":"neighborhood watch program","bd":[]}
+{"sl":"en","q":"neighborhood watch","main":"сусідська варта","bd":[]}
+{"sl":"uk","q":"керуючий будинком","main":"house manager","bd":[]}
+{"sl":"en","q":"building manager","main":"керівник буд","bd":[]}
+{"sl":"uk","q":"консьєрж","main":"concierge","bd":[["noun",["concierge"]]]}
+{"sl":"en","q":"concierge","main":"консьєрж","bd":[["noun",["консьєрж","консьєржка"]]]}
+{"sl":"uk","q":"правила проживання в будинку","main":"rules of living in the house","bd":[]}
+{"sl":"en","q":"house rules","main":"правила внутрішнього розпорядку","bd":[]}
+{"sl":"uk","q":"години тиші","main":"hours of silence","bd":[]}
+{"sl":"en","q":"quiet hours","main":"тихі години","bd":[]}
+{"sl":"uk","q":"об'єднання мешканців","main":"association of residents","bd":[]}
+{"sl":"en","q":"residents' association","main":"об'єднання жителів","bd":[]}
+{"sl":"uk","q":"власниця житла","main":"the owner of the house","bd":[]}
+{"sl":"en","q":"landlady","main":"хазяйка","bd":[["noun",["хазяйка готелю","дідичка","домовласниця"]]]}
+{"sl":"uk","q":"договір найму житла","main":"housing rental agreement","bd":[]}
+{"sl":"en","q":"tenancy agreement","main":"договір оренди","bd":[]}
+{"sl":"uk","q":"громадський захід","main":"public event","bd":[]}
+{"sl":"en","q":"public event","main":"публічний захід","bd":[]}
+{"sl":"uk","q":"вуличний ярмарок","main":"street fair","bd":[]}
+{"sl":"en","q":"street fair","main":"вуличний ярмарок","bd":[]}
+{"sl":"uk","q":"людне місце","main":"crowded place","bd":[]}
+{"sl":"en","q":"crowded area","main":"багатолюдна зона","bd":[]}
+{"sl":"uk","q":"огорожа для черги","main":"queue fence","bd":[]}
+{"sl":"en","q":"queue barrier","main":"бар'єр черги","bd":[]}
+{"sl":"uk","q":"вхідні ворота","main":"entrance gate","bd":[]}
+{"sl":"en","q":"entrance gate","main":"в'їзна брама","bd":[]}
+{"sl":"uk","q":"турнікет","main":"turnstile","bd":[["noun",["turnstile","tourniquet","stile","wicket"]]]}
+{"sl":"en","q":"turnstile","main":"турнікет","bd":[["noun",["турнікет","хрестовина"]]]}
+{"sl":"uk","q":"безкоштовний вхід","main":"free entry","bd":[]}
+{"sl":"en","q":"free admission","main":"вхід вільний","bd":[["phrase",["Безкоштовний в'їзд","Вхід безкоштовний"]]]}
+{"sl":"uk","q":"зона з обмеженим доступом","main":"restricted access area","bd":[]}
+{"sl":"en","q":"restricted area","main":"заборонена зона","bd":[]}
+{"sl":"uk","q":"охоронець закладу","main":"security guard of the institution","bd":[]}
+{"sl":"en","q":"security guard","main":"охоронець","bd":[]}
+{"sl":"uk","q":"перевірка безпеки","main":"security check","bd":[["noun",["security check"]]]}
+{"sl":"en","q":"security check","main":"перевірка безпеки","bd":[["noun",["перевірка безпеки"]]]}
+{"sl":"uk","q":"перевірка сумки","main":"bag check","bd":[]}
+{"sl":"en","q":"bag check","main":"перевірка сумки","bd":[]}
+{"sl":"uk","q":"металодетектор","main":"metal detector","bd":[]}
+{"sl":"en","q":"metal detector","main":"металошукач","bd":[]}
+{"sl":"uk","q":"керування натовпом","main":"crowd control","bd":[]}
+{"sl":"en","q":"crowd control","main":"контроль натовпу","bd":[]}
+{"sl":"uk","q":"оголошення через гучномовець","main":"loudspeaker announcement","bd":[]}
+{"sl":"en","q":"public announcement","main":"публічне оголошення","bd":[]}
+{"sl":"uk","q":"місце зустрічі","main":"venue","bd":[["noun",["venue","tryst"]]]}
+{"sl":"en","q":"meeting point","main":"місце зустрічі","bd":[]}
+{"sl":"uk","q":"пункт допомоги загубленим дітям","main":"help point for lost children","bd":[]}
+{"sl":"en","q":"lost child point","main":"втрачена дочірня точка","bd":[]}
+{"sl":"uk","q":"барикада","main":"barricade","bd":[["noun",["barricade"]]]}
+{"sl":"en","q":"barricade","main":"барикада","bd":[["noun",["барикада","загородження","перепона","перешкода"]],["verb",["барикадувати","запирати","відгородити","затарасувати"]]]}
+{"sl":"uk","q":"регулярно їздити на роботу","main":"go to work regularly","bd":[]}
+{"sl":"en","q":"to commute","main":"їздити на роботу","bd":[["verb",["замінювати","перемикати","пом'якшувати покарання"]]]}
+{"sl":"uk","q":"зупинити таксі жестом","main":"stop a taxi with a gesture","bd":[]}
+{"sl":"en","q":"to hail a taxi","main":"зупинити таксі","bd":[]}
+{"sl":"uk","q":"зайти ненадовго","main":"stop by for a while","bd":[]}
+{"sl":"en","q":"to drop by","main":"заскочити","bd":[]}
+{"sl":"uk","q":"тинятися без мети","main":"to wander aimlessly","bd":[]}
+{"sl":"en","q":"to hang around","main":"вештатися","bd":[]}
+{"sl":"uk","q":"зустрічатися з кимось","main":"meet someone","bd":[]}
+{"sl":"en","q":"to meet up","main":"зустрітися","bd":[]}
+{"sl":"uk","q":"докучлива річ","main":"annoying thing","bd":[]}
+{"sl":"en","q":"nuisance","main":"неприємність","bd":[["noun",["докучлива людина","докучливий предмет","досада","завіз","настов","незручність","неприємність","нудна людина"]]]}
+{"sl":"en","q":"renewal","main":"поновлення","bd":[["noun",["оновлення","поповнення","реставрація"]]]}
+{"sl":"uk","q":"власник крамниці","main":"shop owner","bd":[]}
+{"sl":"en","q":"shopkeeper","main":"крамар","bd":[["noun",["крамар"]]]}
+{"sl":"en","q":"uneven","main":"нерівний","bd":[["adjective",["неврівноважений","неоднаковий","непаристий","нерегулярний","нерівний"]]]}
+{"sl":"uk","q":"керівник магазину","main":"store manager","bd":[]}
+{"sl":"en","q":"store manager","main":"менеджер магазину","bd":[]}
+{"sl":"uk","q":"товари","main":"goods","bd":[["noun",["merchandise"]]]}
+{"sl":"en","q":"goods","main":"товарів","bd":[["noun",["вантаж","крам","маєтність","майно","товар"]]]}
+{"sl":"uk","q":"продукція для продажу","main":"products for sale","bd":[]}
+{"sl":"en","q":"merchandise","main":"товари","bd":[["noun",["товари","торгівля"]],["verb",["сприяти поширенню товарів","торгувати"]]]}
+{"sl":"uk","q":"вигідне співвідношення ціни та якості","main":"favorable ratio of price and quality","bd":[]}
+{"sl":"en","q":"value for money","main":"співвідношення ціни та якості","bd":[]}
+{"sl":"uk","q":"оптова торгівля","main":"wholesale","bd":[["noun",["wholesale"]]]}
+{"sl":"en","q":"wholesale","main":"оптом","bd":[["adjective",["масовий","оптовий","огульний"]],["adverb",["огульно","оптом"]],["noun",["оптова торгівля"]],["verb",["провадити оптову торгівлю"]]]}
+{"sl":"uk","q":"інтернет-магазин","main":"online store","bd":[]}
+{"sl":"en","q":"online store","main":"Інтернет магазин","bd":[]}
+{"sl":"uk","q":"сайт електронної комерції","main":"e-commerce site","bd":[]}
+{"sl":"en","q":"e-commerce website","main":"веб-сайт електронної комерції","bd":[]}
+{"sl":"uk","q":"застосунок для покупок","main":"shopping app","bd":[]}
+{"sl":"en","q":"shopping app","main":"додаток для покупок","bd":[]}
+{"sl":"uk","q":"фізичний магазин","main":"physical store","bd":[]}
+{"sl":"en","q":"physical store","main":"фізичний магазин","bd":[]}
+{"sl":"uk","q":"мережевий магазин","main":"chain store","bd":[]}
+{"sl":"en","q":"chain store","main":"мережа магазинів","bd":[]}
+{"sl":"uk","q":"незалежний місцевий магазин","main":"independent local store","bd":[]}
+{"sl":"en","q":"independent shop","main":"незалежний магазин","bd":[]}
+{"sl":"uk","q":"гіпермаркет","main":"hypermarket","bd":[["noun",["hypermarket"]]]}
+{"sl":"en","q":"hypermarket","main":"гіпермаркет","bd":[["noun",["гіпермаркет"]]]}
+{"sl":"uk","q":"фірмовий магазин при виробнику","main":"branded store at the manufacturer","bd":[]}
+{"sl":"en","q":"factory outlet","main":"заводська розетка","bd":[]}
+{"sl":"uk","q":"магазин низьких цін","main":"discount store","bd":[]}
+{"sl":"en","q":"discount store","main":"дискаунтер","bd":[]}
+{"sl":"uk","q":"спеціалізований магазин","main":"specialized store","bd":[]}
+{"sl":"en","q":"speciality store","main":"спеціалізований магазин","bd":[]}
+{"sl":"uk","q":"флагманський магазин","main":"flagship store","bd":[]}
+{"sl":"en","q":"flagship store","main":"флагманський магазин","bd":[]}
+{"sl":"uk","q":"тимчасовий магазин","main":"temporary store","bd":[]}
+{"sl":"en","q":"pop-up shop","main":"pop-up магазин","bd":[]}
+{"sl":"uk","q":"демонстраційний зал","main":"demonstration hall","bd":[]}
+{"sl":"en","q":"showroom","main":"виставковий зал","bd":[["noun",["виставочний зал"]]]}
+{"sl":"uk","q":"магазин-склад для членів клубу","main":"warehouse store for club members","bd":[]}
+{"sl":"en","q":"warehouse club","main":"складський клуб","bd":[]}
+{"sl":"uk","q":"оптовий магазин самообслуговування","main":"self-service wholesale store","bd":[]}
+{"sl":"en","q":"cash-and-carry","main":"кеш-енд-кері","bd":[]}
+{"sl":"uk","q":"оптовий ринок","main":"wholesale market","bd":[]}
+{"sl":"en","q":"wholesale market","main":"оптовий ринок","bd":[]}
+{"sl":"uk","q":"вуличний продавець","main":"street vendor","bd":[]}
+{"sl":"en","q":"street vendor","main":"вуличний торговець","bd":[]}
+{"sl":"uk","q":"інтернет-аукціон","main":"online auction","bd":[]}
+{"sl":"en","q":"online auction","main":"онлайн-аукціон","bd":[]}
+{"sl":"uk","q":"оголошення про продаж","main":"sale announcement","bd":[]}
+{"sl":"en","q":"classified ads","main":"приватні оголошення","bd":[]}
+{"sl":"uk","q":"магазин безмитної торгівлі","main":"duty-free shop","bd":[]}
+{"sl":"en","q":"duty-free shop","main":"магазин безмитної торгівлі","bd":[["noun",["безмитна крамниця"]]]}
+{"sl":"uk","q":"прямі продажі","main":"direct sales","bd":[]}
+{"sl":"en","q":"direct sales","main":"прямі продажі","bd":[]}
+{"sl":"uk","q":"продажі через соціальні мережі","main":"sales through social networks","bd":[]}
+{"sl":"en","q":"social commerce","main":"соціальна комерція","bd":[]}
+{"sl":"uk","q":"магазин зі зниженими цінами","main":"discount store","bd":[]}
+{"sl":"en","q":"outlet store","main":"аутлет-магазин","bd":[]}
+{"sl":"uk","q":"назва товару","main":"product name","bd":[]}
+{"sl":"en","q":"product name","main":"назва продукту","bd":[]}
+{"sl":"uk","q":"опис товару","main":"product description","bd":[]}
+{"sl":"en","q":"product description","main":"опис товару","bd":[]}
+{"sl":"uk","q":"сторінка товару","main":"product page","bd":[]}
+{"sl":"en","q":"product page","main":"сторінка товару","bd":[]}
+{"sl":"uk","q":"категорія товару","main":"product category","bd":[]}
+{"sl":"en","q":"product category","main":"категорія товару","bd":[]}
+{"sl":"uk","q":"варіант товару","main":"product variant","bd":[]}
+{"sl":"en","q":"variant","main":"варіант","bd":[["adjective",["відмінний","інший","різний"]],["noun",["варіант","різночитання","варіянт","варіяція","відміна"]]]}
+{"sl":"uk","q":"габарити","main":"dimensions","bd":[]}
+{"sl":"en","q":"dimensions","main":"розміри","bd":[["noun",["величина","міра","розмах"]],["verb",["проставляти розміри"]]]}
+{"sl":"uk","q":"відомості про товар","main":"product information","bd":[]}
+{"sl":"en","q":"product details","main":"деталі продукту","bd":[]}
+{"sl":"uk","q":"вміст упаковки","main":"package contents","bd":[]}
+{"sl":"en","q":"package contents","main":"вміст упаковки","bd":[]}
+{"sl":"uk","q":"країна походження","main":"country of origin","bd":[]}
+{"sl":"en","q":"country of origin","main":"країна походження","bd":[]}
+{"sl":"uk","q":"виробник товару","main":"the manufacturer of the product","bd":[]}
+{"sl":"en","q":"product manufacturer","main":"виробник продукту","bd":[]}
+{"sl":"uk","q":"назва бренду","main":"brand name","bd":[]}
+{"sl":"en","q":"brand name","main":"торгова марка","bd":[]}
+{"sl":"uk","q":"персоналізований","main":"personalized","bd":[]}
+{"sl":"en","q":"personalized","main":"персоналізовані","bd":[["verb",["втілювати","приймати на свій рахунок","уособлювати"]]]}
+{"sl":"uk","q":"виготовлений вручну","main":"handmade","bd":[["adjective",["handmade"]]]}
+{"sl":"en","q":"handmade","main":"ручної роботи","bd":[["adjective",["виготовлений вручну","ручний","ручної роботи"]]]}
+{"sl":"uk","q":"серійного виробництва","main":"serial production","bd":[["adjective",["mass-produced"]]]}
+{"sl":"en","q":"mass-produced","main":"масового виробництва","bd":[["adjective",["серійного виробництва"]]]}
+{"sl":"uk","q":"початкового рівня","main":"elementary level","bd":[]}
+{"sl":"en","q":"entry-level","main":"початкового рівня","bd":[]}
+{"sl":"uk","q":"високого класу","main":"high class","bd":[]}
+{"sl":"en","q":"high-end","main":"високого класу","bd":[["adjective",["лідируючий"]]]}
+{"sl":"uk","q":"довговічний","main":"lasting","bd":[["adjective",["lasting","macrobiotic","long-lived"]]]}
+{"sl":"en","q":"durable","main":"міцний","bd":[["adjective",["довгочасний","тривалого користування","надійний","стійкий","тривкий"]]]}
+{"sl":"uk","q":"водостійкий","main":"waterproof","bd":[]}
+{"sl":"en","q":"water-resistant","main":"водостійкий","bd":[]}
+{"sl":"uk","q":"контрафактний","main":"counterfeit","bd":[]}
+{"sl":"en","q":"counterfeit","main":"підробка","bd":[["adjective",["облудний","підроблений","удаваний","фальсифікований","фальшивий"]],["noun",["дурило","обманщик","підробка","самозванець","фальшивка"]],["verb",["імітувати","передражнювати","підробляти","удавати","фальсифікувати","обдурювати","перекривитися","прикидатися"]]]}
+{"sl":"uk","q":"індивідуального пошиття","main":"individual tailoring","bd":[]}
+{"sl":"en","q":"bespoke","main":"на замовлення","bd":[["adjective",["замовлений"]]]}
+{"sl":"uk","q":"звичайна ціна","main":"regular price","bd":[]}
+{"sl":"en","q":"regular price","main":"звичайна ціна","bd":[]}
+{"sl":"uk","q":"ціна за прайсом","main":"price by price","bd":[]}
+{"sl":"en","q":"list price","main":"прайс-лист","bd":[]}
+{"sl":"uk","q":"кінцева ціна","main":"final price","bd":[]}
+{"sl":"en","q":"final price","main":"остаточна ціна","bd":[]}
+{"sl":"uk","q":"проміжний підсумок","main":"interim summary","bd":[]}
+{"sl":"en","q":"subtotal","main":"проміжний підсумок","bd":[]}
+{"sl":"uk","q":"відсоткова знижка","main":"percentage discount","bd":[]}
+{"sl":"en","q":"percentage discount","main":"відсоткова знижка","bd":[]}
+{"sl":"uk","q":"зниження ціни","main":"price reduction","bd":[]}
+{"sl":"en","q":"price reduction","main":"зниження ціни","bd":[]}
+{"sl":"uk","q":"розпродаж залишків","main":"sale of leftovers","bd":[]}
+{"sl":"en","q":"clearance sale","main":"розпродаж","bd":[["noun",["розпродаж залишків товару"]]]}
+{"sl":"uk","q":"сезонний розпродаж","main":"seasonal sale","bd":[]}
+{"sl":"en","q":"seasonal sale","main":"сезонний розпродаж","bd":[]}
+{"sl":"uk","q":"короткочасний розпродаж","main":"short sale","bd":[]}
+{"sl":"en","q":"flash sale","main":"флеш розпродаж","bd":[]}
+{"sl":"uk","q":"вигідна пропозиція комплектом","main":"bargain offer as a set","bd":[]}
+{"sl":"en","q":"bundle deal","main":"пакетна угода","bd":[]}
+{"sl":"uk","q":"подарунковий сертифікат","main":"gift certificate","bd":[]}
+{"sl":"en","q":"voucher","main":"ваучер","bd":[["noun",["ваучер","гарант","запорука","поручитель","свідок"]]]}
+{"sl":"uk","q":"промокод","main":"promo code","bd":[]}
+{"sl":"en","q":"promo code","main":"промокод","bd":[]}
+{"sl":"uk","q":"знижка за програмою лояльності","main":"loyalty program discount","bd":[]}
+{"sl":"en","q":"loyalty discount","main":"знижка на лояльність","bd":[]}
+{"sl":"uk","q":"кешбек","main":"cashback","bd":[]}
+{"sl":"en","q":"cashback","main":"кешбек","bd":[]}
+{"sl":"uk","q":"податок включено","main":"tax included","bd":[]}
+{"sl":"en","q":"tax included","main":"включений податок","bd":[]}
+{"sl":"uk","q":"вартість доставки","main":"cost of delivery","bd":[]}
+{"sl":"en","q":"delivery charge","main":"вартість доставки","bd":[]}
+{"sl":"uk","q":"додаткова плата","main":"additional fee","bd":[]}
+{"sl":"en","q":"surcharge","main":"доплата","bd":[["noun",["додатковий податок","доплата","перевантаження"]],["verb",["брати додаткову плату","перевантажувати","вимагати надто високу ціну"]]]}
+{"sl":"uk","q":"прихована комісія","main":"hidden commission","bd":[]}
+{"sl":"en","q":"hidden fee","main":"прихована плата","bd":[]}
+{"sl":"uk","q":"завищений у ціні","main":"overpriced","bd":[]}
+{"sl":"en","q":"overpriced","main":"завищена ціна","bd":[]}
+{"sl":"uk","q":"за помірною ціною","main":"at a reasonable price","bd":[]}
+{"sl":"en","q":"reasonably priced","main":"розумна ціна","bd":[]}
+{"sl":"uk","q":"акційна пропозиція","main":"promotional offer","bd":[]}
+{"sl":"en","q":"promo","main":"промо","bd":[]}
+{"sl":"uk","q":"є в наявності","main":"is available","bd":[]}
+{"sl":"en","q":"in stock","main":"в наявності","bd":[["adjective",["наявний"]],["adverb",["в асортименті","в наявності"]]]}
+{"sl":"uk","q":"немає в наявності","main":"not available","bd":[]}
+{"sl":"en","q":"out of stock","main":"немає на складі","bd":[]}
+{"sl":"uk","q":"недоступний","main":"inaccessible","bd":[["adjective",["inaccessible","unapproachable","approachless","exclusive","shut-in"]]]}
+{"sl":"en","q":"unavailable","main":"недоступний","bd":[["adjective",["відсутній","марний","недійсний"]]]}
+{"sl":"uk","q":"обмежена наявність","main":"limited availability","bd":[]}
+{"sl":"en","q":"limited availability","main":"обмежена доступність","bd":[]}
+{"sl":"uk","q":"мало товару в наявності","main":"there is little product in stock","bd":[]}
+{"sl":"en","q":"low stock","main":"низький запас","bd":[]}
+{"sl":"uk","q":"знову в наявності","main":"back in stock","bd":[]}
+{"sl":"en","q":"back in stock","main":"знову в наявності","bd":[]}
+{"sl":"uk","q":"рівень запасів","main":"inventory level","bd":[]}
+{"sl":"en","q":"stock level","main":"рівень запасів","bd":[]}
+{"sl":"uk","q":"складський залишок","main":"warehouse balance","bd":[]}
+{"sl":"en","q":"warehouse stock","main":"складський запас","bd":[]}
+{"sl":"uk","q":"демонстраційний зразок","main":"demonstration sample","bd":[]}
+{"sl":"en","q":"display model","main":"модель дисплея","bd":[]}
+{"sl":"uk","q":"знятий з виробництва","main":"discontinued","bd":[]}
+{"sl":"en","q":"discontinued","main":"припинено","bd":[["verb",["перериватися","припиняти"]]]}
+{"sl":"uk","q":"попереднє замовлення","main":"advance order","bd":[]}
+{"sl":"en","q":"pre-order","main":"попереднє замовлення","bd":[]}
+{"sl":"uk","q":"відкладене замовлення","main":"delayed order","bd":[]}
+{"sl":"en","q":"back order","main":"зворотне замовлення","bd":[]}
+{"sl":"uk","q":"список очікування","main":"waiting list","bd":[["noun",["waiting list"]]]}
+{"sl":"en","q":"waiting list","main":"лист очікування","bd":[["noun",["список очікування"]]]}
+{"sl":"uk","q":"очікувана дата наявності","main":"expected availability date","bd":[]}
+{"sl":"en","q":"estimated availability","main":"орієнтовна доступність","bd":[]}
+{"sl":"uk","q":"поповнення запасів","main":"stock replenishment","bd":[]}
+{"sl":"en","q":"replenishment","main":"поповнення","bd":[["noun",["повторне наповнення","поповнення"]]]}
+{"sl":"uk","q":"вичерпати запас","main":"run out of stock","bd":[]}
+{"sl":"en","q":"to run out of","main":"вичерпуватись","bd":[]}
+{"sl":"uk","q":"порівнювати пропозиції продавців","main":"compare sellers' offers","bd":[]}
+{"sl":"en","q":"to shop around","main":"робити покупки навколо","bd":[]}
+{"sl":"uk","q":"розглядати товари","main":"view goods","bd":[]}
+{"sl":"en","q":"to browse","main":"для перегляду","bd":[["verb",["випасати","пастися","об'їдати листя"]]]}
+{"sl":"uk","q":"початківець","main":"beginner","bd":[["noun",["beginner","novice","apprentice"]]]}
+{"sl":"en","q":"beginner","main":"новачок","bd":[["noun",["новак","початківець"]]]}
+{"sl":"uk","q":"з найвищими оцінками","main":"with the highest marks","bd":[]}
+{"sl":"en","q":"top-rated","main":"найвищий рейтинг","bd":[]}
+{"sl":"uk","q":"оцінка користувачів","main":"user rating","bd":[]}
+{"sl":"en","q":"rating","main":"рейтинг","bd":[["noun",["звання","віднесення до класу","нормування","оподаткування","оцінка","потужність"]]]}
+{"sl":"uk","q":"оцінка в зірках","main":"rating in stars","bd":[]}
+{"sl":"en","q":"star rating","main":"зірковий рейтинг","bd":[]}
+{"sl":"uk","q":"переваги й недоліки","main":"advantages and disadvantages","bd":[]}
+{"sl":"en","q":"pros and cons","main":"плюси і мінуси","bd":[]}
+{"sl":"uk","q":"пробний зразок","main":"test sample","bd":[]}
+{"sl":"en","q":"tester","main":"тестер","bd":[["noun",["випробувач","лаборант","тестер"]]]}
+{"sl":"uk","q":"демонстраційний пристрій","main":"demonstration device","bd":[]}
+{"sl":"en","q":"demo unit","main":"демонстраційний блок","bd":[]}
+{"sl":"uk","q":"посібник із вибору товару","main":"product selection guide","bd":[]}
+{"sl":"en","q":"buying guide","main":"посібник із купівлі","bd":[]}
+{"sl":"uk","q":"онлайн-замовлення","main":"online order","bd":[]}
+{"sl":"en","q":"online order","main":"онлайн замовлення","bd":[]}
+{"sl":"uk","q":"замовлення телефоном","main":"order by phone","bd":[]}
+{"sl":"en","q":"phone order","main":"замовлення по телефону","bd":[]}
+{"sl":"uk","q":"оптове замовлення","main":"wholesale order","bd":[]}
+{"sl":"en","q":"bulk order","main":"оптове замовлення","bd":[]}
+{"sl":"uk","q":"індивідуальне замовлення","main":"individual order","bd":[]}
+{"sl":"en","q":"custom order","main":"індивідуальне замовлення","bd":[]}
+{"sl":"uk","q":"повторне замовлення","main":"repeat order","bd":[]}
+{"sl":"en","q":"repeat order","main":"повторити замовлення","bd":[]}
+{"sl":"uk","q":"мінімальне замовлення","main":"minimum order","bd":[]}
+{"sl":"en","q":"minimum order","main":"мінімальне замовлення","bd":[]}
+{"sl":"uk","q":"номер замовлення","main":"order number","bd":[]}
+{"sl":"en","q":"order number","main":"номер замовлення","bd":[]}
+{"sl":"uk","q":"список бажань","main":"wish list","bd":[]}
+{"sl":"en","q":"wishlist","main":"список бажань","bd":[]}
+{"sl":"uk","q":"оформлення без реєстрації","main":"registration without registration","bd":[]}
+{"sl":"en","q":"guest checkout","main":"гостьова перевірка","bd":[]}
+{"sl":"uk","q":"кошик покупок","main":"shopping cart","bd":[]}
+{"sl":"en","q":"shopping cart","main":"кошик для покупок","bd":[["noun",["візок для покупок"]]]}
+{"sl":"uk","q":"платіжна адреса","main":"payment address","bd":[]}
+{"sl":"en","q":"billing address","main":"платіжну адресу","bd":[]}
+{"sl":"uk","q":"адреса доставки","main":"delivery address","bd":[]}
+{"sl":"en","q":"delivery address","main":"адреса доставки","bd":[]}
+{"sl":"uk","q":"дані одержувача","main":"recipient data","bd":[]}
+{"sl":"en","q":"recipient details","main":"дані одержувача","bd":[]}
+{"sl":"uk","q":"контактні дані","main":"contact details","bd":[]}
+{"sl":"en","q":"contact details","main":"контактні дані","bd":[]}
+{"sl":"uk","q":"варіант доставки","main":"delivery option","bd":[]}
+{"sl":"en","q":"delivery option","main":"варіант доставки","bd":[]}
+{"sl":"uk","q":"підсумок замовлення","main":"order summary","bd":[]}
+{"sl":"en","q":"order summary","main":"резюме замовлення","bd":[]}
+{"sl":"uk","q":"загальна сума замовлення","main":"the total amount of the order","bd":[]}
+{"sl":"en","q":"order total","main":"всього замовлення","bd":[]}
+{"sl":"uk","q":"підтвердження замовлення","main":"order confirmation","bd":[]}
+{"sl":"en","q":"order confirmation","main":"підтвердження замовлення","bd":[]}
+{"sl":"uk","q":"лист-підтвердження","main":"confirmation letter","bd":[]}
+{"sl":"en","q":"confirmation email","main":"електронний лист із підтвердженням","bd":[]}
+{"sl":"uk","q":"статус замовлення","main":"order status","bd":[]}
+{"sl":"en","q":"order status","main":"статус замовлення","bd":[]}
+{"sl":"uk","q":"очікує обробки","main":"waiting for processing","bd":[]}
+{"sl":"en","q":"pending","main":"в очікуванні","bd":[["adjective",["висячий","невирішений","неминучий","очікуваний"]],["preposition",["протягом","чекаючи"]]]}
+{"sl":"uk","q":"обробляється","main":"is processed","bd":[]}
+{"sl":"en","q":"processing","main":"обробки","bd":[["noun",["обробка","переробка","стерилізація","технологія"]]]}
+{"sl":"uk","q":"замовляти повторно","main":"order again","bd":[]}
+{"sl":"en","q":"to reorder","main":"перезамовити","bd":[]}
+{"sl":"uk","q":"безготівкова оплата","main":"non-cash payment","bd":[]}
+{"sl":"en","q":"cashless payment","main":"безготівковий розрахунок","bd":[]}
+{"sl":"uk","q":"мобільний платіж","main":"mobile payment","bd":[]}
+{"sl":"en","q":"mobile payment","main":"мобільний платіж","bd":[]}
+{"sl":"uk","q":"електронний гаманець","main":"electronic wallet","bd":[]}
+{"sl":"en","q":"digital wallet","main":"цифровий гаманець","bd":[]}
+{"sl":"uk","q":"післяплата","main":"postpaid","bd":[]}
+{"sl":"en","q":"cash on delivery","main":"готівковий платіж","bd":[]}
+{"sl":"uk","q":"передоплата","main":"prepayment","bd":[]}
+{"sl":"en","q":"prepayment","main":"передоплата","bd":[["noun",["попередня оплата"]]]}
+{"sl":"uk","q":"купи зараз — заплати пізніше","main":"buy now pay later","bd":[]}
+{"sl":"en","q":"buy now, pay later","main":"купи зараз, заплати пізніше","bd":[]}
+{"sl":"uk","q":"платіжний термінал","main":"payment terminal","bd":[]}
+{"sl":"en","q":"card terminal","main":"картковий термінал","bd":[]}
+{"sl":"uk","q":"касова стійка магазину","main":"store cash desk","bd":[]}
+{"sl":"en","q":"checkout counter","main":"касова стійка","bd":[]}
+{"sl":"uk","q":"каса самообслуговування","main":"self-service checkout","bd":[]}
+{"sl":"en","q":"self-checkout","main":"самообслуговування","bd":[]}
+{"sl":"uk","q":"підтвердження платежу","main":"confirmation of payment","bd":[]}
+{"sl":"en","q":"payment confirmation","main":"підтвердження оплати","bd":[]}
+{"sl":"uk","q":"призначення платежу","main":"payment destination","bd":[]}
+{"sl":"en","q":"payment reference","main":"платіжну довідку","bd":[]}
+{"sl":"uk","q":"комісія за обслуговування","main":"service fee","bd":[]}
+{"sl":"en","q":"service fee","main":"плата за обслуговування","bd":[]}
+{"sl":"uk","q":"платіж не пройшов","main":"the payment did not go through","bd":[]}
+{"sl":"en","q":"payment failed","main":"платіж не вдалося","bd":[]}
+{"sl":"uk","q":"картку відхилено","main":"card declined","bd":[]}
+{"sl":"en","q":"card declined","main":"картку відхилено","bd":[]}
+{"sl":"uk","q":"недостатньо коштів","main":"insufficient funds","bd":[]}
+{"sl":"en","q":"insufficient funds","main":"недостатньо коштів","bd":[]}
+{"sl":"uk","q":"поштовий пакет","main":"postal package","bd":[]}
+{"sl":"en","q":"mailer","main":"поштова програма","bd":[]}
+{"sl":"uk","q":"пухирчастий конверт","main":"bubble envelope","bd":[]}
+{"sl":"en","q":"padded envelope","main":"м'який конверт","bd":[]}
+{"sl":"uk","q":"пакет для покупок","main":"shopping bag","bd":[]}
+{"sl":"en","q":"carrier bag","main":"сумка-переноска","bd":[]}
+{"sl":"uk","q":"подарункова коробка","main":"gift box","bd":[]}
+{"sl":"en","q":"gift box","main":"подарункова коробка","bd":[]}
+{"sl":"uk","q":"подарункове пакування","main":"gift packaging","bd":[]}
+{"sl":"en","q":"gift wrap","main":"подарункова упаковка","bd":[]}
+{"sl":"uk","q":"пакувальний папір для подарунків","main":"wrapping paper for gifts","bd":[]}
+{"sl":"en","q":"wrapping paper","main":"обгортковий папір","bd":[]}
+{"sl":"uk","q":"повітряно-бульбашкова плівка","main":"air-bubble film","bd":[]}
+{"sl":"en","q":"bubble wrap","main":"пухирчаста плівка","bd":[]}
+{"sl":"uk","q":"папір для набивання","main":"stuffing paper","bd":[]}
+{"sl":"en","q":"packing paper","main":"пакувальний папір","bd":[]}
+{"sl":"uk","q":"пінопластовий наповнювач","main":"foam filler","bd":[]}
+{"sl":"en","q":"packing peanuts","main":"упаковка арахісу","bd":[]}
+{"sl":"uk","q":"поролонова вставка","main":"foam insert","bd":[]}
+{"sl":"en","q":"foam insert","main":"вставка з поролону","bd":[]}
+{"sl":"uk","q":"захисне пакування","main":"protective packaging","bd":[]}
+{"sl":"en","q":"protective packaging","main":"захисна упаковка","bd":[]}
+{"sl":"uk","q":"пакувальна клейка стрічка","main":"packing tape","bd":[]}
+{"sl":"en","q":"packing tape","main":"пакувальна стрічка","bd":[]}
+{"sl":"uk","q":"пломба з контролем розкриття","main":"seal with opening control","bd":[]}
+{"sl":"en","q":"tamper-evident seal","main":"пломба, що захищає від втручання","bd":[]}
+{"sl":"uk","q":"транспортна етикетка","main":"transport label","bd":[]}
+{"sl":"en","q":"shipping label","main":"транспортна етикетка","bd":[]}
+{"sl":"uk","q":"QR-код","main":"QR code","bd":[]}
+{"sl":"en","q":"QR code","main":"QR код","bd":[]}
+{"sl":"uk","q":"серійний номер","main":"serial number","bd":[]}
+{"sl":"en","q":"serial number","main":"серійний номер","bd":[]}
+{"sl":"uk","q":"номер партії","main":"batch number","bd":[]}
+{"sl":"en","q":"batch number","main":"номер партії","bd":[]}
+{"sl":"uk","q":"наліпка Крихке","main":"Fragile sticker","bd":[]}
+{"sl":"en","q":"fragile sticker","main":"тендітна наклейка","bd":[]}
+{"sl":"uk","q":"пакувальний лист","main":"packing list","bd":[]}
+{"sl":"en","q":"packing slip","main":"пакувальний лист","bd":[]}
+{"sl":"uk","q":"супровідна накладна","main":"accompanying invoice","bd":[]}
+{"sl":"en","q":"delivery note","main":"накладна на доставку","bd":[]}
+{"sl":"uk","q":"інструкція з експлуатації","main":"operating instructions","bd":[]}
+{"sl":"en","q":"instruction manual","main":"інструкція з експлуатації","bd":[]}
+{"sl":"uk","q":"гарантійний талон","main":"warranty card","bd":[]}
+{"sl":"en","q":"warranty card","main":"гарантійний талон","bd":[]}
+{"sl":"uk","q":"подарунок до замовлення","main":"gift with order","bd":[]}
+{"sl":"en","q":"free gift","main":"безкоштовний подарунок","bd":[]}
+{"sl":"uk","q":"повна комплектація","main":"complete set","bd":[]}
+{"sl":"en","q":"complete set","main":"повний комплект","bd":[]}
+{"sl":"uk","q":"улюблений товар покупців","main":"favorite product of buyers","bd":[]}
+{"sl":"en","q":"customer favorite","main":"улюблений клієнт","bd":[]}
+{"sl":"uk","q":"центр виконання замовлень","main":"order fulfillment center","bd":[]}
+{"sl":"en","q":"fulfillment center","main":"центр виконання","bd":[]}
+{"sl":"uk","q":"складське приміщення магазину","main":"store warehouse","bd":[]}
+{"sl":"en","q":"stockroom","main":"складське приміщення","bd":[]}
+{"sl":"uk","q":"керування товарними запасами","main":"inventory management","bd":[]}
+{"sl":"en","q":"inventory management","main":"управління запасами","bd":[]}
+{"sl":"uk","q":"обробка замовлення","main":"order processing","bd":[]}
+{"sl":"en","q":"order processing","main":"обробка замовлення","bd":[]}
+{"sl":"uk","q":"виконання замовлення","main":"fulfillment of the order","bd":[]}
+{"sl":"en","q":"fulfillment","main":"виконання","bd":[["noun",["виконання","виповнення","завершення","здійснення"]]]}
+{"sl":"uk","q":"відбір товару зі складу","main":"selection of goods from the warehouse","bd":[]}
+{"sl":"en","q":"picking","main":"збирання","bd":[["adjective",["злодійкуватий"]],["noun",["збирання","ломка","розбирання","сортування"]]]}
+{"sl":"uk","q":"пакування замовлення","main":"packing the order","bd":[]}
+{"sl":"en","q":"packing","main":"упаковка","bd":[["adjective",["пакувальний"]],["noun",["консервування","пакування","нав'ючення","прокладка","нагромадження","тара"]]]}
+{"sl":"uk","q":"вантажовідправник","main":"consignor","bd":[["noun",["consignor","consigner","freighter"]]]}
+{"sl":"en","q":"shipper","main":"вантажовідправник","bd":[["noun",["відправник морського вантажу","баластна цегла"]]]}
+{"sl":"uk","q":"відправник за накладною","main":"sender by invoice","bd":[]}
+{"sl":"en","q":"consignor","main":"вантажовідправник","bd":[["noun",["вантажовідправник","комітент","консигнант"]]]}
+{"sl":"uk","q":"вантажоодержувач","main":"consignee","bd":[["noun",["consignee"]]]}
+{"sl":"en","q":"consignee","main":"вантажоодержувач","bd":[["noun",["вантажоодержувач","здавець"]]]}
+{"sl":"uk","q":"логістичний оператор","main":"logistics operator","bd":[]}
+{"sl":"en","q":"logistics provider","main":"постачальник логістичних послуг","bd":[]}
+{"sl":"uk","q":"строк обробки замовлення","main":"order processing time","bd":[]}
+{"sl":"en","q":"handling time","main":"час обробки","bd":[]}
+{"sl":"uk","q":"граничний час приймання замовлень","main":"the deadline for accepting orders","bd":[]}
+{"sl":"en","q":"cut-off time","main":"час відключення","bd":[]}
+{"sl":"uk","q":"робочий день","main":"working day","bd":[["noun",["working day","day"]]]}
+{"sl":"en","q":"business day","main":"робочий день","bd":[]}
+{"sl":"uk","q":"готове до відправлення","main":"ready to ship","bd":[]}
+{"sl":"en","q":"ready for dispatch","main":"готовий до відправлення","bd":[]}
+{"sl":"uk","q":"очікує відправлення","main":"awaiting shipment","bd":[]}
+{"sl":"en","q":"awaiting shipment","main":"очікує відправлення","bd":[]}
+{"sl":"uk","q":"відправлено","main":"sent","bd":[["verb",["send","dispatch","fling"]]]}
+{"sl":"en","q":"dispatched","main":"відправлено","bd":[["verb",["виправити","відправляти","кінчати","відправити","посилати","розрахуватися","справитися"]]]}
+{"sl":"uk","q":"відправлено частково","main":"sent partially","bd":[]}
+{"sl":"en","q":"partially shipped","main":"частково відвантажено","bd":[]}
+{"sl":"uk","q":"розділене відправлення","main":"split shipment","bd":[]}
+{"sl":"en","q":"split shipment","main":"розділене відправлення","bd":[]}
+{"sl":"uk","q":"об'єднане відправлення","main":"combined shipment","bd":[]}
+{"sl":"en","q":"consolidated shipment","main":"консолідована відправка","bd":[]}
+{"sl":"uk","q":"розподільчий центр","main":"distribution center","bd":[]}
+{"sl":"en","q":"distribution center","main":"розподільний центр","bd":[]}
+{"sl":"uk","q":"стандартна доставка","main":"standard delivery","bd":[]}
+{"sl":"en","q":"standard delivery","main":"стандартна доставка","bd":[]}
+{"sl":"uk","q":"експрес-доставка","main":"express delivery","bd":[]}
+{"sl":"en","q":"express delivery","main":"експрес доставка","bd":[]}
+{"sl":"uk","q":"доставка наступного дня","main":"next day delivery","bd":[]}
+{"sl":"en","q":"next-day delivery","main":"доставка на наступний день","bd":[]}
+{"sl":"uk","q":"доставка того самого дня","main":"same day delivery","bd":[]}
+{"sl":"en","q":"same-day delivery","main":"доставка в той же день","bd":[]}
+{"sl":"uk","q":"доставка на визначений час","main":"delivery on time","bd":[]}
+{"sl":"en","q":"scheduled delivery","main":"запланована доставка","bd":[]}
+{"sl":"uk","q":"міжнародна доставка","main":"international delivery","bd":[]}
+{"sl":"en","q":"international shipping","main":"міжнародна доставка","bd":[]}
+{"sl":"uk","q":"доставка в межах країни","main":"delivery within the country","bd":[]}
+{"sl":"en","q":"domestic delivery","main":"внутрішня доставка","bd":[]}
+{"sl":"uk","q":"доставка від дверей до дверей","main":"door to door delivery","bd":[]}
+{"sl":"en","q":"door-to-door delivery","main":"доставка від дверей до дверей","bd":[]}
+{"sl":"uk","q":"доставка додому","main":"home delivery","bd":[]}
+{"sl":"en","q":"home delivery","main":"доставка додому","bd":[]}
+{"sl":"uk","q":"безкоштовна доставка","main":"free shipping","bd":[]}
+{"sl":"en","q":"free shipping","main":"безкоштовна доставка","bd":[]}
+{"sl":"uk","q":"безконтактна доставка","main":"contactless delivery","bd":[]}
+{"sl":"en","q":"contactless delivery","main":"безконтактна доставка","bd":[]}
+{"sl":"uk","q":"доставка останньої милі","main":"last mile delivery","bd":[]}
+{"sl":"en","q":"last-mile delivery","main":"доставка на останню милю","bd":[]}
+{"sl":"uk","q":"водій доставки","main":"delivery driver","bd":[]}
+{"sl":"en","q":"delivery driver","main":"водій доставки","bd":[]}
+{"sl":"uk","q":"поштова служба","main":"postal service","bd":[]}
+{"sl":"en","q":"postal service","main":"поштова служба","bd":[]}
+{"sl":"uk","q":"служба доставки","main":"delivery service","bd":[]}
+{"sl":"en","q":"delivery company","main":"компанія доставки","bd":[]}
+{"sl":"uk","q":"пункт видачі","main":"issue point","bd":[]}
+{"sl":"en","q":"pickup point","main":"пункт самовивозу","bd":[]}
+{"sl":"uk","q":"партнерський пункт видачі посилок","main":"partner parcel delivery point","bd":[]}
+{"sl":"en","q":"parcel shop","main":"посилковий магазин","bd":[]}
+{"sl":"uk","q":"замовлення онлайн із самовивозом","main":"order online with pickup","bd":[]}
+{"sl":"en","q":"click and collect","main":"натисніть і заберіть","bd":[]}
+{"sl":"uk","q":"самовивіз","main":"self pickup","bd":[]}
+{"sl":"en","q":"self-pickup","main":"самовивіз","bd":[]}
+{"sl":"uk","q":"зона доставки","main":"delivery area","bd":[]}
+{"sl":"en","q":"delivery area","main":"зона доставки","bd":[]}
+{"sl":"uk","q":"часовий інтервал доставки","main":"delivery time interval","bd":[]}
+{"sl":"en","q":"delivery slot","main":"слот доставки","bd":[]}
+{"sl":"uk","q":"орієнтовна дата доставки","main":"estimated delivery date","bd":[]}
+{"sl":"en","q":"estimated delivery date","main":"орієнтовна дата доставки","bd":[]}
+{"sl":"uk","q":"інструкції для кур'єра","main":"instructions for the courier","bd":[]}
+{"sl":"en","q":"delivery instructions","main":"інструкції з доставки","bd":[]}
+{"sl":"uk","q":"потрібен підпис одержувача","main":"the recipient's signature is required","bd":[]}
+{"sl":"en","q":"signature required","main":"потрібен підпис","bd":[]}
+{"sl":"uk","q":"підтвердження вручення","main":"confirmation of delivery","bd":[]}
+{"sl":"en","q":"proof of delivery","main":"підтвердження доставки","bd":[]}
+{"sl":"uk","q":"адресат","main":"addressee","bd":[["noun",["addressee"]]]}
+{"sl":"en","q":"addressee","main":"адресат","bd":[["noun",["адресат"]]]}
+{"sl":"uk","q":"відстеження посилки","main":"parcel tracking","bd":[]}
+{"sl":"en","q":"tracking","main":"відстеження","bd":[["noun",["залізничні колії","укладання колій","стеження"]]]}
+{"sl":"uk","q":"посилання для відстеження","main":"tracking link","bd":[]}
+{"sl":"en","q":"tracking link","main":"посилання для відстеження","bd":[]}
+{"sl":"uk","q":"інформація про відстеження","main":"tracking information","bd":[]}
+{"sl":"en","q":"tracking information","main":"відстеження інформації","bd":[]}
+{"sl":"uk","q":"статус доставки","main":"delivery status","bd":[]}
+{"sl":"en","q":"delivery status","main":"стан доставки","bd":[]}
+{"sl":"uk","q":"оновлення статусу відстеження","main":"tracking status updates","bd":[]}
+{"sl":"en","q":"tracking update","main":"оновлення відстеження","bd":[]}
+{"sl":"uk","q":"орієнтовний час прибуття","main":"estimated time of arrival","bd":[]}
+{"sl":"en","q":"estimated time of arrival","main":"орієнтовний час прибуття","bd":[]}
+{"sl":"uk","q":"у дорозі","main":"in transit","bd":[["adverb",["in transit"]]]}
+{"sl":"en","q":"in transit","main":"в дорозі","bd":[["adverb",["у дорозі"]]]}
+{"sl":"uk","q":"передано кур'єру для доставки","main":"given to the courier for delivery","bd":[]}
+{"sl":"en","q":"out for delivery","main":"на доставку","bd":[]}
+{"sl":"uk","q":"доставлено","main":"delivered","bd":[]}
+{"sl":"en","q":"delivered","main":"доставлено","bd":[["adjective",["доручений"]]]}
+{"sl":"uk","q":"була спроба доставки","main":"a delivery was attempted","bd":[]}
+{"sl":"en","q":"delivery attempted","main":"спроба доставки","bd":[]}
+{"sl":"uk","q":"невдала спроба доставки","main":"failed delivery attempt","bd":[]}
+{"sl":"en","q":"failed delivery attempt","main":"невдала спроба доставки","bd":[]}
+{"sl":"uk","q":"повідомлення про спробу доставки","main":"delivery attempt notification","bd":[]}
+{"sl":"en","q":"delivery notice","main":"повідомлення про доставку","bd":[]}
+{"sl":"uk","q":"затримка доставки","main":"delivery delay","bd":[]}
+{"sl":"en","q":"delivery delay","main":"затримка доставки","bd":[]}
+{"sl":"uk","q":"прострочена доставка","main":"delayed delivery","bd":[]}
+{"sl":"en","q":"late delivery","main":"несвоєчасна доставка","bd":[]}
+{"sl":"uk","q":"затримано на митниці","main":"detained at customs","bd":[]}
+{"sl":"en","q":"held at customs","main":"утримується на митниці","bd":[]}
+{"sl":"uk","q":"митне оформлення","main":"customs clearance","bd":[]}
+{"sl":"en","q":"customs clearance","main":"митне оформлення","bd":[]}
+{"sl":"uk","q":"мито","main":"toll","bd":[["noun",["toll","customs","dues","impost"]]]}
+{"sl":"en","q":"customs duty","main":"митний збір","bd":[]}
+{"sl":"uk","q":"податок на імпорт","main":"import tax","bd":[]}
+{"sl":"en","q":"import tax","main":"податок на імпорт","bd":[]}
+{"sl":"uk","q":"неправильна адреса","main":"Invalid address","bd":[]}
+{"sl":"en","q":"incorrect address","main":"неправильна адреса","bd":[]}
+{"sl":"uk","q":"адресу не знайдено","main":"address not found","bd":[]}
+{"sl":"en","q":"address not found","main":"адресу не знайдено","bd":[]}
+{"sl":"uk","q":"одержувач відсутній","main":"recipient is missing","bd":[]}
+{"sl":"en","q":"recipient unavailable","main":"одержувач недоступний","bd":[]}
+{"sl":"uk","q":"одержувач відмовився","main":"recipient refused","bd":[]}
+{"sl":"en","q":"refused by recipient","main":"відмовлено одержувачем","bd":[]}
+{"sl":"uk","q":"повернено відправнику","main":"returned to sender","bd":[]}
+{"sl":"en","q":"returned to sender","main":"повернуто відправнику","bd":[]}
+{"sl":"uk","q":"загублена посилка","main":"lost package","bd":[]}
+{"sl":"en","q":"lost parcel","main":"втрачена посилка","bd":[]}
+{"sl":"uk","q":"посилка без місцеперебування","main":"parcel without a place of residence","bd":[]}
+{"sl":"en","q":"missing parcel","main":"відсутня посилка","bd":[]}
+{"sl":"uk","q":"пошкоджено під час перевезення","main":"damaged during transportation","bd":[]}
+{"sl":"en","q":"damaged in transit","main":"пошкоджено під час транспортування","bd":[]}
+{"sl":"uk","q":"доставлено не тому одержувачу","main":"delivered to the wrong recipient","bd":[]}
+{"sl":"en","q":"misdelivered","main":"неправильно доставлений","bd":[]}
+{"sl":"uk","q":"у сортувальному центрі","main":"in the sorting center","bd":[]}
+{"sl":"en","q":"at the sorting center","main":"на сортувальному центрі","bd":[]}
+{"sl":"uk","q":"готове до отримання","main":"ready for pickup","bd":[]}
+{"sl":"en","q":"ready for collection","main":"готовий до збору","bd":[]}
+{"sl":"uk","q":"затриманий понад строк","main":"overstayed","bd":[]}
+{"sl":"en","q":"overdue","main":"прострочений","bd":[["adjective",["давно готовий","запізнений","запізнілий","надмірний","перезрілий","прострочений вексель"]]]}
+{"sl":"uk","q":"код отримання","main":"receipt code","bd":[]}
+{"sl":"en","q":"collection code","main":"код колекції","bd":[]}
+{"sl":"uk","q":"документальне підтвердження особи","main":"documentary proof of identity","bd":[]}
+{"sl":"en","q":"proof of identity","main":"документ, що посвідчує особу","bd":[]}
+{"sl":"uk","q":"документ, що посвідчує особу","main":"an identity document","bd":[]}
+{"sl":"en","q":"identity document","main":"документ, що посвідчує особу","bd":[]}
+{"sl":"uk","q":"письмове доручення","main":"written mandate","bd":[]}
+{"sl":"en","q":"authorization","main":"авторизація","bd":[["noun",["дозвіл","доручення","санкціонування","санкція","уповноваження"]]]}
+{"sl":"uk","q":"строк зберігання","main":"storage period","bd":[]}
+{"sl":"en","q":"storage period","main":"термін зберігання","bd":[]}
+{"sl":"uk","q":"плата за зберігання","main":"storage fee","bd":[]}
+{"sl":"en","q":"storage fee","main":"плата за зберігання","bd":[]}
+{"sl":"uk","q":"незатребувана посилка","main":"unclaimed parcel","bd":[]}
+{"sl":"en","q":"unclaimed parcel","main":"незатребувана посилка","bd":[]}
+{"sl":"uk","q":"огляд посилки","main":"inspection of the parcel","bd":[]}
+{"sl":"en","q":"parcel inspection","main":"перевірка посилки","bd":[]}
+{"sl":"uk","q":"перевірка вмісту","main":"content verification","bd":[]}
+{"sl":"en","q":"contents check","main":"перевірка вмісту","bd":[]}
+{"sl":"uk","q":"пошкоджена упаковка","main":"damaged packaging","bd":[]}
+{"sl":"en","q":"damaged packaging","main":"пошкоджена упаковка","bd":[]}
+{"sl":"uk","q":"повне замовлення","main":"full order","bd":[]}
+{"sl":"en","q":"complete order","main":"повний порядок","bd":[]}
+{"sl":"uk","q":"недостача в поставці","main":"shortage in supply","bd":[]}
+{"sl":"en","q":"short shipment","main":"коротка відправка","bd":[]}
+{"sl":"uk","q":"зайва позиція","main":"redundant position","bd":[]}
+{"sl":"en","q":"extra item","main":"додатковий предмет","bd":[]}
+{"sl":"uk","q":"документ про отримання","main":"receipt document","bd":[]}
+{"sl":"en","q":"delivery receipt","main":"квитанція про доставку","bd":[]}
+{"sl":"uk","q":"логістика","main":"logistics","bd":[]}
+{"sl":"en","q":"logistics","main":"логістика","bd":[["noun",["матеріально-технічне забезпечення"]]]}
+{"sl":"uk","q":"депо","main":"depot","bd":[["noun",["depot","barn","deposit grounds","storehouse"]]]}
+{"sl":"en","q":"depot","main":"депо","bd":[["noun",["базовий склад","військовий табір","депо","комора","склад","станція","залізнича станція","сховище"]]]}
+{"sl":"en","q":"pointless","main":"безглуздо","bd":[["adjective",["безглуздий","недотепний","тупий"]]]}
+{"sl":"uk","q":"повне повернення коштів","main":"full refund","bd":[]}
+{"sl":"en","q":"full refund","main":"повне повернення коштів","bd":[]}
+{"sl":"uk","q":"сума на балансі магазину","main":"amount on the balance of the store","bd":[]}
+{"sl":"en","q":"store credit","main":"кредит магазину","bd":[]}
+{"sl":"uk","q":"строк повернення","main":"return period","bd":[]}
+{"sl":"en","q":"returns period","main":"період повернення","bd":[]}
+{"sl":"uk","q":"запит на повернення","main":"return request","bd":[]}
+{"sl":"en","q":"return request","main":"запит на повернення","bd":[]}
+{"sl":"uk","q":"форма повернення","main":"return form","bd":[]}
+{"sl":"en","q":"return form","main":"форма повернення","bd":[]}
+{"sl":"uk","q":"етикетка для зворотного відправлення","main":"return label","bd":[]}
+{"sl":"en","q":"return label","main":"ярлик повернення","bd":[]}
+{"sl":"uk","q":"зворотна доставка","main":"return shipping","bd":[]}
+{"sl":"en","q":"return shipping","main":"зворотна доставка","bd":[]}
+{"sl":"uk","q":"вартість зворотної доставки","main":"return shipping cost","bd":[]}
+{"sl":"en","q":"return shipping fee","main":"плата за зворотну доставку","bd":[]}
+{"sl":"uk","q":"плата за приймання товару назад","main":"charge for receiving the goods back","bd":[]}
+{"sl":"en","q":"restocking fee","main":"плата за поповнення запасів","bd":[]}
+{"sl":"uk","q":"номер дозволу на повернення","main":"return authorization number","bd":[]}
+{"sl":"en","q":"return merchandise authorization","main":"дозвіл на повернення товару","bd":[]}
+{"sl":"uk","q":"оригінальна упаковка","main":"original packaging","bd":[]}
+{"sl":"en","q":"original packaging","main":"оригінальна упаковка","bd":[]}
+{"sl":"uk","q":"невикористаний","main":"unutilized","bd":[["adjective",["unutilized","unspent","open"]]]}
+{"sl":"en","q":"unused","main":"невикористаний","bd":[["adjective",["незвиклий"]]]}
+{"sl":"uk","q":"підлягає поверненню","main":"subject to return","bd":[]}
+{"sl":"en","q":"eligible for return","main":"підлягає поверненню","bd":[]}
+{"sl":"uk","q":"не підлягає поверненню","main":"non-refundable","bd":[]}
+{"sl":"en","q":"non-returnable","main":"безповоротній","bd":[]}
+{"sl":"uk","q":"неправильний розмір","main":"wrong size","bd":[]}
+{"sl":"en","q":"wrong size","main":"неправильний розмір","bd":[]}
+{"sl":"uk","q":"не відповідає опису","main":"does not match the description","bd":[]}
+{"sl":"en","q":"not as described","main":"не так, як описано","bd":[]}
+{"sl":"uk","q":"природний знос","main":"natural wear and tear","bd":[]}
+{"sl":"en","q":"wear and tear","main":"знос","bd":[["noun",["амортизація","знос","стомлення"]]]}
+{"sl":"uk","q":"подряпаний","main":"scratched","bd":[["verb",["scratch","graze","raze","rase"]]]}
+{"sl":"en","q":"scratched","main":"подряпаний","bd":[["verb",["дряпати","нашвидку написати","скребти","чесати","чиркнути","дряпатися","нашкрябати","чухати"]]]}
+{"sl":"uk","q":"із вм'ятиною","main":"with a dent","bd":[]}
+{"sl":"en","q":"dented","main":"пом'ятий","bd":[["adjective",["зазублений","що має зуби"]]]}
+{"sl":"uk","q":"працює несправно","main":"is malfunctioning","bd":[]}
+{"sl":"en","q":"malfunctioning","main":"несправність","bd":[["verb",["відмовляти","несправно робити"]]]}
+{"sl":"uk","q":"дефектний","main":"defective","bd":[["adjective",["defective","deficient","battered","off-colour","off-color"]]]}
+{"sl":"en","q":"defective","main":"несправний","bd":[["adjective",["вадкий","дефектний","неповний","дефективний","недосконалий","несправний","недостатній","нечистий"]],["noun",["дефективний суб'єкт","недостатнє дієслово"]]]}
+{"sl":"uk","q":"гарантія виробника","main":"manufacturer's warranty","bd":[]}
+{"sl":"en","q":"manufacturer's warranty","main":"гарантія виробника","bd":[]}
+{"sl":"uk","q":"розширена гарантія","main":"extended warranty","bd":[]}
+{"sl":"en","q":"extended warranty","main":"розширена гарантія","bd":[]}
+{"sl":"uk","q":"гарантійне звернення","main":"warranty application","bd":[]}
+{"sl":"en","q":"warranty claim","main":"гарантійна вимога","bd":[]}
+{"sl":"uk","q":"гарантійне покриття","main":"warranty coverage","bd":[]}
+{"sl":"en","q":"warranty coverage","main":"гарантійне покриття","bd":[]}
+{"sl":"uk","q":"авторизований сервісний центр","main":"authorized service center","bd":[]}
+{"sl":"en","q":"authorized service center","main":"авторизований сервісний центр","bd":[]}
+{"sl":"uk","q":"гарантійна запчастина","main":"warranty spare part","bd":[]}
+{"sl":"en","q":"warranty spare part","main":"гарантійна запчастина","bd":[]}
+{"sl":"uk","q":"попередня вартість ремонту","main":"preliminary cost of repairs","bd":[]}
+{"sl":"en","q":"repair estimate","main":"кошторис ремонту","bd":[]}
+{"sl":"uk","q":"служба підтримки","main":"support service","bd":[]}
+{"sl":"en","q":"support team","main":"команда підтримки","bd":[]}
+{"sl":"uk","q":"центр допомоги","main":"help center","bd":[]}
+{"sl":"en","q":"help center","main":"довідковий центр","bd":[]}
+{"sl":"uk","q":"поширені запитання","main":"frequently asked questions","bd":[]}
+{"sl":"en","q":"frequently asked questions","main":"поширені запитання","bd":[]}
+{"sl":"uk","q":"форма зворотного зв'язку","main":"feedback form","bd":[]}
+{"sl":"en","q":"contact form","main":"контактна форма","bd":[]}
+{"sl":"uk","q":"онлайн-чат із підтримкою","main":"online chat with support","bd":[]}
+{"sl":"en","q":"live chat","main":"живий чат","bd":[]}
+{"sl":"uk","q":"заявка до служби підтримки","main":"application to the support service","bd":[]}
+{"sl":"en","q":"support ticket","main":"квиток підтримки","bd":[]}
+{"sl":"uk","q":"номер звернення","main":"reference number","bd":[]}
+{"sl":"en","q":"case number","main":"номер справи","bd":[]}
+{"sl":"en","q":"inconvenience","main":"незручність","bd":[["noun",["невигідність","недогода","незручність","турбота"]],["verb",["турбувати"]]]}
+{"sl":"uk","q":"фотодокази","main":"photo evidence","bd":[]}
+{"sl":"en","q":"photo evidence","main":"фотодокази","bd":[]}
+{"sl":"uk","q":"жест доброї волі","main":"a gesture of goodwill","bd":[]}
+{"sl":"en","q":"goodwill gesture","main":"жест доброї волі","bd":[]}
+{"sl":"uk","q":"передавання на вищий рівень","main":"transmission to a higher level","bd":[]}
+{"sl":"en","q":"escalation","main":"ескалація","bd":[["noun",["ескалація","переростання","посилення","розгортання"]]]}
+{"sl":"uk","q":"захист прав споживачів","main":"protection of consumer rights","bd":[]}
+{"sl":"en","q":"consumer protection","main":"захист прав споживачів","bd":[]}
+{"sl":"uk","q":"гігієна","main":"hygiene","bd":[["noun",["hygiene"]]]}
+{"sl":"en","q":"hygiene","main":"гігієна","bd":[["noun",["гігієна"]]]}
+{"sl":"uk","q":"відгук покупця","main":"customer feedback","bd":[]}
+{"sl":"en","q":"customer review","main":"відгук клієнта","bd":[]}
+{"sl":"uk","q":"огляд товару","main":"product review","bd":[]}
+{"sl":"en","q":"product review","main":"огляд товару","bd":[]}
+{"sl":"uk","q":"відгук про продавця","main":"feedback about the seller","bd":[]}
+{"sl":"en","q":"seller review","main":"огляд продавця","bd":[]}
+{"sl":"uk","q":"рейтинг продавця","main":"seller rating","bd":[]}
+{"sl":"en","q":"seller rating","main":"рейтинг продавця","bd":[]}
+{"sl":"uk","q":"оцінка продавця в зірках","main":"seller rating in stars","bd":[]}
+{"sl":"en","q":"seller star rating","main":"рейтинг продавця","bd":[]}
+{"sl":"uk","q":"середня оцінка","main":"average score","bd":[]}
+{"sl":"en","q":"average rating","main":"середня оцінка","bd":[]}
+{"sl":"uk","q":"підтверджена покупка","main":"confirmed purchase","bd":[]}
+{"sl":"en","q":"verified purchase","main":"перевірена покупка","bd":[]}
+{"sl":"uk","q":"підтверджений покупець","main":"verified buyer","bd":[]}
+{"sl":"en","q":"verified buyer","main":"перевірений покупець","bd":[]}
+{"sl":"uk","q":"оцінка за відгуками","main":"rating based on reviews","bd":[]}
+{"sl":"en","q":"review score","main":"оцінка рецензії","bd":[]}
+{"sl":"uk","q":"позитивний відгук","main":"positive feedback","bd":[]}
+{"sl":"en","q":"positive review","main":"позитивний відгук","bd":[]}
+{"sl":"uk","q":"негативний відгук","main":"negative feedback","bd":[]}
+{"sl":"en","q":"negative review","main":"негативний відгук","bd":[]}
+{"sl":"uk","q":"неоднозначні відгуки","main":"mixed reviews","bd":[]}
+{"sl":"en","q":"mixed reviews","main":"неоднозначні відгуки","bd":[]}
+{"sl":"uk","q":"рекомендація покупця","main":"buyer's recommendation","bd":[]}
+{"sl":"en","q":"buyer recommendation","main":"рекомендація покупця","bd":[]}
+{"sl":"uk","q":"продавець із доброю репутацією","main":"seller with a good reputation","bd":[]}
+{"sl":"en","q":"reputable seller","main":"авторитетний продавець","bd":[]}
+{"sl":"uk","q":"офіційний продавець","main":"official seller","bd":[]}
+{"sl":"en","q":"authorized dealer","main":"офіційний дилер","bd":[]}
+{"sl":"uk","q":"підроблений відгук","main":"fake review","bd":[]}
+{"sl":"en","q":"fake review","main":"фейковий огляд","bd":[]}
+{"sl":"uk","q":"контрафактний товар","main":"counterfeit goods","bd":[]}
+{"sl":"en","q":"counterfeit product","main":"підроблений продукт","bd":[]}
+{"sl":"uk","q":"захист покупця","main":"buyer protection","bd":[]}
+{"sl":"en","q":"buyer protection","main":"захист покупця","bd":[]}
+{"sl":"uk","q":"безпечна оплата","main":"secure payment","bd":[]}
+{"sl":"en","q":"secure payment","main":"безпечна оплата","bd":[]}
+{"sl":"uk","q":"гарантія повернення коштів","main":"money back guarantee","bd":[]}
+{"sl":"en","q":"money-back guarantee","main":"гарантія повернення грошей","bd":[]}
+{"sl":"uk","q":"процес продажу","main":"sales process","bd":[]}
+{"sl":"en","q":"sales process","main":"процес продажу","bd":[]}
+{"sl":"uk","q":"канал продажів","main":"sales channel","bd":[]}
+{"sl":"en","q":"sales channel","main":"канал збуту","bd":[]}
+{"sl":"uk","q":"проформа-рахунок","main":"proforma invoice","bd":[]}
+{"sl":"en","q":"pro forma invoice","main":"рахунок-проформа","bd":[]}
+{"sl":"uk","q":"платіжні реквізити","main":"payment details","bd":[]}
+{"sl":"en","q":"payment details","main":"платіжні реквізити","bd":[]}
+{"sl":"uk","q":"банківські реквізити","main":"bank details","bd":[]}
+{"sl":"en","q":"bank details","main":"банківські реквізити","bd":[]}
+{"sl":"uk","q":"платіж належить сплатити","main":"payment is due","bd":[]}
+{"sl":"en","q":"payment due","main":"термін оплати","bd":[]}
+{"sl":"uk","q":"непогашений залишок","main":"outstanding balance","bd":[]}
+{"sl":"en","q":"outstanding balance","main":"непогашений залишок","bd":[]}
+{"sl":"uk","q":"сплачено повністю","main":"paid in full","bd":[]}
+{"sl":"en","q":"paid in full","main":"сплачено повністю","bd":[]}
+{"sl":"uk","q":"часткова оплата","main":"partial payment","bd":[]}
+{"sl":"en","q":"partial payment","main":"часткова оплата","bd":[]}
+{"sl":"uk","q":"примітки до замовлення","main":"notes to the order","bd":[]}
+{"sl":"en","q":"order notes","main":"примітки до замовлення","bd":[]}
+{"sl":"uk","q":"індивідуалізація товару","main":"product customization","bd":[]}
+{"sl":"en","q":"customization","main":"налаштування","bd":[]}
+{"sl":"uk","q":"строк виготовлення","main":"production period","bd":[]}
+{"sl":"en","q":"production time","main":"час виготовлення","bd":[]}
+{"sl":"uk","q":"графік відправлень","main":"shipment schedule","bd":[]}
+{"sl":"en","q":"dispatch schedule","main":"графік відправки","bd":[]}
+{"sl":"uk","q":"транспортна накладна","main":"waybill","bd":[]}
+{"sl":"en","q":"waybill","main":"подорожній лист","bd":[["noun",["маршрут","накладна","подорожня","список пасажирів"]]]}
+{"sl":"uk","q":"декларація відправлення","main":"declaration of shipment","bd":[]}
+{"sl":"en","q":"shipping declaration","main":"транспортна декларація","bd":[]}
+{"sl":"uk","q":"номер відділення","main":"department number","bd":[]}
+{"sl":"en","q":"branch number","main":"номер відділення","bd":[]}
+{"sl":"uk","q":"вміст і комплектація","main":"content and equipment","bd":[]}
+{"sl":"en","q":"contents","main":"вміст","bd":[["noun",["вміст","зміст"]]]}
+{"sl":"uk","q":"номер телефону","main":"phone number","bd":[]}
+{"sl":"en","q":"phone number","main":"номер телефону","bd":[]}
+{"sl":"uk","q":"рекомендована виробником роздрібна ціна","main":"manufacturer's recommended retail price","bd":[]}
+{"sl":"en","q":"manufacturer's suggested retail price","main":"рекомендована роздрібна ціна виробника","bd":[]}
+{"sl":"uk","q":"сума післяплати","main":"postpaid amount","bd":[]}
+{"sl":"en","q":"cash-on-delivery amount","main":"сума накладеного платежу","bd":[]}
+{"sl":"uk","q":"товар на заміну за гарантією","main":"product for replacement under warranty","bd":[]}
+{"sl":"en","q":"replacement item under warranty","main":"заміна товару на гарантії","bd":[]}
+{"sl":"uk","q":"морська подорож","main":"sea ​​voyage","bd":[]}
+{"sl":"en","q":"voyage","main":"подорож","bd":[["noun",["плавання","подорож","поїздка"]]]}
+{"sl":"uk","q":"одноденна поїздка","main":"day trip","bd":[]}
+{"sl":"en","q":"day trip","main":"одноденна поїздка","bd":[]}
+{"sl":"uk","q":"поїздка на вихідні","main":"weekend trip","bd":[]}
+{"sl":"en","q":"weekend break","main":"вихідні вихідні","bd":[]}
+{"sl":"uk","q":"пакетний тур","main":"package tour","bd":[]}
+{"sl":"en","q":"package holiday","main":"пакетний відпочинок","bd":[]}
+{"sl":"uk","q":"самостійна екскурсія за маршрутом","main":"independent tour along the route","bd":[]}
+{"sl":"en","q":"self-guided tour","main":"самостійна екскурсія","bd":[]}
+{"sl":"uk","q":"автомобільна подорож","main":"road trip","bd":[]}
+{"sl":"en","q":"road trip","main":"дорожня поїздка","bd":[]}
+{"sl":"uk","q":"бюджетні подорожі з рюкзаком","main":"budget backpacking trips","bd":[]}
+{"sl":"en","q":"backpacking","main":"рюкзак","bd":[]}
+{"sl":"uk","q":"поїздка з наметами","main":"trip with tents","bd":[]}
+{"sl":"en","q":"camping trip","main":"туристичний похід","bd":[]}
+{"sl":"uk","q":"пригодницький туризм","main":"adventure tourism","bd":[]}
+{"sl":"en","q":"adventure travel","main":"пригодницька подорож","bd":[]}
+{"sl":"uk","q":"подорожі в межах країни","main":"travel within the country","bd":[]}
+{"sl":"en","q":"domestic travel","main":"внутрішні поїздки","bd":[]}
+{"sl":"uk","q":"міжнародні подорожі","main":"international travel","bd":[]}
+{"sl":"en","q":"international travel","main":"міжнародні поїздки","bd":[]}
+{"sl":"uk","q":"закордонні подорожі","main":"foreign travel","bd":[]}
+{"sl":"en","q":"overseas travel","main":"закордонні подорожі","bd":[]}
+{"sl":"uk","q":"самостійна подорож","main":"independent travel","bd":[]}
+{"sl":"en","q":"solo travel","main":"сольні подорожі","bd":[]}
+{"sl":"uk","q":"групова подорож","main":"group trip","bd":[]}
+{"sl":"en","q":"group travel","main":"групові подорожі","bd":[]}
+{"sl":"uk","q":"пункт відправлення","main":"departure point","bd":[]}
+{"sl":"en","q":"departure point","main":"пункт відправлення","bd":[]}
+{"sl":"uk","q":"проміжна зупинка в дорозі","main":"an intermediate stop on the way","bd":[]}
+{"sl":"en","q":"stopover","main":"зупинка","bd":[["noun",["зупинка в дорозі","транзитний квиток"]]]}
+{"sl":"uk","q":"пересадка між рейсами","main":"transfer between flights","bd":[]}
+{"sl":"en","q":"layover","main":"зупинка","bd":[["noun",["зупинка"]]]}
+{"sl":"uk","q":"поїздка в один бік","main":"one way trip","bd":[]}
+{"sl":"en","q":"one-way trip","main":"поїздка в одну сторону","bd":[]}
+{"sl":"uk","q":"поїздка туди й назад","main":"round trip","bd":[]}
+{"sl":"en","q":"round trip","main":"туди й назад","bd":[["noun",["круїз"]]]}
+{"sl":"uk","q":"сімейний відпочинок","main":"family vacation","bd":[]}
+{"sl":"en","q":"family holiday","main":"сімейне свято","bd":[]}
+{"sl":"uk","q":"план подорожі","main":"travel plan","bd":[]}
+{"sl":"en","q":"travel plan","main":"план подорожі","bd":[]}
+{"sl":"uk","q":"детальний маршрут подорожі","main":"detailed travel itinerary","bd":[]}
+{"sl":"en","q":"itinerary","main":"маршрут","bd":[["adjective",["дорожній","мандрівний","шляховий"]],["noun",["дорожні нотаки","маршрут","путівник"]]]}
+{"sl":"uk","q":"дати подорожі","main":"travel dates","bd":[]}
+{"sl":"en","q":"travel dates","main":"дати поїздки","bd":[]}
+{"sl":"uk","q":"дата відправлення","main":"date of shipment","bd":[]}
+{"sl":"en","q":"departure date","main":"дата від'їзду","bd":[]}
+{"sl":"uk","q":"дата повернення","main":"return date","bd":[]}
+{"sl":"en","q":"return date","main":"дата повернення","bd":[]}
+{"sl":"uk","q":"тривалість перебування","main":"length of stay","bd":[]}
+{"sl":"en","q":"length of stay","main":"тривалість перебування","bd":[]}
+{"sl":"uk","q":"час у дорозі","main":"travel time","bd":[]}
+{"sl":"en","q":"travel time","main":"час подорожі","bd":[]}
+{"sl":"uk","q":"високий сезон","main":"high season","bd":[]}
+{"sl":"en","q":"peak season","main":"пік сезону","bd":[]}
+{"sl":"uk","q":"низький сезон","main":"low season","bd":[]}
+{"sl":"en","q":"low season","main":"низький сезон","bd":[]}
+{"sl":"uk","q":"перехідний туристичний сезон","main":"transitional tourist season","bd":[]}
+{"sl":"en","q":"shoulder season","main":"плечовий сезон","bd":[]}
+{"sl":"uk","q":"бюджет подорожі","main":"travel budget","bd":[]}
+{"sl":"en","q":"travel budget","main":"бюджет подорожі","bd":[]}
+{"sl":"uk","q":"денний бюджет","main":"daily budget","bd":[]}
+{"sl":"en","q":"daily budget","main":"щоденний бюджет","bd":[]}
+{"sl":"uk","q":"орієнтовна вартість","main":"estimated cost","bd":[]}
+{"sl":"en","q":"estimated cost","main":"орієнтовна вартість","bd":[]}
+{"sl":"uk","q":"витрати на подорож","main":"travel expenses","bd":[]}
+{"sl":"en","q":"travel expenses","main":"витрати на відрядження","bd":[]}
+{"sl":"uk","q":"вартість проживання","main":"cost of living","bd":[]}
+{"sl":"en","q":"accommodation cost","main":"вартість проживання","bd":[]}
+{"sl":"uk","q":"витрати на транспорт","main":"transport costs","bd":[]}
+{"sl":"en","q":"transport cost","main":"транспортна вартість","bd":[]}
+{"sl":"uk","q":"туристичний збір","main":"tourist tax","bd":[]}
+{"sl":"en","q":"tourist tax","main":"туристичний збір","bd":[]}
+{"sl":"uk","q":"приховані витрати","main":"hidden costs","bd":[]}
+{"sl":"en","q":"hidden cost","main":"прихована вартість","bd":[]}
+{"sl":"uk","q":"туристичний довідник","main":"tourist guide","bd":[]}
+{"sl":"en","q":"travel guide","main":"путівник","bd":[]}
+{"sl":"uk","q":"блог про подорожі","main":"travel blog","bd":[]}
+{"sl":"en","q":"travel blog","main":"туристичний блог","bd":[]}
+{"sl":"uk","q":"офіційна рекомендація для мандрівників","main":"official recommendation for travelers","bd":[]}
+{"sl":"en","q":"travel advisory","main":"попередження для подорожан","bd":[]}
+{"sl":"uk","q":"часовий пояс","main":"time zone","bd":[]}
+{"sl":"en","q":"time zone","main":"часовий пояс","bd":[]}
+{"sl":"uk","q":"різниця в часі","main":"time difference","bd":[]}
+{"sl":"en","q":"time difference","main":"різниця в часі","bd":[]}
+{"sl":"uk","q":"номер паспорта","main":"passport number","bd":[]}
+{"sl":"en","q":"passport number","main":"номер паспорта","bd":[]}
+{"sl":"uk","q":"національна ID-картка","main":"national ID card","bd":[]}
+{"sl":"en","q":"national ID card","main":"національне посвідчення особи","bd":[]}
+{"sl":"uk","q":"проїзний документ","main":"travel document","bd":[]}
+{"sl":"en","q":"travel document","main":"проїзний документ","bd":[]}
+{"sl":"uk","q":"в'їзна віза","main":"entry visa","bd":[]}
+{"sl":"en","q":"entry visa","main":"в'їзна віза","bd":[]}
+{"sl":"uk","q":"туристична віза","main":"tourist visa","bd":[]}
+{"sl":"en","q":"tourist visa","main":"туристична віза","bd":[]}
+{"sl":"uk","q":"транзитна віза","main":"transit visa","bd":[]}
+{"sl":"en","q":"transit visa","main":"транзитна віза","bd":[]}
+{"sl":"uk","q":"звільнення від візи","main":"visa exemption","bd":[]}
+{"sl":"en","q":"visa waiver","main":"безвізовий режим","bd":[]}
+{"sl":"uk","q":"безвізові подорожі","main":"visa-free travel","bd":[]}
+{"sl":"en","q":"visa-free travel","main":"безвізовий режим","bd":[]}
+{"sl":"uk","q":"візові вимоги","main":"visa requirements","bd":[]}
+{"sl":"en","q":"visa requirements","main":"візові вимоги","bd":[]}
+{"sl":"uk","q":"заява на візу","main":"visa application","bd":[]}
+{"sl":"en","q":"visa application","main":"заява на візу","bd":[]}
+{"sl":"uk","q":"дозвіл на проживання","main":"residence permit","bd":[]}
+{"sl":"en","q":"residence permit","main":"вид на проживання","bd":[]}
+{"sl":"uk","q":"дозвіл на роботу","main":"work permit","bd":[]}
+{"sl":"en","q":"work permit","main":"дозвіл на роботу","bd":[]}
+{"sl":"uk","q":"дозвіл на в'їзд","main":"entry permit","bd":[]}
+{"sl":"en","q":"entry permit","main":"дозвіл на в'їзд","bd":[]}
+{"sl":"uk","q":"електронний дозвіл на подорож","main":"electronic travel permit","bd":[]}
+{"sl":"en","q":"electronic travel authorization","main":"електронний дозвіл на подорож","bd":[]}
+{"sl":"uk","q":"строк дії документа","main":"validity period of the document","bd":[]}
+{"sl":"en","q":"validity period","main":"термін дії","bd":[]}
+{"sl":"uk","q":"дата закінчення строку дії","main":"expiration date","bd":[]}
+{"sl":"en","q":"expiry date","main":"термін придатності","bd":[]}
+{"sl":"uk","q":"чиста сторінка паспорта","main":"a blank page of the passport","bd":[]}
+{"sl":"en","q":"blank page","main":"порожня сторінка","bd":[]}
+{"sl":"uk","q":"фотографія на паспорт","main":"passport photo","bd":[]}
+{"sl":"en","q":"passport photo","main":"фото на паспорт","bd":[]}
+{"sl":"uk","q":"підтвердні документи","main":"supporting documents","bd":[]}
+{"sl":"en","q":"supporting documents","main":"підтверджуючі документи","bd":[]}
+{"sl":"uk","q":"підтвердження проживання","main":"proof of residence","bd":[]}
+{"sl":"en","q":"proof of accommodation","main":"підтвердження проживання","bd":[]}
+{"sl":"uk","q":"підтвердження наявності коштів","main":"confirmation of availability of funds","bd":[]}
+{"sl":"en","q":"proof of funds","main":"підтвердження наявності коштів","bd":[]}
+{"sl":"uk","q":"туристичне страхування","main":"travel insurance","bd":[]}
+{"sl":"en","q":"travel insurance","main":"туристичне страхування","bd":[]}
+{"sl":"uk","q":"медичне страхове покриття","main":"medical insurance coverage","bd":[]}
+{"sl":"en","q":"medical coverage","main":"медичне забезпечення","bd":[]}
+{"sl":"uk","q":"страхування скасування подорожі","main":"trip cancellation insurance","bd":[]}
+{"sl":"en","q":"trip cancellation coverage","main":"покриття скасування поїздки","bd":[]}
+{"sl":"uk","q":"контактна особа на випадок біди","main":"emergency contact person","bd":[]}
+{"sl":"en","q":"emergency contact","main":"екстрений контакт","bd":[]}
+{"sl":"uk","q":"номер бронювання","main":"reservation number","bd":[]}
+{"sl":"en","q":"booking reference","main":"довідка про бронювання","bd":[]}
+{"sl":"uk","q":"деталі бронювання","main":"booking details","bd":[]}
+{"sl":"en","q":"reservation details","main":"деталі бронювання","bd":[]}
+{"sl":"uk","q":"електронний квиток","main":"electronic ticket","bd":[]}
+{"sl":"en","q":"e-ticket","main":"електронний квиток","bd":[]}
+{"sl":"uk","q":"паперовий квиток","main":"paper ticket","bd":[]}
+{"sl":"en","q":"paper ticket","main":"паперовий квиток","bd":[]}
+{"sl":"uk","q":"квиток у телефоні","main":"ticket in the phone","bd":[]}
+{"sl":"en","q":"mobile ticket","main":"мобільний квиток","bd":[]}
+{"sl":"uk","q":"квиток із відкритою датою","main":"ticket with an open date","bd":[]}
+{"sl":"en","q":"open ticket","main":"відкритий квиток","bd":[]}
+{"sl":"uk","q":"гнучкий тариф квитка","main":"flexible ticket price","bd":[]}
+{"sl":"en","q":"flexible ticket","main":"гнучкий квиток","bd":[]}
+{"sl":"uk","q":"квиток з можливістю повернення","main":"refundable ticket","bd":[]}
+{"sl":"en","q":"refundable ticket","main":"квиток, що повертається","bd":[]}
+{"sl":"uk","q":"квиток без можливості повернення","main":"non-refundable ticket","bd":[]}
+{"sl":"en","q":"non-refundable ticket","main":"безповоротний квиток","bd":[]}
+{"sl":"uk","q":"базовий тариф","main":"basic tariff","bd":[]}
+{"sl":"en","q":"base fare","main":"базовий тариф","bd":[]}
+{"sl":"uk","q":"різниця в тарифі","main":"difference in tariff","bd":[]}
+{"sl":"en","q":"fare difference","main":"різниця в тарифах","bd":[]}
+{"sl":"uk","q":"комісія за бронювання","main":"booking fee","bd":[]}
+{"sl":"en","q":"booking fee","main":"комісія за бронювання","bd":[]}
+{"sl":"uk","q":"плата за скасування","main":"cancellation fee","bd":[]}
+{"sl":"en","q":"cancellation fee","main":"плата за скасування","bd":[]}
+{"sl":"uk","q":"плата за зміну бронювання","main":"booking change fee","bd":[]}
+{"sl":"en","q":"change fee","main":"комісія за зміну","bd":[]}
+{"sl":"uk","q":"повна оплата","main":"full payment","bd":[]}
+{"sl":"en","q":"full payment","main":"повна оплата","bd":[]}
+{"sl":"uk","q":"пошук доступних варіантів","main":"search for available options","bd":[]}
+{"sl":"en","q":"availability search","main":"пошук наявності","bd":[]}
+{"sl":"uk","q":"немає вільних місць","main":"there are no free seats","bd":[]}
+{"sl":"en","q":"fully booked","main":"повністю заброньований","bd":[]}
+{"sl":"uk","q":"правила скасування","main":"cancellation policy","bd":[]}
+{"sl":"en","q":"cancellation policy","main":"політика скасування","bd":[]}
+{"sl":"uk","q":"безкоштовне скасування","main":"free cancellation","bd":[]}
+{"sl":"en","q":"free cancellation","main":"безкоштовне скасування","bd":[]}
+{"sl":"uk","q":"неявка без скасування","main":"no-show without cancellation","bd":[]}
+{"sl":"en","q":"no-show","main":"неявка","bd":[["noun",["невихід"]]]}
+{"sl":"uk","q":"туристичний ваучер","main":"tourist voucher","bd":[]}
+{"sl":"en","q":"travel voucher","main":"туристичний ваучер","bd":[]}
+{"sl":"uk","q":"список очікування на рейс","main":"flight waiting list","bd":[]}
+{"sl":"en","q":"standby list","main":"список очікування","bd":[]}
+{"sl":"uk","q":"перебронювати","main":"rebook","bd":[]}
+{"sl":"en","q":"to rebook","main":"перебронювати","bd":[]}
+{"sl":"uk","q":"салонна сумка","main":"salon bag","bd":[]}
+{"sl":"en","q":"carry-on bag","main":"ручна поклажа","bd":[]}
+{"sl":"uk","q":"зареєстрований багаж","main":"checked baggage","bd":[]}
+{"sl":"en","q":"checked baggage","main":"зареєстрований багаж","bd":[]}
+{"sl":"uk","q":"особиста річ у салоні","main":"personal item in the cabin","bd":[]}
+{"sl":"en","q":"personal item","main":"особиста річ","bd":[]}
+{"sl":"uk","q":"чохол для одягу","main":"a cover for clothes","bd":[]}
+{"sl":"en","q":"garment bag","main":"сумка для одягу","bd":[]}
+{"sl":"uk","q":"косметичка дорожня","main":"travel cosmetic bag","bd":[]}
+{"sl":"en","q":"toiletry bag","main":"туалетна сумка","bd":[]}
+{"sl":"uk","q":"багажна бирка","main":"luggage tag","bd":[]}
+{"sl":"en","q":"luggage tag","main":"багажна бирка","bd":[]}
+{"sl":"uk","q":"багажна квитанція","main":"baggage check","bd":[["noun",["baggage check"]]]}
+{"sl":"en","q":"claim tag","main":"тег претензії","bd":[]}
+{"sl":"uk","q":"ремінь для валізи","main":"suitcase strap","bd":[]}
+{"sl":"en","q":"luggage strap","main":"багажний ремінь","bd":[]}
+{"sl":"uk","q":"навісний замок","main":"padlock","bd":[]}
+{"sl":"en","q":"padlock","main":"навісний замок","bd":[["noun",["завертка","висячий замок"]],["verb",["замикати на висячий замок"]]]}
+{"sl":"uk","q":"кодовий замок","main":"code lock","bd":[]}
+{"sl":"en","q":"combination lock","main":"кодовий замок","bd":[]}
+{"sl":"uk","q":"органайзер для валізи","main":"suitcase organizer","bd":[]}
+{"sl":"en","q":"packing cube","main":"пакувальний куб","bd":[]}
+{"sl":"uk","q":"дорожній перехідник","main":"road crossing","bd":[]}
+{"sl":"en","q":"travel adapter","main":"дорожній адаптер","bd":[]}
+{"sl":"uk","q":"дорожня подушка під шию","main":"travel neck pillow","bd":[]}
+{"sl":"en","q":"neck pillow","main":"подушка під шию","bd":[]}
+{"sl":"uk","q":"косметика в дорожньому форматі","main":"cosmetics in travel format","bd":[]}
+{"sl":"en","q":"travel-size toiletries","main":"туалетні приналежності подорожнього розміру","bd":[]}
+{"sl":"uk","q":"обмеження на перевезення рідин","main":"restrictions on the transportation of liquids","bd":[]}
+{"sl":"en","q":"liquid restriction","main":"обмеження рідини","bd":[]}
+{"sl":"uk","q":"норма безкоштовного багажу","main":"free baggage allowance","bd":[]}
+{"sl":"en","q":"baggage allowance","main":"норма провозу багажу","bd":[]}
+{"sl":"uk","q":"обмеження ваги","main":"weight limit","bd":[]}
+{"sl":"en","q":"weight limit","main":"обмеження ваги","bd":[]}
+{"sl":"uk","q":"обмеження розміру","main":"size limit","bd":[]}
+{"sl":"en","q":"size limit","main":"обмеження розміру","bd":[]}
+{"sl":"uk","q":"наднормативний багаж","main":"excess baggage","bd":[]}
+{"sl":"en","q":"excess baggage","main":"наднормативний багаж","bd":[]}
+{"sl":"uk","q":"валіза з перевищенням ваги","main":"suitcase with excess weight","bd":[]}
+{"sl":"en","q":"overweight bag","main":"важка сумка","bd":[]}
+{"sl":"uk","q":"негабаритний багаж","main":"oversized luggage","bd":[]}
+{"sl":"en","q":"oversized baggage","main":"негабаритний багаж","bd":[]}
+{"sl":"uk","q":"крихка річ","main":"fragile thing","bd":[]}
+{"sl":"en","q":"fragile item","main":"крихкий предмет","bd":[]}
+{"sl":"uk","q":"заборонений предмет","main":"prohibited item","bd":[]}
+{"sl":"en","q":"prohibited item","main":"заборонений предмет","bd":[]}
+{"sl":"uk","q":"цінні речі","main":"valuable things","bd":[]}
