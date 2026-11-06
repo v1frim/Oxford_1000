@@ -151,16 +151,16 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("300 черг: 1 старе + 2 нових ЩОРАЗУ в перших 5 позиціях", stress.bad === 0, JSON.stringify(stress));
   t("300 черг: нових рівно 2, не більше й не менше", stress.freshWrong === 0, JSON.stringify(stress));
 
-  // 8. найзатриманіші першими: 60 прострочених, черга 40 → беруться 40 найдавніших
+  // 8. найзатриманіші першими: 60 прострочених, черга 30 → беруться 30 найдавніших
   const late = await p.evaluate(() => {
     const m = {}, seen = loadSeen(), pool = [];
     for (let k = 1; k <= 60; k++) { const i = 200 + k; pool.push(i);
       m[wordKey(WORDS[i])] = { s: 1, c: 1, w: 0, n: seen - k, d: "2000-01-01", r: 0 }; }
     localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(m));
     const out = buildSchedQueue(pool);
-    return { len: out.length, allLate: out.every(i => i - 200 >= 21), sorted: JSON.stringify(out) === JSON.stringify([...out].sort((a,b)=>a-b)) };
+    return { len: out.length, allLate: out.every(i => i - 200 >= 31), sorted: JSON.stringify(out) === JSON.stringify([...out].sort((a,b)=>a-b)) };
   });
-  t("з 60 прострочених беруться 40 найзатриманіших", late.len === 40 && late.allLate, JSON.stringify(late));
+  t("з 60 прострочених беруться 30 найзатриманіших", late.len === 30 && late.allLate, JSON.stringify(late));
   t("порядок у черзі перемішаний (не за затримкою)", !late.sorted);
 
   // 9. без opts.sched — стара поведінка: шафл усього пулу
@@ -261,7 +261,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const r = { len: shuffledIndices.length, ok: seq.every(i => typeof i === "number" && WORDS[i]) };
     endGame(true); return r;
   });
-  t("живий прогін 21 слова без помилок; черга = 40 + 3 квотові", live.ok && live.len === 43, JSON.stringify(live));
+  t("живий прогін 21 слова без помилок; черга = 30 + 3 квотові", live.ok && live.len === 33, JSON.stringify(live));
 
   // ── ДВОБІЧНЕ ЗНАННЯ (сесія 61): 2 правильні в ОДНОМУ напрямку → 3-й показ у ІНШОМУ ──
   const dir = await p.evaluate(() => {
