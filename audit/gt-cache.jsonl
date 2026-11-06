@@ -21027,3 +21027,1291 @@
 {"sl":"uk","q":"зчеплення коліс із дорогою","main":"traction of the wheels with the road","bd":[]}
 {"sl":"en","q":"traction","main":"тяги","bd":[["noun",["волочіння","притягальна сила","тяга"]]]}
 {"sl":"uk","q":"легкосплавний диск","main":"alloy disc","bd":[]}
+{"sl":"en","q":"alloy wheel","main":"легкосплавний диск","bd":[]}
+{"sl":"uk","q":"сталевий диск","main":"steel disc","bd":[]}
+{"sl":"en","q":"steel wheel","main":"сталеве колесо","bd":[]}
+{"sl":"uk","q":"колісна гайка","main":"wheel nut","bd":[]}
+{"sl":"en","q":"lug nut","main":"наконечник","bd":[]}
+{"sl":"uk","q":"колісний болт","main":"wheel bolt","bd":[]}
+{"sl":"en","q":"wheel bolt","main":"колісний болт","bd":[]}
+{"sl":"uk","q":"протектор шини","main":"tire tread","bd":[]}
+{"sl":"en","q":"tire tread","main":"протектор шини","bd":[]}
+{"sl":"uk","q":"глибина протектора","main":"tread depth","bd":[]}
+{"sl":"en","q":"tread depth","main":"глибина протектора","bd":[]}
+{"sl":"uk","q":"боковина шини","main":"tire sidewall","bd":[]}
+{"sl":"en","q":"sidewall","main":"боковина","bd":[]}
+{"sl":"uk","q":"вентиль шини","main":"tire valve","bd":[]}
+{"sl":"en","q":"valve stem","main":"шток клапана","bd":[]}
+{"sl":"uk","q":"тиск у шинах","main":"tire pressure","bd":[]}
+{"sl":"en","q":"tire pressure","main":"тиск в шинах","bd":[]}
+{"sl":"uk","q":"манометр для шин","main":"pressure gauge for tires","bd":[]}
+{"sl":"en","q":"tire-pressure gauge","main":"манометр в шинах","bd":[]}
+{"sl":"uk","q":"система контролю тиску в шинах","main":"tire pressure monitoring system","bd":[]}
+{"sl":"en","q":"tire-pressure monitoring system","main":"система контролю тиску в шинах","bd":[]}
+{"sl":"uk","q":"літня шина","main":"summer tire","bd":[]}
+{"sl":"en","q":"summer tire","main":"літня гума","bd":[]}
+{"sl":"uk","q":"зимова шина","main":"winter tire","bd":[]}
+{"sl":"en","q":"winter tire","main":"зимова гума","bd":[]}
+{"sl":"uk","q":"всесезонна шина","main":"all-season tire","bd":[]}
+{"sl":"en","q":"all-season tire","main":"всесезонна гума","bd":[]}
+{"sl":"uk","q":"шипована шина","main":"studded tire","bd":[]}
+{"sl":"en","q":"studded tire","main":"шипована шина","bd":[]}
+{"sl":"uk","q":"шина з можливістю руху після проколу","main":"a tire with the possibility of movement after a puncture","bd":[]}
+{"sl":"en","q":"run-flat tire","main":"шина Run-Flat","bd":[]}
+{"sl":"uk","q":"запасне колесо","main":"spare wheel","bd":[["noun",["spare wheel"]]]}
+{"sl":"en","q":"spare tire","main":"запасне колесо","bd":[]}
+{"sl":"uk","q":"докатка","main":"dokatka","bd":[]}
+{"sl":"en","q":"space-saver spare","main":"компактна запаска","bd":[]}
+{"sl":"uk","q":"повільний витік повітря з шини","main":"slow air leakage from the tire","bd":[]}
+{"sl":"en","q":"slow puncture","main":"повільна пункція","bd":[]}
+{"sl":"uk","q":"розрив шини на ходу","main":"burst tire on the move","bd":[]}
+{"sl":"en","q":"blowout","main":"видування","bd":[["noun",["галасливі розваги","проколота шина"]]]}
+{"sl":"uk","q":"балансування коліс","main":"wheel balancing","bd":[]}
+{"sl":"en","q":"wheel balancing","main":"балансування коліс","bd":[]}
+{"sl":"uk","q":"перестановка шин між осями","main":"rearrangement of tires between axles","bd":[]}
+{"sl":"en","q":"tire rotation","main":"обертання шин","bd":[]}
+{"sl":"uk","q":"аквапланування","main":"aquaplaning","bd":[]}
+{"sl":"en","q":"aquaplaning","main":"аквапланування","bd":[]}
+{"sl":"uk","q":"накачувати","main":"pump up","bd":[["verb",["pump up","inflate","knurl"]]]}
+{"sl":"en","q":"to inflate","main":"надувати","bd":[["verb",["надимати","надувати","надуватися","накачувати","обдувати","підвищувати"]]]}
+{"sl":"uk","q":"спускати повітря","main":"deflate","bd":[]}
+{"sl":"en","q":"to deflate","main":"здути","bd":[["verb",["викачувати","випускати повітря"]]]}
+{"sl":"uk","q":"домкрат","main":"jack","bd":[["noun",["jack","crank","crane"]]]}
+{"sl":"en","q":"jack","main":"Джек","bd":[["noun",["валет","патика","щучка","домкрат","працівник","хлопець"]],["verb",["піднімати домкратом","підвищувати ціни","занапастити"]]]}
+{"sl":"uk","q":"балонний ключ","main":"balloon key","bd":[]}
+{"sl":"en","q":"wheel wrench","main":"колісний ключ","bd":[]}
+{"sl":"uk","q":"клема акумулятора","main":"battery terminal","bd":[]}
+{"sl":"en","q":"battery terminal","main":"термінал батареї","bd":[]}
+{"sl":"uk","q":"генератор змінного струму","main":"alternator","bd":[["noun",["alternator"]]]}
+{"sl":"en","q":"alternator","main":"генератор змінного струму","bd":[["noun",["генератор змінного струму"]]]}
+{"sl":"uk","q":"стартер","main":"starter","bd":[["noun",["starter"]]]}
+{"sl":"en","q":"starter motor","main":"стартер","bd":[]}
+{"sl":"uk","q":"джгут проводів","main":"wire harness","bd":[]}
+{"sl":"en","q":"wiring harness","main":"джгут проводів","bd":[]}
+{"sl":"uk","q":"електронний блок керування","main":"electronic control unit","bd":[]}
+{"sl":"en","q":"ECU","main":"ECU","bd":[]}
+{"sl":"uk","q":"сенсор","main":"sensor","bd":[]}
+{"sl":"en","q":"sensor","main":"датчик","bd":[["noun",["датчик"]]]}
+{"sl":"uk","q":"лямбда-зонд","main":"lambda probe","bd":[]}
+{"sl":"en","q":"oxygen sensor","main":"датчик кисню","bd":[]}
+{"sl":"uk","q":"парктронік","main":"parktronic","bd":[]}
+{"sl":"en","q":"parking sensor","main":"датчик паркування","bd":[]}
+{"sl":"uk","q":"камера заднього виду","main":"rear view camera","bd":[]}
+{"sl":"en","q":"reversing camera","main":"камера заднього виду","bd":[]}
+{"sl":"uk","q":"відеореєстратор","main":"video recorder","bd":[]}
+{"sl":"en","q":"dashcam","main":"відеореєстратор","bd":[]}
+{"sl":"uk","q":"ближнє світло","main":"dipped beam","bd":[]}
+{"sl":"en","q":"low beam","main":"ближнє світло","bd":[]}
+{"sl":"uk","q":"дальнє світло","main":"high beam","bd":[]}
+{"sl":"en","q":"high beam","main":"дальнє світло","bd":[]}
+{"sl":"uk","q":"денний ходовий вогонь","main":"daytime running light","bd":[]}
+{"sl":"en","q":"daytime running light","main":"денне ходове світло","bd":[]}
+{"sl":"uk","q":"протитуманна фара","main":"fog light","bd":[]}
+{"sl":"en","q":"fog light","main":"протитуманне світло","bd":[]}
+{"sl":"uk","q":"задній ліхтар","main":"rear light","bd":[]}
+{"sl":"en","q":"taillight","main":"задній ліхтар","bd":[["noun",["буферний ліхтар","габаритний ліхтар","стоп-сигнал"]]]}
+{"sl":"uk","q":"стоп-сигнал","main":"stop signal","bd":[["noun",["stoplight","tail light"]]]}
+{"sl":"en","q":"brake light","main":"стоп-сигнал","bd":[]}
+{"sl":"uk","q":"ліхтар заднього ходу","main":"reverse light","bd":[]}
+{"sl":"en","q":"reversing light","main":"світло заднього ходу","bd":[]}
+{"sl":"uk","q":"підсвічування номерного знака","main":"number plate illumination","bd":[]}
+{"sl":"en","q":"number-plate light","main":"світло номерного знака","bd":[]}
+{"sl":"uk","q":"світлодіодна фара","main":"LED headlight","bd":[]}
+{"sl":"en","q":"LED headlight","main":"Світлодіодна фара","bd":[]}
+{"sl":"uk","q":"ксенонова фара","main":"xenon headlight","bd":[]}
+{"sl":"en","q":"xenon headlight","main":"ксенонова фара","bd":[]}
+{"sl":"uk","q":"адаптивні фари","main":"adaptive headlights","bd":[]}
+{"sl":"en","q":"adaptive headlights","main":"адаптивні фари","bd":[]}
+{"sl":"uk","q":"круїз-контроль","main":"cruise control","bd":[]}
+{"sl":"en","q":"cruise control","main":"круїз контроль","bd":[]}
+{"sl":"uk","q":"адаптивний круїз-контроль","main":"adaptive cruise control","bd":[]}
+{"sl":"en","q":"adaptive cruise control","main":"адаптивний круїз-контроль","bd":[]}
+{"sl":"uk","q":"система утримання в смузі","main":"lane keeping system","bd":[]}
+{"sl":"en","q":"lane-keeping assist","main":"система підтримки смуги руху","bd":[]}
+{"sl":"uk","q":"контроль сліпих зон","main":"control of blind spots","bd":[]}
+{"sl":"en","q":"blind-spot monitoring","main":"моніторинг сліпих зон","bd":[]}
+{"sl":"uk","q":"автоматичне екстрене гальмування","main":"automatic emergency braking","bd":[]}
+{"sl":"en","q":"automatic emergency braking","main":"автоматичне екстрене гальмування","bd":[]}
+{"sl":"uk","q":"протибуксувальна система","main":"anti-skid system","bd":[]}
+{"sl":"en","q":"traction control","main":"контроль тяги","bd":[]}
+{"sl":"uk","q":"електронна система стабілізації","main":"electronic stabilization system","bd":[]}
+{"sl":"en","q":"electronic stability control","main":"електронний контроль стійкості","bd":[]}
+{"sl":"uk","q":"іммобілайзер","main":"immobilizer","bd":[]}
+{"sl":"en","q":"immobilizer","main":"іммобілайзер","bd":[]}
+{"sl":"uk","q":"автосигналізація","main":"car alarm","bd":[]}
+{"sl":"en","q":"car alarm","main":"автомобільна сигналізація","bd":[]}
+{"sl":"uk","q":"запускати від зовнішнього акумулятора","main":"run from an external battery","bd":[]}
+{"sl":"en","q":"to jump-start","main":"стрибати","bd":[]}
+{"sl":"uk","q":"пускові дроти","main":"starting wires","bd":[]}
+{"sl":"en","q":"jumper cables","main":"з'єднувальні кабелі","bd":[]}
+{"sl":"uk","q":"адаптивний","main":"adaptive","bd":[]}
+{"sl":"en","q":"adaptive","main":"адаптивний","bd":[["adjective",["що вживається","що застосовується","що пристосовується"]]]}
+{"sl":"uk","q":"денний час","main":"daytime","bd":[["noun",["daytime","day"]]]}
+{"sl":"en","q":"daytime","main":"денний час","bd":[["noun",["денний час","день"]]]}
+{"sl":"uk","q":"сигналити клаксоном","main":"to honk","bd":[]}
+{"sl":"en","q":"to beep","main":"звуковий сигнал","bd":[["verb",["гудіти"]]]}
+{"sl":"uk","q":"пристебнутися","main":"buckle up","bd":[]}
+{"sl":"en","q":"to buckle up","main":"пристібатися","bd":[]}
+{"sl":"uk","q":"рушити з місця","main":"move from place","bd":[]}
+{"sl":"en","q":"to pull away","main":"відтягнути","bd":[]}
+{"sl":"uk","q":"сповільнюватися","main":"slow","bd":[["verb",["slow","slacken"]]]}
+{"sl":"en","q":"to slow down","main":"гальмувати","bd":[["verb",["сповільнювати"]]]}
+{"sl":"uk","q":"з'їхати на узбіччя","main":"pull over","bd":[]}
+{"sl":"en","q":"to pull over","main":"перетягнути","bd":[["verb",["надівати через голову"]]]}
+{"sl":"uk","q":"під'їхати й зупинитися","main":"drive up and stop","bd":[]}
+{"sl":"en","q":"to pull in","main":"втягнути","bd":[["verb",["втягувати","загрібати"]]]}
+{"sl":"uk","q":"виїхати в потік","main":"go out into the stream","bd":[]}
+{"sl":"en","q":"to pull out","main":"витягувати","bd":[]}
+{"sl":"uk","q":"іти юзом","main":"to use","bd":[]}
+{"sl":"en","q":"to skid","main":"буксувати","bd":[["verb",["гальмувати","ковзати","спускатися на лижах","підпирати"]]]}
+{"sl":"uk","q":"різко звернути вбік","main":"turn sharply to the side","bd":[]}
+{"sl":"en","q":"to swerve","main":"збочувати","bd":[["verb",["відхиляти","відхилятися","збочувати","звихатися","огинатися"]]]}
+{"sl":"uk","q":"розворот на дорозі","main":"U-turn on the road","bd":[]}
+{"sl":"en","q":"U-turn","main":"Розворот","bd":[]}
+{"sl":"uk","q":"сліпа зона","main":"blind spot","bd":[]}
+{"sl":"en","q":"blind spot","main":"сліпа пляма","bd":[]}
+{"sl":"uk","q":"швидкісна дорога","main":"speedway","bd":[["noun",["speedway"]]]}
+{"sl":"en","q":"expressway","main":"швидкісна дорога","bd":[]}
+{"sl":"uk","q":"дорога з розділеними напрямками руху","main":"a road with divided traffic directions","bd":[]}
+{"sl":"en","q":"dual carriageway","main":"подвійна проїзна дорога","bd":[]}
+{"sl":"uk","q":"дорога без розділення напрямків","main":"road without separation of directions","bd":[]}
+{"sl":"en","q":"single carriageway","main":"одна проїзна частина","bd":[]}
+{"sl":"uk","q":"проїзна частина","main":"carriageway","bd":[]}
+{"sl":"en","q":"carriageway","main":"проїзна частина","bd":[["noun",["проїжджа частина дороги"]]]}
+{"sl":"uk","q":"заміська дорога","main":"country road","bd":[]}
+{"sl":"en","q":"country road","main":"сільська дорога","bd":[]}
+{"sl":"uk","q":"ґрунтова дорога","main":"dirt road","bd":[]}
+{"sl":"en","q":"dirt road","main":"ґрунтова дорога","bd":[]}
+{"sl":"uk","q":"гравійна дорога","main":"gravel road","bd":[]}
+{"sl":"en","q":"gravel road","main":"гравійна дорога","bd":[]}
+{"sl":"uk","q":"платна дорога","main":"toll road","bd":[]}
+{"sl":"en","q":"toll road","main":"платна дорога","bd":[["noun",["платний шлях"]]]}
+{"sl":"uk","q":"кільцева дорога","main":"ring road","bd":[["noun",["ring road","ringway"]]]}
+{"sl":"en","q":"ring road","main":"кільцева дорога","bd":[["noun",["кільцева дорога"]]]}
+{"sl":"uk","q":"об'їзна дорога","main":"bypass road","bd":[["noun",["byroad"]]]}
+{"sl":"en","q":"bypass","main":"обхід","bd":[["noun",["обвідний канал","перепуск","об'їзд","обхід"]],["verb",["виляти","обходити"]]]}
+{"sl":"uk","q":"узбіччя автомагістралі","main":"the side of the highway","bd":[]}
+{"sl":"en","q":"hard shoulder","main":"жорстке плече","bd":[]}
+{"sl":"uk","q":"крайня ліва смуга","main":"far left lane","bd":[]}
+{"sl":"en","q":"fast lane","main":"швидка смуга","bd":[]}
+{"sl":"uk","q":"смуга для повільного руху","main":"slow lane","bd":[]}
+{"sl":"en","q":"slow lane","main":"повільна смуга","bd":[]}
+{"sl":"uk","q":"смуга громадського транспорту","main":"public transport lane","bd":[]}
+{"sl":"en","q":"bus lane","main":"автобусна смуга","bd":[]}
+{"sl":"uk","q":"велосипедна смуга","main":"bicycle lane","bd":[]}
+{"sl":"en","q":"cycle lane","main":"велосмуга","bd":[]}
+{"sl":"uk","q":"розділювальна смуга","main":"dividing line","bd":[]}
+{"sl":"en","q":"median","main":"медіана","bd":[["adjective",["серединний","середній"]],["noun",["серединна артерія","серединне значення","медіана","медіяна"]]]}
+{"sl":"uk","q":"медіана","main":"median","bd":[["noun",["median"]]]}
+{"sl":"uk","q":"дорожня розмітка","main":"road markings","bd":[]}
+{"sl":"en","q":"road marking","main":"дорожня розмітка","bd":[]}
+{"sl":"uk","q":"суцільна лінія","main":"solid line","bd":[]}
+{"sl":"en","q":"solid line","main":"суцільна лінія","bd":[]}
+{"sl":"uk","q":"переривчаста лінія","main":"dashed line","bd":[]}
+{"sl":"en","q":"broken line","main":"ламана лінія","bd":[]}
+{"sl":"uk","q":"стоп-лінія","main":"stop line","bd":[]}
+{"sl":"en","q":"stop line","main":"стоп-лінія","bd":[]}
+{"sl":"uk","q":"нерегульований перехід зебра","main":"unregulated zebra crossing","bd":[]}
+{"sl":"en","q":"zebra crossing","main":"зебра","bd":[]}
+{"sl":"uk","q":"Т-подібне перехрестя","main":"T-shaped intersection","bd":[]}
+{"sl":"en","q":"T-junction","main":"Т-подібне з'єднання","bd":[]}
+{"sl":"uk","q":"транспортна розв'язка","main":"transport interchange","bd":[]}
+{"sl":"en","q":"interchange","main":"обмін","bd":[["noun",["обмін","перестановка","чергування"]],["verb",["змінювати","обмінюватися","обміняти","переставляти","чергувати","чергуватися"]]]}
+{"sl":"uk","q":"в'їзд на автомагістраль","main":"entrance to the highway","bd":[]}
+{"sl":"en","q":"entrance ramp","main":"в'їзний пандус","bd":[]}
+{"sl":"uk","q":"з'їзд з автомагістралі","main":"exit from the highway","bd":[]}
+{"sl":"en","q":"exit ramp","main":"рампа виїзду","bd":[]}
+{"sl":"uk","q":"залізничний переїзд","main":"rail crossing","bd":[["noun",["rail crossing"]]]}
+{"sl":"en","q":"level crossing","main":"залізничний переїзд","bd":[]}
+{"sl":"uk","q":"лежачий поліцейський","main":"lying policeman","bd":[]}
+{"sl":"en","q":"speed bump","main":"лежачий поліцейський","bd":[]}
+{"sl":"uk","q":"дорожній знак","main":"road sign","bd":[["noun",["road sign","signboard"]]]}
+{"sl":"en","q":"traffic sign","main":"дорожній знак","bd":[]}
+{"sl":"uk","q":"попереджувальний знак","main":"warning sign","bd":[]}
+{"sl":"en","q":"warning sign","main":"попереджувальний знак","bd":[]}
+{"sl":"uk","q":"заборонний знак","main":"prohibition sign","bd":[]}
+{"sl":"en","q":"prohibitory sign","main":"заборонний знак","bd":[]}
+{"sl":"uk","q":"наказовий знак","main":"command sign","bd":[]}
+{"sl":"en","q":"mandatory sign","main":"обов'язковий знак","bd":[]}
+{"sl":"uk","q":"інформаційний знак","main":"information sign","bd":[]}
+{"sl":"en","q":"information sign","main":"інформаційний знак","bd":[]}
+{"sl":"uk","q":"вказівник напрямку","main":"direction indicator","bd":[]}
+{"sl":"en","q":"direction sign","main":"покажчик напряму","bd":[]}
+{"sl":"uk","q":"знак обмеження швидкості","main":"speed limit sign","bd":[]}
+{"sl":"en","q":"speed-limit sign","main":"знак обмеження швидкості","bd":[]}
+{"sl":"uk","q":"знак Стоп","main":"stop sign","bd":[]}
+{"sl":"en","q":"stop sign","main":"знак зупинки","bd":[]}
+{"sl":"uk","q":"знак Дати дорогу","main":"sign Give way","bd":[]}
+{"sl":"en","q":"yield sign","main":"знак поступитися","bd":[]}
+{"sl":"uk","q":"знак В'їзд заборонено","main":"No entry sign","bd":[]}
+{"sl":"en","q":"no-entry sign","main":"заборонений знак","bd":[]}
+{"sl":"uk","q":"знак одностороннього руху","main":"one-way traffic sign","bd":[]}
+{"sl":"en","q":"one-way sign","main":"знак одностороннього руху","bd":[]}
+{"sl":"uk","q":"знак Стоянку заборонено","main":"No parking sign","bd":[]}
+{"sl":"en","q":"no-parking sign","main":"знак заборони паркування","bd":[]}
+{"sl":"uk","q":"знак Зупинку заборонено","main":"no stop sign","bd":[]}
+{"sl":"en","q":"no-stopping sign","main":"знак заборони зупинки","bd":[]}
+{"sl":"uk","q":"дорогу перекрито","main":"the road is closed","bd":[]}
+{"sl":"en","q":"road closed","main":"дорога закрита","bd":[["phrase",["Дорогу закрито"]]]}
+{"sl":"uk","q":"червоне світло","main":"red light","bd":[]}
+{"sl":"en","q":"red light","main":"червоне світло","bd":[]}
+{"sl":"uk","q":"жовте світло","main":"yellow light","bd":[]}
+{"sl":"en","q":"amber light","main":"бурштинове світло","bd":[]}
+{"sl":"uk","q":"зелене світло","main":"green light","bd":[]}
+{"sl":"en","q":"green light","main":"зелене світло","bd":[]}
+{"sl":"uk","q":"миготливий сигнал","main":"flashing signal","bd":[]}
+{"sl":"en","q":"flashing light","main":"миготливе світло","bd":[]}
+{"sl":"uk","q":"переважне право проїзду","main":"priority right of way","bd":[]}
+{"sl":"en","q":"right of way","main":"перевага","bd":[]}
+{"sl":"uk","q":"головна дорога","main":"main road","bd":[]}
+{"sl":"en","q":"priority road","main":"пріоритетна дорога","bd":[]}
+{"sl":"uk","q":"обмеження швидкості","main":"speed limit","bd":[["noun",["speed limit"]]]}
+{"sl":"en","q":"speed limit","main":"обмеження швидкості","bd":[["noun",["обмеження швидкості","дозволена швидкість"]]]}
+{"sl":"uk","q":"мінімальна дозволена швидкість","main":"minimum speed limit","bd":[]}
+{"sl":"en","q":"minimum speed","main":"мінімальна швидкість","bd":[]}
+{"sl":"uk","q":"правила дорожнього руху","main":"traffic rules","bd":[]}
+{"sl":"en","q":"traffic regulations","main":"ПДР","bd":[]}
+{"sl":"uk","q":"безпека дорожнього руху","main":"road safety","bd":[]}
+{"sl":"en","q":"road safety","main":"безпека дорожнього руху","bd":[]}
+{"sl":"uk","q":"звід правил дорожнього руху","main":"a set of traffic rules","bd":[]}
+{"sl":"en","q":"highway code","main":"код дороги","bd":[]}
+{"sl":"uk","q":"керування у стані сп'яніння","main":"driving while intoxicated","bd":[]}
+{"sl":"en","q":"drunk driving","main":"водіння в нетверезому стані","bd":[]}
+{"sl":"uk","q":"керування під впливом алкоголю чи наркотиків","main":"driving under the influence of alcohol or drugs","bd":[]}
+{"sl":"en","q":"driving under the influence","main":"водіння в нетверезому стані","bd":[]}
+{"sl":"uk","q":"безрозсудне водіння","main":"reckless driving","bd":[]}
+{"sl":"en","q":"reckless driving","main":"необережне водіння","bd":[]}
+{"sl":"uk","q":"необережне водіння","main":"careless driving","bd":[]}
+{"sl":"en","q":"careless driving","main":"необережне водіння","bd":[]}
+{"sl":"uk","q":"керування з відволіканням","main":"driving with distraction","bd":[]}
+{"sl":"en","q":"distracted driving","main":"відволікання від водіння","bd":[]}
+{"sl":"uk","q":"передбачливе водіння","main":"prudent driving","bd":[]}
+{"sl":"en","q":"defensive driving","main":"захисне водіння","bd":[]}
+{"sl":"uk","q":"закон про ремені безпеки","main":"seat belt law","bd":[]}
+{"sl":"en","q":"seat-belt law","main":"закон про ремені безпеки","bd":[]}
+{"sl":"uk","q":"обмеження паркування","main":"parking restrictions","bd":[]}
+{"sl":"en","q":"parking restriction","main":"обмеження паркування","bd":[]}
+{"sl":"uk","q":"порушення правил дорожнього руху","main":"violation of traffic rules","bd":[]}
+{"sl":"en","q":"traffic violation","main":"порушення ПДР","bd":[]}
+{"sl":"uk","q":"порушення швидкісного режиму","main":"violation of the speed regime","bd":[]}
+{"sl":"en","q":"speeding offense","main":"порушення швидкості","bd":[]}
+{"sl":"uk","q":"штраф за перевищення швидкості","main":"fine for speeding","bd":[]}
+{"sl":"en","q":"speeding ticket","main":"штраф за перевищення швидкості","bd":[]}
+{"sl":"uk","q":"штраф за неправильне паркування","main":"fine for wrong parking","bd":[]}
+{"sl":"en","q":"parking ticket","main":"талон на паркування","bd":[]}
+{"sl":"uk","q":"штрафні бали","main":"penalty points","bd":[]}
+{"sl":"en","q":"penalty points","main":"штрафні бали","bd":[]}
+{"sl":"uk","q":"заборона керування","main":"prohibition of driving","bd":[]}
+{"sl":"en","q":"driving ban","main":"заборона водіння","bd":[]}
+{"sl":"uk","q":"перевірка на тверезість","main":"sobriety test","bd":[]}
+{"sl":"en","q":"sobriety test","main":"тест на тверезість","bd":[]}
+{"sl":"uk","q":"бурштин","main":"amber","bd":[["noun",["amber"]]]}
+{"sl":"en","q":"amber","main":"бурштиновий","bd":[["verb",["засмолити","фарбувати у янтарний колір"]],["adjective",["бурштиновий","янтарний","жовтий"]],["noun",["бурштин","жовтий колір","янтар"]]]}
+{"sl":"uk","q":"тверезість","main":"sobriety","bd":[["noun",["sobriety","temperance","soberness","abstinence","teetotalism"]]]}
+{"sl":"en","q":"sobriety","main":"тверезість","bd":[["noun",["поміркованість","розсудливість","тверезість","холоднокровність"]]]}
+{"sl":"uk","q":"інтенсивний рух","main":"heavy traffic","bd":[]}
+{"sl":"en","q":"heavy traffic","main":"інтенсивний трафік","bd":[["noun",["посилений рух транспорту"]]]}
+{"sl":"uk","q":"слабкий рух","main":"weak movement","bd":[]}
+{"sl":"en","q":"light traffic","main":"легкий рух","bd":[]}
+{"sl":"uk","q":"транспортний колапс","main":"transport collapse","bd":[]}
+{"sl":"en","q":"gridlock","main":"затор","bd":[]}
+{"sl":"uk","q":"година пік","main":"rush hour","bd":[]}
+{"sl":"en","q":"rush hour","main":"година пік","bd":[]}
+{"sl":"uk","q":"завантаженість доріг","main":"road congestion","bd":[]}
+{"sl":"en","q":"congestion","main":"затори","bd":[["noun",["затор","нагромадження","перенаселеність","приплив","скупченість","скупчення"]]]}
+{"sl":"uk","q":"вузьке місце","main":"bottleneck","bd":[["noun",["narrow"]]]}
+{"sl":"en","q":"bottleneck","main":"вузьке місце","bd":[["noun",["вузький прохід","шийка пляшки"]]]}
+{"sl":"uk","q":"потік транспорту","main":"traffic flow","bd":[]}
+{"sl":"en","q":"traffic flow","main":"транспортний потік","bd":[]}
+{"sl":"uk","q":"зустрічний рух","main":"oncoming traffic","bd":[]}
+{"sl":"en","q":"oncoming traffic","main":"зустрічний рух","bd":[]}
+{"sl":"uk","q":"транзитний рух","main":"transit traffic","bd":[]}
+{"sl":"en","q":"through traffic","main":"через трафік","bd":[]}
+{"sl":"uk","q":"місцевий рух","main":"local traffic","bd":[]}
+{"sl":"en","q":"local traffic","main":"місцевий трафік","bd":[]}
+{"sl":"uk","q":"стан дороги","main":"road condition","bd":[]}
+{"sl":"en","q":"road condition","main":"стан дороги","bd":[]}
+{"sl":"uk","q":"дорожнє покриття","main":"road surface","bd":[]}
+{"sl":"en","q":"road surface","main":"дорожнє покриття","bd":[]}
+{"sl":"uk","q":"мокра дорога","main":"wet road","bd":[]}
+{"sl":"en","q":"wet road","main":"мокра дорога","bd":[]}
+{"sl":"uk","q":"слизька дорога","main":"slippery road","bd":[]}
+{"sl":"en","q":"slippery road","main":"слизька дорога","bd":[]}
+{"sl":"uk","q":"обледеніла дорога","main":"icy road","bd":[]}
+{"sl":"en","q":"icy road","main":"крижана дорога","bd":[]}
+{"sl":"uk","q":"ожеледиця","main":"icicle","bd":[]}
+{"sl":"en","q":"black ice","main":"чорний лід","bd":[]}
+{"sl":"uk","q":"сипучий гравій","main":"loose gravel","bd":[]}
+{"sl":"en","q":"loose gravel","main":"сипучий гравій","bd":[]}
+{"sl":"uk","q":"вода на дорозі","main":"water on the road","bd":[]}
+{"sl":"en","q":"standing water","main":"стояча вода","bd":[]}
+{"sl":"uk","q":"погана видимість","main":"poor visibility","bd":[["noun",["poor visibility"]]]}
+{"sl":"en","q":"poor visibility","main":"погана видимість","bd":[["noun",["погана видимість"]]]}
+{"sl":"uk","q":"закритий поворот","main":"closed turn","bd":[]}
+{"sl":"en","q":"blind bend","main":"глухий вигин","bd":[]}
+{"sl":"uk","q":"крутий підйом","main":"steep climb","bd":[]}
+{"sl":"en","q":"steep hill","main":"крутий пагорб","bd":[]}
+{"sl":"uk","q":"ухил дороги","main":"road slope","bd":[]}
+{"sl":"en","q":"gradient","main":"градієнт","bd":[["adjective",["крокуючий","рухомий"]],["noun",["градієнт","ухил"]]]}
+{"sl":"uk","q":"бічний вітер","main":"side wind","bd":[]}
+{"sl":"en","q":"crosswind","main":"бічний вітер","bd":[["noun",["зустрічний вітер"]]]}
+{"sl":"uk","q":"сліпуче світло","main":"blinding light","bd":[]}
+{"sl":"en","q":"glare","main":"відблиски","bd":[["noun",["сліпучий блиск","пишнота"]],["verb",["сліпуче блищати","пильно дивитися"]]]}
+{"sl":"uk","q":"перекриття дороги","main":"road closure","bd":[]}
+{"sl":"en","q":"road closure","main":"закриття дороги","bd":[]}
+{"sl":"uk","q":"перекриття смуги","main":"lane closure","bd":[]}
+{"sl":"en","q":"lane closure","main":"закриття смуги","bd":[]}
+{"sl":"uk","q":"тимчасовий світлофор","main":"temporary traffic light","bd":[]}
+{"sl":"en","q":"temporary traffic lights","main":"тимчасові світлофори","bd":[]}
+{"sl":"uk","q":"зустрічний рух однією половиною дороги","main":"oncoming traffic on one side of the road","bd":[]}
+{"sl":"en","q":"contraflow","main":"протитечія","bd":[]}
+{"sl":"uk","q":"аварійна смуга","main":"emergency lane","bd":[]}
+{"sl":"en","q":"breakdown lane","main":"смуга поломки","bd":[]}
+{"sl":"uk","q":"розсмоктуватися","main":"dissolve","bd":[]}
+{"sl":"en","q":"to clear up","main":"очистити","bd":[]}
+{"sl":"uk","q":"паркування","main":"parking","bd":[["noun",["parking"]]]}
+{"sl":"en","q":"parking","main":"парковка","bd":[["noun",["парковка","паркування","стоянка"]]]}
+{"sl":"uk","q":"паркувальне місце","main":"parking space","bd":[]}
+{"sl":"en","q":"parking space","main":"місце для паркування","bd":[]}
+{"sl":"uk","q":"багатоповерховий паркінг","main":"multi-storey parking lot","bd":[]}
+{"sl":"en","q":"multi-story car park","main":"багатоповерховий паркінг","bd":[]}
+{"sl":"uk","q":"підземний паркінг","main":"underground parking","bd":[]}
+{"sl":"en","q":"underground parking","main":"підземний паркінг","bd":[]}
+{"sl":"uk","q":"паралельне паркування","main":"parallel parking","bd":[]}
+{"sl":"en","q":"parallel parking","main":"паралельна парковка","bd":[]}
+{"sl":"uk","q":"паркування під кутом","main":"corner parking","bd":[]}
+{"sl":"en","q":"angle parking","main":"паркування під кутом","bd":[]}
+{"sl":"uk","q":"перпендикулярне паркування","main":"perpendicular parking","bd":[]}
+{"sl":"en","q":"perpendicular parking","main":"перпендикулярна парковка","bd":[]}
+{"sl":"uk","q":"паркування другим рядом","main":"parking in the second row","bd":[]}
+{"sl":"en","q":"double parking","main":"подвійна парковка","bd":[["verb",["ставити машину в другий ряд"]]]}
+{"sl":"uk","q":"місце для людей з інвалідністю","main":"place for people with disabilities","bd":[]}
+{"sl":"en","q":"disabled parking space","main":"місце для паркування інвалідів","bd":[]}
+{"sl":"uk","q":"дозвіл на паркування","main":"parking permit","bd":[]}
+{"sl":"en","q":"parking permit","main":"дозвіл на паркування","bd":[]}
+{"sl":"uk","q":"паркувальний шлагбаум","main":"parking barrier","bd":[]}
+{"sl":"en","q":"parking barrier","main":"паркувальний бар'єр","bd":[]}
+{"sl":"uk","q":"паркування працівником закладу","main":"parking by an employee of the institution","bd":[]}
+{"sl":"en","q":"valet parking","main":"паркування автомобіля працівником готелю","bd":[]}
+{"sl":"uk","q":"паливороздавальна колонка","main":"fuel dispenser","bd":[]}
+{"sl":"en","q":"fuel dispenser","main":"ТРК","bd":[]}
+{"sl":"uk","q":"заправний пістолет","main":"gas gun","bd":[]}
+{"sl":"en","q":"fuel nozzle","main":"паливна форсунка","bd":[]}
+{"sl":"uk","q":"кришка паливного бака","main":"fuel tank cap","bd":[]}
+{"sl":"en","q":"fuel cap","main":"кришка баку","bd":[]}
+{"sl":"uk","q":"лючок паливного бака","main":"fuel tank hatch","bd":[]}
+{"sl":"en","q":"fuel filler flap","main":"кришка паливної горловини","bd":[]}
+{"sl":"uk","q":"неетилований бензин","main":"unleaded gasoline","bd":[]}
+{"sl":"en","q":"unleaded petrol","main":"неетилований бензин","bd":[]}
+{"sl":"uk","q":"пальне преміум-класу","main":"premium fuel","bd":[]}
+{"sl":"en","q":"premium fuel","main":"преміальне паливо","bd":[]}
+{"sl":"uk","q":"октанове число","main":"octane number","bd":[]}
+{"sl":"en","q":"octane rating","main":"октанове число","bd":[]}
+{"sl":"uk","q":"заправлятися","main":"refuel","bd":[]}
+{"sl":"en","q":"to fill up","main":"заповнювати","bd":[]}
+{"sl":"uk","q":"доливати","main":"top up","bd":[]}
+{"sl":"en","q":"to top up","main":"доповнити","bd":[["verb",["докладати","увінчувати"]]]}
+{"sl":"uk","q":"зарядна станція","main":"charging station","bd":[]}
+{"sl":"en","q":"charging station","main":"зарядна станція","bd":[]}
+{"sl":"uk","q":"зарядний роз'єм","main":"charging connector","bd":[]}
+{"sl":"en","q":"charging port","main":"зарядний порт","bd":[]}
+{"sl":"uk","q":"швидкісний зарядний пристрій","main":"fast charger","bd":[]}
+{"sl":"en","q":"fast charger","main":"швидкий зарядний пристрій","bd":[]}
+{"sl":"uk","q":"тривога через нестачу заряду","main":"alarm due to lack of charge","bd":[]}
+{"sl":"en","q":"range anxiety","main":"хвилювання діапазону","bd":[]}
+{"sl":"uk","q":"відкидна кришка","main":"hinged lid","bd":[]}
+{"sl":"en","q":"flap","main":"клапоть","bd":[["noun",["відкидний борт","ляскання","пола","легкий удар"]],["verb",["коливати","маяти","розвівати","фуркати","шльопати"]]]}
+{"sl":"uk","q":"механічна несправність","main":"mechanical failure","bd":[]}
+{"sl":"en","q":"mechanical failure","main":"механічна несправність","bd":[]}
+{"sl":"uk","q":"збій у роботі","main":"malfunction","bd":[]}
+{"sl":"en","q":"malfunction","main":"несправність","bd":[["noun",["відмова","несправна робота"]],["verb",["відмовляти","несправно робити"]]]}
+{"sl":"uk","q":"раптово заглухнути","main":"suddenly become deaf","bd":[]}
+{"sl":"en","q":"to conk out","main":"to conk out","bd":[]}
+{"sl":"uk","q":"розряджений акумулятор","main":"discharged battery","bd":[]}
+{"sl":"en","q":"flat battery","main":"розряджений акумулятор","bd":[]}
+{"sl":"uk","q":"витік оливи","main":"oil leak","bd":[]}
+{"sl":"en","q":"oil leak","main":"витік масла","bd":[]}
+{"sl":"uk","q":"витік охолоджувальної рідини","main":"coolant leak","bd":[]}
+{"sl":"en","q":"coolant leak","main":"витік охолоджуючої рідини","bd":[]}
+{"sl":"uk","q":"витік пального","main":"fuel leak","bd":[]}
+{"sl":"en","q":"fuel leak","main":"витік палива","bd":[]}
+{"sl":"uk","q":"пропуск запалювання","main":"misfire","bd":[]}
+{"sl":"en","q":"engine misfire","main":"пропуски запалювання двигуна","bd":[]}
+{"sl":"uk","q":"дивний шум","main":"strange noise","bd":[]}
+{"sl":"en","q":"strange noise","main":"дивний шум","bd":[]}
+{"sl":"uk","q":"деренчання","main":"chatter","bd":[["noun",["chatter"]]]}
+{"sl":"en","q":"rattling noise","main":"деренчання","bd":[]}
+{"sl":"uk","q":"скрип","main":"creak","bd":[["noun",["creak","squeak","scratch","scrape","crunch","screak","gride"]]]}
+{"sl":"en","q":"squeaking noise","main":"пискливий шум","bd":[]}
+{"sl":"uk","q":"скрегіт","main":"gnash","bd":[["noun",["gnash","grinding","rasp","gritting","knack"]]]}
+{"sl":"en","q":"grinding noise","main":"шум шліфування","bd":[]}
+{"sl":"uk","q":"вібрація","main":"vibration","bd":[["noun",["vibration","jarring","oscillation","pulse","judder","flutter","drumming"]]]}
+{"sl":"en","q":"vibration","main":"вібрація","bd":[["noun",["вібрація","вібрування","гойдання","трепет"]]]}
+{"sl":"uk","q":"запах горілого","main":"burning smell","bd":[]}
+{"sl":"en","q":"burning smell","main":"запах гару","bd":[]}
+{"sl":"uk","q":"попереджувальне повідомлення","main":"warning message","bd":[]}
+{"sl":"en","q":"warning message","main":"попереджувальне повідомлення","bd":[]}
+{"sl":"uk","q":"незначна ДТП","main":"minor accident","bd":[]}
+{"sl":"en","q":"minor accident","main":"незначна аварія","bd":[]}
+{"sl":"uk","q":"лобове зіткнення","main":"head-on collision","bd":[]}
+{"sl":"en","q":"head-on collision","main":"лобове зіткнення","bd":[]}
+{"sl":"uk","q":"зіткнення ззаду","main":"rear collision","bd":[]}
+{"sl":"en","q":"rear-end collision","main":"зіткнення ззаду","bd":[]}
+{"sl":"uk","q":"ланцюгове зіткнення","main":"chain collision","bd":[]}
+{"sl":"en","q":"pile-up","main":"нагромадження","bd":[["noun",["зіткнення машин"]]]}
+{"sl":"uk","q":"ДТП із залишенням місця події","main":"Road accident with leaving the scene of the incident","bd":[]}
+{"sl":"en","q":"hit-and-run","main":"наїзд і втік","bd":[]}
+{"sl":"uk","q":"врізатися ззаду","main":"crash from behind","bd":[]}
+{"sl":"en","q":"to rear-end","main":"до заднього кінця","bd":[]}
+{"sl":"uk","q":"екстрені служби","main":"emergency services","bd":[]}
+{"sl":"en","q":"emergency services","main":"екстрені служби","bd":[]}
+{"sl":"uk","q":"допомога на дорозі","main":"roadside assistance","bd":[]}
+{"sl":"en","q":"roadside assistance","main":"допомога на дорозі","bd":[]}
+{"sl":"uk","q":"евакуатор","main":"tow truck","bd":[["noun",["tow truck"]]]}
+{"sl":"en","q":"tow truck","main":"евакуатор","bd":[["noun",["евакуатор"]]]}
+{"sl":"uk","q":"буксирувальний трос","main":"towing rope","bd":[]}
+{"sl":"en","q":"towing rope","main":"буксирний трос","bd":[]}
+{"sl":"uk","q":"знак аварійної зупинки","main":"emergency stop sign","bd":[]}
+{"sl":"en","q":"warning triangle","main":"попереджувальний трикутник","bd":[]}
+{"sl":"uk","q":"світловідбивний жилет","main":"reflective vest","bd":[]}
+{"sl":"en","q":"reflective vest","main":"світловідбиваючий жилет","bd":[]}
+{"sl":"uk","q":"заява про страхову виплату","main":"application for insurance payment","bd":[]}
+{"sl":"en","q":"insurance claim","main":"страховий відшкодування","bd":[]}
+{"sl":"uk","q":"скрипіти","main":"squeak","bd":[["verb",["squeak","creak","screech","gride","grit","groan"]]]}
+{"sl":"en","q":"to squeak","main":"пищати","bd":[["verb",["вищати","кургикати","пищати","скрипіти"]]]}
+{"sl":"uk","q":"світловідбивний","main":"reflective","bd":[]}
+{"sl":"en","q":"reflective","main":"світловідбиваючий","bd":[["adjective",["відбивний","відбитий","мислячий"]]]}
+{"sl":"uk","q":"узбіччя дороги","main":"the side of the road","bd":[]}
+{"sl":"en","q":"roadside","main":"узбіччя дороги","bd":[["noun",["узбіччя"]]]}
+{"sl":"uk","q":"планове технічне обслуговування","main":"scheduled maintenance","bd":[]}
+{"sl":"en","q":"scheduled maintenance","main":"планове технічне обслуговування","bd":[]}
+{"sl":"uk","q":"міжсервісний інтервал","main":"inter-service interval","bd":[]}
+{"sl":"en","q":"service interval","main":"інтервал обслуговування","bd":[]}
+{"sl":"uk","q":"історія обслуговування","main":"service history","bd":[]}
+{"sl":"en","q":"service history","main":"історія обслуговування","bd":[]}
+{"sl":"uk","q":"дилерський центр","main":"dealer center","bd":[]}
+{"sl":"en","q":"dealership","main":"дилерство","bd":[]}
+{"sl":"uk","q":"автомайстерня","main":"auto repair shop","bd":[]}
+{"sl":"en","q":"repair shop","main":"ремонтна майстерня","bd":[]}
+{"sl":"uk","q":"технік","main":"technician","bd":[["noun",["technician","technologist","artificer"]]]}
+{"sl":"en","q":"technician","main":"технік","bd":[["noun",["лаборант","технік","фахівець"]]]}
+{"sl":"uk","q":"діагностика","main":"diagnosis","bd":[]}
+{"sl":"en","q":"diagnostics","main":"діагностика","bd":[["noun",["ознака","симптом"]]]}
+{"sl":"uk","q":"комп'ютерна діагностика","main":"computer diagnostics","bd":[]}
+{"sl":"en","q":"diagnostic scan","main":"діагностичне сканування","bd":[]}
+{"sl":"uk","q":"код несправності","main":"fault code","bd":[]}
+{"sl":"en","q":"fault code","main":"код несправності","bd":[]}
+{"sl":"uk","q":"технічний огляд","main":"technical review","bd":[]}
+{"sl":"en","q":"vehicle inspection","main":"огляд автомобіля","bd":[]}
+{"sl":"uk","q":"технічна справність для руху","main":"technical fitness for movement","bd":[]}
+{"sl":"en","q":"roadworthiness","main":"придатність до експлуатації","bd":[]}
+{"sl":"uk","q":"заміна оливи","main":"oil change","bd":[]}
+{"sl":"en","q":"oil change","main":"заміна масла","bd":[]}
+{"sl":"uk","q":"заміна фільтра","main":"filter replacement","bd":[]}
+{"sl":"en","q":"filter replacement","main":"заміна фільтра","bd":[]}
+{"sl":"uk","q":"комплексне регулювання двигуна","main":"comprehensive engine regulation","bd":[]}
+{"sl":"en","q":"tune-up","main":"налаштування","bd":[["noun",["налагодження"]]]}
+{"sl":"uk","q":"запасна частина","main":"spare part","bd":[["noun",["spare part","replacement part"]]]}
+{"sl":"en","q":"spare part","main":"запчастина","bd":[["noun",["запасна частина"]]]}
+{"sl":"uk","q":"оригінальна запчастина","main":"original spare part","bd":[]}
+{"sl":"en","q":"genuine part","main":"оригінальна частина","bd":[]}
+{"sl":"uk","q":"неоригінальна запчастина","main":"non-original spare part","bd":[]}
+{"sl":"en","q":"aftermarket part","main":"післяпродажна частина","bd":[]}
+{"sl":"uk","q":"автомийка","main":"car wash","bd":[]}
+{"sl":"en","q":"car wash","main":"автомийка","bd":[["noun",["мийка"]]]}
+{"sl":"uk","q":"мийка самообслуговування","main":"self-service car wash","bd":[]}
+{"sl":"en","q":"self-service car wash","main":"мийка самообслуговування","bd":[]}
+{"sl":"uk","q":"мийка високого тиску","main":"high pressure washer","bd":[]}
+{"sl":"en","q":"pressure washer","main":"мийка високого тиску","bd":[]}
+{"sl":"uk","q":"автошампунь","main":"car shampoo","bd":[]}
+{"sl":"en","q":"car shampoo","main":"автомобільний шампунь","bd":[]}
+{"sl":"uk","q":"детейлінг","main":"detailing","bd":[]}
+{"sl":"en","q":"detailing","main":"деталізація","bd":[["verb",["виділяти в наряд","докладно розповідати"]]]}
+{"sl":"uk","q":"водійське посвідчення","main":"driver's license","bd":[]}
+{"sl":"en","q":"driver's license","main":"посвідчення водія","bd":[]}
+{"sl":"uk","q":"учнівський дозвіл на керування","main":"learner's driving permit","bd":[]}
+{"sl":"en","q":"learner's permit","main":"дозвіл учня","bd":[]}
+{"sl":"uk","q":"іспит з водіння","main":"driving test","bd":[]}
+{"sl":"en","q":"driving test","main":"іспит з водіння","bd":[]}
+{"sl":"uk","q":"теоретичний іспит","main":"theoretical exam","bd":[]}
+{"sl":"en","q":"theory test","main":"теоретичний тест","bd":[]}
+{"sl":"uk","q":"практичний іспит з водіння","main":"practical driving test","bd":[]}
+{"sl":"en","q":"practical test","main":"практичний залік","bd":[]}
+{"sl":"uk","q":"реєстрація транспортного засобу","main":"vehicle registration","bd":[]}
+{"sl":"en","q":"vehicle registration","main":"реєстрація транспортного засобу","bd":[]}
+{"sl":"uk","q":"свідоцтво про реєстрацію","main":"certificate of registration","bd":[]}
+{"sl":"en","q":"registration certificate","main":"свідоцтво про реєстрацію","bd":[]}
+{"sl":"uk","q":"ідентифікаційний номер автомобіля","main":"vehicle identification number","bd":[]}
+{"sl":"en","q":"vehicle identification number","main":"ідентифікаційний номер автомобіля","bd":[]}
+{"sl":"uk","q":"страховий поліс","main":"insurance","bd":[["noun",["insurance","policy"]]]}
+{"sl":"en","q":"insurance policy","main":"страховий поліс","bd":[]}
+{"sl":"uk","q":"страховий внесок","main":"insurance premium","bd":[]}
+{"sl":"en","q":"insurance premium","main":"страховий внесок","bd":[]}
+{"sl":"uk","q":"страхування відповідальності перед третіми особами","main":"third party liability insurance","bd":[]}
+{"sl":"en","q":"third-party insurance","main":"страхування від третіх осіб","bd":[]}
+{"sl":"uk","q":"повне каско","main":"full insurance","bd":[]}
+{"sl":"en","q":"comprehensive insurance","main":"комплексне страхування","bd":[]}
+{"sl":"uk","q":"франшиза у страхуванні","main":"deductible in insurance","bd":[]}
+{"sl":"en","q":"deductible","main":"франшиза","bd":[]}
+{"sl":"uk","q":"страхувальник","main":"insurer","bd":[["noun",["insurer","assurer","assuror"]]]}
+{"sl":"en","q":"policyholder","main":"страхувальник","bd":[["noun",["власник страхового поліса"]]]}
+{"sl":"uk","q":"страхова компанія","main":"insurance company","bd":[["noun",["underwriter"]]]}
+{"sl":"en","q":"insurer","main":"страховик","bd":[["noun",["страхове товариство","страхувальник"]]]}
+{"sl":"uk","q":"транспортний податок","main":"transport tax","bd":[]}
+{"sl":"en","q":"road tax","main":"дорожній податок","bd":[]}
+{"sl":"uk","q":"вживаний автомобіль","main":"used car","bd":[]}
+{"sl":"en","q":"used car","main":"вживаний автомобіль","bd":[]}
+{"sl":"uk","q":"новий автомобіль","main":"new car","bd":[]}
+{"sl":"en","q":"new car","main":"нова машина","bd":[]}
+{"sl":"uk","q":"ринкова вартість","main":"market value","bd":[]}
+{"sl":"en","q":"market value","main":"ринкова вартість","bd":[]}
+{"sl":"uk","q":"обмін старого авто з доплатою","main":"exchange of an old car with additional payment","bd":[]}
+{"sl":"en","q":"trade-in","main":"trade-in","bd":[]}
+{"sl":"uk","q":"перший внесок","main":"down payment","bd":[]}
+{"sl":"en","q":"down payment","main":"перший внесок","bd":[]}
+{"sl":"uk","q":"автокредит","main":"car loan","bd":[]}
+{"sl":"en","q":"car loan","main":"кредит на автомобіль","bd":[]}
+{"sl":"uk","q":"договір фінансування","main":"financing agreement","bd":[]}
+{"sl":"en","q":"finance agreement","main":"фінансова угода","bd":[]}
+{"sl":"uk","q":"прокат автомобілів","main":"car rental","bd":[["noun",["car rental"]]]}
+{"sl":"en","q":"car rental","main":"оренда автомобіля","bd":[["noun",["прокат автомобілів"]]]}
+{"sl":"uk","q":"орендований автомобіль","main":"rented car","bd":[]}
+{"sl":"en","q":"rental car","main":"оренда автомобіля","bd":[]}
+{"sl":"uk","q":"договір прокату авто","main":"car rental agreement","bd":[]}
+{"sl":"en","q":"rental agreement","main":"договір оренди","bd":[["noun",["орендна угода"]]]}
+{"sl":"uk","q":"страхова застава","main":"security deposit","bd":[]}
+{"sl":"en","q":"security deposit","main":"гарантійний депозит","bd":[]}
+{"sl":"uk","q":"необмежений пробіг","main":"unlimited mileage","bd":[]}
+{"sl":"en","q":"unlimited mileage","main":"необмежений пробіг","bd":[]}
+{"sl":"uk","q":"оренда з поверненням в іншому місці","main":"rental with return elsewhere","bd":[]}
+{"sl":"en","q":"one-way rental","main":"одностороння оренда","bd":[]}
+{"sl":"uk","q":"тест-драйв","main":"test drive","bd":[]}
+{"sl":"en","q":"test drive","main":"тест-драйв","bd":[]}
+{"sl":"uk","q":"попередній власник","main":"previous owner","bd":[["noun",["ancestor"]]]}
+{"sl":"en","q":"previous owner","main":"попередній власник","bd":[]}
+{"sl":"uk","q":"авто з одним власником","main":"car with one owner","bd":[]}
+{"sl":"en","q":"one-owner car","main":"автомобіль одного власника","bd":[]}
+{"sl":"uk","q":"без ДТП в історії","main":"no accident in history","bd":[]}
+{"sl":"en","q":"accident-free","main":"безаварійний","bd":[]}
+{"sl":"uk","q":"повна історія обслуговування","main":"full service history","bd":[]}
+{"sl":"en","q":"full service history","main":"повна сервісна історія","bd":[]}
+{"sl":"en","q":"unlimited","main":"необмежений","bd":[["adjective",["абсолютний","безмежний","надмірний","необмежений","неограничений"]]]}
+{"sl":"uk","q":"персональний комп'ютер","main":"personal computer","bd":[]}
+{"sl":"en","q":"PC","main":"ПК","bd":[]}
+{"sl":"uk","q":"мейнфрейм","main":"mainframe","bd":[]}
+{"sl":"en","q":"mainframe","main":"мейнфрейм","bd":[["noun",["комп'ютер звичайних розмірів"]]]}
+{"sl":"uk","q":"суперкомп'ютер","main":"supercomputer","bd":[]}
+{"sl":"en","q":"supercomputer","main":"суперкомп'ютер","bd":[["noun",["суперкомпьютер"]]]}
+{"sl":"uk","q":"розумний пристрій","main":"smart device","bd":[]}
+{"sl":"en","q":"smart device","main":"розумний пристрій","bd":[]}
+{"sl":"uk","q":"носимий пристрій","main":"wearable device","bd":[]}
+{"sl":"en","q":"wearable device","main":"носимий пристрій","bd":[]}
+{"sl":"uk","q":"вбудована система","main":"embedded system","bd":[]}
+{"sl":"en","q":"embedded system","main":"вбудована система","bd":[]}
+{"sl":"uk","q":"одноплатний комп'ютер","main":"single board computer","bd":[]}
+{"sl":"en","q":"single-board computer","main":"одноплатний комп'ютер","bd":[]}
+{"sl":"uk","q":"ігровий комп'ютер","main":"gaming computer","bd":[]}
+{"sl":"en","q":"gaming PC","main":"ігровий ПК","bd":[]}
+{"sl":"uk","q":"моноблок","main":"monobloc","bd":[]}
+{"sl":"en","q":"all-in-one computer","main":"комп'ютер \"все в одному\".","bd":[]}
+{"sl":"uk","q":"тонкий клієнт","main":"thin client","bd":[]}
+{"sl":"en","q":"thin client","main":"тонкий клієнт","bd":[]}
+{"sl":"uk","q":"корпус комп'ютера","main":"computer case","bd":[]}
+{"sl":"en","q":"computer case","main":"комп'ютерний корпус","bd":[]}
+{"sl":"uk","q":"прошивка","main":"firmware","bd":[]}
+{"sl":"en","q":"firmware","main":"прошивка","bd":[]}
+{"sl":"uk","q":"аналоговий","main":"analog","bd":[]}
+{"sl":"en","q":"analog","main":"аналоговий","bd":[["noun",["аналог","моделюючий пристрій"]]]}
+{"sl":"uk","q":"розробник","main":"the developer","bd":[]}
+{"sl":"en","q":"developer","main":"розробник","bd":[["noun",["проявник"]]]}
+{"sl":"uk","q":"ІТ-фахівець","main":"IT specialist","bd":[]}
+{"sl":"en","q":"IT specialist","main":"IT спеціаліст","bd":[]}
+{"sl":"uk","q":"технічна підтримка","main":"technical support","bd":[]}
+{"sl":"en","q":"technical support","main":"технічна підтримка","bd":[]}
+{"sl":"uk","q":"комп'ютерна грамотність","main":"computer literacy","bd":[]}
+{"sl":"en","q":"computer literacy","main":"комп'ютерна грамотність","bd":[]}
+{"sl":"uk","q":"цифрова грамотність","main":"digital literacy","bd":[]}
+{"sl":"en","q":"digital literacy","main":"цифрова грамотність","bd":[]}
+{"sl":"uk","q":"зручний для користувача","main":"user-friendly","bd":[]}
+{"sl":"en","q":"user-friendly","main":"зручний для користувача","bd":[]}
+{"sl":"uk","q":"сумісний","main":"compatible","bd":[["adjective",["compatible","joint","consistent","consonant","reconcilable"]]]}
+{"sl":"en","q":"compatible","main":"сумісний","bd":[["adjective",["сполучний","сумісний","схожий"]]]}
+{"sl":"uk","q":"несумісний","main":"incompatible","bd":[["adjective",["incompatible","inconsistent","dissonant","discordant","dissociable","exclusive"]]]}
+{"sl":"en","q":"incompatible","main":"несумісні","bd":[["adjective",["незгідливий","несумісний"]]]}
+{"sl":"uk","q":"кросплатформний","main":"cross-platform","bd":[]}
+{"sl":"en","q":"cross-platform","main":"кросплатформенність","bd":[]}
+{"sl":"uk","q":"материнська плата","main":"motherboard","bd":[]}
+{"sl":"en","q":"motherboard","main":"материнська плата","bd":[]}
+{"sl":"uk","q":"ядро процесора","main":"processor core","bd":[]}
+{"sl":"en","q":"CPU core","main":"Ядро ЦП","bd":[]}
+{"sl":"uk","q":"тактова частота","main":"clock frequency","bd":[]}
+{"sl":"en","q":"clock speed","main":"тактова частота","bd":[]}
+{"sl":"uk","q":"гігагерц","main":"gigahertz","bd":[]}
+{"sl":"en","q":"gigahertz","main":"гігагерц","bd":[]}
+{"sl":"uk","q":"чипсет","main":"chipset","bd":[]}
+{"sl":"en","q":"chipset","main":"чіпсет","bd":[]}
+{"sl":"uk","q":"відеокарта","main":"video card","bd":[]}
+{"sl":"en","q":"graphics card","main":"графічна карта","bd":[]}
+{"sl":"uk","q":"графічний процесор","main":"graphics processor","bd":[]}
+{"sl":"en","q":"GPU","main":"GPU","bd":[]}
+{"sl":"uk","q":"вбудована графіка","main":"integrated graphics","bd":[]}
+{"sl":"en","q":"integrated graphics","main":"інтегрована графіка","bd":[]}
+{"sl":"uk","q":"дискретна графіка","main":"discrete graphics","bd":[]}
+{"sl":"en","q":"dedicated graphics","main":"виділена графіка","bd":[]}
+{"sl":"uk","q":"відеопам'ять","main":"video memory","bd":[]}
+{"sl":"en","q":"video memory","main":"відеопам'ять","bd":[]}
+{"sl":"uk","q":"оперативна пам'ять","main":"RAM","bd":[]}
+{"sl":"en","q":"RAM","main":"ОЗУ","bd":[["noun",["баран","таран","трамбівка","гідравлічний таран"]],["verb",["забивати","таранити","трамбувати","забутити","утовкмачувати","налетіти"]]]}
+{"sl":"uk","q":"модуль пам'яті","main":"memory module","bd":[]}
+{"sl":"en","q":"memory module","main":"модуль пам'яті","bd":[]}
+{"sl":"uk","q":"слот пам'яті","main":"memory slot","bd":[]}
+{"sl":"en","q":"memory slot","main":"слот пам'яті","bd":[]}
+{"sl":"uk","q":"кеш","main":"cache","bd":[]}
+{"sl":"en","q":"cache","main":"кеш","bd":[["noun",["прихований продовольчий запас","таємний склад зброї","запас провіанту","схованка"]],["verb",["приховувати"]]]}
+{"sl":"uk","q":"мегабайт","main":"megabyte","bd":[["noun",["megabyte"]]]}
+{"sl":"en","q":"megabyte","main":"мегабайт","bd":[["noun",["мегабайт"]]]}
+{"sl":"uk","q":"гігабайт","main":"gigabyte","bd":[]}
+{"sl":"en","q":"gigabyte","main":"гігабайт","bd":[]}
+{"sl":"uk","q":"терабайт","main":"terabyte","bd":[]}
+{"sl":"en","q":"terabyte","main":"терабайт","bd":[]}
+{"sl":"uk","q":"модуль","main":"module","bd":[["noun",["module","modulus","form","model"]]]}
+{"sl":"en","q":"module","main":"модуль","bd":[["noun",["модуль"]]]}
+{"sl":"uk","q":"жорсткий диск","main":"hard disk","bd":[]}
+{"sl":"en","q":"hard disk drive","main":"жорсткий диск","bd":[]}
+{"sl":"uk","q":"твердотільний накопичувач","main":"solid state drive","bd":[]}
+{"sl":"en","q":"solid-state drive","main":"твердотільний накопичувач","bd":[]}
+{"sl":"uk","q":"NVMe-накопичувач","main":"NVMe storage","bd":[]}
+{"sl":"en","q":"NVMe drive","main":"диск NVMe","bd":[]}
+{"sl":"uk","q":"біт","main":"bit","bd":[]}
+{"sl":"en","q":"bit","main":"біт","bd":[["noun",["бур","зубило","дрібок","кавалок","краєць","кусок","дрібна монета","мундштук"]],["verb",["загнуздувати"]]]}
+{"sl":"uk","q":"байт","main":"byte","bd":[]}
+{"sl":"en","q":"byte","main":"байт","bd":[]}
+{"sl":"uk","q":"блок живлення","main":"power supply unit","bd":[]}
+{"sl":"en","q":"power supply unit","main":"блок живлення","bd":[]}
+{"sl":"uk","q":"потужність у ватах","main":"power in watts","bd":[]}
+{"sl":"en","q":"wattage","main":"потужність","bd":[]}
+{"sl":"uk","q":"система охолодження","main":"cooling system","bd":[]}
+{"sl":"en","q":"cooling system","main":"система охолодження","bd":[]}
+{"sl":"uk","q":"радіатор охолодження","main":"cooling radiator","bd":[]}
+{"sl":"en","q":"heat sink","main":"тепловідвід","bd":[]}
+{"sl":"uk","q":"термопаста","main":"thermal paste","bd":[]}
+{"sl":"en","q":"thermal paste","main":"термопаста","bd":[]}
+{"sl":"uk","q":"рідинне охолодження","main":"liquid cooling","bd":[]}
+{"sl":"en","q":"liquid cooling","main":"рідинне охолодження","bd":[]}
+{"sl":"uk","q":"плата розширення","main":"expansion board","bd":[]}
+{"sl":"en","q":"expansion card","main":"карта розширення","bd":[]}
+{"sl":"uk","q":"слот розширення","main":"expansion slot","bd":[]}
+{"sl":"en","q":"expansion slot","main":"слот розширення","bd":[]}
+{"sl":"uk","q":"мережева карта","main":"network card","bd":[]}
+{"sl":"en","q":"network card","main":"мережева карта","bd":[]}
+{"sl":"uk","q":"звукова карта","main":"sound card","bd":[]}
+{"sl":"en","q":"sound card","main":"звукова карта","bd":[]}
+{"sl":"uk","q":"базова система введення-виведення","main":"basic input-output system","bd":[]}
+{"sl":"en","q":"BIOS","main":"BIOS","bd":[]}
+{"sl":"uk","q":"батарейка CMOS","main":"CMOS battery","bd":[]}
+{"sl":"en","q":"CMOS battery","main":"Батарея CMOS","bd":[]}
+{"sl":"uk","q":"модернізація компонента","main":"modernization of the component","bd":[]}
+{"sl":"en","q":"hardware upgrade","main":"оновлення обладнання","bd":[]}
+{"sl":"uk","q":"розганяти процесор","main":"overclock the processor","bd":[]}
+{"sl":"en","q":"to overclock","main":"розігнати","bd":[]}
+{"sl":"uk","q":"периферійний пристрій","main":"peripheral device","bd":[]}
+{"sl":"en","q":"peripheral","main":"периферичний","bd":[["adjective",["периферійний"]],["noun",["периферійний прилад"]]]}
+{"sl":"uk","q":"піксель","main":"pixel","bd":[]}
+{"sl":"en","q":"pixel","main":"піксель","bd":[]}
+{"sl":"uk","q":"частота оновлення","main":"refresh rate","bd":[]}
+{"sl":"en","q":"refresh rate","main":"частота оновлення","bd":[]}
+{"sl":"uk","q":"частота кадрів","main":"frame rate","bd":[]}
+{"sl":"en","q":"frame rate","main":"частота кадрів","bd":[]}
+{"sl":"uk","q":"співвідношення сторін","main":"aspect ratio","bd":[]}
+{"sl":"en","q":"aspect ratio","main":"співвідношення сторін","bd":[]}
+{"sl":"uk","q":"яскравість","main":"brightness","bd":[["noun",["brightness","brilliance","vividness","flamboyance","vivacity","freshness","illumination","flamboyancy"]]]}
+{"sl":"en","q":"brightness","main":"яскравість","bd":[["noun",["блиск","виднота","здібність","кмітливість","прозорість","яскравість","ясність"]]]}
+{"sl":"uk","q":"точність передавання кольорів","main":"accuracy of color reproduction","bd":[]}
+{"sl":"en","q":"color accuracy","main":"точність кольору","bd":[]}
+{"sl":"uk","q":"комбінація клавіш","main":"key combination","bd":[]}
+{"sl":"en","q":"keyboard shortcut","main":"комбінацію клавіш","bd":[]}
+{"sl":"uk","q":"функціональна клавіша","main":"function key","bd":[]}
+{"sl":"en","q":"function key","main":"функціональна клавіша","bd":[]}
+{"sl":"uk","q":"цифровий блок клавіатури","main":"numeric keypad","bd":[]}
+{"sl":"en","q":"numeric keypad","main":"цифрова клавіатура","bd":[]}
+{"sl":"uk","q":"клавіатура з підсвічуванням","main":"backlit keyboard","bd":[]}
+{"sl":"en","q":"backlit keyboard","main":"клавіатура з підсвічуванням","bd":[]}
+{"sl":"uk","q":"кнопка миші","main":"mouse button","bd":[]}
+{"sl":"en","q":"mouse button","main":"кнопка миші","bd":[]}
+{"sl":"uk","q":"коліщатко прокручування","main":"scroll wheel","bd":[]}
+{"sl":"en","q":"scroll wheel","main":"колесо прокрутки","bd":[]}
+{"sl":"uk","q":"курсор","main":"cursor","bd":[["noun",["cursor"]]]}
+{"sl":"en","q":"cursor","main":"курсор","bd":[["noun",["курсор","покажчик"]]]}
+{"sl":"uk","q":"сенсорна панель","main":"touch panel","bd":[]}
+{"sl":"en","q":"touchpad","main":"сенсорна панель","bd":[]}
+{"sl":"uk","q":"стилус","main":"stylus","bd":[]}
+{"sl":"en","q":"stylus","main":"стилус","bd":[["noun",["пишучий штифт"]]]}
+{"sl":"uk","q":"графічний планшет","main":"graphics tablet","bd":[]}
+{"sl":"en","q":"graphics tablet","main":"графічний планшет","bd":[]}
+{"sl":"uk","q":"багатофункціональний пристрій","main":"multifunctional device","bd":[]}
+{"sl":"en","q":"multifunction printer","main":"багатофункціональний принтер","bd":[]}
+{"sl":"uk","q":"зовнішній накопичувач","main":"external drive","bd":[]}
+{"sl":"en","q":"external drive","main":"зовнішній диск","bd":[]}
+{"sl":"uk","q":"USB-флешка","main":"USB flash drive","bd":[]}
+{"sl":"en","q":"USB flash drive","main":"USB флешка","bd":[]}
+{"sl":"uk","q":"карта пам'яті","main":"memory card","bd":[]}
+{"sl":"en","q":"memory card","main":"карта пам'яті","bd":[]}
+{"sl":"uk","q":"кардридер","main":"card reader","bd":[]}
+{"sl":"en","q":"card reader","main":"картрідер","bd":[]}
+{"sl":"uk","q":"фізичний роз'єм","main":"physical connector","bd":[]}
+{"sl":"en","q":"physical connector","main":"фізичний роз'єм","bd":[]}
+{"sl":"uk","q":"кабель живлення","main":"power cable","bd":[]}
+{"sl":"en","q":"power cable","main":"кабель живлення","bd":[]}
+{"sl":"uk","q":"USB-порт","main":"USB port","bd":[]}
+{"sl":"en","q":"USB port","main":"порт USB","bd":[]}
+{"sl":"uk","q":"роз'єм USB-C","main":"USB-C connector","bd":[]}
+{"sl":"en","q":"USB-C","main":"USB-C","bd":[]}
+{"sl":"uk","q":"порт HDMI","main":"HDMI port","bd":[]}
+{"sl":"en","q":"HDMI port","main":"порт HDMI","bd":[]}
+{"sl":"uk","q":"відеороз'єм DisplayPort","main":"DisplayPort video connector","bd":[]}
+{"sl":"en","q":"DisplayPort","main":"DisplayPort","bd":[]}
+{"sl":"uk","q":"мережевий порт Ethernet","main":"Ethernet network port","bd":[]}
+{"sl":"en","q":"Ethernet port","main":"Порт Ethernet","bd":[]}
+{"sl":"uk","q":"роз'єм для навушників","main":"headphone jack","bd":[]}
+{"sl":"en","q":"headphone jack","main":"роз'єм для навушників","bd":[]}
+{"sl":"uk","q":"джерело безперебійного живлення","main":"uninterruptible power supply","bd":[]}
+{"sl":"en","q":"uninterruptible power supply","main":"джерело безперебійного живлення","bd":[]}
+{"sl":"uk","q":"док-станція","main":"docking station","bd":[]}
+{"sl":"en","q":"docking station","main":"док-станція","bd":[]}
+{"sl":"uk","q":"з'єднувач","main":"connector","bd":[]}
+{"sl":"en","q":"connector","main":"роз'єм","bd":[]}
+{"sl":"uk","q":"короткий шлях","main":"short way","bd":[]}
+{"sl":"en","q":"shortcut","main":"ярлик","bd":[["noun",["найкоротший шлях","раціональний спосіб"]]]}
+{"sl":"uk","q":"цифровий за формою","main":"digital in form","bd":[]}
+{"sl":"en","q":"numeric","main":"числові","bd":[["noun",["цифра","число"]]]}
+{"sl":"uk","q":"оновлювати сторінку","main":"refresh the page","bd":[]}
+{"sl":"en","q":"to refresh","main":"оновити","bd":[["verb",["освіжати","охолоджувати"]]]}
+{"sl":"uk","q":"тепловий","main":"heat","bd":[["adjective",["heat","thermal","caloric","calorific"]]]}
+{"sl":"en","q":"thermal","main":"теплові","bd":[["adjective",["теплий","тепловий","термальний","термічний"]]]}
+{"sl":"uk","q":"вкладена папка","main":"attached folder","bd":[]}
+{"sl":"en","q":"subfolder","main":"вкладена папка","bd":[]}
+{"sl":"uk","q":"кореневий каталог","main":"root directory","bd":[]}
+{"sl":"en","q":"root directory","main":"кореневий каталог","bd":[]}
+{"sl":"uk","q":"ім'я файлу","main":"file name","bd":[]}
+{"sl":"en","q":"filename","main":"ім'я файлу","bd":[]}
+{"sl":"uk","q":"розширення файлу","main":"file extension","bd":[]}
+{"sl":"en","q":"file extension","main":"розширення файлу","bd":[]}
+{"sl":"uk","q":"формат файлу","main":"file format","bd":[]}
+{"sl":"en","q":"file format","main":"формат файлу","bd":[]}
+{"sl":"uk","q":"тип файлу","main":"file type","bd":[]}
+{"sl":"en","q":"file type","main":"тип файлу","bd":[]}
+{"sl":"uk","q":"текстовий файл","main":"text file","bd":[]}
+{"sl":"en","q":"text file","main":"текстовий файл","bd":[]}
+{"sl":"uk","q":"файл зображення","main":"image file","bd":[]}
+{"sl":"en","q":"image file","main":"файл зображення","bd":[]}
+{"sl":"uk","q":"аудіофайл","main":"audio file","bd":[]}
+{"sl":"en","q":"audio file","main":"аудіофайл","bd":[]}
+{"sl":"uk","q":"відеофайл","main":"video file","bd":[]}
+{"sl":"en","q":"video file","main":"відеофайл","bd":[]}
+{"sl":"uk","q":"виконуваний файл","main":"executable file","bd":[]}
+{"sl":"en","q":"executable file","main":"виконуваний файл","bd":[]}
+{"sl":"uk","q":"системний файл","main":"system file","bd":[]}
+{"sl":"en","q":"system file","main":"системний файл","bd":[]}
+{"sl":"uk","q":"тимчасовий файл","main":"temporary file","bd":[]}
+{"sl":"en","q":"temporary file","main":"тимчасовий файл","bd":[]}
+{"sl":"uk","q":"прихований файл","main":"hidden file","bd":[]}
+{"sl":"en","q":"hidden file","main":"прихований файл","bd":[]}
+{"sl":"uk","q":"файл лише для читання","main":"read-only file","bd":[]}
+{"sl":"en","q":"read-only file","main":"файл лише для читання","bd":[]}
+{"sl":"uk","q":"стиснений файл","main":"compressed file","bd":[]}
+{"sl":"en","q":"compressed file","main":"стиснутий файл","bd":[]}
+{"sl":"uk","q":"ZIP-архів","main":"ZIP archive","bd":[]}
+{"sl":"en","q":"ZIP file","main":"ZIP-файл","bd":[]}
+{"sl":"uk","q":"розмір файлу","main":"file size","bd":[]}
+{"sl":"en","q":"file size","main":"розмір файлу","bd":[]}
+{"sl":"uk","q":"вільне місце","main":"free space","bd":[]}
+{"sl":"en","q":"free space","main":"вільний простір","bd":[]}
+{"sl":"uk","q":"місце на диску","main":"disk space","bd":[]}
+{"sl":"en","q":"disk space","main":"дисковий простір","bd":[]}
+{"sl":"uk","q":"пристрій зберігання даних","main":"data storage device","bd":[]}
+{"sl":"en","q":"storage device","main":"запам'ятовуючий пристрій","bd":[]}
+{"sl":"uk","q":"локальний диск","main":"local disk","bd":[]}
+{"sl":"en","q":"local drive","main":"локальний диск","bd":[]}
+{"sl":"uk","q":"системний диск","main":"system disk","bd":[]}
+{"sl":"en","q":"system drive","main":"системний диск","bd":[]}
+{"sl":"uk","q":"файлова система","main":"file system","bd":[]}
+{"sl":"en","q":"file system","main":"файлова система","bd":[]}
+{"sl":"uk","q":"кошик системи","main":"system cart","bd":[]}
+{"sl":"en","q":"recycle bin","main":"корзина","bd":[]}
+{"sl":"uk","q":"перейменовувати","main":"to rename","bd":[]}
+{"sl":"en","q":"to rename","main":"перейменувати","bd":[["verb",["перейменувати"]]]}
+{"sl":"uk","q":"перезаписувати","main":"overwrite","bd":[]}
+{"sl":"en","q":"to overwrite","main":"перезаписати","bd":[["verb",["переписувати","писати надто багато","писати поверх іншого тексту"]]]}
+{"sl":"uk","q":"стискати файл","main":"compress the file","bd":[]}
+{"sl":"en","q":"to compress","main":"стискати","bd":[["verb",["згнічувати","стискувати"]]]}
+{"sl":"uk","q":"операційна система","main":"operating system","bd":[]}
+{"sl":"en","q":"operating system","main":"операційна система","bd":[]}
+{"sl":"uk","q":"панель завдань","main":"taskbar","bd":[]}
+{"sl":"en","q":"taskbar","main":"панель задач","bd":[]}
+{"sl":"uk","q":"область сповіщень","main":"notification area","bd":[]}
+{"sl":"en","q":"system tray","main":"системний трей","bd":[]}
+{"sl":"uk","q":"меню Пуск","main":"Start menu","bd":[]}
+{"sl":"en","q":"Start menu","main":"Меню Пуск","bd":[]}
+{"sl":"uk","q":"випадне меню","main":"drop down menu","bd":[]}
+{"sl":"en","q":"drop-down menu","main":"спадне меню","bd":[]}
+{"sl":"uk","q":"контекстне меню","main":"context menu","bd":[]}
+{"sl":"en","q":"context menu","main":"контекстне меню","bd":[]}
+{"sl":"uk","q":"діалогове вікно","main":"dialog box","bd":[]}
+{"sl":"en","q":"dialog box","main":"діалогове вікно","bd":[]}
+{"sl":"uk","q":"панель інструментів","main":"toolbar","bd":[]}
+{"sl":"en","q":"toolbar","main":"панель інструментів","bd":[]}
+{"sl":"uk","q":"бічна панель","main":"side panel","bd":[]}
+{"sl":"en","q":"sidebar","main":"бічна панель","bd":[]}
+{"sl":"uk","q":"рядок стану","main":"status bar","bd":[]}
+{"sl":"en","q":"status bar","main":"рядок стану","bd":[]}
+{"sl":"uk","q":"рядок заголовка","main":"header line","bd":[]}
+{"sl":"en","q":"title bar","main":"рядок заголовка","bd":[]}
+{"sl":"uk","q":"прапорець вибору","main":"check box","bd":[]}
+{"sl":"en","q":"checkbox","main":"прапорець","bd":[]}
+{"sl":"uk","q":"перемикач вибору","main":"selector switch","bd":[]}
+{"sl":"en","q":"radio button","main":"перемикач","bd":[]}
+{"sl":"uk","q":"смуга прокручування","main":"scroll bar","bd":[]}
+{"sl":"en","q":"scroll bar","main":"смуга прокрутки","bd":[]}
+{"sl":"uk","q":"командний запит","main":"command prompt","bd":[]}
+{"sl":"en","q":"command prompt","main":"командний рядок","bd":[]}
+{"sl":"uk","q":"командний рядок","main":"command line","bd":[]}
+{"sl":"en","q":"command line","main":"командний рядок","bd":[]}
+{"sl":"uk","q":"спливне вікно","main":"popup window","bd":[]}
+{"sl":"en","q":"pop-up window","main":"спливаюче вікно","bd":[]}
+{"sl":"uk","q":"підказка при наведенні","main":"hint when hovering","bd":[]}
+{"sl":"en","q":"tooltip","main":"підказка","bd":[]}
+{"sl":"uk","q":"панель керування","main":"control panel","bd":[]}
+{"sl":"en","q":"control panel","main":"панель керування","bd":[]}
+{"sl":"uk","q":"системні налаштування","main":"system settings","bd":[]}
+{"sl":"en","q":"system settings","main":"налаштування системи","bd":[]}
+{"sl":"uk","q":"налаштування за замовчуванням","main":"default settings","bd":[]}
+{"sl":"en","q":"default setting","main":"налаштування за замовчуванням","bd":[]}
+{"sl":"uk","q":"налаштування дисплея","main":"display settings","bd":[]}
+{"sl":"en","q":"display settings","main":"налаштування дисплея","bd":[]}
+{"sl":"uk","q":"налаштування конфіденційності","main":"privacy settings","bd":[]}
+{"sl":"en","q":"privacy settings","main":"налаштування конфіденційності","bd":[]}
+{"sl":"uk","q":"темний режим","main":"dark mode","bd":[]}
+{"sl":"en","q":"dark mode","main":"темний режим","bd":[]}
+{"sl":"uk","q":"мовне налаштування","main":"language setting","bd":[]}
+{"sl":"en","q":"language setting","main":"налаштування мови","bd":[]}
+{"sl":"uk","q":"розкладка клавіатури","main":"keyboard layout","bd":[]}
+{"sl":"en","q":"keyboard layout","main":"розкладка клавіатури","bd":[]}
+{"sl":"uk","q":"інтерфейс користувача","main":"user interface","bd":[]}
+{"sl":"en","q":"user interface","main":"інтерфейс користувача","bd":[]}
+{"sl":"uk","q":"графічний інтерфейс користувача","main":"graphical user interface","bd":[]}
+{"sl":"en","q":"graphical user interface","main":"графічний інтерфейс користувача","bd":[]}
+{"sl":"uk","q":"права адміністратора","main":"administrator rights","bd":[]}
+{"sl":"en","q":"administrator privileges","main":"права адміністратора","bd":[]}
+{"sl":"uk","q":"фон робочого столу","main":"desktop background","bd":[]}
+{"sl":"en","q":"desktop background","main":"фон робочого столу","bd":[]}
+{"sl":"uk","q":"змінювати розмір","main":"resize","bd":[]}
+{"sl":"en","q":"to resize","main":"щоб змінити розмір","bd":[]}
+{"sl":"uk","q":"перетягувати мишею","main":"drag with the mouse","bd":[]}
+{"sl":"en","q":"to drag and drop","main":"для перетягування","bd":[]}
+{"sl":"uk","q":"вкладка","main":"tab","bd":[["noun",["inset"]]]}
+{"sl":"en","q":"tab","main":"вкладка","bd":[["noun",["вішалка","нашивка","петлиця"]],["verb",["виділяти","нашивати"]]]}
+{"sl":"uk","q":"сповіщення","main":"notification","bd":[["noun",["notification","notice","announcement","informing","annunciation","note","advertisement"]]]}
+{"sl":"en","q":"notification","main":"повідомлення","bd":[["noun",["застереження","звідомлення","оголошення","оповіщення","повідомлення","повістка","попередження","реєстрація смерті"]]]}
+{"sl":"uk","q":"ставити позначку","main":"put a mark","bd":[]}
+{"sl":"en","q":"to tick","main":"ставити галочки","bd":[["verb",["відстукувати","жити","жити у кредит","робити позначку","цокати"]]]}
+{"sl":"uk","q":"настільний застосунок","main":"desktop application","bd":[]}
+{"sl":"en","q":"desktop application","main":"настільна програма","bd":[]}
+{"sl":"uk","q":"мобільний застосунок","main":"mobile application","bd":[]}
+{"sl":"en","q":"mobile app","main":"мобільний додаток","bd":[]}
+{"sl":"uk","q":"вебзастосунок","main":"web application","bd":[]}
+{"sl":"en","q":"web application","main":"веб-додаток","bd":[]}
+{"sl":"uk","q":"системне програмне забезпечення","main":"system software","bd":[]}
+{"sl":"en","q":"system software","main":"системне програмне забезпечення","bd":[]}
+{"sl":"uk","q":"пакет офісних програм","main":"a package of office programs","bd":[]}
+{"sl":"en","q":"office suite","main":"офісний пакет","bd":[]}
+{"sl":"uk","q":"програмне забезпечення з відкритим кодом","main":"open source software","bd":[]}
+{"sl":"en","q":"open-source software","main":"програмне забезпечення з відкритим кодом","bd":[]}
+{"sl":"uk","q":"закрите програмне забезпечення","main":"proprietary software","bd":[]}
+{"sl":"en","q":"proprietary software","main":"власне програмне забезпечення","bd":[]}
+{"sl":"uk","q":"безкоштовна програма","main":"free program","bd":[]}
+{"sl":"en","q":"freeware","main":"безкоштовне програмне забезпечення","bd":[]}
+{"sl":"uk","q":"умовно-безкоштовна програма","main":"shareware","bd":[]}
+{"sl":"en","q":"shareware","main":"умовно-безкоштовна програма","bd":[]}
+{"sl":"uk","q":"ліцензійний ключ","main":"license key","bd":[]}
+{"sl":"en","q":"license key","main":"ліцензійний ключ","bd":[]}
+{"sl":"uk","q":"умови використання сервісу","main":"terms of use of the service","bd":[]}
+{"sl":"en","q":"terms of service","main":"умови обслуговування","bd":[]}
+{"sl":"uk","q":"ліцензійна угода з кінцевим користувачем","main":"end user license agreement","bd":[]}
+{"sl":"en","q":"end-user license agreement","main":"ліцензійна угода кінцевого користувача","bd":[]}
+{"sl":"uk","q":"стабільний випуск","main":"stable output","bd":[]}
+{"sl":"en","q":"stable release","main":"стабільний випуск","bd":[]}
+{"sl":"uk","q":"бета-версія","main":"beta version","bd":[]}
+{"sl":"en","q":"beta version","main":"бета-версія","bd":[]}
+{"sl":"uk","q":"пробна версія","main":"trial version","bd":[]}
+{"sl":"en","q":"trial version","main":"пробна версія","bd":[]}
+{"sl":"uk","q":"інсталятор","main":"the installer","bd":[]}
+{"sl":"en","q":"installer","main":"інсталятор","bd":[]}
+{"sl":"uk","q":"процес установлення","main":"installation process","bd":[]}
+{"sl":"en","q":"setup","main":"налаштування","bd":[["noun",["налагодження","постава","система","ситуація"]]]}
+{"sl":"uk","q":"термінове виправлення","main":"urgent fix","bd":[]}
+{"sl":"en","q":"hotfix","main":"виправлення","bd":[]}
+{"sl":"uk","q":"примітки до випуску","main":"release notes","bd":[]}
+{"sl":"en","q":"release notes","main":"примітки до випуску","bd":[]}
+{"sl":"uk","q":"плагін","main":"plugin","bd":[]}
+{"sl":"en","q":"plugin","main":"плагін","bd":[["adjective",["вставний","штепсельний"]]]}
+{"sl":"uk","q":"доповнення до програми","main":"addition to the program","bd":[]}
+{"sl":"en","q":"add-on","main":"надбудова","bd":[]}
+{"sl":"uk","q":"залежність програми","main":"program dependency","bd":[]}
+{"sl":"en","q":"dependency","main":"залежність","bd":[["noun",["зависимість","залежність","зумовленість","несамостійність","підлеглість"]]]}
+{"sl":"uk","q":"системні вимоги","main":"system requirements","bd":[]}
+{"sl":"en","q":"system requirements","main":"системні вимоги","bd":[]}
+{"sl":"uk","q":"видаляти програму","main":"remove the program","bd":[]}
+{"sl":"en","q":"to uninstall","main":"щоб видалити","bd":[]}
+{"sl":"uk","q":"налаштовувати систему","main":"configure the system","bd":[]}
+{"sl":"en","q":"to configure","main":"налаштувати","bd":[]}
+{"sl":"uk","q":"автоматичне оновлення","main":"automatic update","bd":[]}
+{"sl":"en","q":"automatic update","main":"автоматичне оновлення","bd":[]}
+{"sl":"uk","q":"зворотна сумісність","main":"backward compatibility","bd":[]}
+{"sl":"en","q":"backward compatibility","main":"зворотна сумісність","bd":[]}
+{"sl":"uk","q":"службова програма","main":"service program","bd":[]}
+{"sl":"en","q":"utility program","main":"службова програма","bd":[]}
+{"sl":"uk","q":"вимикати функцію","main":"turn off the function","bd":[]}
+{"sl":"en","q":"to disable","main":"відключити","bd":[["verb",["робити нездатним","робити неправоздатним"]]]}
+{"sl":"uk","q":"вебсторінка","main":"webpage","bd":[["noun",["webpage"]]]}
+{"sl":"en","q":"webpage","main":"веб-сторінка","bd":[["noun",["веб-сторінка"]]]}
+{"sl":"uk","q":"головна сторінка","main":"main page","bd":[]}
+{"sl":"en","q":"homepage","main":"домашня сторінка","bd":[]}
+{"sl":"uk","q":"вебадреса","main":"web address","bd":[]}
+{"sl":"en","q":"web address","main":"веб-адреса","bd":[]}
+{"sl":"uk","q":"доменне ім'я","main":"domain name","bd":[]}
+{"sl":"en","q":"domain name","main":"доменне ім'я","bd":[]}
+{"sl":"uk","q":"домен верхнього рівня","main":"top level domain","bd":[]}
+{"sl":"en","q":"top-level domain","main":"домен верхнього рівня","bd":[]}
+{"sl":"uk","q":"неробоче посилання","main":"broken link","bd":[]}
+{"sl":"en","q":"broken link","main":"пошкоджене посилання","bd":[]}
+{"sl":"uk","q":"вкладка браузера","main":"browser tab","bd":[]}
+{"sl":"en","q":"browser tab","main":"вкладка браузера","bd":[]}
+{"sl":"uk","q":"адресний рядок","main":"address bar","bd":[]}
+{"sl":"en","q":"address bar","main":"адресний рядок","bd":[]}
+{"sl":"uk","q":"закладка в браузері","main":"bookmark in the browser","bd":[]}
+{"sl":"en","q":"bookmark","main":"закладка","bd":[["noun",["закладка"]]]}
+{"sl":"uk","q":"історія переглядів","main":"browsing history","bd":[]}
+{"sl":"en","q":"browsing history","main":"історія перегляду","bd":[]}
+{"sl":"uk","q":"кеш браузера","main":"browser cache","bd":[]}
+{"sl":"en","q":"browser cache","main":"кеш браузера","bd":[]}
+{"sl":"uk","q":"пошукова система","main":"search engine","bd":[]}
+{"sl":"en","q":"search engine","main":"пошукова система","bd":[]}
+{"sl":"uk","q":"пошуковий запит","main":"search query","bd":[]}
+{"sl":"en","q":"search query","main":"пошуковий запит","bd":[]}
+{"sl":"uk","q":"результат пошуку","main":"search result","bd":[]}
+{"sl":"en","q":"search result","main":"результат пошуку","bd":[]}
+{"sl":"uk","q":"ключове слово","main":"keyword","bd":[]}
+{"sl":"en","q":"keyword","main":"ключове слово","bd":[["noun",["ключеве слово","колонтитул"]]]}
+{"sl":"uk","q":"без підключення","main":"without connection","bd":[]}
+{"sl":"en","q":"offline","main":"офлайн","bd":[["adjective",["автономний"]]]}
+{"sl":"uk","q":"вміст сайту","main":"site content","bd":[]}
+{"sl":"en","q":"web content","main":"веб-вміст","bd":[]}
+{"sl":"uk","q":"потокове передавання","main":"streaming","bd":[]}
+{"sl":"en","q":"streaming","main":"потокове передавання","bd":[["verb",["лити","світитися","текти"]]]}
+{"sl":"uk","q":"швидкість завантаження","main":"download speed","bd":[]}
+{"sl":"en","q":"download speed","main":"швидкість завантаження","bd":[]}
+{"sl":"uk","q":"швидкість відвантаження","main":"shipping speed","bd":[]}
+{"sl":"en","q":"upload speed","main":"швидкість завантаження","bd":[]}
+{"sl":"uk","q":"пропускна здатність","main":"capacity","bd":[["noun",["capacity","output"]]]}
+{"sl":"en","q":"bandwidth","main":"пропускна здатність","bd":[]}
+{"sl":"uk","q":"відвідуваність сайту","main":"site traffic","bd":[]}
+{"sl":"en","q":"website traffic","main":"відвідуваність сайту","bd":[]}
+{"sl":"uk","q":"перегляд сторінки","main":"page view","bd":[]}
+{"sl":"en","q":"page view","main":"перегляд сторінки","bd":[]}
+{"sl":"uk","q":"гуглити","main":"to google","bd":[]}
+{"sl":"en","q":"to google","main":"погуглити","bd":[]}
+{"sl":"uk","q":"ім'я користувача","main":"user name","bd":[["noun",["user name"]]]}
+{"sl":"en","q":"username","main":"ім'я користувача","bd":[["noun",["ім'я користувача"]]]}
+{"sl":"uk","q":"відображуване ім'я","main":"display name","bd":[]}
+{"sl":"en","q":"display name","main":"відображуване ім'я","bd":[]}
+{"sl":"uk","q":"облікові дані","main":"credentials","bd":[]}
+{"sl":"en","q":"credentials","main":"облікові дані","bd":[["noun",["вірчі грамоти"]]]}
+{"sl":"uk","q":"вхід до облікового запису","main":"account login","bd":[]}
+{"sl":"en","q":"login","main":"логін","bd":[["noun",["логін"]]]}
+{"sl":"uk","q":"вихід з облікового запису","main":"sign out of the account","bd":[]}
+{"sl":"en","q":"logout","main":"вийти з системи","bd":[["verb",["виходити"]]]}
+{"sl":"uk","q":"входити в обліковий запис","main":"sign in to your account","bd":[]}
+{"sl":"en","q":"to log in","main":"щоб увійти","bd":[["verb",["регистрирувати"]]]}
+{"sl":"uk","q":"виходити з облікового запису","main":"log out of the account","bd":[]}
+{"sl":"en","q":"to log out","main":"щоб вийти","bd":[]}
+{"sl":"uk","q":"код підтвердження","main":"confirmation code","bd":[]}
+{"sl":"en","q":"verification code","main":"код підтвердження","bd":[]}
+{"sl":"uk","q":"код доступу","main":"access code","bd":[]}
+{"sl":"en","q":"passcode","main":"пароль","bd":[]}
+{"sl":"uk","q":"реєстрація в сервісі","main":"registration in the service","bd":[]}
+{"sl":"en","q":"sign-up","main":"реєстрація","bd":[["verb",["записуватися добровольцем","підписатися"]]]}
+{"sl":"uk","q":"адреса електронної пошти","main":"email address","bd":[]}
+{"sl":"en","q":"email address","main":"адреса електронної пошти","bd":[["phrase",["електронна адреса"]]]}
+{"sl":"uk","q":"папка Надіслані","main":"Sent folder","bd":[]}
+{"sl":"en","q":"sent folder","main":"надіслана папка","bd":[]}
+{"sl":"uk","q":"відправник","main":"sender","bd":[["noun",["sender","dispatcher","originator"]]]}
+{"sl":"en","q":"sender","main":"відправник","bd":[["noun",["адресант","відправник","експедитор","надавець","передавач","передатчик","посилач"]]]}
+{"sl":"uk","q":"тема листа","main":"the subject of the letter","bd":[]}
+{"sl":"en","q":"subject line","main":"предметний рядок","bd":[]}
+{"sl":"uk","q":"копія листа","main":"a copy of the letter","bd":[]}
+{"sl":"en","q":"carbon copy","main":"копія","bd":[]}
+{"sl":"uk","q":"прихована копія листа","main":"hidden copy of the letter","bd":[]}
+{"sl":"en","q":"blind carbon copy","main":"сліпа копія","bd":[]}
+{"sl":"uk","q":"список розсилки","main":"mailing list","bd":[]}
+{"sl":"en","q":"mailing list","main":"список розсилки","bd":[]}
+{"sl":"uk","q":"обмін миттєвими повідомленнями","main":"instant messaging","bd":[]}
+{"sl":"en","q":"instant messaging","main":"обмін миттєвими повідомленнями","bd":[]}
+{"sl":"uk","q":"особисте повідомлення","main":"personal message","bd":[]}
+{"sl":"en","q":"direct message","main":"пряме повідомлення","bd":[]}
+{"sl":"uk","q":"демонстрація екрана","main":"screen display","bd":[]}
+{"sl":"en","q":"screen sharing","main":"спільний доступ до екрана","bd":[]}
+{"sl":"uk","q":"відписуватися від розсилки","main":"unsubscribe from the newsletter","bd":[]}
+{"sl":"en","q":"to unsubscribe","main":"щоб скасувати підписку","bd":[]}
+{"sl":"uk","q":"вмикати мікрофон назад","main":"turn the microphone back on","bd":[]}
+{"sl":"en","q":"to unmute","main":"щоб увімкнути звук","bd":[]}
+{"sl":"uk","q":"розблоковувати користувача","main":"unblock the user","bd":[]}
+{"sl":"en","q":"to unblock","main":"щоб розблокувати","bd":[["verb",["розблокувати"]]]}
+{"sl":"uk","q":"відписуватися від сторінки","main":"unsubscribe from the page","bd":[]}
+{"sl":"en","q":"to unfollow","main":"щоб скасувати підписку","bd":[]}
+{"sl":"uk","q":"підтвердження особи","main":"identity verification","bd":[]}
+{"sl":"en","q":"verification","main":"перевірка","bd":[["noun",["звірість","звіряння","перевірка","підтвердження","підтверждення"]]]}
+{"sl":"en","q":"digit","main":"цифра","bd":[["noun",["палець","перст","цифра"]]]}
+{"sl":"uk","q":"локальна мережа","main":"local network","bd":[]}
+{"sl":"en","q":"local area network","main":"локальна мережа","bd":[]}
+{"sl":"uk","q":"глобальна мережа","main":"global network","bd":[]}
+{"sl":"en","q":"wide area network","main":"глобальна мережа","bd":[]}
+{"sl":"uk","q":"бездротова мережа","main":"wireless network","bd":[]}
+{"sl":"en","q":"wireless network","main":"бездротова мережа","bd":[]}
+{"sl":"uk","q":"дротове з'єднання","main":"wired connection","bd":[]}
+{"sl":"en","q":"wired connection","main":"дротове підключення","bd":[]}
+{"sl":"uk","q":"мобільний інтернет","main":"mobile internet","bd":[]}
+{"sl":"en","q":"mobile data","main":"мобільні дані","bd":[]}
+{"sl":"uk","q":"точка доступу з телефона","main":"access point from the phone","bd":[]}
+{"sl":"en","q":"hotspot","main":"гаряча точка","bd":[["noun",["злачні місця"]]]}
+{"sl":"uk","q":"роздавання інтернету з пристрою","main":"Internet distribution from the device","bd":[]}
+{"sl":"en","q":"tethering","main":"прив'язування","bd":[["verb",["прив'язувати","сковувати"]]]}
+{"sl":"uk","q":"точка доступу мережі","main":"network access point","bd":[]}
+{"sl":"en","q":"access point","main":"точка доступу","bd":[]}
+{"sl":"uk","q":"мережевий комутатор","main":"network switch","bd":[]}
+{"sl":"en","q":"network switch","main":"мережевий комутатор","bd":[]}
+{"sl":"uk","q":"підсилювач сигналу","main":"signal amplifier","bd":[]}
+{"sl":"en","q":"range extender","main":"розширювач діапазону","bd":[]}
+{"sl":"uk","q":"рівень сигналу","main":"signal level","bd":[]}
+{"sl":"en","q":"signal strength","main":"потужність сигналу","bd":[]}
+{"sl":"uk","q":"інтернет-з'єднання","main":"internet connection","bd":[]}
+{"sl":"en","q":"internet connection","main":"підключення до Інтернету","bd":[]}
+{"sl":"uk","q":"швидкість з'єднання","main":"connection speed","bd":[]}
+{"sl":"en","q":"connection speed","main":"швидкість з'єднання","bd":[]}
+{"sl":"uk","q":"затримка сигналу","main":"signal delay","bd":[]}
+{"sl":"en","q":"latency","main":"затримка","bd":[["noun",["латентність","прихований стан"]]]}
+{"sl":"uk","q":"втрата пакетів","main":"packet loss","bd":[]}
+{"sl":"en","q":"packet loss","main":"втрата пакетів","bd":[]}
+{"sl":"uk","q":"IP-адреса","main":"IP address","bd":[]}
+{"sl":"en","q":"IP address","main":"IP адреса","bd":[]}
+{"sl":"uk","q":"MAC-адреса","main":"MAC address","bd":[]}
+{"sl":"en","q":"MAC address","main":"MAC-адреса","bd":[]}
+{"sl":"uk","q":"система доменних імен","main":"domain name system","bd":[]}
+{"sl":"en","q":"DNS","main":"DNS","bd":[]}
+{"sl":"uk","q":"інтернет-провайдер","main":"internet provider","bd":[]}
+{"sl":"en","q":"internet service provider","main":"Інтернет-провайдер","bd":[]}
+{"sl":"uk","q":"мережевий сервер","main":"network server","bd":[]}
+{"sl":"en","q":"network server","main":"мережевий сервер","bd":[]}
+{"sl":"uk","q":"віддалений доступ","main":"remote access","bd":[]}
+{"sl":"en","q":"remote access","main":"віддалений доступ","bd":[]}
+{"sl":"uk","q":"віддалений робочий стіл","main":"remote desktop","bd":[]}
+{"sl":"en","q":"remote desktop","main":"віддалений робочий стіл","bd":[]}
+{"sl":"uk","q":"віртуальна приватна мережа","main":"virtual private network","bd":[]}
+{"sl":"en","q":"virtual private network","main":"віртуальна приватна мережа","bd":[]}
+{"sl":"uk","q":"хмарні обчислення","main":"cloud computing","bd":[]}
+{"sl":"en","q":"cloud computing","main":"хмарні обчислення","bd":[]}
+{"sl":"uk","q":"хмарне сховище","main":"cloud storage","bd":[]}
+{"sl":"en","q":"cloud storage","main":"хмарне сховище","bd":[]}
+{"sl":"uk","q":"хмарний сервіс","main":"cloud service","bd":[]}
+{"sl":"en","q":"cloud service","main":"хмарний сервіс","bd":[]}
+{"sl":"uk","q":"центр обробки даних","main":"data center","bd":[]}
+{"sl":"en","q":"data center","main":"центр обробки даних","bd":[]}
+{"sl":"uk","q":"хостинг","main":"hosting","bd":[]}
+{"sl":"en","q":"hosting","main":"хостинг","bd":[["verb",["приймати гостей"]]]}
+{"sl":"uk","q":"час безперервної роботи","main":"continuous operation time","bd":[]}
+{"sl":"en","q":"uptime","main":"час роботи","bd":[]}
+{"sl":"uk","q":"час простою системи","main":"system downtime","bd":[]}
+{"sl":"en","q":"downtime","main":"час простою","bd":[["noun",["простій","час простою"]]]}
+{"sl":"uk","q":"від'єднувати","main":"disconnect","bd":[]}
+{"sl":"en","q":"to disconnect","main":"щоб відключити","bd":[["verb",["відключати","роз'єднувати"]]]}
+{"sl":"uk","q":"кібербезпека","main":"cyber security","bd":[]}
+{"sl":"en","q":"cybersecurity","main":"кібербезпека","bd":[]}
+{"sl":"uk","q":"захист даних","main":"data protection","bd":[]}
+{"sl":"en","q":"data protection","main":"захист даних","bd":[]}
+{"sl":"uk","q":"вада безпеки","main":"security flaw","bd":[]}
+{"sl":"en","q":"security flaw","main":"недолік безпеки","bd":[]}
+{"sl":"uk","q":"шкідливе програмне забезпечення","main":"malware","bd":[]}
+{"sl":"en","q":"malware","main":"шкідливе програмне забезпечення","bd":[]}
+{"sl":"uk","q":"троянська програма","main":"trojan program","bd":[]}
+{"sl":"en","q":"Trojan horse","main":"Троянський кінь","bd":[]}
+{"sl":"uk","q":"програма-вимагач","main":"ransomware","bd":[]}
+{"sl":"en","q":"ransomware","main":"програми-вимагачі","bd":[]}
+{"sl":"uk","q":"шпигунське програмне забезпечення","main":"spyware","bd":[]}
+{"sl":"en","q":"spyware","main":"шпигунське програмне забезпечення","bd":[]}
+{"sl":"uk","q":"рекламне програмне забезпечення","main":"advertising software","bd":[]}
+{"sl":"en","q":"adware","main":"рекламне ПЗ","bd":[]}
+{"sl":"uk","q":"програма перехоплення натискань клавіш","main":"keystroke interception program","bd":[]}
+{"sl":"en","q":"keylogger","main":"кейлоггер","bd":[]}
+{"sl":"uk","q":"фішинг","main":"phishing","bd":[]}
+{"sl":"en","q":"phishing","main":"фішинг","bd":[]}
+{"sl":"uk","q":"фішинговий лист","main":"phishing letter","bd":[]}
+{"sl":"en","q":"phishing email","main":"фішингова електронна пошта","bd":[]}
+{"sl":"uk","q":"шахрайська схема","main":"fraudulent scheme","bd":[]}
+{"sl":"en","q":"scam","main":"афера","bd":[]}
+{"sl":"uk","q":"хакер","main":"a hacker","bd":[]}
+{"sl":"en","q":"hacker","main":"хакер","bd":[]}
+{"sl":"uk","q":"кіберзлочинець","main":"cybercriminal","bd":[]}
+{"sl":"en","q":"cybercriminal","main":"кіберзлочинець","bd":[]}
+{"sl":"uk","q":"витік даних","main":"data leak","bd":[]}
+{"sl":"en","q":"data breach","main":"порушення даних","bd":[]}
+{"sl":"uk","q":"крадіжка особистих даних","main":"identity theft","bd":[]}
+{"sl":"en","q":"identity theft","main":"крадіжка особистих даних","bd":[]}
+{"sl":"uk","q":"несанкціонований доступ","main":"unauthorized access","bd":[]}
+{"sl":"en","q":"unauthorized access","main":"несанкціонований доступ","bd":[]}
+{"sl":"uk","q":"атака повним перебором","main":"full attack attack","bd":[]}
+{"sl":"en","q":"brute-force attack","main":"атака грубою силою","bd":[]}
+{"sl":"uk","q":"атака відмови в обслуговуванні","main":"denial of service attack","bd":[]}
+{"sl":"en","q":"denial-of-service attack","main":"атака на відмову в обслуговуванні","bd":[]}
+{"sl":"uk","q":"міжмережевий екран","main":"firewall","bd":[]}
+{"sl":"en","q":"firewall","main":"брандмауер","bd":[]}
+{"sl":"uk","q":"антивірусне програмне забезпечення","main":"antivirus software","bd":[]}
+{"sl":"en","q":"antivirus software","main":"антивірусне програмне забезпечення","bd":[]}
+{"sl":"uk","q":"оновлення безпеки","main":"security updates","bd":[]}
+{"sl":"en","q":"security update","main":"оновлення безпеки","bd":[]}
+{"sl":"uk","q":"шифрування","main":"encryption","bd":[["noun",["paraphrase"]]]}
+{"sl":"en","q":"encryption","main":"шифрування","bd":[]}
+{"sl":"uk","q":"зашифрований","main":"ciphered","bd":[["adjective",["ciphered","cyphered"]]]}
+{"sl":"en","q":"encrypted","main":"зашифрований","bd":[]}
+{"sl":"uk","q":"розшифрування","main":"decoding","bd":[["noun",["decipher","decipherment"]]]}
+{"sl":"en","q":"decryption","main":"розшифрування","bd":[]}
+{"sl":"uk","q":"менеджер паролів","main":"password manager","bd":[]}
+{"sl":"en","q":"password manager","main":"менеджер паролів","bd":[]}
+{"sl":"uk","q":"надійний пароль","main":"strong password","bd":[]}
+{"sl":"en","q":"strong password","main":"надійний пароль","bd":[]}
+{"sl":"uk","q":"двофакторна автентифікація","main":"two-factor authentication","bd":[]}
+{"sl":"en","q":"two-factor authentication","main":"двофакторна аутентифікація","bd":[]}
+{"sl":"uk","q":"багатофакторна автентифікація","main":"multi-factor authentication","bd":[]}
+{"sl":"en","q":"multi-factor authentication","main":"багатофакторна аутентифікація","bd":[]}
+{"sl":"uk","q":"біометрична автентифікація","main":"biometric authentication","bd":[]}
+{"sl":"en","q":"biometric authentication","main":"біометрична аутентифікація","bd":[]}
+{"sl":"uk","q":"сканер відбитків пальців","main":"fingerprint scanner","bd":[]}
+{"sl":"en","q":"fingerprint scanner","main":"сканер відбитків пальців","bd":[]}
+{"sl":"uk","q":"розпізнавання обличчя","main":"facial recognition","bd":[]}
+{"sl":"en","q":"face recognition","main":"розпізнавання обличчя","bd":[]}
+{"sl":"uk","q":"контрольне запитання","main":"control question","bd":[]}
+{"sl":"en","q":"security question","main":"контрольне питання","bd":[]}
+{"sl":"uk","q":"код відновлення","main":"recovery code","bd":[]}
+{"sl":"en","q":"recovery code","main":"код відновлення","bd":[]}
+{"sl":"uk","q":"контроль доступу","main":"access control","bd":[]}
+{"sl":"en","q":"access control","main":"контроль доступу","bd":[]}
+{"sl":"uk","q":"дозвіл користувача","main":"user permission","bd":[]}
+{"sl":"en","q":"user permission","main":"дозвіл користувача","bd":[]}
+{"sl":"uk","q":"доступ адміністратора","main":"administrator access","bd":[]}
+{"sl":"en","q":"administrator access","main":"доступ адміністратора","bd":[]}
+{"sl":"uk","q":"загальнодоступна мережа","main":"public network","bd":[]}
+{"sl":"en","q":"public network","main":"публічна мережа","bd":[]}
+{"sl":"uk","q":"захищене з'єднання","main":"secure connection","bd":[]}
+{"sl":"en","q":"secure connection","main":"безпечне з'єднання","bd":[]}
+{"sl":"uk","q":"шифрувати","main":"to encrypt","bd":[["verb",["cipher","encode","codify","cypher"]]]}
+{"sl":"en","q":"to encrypt","main":"шифрувати","bd":[]}
+{"sl":"uk","q":"розшифровувати","main":"decipher","bd":[["verb",["decipher","decode","unscramble","uncork"]]]}
+{"sl":"en","q":"to decrypt","main":"розшифрувати","bd":[]}
+{"sl":"uk","q":"автентифікація","main":"authentication","bd":[]}
+{"sl":"en","q":"authentication","main":"аутентифікація","bd":[["noun",["завірення","установлення справжності"]]]}
+{"sl":"uk","q":"повідомлення про помилку","main":"error message","bd":[]}
+{"sl":"en","q":"error message","main":"повідомлення про помилку","bd":[]}
+{"sl":"uk","q":"код помилки","main":"error code","bd":[]}
+{"sl":"en","q":"error code","main":"код помилки","bd":[]}
+{"sl":"uk","q":"короткочасний збій","main":"short-term failure","bd":[]}
+{"sl":"en","q":"glitch","main":"глюк","bd":[]}
+{"sl":"uk","q":"синій екран смерті","main":"blue screen of death","bd":[]}
+{"sl":"en","q":"blue screen of death","main":"синій екран смерті","bd":[]}
+{"sl":"uk","q":"циклічне перезавантаження","main":"cyclic reboot","bd":[]}
+{"sl":"en","q":"boot loop","main":"завантажувальний цикл","bd":[]}
+{"sl":"uk","q":"уповільнення роботи","main":"slowing down","bd":[]}
+{"sl":"en","q":"slowdown","main":"сповільнення","bd":[["noun",["гальмування","зниження темпу роботи","сповільнення"]]]}
+{"sl":"uk","q":"затримка в грі","main":"lag in game","bd":[]}
+{"sl":"en","q":"lag","main":"відставання","bd":[["noun",["відставання","зрушення фаз","каторжник"]],["verb",["відставати","висилати на каторгу","отягати","запізнюватися","плентатися"]]]}
+{"sl":"uk","q":"затримка введення","main":"input delay","bd":[]}
+{"sl":"en","q":"input lag","main":"затримка введення","bd":[]}
+{"sl":"uk","q":"високе завантаження процесора","main":"high processor load","bd":[]}
+{"sl":"en","q":"high CPU usage","main":"висока завантаженість ЦП","bd":[]}
+{"sl":"uk","q":"використання оперативної пам'яті","main":"RAM usage","bd":[]}
+{"sl":"en","q":"memory usage","main":"використання пам'яті","bd":[]}
+{"sl":"uk","q":"витік пам'яті","main":"memory leak","bd":[]}
+{"sl":"en","q":"memory leak","main":"витік пам'яті","bd":[]}
+{"sl":"uk","q":"мало місця на диску","main":"low disk space","bd":[]}
+{"sl":"en","q":"low disk space","main":"мало місця на диску","bd":[]}
+{"sl":"uk","q":"перегрів","main":"overheating","bd":[["noun",["overheating","overheat","superheat"]]]}
+{"sl":"en","q":"overheating","main":"перегрів","bd":[["noun",["перегрів"]]]}
+{"sl":"uk","q":"пошкоджений файл","main":"corrupted file","bd":[]}
+{"sl":"en","q":"corrupted file","main":"пошкоджений файл","bd":[]}
+{"sl":"uk","q":"відсутній файл","main":"file is missing","bd":[]}
+{"sl":"en","q":"missing file","main":"відсутній файл","bd":[]}
+{"sl":"uk","q":"непідтримуваний формат","main":"unsupported format","bd":[]}
+{"sl":"en","q":"unsupported format","main":"непідтримуваний формат","bd":[]}
+{"sl":"uk","q":"проблема сумісності","main":"compatibility issue","bd":[]}
+{"sl":"en","q":"compatibility issue","main":"проблема сумісності","bd":[]}
+{"sl":"uk","q":"проблема з драйвером","main":"driver problem","bd":[]}
+{"sl":"en","q":"driver issue","main":"проблема з драйвером","bd":[]}
+{"sl":"uk","q":"драйвер пристрою","main":"device driver","bd":[]}
+{"sl":"en","q":"device driver","main":"драйвер пристрою","bd":[]}
+{"sl":"uk","q":"пошук і усунення несправностей","main":"troubleshooting","bd":[]}
+{"sl":"en","q":"troubleshooting","main":"усунення несправностей","bd":[]}
+{"sl":"uk","q":"діагностичний засіб","main":"diagnostic tool","bd":[]}
+{"sl":"en","q":"diagnostic tool","main":"діагностичний інструмент","bd":[]}
+{"sl":"uk","q":"диспетчер завдань","main":"task manager","bd":[]}
+{"sl":"en","q":"task manager","main":"диспетчер завдань","bd":[]}
+{"sl":"uk","q":"фоновий процес","main":"background process","bd":[]}
+{"sl":"en","q":"background process","main":"фоновий процес","bd":[]}
+{"sl":"uk","q":"безпечний режим","main":"safe mode","bd":[]}
+{"sl":"en","q":"safe mode","main":"безпечний режим","bd":[]}
+{"sl":"uk","q":"режим відновлення","main":"recovery mode","bd":[]}
+{"sl":"en","q":"recovery mode","main":"режим відновлення","bd":[]}
+{"sl":"uk","q":"точка відновлення","main":"restore point","bd":[]}
+{"sl":"en","q":"restore point","main":"точка відновлення","bd":[]}
+{"sl":"uk","q":"скидання до заводських налаштувань","main":"reset to factory settings","bd":[]}
+{"sl":"en","q":"factory reset","main":"скинути заводські налаштування","bd":[]}
+{"sl":"uk","q":"шукати й усувати несправність","main":"find and eliminate the malfunction","bd":[]}
+{"sl":"en","q":"to troubleshoot","main":"для усунення несправностей","bd":[]}
+{"sl":"uk","q":"вимикати комп'ютер","main":"turn off the computer","bd":[]}
+{"sl":"en","q":"to shut down","main":"вимкнути","bd":[["verb",["зачинити","зачинитися","припинити роботу"]]]}
+{"sl":"uk","q":"завантажувати систему","main":"boot the system","bd":[]}
+{"sl":"en","q":"to boot up","main":"щоб завантажитися","bd":[]}
+{"sl":"uk","q":"перевстановлювати","main":"reinstall","bd":[]}
+{"sl":"en","q":"to reinstall","main":"щоб перевстановити","bd":[]}
+{"sl":"uk","q":"перезавантажувати систему","main":"reboot the system","bd":[]}
+{"sl":"en","q":"to reboot","main":"для перезавантаження","bd":[["verb",["перезагружати"]]]}
+{"sl":"uk","q":"скидати налаштування","main":"reset settings","bd":[]}
+{"sl":"en","q":"to reset","main":"щоб скинути","bd":[["verb",["відрегулювати","знову встановлювати","купувати крадене","підрегулювати"]]]}
+{"sl":"uk","q":"набір даних","main":"data set","bd":[]}
+{"sl":"en","q":"dataset","main":"набір даних","bd":[]}
+{"sl":"uk","q":"метадані","main":"metadata","bd":[]}
+{"sl":"en","q":"metadata","main":"метадані","bd":[]}
+{"sl":"uk","q":"повна резервна копія","main":"full backup","bd":[]}
+{"sl":"en","q":"full backup","main":"повне резервне копіювання","bd":[]}
+{"sl":"uk","q":"інкрементна резервна копія","main":"incremental backup","bd":[]}
+{"sl":"en","q":"incremental backup","main":"інкрементне резервне копіювання","bd":[]}
+{"sl":"uk","q":"втрата даних","main":"data loss","bd":[]}
+{"sl":"en","q":"data loss","main":"втрата даних","bd":[]}
+{"sl":"uk","q":"синхронізація","main":"synchronization","bd":[["noun",["synchronization"]]]}
+{"sl":"en","q":"synchronization","main":"синхронізація","bd":[["noun",["синхронізація"]]]}
+{"sl":"uk","q":"хмарна синхронізація","main":"cloud sync","bd":[]}
+{"sl":"en","q":"cloud sync","main":"хмарна синхронізація","bd":[]}
+{"sl":"uk","q":"обмін файлами","main":"file sharing","bd":[]}
+{"sl":"en","q":"file sharing","main":"обмін файлами","bd":[]}
+{"sl":"uk","q":"спільна папка","main":"shared folder","bd":[]}
+{"sl":"en","q":"shared folder","main":"спільна папка","bd":[]}
+{"sl":"uk","q":"спільний диск","main":"shared drive","bd":[]}
+{"sl":"en","q":"shared drive","main":"спільний диск","bd":[]}
+{"sl":"uk","q":"посилання для доступу","main":"access link","bd":[]}
+{"sl":"en","q":"access link","main":"посилання доступу","bd":[]}
+{"sl":"uk","q":"доступ лише для перегляду","main":"view-only access","bd":[]}
+{"sl":"en","q":"view-only access","main":"доступ лише для перегляду","bd":[]}
+{"sl":"uk","q":"доступ до редагування","main":"edit access","bd":[]}
+{"sl":"en","q":"edit access","main":"доступ до редагування","bd":[]}
+{"sl":"uk","q":"передавання файлів","main":"file transfer","bd":[]}
+{"sl":"en","q":"file transfer","main":"передача файлів","bd":[]}
+{"sl":"uk","q":"історія версій","main":"version history","bd":[]}
+{"sl":"en","q":"version history","main":"історія версій","bd":[]}
+{"sl":"uk","q":"синхронізувати","main":"to synchronize","bd":[]}
+{"sl":"en","q":"to sync","main":"для синхронізації","bd":[]}
