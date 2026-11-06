@@ -2987,8 +2987,9 @@ EN→EN і `setMode`.
 - `review.js` ПЕРЕЗАПИСУЄ `batch-keys.json` при кожному запуску — швидка перевірка `review.js E 1` між `review U 150` і
   `mk.js` зсуває номери (mk.js падає з «reading 'c'»). Перед `mk.js` — завжди повний `review.js <U|E> 150`.
 - Американський enAlt до БРИТАНСЬКОГО ключа валить `check-brit` (детектор A: ключ → власний enAlt). Так сталося з
-  **`cancelled flight`** (+canceled flight): варіант прибрано, картку НЕ перейменовано, бо перейменування скидає прогрес
-  картки (ключ = en). ⏳ Чекає рішення користувача: перейменувати на `canceled flight` (en) + `cancelled flight` в enAlt.
+  **`cancelled flight`** (+canceled flight). За згодою користувача (06.11) картку ПЕРЕЙМЕНОВАНО: en `canceled flight`,
+  `cancelled flight` — в enAlt; ключ перенесено в TRANS, EXAMPLES, EXAMPLES_UA, CEFR_DATA (B2). Прогрес цієї картки скинуто
+  (ключ = en). Рецепт для схожих випадків: ті самі 5 місць у dict.js + IPA для обох форм.
 
 ## Що НЕ змінювати без узгодження
 - localStorage ключі (зламає дані користувача)
