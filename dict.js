@@ -12437,7 +12437,7 @@ const WORDS = [
   {en:"student ID",ua:"студентський квиток",enAlt:["student card"]},
   {en:"employee ID",ua:"службове посвідчення",uaAlt:["перепустка працівника"]},
   {en:"pensioner's card",ua:"пенсійне посвідчення",uaAlt:["посвідчення пенсіонера","пенсійна картка"],enAlt:["pension certificate"]},
-  {en:"military ID",ua:"військовий квиток",uaAlt:["військовик","посвідчення військовозобов'язаного"]},
+  {en:"military ID",ua:"військовий квиток",uaAlt:["військове посвідчення","посвідчення військовослужбовця","посвідчення військовозобов'язаного"]},
   {en:"registered address",ua:"зареєстроване місце проживання",uaAlt:["адреса реєстрації","зареєстрована адреса"],enAlt:["registered place of residence"]},
   {en:"place of residence",ua:"місце проживання за документами",uaAlt:["місце проживання"]},
   {en:"personal details",ua:"особисті дані"},
