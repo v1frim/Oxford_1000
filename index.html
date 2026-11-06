@@ -13810,7 +13810,9 @@ function questFinal() {
 // 💬 фрази й 🗺️ побічні квести — плитками на фіналі й у минулому поході (сесія 65); r — Q або запис журналу
 function qSideTiles(r) {
   const t = (ic, v, lab) => '<div><b>' + ic + ' ' + v + '</b>' + lab + '</div>';   // емодзі — біля числа, не біля підпису
-  return (r.phr ? t("💬", r.phr, plural(r.phr, "фраза", "фрази", "фраз")) : '') +
+  // ⭐ скільки фраз перейшло у «Знаю» (06.11.2026, за запитом) — з кошика XP `phrK` (рахує нарахування «у Знаю»)
+  const phrK = (r.xpBy && r.xpBy.phrK && r.xpBy.phrK.n) || 0;
+  return (r.phr ? t("💬", r.phr, plural(r.phr, "фраза", "фрази", "фраз") + (phrK ? '<small class="qc-pts">⭐ ' + phrK + ' у «Знаю»</small>' : '')) : '') +
     (r.duo || r.lh ? t("🗺️", (r.duo || 0) + (r.lh || 0), plural((r.duo || 0) + (r.lh || 0), "квест", "квести", "квестів") + '<small class="qc-pts">' +
       [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '');
 }
