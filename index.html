@@ -7696,7 +7696,10 @@ function updateMastery(wordIndex, correct) {
     // Transition: Вивчаю → Знаю
     else if ((prev === 1 || prev === 2) && next === 3) { addXp(5); recordMasteryTrans("k", key); }
   } else {
-    setStreak(0, SCHED_IV.wrong, 0);   // помилка/пропуск (і провалена ревізія): у роботу, r скидається
+    // помилка/пропуск: у роботу з нуля, r скидається. ⚠️ ПРОВАЛЕНА РЕВІЗІЯ «Знаю» — М'ЯКИЙ ВІДКАТ до 1/3, не до 0
+    // (06.11.2026, за запитом): слово, яке знав, не вчимо заново тричі — 2 правильні поспіль повертають у «Знаю»
+    // (на 2/3 напрямок сам перевертається, тож обидва боки). Симуляція: 98% словника ~на 3 міс. раніше.
+    setStreak(prev >= 3 ? 1 : 0, SCHED_IV.wrong, 0);
     // Transition: Нові → Вивчаю through a wrong/skipped first encounter.
     // The word still entered "Вивчаю" for the first time. User counts this as progress
     // (they then spend time studying the new word), so award the same +3 as a correct

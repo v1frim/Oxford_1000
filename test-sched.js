@@ -63,8 +63,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     L.r1.rec.s === 3 && L.r1.rec.r === 1 && within(L.r1.rel, 3000, 5000), JSON.stringify(L.r1.rec));
   t("друга ревізія: r=2, [6000,10000]",
     L.r2.rec.s === 3 && L.r2.rec.r === 2 && within(L.r2.rel, 6000, 10000), JSON.stringify(L.r2.rec));
-  t("провалена ревізія: s=0, r=0, назад у [100,200]",
-    L.rw.rec.s === 0 && L.rw.rec.r === 0 && within(L.rw.rel, 100, 200), JSON.stringify(L.rw.rec));
+  t("провалена ревізія: м'який відкат s=1, r=0, назад у [100,200]",
+    L.rw.rec.s === 1 && L.rw.rec.r === 0 && within(L.rw.rel, 100, 200), JSON.stringify(L.rw.rec));
   t("лічильники c/w не постраждали від розширення запису", L.rw.rec.c === 6 && L.rw.rec.w === 2, JSON.stringify([L.rw.rec.c, L.rw.rec.w]));
 
   // 6. повторення після раунду: ні лічильника, ні плану
