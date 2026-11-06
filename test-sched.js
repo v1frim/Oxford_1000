@@ -163,6 +163,23 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("з 60 прострочених беруться 30 найзатриманіших", late.len === 30 && late.allLate, JSON.stringify(late));
   t("порядок у черзі перемішаний (не за затримкою)", !late.sorted);
 
+  // 8b. ЛІМІТ «Знаю» ≤30% (06.11.2026): 20 прострочених «Знаю» + 40 прострочених «Вивчаю» → «Знаю» рівно 9;
+  //     без «Вивчаю» і старого — «Знаю» добирає чергу до кінця раніше за нові (крім 3 квотових)
+  const cap = await p.evaluate(() => {
+    const seen = loadSeen(), mk = (lo, hi, s) => { const m = {}, pool = [];
+      for (let i = lo; i < hi; i++) { pool.push(i); m[wordKey(WORDS[i])] = { s, c: 3, w: 0, n: seen - 10 - i, d: "2000-01-01", r: 0 }; } return { m, pool }; };
+    const K = mk(300, 320, 3), L = mk(400, 440, 1);
+    localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(Object.assign({}, K.m, L.m)));
+    const q1 = buildSchedQueue(K.pool.concat(L.pool));
+    const known1 = q1.filter(i => i >= 300 && i < 320);
+    localStorage.setItem("oxford_word_mastery_v1", JSON.stringify(K.m));
+    const q2 = buildSchedQueue(K.pool.concat([500, 501, 502, 503, 504, 505]));   // 500+ — нові
+    return { len1: q1.length, k1: known1.length, latest: known1.every(i => i >= 311), len2: q2.length,
+             k2: q2.filter(i => i >= 300 && i < 320).length, fresh2: q2.filter(i => i >= 500).length };
+  });
+  t("ліміт «Знаю»: 9 із 30, найзатриманіші; решта — «Вивчаю»", cap.len1 === 30 && cap.k1 === 9 && cap.latest, JSON.stringify(cap));
+  t("ліміт «Знаю» знімається, коли вчити нічого: беруться всі 20 «Знаю», не 9", cap.k2 === 20, JSON.stringify(cap));
+
   // 9. без opts.sched — стара поведінка: шафл усього пулу
   const plain = await p.evaluate(() => {
     const pool = []; for (let i = 300; i < 400; i++) pool.push(i);

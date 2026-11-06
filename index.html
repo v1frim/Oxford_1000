@@ -7027,6 +7027,12 @@ const SCHED_QUEUE_LEN = 30;       // черга на гру (60 с ≈ 12-15 в�
 // в черзі» ≠ «гарантовано показане». Ширше за 5 робити не варто — з 5 позицій порядок
 // лишається невгадуваним, вужче (0-2) зробило б нові слова передбачувано першими.
 const SCHED_QUOTA_SPAN = 5;
+// ⚠️ ЛІМІТ ПОВТОРЕНЬ «ЗНАЮ» — ≤30% черги (06.11.2026, за запитом «щоб слова зі «Знаю» рідше попадались»):
+//   без ліміту ревізії з'їдали 31–55% показів (симуляція), з роками більше. Понад ліміт «Знаю» чекає, доки місце
+//   не лишиться порожнім: черга = ≤9 «Знаю» + прострочене «Вивчаю» + старе «Вивчаю» → решта «Знаю» → нові.
+//   Наприкінці (коли вчити нічого) ліміт сам зникає. Симуляція: 98% словника ~3,0 р → ~2,55 р. ⚠️ Модель без
+//   забування — стежити за точністю на «Знаю» (~94% на 06.11); падіння нижче 90% — послабити.
+const SCHED_KNOWN_SHARE = 0.3;
 let schedThisGame = false;        // чи поточна гра йде планувальником (opts.sched)
 function loadSeen() { const v = parseInt(localStorage.getItem(SEEN_KEY), 10); return isNaN(v) ? 0 : v; }
 function bumpSeen() { const v = loadSeen() + 1; localStorage.setItem(SEEN_KEY, String(v)); return v; }
@@ -7071,7 +7077,7 @@ function buildSchedQueue(pool) {
     const sch = mSched(rec);
     if (!schedDayOk(sch, today)) continue;    // показане сьогодні/вчора — не сьогодні
     if (sch.n === null) { if (mStreak(rec) < 3) old.push(i); continue; }
-    if (sch.n <= seen) due.push({ i: i, late: seen - sch.n });
+    if (sch.n <= seen) due.push({ i: i, late: seen - sch.n, k: mStreak(rec) >= 3 });
   }
   due.sort((a, b) => b.late - a.late);
   const pickRand = arr => arr.length ? arr.splice(Math.floor(Math.random() * arr.length), 1)[0] : undefined;
@@ -7081,7 +7087,13 @@ function buildSchedQueue(pool) {
   const takeQuota = (primary, spare) => { let w = pickRand(primary); if (w === undefined) w = pickRand(spare); if (w !== undefined) quota.push(w); };
   for (let k = 0; k < SCHED_OLD_PER_GAME; k++)   takeQuota(old, fresh);
   for (let k = 0; k < SCHED_FRESH_PER_GAME; k++) takeQuota(fresh, old);
-  const q = shuffle(due.slice(0, SCHED_QUEUE_LEN).map(x => x.i));
+  const capK = Math.floor(SCHED_QUEUE_LEN * SCHED_KNOWN_SHARE);
+  const dueK = due.filter(x => x.k), dueL = due.filter(x => !x.k);   // обидва вже за затримкою
+  const head = dueK.slice(0, capK).concat(dueL).slice(0, SCHED_QUEUE_LEN);
+  const restK = dueK.slice(capK).map(x => x.i);
+  const q = shuffle(head.map(x => x.i));
+  while (q.length < SCHED_QUEUE_LEN && old.length) q.push(pickRand(old));   // місце після ліміту — старому «Вивчаю»
+  while (q.length < SCHED_QUEUE_LEN && restK.length) q.push(restK.shift()); // далі — решта «Знаю», найзатриманіші першими
   // ⚠️ ДОБІР ЧЕРГИ БЕРЕ СПЕРШУ СТАРЕ «ВИВЧАЮ», І ЛИШЕ ПОТІМ СПРАВДІ НОВЕ — інакше квота
   // втрачає сенс. Було 50/50, і поки планів ще немає (перші дні після релізу фічі) гра
   // тягла ~6 нових слів за раунд = ~60 на день при стелі пропускної здатності ~20:
