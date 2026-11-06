@@ -8307,3 +8307,303 @@ E|check-in|реєстрація на рейс
 E|check-in deadline|кінцевий час реєстрації
 E|window seat|місце біля вікна
 E|middle seat|середнє місце
+U|warm-up|розминка|розминка
+U|elliptical|еліптичний|еліптичний
+U|upward|угору|угору
+U|downward|униз|униз
+U|pull-up|підтягування (прямим хватом)|підтягування
+U|goblet|келих|келих
+U|curtsy|реверанс|реверанс
+U|lateral|бічний|бічний
+U|plank|планка (вправа)|планка
+U|counterfeit product|контрафактний товар|контрафактний товар
+U|money-back guarantee|гарантія повернення коштів|гарантія повернення коштів
+U|pro forma invoice|проформа-рахунок|проформа-рахунок
+U|payment due|платіж належить сплатити|платіж належить сплатити
+U|order notes|примітки до замовлення|примітки до замовлення
+U|customization|індивідуалізація товару|індивідуалізація товару
+U|production time|строк виготовлення|строк виготовлення
+U|dispatch schedule|графік відправлень|графік відправлень
+U|shipping declaration|декларація відправлення|декларація відправлення
+U|branch number|номер відділення|номер відділення
+U|contents|вміст і комплектація|вміст і комплектація
+U|manufacturer's suggested retail price|рекомендована виробником роздрібна ціна|рекомендована виробником роздрібна ціна
+U|cash-on-delivery amount|сума післяплати|сума післяплати
+U|replacement item under warranty|товар на заміну за гарантією|товар на заміну за гарантією
+U|voyage|морська подорож|морська подорож
+U|weekend break|поїздка на вихідні|поїздка на вихідні
+U|self-guided tour|самостійна екскурсія за маршрутом|самостійна екскурсія за маршрутом
+U|backpacking|бюджетні подорожі з рюкзаком|бюджетні подорожі з рюкзаком
+U|camping trip|поїздка з наметами|поїздка з наметами
+U|adventure travel|пригодницький туризм|пригодницький туризм
+U|domestic travel|подорожі в межах країни|подорожі в межах країни
+U|overseas travel|закордонні подорожі|закордонні подорожі
+U|solo travel|самостійна подорож|самостійна подорож
+U|group travel|групова подорож|групова подорож
+U|stopover|проміжна зупинка в дорозі|проміжна зупинка в дорозі
+U|layover|пересадка між рейсами|пересадка між рейсами
+U|one-way trip|поїздка в один бік|поїздка в один бік
+U|family holiday|сімейний відпочинок|сімейний відпочинок
+U|itinerary|детальний маршрут подорожі|детальний маршрут подорожі
+U|departure date|дата відправлення|дата відправлення
+U|shoulder season|перехідний туристичний сезон|перехідний туристичний сезон
+U|accommodation cost|вартість проживання|вартість проживання
+U|transport cost|витрати на транспорт|витрати на транспорт
+U|hidden cost|приховані витрати|приховані витрати
+U|travel guide|туристичний довідник|туристичний довідник
+U|travel advisory|офіційна рекомендація для мандрівників|офіційна рекомендація для мандрівників
+U|visa waiver|звільнення від візи|звільнення від візи
+U|electronic travel authorization|електронний дозвіл на подорож|електронний дозвіл на подорож
+U|validity period|строк дії документа|строк дії документа
+U|expiry date|дата закінчення строку дії|дата закінчення строку дії
+U|blank page|чиста сторінка паспорта|чиста сторінка паспорта
+U|proof of accommodation|підтвердження проживання|підтвердження проживання
+U|proof of funds|підтвердження наявності коштів|підтвердження наявності коштів
+U|medical coverage|медичне страхове покриття|медичне страхове покриття
+U|trip cancellation coverage|страхування скасування подорожі|страхування скасування подорожі
+U|emergency contact|контактна особа на випадок біди|контактна особа на випадок біди
+U|booking reference|номер бронювання|номер бронювання
+U|reservation details|деталі бронювання|деталі бронювання
+U|mobile ticket|квиток у телефоні|квиток у телефоні
+U|open ticket|квиток із відкритою датою|квиток із відкритою датою
+U|flexible ticket|гнучкий тариф квитка|гнучкий тариф квитка
+U|base fare|базовий тариф|базовий тариф
+U|fare difference|різниця в тарифі|різниця в тарифі
+U|change fee|плата за зміну бронювання|плата за зміну бронювання
+U|availability search|пошук доступних варіантів|пошук доступних варіантів
+U|fully booked|немає вільних місць|немає вільних місць
+U|no-show|неявка без скасування|неявка без скасування
+U|travel voucher|туристичний ваучер|туристичний ваучер
+U|standby list|список очікування на рейс|список очікування на рейс
+U|carry-on bag|салонна сумка|салонна сумка
+U|personal item|особиста річ у салоні|особиста річ у салоні
+U|garment bag|чохол для одягу|чохол для одягу
+U|toiletry bag|косметичка дорожня|косметичка дорожня
+U|claim tag|багажна квитанція|багажна квитанція
+U|luggage strap|ремінь для валізи|ремінь для валізи
+U|combination lock|кодовий замок|кодовий замок
+U|packing cube|органайзер для валізи|органайзер для валізи
+U|travel adapter|дорожній перехідник|дорожній перехідник
+U|neck pillow|дорожня подушка під шию|дорожня подушка під шию
+U|travel-size toiletries|косметика в дорожньому форматі|косметика в дорожньому форматі
+U|liquid restriction|обмеження на перевезення рідин|обмеження на перевезення рідин
+U|baggage allowance|норма безкоштовного багажу|норма безкоштовного багажу
+U|overweight bag|валіза з перевищенням ваги|валіза з перевищенням ваги
+U|oversized baggage|негабаритний багаж|негабаритний багаж
+U|fragile item|крихка річ|крихка річ
+U|valuables|цінні речі|цінні речі
+U|damaged baggage|пошкоджений багаж|пошкоджений багаж
+U|left-luggage office|камера схову|камера схову
+U|luggage locker|багажна комірка|багажна комірка
+U|arrivals hall|зала прибуття|зала прибуття
+U|departures hall|зала відправлення|зала відправлення
+U|check-in hall|зала реєстрації|зала реєстрації
+U|bag drop|стійка здавання багажу|стійка здавання багажу
+U|airport lounge|бізнес-зала аеропорту|бізнес-зала аеропорту
+U|gate number|номер виходу на посадку|номер виходу на посадку
+U|boarding area|зона посадки|зона посадки
+U|jet bridge|телескопічний трап|телескопічний трап
+U|transfer desk|стійка пересадок|стійка пересадок
+U|flight information display|інформаційне табло рейсів|інформаційне табло рейсів
+U|arrival board|табло прибуттів|табло прибуттів
+U|flight destination|пункт призначення рейсу|пункт призначення рейсу
+U|scheduled time|час за розкладом|час за розкладом
+U|check-in desk|стійка реєстрації|стійка реєстрації
+U|check-in|реєстрація на рейс|реєстрація на рейс
+U|online check-in|онлайн-реєстрація|онлайн-реєстрація
+U|airport check-in|реєстрація в аеропорту|реєстрація в аеропорту
+U|check-in deadline|кінцевий час реєстрації|кінцевий час реєстрації
+U|seat assignment|призначення місця|призначення місця
+U|seat selection|вибір місця|вибір місця
+U|window seat|місце біля вікна|місце біля вікна
+U|middle seat|середнє місце|середнє місце
+U|extra-legroom seat|місце зі збільшеним простором для ніг|місце зі збільшеним простором для ніг
+U|exit-row seat|місце біля аварійного виходу|місце біля аварійного виходу
+U|travel class|клас обслуговування|клас обслуговування
+U|travel document check|перевірка проїзних документів|перевірка проїзних документів
+U|passport details|паспортні дані|паспортні дані
+U|frequent-flyer number|номер програми лояльності авіакомпанії|номер програми лояльності авіакомпанії
+U|wheelchair assistance|допомога пасажиру на візку|допомога пасажиру на візку
+U|unaccompanied minor|дитина без супроводу|дитина без супроводу
+U|bag drop receipt|квитанція про здавання багажу|квитанція про здавання багажу
+U|checked bag|зареєстрована валіза|зареєстрована валіза
+U|airport security|контроль авіаційної безпеки|контроль авіаційної безпеки
+U|security screening|огляд на безпеку|огляд на безпеку
+U|X-ray machine|рентгенівський сканер|рентгенівський сканер
+U|pat-down search|ручний особистий огляд|ручний особистий огляд
+U|security officer|працівник служби безпеки|працівник служби безпеки
+U|security tray|лоток для речей на контролі|лоток для речей на контролі
+U|liquids bag|прозорий пакет для рідин|прозорий пакет для рідин
+U|restricted item|предмет з обмеженнями|предмет з обмеженнями
+U|confiscated item|вилучений предмет|вилучений предмет
+U|border officer|прикордонник|прикордонник
+U|exit stamp|штамп про виїзд|штамп про виїзд
+U|purpose of visit|мета візиту|мета візиту
+U|intended length of stay|запланована тривалість перебування|запланована тривалість перебування
+U|onward ticket|квиток для подальшої подорожі|квиток для подальшої подорожі
+U|customs declaration|митна декларація|митна декларація
+U|duty-free allowance|норма безмитного ввезення|норма безмитного ввезення
+U|restricted goods|товари з обмеженнями|товари з обмеженнями
+U|personal belongings|особисті речі|особисті речі
+U|scheduled flight|регулярний рейс|регулярний рейс
+U|airliner|пасажирський літак|пасажирський літак
+U|overhead locker|верхня багажна полиця|верхня багажна полиця
+U|tray table|відкидний столик|відкидний столик
+U|seat pocket|кишеня на спинці сидіння|кишеня на спинці сидіння
+U|reclining seat|сидіння з відкидною спинкою|сидіння з відкидною спинкою
+U|flight deck|кабіна пілотів|кабіна пілотів
+U|take-off|зліт|зліт
+U|in-flight entertainment|бортова розважальна система|бортова розважальна система
+U|in-flight meal|харчування на борту|харчування на борту
+U|refreshment|напій або легка закуска|напій або легка закуска
+U|delayed departure|затримане відправлення|затримане відправлення
+E|attendant|черговий працівник
+E|cathedral|кафедральний собор
+E|drinking water|питна вода
+E|exertion|фізичне напруження
+E|progression|прогресія
+E|sideways|боком
+E|to kneel|стати навколішки
+E|plank|планка (вправа)
+E|to elapse|минати
+E|hydration|підтримання водного балансу
+E|extra-legroom seat|місце зі збільшеним простором для ніг
+E|exit-row seat|місце біля аварійного виходу
+E|travel class|клас обслуговування
+E|economy class|економклас
+E|premium economy|преміумеконом
+E|frequent-flyer number|номер програми лояльності авіакомпанії
+E|wheelchair assistance|допомога пасажиру на візку
+E|unaccompanied minor|дитина без супроводу
+E|bag drop receipt|квитанція про здавання багажу
+E|checked bag|зареєстрована валіза
+E|excess baggage fee|плата за наднормативний багаж
+E|airport security|контроль авіаційної безпеки
+E|security screening|огляд на безпеку
+E|X-ray machine|рентгенівський сканер
+E|pat-down search|ручний особистий огляд
+E|security officer|працівник служби безпеки
+E|security tray|лоток для речей на контролі
+E|liquids bag|прозорий пакет для рідин
+E|restricted item|предмет з обмеженнями
+E|confiscated item|вилучений предмет
+E|border officer|прикордонник
+E|entry stamp|штамп про в'їзд
+E|exit stamp|штамп про виїзд
+E|intended length of stay|запланована тривалість перебування
+E|onward ticket|квиток для подальшої подорожі
+E|duty-free allowance|норма безмитного ввезення
+E|restricted goods|товари з обмеженнями
+E|connecting flight|стикувальний рейс
+E|long-haul flight|далекомагістральний рейс
+E|airliner|пасажирський літак
+E|overhead locker|верхня багажна полиця
+E|tray table|відкидний столик
+E|seat pocket|кишеня на спинці сидіння
+E|reclining seat|сидіння з відкидною спинкою
+E|cabin crew|екіпаж салону
+E|flight deck|кабіна пілотів
+E|in-flight entertainment|бортова розважальна система
+E|in-flight meal|харчування на борту
+E|refreshment|напій або легка закуска
+E|gate change|зміна виходу на посадку
+E|missed connection|пропущена пересадка
+E|tight connection|пересадка з малим запасом часу
+E|minimum connection time|мінімальний час на пересадку
+E|overbooking|продаж квитків понад кількість місць
+E|overbooked flight|перепроданий рейс
+E|denied boarding|відмова в посадці
+E|standby passenger|пасажир у списку очікування
+E|replacement flight|рейс на заміну
+E|overnight delay|затримка до наступного дня
+E|travel disruption|порушення плану подорожі
+E|technical issue|технічна несправність
+E|air traffic control restriction|обмеження диспетчерської служби
+E|train departure board|табло відправлення поїздів
+E|local train|місцевий поїзд із частими зупинками
+E|sleeper compartment|спальне купе
+E|reserved seat|зарезервоване місце
+E|seat reservation|бронювання місця
+E|rail pass|залізничний проїзний
+E|replacement bus service|автобус замість скасованого поїзда
+E|scheduled service|регулярний рейс транспорту
+E|crossing|морська переправа
+E|seasick|з морською хворобою
+E|taxi fare|вартість поїздки таксі
+E|ride-hailing app|застосунок для виклику авто
+E|drop-off point|місце висадки
+E|private transfer|індивідуальний трансфер
+E|rental desk|стійка прокату
+E|full-to-full fuel policy|паливна політика повний бак — повний бак
+E|insurance excess|страхова франшиза
+E|bed and breakfast|мініготель із сніданком
+E|holiday rental|житло для короткострокової оренди
+E|twin room|номер із двома окремими ліжками
+E|connecting rooms|суміжні номери з дверима
+E|adjoining rooms|сусідні номери
+E|accessible room|номер для людей з інвалідністю
+E|room rate|вартість номера
+E|nightly rate|ціна за ніч
+E|room only|тариф без харчування
+E|minimum stay|мінімальний строк проживання
+E|maximum occupancy|максимальна кількість гостей
+E|pet-friendly|дозволене проживання з тваринами
+E|key card|картка-ключ від номера
+E|room safe|сейф у номері
+E|housekeeping|служба прибирання номерів
+E|laundry service|послуга прання
+E|spa|спа-центр
+E|front desk|стійка адміністратора
+E|fitness center|фітнес-центр готелю
+E|hotel check-in|заселення в готель
+E|check-out|виселення з готелю
+E|guest details|дані гостя
+E|hotel security deposit|страховий депозит у готелі
+E|incidental deposit|депозит на додаткові витрати
+E|welcome pack|інформаційний набір для гостя
+E|wake-up call|дзвінок-будильник
+E|luggage storage|зберігання багажу
+E|complimentary service|безкоштовна послуга від готелю
+E|hotel bill|рахунок готелю
+E|front-desk clerk|адміністратор рецепції
+E|double booking|подвійне бронювання номера
+E|overbooked hotel|готель без місць через перепродаж
+E|wrong room type|неправильний тип номера
+E|room not ready|номер ще не готовий
+E|stained sheet|простирадло з плямами
+E|blocked drain|забитий злив
+E|maintenance issue|технічна несправність у номері
+E|room change|заміна номера
+E|room upgrade|переселення в кращий номер
+E|hotel refund|повернення коштів за проживання
+E|hotel compensation|компенсація від готелю
+E|leaking tap|кран, що протікає
+E|heritage site|об'єкт культурної спадщини
+E|bus tour|автобусна екскурсія
+E|hop-on hop-off bus|екскурсійний автобус із вільними посадками
+E|excursion|організована екскурсійна поїздка
+E|exchange commission|комісія за обмін
+E|dynamic currency conversion|конвертація у валюту картки при оплаті
+E|local SIM card|місцева SIM-картка
+E|eSIM|електронна SIM-картка
+E|roaming charge|плата за роумінг
+E|public Wi-Fi|громадський Wi-Fi
+E|charging point|місце для заряджання
+E|power bank|зовнішній акумулятор
+E|plug adapter|перехідник для розетки
+E|travel safety|безпека під час подорожі
+E|travel clinic|клініка медицини подорожей
+E|jet lag|порушення ритму через зміну часових поясів
+E|stolen wallet|вкрадений гаманець
+E|emergency accommodation|тимчасове житло в надзвичайній ситуації
+E|insurance hotline|гаряча лінія страхової компанії
+E|sickness|нездужання
+E|airport entrance|вхід до аеропорту
+E|bad weather|несприятлива погода
+E|qualifier|відбірковий матч
+E|runner-up|віцечемпіон
+E|training session|тренувальне заняття
+E|training plan|план тренувань
+E|workout routine|тренувальна програма
+E|exercise selection|добір вправ
+E|training split|поділ тренувань за групами м'язів

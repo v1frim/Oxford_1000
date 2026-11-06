@@ -23993,3 +23993,1480 @@
 {"sl":"uk","q":"заборонений предмет","main":"prohibited item","bd":[]}
 {"sl":"en","q":"prohibited item","main":"заборонений предмет","bd":[]}
 {"sl":"uk","q":"цінні речі","main":"valuable things","bd":[]}
+{"sl":"en","q":"valuables","main":"цінні речі","bd":[["noun",["цінності"]]]}
+{"sl":"uk","q":"загублений багаж","main":"lost luggage","bd":[]}
+{"sl":"en","q":"lost luggage","main":"втрачений багаж","bd":[]}
+{"sl":"uk","q":"затриманий багаж","main":"delayed baggage","bd":[]}
+{"sl":"en","q":"delayed baggage","main":"затриманий багаж","bd":[]}
+{"sl":"uk","q":"пошкоджений багаж","main":"damaged luggage","bd":[]}
+{"sl":"en","q":"damaged baggage","main":"пошкоджений багаж","bd":[]}
+{"sl":"uk","q":"камера схову","main":"cloakroom","bd":[["noun",["cloakroom","checkroom","checking room"]]]}
+{"sl":"en","q":"left-luggage office","main":"камера схову","bd":[]}
+{"sl":"uk","q":"багажна комірка","main":"luggage compartment","bd":[]}
+{"sl":"en","q":"luggage locker","main":"камера схову","bd":[]}
+{"sl":"uk","q":"дорожня сумка","main":"travel bag","bd":[]}
+{"sl":"en","q":"travel bag","main":"дорожня сумка","bd":[]}
+{"sl":"uk","q":"термінал відправлення","main":"departure terminal","bd":[]}
+{"sl":"en","q":"departure terminal","main":"термінал відправлення","bd":[]}
+{"sl":"uk","q":"зала прибуття","main":"arrival hall","bd":[]}
+{"sl":"en","q":"arrivals hall","main":"зал прибуття","bd":[]}
+{"sl":"uk","q":"зала відправлення","main":"departure hall","bd":[]}
+{"sl":"en","q":"departures hall","main":"зал відправлення","bd":[]}
+{"sl":"uk","q":"зала реєстрації","main":"registration hall","bd":[]}
+{"sl":"en","q":"check-in hall","main":"зал реєстрації","bd":[]}
+{"sl":"uk","q":"кіоск самообслуговування","main":"self-service kiosk","bd":[]}
+{"sl":"en","q":"self-service kiosk","main":"кіоск самообслуговування","bd":[]}
+{"sl":"uk","q":"стійка здавання багажу","main":"baggage claim counter","bd":[]}
+{"sl":"en","q":"bag drop","main":"падіння сумки","bd":[]}
+{"sl":"uk","q":"пункт контролю безпеки","main":"security checkpoint","bd":[]}
+{"sl":"en","q":"security checkpoint","main":"контрольно-пропускний пункт безпеки","bd":[]}
+{"sl":"uk","q":"паспортний контроль","main":"passport control","bd":[["noun",["passport control"]]]}
+{"sl":"en","q":"passport control","main":"паспортний контроль","bd":[["noun",["паспортний контроль"]]]}
+{"sl":"uk","q":"бізнес-зала аеропорту","main":"airport business hall","bd":[]}
+{"sl":"en","q":"airport lounge","main":"зал очікування аеропорту","bd":[]}
+{"sl":"uk","q":"номер виходу на посадку","main":"boarding gate number","bd":[]}
+{"sl":"en","q":"gate number","main":"номер воріт","bd":[]}
+{"sl":"uk","q":"зона посадки","main":"landing zone","bd":[]}
+{"sl":"en","q":"boarding area","main":"зона посадки","bd":[]}
+{"sl":"uk","q":"телескопічний трап","main":"telescopic ladder","bd":[]}
+{"sl":"en","q":"jet bridge","main":"реактивний міст","bd":[]}
+{"sl":"uk","q":"шатл аеропорту","main":"airport shuttle","bd":[]}
+{"sl":"en","q":"airport shuttle","main":"трансфер до аеропорту","bd":[]}
+{"sl":"uk","q":"стійка пересадок","main":"transplant stand","bd":[]}
+{"sl":"en","q":"transfer desk","main":"трансферна стійка","bd":[]}
+{"sl":"uk","q":"інформаційне табло рейсів","main":"flight information board","bd":[]}
+{"sl":"en","q":"flight information display","main":"дисплей інформації про рейс","bd":[]}
+{"sl":"uk","q":"табло прибуттів","main":"income board","bd":[]}
+{"sl":"en","q":"arrival board","main":"дошка прибуття","bd":[]}
+{"sl":"uk","q":"номер рейсу","main":"flight number","bd":[]}
+{"sl":"en","q":"flight number","main":"номер рейсу","bd":[["noun",["номер рейса"]]]}
+{"sl":"uk","q":"пункт призначення рейсу","main":"destination of the flight","bd":[]}
+{"sl":"en","q":"flight destination","main":"пункт призначення рейсу","bd":[]}
+{"sl":"uk","q":"час за розкладом","main":"time according to the schedule","bd":[]}
+{"sl":"en","q":"scheduled time","main":"запланований час","bd":[]}
+{"sl":"uk","q":"розрахунковий час","main":"estimated time","bd":[]}
+{"sl":"en","q":"estimated time","main":"розрахунковий час","bd":[]}
+{"sl":"uk","q":"стійка реєстрації","main":"reception desk","bd":[]}
+{"sl":"en","q":"check-in desk","main":"стійка реєстрації","bd":[]}
+{"sl":"uk","q":"реєстрація на рейс","main":"flight check-in","bd":[]}
+{"sl":"en","q":"check-in","main":"заїзд","bd":[["noun",["регистрація"]]]}
+{"sl":"uk","q":"онлайн-реєстрація","main":"online registration","bd":[]}
+{"sl":"en","q":"online check-in","main":"онлайн-реєстрація","bd":[]}
+{"sl":"uk","q":"реєстрація в аеропорту","main":"check-in at the airport","bd":[]}
+{"sl":"en","q":"airport check-in","main":"реєстрація в аеропорту","bd":[]}
+{"sl":"uk","q":"кінцевий час реєстрації","main":"registration deadline","bd":[]}
+{"sl":"en","q":"check-in deadline","main":"кінцевий термін реєстрації","bd":[]}
+{"sl":"uk","q":"мобільний посадковий талон","main":"mobile boarding pass","bd":[]}
+{"sl":"en","q":"mobile boarding pass","main":"мобільний посадковий талон","bd":[]}
+{"sl":"uk","q":"призначення місця","main":"destination","bd":[]}
+{"sl":"en","q":"seat assignment","main":"призначення місця","bd":[]}
+{"sl":"uk","q":"вибір місця","main":"choice of place","bd":[]}
+{"sl":"en","q":"seat selection","main":"вибір місця","bd":[]}
+{"sl":"uk","q":"місце біля вікна","main":"a seat by the window","bd":[]}
+{"sl":"en","q":"window seat","main":"сидіння під вікном","bd":[]}
+{"sl":"uk","q":"місце біля проходу","main":"aisle seat","bd":[]}
+{"sl":"en","q":"aisle seat","main":"місце біля проходу","bd":[]}
+{"sl":"uk","q":"середнє місце","main":"middle place","bd":[]}
+{"sl":"en","q":"middle seat","main":"середнє сидіння","bd":[]}
+{"sl":"uk","q":"місце зі збільшеним простором для ніг","main":"a place with increased legroom","bd":[]}
+{"sl":"en","q":"extra-legroom seat","main":"сидіння з додатковим простором для ніг","bd":[]}
+{"sl":"uk","q":"місце біля аварійного виходу","main":"place near the emergency exit","bd":[]}
+{"sl":"en","q":"exit-row seat","main":"сидіння біля виходу","bd":[]}
+{"sl":"uk","q":"клас обслуговування","main":"class of service","bd":[]}
+{"sl":"en","q":"travel class","main":"туристичний клас","bd":[]}
+{"sl":"uk","q":"економклас","main":"economy class","bd":[]}
+{"sl":"en","q":"economy class","main":"економ клас","bd":[]}
+{"sl":"uk","q":"преміумеконом","main":"premium economy","bd":[]}
+{"sl":"en","q":"premium economy","main":"преміум-економ","bd":[]}
+{"sl":"uk","q":"перший клас","main":"first class","bd":[]}
+{"sl":"en","q":"first class","main":"перший клас","bd":[["adjective",["першокласний"]]]}
+{"sl":"uk","q":"представник авіакомпанії","main":"airline representative","bd":[]}
+{"sl":"en","q":"airline representative","main":"представник авіакомпанії","bd":[]}
+{"sl":"uk","q":"перевірка проїзних документів","main":"verification of travel documents","bd":[]}
+{"sl":"en","q":"travel document check","main":"перевірка проїзних документів","bd":[]}
+{"sl":"uk","q":"паспортні дані","main":"passport data","bd":[]}
+{"sl":"en","q":"passport details","main":"паспортні дані","bd":[]}
+{"sl":"uk","q":"номер програми лояльності авіакомпанії","main":"airline loyalty program number","bd":[]}
+{"sl":"en","q":"frequent-flyer number","main":"номер постійного пасажира","bd":[]}
+{"sl":"uk","q":"спеціальна допомога","main":"special assistance","bd":[]}
+{"sl":"en","q":"special assistance","main":"спеціальна допомога","bd":[]}
+{"sl":"uk","q":"допомога пасажиру на візку","main":"assistance to a passenger in a wheelchair","bd":[]}
+{"sl":"en","q":"wheelchair assistance","main":"допомога на інвалідному візку","bd":[]}
+{"sl":"uk","q":"дитина без супроводу","main":"unaccompanied child","bd":[]}
+{"sl":"en","q":"unaccompanied minor","main":"неповнолітній без супроводу","bd":[]}
+{"sl":"uk","q":"квитанція про здавання багажу","main":"baggage claim receipt","bd":[]}
+{"sl":"en","q":"bag drop receipt","main":"квитанція про здачу сумки","bd":[]}
+{"sl":"uk","q":"зареєстрована валіза","main":"checked baggage","bd":[]}
+{"sl":"en","q":"checked bag","main":"зареєстрований багаж","bd":[]}
+{"sl":"uk","q":"плата за наднормативний багаж","main":"excess baggage fee","bd":[]}
+{"sl":"en","q":"excess baggage fee","main":"плата за надлишковий багаж","bd":[]}
+{"sl":"uk","q":"контроль авіаційної безпеки","main":"aviation security control","bd":[]}
+{"sl":"en","q":"airport security","main":"безпека аеропорту","bd":[]}
+{"sl":"uk","q":"огляд на безпеку","main":"security review","bd":[]}
+{"sl":"en","q":"security screening","main":"перевірка безпеки","bd":[]}
+{"sl":"uk","q":"конвеєрна стрічка","main":"conveyor belt","bd":[]}
+{"sl":"en","q":"conveyor belt","main":"конвеєрна стрічка","bd":[]}
+{"sl":"uk","q":"рентгенівський сканер","main":"X-ray scanner","bd":[]}
+{"sl":"en","q":"X-ray machine","main":"рентгенівський апарат","bd":[]}
+{"sl":"uk","q":"сканер тіла","main":"body scanner","bd":[]}
+{"sl":"en","q":"body scanner","main":"сканер тіла","bd":[]}
+{"sl":"uk","q":"ручний особистий огляд","main":"manual personal inspection","bd":[]}
+{"sl":"en","q":"pat-down search","main":"покроковий пошук","bd":[]}
+{"sl":"uk","q":"працівник служби безпеки","main":"security service employee","bd":[]}
+{"sl":"en","q":"security officer","main":"офіцер безпеки","bd":[]}
+{"sl":"uk","q":"лоток для речей на контролі","main":"tray for items on the control","bd":[]}
+{"sl":"en","q":"security tray","main":"лоток безпеки","bd":[]}
+{"sl":"uk","q":"прозорий пакет для рідин","main":"transparent bag for liquids","bd":[]}
+{"sl":"en","q":"liquids bag","main":"мішок для рідини","bd":[]}
+{"sl":"uk","q":"гострий предмет","main":"sharp object","bd":[]}
+{"sl":"en","q":"sharp object","main":"гострий предмет","bd":[]}
+{"sl":"uk","q":"предмет з обмеженнями","main":"subject with restrictions","bd":[]}
+{"sl":"en","q":"restricted item","main":"обмежений пункт","bd":[]}
+{"sl":"uk","q":"вилучений предмет","main":"removed item","bd":[]}
+{"sl":"en","q":"confiscated item","main":"конфіскований предмет","bd":[]}
+{"sl":"uk","q":"прикордонник","main":"border guard","bd":[["noun",["border guard","frontier guard"]]]}
+{"sl":"en","q":"border officer","main":"офіцер-прикордонник","bd":[]}
+{"sl":"uk","q":"прикордонний контроль","main":"border control","bd":[]}
+{"sl":"en","q":"border control","main":"прикордонний контроль","bd":[]}
+{"sl":"uk","q":"штамп про в'їзд","main":"entry stamp","bd":[]}
+{"sl":"en","q":"entry stamp","main":"вхідний штамп","bd":[]}
+{"sl":"uk","q":"штамп про виїзд","main":"departure stamp","bd":[]}
+{"sl":"en","q":"exit stamp","main":"штамп про вихід","bd":[]}
+{"sl":"uk","q":"мета візиту","main":"the purpose of the visit","bd":[]}
+{"sl":"en","q":"purpose of visit","main":"мета візиту","bd":[]}
+{"sl":"uk","q":"запланована тривалість перебування","main":"planned length of stay","bd":[]}
+{"sl":"en","q":"intended length of stay","main":"передбачувана тривалість перебування","bd":[]}
+{"sl":"uk","q":"квиток для подальшої подорожі","main":"ticket for onward travel","bd":[]}
+{"sl":"en","q":"onward ticket","main":"подальший квиток","bd":[]}
+{"sl":"uk","q":"митна декларація","main":"declaration","bd":[["noun",["declaration"]]]}
+{"sl":"en","q":"customs declaration","main":"митна декларація","bd":[]}
+{"sl":"uk","q":"митник","main":"customs officer","bd":[]}
+{"sl":"en","q":"customs officer","main":"митник","bd":[["noun",["чиновник митниці"]]]}
+{"sl":"uk","q":"норма безмитного ввезення","main":"duty-free import rate","bd":[]}
+{"sl":"en","q":"duty-free allowance","main":"безмитна надбавка","bd":[]}
+{"sl":"uk","q":"заборонені товари","main":"prohibited goods","bd":[]}
+{"sl":"en","q":"prohibited goods","main":"заборонені товари","bd":[]}
+{"sl":"uk","q":"товари з обмеженнями","main":"goods with restrictions","bd":[]}
+{"sl":"en","q":"restricted goods","main":"заборонені товари","bd":[]}
+{"sl":"uk","q":"особисті речі","main":"personals","bd":[["noun",["personals"]]]}
+{"sl":"en","q":"personal belongings","main":"особисті речі","bd":[]}
+{"sl":"en","q":"to confiscate","main":"конфіскувати","bd":[["verb",["конфіскувати","реквізувати"]]]}
+{"sl":"uk","q":"прямий рейс","main":"direct flight","bd":[]}
+{"sl":"en","q":"direct flight","main":"прямий рейс","bd":[]}
+{"sl":"uk","q":"безпосадковий рейс","main":"non-stop flight","bd":[]}
+{"sl":"en","q":"non-stop flight","main":"безпосадковий рейс","bd":[["noun",["рейс без пересадок"]]]}
+{"sl":"uk","q":"стикувальний рейс","main":"connecting flight","bd":[]}
+{"sl":"en","q":"connecting flight","main":"рейс з пересадкою","bd":[]}
+{"sl":"uk","q":"внутрішній рейс","main":"domestic flight","bd":[]}
+{"sl":"en","q":"domestic flight","main":"внутрішній рейс","bd":[]}
+{"sl":"uk","q":"міжнародний рейс","main":"international flight","bd":[]}
+{"sl":"en","q":"international flight","main":"міжнародний рейс","bd":[]}
+{"sl":"uk","q":"чартерний рейс","main":"charter flight","bd":[]}
+{"sl":"en","q":"charter flight","main":"чартерний рейс","bd":[]}
+{"sl":"uk","q":"регулярний рейс","main":"regular flight","bd":[]}
+{"sl":"en","q":"scheduled flight","main":"регулярний рейс","bd":[]}
+{"sl":"uk","q":"далекомагістральний рейс","main":"long-haul flight","bd":[]}
+{"sl":"en","q":"long-haul flight","main":"далекомагістральний переліт","bd":[]}
+{"sl":"uk","q":"короткомагістральний рейс","main":"short-haul flight","bd":[]}
+{"sl":"en","q":"short-haul flight","main":"короткомагістральний рейс","bd":[]}
+{"sl":"uk","q":"пасажирський літак","main":"passenger plane","bd":[]}
+{"sl":"en","q":"airliner","main":"авіалайнер","bd":[["noun",["лайнер","повітряний лайнер","рейсовий літак","транспортний літак"]]]}
+{"sl":"uk","q":"верхня багажна полиця","main":"upper luggage rack","bd":[]}
+{"sl":"en","q":"overhead locker","main":"верхня шафка","bd":[]}
+{"sl":"uk","q":"відкидний столик","main":"folding table","bd":[]}
+{"sl":"en","q":"tray table","main":"підносний стіл","bd":[]}
+{"sl":"uk","q":"кишеня на спинці сидіння","main":"seat back pocket","bd":[]}
+{"sl":"en","q":"seat pocket","main":"кишеня для сидіння","bd":[]}
+{"sl":"uk","q":"сидіння з відкидною спинкою","main":"seat with folding back","bd":[]}
+{"sl":"en","q":"reclining seat","main":"відкидне сидіння","bd":[]}
+{"sl":"uk","q":"рятувальний жилет","main":"life jacket","bd":[["noun",["life jacket","life vest"]]]}
+{"sl":"en","q":"life jacket","main":"рятувальний жилет","bd":[["noun",["рятувальний жилет"]]]}
+{"sl":"uk","q":"екіпаж салону","main":"cabin crew","bd":[]}
+{"sl":"en","q":"cabin crew","main":"бортпровідник","bd":[]}
+{"sl":"uk","q":"бортпровідник","main":"flight attendant","bd":[]}
+{"sl":"en","q":"flight attendant","main":"стюардеса","bd":[]}
+{"sl":"uk","q":"кабіна пілотів","main":"cockpit","bd":[]}
+{"sl":"en","q":"flight deck","main":"польотна палуба","bd":[]}
+{"sl":"uk","q":"пасажир авіакомпанії","main":"an airline passenger","bd":[]}
+{"sl":"en","q":"airline passenger","main":"пасажир авіакомпанії","bd":[]}
+{"sl":"uk","q":"зліт","main":"rise","bd":[["noun",["rise","takeoff","rally","start","launching","levitation","blast-off"]]]}
+{"sl":"en","q":"take-off","main":"зліт","bd":[["noun",["зліт","карикатура","наслідування","недолік"]]]}
+{"sl":"uk","q":"турбулентність","main":"turbulence","bd":[]}
+{"sl":"en","q":"turbulence","main":"турбулентність","bd":[["noun",["буйність","буйство","бурхливість"]]]}
+{"sl":"uk","q":"бортова розважальна система","main":"on-board entertainment system","bd":[]}
+{"sl":"en","q":"in-flight entertainment","main":"розваги в польоті","bd":[]}
+{"sl":"uk","q":"харчування на борту","main":"food on board","bd":[]}
+{"sl":"en","q":"in-flight meal","main":"харчування в польоті","bd":[]}
+{"sl":"uk","q":"напій або легка закуска","main":"drink or light snack","bd":[]}
+{"sl":"en","q":"refreshment","main":"освіження","bd":[["noun",["відпочинок","перекуска","підкріплення"]]]}
+{"sl":"uk","q":"беруші","main":"earplugs","bd":[]}
+{"sl":"en","q":"earplugs","main":"беруші","bd":[]}
+{"sl":"uk","q":"затримка рейсу","main":"flight delay","bd":[]}
+{"sl":"en","q":"flight delay","main":"затримка рейсу","bd":[]}
+{"sl":"uk","q":"затримане відправлення","main":"delayed shipment","bd":[]}
+{"sl":"en","q":"delayed departure","main":"затримка вильоту","bd":[]}
+{"sl":"uk","q":"скасування авіарейсу","main":"flight cancellation","bd":[]}
+{"sl":"en","q":"flight cancellation","main":"скасування рейсу","bd":[]}
+{"sl":"uk","q":"скасований рейс","main":"canceled flight","bd":[]}
+{"sl":"en","q":"cancelled flight","main":"скасований рейс","bd":[]}
+{"sl":"uk","q":"зміна розкладу","main":"schedule change","bd":[]}
+{"sl":"en","q":"schedule change","main":"зміна розкладу","bd":[]}
+{"sl":"uk","q":"зміна виходу на посадку","main":"change of landing gate","bd":[]}
+{"sl":"en","q":"gate change","main":"зміна воріт","bd":[]}
+{"sl":"uk","q":"рейс, перенаправлений в інший аеропорт","main":"a flight diverted to another airport","bd":[]}
+{"sl":"en","q":"diverted flight","main":"перенаправлений рейс","bd":[]}
+{"sl":"uk","q":"пропущена пересадка","main":"missed transfer","bd":[]}
+{"sl":"en","q":"missed connection","main":"пропущене з'єднання","bd":[]}
+{"sl":"uk","q":"пересадка з малим запасом часу","main":"transfer with a small margin of time","bd":[]}
+{"sl":"en","q":"tight connection","main":"щільне з'єднання","bd":[]}
+{"sl":"uk","q":"мінімальний час на пересадку","main":"minimum transfer time","bd":[]}
+{"sl":"en","q":"minimum connection time","main":"мінімальний час підключення","bd":[]}
+{"sl":"uk","q":"продаж квитків понад кількість місць","main":"selling tickets in excess of the number of seats","bd":[]}
+{"sl":"en","q":"overbooking","main":"овербукінг","bd":[]}
+{"sl":"uk","q":"перепроданий рейс","main":"oversold flight","bd":[]}
+{"sl":"en","q":"overbooked flight","main":"переповнений рейс","bd":[]}
+{"sl":"uk","q":"відмова в посадці","main":"boarding refusal","bd":[]}
+{"sl":"en","q":"denied boarding","main":"відмовлено в посадці","bd":[]}
+{"sl":"uk","q":"пасажир у списку очікування","main":"a passenger on the waiting list","bd":[]}
+{"sl":"en","q":"standby passenger","main":"резервний пасажир","bd":[]}
+{"sl":"uk","q":"перебронювання","main":"rebooking","bd":[]}
+{"sl":"en","q":"rebooking","main":"перебронювання","bd":[]}
+{"sl":"uk","q":"альтернативний рейс","main":"alternative flight","bd":[]}
+{"sl":"en","q":"alternative flight","main":"альтернативний рейс","bd":[]}
+{"sl":"uk","q":"рейс на заміну","main":"replacement flight","bd":[]}
+{"sl":"en","q":"replacement flight","main":"замінний рейс","bd":[]}
+{"sl":"uk","q":"затримка до наступного дня","main":"delay until the next day","bd":[]}
+{"sl":"en","q":"overnight delay","main":"нічна затримка","bd":[]}
+{"sl":"uk","q":"розміщення в готелі","main":"hotel accommodation","bd":[]}
+{"sl":"en","q":"hotel accommodation","main":"проживання в готелі","bd":[]}
+{"sl":"uk","q":"ваучер на харчування","main":"meal voucher","bd":[]}
+{"sl":"en","q":"meal voucher","main":"талон на харчування","bd":[]}
+{"sl":"uk","q":"права пасажира","main":"passenger rights","bd":[]}
+{"sl":"en","q":"passenger rights","main":"права пасажира","bd":[]}
+{"sl":"uk","q":"повернення коштів за рейс","main":"flight refund","bd":[]}
+{"sl":"en","q":"flight refund","main":"повернення коштів за рейс","bd":[]}
+{"sl":"uk","q":"порушення плану подорожі","main":"violation of the travel plan","bd":[]}
+{"sl":"en","q":"travel disruption","main":"порушення подорожей","bd":[]}
+{"sl":"uk","q":"технічна несправність","main":"technical malfunction","bd":[]}
+{"sl":"en","q":"technical issue","main":"технічне питання","bd":[]}
+{"sl":"uk","q":"обмеження диспетчерської служби","main":"Dispatch service restrictions","bd":[]}
+{"sl":"en","q":"air traffic control restriction","main":"обмеження управління повітряним рухом","bd":[]}
+{"sl":"uk","q":"закриття аеропорту","main":"airport closure","bd":[]}
+{"sl":"en","q":"airport closure","main":"закриття аеропорту","bd":[]}
+{"sl":"uk","q":"залізничний вокзал","main":"railway station","bd":[]}
+{"sl":"en","q":"railway station","main":"залізнична станція","bd":[["noun",["залізнична станція"]]]}
+{"sl":"uk","q":"будівля вокзалу","main":"station building","bd":[]}
+{"sl":"en","q":"station building","main":"будівля вокзалу","bd":[]}
+{"sl":"uk","q":"вхід до вокзалу","main":"entrance to the station","bd":[]}
+{"sl":"en","q":"station entrance","main":"вхід на вокзал","bd":[]}
+{"sl":"uk","q":"інформаційне табло","main":"information board","bd":[]}
+{"sl":"en","q":"information board","main":"інформаційне табло","bd":[]}
+{"sl":"uk","q":"табло відправлення поїздів","main":"train departure board","bd":[]}
+{"sl":"en","q":"train departure board","main":"табло відправлення поїзда","bd":[]}
+{"sl":"uk","q":"номер платформи","main":"platform number","bd":[]}
+{"sl":"en","q":"platform number","main":"номер платформи","bd":[]}
+{"sl":"uk","q":"пасажирський поїзд","main":"passenger train","bd":[]}
+{"sl":"en","q":"passenger train","main":"пасажирський поїзд","bd":[]}
+{"sl":"uk","q":"швидкісний поїзд","main":"high speed train","bd":[]}
+{"sl":"en","q":"high-speed train","main":"швидкісний поїзд","bd":[]}
+{"sl":"uk","q":"швидкий поїзд","main":"fast train","bd":[]}
+{"sl":"en","q":"express train","main":"експрес","bd":[]}
+{"sl":"uk","q":"місцевий поїзд із частими зупинками","main":"local train with frequent stops","bd":[]}
+{"sl":"en","q":"local train","main":"місцевий поїзд","bd":[]}
+{"sl":"uk","q":"нічний поїзд","main":"night train","bd":[["noun",["owl train"]]]}
+{"sl":"en","q":"overnight train","main":"нічний поїзд","bd":[]}
+{"sl":"uk","q":"спальне купе","main":"sleeping compartment","bd":[]}
+{"sl":"en","q":"sleeper compartment","main":"спальне відділення","bd":[]}
+{"sl":"uk","q":"тихий вагон","main":"quiet car","bd":[]}
+{"sl":"en","q":"quiet carriage","main":"тихий вагон","bd":[]}
+{"sl":"uk","q":"другий клас","main":"second class","bd":[]}
+{"sl":"en","q":"second class","main":"другий клас","bd":[["adjective",["другокласний"]],["adverb",["другого класу"]]]}
+{"sl":"uk","q":"зарезервоване місце","main":"reserved seat","bd":[]}
+{"sl":"en","q":"reserved seat","main":"резервне місце","bd":[["noun",["плацкарта"]]]}
+{"sl":"uk","q":"бронювання місця","main":"seat reservation","bd":[]}
+{"sl":"en","q":"seat reservation","main":"бронювання місць","bd":[]}
+{"sl":"uk","q":"залізничний проїзний","main":"railway pass","bd":[]}
+{"sl":"en","q":"rail pass","main":"залізничний пропуск","bd":[]}
+{"sl":"uk","q":"машиніст поїзда","main":"train driver","bd":[]}
+{"sl":"en","q":"train driver","main":"машиніст поїзда","bd":[]}
+{"sl":"uk","q":"поїзд, що завершує маршрут","main":"the train that completes the route","bd":[]}
+{"sl":"en","q":"terminating train","main":"кінцевий поїзд","bd":[]}
+{"sl":"uk","q":"автобус замість скасованого поїзда","main":"bus instead of the canceled train","bd":[]}
+{"sl":"en","q":"replacement bus service","main":"заміна автобусів","bd":[]}
+{"sl":"uk","q":"залізничний вагон","main":"railcar","bd":[["noun",["railcar","car"]]]}
+{"sl":"en","q":"railroad car","main":"залізничний вагон","bd":[]}
+{"sl":"uk","q":"автовокзал","main":"bus station","bd":[]}
+{"sl":"en","q":"coach station","main":"автобусна станція","bd":[]}
+{"sl":"uk","q":"автобусний маршрут","main":"bus route","bd":[]}
+{"sl":"en","q":"bus route","main":"автобусний маршрут","bd":[]}
+{"sl":"uk","q":"трансфер до аеропорту","main":"transfer to the airport","bd":[]}
+{"sl":"en","q":"airport transfer","main":"трансфер з аеропорту","bd":[]}
+{"sl":"uk","q":"регулярний рейс транспорту","main":"regular transport flight","bd":[]}
+{"sl":"en","q":"scheduled service","main":"планове обслуговування","bd":[]}
+{"sl":"uk","q":"поромний термінал","main":"ferry terminal","bd":[]}
+{"sl":"en","q":"ferry terminal","main":"поромний термінал","bd":[]}
+{"sl":"uk","q":"каюта на поромі","main":"a cabin on a ferry","bd":[]}
+{"sl":"en","q":"ferry cabin","main":"каюта порома","bd":[]}
+{"sl":"uk","q":"морська переправа","main":"sea ​​crossing","bd":[]}
+{"sl":"en","q":"crossing","main":"перетин","bd":[["adjective",["перехідний"]],["noun",["закреслювання","перехрестя","переправа","перехрещення","перетин","перехрещування","перехід","роздоріжжя"]]]}
+{"sl":"uk","q":"з морською хворобою","main":"with seasickness","bd":[]}
+{"sl":"en","q":"seasick","main":"морська хвороба","bd":[["adjective",["який страждає морською хворобою"]]]}
+{"sl":"uk","q":"стоянка таксі","main":"cabstand","bd":[["noun",["cabstand","cab rank"]]]}
+{"sl":"en","q":"taxi rank","main":"стоянка таксі","bd":[]}
+{"sl":"uk","q":"вартість поїздки таксі","main":"taxi fare","bd":[]}
+{"sl":"en","q":"taxi fare","main":"тариф на таксі","bd":[]}
+{"sl":"uk","q":"застосунок для виклику авто","main":"application for calling cars","bd":[]}
+{"sl":"en","q":"ride-hailing app","main":"додаток для замовлення поїздки","bd":[]}
+{"sl":"uk","q":"місце висадки","main":"landing","bd":[["noun",["landing","landing place"]]]}
+{"sl":"en","q":"drop-off point","main":"пункт висадки","bd":[]}
+{"sl":"uk","q":"індивідуальний трансфер","main":"individual transfer","bd":[]}
+{"sl":"en","q":"private transfer","main":"приватний трансфер","bd":[]}
+{"sl":"uk","q":"стійка прокату","main":"rental counter","bd":[]}
+{"sl":"en","q":"rental desk","main":"пункт прокату","bd":[]}
+{"sl":"uk","q":"міжнародне посвідчення водія","main":"international driver's license","bd":[]}
+{"sl":"en","q":"international driving permit","main":"міжнародне посвідчення водія","bd":[]}
+{"sl":"uk","q":"паливна політика повний бак — повний бак","main":"fuel policy full tank - full tank","bd":[]}
+{"sl":"en","q":"full-to-full fuel policy","main":"політика повного палива","bd":[]}
+{"sl":"uk","q":"додатковий водій","main":"additional driver","bd":[]}
+{"sl":"en","q":"additional driver","main":"додатковий водій","bd":[]}
+{"sl":"uk","q":"міжміський автобус","main":"intercity bus","bd":[]}
+{"sl":"en","q":"intercity bus","main":"міжміський автобус","bd":[]}
+{"sl":"uk","q":"страхова франшиза","main":"insurance deductible","bd":[]}
+{"sl":"en","q":"insurance excess","main":"страховий ексцес","bd":[]}
+{"sl":"uk","q":"черговий працівник","main":"duty worker","bd":[]}
+{"sl":"en","q":"attendant","main":"обслуговуючий персонал","bd":[["adjective",["обслуговуючий","присутній","супровідний","супутній"]],["noun",["обслуговуюча особа","присутній","супровідник","супровідна обставина","слуга","почет","прислужник"]]]}
+{"sl":"uk","q":"мініготель із сніданком","main":"mini hotel with breakfast","bd":[]}
+{"sl":"en","q":"bed and breakfast","main":"ліжко та сніданок","bd":[["phrase",["тільки сніданки"]]]}
+{"sl":"uk","q":"мотель","main":"motel","bd":[["noun",["motel","autel"]]]}
+{"sl":"en","q":"motel","main":"мотель","bd":[["noun",["мотель"]]]}
+{"sl":"uk","q":"апарт-готель","main":"apartment hotel","bd":[]}
+{"sl":"en","q":"aparthotel","main":"апарт-готель","bd":[]}
+{"sl":"uk","q":"апартаменти з готельним обслуговуванням","main":"apartments with hotel service","bd":[]}
+{"sl":"en","q":"serviced apartment","main":"квартира з обслуговуванням","bd":[]}
+{"sl":"uk","q":"житло для короткострокової оренди","main":"housing for short-term rent","bd":[]}
+{"sl":"en","q":"holiday rental","main":"оренда на відпочинок","bd":[]}
+{"sl":"uk","q":"номер із двома окремими ліжками","main":"room with two separate beds","bd":[]}
+{"sl":"en","q":"twin room","main":"двомісний номер","bd":[]}
+{"sl":"uk","q":"тримісний номер","main":"triple room","bd":[]}
+{"sl":"en","q":"triple room","main":"тримісний номер","bd":[]}
+{"sl":"uk","q":"сімейний номер","main":"family room","bd":[]}
+{"sl":"en","q":"family room","main":"сімейна кімната","bd":[]}
+{"sl":"uk","q":"напівлюкс","main":"junior suite","bd":[]}
+{"sl":"en","q":"junior suite","main":"напівлюкс","bd":[]}
+{"sl":"uk","q":"суміжні номери з дверима","main":"adjoining rooms with doors","bd":[]}
+{"sl":"en","q":"connecting rooms","main":"суміжні кімнати","bd":[]}
+{"sl":"uk","q":"сусідні номери","main":"adjacent numbers","bd":[]}
+{"sl":"en","q":"adjoining rooms","main":"суміжні кімнати","bd":[]}
+{"sl":"uk","q":"номер для людей з інвалідністю","main":"room for people with disabilities","bd":[]}
+{"sl":"en","q":"accessible room","main":"доступна кімната","bd":[]}
+{"sl":"uk","q":"вид на море","main":"sea ​​view","bd":[]}
+{"sl":"en","q":"sea view","main":"вид на море","bd":[]}
+{"sl":"uk","q":"вартість номера","main":"the cost of the room","bd":[]}
+{"sl":"en","q":"room rate","main":"вартість кімнати","bd":[]}
+{"sl":"uk","q":"ціна за ніч","main":"price per night","bd":[]}
+{"sl":"en","q":"nightly rate","main":"нічний тариф","bd":[]}
+{"sl":"uk","q":"тариф без харчування","main":"tariff without meals","bd":[]}
+{"sl":"en","q":"room only","main":"тільки кімната","bd":[]}
+{"sl":"uk","q":"напівпансіон","main":"half board","bd":[["noun",["half board"]],["abbreviation",["HB"]]]}
+{"sl":"en","q":"half board","main":"напівпансіон","bd":[["noun",["напівпансіон"]]]}
+{"sl":"uk","q":"повний пансіон","main":"full board","bd":[["noun",["full board"]],["abbreviation",["FB"]]]}
+{"sl":"en","q":"full board","main":"повний пансіон","bd":[["noun",["повний пансіон"]]]}
+{"sl":"uk","q":"усе включено","main":"all inclusive","bd":[]}
+{"sl":"en","q":"all-inclusive","main":"все включено","bd":[]}
+{"sl":"uk","q":"мінімальний строк проживання","main":"minimum period of residence","bd":[]}
+{"sl":"en","q":"minimum stay","main":"мінімальне перебування","bd":[]}
+{"sl":"uk","q":"максимальна кількість гостей","main":"maximum number of guests","bd":[]}
+{"sl":"en","q":"maximum occupancy","main":"максимальна заповнюваність","bd":[]}
+{"sl":"uk","q":"додаткове ліжко","main":"extra bed","bd":[]}
+{"sl":"en","q":"extra bed","main":"додаткове ліжко","bd":[]}
+{"sl":"uk","q":"дозволене проживання з тваринами","main":"allowed living with animals","bd":[]}
+{"sl":"en","q":"pet-friendly","main":"домашні тварини дружні","bd":[]}
+{"sl":"uk","q":"готельний номер","main":"hotel room","bd":[]}
+{"sl":"en","q":"hotel room","main":"готельний номер","bd":[]}
+{"sl":"uk","q":"картка-ключ від номера","main":"number key card","bd":[]}
+{"sl":"en","q":"key card","main":"ключ-карта","bd":[]}
+{"sl":"uk","q":"власна ванна кімната","main":"own bathroom","bd":[]}
+{"sl":"en","q":"private bathroom","main":"окрема ванна кімната","bd":[]}
+{"sl":"uk","q":"спільна ванна кімната","main":"shared bathroom","bd":[]}
+{"sl":"en","q":"shared bathroom","main":"спільна ванна кімната","bd":[]}
+{"sl":"uk","q":"сейф у номері","main":"safe in the room","bd":[]}
+{"sl":"en","q":"room safe","main":"кімнатний сейф","bd":[]}
+{"sl":"uk","q":"обслуговування номерів","main":"room service","bd":[]}
+{"sl":"en","q":"room service","main":"обслуговування номерів","bd":[]}
+{"sl":"uk","q":"служба прибирання номерів","main":"room cleaning service","bd":[]}
+{"sl":"en","q":"housekeeping","main":"ведення домашнього господарства","bd":[["noun",["господарство","гостинність","домоведення","хатнє господарство"]]]}
+{"sl":"uk","q":"щоденне прибирання","main":"daily cleaning","bd":[]}
+{"sl":"en","q":"daily cleaning","main":"щоденне прибирання","bd":[]}
+{"sl":"uk","q":"послуга прання","main":"laundry service","bd":[]}
+{"sl":"en","q":"laundry service","main":"послуги пральні","bd":[]}
+{"sl":"uk","q":"спа-центр","main":"spa center","bd":[]}
+{"sl":"en","q":"spa","main":"спа","bd":[["verb",["лікуватися на водах"]],["noun",["курорт з мінеральними водами","мінеральне джерело","спа"]]]}
+{"sl":"uk","q":"шведський стіл на сніданок","main":"buffet for breakfast","bd":[]}
+{"sl":"en","q":"breakfast buffet","main":"сніданок шведський стіл","bd":[]}
+{"sl":"uk","q":"стійка адміністратора","main":"admin desk","bd":[]}
+{"sl":"en","q":"front desk","main":"стійка реєстрації","bd":[]}
+{"sl":"uk","q":"електрична розетка","main":"electrical outlet","bd":[]}
+{"sl":"en","q":"power socket","main":"розетка","bd":[]}
+{"sl":"uk","q":"фітнес-центр готелю","main":"fitness center of the hotel","bd":[]}
+{"sl":"en","q":"fitness center","main":"фітнес центр","bd":[["noun",["фітнес-центр"]]]}
+{"sl":"uk","q":"заселення в готель","main":"check-in at the hotel","bd":[]}
+{"sl":"en","q":"hotel check-in","main":"поселення в готель","bd":[]}
+{"sl":"uk","q":"виселення з готелю","main":"eviction from the hotel","bd":[]}
+{"sl":"en","q":"check-out","main":"виїзд","bd":[["noun",["випробування","закінчення роботи","контроль","ознайомлення льотчика з літаком"]]]}
+{"sl":"uk","q":"час заселення","main":"check-in time","bd":[]}
+{"sl":"en","q":"check-in time","main":"час заселення","bd":[]}
+{"sl":"uk","q":"час виселення","main":"eviction time","bd":[]}
+{"sl":"en","q":"check-out time","main":"час виселення","bd":[]}
+{"sl":"uk","q":"раннє заселення","main":"early settlement","bd":[]}
+{"sl":"en","q":"early check-in","main":"ранній заїзд","bd":[]}
+{"sl":"uk","q":"пізнє виселення","main":"late check out","bd":[]}
+{"sl":"en","q":"late check-out","main":"пізній виїзд","bd":[]}
+{"sl":"uk","q":"керівник готелю","main":"hotel manager","bd":[]}
+{"sl":"en","q":"hotel manager","main":"менеджер готелю","bd":[]}
+{"sl":"uk","q":"реєстраційна форма","main":"registration form","bd":[]}
+{"sl":"en","q":"registration form","main":"реєстраційна форма","bd":[]}
+{"sl":"uk","q":"дані гостя","main":"guest data","bd":[]}
+{"sl":"en","q":"guest details","main":"деталі гостя","bd":[]}
+{"sl":"uk","q":"копія паспорта","main":"a copy of the passport","bd":[]}
+{"sl":"en","q":"passport copy","main":"копія паспорта","bd":[]}
+{"sl":"uk","q":"страховий депозит у готелі","main":"insurance deposit at the hotel","bd":[]}
+{"sl":"en","q":"hotel security deposit","main":"готельний депозит","bd":[]}
+{"sl":"uk","q":"депозит на додаткові витрати","main":"deposit for additional expenses","bd":[]}
+{"sl":"en","q":"incidental deposit","main":"випадковий депозит","bd":[]}
+{"sl":"uk","q":"авторизація кредитної картки","main":"credit card authorization","bd":[]}
+{"sl":"en","q":"credit card authorization","main":"авторизація кредитної картки","bd":[]}
+{"sl":"uk","q":"номер кімнати","main":"room number","bd":[]}
+{"sl":"en","q":"room number","main":"номер кімнати","bd":[]}
+{"sl":"uk","q":"інформаційний набір для гостя","main":"information kit for the guest","bd":[]}
+{"sl":"en","q":"welcome pack","main":"вітальний пакет","bd":[]}
+{"sl":"uk","q":"дзвінок-будильник","main":"wake up call","bd":[]}
+{"sl":"en","q":"wake-up call","main":"будильник","bd":[]}
+{"sl":"uk","q":"зберігання багажу","main":"luggage storage","bd":[]}
+{"sl":"en","q":"luggage storage","main":"камера зберігання багажу","bd":[]}
+{"sl":"uk","q":"безкоштовна послуга від готелю","main":"free service from the hotel","bd":[]}
+{"sl":"en","q":"complimentary service","main":"безкоштовне обслуговування","bd":[]}
+{"sl":"uk","q":"рахунок готелю","main":"hotel bill","bd":[]}
+{"sl":"en","q":"hotel bill","main":"готельний рахунок","bd":[]}
+{"sl":"uk","q":"деталізований рахунок","main":"detailed account","bd":[]}
+{"sl":"en","q":"itemized bill","main":"деталізований рахунок","bd":[]}
+{"sl":"uk","q":"адміністратор рецепції","main":"reception administrator","bd":[]}
+{"sl":"en","q":"front-desk clerk","main":"реєстратор","bd":[]}
+{"sl":"uk","q":"коридорний","main":"bellboy","bd":[["noun",["bellboy","boots","call boy","chamberlain"]]]}
+{"sl":"en","q":"bellhop","main":"коридорний","bd":[["noun",["посильний"]]]}
+{"sl":"uk","q":"помилка в бронюванні","main":"booking error","bd":[]}
+{"sl":"en","q":"booking error","main":"помилка бронювання","bd":[]}
+{"sl":"uk","q":"подвійне бронювання номера","main":"double room reservation","bd":[]}
+{"sl":"en","q":"double booking","main":"подвійне бронювання","bd":[]}
+{"sl":"uk","q":"готель без місць через перепродаж","main":"hotel without seats due to resale","bd":[]}
+{"sl":"en","q":"overbooked hotel","main":"переброньований готель","bd":[]}
+{"sl":"uk","q":"неправильний тип номера","main":"wrong number type","bd":[]}
+{"sl":"en","q":"wrong room type","main":"неправильний тип кімнати","bd":[]}
+{"sl":"uk","q":"номер ще не готовий","main":"the room is not ready yet","bd":[]}
+{"sl":"en","q":"room not ready","main":"кімната не готова","bd":[]}
+{"sl":"uk","q":"брудний номер","main":"dirty number","bd":[]}
+{"sl":"en","q":"dirty room","main":"брудна кімната","bd":[]}
+{"sl":"uk","q":"простирадло з плямами","main":"sheet with stains","bd":[]}
+{"sl":"en","q":"stained sheet","main":"заплямований аркуш","bd":[]}
+{"sl":"uk","q":"відсутній рушник","main":"there is no towel","bd":[]}
+{"sl":"en","q":"missing towel","main":"відсутній рушник","bd":[]}
+{"sl":"uk","q":"немає гарячої води","main":"There is no hot water","bd":[]}
+{"sl":"en","q":"no hot water","main":"немає гарячої води","bd":[]}
+{"sl":"uk","q":"слабкий тиск води","main":"weak water pressure","bd":[]}
+{"sl":"en","q":"low water pressure","main":"низький тиск води","bd":[]}
+{"sl":"uk","q":"забитий злив","main":"clogged drain","bd":[]}
+{"sl":"en","q":"blocked drain","main":"забитий дренаж","bd":[]}
+{"sl":"uk","q":"несправний кондиціонер","main":"defective air conditioner","bd":[]}
+{"sl":"en","q":"broken air conditioner","main":"зламаний кондиціонер","bd":[]}
+{"sl":"uk","q":"слабкий сигнал Wi-Fi","main":"weak Wi-Fi signal","bd":[]}
+{"sl":"en","q":"weak Wi-Fi signal","main":"слабкий сигнал Wi-Fi","bd":[]}
+{"sl":"uk","q":"шумний номер","main":"noisy room","bd":[]}
+{"sl":"en","q":"noisy room","main":"шумна кімната","bd":[]}
+{"sl":"uk","q":"вуличний шум","main":"street noise","bd":[]}
+{"sl":"en","q":"street noise","main":"вуличний шум","bd":[]}
+{"sl":"uk","q":"незручне ліжко","main":"uncomfortable bed","bd":[]}
+{"sl":"en","q":"uncomfortable bed","main":"незручне ліжко","bd":[]}
+{"sl":"uk","q":"технічна несправність у номері","main":"technical malfunction in the room","bd":[]}
+{"sl":"en","q":"maintenance issue","main":"питання обслуговування","bd":[]}
+{"sl":"uk","q":"заміна номера","main":"number change","bd":[]}
+{"sl":"en","q":"room change","main":"зміна кімнати","bd":[]}
+{"sl":"uk","q":"переселення в кращий номер","main":"relocation to a better room","bd":[]}
+{"sl":"en","q":"room upgrade","main":"покращення кімнати","bd":[]}
+{"sl":"uk","q":"повернення коштів за проживання","main":"refund for accommodation","bd":[]}
+{"sl":"en","q":"hotel refund","main":"повернення коштів за готель","bd":[]}
+{"sl":"uk","q":"компенсація від готелю","main":"compensation from the hotel","bd":[]}
+{"sl":"en","q":"hotel compensation","main":"готельна компенсація","bd":[]}
+{"sl":"uk","q":"кран, що протікає","main":"a leaky faucet","bd":[]}
+{"sl":"en","q":"leaking tap","main":"тече кран","bd":[]}
+{"sl":"uk","q":"цікаве для відвідування місце","main":"an interesting place to visit","bd":[]}
+{"sl":"en","q":"place of interest","main":"цікаве місце","bd":[]}
+{"sl":"uk","q":"історичне місце","main":"historical place","bd":[]}
+{"sl":"en","q":"historic site","main":"історичне місце","bd":[]}
+{"sl":"uk","q":"об'єкт культурної спадщини","main":"object of cultural heritage","bd":[]}
+{"sl":"en","q":"heritage site","main":"спадщина","bd":[]}
+{"sl":"uk","q":"кафедральний собор","main":"cathedral","bd":[["noun",["cathedral","minster"]]]}
+{"sl":"en","q":"cathedral","main":"собор","bd":[["adjective",["кафедральний","соборний"]],["noun",["собор","кафедральний собор"]]]}
+{"sl":"uk","q":"руїни","main":"ruins","bd":[["noun",["ruins","wreck","remains","debris","demolitions"]]]}
+{"sl":"en","q":"ruins","main":"руїни","bd":[["noun",["звалище","руїни"]]]}
+{"sl":"uk","q":"панорамний краєвид","main":"panoramic view","bd":[]}
+{"sl":"en","q":"panoramic view","main":"панорамний вид","bd":[]}
+{"sl":"uk","q":"екскурсовод","main":"tour guide","bd":[]}
+{"sl":"en","q":"tour guide","main":"екскурсовод","bd":[]}
+{"sl":"uk","q":"місцевий гід","main":"local guide","bd":[]}
+{"sl":"en","q":"local guide","main":"місцевий гід","bd":[]}
+{"sl":"uk","q":"аудіогід","main":"audio guide","bd":[]}
+{"sl":"en","q":"audio guide","main":"аудіогід","bd":[["noun",["аудіопутівник"]]]}
+{"sl":"uk","q":"пішохідна екскурсія","main":"walking tour","bd":[["noun",["walking tour","hiking"]]]}
+{"sl":"en","q":"walking tour","main":"пішохідна екскурсія","bd":[["noun",["пішохідна екскурсія"]]]}
+{"sl":"uk","q":"автобусна екскурсія","main":"bus tour","bd":[]}
+{"sl":"en","q":"bus tour","main":"автобусний тур","bd":[]}
+{"sl":"uk","q":"екскурсія човном","main":"boat tour","bd":[]}
+{"sl":"en","q":"boat tour","main":"екскурсія на човні","bd":[]}
+{"sl":"uk","q":"екскурсійний автобус із вільними посадками","main":"excursion bus with free seating","bd":[]}
+{"sl":"en","q":"hop-on hop-off bus","main":"hop-on hop-off автобус","bd":[]}
+{"sl":"uk","q":"організована екскурсійна поїздка","main":"organized sightseeing trip","bd":[]}
+{"sl":"en","q":"excursion","main":"екскурсія","bd":[["noun",["екскурс","екскурсія","поїздка","похід"]]]}
+{"sl":"uk","q":"вхідний квиток","main":"entrance ticket","bd":[]}
+{"sl":"en","q":"entrance ticket","main":"вхідний квиток","bd":[]}
+{"sl":"uk","q":"плата за вхід до музею","main":"museum entrance fee","bd":[]}
+{"sl":"en","q":"museum admission fee","main":"плата за вхід до музею","bd":[]}
+{"sl":"uk","q":"квиток без черги","main":"skip-the-line ticket","bd":[]}
+{"sl":"en","q":"skip-the-line ticket","main":"квиток без черги","bd":[]}
+{"sl":"uk","q":"туристичний інформаційний центр","main":"tourist information center","bd":[]}
+{"sl":"en","q":"tourist information center","main":"туристичний інформаційний центр","bd":[]}
+{"sl":"uk","q":"банківська картка","main":"bank card","bd":[]}
+{"sl":"en","q":"bank card","main":"банківська картка","bd":[]}
+{"sl":"uk","q":"комісія за обмін","main":"exchange fee","bd":[]}
+{"sl":"en","q":"exchange commission","main":"обмінна комісія","bd":[]}
+{"sl":"uk","q":"комісія за зняття готівки","main":"cash withdrawal fee","bd":[]}
+{"sl":"en","q":"withdrawal fee","main":"комісія за зняття","bd":[]}
+{"sl":"uk","q":"конвертація у валюту картки при оплаті","main":"conversion to card currency upon payment","bd":[]}
+{"sl":"en","q":"dynamic currency conversion","main":"динамічна конвертація валют","bd":[]}
+{"sl":"uk","q":"місцева SIM-картка","main":"local SIM card","bd":[]}
+{"sl":"en","q":"local SIM card","main":"місцева SIM-карта","bd":[]}
+{"sl":"uk","q":"електронна SIM-картка","main":"electronic SIM card","bd":[]}
+{"sl":"en","q":"eSIM","main":"eSIM","bd":[]}
+{"sl":"uk","q":"роумінг даних","main":"data roaming","bd":[]}
+{"sl":"en","q":"data roaming","main":"роумінг даних","bd":[]}
+{"sl":"uk","q":"плата за роумінг","main":"roaming fee","bd":[]}
+{"sl":"en","q":"roaming charge","main":"вартість роумінгу","bd":[]}
+{"sl":"uk","q":"покриття мобільної мережі","main":"mobile network coverage","bd":[]}
+{"sl":"en","q":"mobile coverage","main":"мобільне покриття","bd":[]}
+{"sl":"uk","q":"громадський Wi-Fi","main":"public Wi-Fi","bd":[]}
+{"sl":"en","q":"public Wi-Fi","main":"публічний Wi-Fi","bd":[]}
+{"sl":"uk","q":"пароль Wi-Fi","main":"Wi-Fi password","bd":[]}
+{"sl":"en","q":"Wi-Fi password","main":"Пароль Wi-Fi","bd":[]}
+{"sl":"uk","q":"місце для заряджання","main":"charging station","bd":[]}
+{"sl":"en","q":"charging point","main":"пункт зарядки","bd":[]}
+{"sl":"uk","q":"зовнішній акумулятор","main":"external battery","bd":[]}
+{"sl":"en","q":"power bank","main":"power bank","bd":[]}
+{"sl":"uk","q":"перехідник для розетки","main":"socket adapter","bd":[]}
+{"sl":"en","q":"plug adapter","main":"штепсельний адаптер","bd":[]}
+{"sl":"uk","q":"питна вода","main":"drinking water","bd":[["noun",["drinking water"]]]}
+{"sl":"en","q":"drinking water","main":"питної води","bd":[["noun",["питна вода"]]]}
+{"sl":"uk","q":"безпека під час подорожі","main":"safety during travel","bd":[]}
+{"sl":"en","q":"travel safety","main":"безпека подорожей","bd":[]}
+{"sl":"uk","q":"невідкладна медична допомога","main":"emergency medical care","bd":[]}
+{"sl":"en","q":"urgent care","main":"невідкладна допомога","bd":[]}
+{"sl":"uk","q":"клініка медицини подорожей","main":"clinic of travel medicine","bd":[]}
+{"sl":"en","q":"travel clinic","main":"туристична клініка","bd":[]}
+{"sl":"uk","q":"заколисування в транспорті","main":"motion sickness in transport","bd":[]}
+{"sl":"en","q":"motion sickness","main":"заколисування","bd":[]}
+{"sl":"uk","q":"порушення ритму через зміну часових поясів","main":"rhythm disturbance due to changing time zones","bd":[]}
+{"sl":"en","q":"jet lag","main":"часовий пояс","bd":[]}
+{"sl":"uk","q":"зневоднення","main":"dehydration","bd":[]}
+{"sl":"en","q":"dehydration","main":"зневоднення","bd":[["noun",["дегідратація","збезводнювання"]]]}
+{"sl":"uk","q":"загублений паспорт","main":"lost passport","bd":[]}
+{"sl":"en","q":"lost passport","main":"втрачений паспорт","bd":[]}
+{"sl":"uk","q":"вкрадений гаманець","main":"stolen wallet","bd":[]}
+{"sl":"en","q":"stolen wallet","main":"викрадений гаманець","bd":[]}
+{"sl":"uk","q":"кишеньковий злодій","main":"pickpocket","bd":[["noun",["pickpocket","cannon","nipper"]]]}
+{"sl":"en","q":"pickpocket","main":"кишеньковий злодій","bd":[["noun",["кишеньковий злодій","мошенник"]]]}
+{"sl":"uk","q":"тимчасове житло в надзвичайній ситуації","main":"temporary housing in an emergency situation","bd":[]}
+{"sl":"en","q":"emergency accommodation","main":"термінове розміщення","bd":[]}
+{"sl":"uk","q":"гаряча лінія страхової компанії","main":"insurance company hotline","bd":[]}
+{"sl":"en","q":"insurance hotline","main":"страхова гаряча лінія","bd":[]}
+{"sl":"uk","q":"медична допомога","main":"medical assistance","bd":[["noun",["medicaid"]]]}
+{"sl":"en","q":"medical assistance","main":"медична допомога","bd":[]}
+{"sl":"uk","q":"нездужання","main":"malaise","bd":[["noun",["malaise","indisposition","ailment","queasiness","ailing","ail","distemper","theism"]]]}
+{"sl":"en","q":"sickness","main":"хвороба","bd":[["noun",["відраза","недуга","недужість","нудота","хвороба"]]]}
+{"sl":"uk","q":"вхід до аеропорту","main":"entrance to the airport","bd":[]}
+{"sl":"en","q":"airport entrance","main":"вхід в аеропорт","bd":[]}
+{"sl":"uk","q":"вихід з аеропорту","main":"departure from the airport","bd":[]}
+{"sl":"en","q":"airport exit","main":"вихід з аеропорту","bd":[]}
+{"sl":"uk","q":"несприятлива погода","main":"bad weather","bd":[]}
+{"sl":"en","q":"bad weather","main":"негода","bd":[["noun",["непогідь"]]]}
+{"sl":"uk","q":"фізична активність","main":"physical activity","bd":[]}
+{"sl":"en","q":"physical activity","main":"фізична активність","bd":[]}
+{"sl":"uk","q":"товариш по команді","main":"teammate","bd":[]}
+{"sl":"en","q":"teammate","main":"товариш по команді","bd":[]}
+{"sl":"uk","q":"роздягальня","main":"locker room","bd":[["noun",["locker room","cloakroom","checkroom","checking room","bathhouse"]]]}
+{"sl":"en","q":"locker room","main":"роздягальня","bd":[["noun",["роздягальня"]]]}
+{"sl":"uk","q":"відбірковий матч","main":"qualifying match","bd":[]}
+{"sl":"en","q":"qualifier","main":"кваліфікатор","bd":[["noun",["визначник","підготовник до певної діяльності"]]]}
+{"sl":"uk","q":"півфінал","main":"semifinal","bd":[["noun",["semifinal"]]]}
+{"sl":"en","q":"semi-final","main":"півфінал","bd":[["adjective",["півфінальний"]],["noun",["півфінал","півфінальна гра"]]]}
+{"sl":"uk","q":"чесна гра","main":"fair game","bd":[]}
+{"sl":"en","q":"fair play","main":"чесна гра","bd":[["noun",["гра за правилами"]]]}
+{"sl":"uk","q":"дискваліфікація","main":"disqualification","bd":[["noun",["disqualification"]]]}
+{"sl":"en","q":"disqualification","main":"дискваліфікація","bd":[["noun",["дискваліфікація","неправоздатність","непридатність"]]]}
+{"sl":"uk","q":"віцечемпіон","main":"vice champion","bd":[]}
+{"sl":"en","q":"runner-up","main":"друге місце","bd":[]}
+{"sl":"uk","q":"особистий рекорд","main":"personal record","bd":[]}
+{"sl":"en","q":"personal best","main":"особистий рекорд","bd":[]}
+{"sl":"uk","q":"місце в рейтингу","main":"place in the rating","bd":[]}
+{"sl":"en","q":"ranking","main":"рейтинг","bd":[["adjective",["високопосавлений","старший за званням","вищестоящий"]],["noun",["розстановка","розташування"]]]}
+{"sl":"uk","q":"тренувальне заняття","main":"training class","bd":[]}
+{"sl":"en","q":"training session","main":"навчальна сесія","bd":[]}
+{"sl":"uk","q":"план тренувань","main":"training plan","bd":[]}
+{"sl":"en","q":"training plan","main":"план навчання","bd":[]}
+{"sl":"uk","q":"тренувальна програма","main":"training program","bd":[]}
+{"sl":"en","q":"workout routine","main":"розпорядок тренувань","bd":[]}
+{"sl":"uk","q":"добір вправ","main":"selection of exercises","bd":[]}
+{"sl":"en","q":"exercise selection","main":"вибір вправи","bd":[]}
+{"sl":"uk","q":"поділ тренувань за групами м'язів","main":"division of training by muscle groups","bd":[]}
+{"sl":"en","q":"training split","main":"навчальний спліт","bd":[]}
+{"sl":"uk","q":"тренування всього тіла","main":"full body workout","bd":[]}
+{"sl":"en","q":"full-body workout","main":"тренування всього тіла","bd":[]}
+{"sl":"uk","q":"тренування верхньої частини тіла","main":"upper body training","bd":[]}
+{"sl":"en","q":"upper-body workout","main":"тренування верхньої частини тіла","bd":[]}
+{"sl":"uk","q":"тренування нижньої частини тіла","main":"lower body training","bd":[]}
+{"sl":"en","q":"lower-body workout","main":"тренування нижньої частини тіла","bd":[]}
+{"sl":"uk","q":"тренування поштовхових м'язів","main":"training of push muscles","bd":[]}
+{"sl":"en","q":"push workout","main":"поштовхове тренування","bd":[]}
+{"sl":"uk","q":"тренування тягових м'язів","main":"traction muscle training","bd":[]}
+{"sl":"en","q":"pull workout","main":"тягнути тренування","bd":[]}
+{"sl":"uk","q":"день тренування ніг","main":"leg workout day","bd":[]}
+{"sl":"en","q":"leg day","main":"день ніг","bd":[]}
+{"sl":"uk","q":"день відпочинку","main":"rest day","bd":[]}
+{"sl":"en","q":"rest day","main":"день відпочинку","bd":[]}
+{"sl":"uk","q":"розминка","main":"workout","bd":[["noun",["workout","warm-up","limbering-up","warming-up"]]]}
+{"sl":"en","q":"warm-up","main":"розминка","bd":[["noun",["розминка"]]]}
+{"sl":"uk","q":"заминка","main":"hitch","bd":[]}
+{"sl":"en","q":"cool-down","main":"охолодження","bd":[["verb",["втихомірювати","заспокоювати"]]]}
+{"sl":"uk","q":"основний блок","main":"the main unit","bd":[]}
+{"sl":"en","q":"main set","main":"основний набір","bd":[]}
+{"sl":"uk","q":"колове тренування","main":"circular training","bd":[]}
+{"sl":"en","q":"circuit training","main":"кругові тренування","bd":[]}
+{"sl":"uk","q":"інтервальне тренування","main":"interval training","bd":[]}
+{"sl":"en","q":"interval training","main":"інтервальні тренування","bd":[]}
+{"sl":"uk","q":"силове тренування","main":"strength training","bd":[]}
+{"sl":"en","q":"strength training","main":"силові тренування","bd":[]}
+{"sl":"uk","q":"тренування з опором","main":"resistance training","bd":[]}
+{"sl":"en","q":"resistance training","main":"тренування опору","bd":[]}
+{"sl":"uk","q":"тренування з обтяженнями","main":"weight training","bd":[]}
+{"sl":"en","q":"weight training","main":"силові тренування","bd":[]}
+{"sl":"uk","q":"кардіотренування","main":"cardio training","bd":[]}
+{"sl":"en","q":"cardio training","main":"кардіотренування","bd":[]}
+{"sl":"uk","q":"функціональне тренування","main":"functional training","bd":[]}
+{"sl":"en","q":"functional training","main":"функціональний тренінг","bd":[]}
+{"sl":"uk","q":"перехресне тренування","main":"cross training","bd":[]}
+{"sl":"en","q":"cross-training","main":"перехресне навчання","bd":[]}
+{"sl":"uk","q":"персональне тренування","main":"personal training","bd":[]}
+{"sl":"en","q":"personal training","main":"персональні тренування","bd":[]}
+{"sl":"uk","q":"групове заняття","main":"group lesson","bd":[]}
+{"sl":"en","q":"group class","main":"групове заняття","bd":[]}
+{"sl":"uk","q":"домашнє тренування","main":"home workout","bd":[]}
+{"sl":"en","q":"home workout","main":"домашнє тренування","bd":[]}
+{"sl":"uk","q":"тренування з вагою власного тіла","main":"body weight training","bd":[]}
+{"sl":"en","q":"bodyweight workout","main":"тренування з вагою тіла","bd":[]}
+{"sl":"uk","q":"частота тренувань","main":"training frequency","bd":[]}
+{"sl":"en","q":"training frequency","main":"частота тренувань","bd":[]}
+{"sl":"uk","q":"обсяг тренування","main":"training volume","bd":[]}
+{"sl":"en","q":"training volume","main":"обсяг навчання","bd":[]}
+{"sl":"uk","q":"інтенсивність тренування","main":"training intensity","bd":[]}
+{"sl":"en","q":"training intensity","main":"інтенсивність тренувань","bd":[]}
+{"sl":"uk","q":"порядок вправ","main":"order of exercises","bd":[]}
+{"sl":"en","q":"exercise order","main":"порядок вправ","bd":[]}
+{"sl":"uk","q":"співвідношення роботи й відпочинку","main":"the ratio of work and rest","bd":[]}
+{"sl":"en","q":"work-to-rest ratio","main":"співвідношення роботи та відпочинку","bd":[]}
+{"sl":"uk","q":"робити заминку","main":"make a hitch","bd":[]}
+{"sl":"en","q":"to cool down","main":"щоб охолонути","bd":[]}
+{"sl":"uk","q":"повторення","main":"repetition","bd":[["noun",["repetition","repeat","reiteration","duplication","iteration","relapse","rehearsal","iterance"]]]}
+{"sl":"en","q":"repetition","main":"повторення","bd":[["noun",["наслідування","повторення"]]]}
+{"sl":"uk","q":"раунд у тренуванні","main":"round in training","bd":[]}
+{"sl":"en","q":"workout round","main":"тренувальний раунд","bd":[]}
+{"sl":"uk","q":"робоча вага","main":"working weight","bd":[]}
+{"sl":"en","q":"working weight","main":"робоча маса","bd":[]}
+{"sl":"uk","q":"вага тіла","main":"body weight","bd":[]}
+{"sl":"en","q":"body weight","main":"маса тіла","bd":[]}
+{"sl":"uk","q":"максимум на одне повторення","main":"for a maximum of one repetition","bd":[]}
+{"sl":"en","q":"one-rep max","main":"одне повторення макс","bd":[]}
+{"sl":"uk","q":"діапазон повторень","main":"rep range","bd":[]}
+{"sl":"en","q":"rep range","main":"діапазон повторень","bd":[]}
+{"sl":"uk","q":"інтервал відпочинку","main":"rest interval","bd":[]}
+{"sl":"en","q":"rest interval","main":"інтервал відпочинку","bd":[]}
+{"sl":"uk","q":"темп виконання","main":"pace of execution","bd":[]}
+{"sl":"en","q":"tempo","main":"темп","bd":[["noun",["ритм","темп","швидкість"]]]}
+{"sl":"uk","q":"амплітуда руху","main":"amplitude of movement","bd":[]}
+{"sl":"en","q":"range of motion","main":"діапазон руху","bd":[]}
+{"sl":"uk","q":"час під навантаженням","main":"time under load","bd":[]}
+{"sl":"en","q":"time under tension","main":"час під напругою","bd":[]}
+{"sl":"uk","q":"фізичне напруження","main":"physical stress","bd":[]}
+{"sl":"en","q":"exertion","main":"напруга","bd":[["noun",["зусилля","мозоля","намога","напруга","напруження"]]]}
+{"sl":"uk","q":"м'язова відмова","main":"muscle failure","bd":[]}
+{"sl":"en","q":"muscular failure","main":"м'язова недостатність","bd":[]}
+{"sl":"uk","q":"повторення в запасі","main":"repetition in stock","bd":[]}
+{"sl":"en","q":"reps in reserve","main":"повторень у резерві","bd":[]}
+{"sl":"uk","q":"суб'єктивна оцінка навантаження","main":"subjective load assessment","bd":[]}
+{"sl":"en","q":"rate of perceived exertion","main":"швидкість сприйнятого навантаження","bd":[]}
+{"sl":"uk","q":"поступове збільшення навантаження","main":"gradual increase in load","bd":[]}
+{"sl":"en","q":"progressive overload","main":"прогресуюче перевантаження","bd":[]}
+{"sl":"uk","q":"прогресія","main":"progression","bd":[["noun",["progression"]]]}
+{"sl":"en","q":"progression","main":"прогресування","bd":[["noun",["послідовність","прогрес","прогресія","просування","рух","секвенція"]]]}
+{"sl":"uk","q":"спрощений варіант вправи","main":"a simplified version of the exercise","bd":[]}
+{"sl":"en","q":"regression","main":"регресія","bd":[["noun",["повернення до вихідної точки","регрес"]]]}
+{"sl":"uk","q":"суперсет","main":"superset","bd":[]}
+{"sl":"en","q":"superset","main":"супермножина","bd":[]}
+{"sl":"uk","q":"дроп-сет","main":"drop set","bd":[]}
+{"sl":"en","q":"drop set","main":"дроп набір","bd":[]}
+{"sl":"uk","q":"пірамідальний підхід","main":"pyramid approach","bd":[]}
+{"sl":"en","q":"pyramid set","main":"набір пірамід","bd":[]}
+{"sl":"uk","q":"вільні ваги","main":"free weights","bd":[]}
+{"sl":"en","q":"free weights","main":"вільні ваги","bd":[]}
+{"sl":"uk","q":"штанга","main":"barbell","bd":[["noun",["barbell","bar","weight"]]]}
+{"sl":"en","q":"barbell","main":"штанга","bd":[["noun",["гантель","штанга"]]]}
+{"sl":"uk","q":"диск для штанги","main":"rod disc","bd":[]}
+{"sl":"en","q":"weight plate","main":"вагова пластина","bd":[]}
+{"sl":"uk","q":"гиря","main":"weight","bd":[["noun",["weight","bell","poise"]]]}
+{"sl":"en","q":"kettlebell","main":"гиря","bd":[]}
+{"sl":"uk","q":"набивний м'яч","main":"stuffed ball","bd":[]}
+{"sl":"en","q":"medicine ball","main":"медичний м'яч","bd":[]}
+{"sl":"uk","q":"важкий м'яч для кидків","main":"heavy ball for throws","bd":[]}
+{"sl":"en","q":"slam ball","main":"ударний м'яч","bd":[]}
+{"sl":"uk","q":"еластична стрічка","main":"elastic band","bd":[]}
+{"sl":"en","q":"resistance band","main":"смуга опору","bd":[]}
+{"sl":"uk","q":"кільцева еластична стрічка","main":"circular elastic band","bd":[]}
+{"sl":"en","q":"loop band","main":"петелька","bd":[]}
+{"sl":"uk","q":"регульована лава","main":"adjustable bench","bd":[]}
+{"sl":"en","q":"adjustable bench","main":"регульована лавка","bd":[]}
+{"sl":"uk","q":"стійка для присідань","main":"squat rack","bd":[]}
+{"sl":"en","q":"squat rack","main":"стійка для присідань","bd":[]}
+{"sl":"uk","q":"силова рама","main":"power frame","bd":[]}
+{"sl":"en","q":"power rack","main":"силова стійка","bd":[]}
+{"sl":"uk","q":"турнік","main":"horizontal bar","bd":[]}
+{"sl":"en","q":"pull-up bar","main":"штанга для підтягувань","bd":[]}
+{"sl":"uk","q":"бруси","main":"bars","bd":[["noun",["girder","cant"]]]}
+{"sl":"en","q":"dip bars","main":"дип-бари","bd":[]}
+{"sl":"uk","q":"блоковий тренажер","main":"block simulator","bd":[]}
+{"sl":"en","q":"cable machine","main":"кабельна машина","bd":[]}
+{"sl":"uk","q":"блок","main":"bloc","bd":[["noun",["bloc","sheave","alignment","alinement","bodycheck"]]]}
+{"sl":"en","q":"pulley","main":"шків","bd":[["noun",["коловорот","шків"]]]}
+{"sl":"uk","q":"тренажер для вертикальної тяги","main":"simulator for vertical traction","bd":[]}
+{"sl":"en","q":"lat pulldown machine","main":"lat pulldown machine","bd":[]}
+{"sl":"uk","q":"тренажер для жиму ногами","main":"exercise machine for leg press","bd":[]}
+{"sl":"en","q":"leg press machine","main":"машина для жиму ногами","bd":[]}
+{"sl":"uk","q":"тренажер Сміта","main":"Smith's simulator","bd":[]}
+{"sl":"en","q":"Smith machine","main":"Машина Сміта","bd":[]}
+{"sl":"uk","q":"гребний тренажер","main":"rowing machine","bd":[]}
+{"sl":"en","q":"rowing machine","main":"гребна машина","bd":[]}
+{"sl":"uk","q":"велотренажер","main":"exercise bike","bd":[]}
+{"sl":"en","q":"exercise bike","main":"велотренажер","bd":[]}
+{"sl":"uk","q":"еліптичний тренажер","main":"elliptical trainer","bd":[]}
+{"sl":"en","q":"elliptical trainer","main":"еліптичний тренажер","bd":[]}
+{"sl":"uk","q":"сходовий тренажер","main":"stair trainer","bd":[]}
+{"sl":"en","q":"stair climber","main":"альпініст по сходах","bd":[]}
+{"sl":"uk","q":"масажний ролик","main":"massage roller","bd":[]}
+{"sl":"en","q":"foam roller","main":"поролоновий валик","bd":[]}
+{"sl":"uk","q":"килимок для вправ","main":"mat for exercises","bd":[]}
+{"sl":"en","q":"exercise mat","main":"тренажерний килимок","bd":[]}
+{"sl":"uk","q":"степ-платформа","main":"step platform","bd":[]}
+{"sl":"en","q":"step platform","main":"степ-платформа","bd":[]}
+{"sl":"uk","q":"пліометрична тумба","main":"plyometric bench","bd":[]}
+{"sl":"en","q":"plyometric box","main":"пліометрична коробка","bd":[]}
+{"sl":"uk","q":"атлетичний пояс","main":"athletic belt","bd":[]}
+{"sl":"en","q":"lifting belt","main":"підйомний пояс","bd":[]}
+{"sl":"uk","q":"кистьові бинти","main":"hand bandages","bd":[]}
+{"sl":"en","q":"wrist wraps","main":"пов'язки для зап'ястя","bd":[]}
+{"sl":"uk","q":"лямки для тяги","main":"traction straps","bd":[]}
+{"sl":"en","q":"lifting straps","main":"підйомні ремені","bd":[]}
+{"sl":"uk","q":"пляшка для води","main":"water bottle","bd":[]}
+{"sl":"en","q":"water bottle","main":"пляшка води","bd":[]}
+{"sl":"uk","q":"спортивна сумка","main":"sports bag","bd":[]}
+{"sl":"en","q":"gym bag","main":"спортивна сумка","bd":[]}
+{"sl":"uk","q":"кардіо","main":"cardio","bd":[["prefix",["cardio-"]]]}
+{"sl":"en","q":"cardio","main":"кардіо","bd":[["prefix",["кардіо-"]]]}
+{"sl":"uk","q":"перевантаження","main":"overload","bd":[["noun",["overload","overloading","overwork","overburden","overcharge","overfreight","surcharge"]]]}
+{"sl":"en","q":"overload","main":"перевантаження","bd":[["noun",["перевантаження","переобтяження"]],["verb",["обважувати","перевантажувати","переобтяжувати","перетяжати","форсувати режим праці"]]]}
+{"sl":"uk","q":"еліптичний","main":"elliptic","bd":[["adjective",["elliptic","elliptical"]]]}
+{"sl":"en","q":"elliptical","main":"еліптичний","bd":[["adjective",["еліптичний","овальний","з пропуском"]]]}
+{"sl":"uk","q":"положення стоячи","main":"standing position","bd":[]}
+{"sl":"en","q":"standing","main":"стоячи","bd":[["adjective",["неподвижний","стоячий","непорушний","нерухливий","нерухомий","постійний"]],["noun",["стаж","тривалість","становище","стояння"]]]}
+{"sl":"uk","q":"у положенні сидячи","main":"in a sitting position","bd":[]}
+{"sl":"en","q":"seated","main":"сидячи","bd":[["verb",["посадити","уміщати","розсаджувати","розсаджуватися","саджати","садовити"]]]}
+{"sl":"uk","q":"лежачи на спині","main":"lying on your back","bd":[]}
+{"sl":"en","q":"supine","main":"лежачи на спині","bd":[["adjective",["долонею вгору","що лежить горілиць","лінивий"]]]}
+{"sl":"uk","q":"навкарачки","main":"back to back","bd":[]}
+{"sl":"en","q":"all fours","main":"усі четверо","bd":[]}
+{"sl":"uk","q":"вихідне положення","main":"starting position","bd":[]}
+{"sl":"en","q":"starting position","main":"вихідне положення","bd":[]}
+{"sl":"uk","q":"нейтральне положення","main":"neutral position","bd":[]}
+{"sl":"en","q":"neutral position","main":"нейтральна позиція","bd":[]}
+{"sl":"uk","q":"широка стійка","main":"wide rack","bd":[]}
+{"sl":"en","q":"wide stance","main":"широка стійка","bd":[]}
+{"sl":"uk","q":"вузька стійка","main":"narrow rack","bd":[]}
+{"sl":"en","q":"narrow stance","main":"вузька позиція","bd":[]}
+{"sl":"uk","q":"різнойменна стійка","main":"variable rack","bd":[]}
+{"sl":"en","q":"split stance","main":"роздвоєна позиція","bd":[]}
+{"sl":"uk","q":"хват зверху","main":"top grip","bd":[]}
+{"sl":"en","q":"overhand grip","main":"хват зверху","bd":[]}
+{"sl":"uk","q":"хват знизу","main":"bottom grip","bd":[]}
+{"sl":"en","q":"underhand grip","main":"підручний хват","bd":[]}
+{"sl":"uk","q":"нейтральний хват","main":"neutral grip","bd":[]}
+{"sl":"en","q":"neutral grip","main":"нейтральний хват","bd":[]}
+{"sl":"uk","q":"на ширині плечей","main":"shoulder width apart","bd":[]}
+{"sl":"en","q":"shoulder-width apart","main":"на ширині плечей","bd":[]}
+{"sl":"uk","q":"на ширині стегон","main":"at hip width","bd":[]}
+{"sl":"en","q":"hip-width apart","main":"на ширині стегон","bd":[]}
+{"sl":"uk","q":"боком","main":"sideways","bd":[["adverb",["sideways","sidelong","sideway","sidewise"]]]}
+{"sl":"en","q":"sideways","main":"набік","bd":[["adjective",["косий","непрямий"]],["adverb",["боком","косо","скоса","збоку"]]]}
+{"sl":"uk","q":"угору","main":"up","bd":[["adverb",["up","upward","upwards","skyward","uppermost","skywards","upgrade"]],["preposition",["up"]]]}
+{"sl":"en","q":"upward","main":"вгору","bd":[["adjective",["спрямований угору"]],["adverb",["більш","більше","догори","нагору","угору"]]]}
+{"sl":"uk","q":"униз","main":"down","bd":[["adverb",["down","below","downwards","downhill","downward","downstairs","under","netherward"]],["preposition",["down"]]]}
+{"sl":"en","q":"downward","main":"вниз","bd":[["adjective",["погіршуваний","пригнічений","спадний"]],["adverb",["вділ","униз","наниз","низом","по низхідній лінії"]]]}
+{"sl":"uk","q":"стати навколішки","main":"kneel down","bd":[]}
+{"sl":"en","q":"to kneel","main":"стати на коліна","bd":[["verb",["покірно благати","клячіти","ставати навколішки","схиляти коліна"]]]}
+{"sl":"uk","q":"випрямляти","main":"straighten","bd":[["verb",["straighten","rectify","erect","unbend"]]]}
+{"sl":"en","q":"to straighten","main":"випрямити","bd":[["verb",["випрямляти","випрямлятися","давати лад","напростати","розгинати","розправитися","розправляти","розправлятися"]]]}
+{"sl":"en","q":"breathing","main":"дихання","bd":[["noun",["дихання","момент","пахощі","подих","подув"]]]}
+{"sl":"uk","q":"вдихати","main":"inhale","bd":[["verb",["inhale","breathe","breathe in","respire","draw","imbibe"]]]}
+{"sl":"en","q":"to inhale","main":"вдихати","bd":[["verb",["вдихати","вдихувати","робити інгаляцію","надихати"]]]}
+{"sl":"uk","q":"видихати","main":"exhale","bd":[["verb",["exhale","breathe out","expire"]]]}
+{"sl":"en","q":"to exhale","main":"видихати","bd":[["verb",["видихати","видхнути","визівати","випаровуватися","парувати"]]]}
+{"sl":"uk","q":"віджимання","main":"push up","bd":[["noun",["wring"]]]}
+{"sl":"en","q":"push-up","main":"віджимання","bd":[["noun",["жим з упору","зарядка"]]]}
+{"sl":"uk","q":"віджимання з колін","main":"push-ups from the knees","bd":[]}
+{"sl":"en","q":"knee push-up","main":"віджимання колін","bd":[]}
+{"sl":"uk","q":"віджимання широким хватом","main":"push-ups with a wide grip","bd":[]}
+{"sl":"en","q":"wide-grip push-up","main":"віджимання широким хватом","bd":[]}
+{"sl":"uk","q":"віджимання вузьким хватом","main":"push-ups with a narrow grip","bd":[]}
+{"sl":"en","q":"diamond push-up","main":"алмазний віджимання","bd":[]}
+{"sl":"uk","q":"жим лежачи","main":"bench press","bd":[]}
+{"sl":"en","q":"bench press","main":"жим лежачи","bd":[]}
+{"sl":"uk","q":"жим лежачи на похилій лаві","main":"bench press while lying on an incline bench","bd":[]}
+{"sl":"en","q":"incline bench press","main":"жим лежачи в нахилі","bd":[]}
+{"sl":"uk","q":"жим від грудей","main":"chest press","bd":[]}
+{"sl":"en","q":"chest press","main":"грудний прес","bd":[]}
+{"sl":"uk","q":"розведення рук для грудних м'язів","main":"raising hands for pectoral muscles","bd":[]}
+{"sl":"en","q":"chest fly","main":"грудна муха","bd":[]}
+{"sl":"uk","q":"підтягування","main":"pulling up","bd":[["noun",["drawing","warping","pull-up"]]]}
+{"sl":"en","q":"pull-up","main":"підтягування","bd":[["noun",["вихід з пікірування","раптова зупинка","натягування","підтягування"]]]}
+{"sl":"uk","q":"підтягування зворотним хватом","main":"reverse grip pull-up","bd":[]}
+{"sl":"en","q":"chin-up","main":"підборіддя","bd":[]}
+{"sl":"uk","q":"підтягування з допомогою","main":"pulling up with help","bd":[]}
+{"sl":"en","q":"assisted pull-up","main":"підтягування з допомогою","bd":[]}
+{"sl":"uk","q":"тяга верхнього блока","main":"traction of the upper block","bd":[]}
+{"sl":"en","q":"lat pulldown","main":"lat pulldown","bd":[]}
+{"sl":"uk","q":"тяга в нахилі","main":"traction in an incline","bd":[]}
+{"sl":"en","q":"bent-over row","main":"відігнутий ряд","bd":[]}
+{"sl":"uk","q":"горизонтальна тяга блока сидячи","main":"horizontal thrust block while sitting","bd":[]}
+{"sl":"en","q":"seated cable row","main":"сидячий кабельний ряд","bd":[]}
+{"sl":"uk","q":"тяга гантелі однією рукою","main":"dumbbell pull with one hand","bd":[]}
+{"sl":"en","q":"one-arm dumbbell row","main":"розгинання гантелей однією рукою","bd":[]}
+{"sl":"uk","q":"горизонтальне підтягування","main":"horizontal pull-up","bd":[]}
+{"sl":"en","q":"inverted row","main":"виворітний ряд","bd":[]}
+{"sl":"uk","q":"жим над головою","main":"overhead press","bd":[]}
+{"sl":"en","q":"overhead press","main":"прес над головою","bd":[]}
+{"sl":"uk","q":"армійський жим","main":"army press","bd":[]}
+{"sl":"en","q":"military press","main":"військова преса","bd":[]}
+{"sl":"uk","q":"піднімання рук у сторони","main":"raising arms to the sides","bd":[]}
+{"sl":"en","q":"lateral raise","main":"бічний підйом","bd":[]}
+{"sl":"uk","q":"піднімання рук перед собою","main":"raising hands in front of you","bd":[]}
+{"sl":"en","q":"front raise","main":"передній підйом","bd":[]}
+{"sl":"uk","q":"розведення рук на задню дельту","main":"spreading the hands on the rear deltoid","bd":[]}
+{"sl":"en","q":"rear delt fly","main":"задня дельтоподібна мушка","bd":[]}
+{"sl":"uk","q":"тяга каната до обличчя","main":"rope pull to the face","bd":[]}
+{"sl":"en","q":"face pull","main":"витягнути обличчя","bd":[]}
+{"sl":"uk","q":"згинання рук на біцепс","main":"bending the arms on the biceps","bd":[]}
+{"sl":"en","q":"biceps curl","main":"згинання біцепса","bd":[]}
+{"sl":"uk","q":"молоткове згинання рук","main":"hammer flexion of the arms","bd":[]}
+{"sl":"en","q":"hammer curl","main":"молотковий завиток","bd":[]}
+{"sl":"uk","q":"згинання рук на похилій підставці","main":"bending of the arms on an inclined stand","bd":[]}
+{"sl":"en","q":"preacher curl","main":"проповідник завиток","bd":[]}
+{"sl":"uk","q":"розгинання рук на трицепс","main":"triceps extension","bd":[]}
+{"sl":"en","q":"triceps extension","main":"розгинання трицепса","bd":[]}
+{"sl":"uk","q":"розгинання рук на верхньому блоці","main":"extension of the arms on the upper block","bd":[]}
+{"sl":"en","q":"triceps pushdown","main":"віджимання на трицепс","bd":[]}
+{"sl":"uk","q":"французький жим лежачи","main":"French bench press","bd":[]}
+{"sl":"en","q":"skull crusher","main":"дробарка черепа","bd":[]}
+{"sl":"uk","q":"зворотне віджимання від лави","main":"reverse bench press","bd":[]}
+{"sl":"en","q":"bench dip","main":"занурення на лаву","bd":[]}
+{"sl":"uk","q":"вис на перекладині","main":"hanging on the crossbar","bd":[]}
+{"sl":"en","q":"dead hang","main":"мертвий висить","bd":[]}
+{"sl":"uk","q":"фермерська хода","main":"farm walk","bd":[]}
+{"sl":"en","q":"farmer's carry","main":"перенесення фермера","bd":[]}
+{"sl":"uk","q":"згинати руку з вагою","main":"bend the arm with weight","bd":[]}
+{"sl":"en","q":"to curl","main":"завивати","bd":[["verb",["витися","завити","закручувати","підкрутіти","завивати","клубочитися"]]]}
+{"sl":"uk","q":"присідання з вагою власного тіла","main":"body weight squats","bd":[]}
+{"sl":"en","q":"bodyweight squat","main":"присідання з вагою тіла","bd":[]}
+{"sl":"uk","q":"присідання зі штангою на спині","main":"squats with a barbell on the back","bd":[]}
+{"sl":"en","q":"back squat","main":"задній присід","bd":[]}
+{"sl":"uk","q":"фронтальне присідання","main":"front squat","bd":[]}
+{"sl":"en","q":"front squat","main":"передній присід","bd":[]}
+{"sl":"uk","q":"присідання з вагою біля грудей","main":"squat with the weight near the chest","bd":[]}
+{"sl":"en","q":"goblet squat","main":"гоблет присідання","bd":[]}
+{"sl":"uk","q":"присідання сумо","main":"sumo squat","bd":[]}
+{"sl":"en","q":"sumo squat","main":"сумо присідання","bd":[]}
+{"sl":"uk","q":"роздільне присідання","main":"split squat","bd":[]}
+{"sl":"en","q":"split squat","main":"розділене присідання","bd":[]}
+{"sl":"uk","q":"статичне присідання біля стіни","main":"static squat against the wall","bd":[]}
+{"sl":"en","q":"wall sit","main":"стіна сидіти","bd":[]}
+{"sl":"uk","q":"болгарське роздільне присідання","main":"Bulgarian split squat","bd":[]}
+{"sl":"en","q":"Bulgarian split squat","main":"Болгарський спліт-присідання","bd":[]}
+{"sl":"uk","q":"випад уперед","main":"lunge forward","bd":[]}
+{"sl":"en","q":"forward lunge","main":"випад вперед","bd":[]}
+{"sl":"uk","q":"зворотний випад","main":"back lunge","bd":[]}
+{"sl":"en","q":"reverse lunge","main":"зворотний випад","bd":[]}
+{"sl":"uk","q":"випади в русі","main":"lunges in motion","bd":[]}
+{"sl":"en","q":"walking lunge","main":"ходьба випад","bd":[]}
+{"sl":"uk","q":"бічний випад","main":"side lunge","bd":[]}
+{"sl":"en","q":"side lunge","main":"бічний випад","bd":[]}
+{"sl":"uk","q":"перехресний випад","main":"cross lunge","bd":[]}
+{"sl":"en","q":"curtsy lunge","main":"випад реверансу","bd":[]}
+{"sl":"uk","q":"станова тяга","main":"deadlift","bd":[]}
+{"sl":"en","q":"deadlift","main":"станова тяга","bd":[]}
+{"sl":"uk","q":"румунська тяга","main":"Romanian cravings","bd":[]}
+{"sl":"en","q":"Romanian deadlift","main":"Румунська станова тяга","bd":[]}
+{"sl":"uk","q":"станова тяга сумо","main":"sumo deadlift","bd":[]}
+{"sl":"en","q":"sumo deadlift","main":"станова тяга сумо","bd":[]}
+{"sl":"uk","q":"станова тяга на одній нозі","main":"deadlift on one leg","bd":[]}
+{"sl":"en","q":"single-leg deadlift","main":"станова тяга однією ногою","bd":[]}
+{"sl":"uk","q":"нахил від тазостегнового суглоба","main":"tilt from the hip joint","bd":[]}
+{"sl":"en","q":"hip hinge","main":"стегновий шарнір","bd":[]}
+{"sl":"uk","q":"тазовий міст з опорою спиною","main":"pelvic bridge with back support","bd":[]}
+{"sl":"en","q":"hip thrust","main":"тяга стегна","bd":[]}
+{"sl":"uk","q":"сідничний міст","main":"sciatic bridge","bd":[]}
+{"sl":"en","q":"glute bridge","main":"сідничний міст","bd":[]}
+{"sl":"uk","q":"жим ногами","main":"leg press","bd":[]}
+{"sl":"en","q":"leg press","main":"жим ногами","bd":[]}
+{"sl":"uk","q":"розгинання ніг у тренажері","main":"leg extension in the simulator","bd":[]}
+{"sl":"en","q":"leg extension","main":"розгинання ніг","bd":[]}
+{"sl":"uk","q":"згинання ніг у тренажері","main":"bending legs in the simulator","bd":[]}
+{"sl":"en","q":"leg curl","main":"завиток ніг","bd":[]}
+{"sl":"uk","q":"піднімання на носки","main":"lifting on toes","bd":[]}
+{"sl":"en","q":"calf raise","main":"вирощування теляти","bd":[]}
+{"sl":"uk","q":"зашагування на платформу","main":"stepping on the platform","bd":[]}
+{"sl":"en","q":"step-up","main":"крок вгору","bd":[["verb",["підніматися угору"]]]}
+{"sl":"uk","q":"стрибок на тумбу","main":"jump on the bollard","bd":[]}
+{"sl":"en","q":"box jump","main":"коробка стрибок","bd":[]}
+{"sl":"uk","q":"стрибок у довжину з місця","main":"standing long jump","bd":[]}
+{"sl":"en","q":"broad jump","main":"стрибок у довжину","bd":[]}
+{"sl":"uk","q":"присідання зі стрибком","main":"squat with a jump","bd":[]}
+{"sl":"en","q":"jump squat","main":"стрибок присідання","bd":[]}
+{"sl":"uk","q":"мах ногою назад навкарачки","main":"back kick","bd":[]}
+{"sl":"en","q":"donkey kick","main":"ослячий удар","bd":[]}
+{"sl":"uk","q":"пожежний гідрант","main":"fire hydrant","bd":[]}
+{"sl":"en","q":"fire hydrant","main":"пожежний гідрант","bd":[]}
+{"sl":"uk","q":"відведення стегна","main":"hip abduction","bd":[]}
+{"sl":"en","q":"hip abduction","main":"відведення стегна","bd":[]}
+{"sl":"uk","q":"приведення стегна","main":"hip adduction","bd":[]}
+{"sl":"en","q":"hip adduction","main":"приведення стегна","bd":[]}
+{"sl":"uk","q":"різкий поштовх","main":"a sharp push","bd":[]}
+{"sl":"en","q":"thrust","main":"тяга","bd":[["noun",["випад","зустріч","поштовх","стусан"]],["verb",["засовувати","нав'язувати","совати","тикати","застромити","пиряти","штовхати","штовхатися"]]]}
+{"sl":"uk","q":"нахил поверхні","main":"surface slope","bd":[]}
+{"sl":"en","q":"incline","main":"нахил","bd":[["verb",["відхилятися","клонити","клонитися","нагинатися","наклонювати","нахилити","нахиляти","переважатися"]],["noun",["нахил","ухил"]]]}
+{"sl":"uk","q":"перевернутий","main":"upside down","bd":[["adjective",["inverse","preposterous"]]]}
+{"sl":"en","q":"inverted","main":"перевернутий","bd":[["adjective",["зворотний","перекинутий"]]]}
+{"sl":"uk","q":"келих","main":"a glass","bd":[["noun",["goblet","wineglass","chalice","beaker","bumper","bocal","cap","cistern"]]]}
+{"sl":"en","q":"goblet","main":"кубок","bd":[["noun",["бокал","келих","кубок","кубушка","чарка"]]]}
+{"sl":"uk","q":"реверанс","main":"curtsey","bd":[["noun",["curtsey","curtsy","obeisance","beck"]]]}
+{"sl":"en","q":"curtsy","main":"реверанс","bd":[["noun",["реверанс"]],["verb",["робити реверанс"]]]}
+{"sl":"uk","q":"ривок","main":"jerk","bd":[["noun",["jerk","spurt","dash","yank","sprint","wrest","dart","flounce"]]]}
+{"sl":"en","q":"jerk","main":"ривок","bd":[["noun",["зарядка","тупиця","здригання","ривок","судорожне сіпання"]],["verb",["сіпати","шарпати","сіпатися","штовхати","скубти","смикати"]]]}
+{"sl":"uk","q":"віслюк","main":"donkey","bd":[["noun",["ass","neddy"]]]}
+{"sl":"en","q":"donkey","main":"осел","bd":[["noun",["дурень","ішак","осел"]]]}
+{"sl":"uk","q":"бічний","main":"side","bd":[["adjective",["side","lateral","accessory","bastard"]]]}
+{"sl":"en","q":"lateral","main":"бічний","bd":[["adjective",["бічний","боковий","латеральний","побічний"]]]}
+{"sl":"uk","q":"сумо","main":"sumo","bd":[["noun",["sumo"]]]}
+{"sl":"en","q":"sumo","main":"сумо","bd":[["noun",["сумо"]]]}
+{"sl":"uk","q":"планка","main":"lath","bd":[["noun",["lath","strip","plank","cleat","ledge","gib","splint","splinter"]]]}
+{"sl":"en","q":"plank","main":"дошка","bd":[["noun",["товста дошка","планка","пункт партійної програми"]],["verb",["викладати гроші","настилати","ставити"]]]}
+{"sl":"uk","q":"планка на передпліччях","main":"bar on the forearms","bd":[]}
+{"sl":"en","q":"forearm plank","main":"планка передпліччя","bd":[]}
+{"sl":"uk","q":"планка на прямих руках","main":"bar on straight arms","bd":[]}
+{"sl":"en","q":"high plank","main":"висока планка","bd":[]}
+{"sl":"uk","q":"бічна планка","main":"side bar","bd":[]}
+{"sl":"en","q":"side plank","main":"бічна дошка","bd":[]}
+{"sl":"uk","q":"зворотна планка","main":"reverse bar","bd":[]}
+{"sl":"en","q":"reverse plank","main":"зворотна планка","bd":[]}
+{"sl":"uk","q":"скручування на прес","main":"twisting on the press","bd":[]}
+{"sl":"en","q":"crunch","main":"хрускіт","bd":[["noun",["скрип","хрускіт","тріск"]],["verb",["гризти","хрумкати","хрустіти","захрумкати","розгризати"]]]}
+{"sl":"uk","q":"зворотне скручування","main":"reverse twist","bd":[]}
+{"sl":"en","q":"reverse crunch","main":"зворотний хрускіт","bd":[]}
+{"sl":"uk","q":"велосипедні скручування","main":"bicycle twists","bd":[]}
+{"sl":"en","q":"bicycle crunch","main":"велосипедний хрускіт","bd":[]}
+{"sl":"uk","q":"бічне скручування","main":"lateral twisting","bd":[]}
+{"sl":"en","q":"oblique crunch","main":"косий хрускіт","bd":[]}
+{"sl":"uk","q":"піднімання ніг","main":"lifting legs","bd":[]}
+{"sl":"en","q":"leg raise","main":"підняття ноги","bd":[]}
+{"sl":"uk","q":"піднімання ніг у висі","main":"raising the legs in a vertical position","bd":[]}
+{"sl":"en","q":"hanging leg raise","main":"підняття висячої ноги","bd":[]}
+{"sl":"uk","q":"піднімання колін","main":"raising the knees","bd":[]}
+{"sl":"en","q":"knee raise","main":"підняти коліна","bd":[]}
+{"sl":"uk","q":"повороти корпуса сидячи","main":"twists of the body while sitting","bd":[]}
+{"sl":"en","q":"Russian twist","main":"Російський твіст","bd":[]}
+{"sl":"uk","q":"вправа альпініст","main":"exercise climber","bd":[]}
+{"sl":"en","q":"mountain climber","main":"альпініст","bd":[]}
+{"sl":"uk","q":"вправа мертвий жук","main":"exercise dead bug","bd":[]}
+{"sl":"en","q":"dead bug","main":"мертвий баг","bd":[]}
+{"sl":"uk","q":"вправа пташка-собака","main":"bird-dog exercise","bd":[]}
+{"sl":"en","q":"bird dog","main":"собака-птах","bd":[]}
+{"sl":"uk","q":"утримання порожнистого положення","main":"maintaining a hollow position","bd":[]}
+{"sl":"en","q":"hollow hold","main":"порожнистий утримання","bd":[]}
+{"sl":"uk","q":"вправа супермен","main":"superman exercise","bd":[]}
+{"sl":"en","q":"superman","main":"супермен","bd":[["noun",["надлюдина","надчоловік","супермен"]]]}
+{"sl":"uk","q":"розгинання спини","main":"back extension","bd":[]}
+{"sl":"en","q":"back extension","main":"розгинання спини","bd":[]}
+{"sl":"uk","q":"берпі","main":"burpee","bd":[]}
+{"sl":"en","q":"burpee","main":"Берпі","bd":[]}
+{"sl":"uk","q":"стрибки з розведенням рук і ніг","main":"jumps with spreading arms and legs","bd":[]}
+{"sl":"en","q":"jumping jack","main":"джампінг джек","bd":[]}
+{"sl":"uk","q":"ведмежа хода","main":"bear march","bd":[]}
+{"sl":"en","q":"bear crawl","main":"ведмежий крол","bd":[]}
+{"sl":"uk","q":"крабова хода","main":"crab walk","bd":[]}
+{"sl":"en","q":"crab walk","main":"прогулянка краба","bd":[]}
+{"sl":"uk","q":"вправа гусінь","main":"caterpillar exercise","bd":[]}
+{"sl":"en","q":"inchworm","main":"дюймовий черв'як","bd":[]}
+{"sl":"uk","q":"біг із високим підніманням колін","main":"running with high knee lifts","bd":[]}
+{"sl":"en","q":"high knees","main":"високі коліна","bd":[]}
+{"sl":"uk","q":"біг із захлестом гомілки","main":"running with shin splints","bd":[]}
+{"sl":"en","q":"butt kicks","main":"удари ногами","bd":[]}
+{"sl":"uk","q":"витривалість","main":"endurance","bd":[["noun",["endurance","perseverance","durability","hardiness","persistence","stay","lasting","sufferance"]]]}
+{"sl":"en","q":"endurance","main":"витривалість","bd":[["noun",["витривалість","витримка","довговічність","знегоди","зносостійкість","терплячість"]]]}
+{"sl":"uk","q":"запас сил","main":"reserve of strength","bd":[]}
+{"sl":"en","q":"stamina","main":"витривалість","bd":[["noun",["життєздатність","опірність"]]]}
+{"sl":"uk","q":"аеробне навантаження","main":"aerobic exercise","bd":[]}
+{"sl":"en","q":"aerobic exercise","main":"аеробні вправи","bd":[]}
+{"sl":"uk","q":"анаеробне навантаження","main":"anaerobic load","bd":[]}
+{"sl":"en","q":"anaerobic exercise","main":"анаеробні вправи","bd":[]}
+{"sl":"uk","q":"ходьба","main":"walking","bd":[["noun",["walking","walk","pedestrianism","going","go","perambulation"]]]}
+{"sl":"en","q":"walking","main":"ходьба","bd":[["adjective",["німий","ходовий","ходячий"]],["noun",["дорога","поведінка","ходьба","хода","ходиння"]]]}
+{"sl":"uk","q":"швидка ходьба","main":"fast walking","bd":[]}
+{"sl":"en","q":"brisk walking","main":"швидка ходьба","bd":[]}
+{"sl":"uk","q":"темп на кілометр","main":"pace per kilometer","bd":[]}
+{"sl":"en","q":"pace per kilometer","main":"темп на кілометр","bd":[]}
+{"sl":"uk","q":"швидкість руху","main":"speed of movement","bd":[]}
+{"sl":"en","q":"movement speed","main":"швидкість руху","bd":[]}
+{"sl":"uk","q":"частота серцевих скорочень","main":"heart rate","bd":[]}
+{"sl":"en","q":"heart rate","main":"частота серцевих скорочень","bd":[]}
+{"sl":"uk","q":"пульс у спокої","main":"pulse at rest","bd":[]}
+{"sl":"en","q":"resting heart rate","main":"частота серцевих скорочень у спокої","bd":[]}
+{"sl":"uk","q":"максимальна частота серцевих скорочень","main":"maximum heart rate","bd":[]}
+{"sl":"en","q":"maximum heart rate","main":"максимальна частота серцевих скорочень","bd":[]}
+{"sl":"uk","q":"пульсова зона","main":"pulse zone","bd":[]}
+{"sl":"en","q":"heart-rate zone","main":"зона серцевого ритму","bd":[]}
+{"sl":"uk","q":"рівномірне навантаження","main":"uniform load","bd":[]}
+{"sl":"en","q":"steady state","main":"стійкий стан","bd":[]}
+{"sl":"uk","q":"високоінтенсивне інтервальне тренування","main":"high-intensity interval training","bd":[]}
+{"sl":"en","q":"high-intensity interval training","main":"високоінтенсивні інтервальні тренування","bd":[]}
+{"sl":"uk","q":"низькоінтенсивне рівномірне кардіо","main":"low-intensity steady cardio","bd":[]}
+{"sl":"en","q":"low-intensity steady-state cardio","main":"низькоінтенсивне стабільне кардіотренування","bd":[]}
+{"sl":"uk","q":"біг угору","main":"ran up","bd":[]}
+{"sl":"en","q":"hill run","main":"біг під гору","bd":[]}
+{"sl":"uk","q":"біг пересіченою місцевістю","main":"cross-country running","bd":[]}
+{"sl":"en","q":"trail running","main":"трейл біг","bd":[]}
+{"sl":"uk","q":"півмарафон","main":"half marathon","bd":[]}
+{"sl":"en","q":"half marathon","main":"півмарафон","bd":[]}
+{"sl":"uk","q":"фінішна лінія","main":"finish line","bd":[]}
+{"sl":"en","q":"finish line","main":"фінішна пряма","bd":[]}
+{"sl":"uk","q":"стартова лінія","main":"starting line","bd":[]}
+{"sl":"en","q":"starting line","main":"стартова лінія","bd":[["noun",["старт"]]]}
+{"sl":"uk","q":"власний комфортний темп","main":"own comfortable pace","bd":[]}
+{"sl":"en","q":"personal pace","main":"особистий темп","bd":[]}
+{"sl":"uk","q":"задиханий","main":"breathless","bd":[["adjective",["breathless","blown","panting"]]]}
+{"sl":"en","q":"breathless","main":"задиханий","bd":[["adjective",["безвітряний","бездиханний","задиханий"]]]}
+{"sl":"uk","q":"захеканий","main":"winded","bd":[["adjective",["winded","puffy","blown","puffed","short-winded"]]]}
+{"sl":"en","q":"out of breath","main":"задихатися","bd":[]}
+{"sl":"uk","q":"розтягування","main":"stretching","bd":[["noun",["stretching","spreading"]]]}
+{"sl":"en","q":"stretching","main":"розтягування","bd":[["noun",["натягування","перебільшення","розтягування"]]]}
+{"sl":"uk","q":"статична розтяжка","main":"static stretching","bd":[]}
+{"sl":"en","q":"static stretch","main":"статична розтяжка","bd":[]}
+{"sl":"uk","q":"динамічна розтяжка","main":"dynamic stretching","bd":[]}
+{"sl":"en","q":"dynamic stretch","main":"динамічна розтяжка","bd":[]}
+{"sl":"uk","q":"активна розтяжка","main":"active stretching","bd":[]}
+{"sl":"en","q":"active stretch","main":"активна розтяжка","bd":[]}
+{"sl":"uk","q":"пасивна розтяжка","main":"passive stretching","bd":[]}
+{"sl":"en","q":"passive stretch","main":"пасивна розтяжка","bd":[]}
+{"sl":"uk","q":"вправа на рухливість","main":"mobility exercise","bd":[]}
+{"sl":"en","q":"mobility drill","main":"рухливість дриль","bd":[]}
+{"sl":"uk","q":"рухливість суглобів","main":"joint mobility","bd":[]}
+{"sl":"en","q":"joint mobility","main":"рухливість суглобів","bd":[]}
+{"sl":"uk","q":"вправа на амплітуду руху","main":"range of motion exercise","bd":[]}
+{"sl":"en","q":"range-of-motion exercise","main":"вправа на діапазон рухів","bd":[]}
+{"sl":"uk","q":"обертання шиєю","main":"neck rotation","bd":[]}
+{"sl":"en","q":"neck roll","main":"шийний рулон","bd":[]}
+{"sl":"uk","q":"обертання плечима","main":"shoulder rotation","bd":[]}
+{"sl":"en","q":"shoulder roll","main":"перекид плеча","bd":[]}
+{"sl":"uk","q":"обертання руками","main":"arm rotation","bd":[]}
+{"sl":"en","q":"arm circle","main":"коло рук","bd":[]}
+{"sl":"uk","q":"поворот тулуба","main":"turning the body","bd":[]}
+{"sl":"en","q":"torso rotation","main":"обертання тулуба","bd":[]}
+{"sl":"uk","q":"нахил убік","main":"lean to the side","bd":[]}
+{"sl":"en","q":"side bend","main":"бічний згин","bd":[]}
+{"sl":"uk","q":"обертання тазом","main":"rotation of the pelvis","bd":[]}
+{"sl":"en","q":"hip circle","main":"коло стегон","bd":[]}
+{"sl":"uk","q":"мах ногою","main":"kick","bd":[]}
+{"sl":"en","q":"leg swing","main":"махи ногою","bd":[]}
+{"sl":"uk","q":"обертання стопою","main":"rotation of the foot","bd":[]}
+{"sl":"en","q":"ankle circle","main":"коло щиколотки","bd":[]}
+{"sl":"uk","q":"розтяжка задньої поверхні стегна","main":"stretching of the back surface of the thigh","bd":[]}
+{"sl":"en","q":"hamstring stretch","main":"розтягнення підколінного сухожилля","bd":[]}
+{"sl":"uk","q":"розтяжка квадрицепса","main":"quadriceps stretch","bd":[]}
+{"sl":"en","q":"quadriceps stretch","main":"розтяжка квадрицепса","bd":[]}
+{"sl":"uk","q":"розтяжка литкового м'яза","main":"stretching of the calf muscle","bd":[]}
+{"sl":"en","q":"calf stretch","main":"розтяжка литок","bd":[]}
+{"sl":"uk","q":"розтяжка згиначів стегна","main":"stretching of the hip flexors","bd":[]}
+{"sl":"en","q":"hip flexor stretch","main":"розтягування згиначів стегна","bd":[]}
+{"sl":"uk","q":"розтяжка грудних м'язів","main":"stretching of the pectoral muscles","bd":[]}
+{"sl":"en","q":"chest stretch","main":"розтягування грудей","bd":[]}
+{"sl":"uk","q":"розтяжка плеча","main":"shoulder stretch","bd":[]}
+{"sl":"en","q":"shoulder stretch","main":"розтяжка плечей","bd":[]}
+{"sl":"uk","q":"поза дитини","main":"child's pose","bd":[]}
+{"sl":"en","q":"child's pose","main":"поза дитини","bd":[]}
+{"sl":"uk","q":"собака мордою вниз","main":"dog face down","bd":[]}
+{"sl":"en","q":"downward-facing dog","main":"собака, яка дивиться вниз","bd":[]}
+{"sl":"uk","q":"вправа кішка-корова","main":"cat-cow exercise","bd":[]}
+{"sl":"en","q":"cat-cow stretch","main":"кішка-корова розтягнути","bd":[]}
+{"sl":"uk","q":"утримання глибокого присідання","main":"holding a deep squat","bd":[]}
+{"sl":"en","q":"deep squat hold","main":"утримання глибокого присідання","bd":[]}
+{"sl":"uk","q":"розім'ятися","main":"to stretch","bd":[]}
+{"sl":"en","q":"to loosen up","main":"послабити","bd":[["verb",["пом'якшувати вимоги","разминатися"]]]}
+{"sl":"uk","q":"група м'язів","main":"muscle group","bd":[]}
+{"sl":"en","q":"muscle group","main":"група м'язів","bd":[]}
+{"sl":"uk","q":"м'язи спини","main":"back muscles","bd":[]}
+{"sl":"en","q":"back muscles","main":"м'язи спини","bd":[]}
+{"sl":"uk","q":"верхня частина спини","main":"upper back","bd":[]}
+{"sl":"en","q":"upper back","main":"верхня частина спини","bd":[]}
+{"sl":"uk","q":"найширший м'яз спини","main":"the broadest muscle of the back","bd":[]}
+{"sl":"en","q":"latissimus dorsi","main":"latissimus dorsi","bd":[]}
+{"sl":"uk","q":"трапецієподібний м'яз","main":"trapezius muscle","bd":[]}
+{"sl":"en","q":"trapezius","main":"трапеція","bd":[]}
+{"sl":"uk","q":"сила хвату","main":"grip strength","bd":[]}
+{"sl":"en","q":"grip strength","main":"сила зчеплення","bd":[]}
+{"sl":"uk","q":"м'язи живота","main":"abdominal muscles","bd":[]}
+{"sl":"en","q":"abdominal muscles","main":"м'язи живота","bd":[]}
+{"sl":"uk","q":"косі м'язи живота","main":"oblique abdominal muscles","bd":[]}
+{"sl":"en","q":"obliques","main":"косі м’язи живота","bd":[["noun",["коса лінія","перспективний аерофотознімок","похила лінія"]],["verb",["просуватися навскоси"]]]}
+{"sl":"uk","q":"поперечний м'яз живота","main":"transversus abdominis muscle","bd":[]}
+{"sl":"en","q":"transverse abdominis","main":"поперечний живіт","bd":[]}
+{"sl":"uk","q":"м'язи-випрямлячі хребта","main":"spine straightening muscles","bd":[]}
+{"sl":"en","q":"spinal erectors","main":"випрямлячі хребта","bd":[]}
+{"sl":"uk","q":"сідничні м'язи","main":"gluteal muscles","bd":[]}
+{"sl":"en","q":"gluteal muscles","main":"сідничні м'язи","bd":[]}
+{"sl":"uk","q":"великий сідничний м'яз","main":"gluteus maximus","bd":[]}
+{"sl":"en","q":"gluteus maximus","main":"великий сідничний м’яз","bd":[]}
+{"sl":"uk","q":"згиначі стегна","main":"hip flexors","bd":[]}
+{"sl":"en","q":"hip flexors","main":"згиначі стегна","bd":[]}
+{"sl":"uk","q":"задня група м'язів стегна","main":"posterior group of thigh muscles","bd":[]}
+{"sl":"en","q":"hamstrings","main":"підколінні сухожилля","bd":[["noun",["підколінне сухожилля"]],["verb",["калічити"]]]}
+{"sl":"uk","q":"внутрішня поверхня стегна","main":"inner surface of the thigh","bd":[]}
+{"sl":"en","q":"inner thigh","main":"внутрішня частина стегна","bd":[]}
+{"sl":"uk","q":"зовнішня поверхня стегна","main":"outer surface of the thigh","bd":[]}
+{"sl":"en","q":"outer thigh","main":"зовнішня частина стегна","bd":[]}
+{"sl":"uk","q":"колінний суглоб","main":"knee joint","bd":[["noun",["stifle"]]]}
+{"sl":"en","q":"knee joint","main":"колінний суглоб","bd":[]}
+{"sl":"uk","q":"гомілковостопний суглоб","main":"ankle joint","bd":[["noun",["ankle joint"]]]}
+{"sl":"en","q":"ankle joint","main":"гомілковостопний суглоб","bd":[["noun",["гомілковостопний суглоб"]]]}
+{"sl":"uk","q":"ліктьовий суглоб","main":"elbow joint","bd":[]}
+{"sl":"en","q":"elbow joint","main":"ліктьовий суглоб","bd":[]}
+{"sl":"uk","q":"активація м'яза","main":"muscle activation","bd":[]}
+{"sl":"en","q":"muscle activation","main":"активація м'язів","bd":[]}
+{"sl":"uk","q":"м'язовий дисбаланс","main":"muscle imbalance","bd":[]}
+{"sl":"en","q":"muscle imbalance","main":"м'язовий дисбаланс","bd":[]}
+{"sl":"uk","q":"черевний","main":"abdominal","bd":[["adjective",["abdominal","ventral","enteric","coeliac"]]]}
+{"sl":"en","q":"abdominal","main":"черевний","bd":[["adjective",["черевний"]]]}
+{"sl":"uk","q":"поперечний","main":"transverse","bd":[["adjective",["transverse","cross","transversal","diametric","diametral","thwart"]]]}
+{"sl":"en","q":"transverse","main":"поперечний","bd":[["verb",["переробляти","перетинати"]],["adjective",["поперечний"]]]}
+{"sl":"uk","q":"дисбаланс","main":"imbalance","bd":[["noun",["imbalance","disbalance","unbalance"]]]}
+{"sl":"en","q":"imbalance","main":"дисбаланс","bd":[["noun",["дисбаланс","невідповідність","нестійкість","відсутність рівноваги"]]]}
+{"sl":"uk","q":"м'яз-згинач","main":"flexor muscle","bd":[]}
+{"sl":"en","q":"flexor","main":"згинач","bd":[["noun",["згинач"]]]}
+{"sl":"uk","q":"альпініст","main":"climber","bd":[["noun",["climber","mountaineer","alpinist","cragsman","iceman"]]]}
+{"sl":"en","q":"climber","main":"альпініст","bd":[["noun",["альпініст","витка рослина","честолюбець"]]]}
+{"sl":"uk","q":"сідниці","main":"buttocks","bd":[["noun",["buttock","breech","fundament","posterior","hunker"]]]}
+{"sl":"en","q":"butt","main":"прикладом","bd":[["noun",["бочонок","завіса","межа","мішень","недокурок","ціль","грядка","погорб"]],["verb",["з'єднувати у стик","зіткнутися","межувати","натикатися","ударяти головою"]]]}
+{"sl":"uk","q":"аеробний","main":"aerobic","bd":[["adjective",["aerobic"]]]}
+{"sl":"en","q":"aerobic","main":"аеробний","bd":[["adjective",["аеробний"]]]}
+{"sl":"uk","q":"анаеробний","main":"anaerobic","bd":[]}
+{"sl":"en","q":"anaerobic","main":"анаеробний","bd":[]}
+{"sl":"uk","q":"швидкий і бадьорий","main":"fast and cheerful","bd":[]}
+{"sl":"en","q":"brisk","main":"жвавий","bd":[["adjective",["жвавий","свіжий","меткий","хапкий","пінистий"]],["verb",["пожвавлювати"]]]}
+{"sl":"uk","q":"статичний","main":"static","bd":[["adjective",["static"]]]}
+{"sl":"en","q":"static","main":"статичний","bd":[["adjective",["непорушний","статичний"]]]}
+{"sl":"uk","q":"моторність","main":"agility","bd":[["noun",["agility","vigor","dexterity","alertness","deftness","adroitness","nimbleness","celerity"]]]}
+{"sl":"en","q":"quickness","main":"швидкість","bd":[["noun",["бистрота","гострота","жвавість","кмітливість","прудкість","швидкість"]]]}
+{"sl":"uk","q":"час реакції","main":"reaction time","bd":[]}
+{"sl":"en","q":"reaction time","main":"час реакції","bd":[]}
+{"sl":"uk","q":"координація рухів","main":"coordination of movements","bd":[]}
+{"sl":"en","q":"movement coordination","main":"координація рухів","bd":[]}
+{"sl":"uk","q":"вибухова сила","main":"explosive power","bd":[]}
+{"sl":"en","q":"explosiveness","main":"вибуховість","bd":[]}
+{"sl":"uk","q":"м'язова витривалість","main":"muscular endurance","bd":[]}
+{"sl":"en","q":"muscular endurance","main":"м'язова витривалість","bd":[]}
+{"sl":"uk","q":"серцево-судинна витривалість","main":"cardiovascular endurance","bd":[]}
+{"sl":"en","q":"cardiovascular endurance","main":"серцево-судинна витривалість","bd":[]}
+{"sl":"uk","q":"працездатність","main":"efficiency","bd":[["noun",["efficiency"]]]}
+{"sl":"en","q":"work capacity","main":"працездатність","bd":[]}
+{"sl":"uk","q":"функціональна підготовка","main":"functional training","bd":[]}
+{"sl":"en","q":"conditioning","main":"кондиціонування","bd":[["adjective",["кондиційований"]],["noun",["кондиціювання"]]]}
+{"sl":"uk","q":"технічна вправа","main":"technical exercise","bd":[]}
+{"sl":"en","q":"technique drill","main":"техніка дриль","bd":[]}
+{"sl":"uk","q":"швидкісна вправа","main":"speed exercise","bd":[]}
+{"sl":"en","q":"speed drill","main":"швидкісна дриль","bd":[]}
+{"sl":"uk","q":"координаційна драбина","main":"coordination ladder","bd":[]}
+{"sl":"en","q":"agility ladder","main":"сходи спритності","bd":[]}
+{"sl":"uk","q":"вправа з конусами","main":"exercise with cones","bd":[]}
+{"sl":"en","q":"cone drill","main":"конусний бур","bd":[]}
+{"sl":"uk","q":"човниковий біг","main":"shuttle run","bd":[]}
+{"sl":"en","q":"shuttle run","main":"човниковий біг","bd":[]}
+{"sl":"uk","q":"зміна напрямку","main":"change of direction","bd":[]}
+{"sl":"en","q":"change of direction","main":"зміна напрямку","bd":[]}
+{"sl":"uk","q":"прискорення","main":"acceleration","bd":[["noun",["acceleration","precipitation","speed-up"]]]}
+{"sl":"en","q":"acceleration","main":"прискорення","bd":[["noun",["акселерація","прискорення"]]]}
+{"sl":"uk","q":"уповільнення","main":"deceleration","bd":[["noun",["deceleration","delay","moderation"]]]}
+{"sl":"en","q":"deceleration","main":"уповільнення","bd":[["noun",["гальмування","зменшення швидкості","скорочення кількості обертів","уповільнення"]]]}
+{"sl":"uk","q":"вертикальний стрибок","main":"vertical jump","bd":[]}
+{"sl":"en","q":"vertical jump","main":"вертикальний стрибок","bd":[]}
+{"sl":"uk","q":"стрибок у довжину","main":"long jump","bd":[]}
+{"sl":"en","q":"long jump","main":"стрибок у довжину","bd":[]}
+{"sl":"uk","q":"пліометричні вправи","main":"plyometric exercises","bd":[]}
+{"sl":"en","q":"plyometrics","main":"пліометрія","bd":[]}
+{"sl":"uk","q":"ізометрична вправа","main":"isometric exercise","bd":[]}
+{"sl":"en","q":"isometric exercise","main":"ізометрична вправа","bd":[]}
+{"sl":"uk","q":"одностороння вправа","main":"unilateral exercise","bd":[]}
+{"sl":"en","q":"unilateral exercise","main":"одностороння вправа","bd":[]}
+{"sl":"uk","q":"двостороння вправа","main":"bilateral exercise","bd":[]}
+{"sl":"en","q":"bilateral exercise","main":"двосторонні вправи","bd":[]}
+{"sl":"uk","q":"багатосуглобова вправа","main":"multi-joint exercise","bd":[]}
+{"sl":"en","q":"compound exercise","main":"складена вправа","bd":[]}
+{"sl":"uk","q":"ізолювальна вправа","main":"isolation exercise","bd":[]}
+{"sl":"en","q":"isolation exercise","main":"ізолююча вправа","bd":[]}
+{"sl":"uk","q":"тренувальна мета","main":"training goal","bd":[]}
+{"sl":"en","q":"training goal","main":"мета навчання","bd":[]}
+{"sl":"uk","q":"спортивна мета","main":"sports goal","bd":[]}
+{"sl":"en","q":"fitness goal","main":"фітнес-ціль","bd":[]}
+{"sl":"uk","q":"короткострокова мета","main":"short term goal","bd":[]}
+{"sl":"en","q":"short-term goal","main":"короткострокова мета","bd":[]}
+{"sl":"uk","q":"довгострокова мета","main":"long term goal","bd":[]}
+{"sl":"en","q":"long-term goal","main":"довгострокова мета","bd":[]}
+{"sl":"uk","q":"тест фізичної підготовленості","main":"physical fitness test","bd":[]}
+{"sl":"en","q":"fitness test","main":"фітнес-тест","bd":[]}
+{"sl":"uk","q":"склад тіла","main":"body composition","bd":[]}
+{"sl":"en","q":"body composition","main":"склад тіла","bd":[]}
+{"sl":"uk","q":"відсоток жиру в організмі","main":"body fat percentage","bd":[]}
+{"sl":"en","q":"body fat percentage","main":"відсоток жиру в організмі","bd":[]}
+{"sl":"uk","q":"м'язова маса","main":"muscle mass","bd":[]}
+{"sl":"en","q":"muscle mass","main":"м'язова маса","bd":[]}
+{"sl":"uk","q":"обхват талії","main":"waist circumference","bd":[]}
+{"sl":"en","q":"waist measurement","main":"вимірювання талії","bd":[]}
+{"sl":"uk","q":"щоденник тренувань","main":"training diary","bd":[]}
+{"sl":"en","q":"training log","main":"журнал навчання","bd":[]}
+{"sl":"uk","q":"трекер тренувань","main":"training tracker","bd":[]}
+{"sl":"en","q":"workout tracker","main":"трекер тренувань","bd":[]}
+{"sl":"uk","q":"фітнес-застосунок","main":"fitness app","bd":[]}
+{"sl":"en","q":"fitness app","main":"додаток для фітнесу","bd":[]}
+{"sl":"uk","q":"фітнес-трекер","main":"fitness tracker","bd":[]}
+{"sl":"en","q":"fitness tracker","main":"фітнес трекер","bd":[]}
+{"sl":"uk","q":"кількість кроків","main":"number of steps","bd":[]}
+{"sl":"en","q":"step count","main":"кількість кроків","bd":[]}
+{"sl":"uk","q":"витрата калорій","main":"calorie consumption","bd":[]}
+{"sl":"en","q":"calorie burn","main":"спалювання калорій","bd":[]}
+{"sl":"uk","q":"подолана відстань","main":"distance traveled","bd":[]}
+{"sl":"en","q":"distance covered","main":"пройдена відстань","bd":[]}
+{"sl":"uk","q":"час, що минув","main":"elapsed time","bd":[]}
+{"sl":"en","q":"elapsed time","main":"час, що минув","bd":[]}
+{"sl":"uk","q":"проміжний час","main":"intermediate time","bd":[]}
+{"sl":"en","q":"split time","main":"розділений час","bd":[]}
+{"sl":"uk","q":"час відновлення","main":"recovery time","bd":[]}
+{"sl":"en","q":"recovery time","main":"час відновлення","bd":[]}
+{"sl":"uk","q":"якість сну","main":"sleep quality","bd":[]}
+{"sl":"en","q":"sleep quality","main":"якість сну","bd":[]}
+{"sl":"uk","q":"активне відновлення","main":"active recovery","bd":[]}
+{"sl":"en","q":"active recovery","main":"активне відновлення","bd":[]}
+{"sl":"uk","q":"пасивне відновлення","main":"passive recovery","bd":[]}
+{"sl":"en","q":"passive recovery","main":"пасивне відновлення","bd":[]}
+{"sl":"uk","q":"відновлювальне тренування","main":"recovery training","bd":[]}
+{"sl":"en","q":"recovery session","main":"сеанс відновлення","bd":[]}
+{"sl":"uk","q":"період відпочинку","main":"rest period","bd":[]}
+{"sl":"en","q":"rest period","main":"період відпочинку","bd":[]}
+{"sl":"uk","q":"період зниженого навантаження","main":"period of reduced load","bd":[]}
+{"sl":"en","q":"deload","main":"розвантаження","bd":[]}
+{"sl":"uk","q":"болючість м'язів","main":"muscle soreness","bd":[]}
+{"sl":"en","q":"muscle soreness","main":"біль у м'язах","bd":[]}
+{"sl":"uk","q":"відстрочений м'язовий біль","main":"delayed onset muscle soreness","bd":[]}
+{"sl":"en","q":"delayed onset muscle soreness","main":"відстрочена хворобливість м’язів","bd":[]}
+{"sl":"uk","q":"затисненість м'язів","main":"muscle tightness","bd":[]}
+{"sl":"en","q":"muscle tightness","main":"скутість м'язів","bd":[]}
+{"sl":"uk","q":"м'язова втома","main":"muscle fatigue","bd":[]}
+{"sl":"en","q":"muscle fatigue","main":"м'язова втома","bd":[]}
+{"sl":"uk","q":"загальна втома","main":"general fatigue","bd":[]}
+{"sl":"en","q":"overall fatigue","main":"загальна втома","bd":[]}
+{"sl":"uk","q":"перетренованість","main":"overtraining","bd":[]}
+{"sl":"en","q":"overtraining","main":"перетренованість","bd":[["verb",["перетренуватися"]]]}
+{"sl":"uk","q":"спортивний масаж","main":"sports massage","bd":[]}
+{"sl":"en","q":"sports massage","main":"спортивний масаж","bd":[]}
+{"sl":"uk","q":"самомасаж","main":"self massage","bd":[]}
+{"sl":"en","q":"self-massage","main":"самомасаж","bd":[]}
+{"sl":"uk","q":"прокатування на масажному ролику","main":"rolling on a massage roller","bd":[]}
+{"sl":"en","q":"foam rolling","main":"пінопластовий прокат","bd":[]}
+{"sl":"uk","q":"компресійний одяг","main":"compression clothing","bd":[]}
+{"sl":"en","q":"compression garment","main":"компресійний білизну","bd":[]}
+{"sl":"uk","q":"крижана ванна","main":"ice bath","bd":[]}
+{"sl":"en","q":"ice bath","main":"крижана ванна","bd":[]}
+{"sl":"uk","q":"відновлювальний напій","main":"recovery drink","bd":[]}
+{"sl":"en","q":"recovery drink","main":"відновний напій","bd":[]}
+{"sl":"uk","q":"добре відпочилий","main":"well rested","bd":[]}
+{"sl":"en","q":"well-rested","main":"добре відпочив","bd":[]}
+{"sl":"uk","q":"посвіжілий","main":"refreshed","bd":[]}
+{"sl":"en","q":"refreshed","main":"оновлений","bd":[["verb",["освіжати","охолоджувати"]]]}
+{"sl":"uk","q":"спортивна травма","main":"sports injury","bd":[]}
+{"sl":"en","q":"sports injury","main":"спортивна травма","bd":[]}
+{"sl":"uk","q":"гостра травма","main":"acute injury","bd":[]}
+{"sl":"en","q":"acute injury","main":"гостра травма","bd":[]}
+{"sl":"uk","q":"травма від перевантаження","main":"overuse injury","bd":[]}
+{"sl":"en","q":"overuse injury","main":"травма від надмірного навантаження","bd":[]}
+{"sl":"uk","q":"біль уздовж гомілки","main":"pain along the lower leg","bd":[]}
+{"sl":"en","q":"shin splints","main":"гомілки","bd":[]}
+{"sl":"uk","q":"коліно бігуна","main":"runner's knee","bd":[]}
+{"sl":"en","q":"runner's knee","main":"коліно бігуна","bd":[]}
+{"sl":"uk","q":"тенісний лікоть","main":"tennis elbow","bd":[]}
+{"sl":"en","q":"tennis elbow","main":"тенісний лікоть","bd":[]}
+{"sl":"uk","q":"потягнутий м'яз","main":"pulled muscle","bd":[]}
+{"sl":"en","q":"pulled muscle","main":"потягнутий м'яз","bd":[]}
+{"sl":"uk","q":"болючий суглоб","main":"painful joint","bd":[]}
+{"sl":"en","q":"sore joint","main":"хворий суглоб","bd":[]}
+{"sl":"uk","q":"біль, що віддає","main":"pain that gives","bd":[]}
+{"sl":"en","q":"radiating pain","main":"іррадіюючий біль","bd":[]}
+{"sl":"uk","q":"захисне спорядження","main":"protective equipment","bd":[]}
+{"sl":"en","q":"protective gear","main":"захисне спорядження","bd":[]}
+{"sl":"uk","q":"наколінник","main":"kneecap","bd":[["noun",["kneecap","knee pan"]]]}
+{"sl":"en","q":"knee pad","main":"наколінник","bd":[]}
+{"sl":"uk","q":"налокітник","main":"elbow pad","bd":[]}
+{"sl":"en","q":"elbow pad","main":"налокітник","bd":[]}
+{"sl":"uk","q":"капа","main":"hood","bd":[]}
+{"sl":"en","q":"mouthguard","main":"капа","bd":[]}
+{"sl":"uk","q":"фіксатор гомілковостопного суглоба","main":"ankle joint fixator","bd":[]}
+{"sl":"en","q":"ankle brace","main":"бандаж для щиколотки","bd":[]}
+{"sl":"uk","q":"перша допомога","main":"first aid","bd":[]}
+{"sl":"en","q":"first aid","main":"перша допомога","bd":[]}
+{"sl":"uk","q":"пакет із льодом","main":"ice pack","bd":[]}
+{"sl":"en","q":"ice pack","main":"пакет з льодом","bd":[["noun",["торосиста крига","льодовий пак"]]]}
+{"sl":"uk","q":"повернення до спорту","main":"return to sports","bd":[]}
+{"sl":"en","q":"return to sport","main":"повернутися до спорту","bd":[]}
+{"sl":"uk","q":"болючість","main":"soreness","bd":[]}
+{"sl":"en","q":"soreness","main":"хворобливість","bd":[["noun",["дратівливість","почуття образи","чутливість"]]]}
+{"sl":"uk","q":"ізометричний","main":"isometric","bd":[]}
+{"sl":"en","q":"isometric","main":"ізометричний","bd":[]}
+{"sl":"uk","q":"односторонній","main":"unilateral","bd":[["adjective",["unilateral","one-sided","one-way","one-legged","one-liner","non-reversible"]]]}
+{"sl":"en","q":"unilateral","main":"односторонній","bd":[["adjective",["односторонній"]]]}
+{"sl":"uk","q":"двосторонній","main":"bilateral","bd":[["adjective",["bilateral","duplex","bipartite","reversible","ambidextrous","two-sided","two-way"]]]}
+{"sl":"en","q":"bilateral","main":"двосторонній","bd":[["adjective",["двосторонній"]]]}
+{"sl":"uk","q":"минати","main":"pass","bd":[["verb",["pass","slip by","roll by","skirt","pass through","miss","wear off","elapse"]]]}
+{"sl":"en","q":"to elapse","main":"закінчитися","bd":[["verb",["закінчуватися","минати","проминати","проходити"]]]}
+{"sl":"uk","q":"раптовий початок","main":"sudden onset","bd":[]}
+{"sl":"en","q":"onset","main":"початок","bd":[["noun",["атака","нагін","напад","натиск","початок"]]]}
+{"sl":"uk","q":"затисненість","main":"tightness","bd":[]}
+{"sl":"en","q":"tightness","main":"герметичність","bd":[["noun",["герметичність","жвавість","напруженість","скупість","щільність"]]]}
+{"sl":"uk","q":"надмірне використання","main":"excessive use","bd":[]}
+{"sl":"en","q":"overuse","main":"надмірне використання","bd":[["noun",["зловживання"]]]}
+{"sl":"uk","q":"медична шина","main":"medical tire","bd":[]}
+{"sl":"en","q":"splint","main":"шина","bd":[["noun",["лубок","планка"]],["verb",["приробляти шпонкову канавку","опоряджати рейкою"]]]}
+{"sl":"en","q":"to radiate","main":"випромінювати","bd":[["verb",["випромінювати","сяяти","випромінюватися","поширювати"]]]}
+{"sl":"uk","q":"спортивне харчування","main":"sports nutrition","bd":[]}
+{"sl":"en","q":"sports nutrition","main":"спортивне харчування","bd":[]}
+{"sl":"uk","q":"споживання енергії","main":"energy consumption","bd":[]}
+{"sl":"en","q":"energy intake","main":"споживання енергії","bd":[]}
+{"sl":"uk","q":"дефіцит калорій","main":"calorie deficit","bd":[]}
+{"sl":"en","q":"calorie deficit","main":"дефіцит калорій","bd":[]}
+{"sl":"uk","q":"профіцит калорій","main":"calorie surplus","bd":[]}
+{"sl":"en","q":"calorie surplus","main":"надлишок калорій","bd":[]}
+{"sl":"uk","q":"макронутрієнт","main":"macronutrient","bd":[]}
+{"sl":"en","q":"macronutrient","main":"макроелемент","bd":[]}
+{"sl":"uk","q":"споживання білка","main":"protein consumption","bd":[]}
+{"sl":"en","q":"protein intake","main":"споживання білка","bd":[]}
+{"sl":"uk","q":"їжа перед тренуванням","main":"food before training","bd":[]}
+{"sl":"en","q":"pre-workout meal","main":"прийом їжі перед тренуванням","bd":[]}
+{"sl":"uk","q":"їжа після тренування","main":"post-workout meal","bd":[]}
+{"sl":"en","q":"post-workout meal","main":"прийом їжі після тренування","bd":[]}
+{"sl":"uk","q":"підтримання водного балансу","main":"maintenance of water balance","bd":[]}
+{"sl":"en","q":"hydration","main":"зволоження","bd":[["noun",["гідратація"]]]}
+{"sl":"uk","q":"споживання води","main":"water consumption","bd":[]}
+{"sl":"en","q":"water intake","main":"водозабір","bd":[]}
+{"sl":"uk","q":"електроліт","main":"electrolyte","bd":[["noun",["electrolyte"]]]}
+{"sl":"en","q":"electrolyte","main":"електроліт","bd":[["noun",["електроліт"]]]}
+{"sl":"uk","q":"спортивний напій","main":"sports drink","bd":[]}
+{"sl":"en","q":"sports drink","main":"спортивний напій","bd":[]}
+{"sl":"uk","q":"протеїновий порошок","main":"protein powder","bd":[]}
+{"sl":"en","q":"protein powder","main":"білковий порошок","bd":[]}
+{"sl":"uk","q":"протеїновий коктейль","main":"protein shake","bd":[]}
+{"sl":"en","q":"protein shake","main":"протеїновий коктейль","bd":[]}
+{"sl":"uk","q":"сироватковий протеїн","main":"whey protein","bd":[]}
+{"sl":"en","q":"whey protein","main":"сироватковий протеїн","bd":[]}
+{"sl":"uk","q":"креатин","main":"creatine","bd":[]}
+{"sl":"en","q":"creatine","main":"креатин","bd":[]}
+{"sl":"uk","q":"передтренувальний комплекс","main":"pre-training complex","bd":[]}
+{"sl":"en","q":"pre-workout supplement","main":"добавка перед тренуванням","bd":[]}
+{"sl":"uk","q":"добавка для відновлення","main":"recovery supplement","bd":[]}
+{"sl":"en","q":"recovery supplement","main":"добавка для відновлення","bd":[]}
+{"sl":"uk","q":"командний вид спорту","main":"team sport","bd":[]}
+{"sl":"en","q":"team sport","main":"командний вид спорту","bd":[]}
+{"sl":"uk","q":"стартовий склад","main":"starting line-up","bd":[]}
+{"sl":"en","q":"starting lineup","main":"стартовий склад","bd":[]}
+{"sl":"uk","q":"лава запасних","main":"bench of spares","bd":[]}
+{"sl":"en","q":"substitutes' bench","main":"лавка запасних","bd":[]}
+{"sl":"uk","q":"лінія воріт","main":"goal line","bd":[["noun",["goal-line"]]]}
+{"sl":"en","q":"goal line","main":"лінія воріт","bd":[["noun",["лінія воріт"]]]}
+{"sl":"uk","q":"крайній нападник","main":"extreme striker","bd":[]}
+{"sl":"en","q":"winger","main":"вінгер","bd":[]}
+{"sl":"uk","q":"американський футбол","main":"american football","bd":[]}
+{"sl":"en","q":"American football","main":"Американський футбол","bd":[]}
+{"sl":"uk","q":"пляжний волейбол","main":"beach volleyball","bd":[]}
+{"sl":"en","q":"beach volleyball","main":"пляжний волейбол","bd":[]}
+{"sl":"uk","q":"софтбол","main":"softball","bd":[["noun",["softball"]]]}
+{"sl":"en","q":"softball","main":"софтбол","bd":[["noun",["софтбол"]]]}
+{"sl":"uk","q":"хокей на траві","main":"field hockey","bd":[]}
+{"sl":"en","q":"field hockey","main":"хокей на траві","bd":[]}
+{"sl":"uk","q":"хокей на льоду","main":"icehockey","bd":[["noun",["icehockey"]]]}
+{"sl":"en","q":"ice hockey","main":"хокей","bd":[["noun",["хокей на льоду"]]]}
+{"sl":"uk","q":"настільний теніс","main":"table tennis","bd":[["noun",["table tennis","ping-pong"]]]}
+{"sl":"en","q":"table tennis","main":"настільний теніс","bd":[["noun",["настільний теніс"]]]}
+{"sl":"uk","q":"спортивний біг","main":"sports running","bd":[]}
+{"sl":"en","q":"competitive running","main":"змагальний біг","bd":[]}
+{"sl":"uk","q":"спортивна ходьба","main":"walk","bd":[["noun",["walk"]]]}
+{"sl":"en","q":"race walking","main":"спортивна ходьба","bd":[]}
+{"sl":"uk","q":"гірський велоспорт","main":"mountain biking","bd":[]}
+{"sl":"en","q":"mountain biking","main":"гірський велосипед","bd":[]}
+{"sl":"uk","q":"веслування на каное","main":"canoeing","bd":[]}
+{"sl":"en","q":"canoeing","main":"веслування на каное","bd":[["verb",["плавати на байдарці","плавати на каное"]]]}
+{"sl":"uk","q":"лижні перегони","main":"ski racing","bd":[]}
+{"sl":"en","q":"cross-country skiing","main":"бігові лижі","bd":[]}
+{"sl":"uk","q":"фігурне катання","main":"figure skating","bd":[["noun",["figure skating"]]]}
+{"sl":"en","q":"figure skating","main":"фігурне катання","bd":[["noun",["фігурне катання"]]]}
+{"sl":"uk","q":"ковзанярський спорт","main":"skating sport","bd":[]}
+{"sl":"en","q":"speed skating","main":"швидкісний біг на ковзанах","bd":[["noun",["швидкісний біг на ковзанах"]]]}
+{"sl":"uk","q":"важка атлетика","main":"weightlifting","bd":[["noun",["weightlifting"]]]}
+{"sl":"en","q":"weightlifting","main":"важка атлетика","bd":[["noun",["важка атлетика"]]]}
+{"sl":"uk","q":"пауерліфтинг","main":"powerlifting","bd":[]}
+{"sl":"en","q":"powerlifting","main":"пауерліфтинг","bd":[]}
+{"sl":"uk","q":"бодибілдинг","main":"bodybuilding","bd":[]}
+{"sl":"en","q":"bodybuilding","main":"бодібілдинг","bd":[]}
+{"sl":"uk","q":"силова гімнастика з вагою тіла","main":"strength gymnastics with body weight","bd":[]}
+{"sl":"en","q":"calisthenics","main":"художня гімнастика","bd":[]}
+{"sl":"uk","q":"кросфіт","main":"crossfit","bd":[]}
+{"sl":"en","q":"CrossFit","main":"Кросфіт","bd":[]}
+{"sl":"uk","q":"скелелазіння","main":"rock climbing","bd":[["noun",["rock-climbing"]]]}
+{"sl":"en","q":"climbing","main":"лазіння","bd":[["adjective",["виткий"]],["noun",["вилізання","лаження","сходження"]]]}
+{"sl":"uk","q":"бойові мистецтва","main":"martial arts","bd":[]}
+{"sl":"en","q":"martial arts","main":"бойові мистецтва","bd":[]}
+{"sl":"uk","q":"мілка частина басейну","main":"shallow part of the pool","bd":[]}
+{"sl":"en","q":"shallow end","main":"мілкий кінець","bd":[]}
+{"sl":"uk","q":"глибока частина басейну","main":"deep part of the pool","bd":[]}
+{"sl":"en","q":"deep end","main":"глибокий кінець","bd":[]}
+{"sl":"uk","q":"вільний стиль","main":"free style","bd":[]}
+{"sl":"en","q":"freestyle","main":"вільний стиль","bd":[]}
+{"sl":"uk","q":"шапочка для плавання","main":"swimming cap","bd":[]}
+{"sl":"en","q":"swimming cap","main":"шапочка для плавання","bd":[]}
+{"sl":"uk","q":"дошка для плавання","main":"board for swimming","bd":[]}
+{"sl":"en","q":"kickboard","main":"кікборд","bd":[]}
+{"sl":"uk","q":"трамплін для стрибків у воду","main":"diving board","bd":[]}
+{"sl":"en","q":"diving board","main":"трамплін","bd":[]}
+{"sl":"uk","q":"задня лінія тенісного корту","main":"the back line of the tennis court","bd":[]}
