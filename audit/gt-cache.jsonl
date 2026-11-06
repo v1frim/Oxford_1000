@@ -18730,3 +18730,1164 @@
 {"sl":"uk","q":"залишки готової їжі","main":"leftovers of ready-made food","bd":[]}
 {"sl":"en","q":"leftovers","main":"залишки","bd":[["noun",["залишок","пережиток"]]]}
 {"sl":"uk","q":"домашнього приготування","main":"home cooking","bd":[]}
+{"sl":"en","q":"homemade","main":"саморобний","bd":[["adjective",["кустарний","по-домашньому","саморобний"]]]}
+{"sl":"uk","q":"фабрично приготовлений","main":"factory prepared","bd":[]}
+{"sl":"en","q":"ready-made","main":"готові","bd":[["adjective",["готовий","заяложений","шаблонний"]],["noun",["готовий одяг"]]]}
+{"sl":"uk","q":"фастфуд","main":"fast food","bd":[]}
+{"sl":"en","q":"fast food","main":"фастфуд","bd":[]}
+{"sl":"uk","q":"шкідлива їжа","main":"junk food","bd":[]}
+{"sl":"en","q":"junk food","main":"шкідлива їжа","bd":[]}
+{"sl":"uk","q":"улюблена заспокійлива їжа","main":"favorite comfort food","bd":[]}
+{"sl":"en","q":"comfort food","main":"комфортне харчування","bd":[]}
+{"sl":"uk","q":"вулична їжа","main":"street food","bd":[]}
+{"sl":"en","q":"street food","main":"вулична їжа","bd":[]}
+{"sl":"uk","q":"обід, узятий із собою","main":"packed lunch","bd":[]}
+{"sl":"en","q":"packed lunch","main":"запакований ланч","bd":[]}
+{"sl":"uk","q":"домашня страва","main":"homemade dish","bd":[]}
+{"sl":"en","q":"home-cooked meal","main":"домашня їжа","bd":[]}
+{"sl":"uk","q":"їсти не вдома","main":"not to eat at home","bd":[]}
+{"sl":"en","q":"to eat out","main":"їсти поза домом","bd":[["verb",["їсти поїдом","об'їдати"]]]}
+{"sl":"uk","q":"коренеплід","main":"root","bd":[["noun",["root","pip"]]]}
+{"sl":"en","q":"root vegetable","main":"коренеплід","bd":[]}
+{"sl":"uk","q":"листова зелень","main":"leafy greens","bd":[]}
+{"sl":"en","q":"leafy greens","main":"листова зелень","bd":[]}
+{"sl":"uk","q":"батат","main":"batata","bd":[["noun",["batata"]]]}
+{"sl":"en","q":"sweet potato","main":"батат","bd":[]}
+{"sl":"uk","q":"зелена цибуля","main":"green onion","bd":[["noun",["sprouting onion"]]]}
+{"sl":"en","q":"spring onion","main":"ріпчаста цибуля","bd":[]}
+{"sl":"uk","q":"пекінська капуста","main":"Beijing cabbage","bd":[]}
+{"sl":"en","q":"Chinese cabbage","main":"пекінська капуста","bd":[]}
+{"sl":"uk","q":"помідор чері","main":"cherry tomato","bd":[]}
+{"sl":"en","q":"cherry tomato","main":"помідор черрі","bd":[]}
+{"sl":"uk","q":"солодкий перець","main":"sweet pepper","bd":[]}
+{"sl":"en","q":"bell pepper","main":"болгарський перець","bd":[]}
+{"sl":"uk","q":"стручкова квасоля","main":"string beans","bd":[]}
+{"sl":"en","q":"green beans","main":"стручкова квасоля","bd":[["noun",["зелена квасоля"]]]}
+{"sl":"uk","q":"печериця","main":"mushroom","bd":[["noun",["mushroom"]]]}
+{"sl":"en","q":"champignon","main":"печериці","bd":[["noun",["шампіньйон"]]]}
+{"sl":"uk","q":"глива","main":"mushroom","bd":[]}
+{"sl":"en","q":"oyster mushroom","main":"вешенка","bd":[]}
+{"sl":"uk","q":"пряні трави","main":"spicy herbs","bd":[]}
+{"sl":"en","q":"herbs","main":"трави","bd":[["noun",["зілля","рослина","рослинність","трава"]]]}
+{"sl":"uk","q":"черешня","main":"merry","bd":[["noun",["merry","cherry tree","bird-cherry"]]]}
+{"sl":"en","q":"sweet cherry","main":"черешня","bd":[]}
+{"sl":"uk","q":"мандарин","main":"tangerine","bd":[["noun",["tangerine","mandarin"]]]}
+{"sl":"en","q":"mandarin","main":"мандарин","bd":[["noun",["мандарин"]]]}
+{"sl":"uk","q":"ківі","main":"kiwi","bd":[["noun",["kiwi","apteryx"]]]}
+{"sl":"en","q":"kiwi","main":"ківі","bd":[["noun",["ківі"]]]}
+{"sl":"uk","q":"інжир","main":"fig","bd":[["noun",["fig"]]]}
+{"sl":"en","q":"fig","main":"фіг","bd":[["noun",["інжир","смоківниця","фіга"]]]}
+{"sl":"uk","q":"насіння соняшнику","main":"sunflower seeds","bd":[]}
+{"sl":"en","q":"sunflower seeds","main":"насіння соняшнику","bd":[]}
+{"sl":"uk","q":"гарбузове насіння","main":"pumpkin seeds","bd":[]}
+{"sl":"en","q":"pumpkin seeds","main":"гарбузове насіння","bd":[]}
+{"sl":"uk","q":"насіння чіа","main":"chia seeds","bd":[]}
+{"sl":"en","q":"chia seeds","main":"насіння чіа","bd":[]}
+{"sl":"uk","q":"баранина","main":"mutton","bd":[["noun",["mutton"]]]}
+{"sl":"en","q":"mutton","main":"баранина","bd":[["noun",["баранина"]]]}
+{"sl":"uk","q":"фарш","main":"stuffing","bd":[["noun",["stuffing","forcemeat","mince","farce"]]]}
+{"sl":"en","q":"minced meat","main":"м'ясний фарш","bd":[["noun",["м'ясний фарш"]]]}
+{"sl":"uk","q":"біфштекс","main":"steak","bd":[["noun",["steak","beefsteak"]]]}
+{"sl":"en","q":"beefsteak","main":"біфштекс","bd":[["noun",["біфштекс"]]]}
+{"sl":"uk","q":"вирізка","main":"tenderloin","bd":[["noun",["tenderloin","cutting","undercut","rump steak"]]]}
+{"sl":"en","q":"tenderloin","main":"вирізка","bd":[["adjective",["злачний"]],["noun",["вирізка","злачні місця"]]]}
+{"sl":"uk","q":"грудинка","main":"brisket","bd":[["noun",["brisket"]]]}
+{"sl":"en","q":"brisket","main":"грудинка","bd":[["noun",["грудина","грудинка","мостик"]]]}
+{"sl":"uk","q":"гомілка птиці","main":"leg of the bird","bd":[]}
+{"sl":"en","q":"drumstick","main":"гомілка","bd":[["noun",["барабанна паличка","ніжка вареної курки"]]]}
+{"sl":"uk","q":"куряче стегно","main":"chicken thigh","bd":[]}
+{"sl":"en","q":"chicken thigh","main":"куряче стегенце","bd":[]}
+{"sl":"uk","q":"куряча грудка","main":"chicken breast","bd":[]}
+{"sl":"en","q":"chicken breast","main":"куряча грудка","bd":[["noun",["куряча грудинка"]]]}
+{"sl":"uk","q":"куряче крильце","main":"chicken wing","bd":[]}
+{"sl":"en","q":"chicken wing","main":"куряче крило","bd":[]}
+{"sl":"uk","q":"котлета для бургера","main":"burger patty","bd":[]}
+{"sl":"en","q":"patty","main":"пиріжок","bd":[["noun",["лапка","пиріжок","плоска цукерка"]]]}
+{"sl":"uk","q":"нагетс","main":"nuggets","bd":[]}
+{"sl":"en","q":"nugget","main":"самородок","bd":[["noun",["грудка","кусок","самородок","малоросла тварина"]]]}
+{"sl":"uk","q":"сире м'ясо","main":"raw meat","bd":[]}
+{"sl":"en","q":"raw meat","main":"сире м'ясо","bd":[]}
+{"sl":"uk","q":"пісне м'ясо","main":"lean meat","bd":[["noun",["lean"]]]}
+{"sl":"en","q":"lean meat","main":"нежирне м'ясо","bd":[]}
+{"sl":"uk","q":"жирне м'ясо","main":"fatty meat","bd":[]}
+{"sl":"en","q":"fatty meat","main":"жирне м'ясо","bd":[]}
+{"sl":"uk","q":"без кістки","main":"boneless","bd":[]}
+{"sl":"en","q":"boneless","main":"без кісток","bd":[["adjective",["безкосний","безхарактерний","безхребетний"]]]}
+{"sl":"uk","q":"без шкіри","main":"without skin","bd":[]}
+{"sl":"en","q":"skinless","main":"без шкіри","bd":[]}
+{"sl":"uk","q":"прісноводна риба","main":"freshwater fish","bd":[]}
+{"sl":"en","q":"freshwater fish","main":"прісноводна риба","bd":[]}
+{"sl":"uk","q":"морська риба","main":"sea ​​fish","bd":[]}
+{"sl":"en","q":"saltwater fish","main":"морська риба","bd":[]}
+{"sl":"uk","q":"лосось","main":"salmon","bd":[["noun",["salmon","Kelt"]]]}
+{"sl":"en","q":"salmon","main":"лосось","bd":[["adjective",["оранжево-рожевий"]],["noun",["лососина","оранжево-рожевий колір","лосось"]]]}
+{"sl":"uk","q":"тріска","main":"cod","bd":[["noun",["cod","chip","sliver","splinter","codfish","haddock"]]]}
+{"sl":"en","q":"cod","main":"тріска","bd":[["noun",["лантух","подушка","тріска","лушпайка","мішок"]],["verb",["блазнювати","обдурювати","покепкувати","ловити тріску"]]]}
+{"sl":"uk","q":"щука","main":"pike","bd":[["noun",["pike"]]]}
+{"sl":"en","q":"pike","main":"щука","bd":[["noun",["маяк","наконечник","піка","щука"]]]}
+{"sl":"uk","q":"рибне філе","main":"fish fillet","bd":[]}
+{"sl":"en","q":"fish fillet","main":"рибне філе","bd":[]}
+{"sl":"uk","q":"копчена риба","main":"smoked fish","bd":[]}
+{"sl":"en","q":"smoked fish","main":"копчена риба","bd":[]}
+{"sl":"uk","q":"солона риба","main":"salted fish","bd":[]}
+{"sl":"en","q":"salted fish","main":"солона риба","bd":[]}
+{"sl":"uk","q":"рибні консерви","main":"canned fish","bd":[]}
+{"sl":"en","q":"canned fish","main":"рибні консерви","bd":[]}
+{"sl":"uk","q":"молюски й ракоподібні","main":"molluscs and crustaceans","bd":[]}
+{"sl":"en","q":"shellfish","main":"молюски","bd":[["noun",["вахня","молюск","мушля","ракоподібні"]]]}
+{"sl":"uk","q":"креветка","main":"shrimp","bd":[["noun",["shrimp","prawn"]]]}
+{"sl":"en","q":"shrimp","main":"креветки","bd":[["noun",["карлик","кордупель","креветка"]],["verb",["ловити креветок"]]]}
+{"sl":"uk","q":"краб","main":"crab","bd":[["noun",["crab","soldier"]]]}
+{"sl":"en","q":"crab","main":"краб","bd":[["noun",["буркотун","краб","лебідка","яблуко-кислиця","дика яблуня"]],["verb",["дряпати кігтями"]]]}
+{"sl":"uk","q":"ікра","main":"caviar","bd":[["noun",["caviar","roe","caviare","spawn"]]]}
+{"sl":"en","q":"caviar","main":"ікра","bd":[["noun",["ікра"]]]}
+{"sl":"uk","q":"рибна ікра","main":"fish caviar","bd":[]}
+{"sl":"en","q":"fish roe","main":"риб'яча ікра","bd":[]}
+{"sl":"uk","q":"рибна кістка","main":"fish bone","bd":[]}
+{"sl":"en","q":"fish bone","main":"риб'яча кістка","bd":[["noun",["риб'яча кістка"]]]}
+{"sl":"uk","q":"напівзнежирене молоко","main":"semi-skimmed milk","bd":[]}
+{"sl":"en","q":"semi-skimmed milk","main":"напівзнежирене молоко","bd":[]}
+{"sl":"uk","q":"знежирене молоко","main":"skimmed milk","bd":[["noun",["skimmed milk"]]]}
+{"sl":"en","q":"skimmed milk","main":"знежирене молоко","bd":[["noun",["знежирене молоко"]]]}
+{"sl":"uk","q":"безлактозне молоко","main":"lactose-free milk","bd":[]}
+{"sl":"en","q":"lactose-free milk","main":"молоко без лактози","bd":[]}
+{"sl":"uk","q":"рослинне молоко","main":"vegetable milk","bd":[]}
+{"sl":"en","q":"plant-based milk","main":"молоко рослинного походження","bd":[]}
+{"sl":"uk","q":"сметана","main":"sour cream","bd":[["noun",["sour cream"]]]}
+{"sl":"en","q":"sour cream","main":"сметана","bd":[["noun",["вершки","сметана"]]]}
+{"sl":"uk","q":"збиті вершки","main":"whipped cream","bd":[]}
+{"sl":"en","q":"whipped cream","main":"збиті вершки","bd":[]}
+{"sl":"uk","q":"кисломолочний сир","main":"sour milk cheese","bd":[]}
+{"sl":"en","q":"cottage cheese","main":"сирний сир","bd":[]}
+{"sl":"uk","q":"вершковий сир","main":"cream cheese","bd":[["noun",["cream cheese"]]]}
+{"sl":"en","q":"cream cheese","main":"вершковий сир","bd":[["noun",["вершковий сир"]]]}
+{"sl":"uk","q":"сир із блакитною пліснявою","main":"cheese with blue mold","bd":[]}
+{"sl":"en","q":"blue cheese","main":"блакитний сир","bd":[["noun",["блакитний сир"]]]}
+{"sl":"uk","q":"плавлений сир","main":"processed cheese","bd":[]}
+{"sl":"en","q":"processed cheese","main":"плавлений сир","bd":[]}
+{"sl":"uk","q":"пармезан","main":"parmesan cheese","bd":[]}
+{"sl":"en","q":"parmesan","main":"пармезан","bd":[["noun",["сир пармезан"]]]}
+{"sl":"uk","q":"грецький йогурт","main":"Greek yogurt","bd":[]}
+{"sl":"en","q":"Greek yogurt","main":"грецький йогурт","bd":[]}
+{"sl":"uk","q":"яєчний жовток","main":"egg yolk","bd":[]}
+{"sl":"en","q":"egg yolk","main":"яєчний жовток","bd":[]}
+{"sl":"uk","q":"варене яйце","main":"boiled egg","bd":[]}
+{"sl":"en","q":"boiled egg","main":"варене яйце","bd":[]}
+{"sl":"uk","q":"смажене яйце","main":"fried egg","bd":[]}
+{"sl":"en","q":"fried egg","main":"смажене яйце","bd":[]}
+{"sl":"uk","q":"яйце пашот","main":"poached egg","bd":[]}
+{"sl":"en","q":"poached egg","main":"яйце пашот","bd":[]}
+{"sl":"uk","q":"скибка хліба","main":"a slice of bread","bd":[]}
+{"sl":"en","q":"slice of bread","main":"скибочка хліба","bd":[]}
+{"sl":"uk","q":"цільнозерновий хліб","main":"whole grain bread","bd":[]}
+{"sl":"en","q":"wholemeal bread","main":"цільнозерновий хліб","bd":[]}
+{"sl":"uk","q":"житній хліб","main":"rye bread","bd":[["noun",["rye bread","black bread","pumpernickel"]]]}
+{"sl":"en","q":"rye bread","main":"житній хліб","bd":[["noun",["житній хліб"]]]}
+{"sl":"uk","q":"хліб на заквасці","main":"sourdough bread","bd":[]}
+{"sl":"en","q":"sourdough","main":"закваска","bd":[["noun",["закваска"]]]}
+{"sl":"uk","q":"піта","main":"pita","bd":[]}
+{"sl":"en","q":"pita","main":"лаваш","bd":[["noun",["агава","лаваш"]]]}
+{"sl":"uk","q":"панірувальні сухарі","main":"breadcrumbs","bd":[["noun",["breadcrumbs"]]]}
+{"sl":"en","q":"breadcrumbs","main":"панірувальні сухарі","bd":[["noun",["панірувальні сухарі"]]]}
+{"sl":"uk","q":"пшеничне борошно","main":"wheat flour","bd":[]}
+{"sl":"en","q":"wheat flour","main":"борошно пшеничне","bd":[]}
+{"sl":"uk","q":"цільнозернове борошно","main":"whole grain flour","bd":[]}
+{"sl":"en","q":"wholemeal flour","main":"борошно грубого помелу","bd":[]}
+{"sl":"uk","q":"рідке тісто","main":"batter","bd":[["noun",["batter"]]]}
+{"sl":"en","q":"batter","main":"тісто","bd":[["noun",["сильний артилерійський обстріл","бовтанка","м'ята глина","липка грязь","збитий шрифт","місиво","ординарець","рідке тісто"]],["verb",["бити","гамселити","громити","дубасити","здійснювати прорив","місити","плющити","розбивати"]]]}
+{"sl":"uk","q":"овес","main":"oat","bd":[["noun",["oat"]]]}
+{"sl":"en","q":"oats","main":"овес","bd":[["noun",["дудка з вівсяної соломи","овес","пастораль","пастушачий ріжок"]]]}
+{"sl":"uk","q":"гречка","main":"buckwheat","bd":[["noun",["buckwheat"]]]}
+{"sl":"en","q":"buckwheat","main":"гречана крупа","bd":[["adjective",["гречаний"]],["noun",["гречка"]]]}
+{"sl":"uk","q":"манна крупа","main":"semolina","bd":[["noun",["semolina"]]]}
+{"sl":"en","q":"semolina","main":"манна крупа","bd":[["noun",["манна крупа"]]]}
+{"sl":"uk","q":"кіноа","main":"quinoa","bd":[]}
+{"sl":"en","q":"quinoa","main":"кіноа","bd":[["noun",["лебеда"]]]}
+{"sl":"uk","q":"відкритий пиріг","main":"open pie","bd":[]}
+{"sl":"en","q":"tart","main":"терпкий","bd":[["adjective",["кислий","терпкий","ущипливий"]],["noun",["пиріг","домашній пиріг"]]]}
+{"sl":"uk","q":"червона квасоля","main":"red bean","bd":[["noun",["red bean"]]]}
+{"sl":"en","q":"kidney beans","main":"квасоля","bd":[]}
+{"sl":"uk","q":"біла квасоля","main":"white beans","bd":[]}
+{"sl":"en","q":"white beans","main":"біла квасоля","bd":[]}
+{"sl":"uk","q":"чорна квасоля","main":"black beans","bd":[]}
+{"sl":"en","q":"black beans","main":"чорна квасоля","bd":[]}
+{"sl":"uk","q":"сочевиця","main":"lentil","bd":[["noun",["lentil"]]]}
+{"sl":"en","q":"lentils","main":"сочевиця","bd":[["noun",["сочевиця"]]]}
+{"sl":"uk","q":"соєві боби","main":"soybeans","bd":[]}
+{"sl":"en","q":"soybeans","main":"соєві боби","bd":[["noun",["соєвий біб","соя"]]]}
+{"sl":"uk","q":"тофу","main":"tofu","bd":[]}
+{"sl":"en","q":"tofu","main":"тофу","bd":[]}
+{"sl":"uk","q":"консервована квасоля","main":"canned beans","bd":[]}
+{"sl":"en","q":"canned beans","main":"консервована квасоля","bd":[]}
+{"sl":"uk","q":"консервовані помідори","main":"canned tomatoes","bd":[]}
+{"sl":"en","q":"canned tomatoes","main":"консервованих помідорів","bd":[]}
+{"sl":"uk","q":"томатна паста","main":"tomato paste","bd":[]}
+{"sl":"en","q":"tomato paste","main":"томатної пасти","bd":[]}
+{"sl":"uk","q":"бульйонний кубик","main":"bouillon cube","bd":[]}
+{"sl":"en","q":"stock cube","main":"бульйонний куб","bd":[]}
+{"sl":"uk","q":"рослинна олія","main":"vegetable oil","bd":[]}
+{"sl":"en","q":"vegetable oil","main":"рослинне масло","bd":[]}
+{"sl":"uk","q":"соняшникова олія","main":"sunflower oil","bd":[]}
+{"sl":"en","q":"sunflower oil","main":"соняшникова олія","bd":[]}
+{"sl":"uk","q":"оливкова олія","main":"olive oil","bd":[["noun",["olive oil"]]]}
+{"sl":"en","q":"olive oil","main":"оливкова олія","bd":[["noun",["оливкова олія"]]]}
+{"sl":"uk","q":"оливкова олія першого віджиму","main":"extra virgin olive oil","bd":[]}
+{"sl":"en","q":"extra virgin olive oil","main":"оливкова олія першого віджиму","bd":[]}
+{"sl":"uk","q":"арахісова паста","main":"peanut paste","bd":[]}
+{"sl":"en","q":"peanut butter","main":"арахісового масла","bd":[]}
+{"sl":"uk","q":"приправа","main":"seasoning","bd":[["noun",["seasoning","condiment","dressing","relish","flavoring","trimmings","vinaigrette","flavouring"]]]}
+{"sl":"en","q":"seasoning","main":"приправа","bd":[["noun",["закришка","заправа","заправка","кондиціювання","приправа","природне сушіння"]]]}
+{"sl":"uk","q":"морська сіль","main":"sea ​​salt","bd":[]}
+{"sl":"en","q":"sea salt","main":"морська сіль","bd":[]}
+{"sl":"uk","q":"чорний перець","main":"black pepper","bd":[]}
+{"sl":"en","q":"black pepper","main":"чорний перець","bd":[]}
+{"sl":"uk","q":"копчена паприка","main":"smoked paprika","bd":[]}
+{"sl":"en","q":"smoked paprika","main":"копчена паприка","bd":[]}
+{"sl":"uk","q":"мелений чилі","main":"ground chili","bd":[]}
+{"sl":"en","q":"chilli powder","main":"порошок чилі","bd":[]}
+{"sl":"uk","q":"каєнський перець","main":"cayenne pepper","bd":[]}
+{"sl":"en","q":"cayenne pepper","main":"кайенский перець","bd":[["noun",["кайєннський перець"]]]}
+{"sl":"uk","q":"ваніль","main":"vanilla","bd":[["noun",["vanilla"]]]}
+{"sl":"en","q":"vanilla","main":"ваніль","bd":[["noun",["ваніль","ванільне морозиво"]]]}
+{"sl":"uk","q":"соєвий соус","main":"soy sauce","bd":[["noun",["soy sauce","soy"]]]}
+{"sl":"en","q":"soy sauce","main":"соєвий соус","bd":[["noun",["соєвий соус"]]]}
+{"sl":"uk","q":"соус барбекю","main":"barbecue sauce","bd":[["noun",["barbecue sauce"]]]}
+{"sl":"en","q":"barbecue sauce","main":"соус барбекю","bd":[["noun",["соус барбекю"]]]}
+{"sl":"uk","q":"сирний соус","main":"cheese sauce","bd":[]}
+{"sl":"en","q":"cheese sauce","main":"сирний соус","bd":[]}
+{"sl":"uk","q":"м'ясна підлива","main":"meat gravy","bd":[]}
+{"sl":"en","q":"gravy","main":"соус","bd":[["noun",["засмажка","підлива","підливка","соус"]]]}
+{"sl":"uk","q":"салатна заправка","main":"salad dressing","bd":[]}
+{"sl":"en","q":"salad dressing","main":"заправка для салату","bd":[]}
+{"sl":"uk","q":"гострий соус","main":"hot sauce","bd":[]}
+{"sl":"en","q":"hot sauce","main":"гострий соус","bd":[]}
+{"sl":"uk","q":"кисло-солодкий соус","main":"sweet and sour sauce","bd":[]}
+{"sl":"en","q":"sweet and sour sauce","main":"кисло-солодкий соус","bd":[]}
+{"sl":"uk","q":"часниковий соус","main":"garlic sauce","bd":[]}
+{"sl":"en","q":"garlic sauce","main":"часниковий соус","bd":[]}
+{"sl":"uk","q":"маринувати","main":"marinate","bd":[["verb",["marinate","pickle","marinade"]]]}
+{"sl":"en","q":"to marinate","main":"маринувати","bd":[["verb",["маринувати","межити"]]]}
+{"sl":"uk","q":"чорний шоколад","main":"black chocolate","bd":[["noun",["black chocolate"]]]}
+{"sl":"en","q":"dark chocolate","main":"чорний шоколад","bd":[["noun",["темний шоколад"]]]}
+{"sl":"uk","q":"молочний шоколад","main":"milk chocolate","bd":[["noun",["milk chocolate"]]]}
+{"sl":"en","q":"milk chocolate","main":"молочний шоколад","bd":[["noun",["молочний шоколад"]]]}
+{"sl":"uk","q":"білий шоколад","main":"white chocolate","bd":[["noun",["white chocolate"]]]}
+{"sl":"en","q":"white chocolate","main":"білий шоколад","bd":[["noun",["білий шоколад"]]]}
+{"sl":"uk","q":"плитка шоколаду","main":"bar of chocolate","bd":[]}
+{"sl":"en","q":"chocolate bar","main":"плитка шоколаду","bd":[]}
+{"sl":"uk","q":"солодкий батончик","main":"sweet bar","bd":[]}
+{"sl":"en","q":"candy bar","main":"моноблок","bd":[]}
+{"sl":"uk","q":"карамель","main":"caramel","bd":[["noun",["caramel"]]]}
+{"sl":"en","q":"caramel","main":"карамель","bd":[["noun",["карамель"]]]}
+{"sl":"uk","q":"жувальна гумка","main":"chewing gum","bd":[["noun",["chewing gum","chicle"]]]}
+{"sl":"en","q":"chewing gum","main":"жувальна гумка","bd":[["noun",["жвачка","жувальна гумка","жуйка"]]]}
+{"sl":"uk","q":"крекер","main":"cracker","bd":[["noun",["cracker"]]]}
+{"sl":"en","q":"cracker","main":"зломщик","bd":[["noun",["крекер","падіння","печиво","удар","хлопавка"]]]}
+{"sl":"uk","q":"тонка вафля","main":"thin wafer","bd":[]}
+{"sl":"en","q":"wafer","main":"вафельний","bd":[["noun",["вафля","вахля","облатка"]]]}
+{"sl":"uk","q":"бісквіт","main":"sponge cake","bd":[["noun",["sponge cake","sponge"]]]}
+{"sl":"en","q":"sponge cake","main":"бісквітний корж","bd":[["noun",["бісквіт"]]]}
+{"sl":"uk","q":"сорбет","main":"sorbet","bd":[]}
+{"sl":"en","q":"sorbet","main":"шербет","bd":[["noun",["шербет"]]]}
+{"sl":"uk","q":"желе","main":"jelly","bd":[["noun",["jelly","jell","glaze"]]]}
+{"sl":"en","q":"jelly","main":"желе","bd":[["noun",["драглі","желе"]],["verb",["перетворювати на желе"]]]}
+{"sl":"uk","q":"фруктовий салат","main":"fruit salad","bd":[["noun",["fruit salad"]]]}
+{"sl":"en","q":"fruit salad","main":"фруктовий салат","bd":[["noun",["фруктовий салат"]]]}
+{"sl":"uk","q":"протеїновий батончик","main":"protein bar","bd":[]}
+{"sl":"en","q":"protein bar","main":"протеїновий батончик","bd":[]}
+{"sl":"uk","q":"негазована вода","main":"still water","bd":[]}
+{"sl":"en","q":"still water","main":"негазована вода","bd":[]}
+{"sl":"uk","q":"газована вода","main":"sparkling water","bd":[["noun",["sparkling water"]]]}
+{"sl":"en","q":"sparkling water","main":"газована вода","bd":[["noun",["газована вода"]]]}
+{"sl":"uk","q":"мінеральна вода","main":"mineral water","bd":[["noun",["mineral water"]]]}
+{"sl":"en","q":"mineral water","main":"мінеральна вода","bd":[["noun",["мінеральна вода"]]]}
+{"sl":"uk","q":"безалкогольний газований напій","main":"non-alcoholic carbonated drink","bd":[]}
+{"sl":"en","q":"soft drink","main":"безалкогольний напій","bd":[]}
+{"sl":"uk","q":"свіжовичавлений сік","main":"freshly squeezed juice","bd":[]}
+{"sl":"en","q":"freshly squeezed juice","main":"свіжовичавленого соку","bd":[]}
+{"sl":"uk","q":"чорний чай","main":"black tea","bd":[]}
+{"sl":"en","q":"black tea","main":"чорний чай","bd":[]}
+{"sl":"uk","q":"трав'яний чай","main":"herbal tea","bd":[["noun",["herbal tea"]]]}
+{"sl":"en","q":"herbal tea","main":"трав'яний чай","bd":[["noun",["трав'яний чай"]]]}
+{"sl":"uk","q":"американо","main":"americano","bd":[]}
+{"sl":"en","q":"Americano","main":"Американо","bd":[]}
+{"sl":"uk","q":"лате","main":"latte","bd":[]}
+{"sl":"en","q":"latte","main":"латте","bd":[]}
+{"sl":"uk","q":"розчинна кава","main":"instant coffee","bd":[["noun",["instant coffee"]]]}
+{"sl":"en","q":"instant coffee","main":"розчинна кава","bd":[["noun",["розчинна кава"]]]}
+{"sl":"uk","q":"гарячий шоколад","main":"hot chocolate","bd":[["noun",["hot chocolate"]]]}
+{"sl":"en","q":"hot chocolate","main":"гарячий шоколад","bd":[["noun",["гарячий шоколад"]]]}
+{"sl":"uk","q":"енергетичний напій","main":"energy drink","bd":[]}
+{"sl":"en","q":"energy drink","main":"енергетичний напій","bd":[]}
+{"sl":"uk","q":"алкогольний напій","main":"liquor","bd":[["noun",["liquor","bouse","stimulant"]]]}
+{"sl":"en","q":"alcoholic drink","main":"алкогольний напій","bd":[]}
+{"sl":"uk","q":"червоне вино","main":"red wine","bd":[["noun",["red wine","burgundy","claret"]]]}
+{"sl":"en","q":"red wine","main":"червоне вино","bd":[["noun",["червоне вино"]]]}
+{"sl":"uk","q":"біле вино","main":"white wine","bd":[["noun",["white wine"]]]}
+{"sl":"en","q":"white wine","main":"біле вино","bd":[["noun",["біле вино"]]]}
+{"sl":"uk","q":"ігристе вино","main":"sparkling wine","bd":[]}
+{"sl":"en","q":"sparkling wine","main":"ігристе вино","bd":[["noun",["шипуче вино"]]]}
+{"sl":"uk","q":"безалкогольний","main":"non-alcoholic","bd":[["adjective",["non-alcoholic","alcohol-free"]]]}
+{"sl":"en","q":"non-alcoholic","main":"безалкогольні","bd":[["adjective",["безалкогольний"]]]}
+{"sl":"uk","q":"кофеїн","main":"caffeine","bd":[["noun",["caffeine"]]]}
+{"sl":"en","q":"caffeine","main":"кофеїн","bd":[["noun",["кавеїн","кофеїн"]]]}
+{"sl":"uk","q":"шаткувати","main":"chop","bd":[["verb",["slice","chop"]]]}
+{"sl":"en","q":"to shred","main":"шматувати","bd":[["verb",["кришити","різати","розпадатися"]]]}
+{"sl":"uk","q":"розкачувати тісто","main":"roll out the dough","bd":[]}
+{"sl":"en","q":"to roll out","main":"викотити","bd":[["verb",["викачати","викотити","викочувати","вимовляти виразно"]]]}
+{"sl":"uk","q":"видаляти насіння","main":"remove the seeds","bd":[]}
+{"sl":"en","q":"to deseed","main":"to deseed","bd":[]}
+{"sl":"uk","q":"видаляти кістки","main":"remove bones","bd":[]}
+{"sl":"en","q":"to debone","main":"розкостити","bd":[]}
+{"sl":"uk","q":"відбивати м'ясо","main":"beat off the meat","bd":[]}
+{"sl":"en","q":"to tenderize","main":"ніжити","bd":[["verb",["розварювати"]]]}
+{"sl":"uk","q":"варити в рідині без кипіння","main":"cook in liquid without boiling","bd":[]}
+{"sl":"en","q":"to poach","main":"браконьєрити","bd":[["verb",["в'язнути","вторгатися у чужі володіння","грузнути","красти","незаконно полювати","привласнювати","розмішувати","шахраювати"]]]}
+{"sl":"uk","q":"смажити у фритюрі","main":"deep fry","bd":[]}
+{"sl":"en","q":"to deep-fry","main":"смажити у фритюрі","bd":[]}
+{"sl":"uk","q":"пасерувати","main":"to sauté","bd":[]}
+{"sl":"en","q":"to sauté","main":"пасерувати","bd":[]}
+{"sl":"uk","q":"запікати під верхнім нагрівом","main":"bake under top heat","bd":[]}
+{"sl":"en","q":"to broil","main":"смажити","bd":[["verb",["сваритися","смажити на відкритому вогні"]]]}
+{"sl":"uk","q":"тушкувати після обсмажування","main":"stew after frying","bd":[]}
+{"sl":"en","q":"to braise","main":"тушкувати","bd":[["verb",["тушкувати м'ясо"]]]}
+{"sl":"uk","q":"повільно готувати","main":"cook slowly","bd":[]}
+{"sl":"en","q":"to slow-cook","main":"повільно варити","bd":[]}
+{"sl":"uk","q":"повторно розігрівати","main":"reheat","bd":[]}
+{"sl":"en","q":"to reheat","main":"розігрівати","bd":[["verb",["підігрівати","розігріти"]]]}
+{"sl":"uk","q":"розігріти їжу","main":"reheat food","bd":[]}
+{"sl":"en","q":"to warm up","main":"розігрітися","bd":[["verb",["вгрівати","підігрівати","розминатися"]]]}
+{"sl":"uk","q":"карамелізувати","main":"caramelize","bd":[]}
+{"sl":"en","q":"to caramelize","main":"карамелізувати","bd":[["verb",["підтвердити"]]]}
+{"sl":"uk","q":"загущувати","main":"to thicken","bd":[]}
+{"sl":"en","q":"to thicken","main":"густіти","bd":[["verb",["застигати","затугавіти","згущати","згущувати","згущуватися","нашаровувати","потовщувати","темніти"]]]}
+{"sl":"uk","q":"розморожувати","main":"defrost","bd":[["verb",["defrost","unfreeze","thaw","defreeze"]]]}
+{"sl":"en","q":"to defrost","main":"розморозити","bd":[["verb",["розморожувати","розморожуватися","розтоплювати","танути"]]]}
+{"sl":"uk","q":"приємний запах","main":"pleasant smell","bd":[]}
+{"sl":"en","q":"aroma","main":"аромат","bd":[["noun",["аромат","особливість","присмак"]]]}
+{"sl":"uk","q":"прісний","main":"fresh","bd":[["adjective",["fresh","unleavened","insipid","savourless","savorless"]]]}
+{"sl":"en","q":"bland","main":"м'який","bd":[["adjective",["ввічливий","улесливий"]]]}
+{"sl":"uk","q":"приємно кислуватий","main":"pleasantly acidic","bd":[]}
+{"sl":"en","q":"tangy","main":"гострий","bd":[]}
+{"sl":"uk","q":"з димним смаком","main":"with a smoky taste","bd":[]}
+{"sl":"en","q":"smoky","main":"димчастий","bd":[["noun",["димчастий кіт","тинівка"]],["adjective",["димний","задимлений","курний","прокурений"]]]}
+{"sl":"uk","q":"з виразним смаком часнику","main":"with a distinct taste of garlic","bd":[]}
+{"sl":"en","q":"garlicky","main":"часниковий","bd":[["adjective",["часниковий"]]]}
+{"sl":"uk","q":"вершковий","main":"creamy","bd":[["adjective",["creamy"]]]}
+{"sl":"en","q":"creamy","main":"вершковий","bd":[["adjective",["вершковий","густий","жирний","кремовий","м'який"]]]}
+{"sl":"uk","q":"маслянистий","main":"oily","bd":[["adjective",["oily","buttery","unctuous","oil","oleaginous"]]]}
+{"sl":"en","q":"buttery","main":"маслянистий","bd":[["adjective",["маслянистий","намазаний маслом"]],["noun",["комора для зберігання харчів"]]]}
+{"sl":"uk","q":"фруктовий","main":"fruity","bd":[["adjective",["fruity"]]]}
+{"sl":"en","q":"fruity","main":"фруктовий","bd":[["adjective",["фруктовий"]]]}
+{"sl":"uk","q":"післясмак","main":"aftertaste","bd":[]}
+{"sl":"en","q":"aftertaste","main":"післясмак","bd":[["noun",["осадок","присмак"]]]}
+{"sl":"uk","q":"м'який і не сухий","main":"soft and not dry","bd":[]}
+{"sl":"en","q":"moist","main":"вологий","bd":[["verb",["зволожувати","мокріти"]],["adjective",["дощовий","мокрий","мочливий","сирий"]]]}
+{"sl":"uk","q":"хрусткий зверху","main":"crispy on top","bd":[]}
+{"sl":"en","q":"crispy","main":"хрусткий","bd":[]}
+{"sl":"uk","q":"який треба довго жувати","main":"which must be chewed for a long time","bd":[]}
+{"sl":"en","q":"chewy","main":"жувальний","bd":[]}
+{"sl":"uk","q":"з грудочками","main":"with lumps","bd":[]}
+{"sl":"en","q":"lumpy","main":"грудкуватий","bd":[["adjective",["вкритий брижами","грудкуватий","опецькуватий"]]]}
+{"sl":"uk","q":"тягучий усередині","main":"pulling inside","bd":[]}
+{"sl":"en","q":"gooey","main":"липкий","bd":[["adjective",["клейкий","сентиментальний"]]]}
+{"sl":"uk","q":"пухкий","main":"friable","bd":[["adjective",["friable","crumbly","soft","mellow","well-padded","non-coherent"]]]}
+{"sl":"en","q":"fluffy","main":"пухнастий","bd":[["adjective",["пухнастий","пушистий"]]]}
+{"sl":"uk","q":"розсипчастий","main":"crumbly","bd":[["adjective",["crumbly","crisp","powdery","crump","mealy","non-coherent"]]]}
+{"sl":"en","q":"crumbly","main":"розсипчастий","bd":[["adjective",["пухкий","розсипчастий"]]]}
+{"sl":"uk","q":"водянистий","main":"watery","bd":[["adjective",["watery","aqueous","aquose","waterish","washy","soupy","milk-and-water","wishy-washy"]]]}
+{"sl":"en","q":"watery","main":"водянистий","bd":[["adjective",["безбарвний","блідий","водний","водоносний","водявий","водяний","водянистий","дощовий"]]]}
+{"sl":"uk","q":"сушений","main":"dried","bd":[["verb",["dry","air","roast","bake","stove","sap","sear"]]]}
+{"sl":"en","q":"dried","main":"сушені","bd":[["adjective",["засохлий","зачерствілий","сухий"]]]}
+{"sl":"uk","q":"ферментований","main":"fermented","bd":[]}
+{"sl":"en","q":"fermented","main":"ферментований","bd":[["verb",["викликати бродіння","мусувати","хвилювати","шумувати"]]]}
+{"sl":"uk","q":"недостиглий","main":"immature","bd":[]}
+{"sl":"en","q":"unripe","main":"незрілі","bd":[["adjective",["зелений","недійшний","недозрілий","незрілий","неспілий"]]]}
+{"sl":"uk","q":"перестиглий","main":"overripe","bd":[["adjective",["overripe"]]]}
+{"sl":"en","q":"overripe","main":"перезрілий","bd":[["adjective",["перезрілий","переспілий","перестиглий"]]]}
+{"sl":"uk","q":"приготований","main":"prepared","bd":[["adjective",["prepared"]]]}
+{"sl":"en","q":"cooked","main":"приготований","bd":[["adjective",["варений","зварений"]]]}
+{"sl":"uk","q":"недоготовлений","main":"unprepared","bd":[]}
+{"sl":"en","q":"undercooked","main":"недоварені","bd":[["adjective",["недоварений"]]]}
+{"sl":"uk","q":"переготовлений","main":"prepared","bd":[]}
+{"sl":"en","q":"overcooked","main":"переварені","bd":[["adjective",["переварений","пересмажений","перетриманий"]]]}
+{"sl":"uk","q":"слабко-середнє просмаження","main":"light-medium roasting","bd":[]}
+{"sl":"en","q":"medium-rare","main":"середньої прожареності","bd":[]}
+{"sl":"uk","q":"повністю просмажений","main":"fully fried","bd":[]}
+{"sl":"en","q":"well-done","main":"молодець","bd":[["adjective",["добре підсмажений"]]]}
+{"sl":"uk","q":"підгорілий","main":"burnt out","bd":[]}
+{"sl":"en","q":"burnt","main":"спалені","bd":[["adjective",["горілий","згорілий","палений"]]]}
+{"sl":"uk","q":"зіпсований","main":"corrupt","bd":[["adjective",["corrupt","degenerate","bad","adulterated","wrong","addle","unsound","miscreant"]]]}
+{"sl":"en","q":"spoiled","main":"зіпсований","bd":[["adjective",["збавлений","злеглий","кручений","нездисциплінований","зіпсований","розбещений"]]]}
+{"sl":"uk","q":"прострочений","main":"outstanding","bd":[["adjective",["outstanding","back"]]]}
+{"sl":"en","q":"expired","main":"закінчився","bd":[["verb",["видихати","видхнути","згасати","мерти"]]]}
+{"sl":"uk","q":"дата «краще спожити до»","main":"\"best before\" date","bd":[]}
+{"sl":"en","q":"best-before date","main":"термін придатності","bd":[]}
+{"sl":"uk","q":"кінцевий термін споживання","main":"expiration date","bd":[]}
+{"sl":"en","q":"use-by date","main":"термін використання","bd":[]}
+{"sl":"uk","q":"алерген","main":"allergen","bd":[]}
+{"sl":"en","q":"allergen","main":"алерген","bd":[]}
+{"sl":"uk","q":"перехресне забруднення","main":"cross contamination","bd":[]}
+{"sl":"en","q":"cross-contamination","main":"перехресне забруднення","bd":[]}
+{"sl":"uk","q":"псуватися","main":"spoil","bd":[["verb",["spoil","go bad","decay","corrupt","addle","change"]]]}
+{"sl":"en","q":"to go off","main":"згаснути","bd":[["verb",["від'їжджати","пройти","розізлитися","тікати"]]]}
+{"sl":"uk","q":"гарячий сендвіч","main":"hot sandwich","bd":[]}
+{"sl":"en","q":"toastie","main":"тости","bd":[]}
+{"sl":"uk","q":"страва з пасти","main":"pasta dish","bd":[]}
+{"sl":"en","q":"pasta dish","main":"страва з макаронами","bd":[]}
+{"sl":"uk","q":"запіканка","main":"pudding","bd":[["noun",["pudding"]]]}
+{"sl":"en","q":"casserole","main":"запіканка","bd":[["noun",["запіканка з рису","каструлька з кераміки"]]]}
+{"sl":"uk","q":"картопляне пюре","main":"mashed potatoes","bd":[]}
+{"sl":"en","q":"mashed potatoes","main":"картопляне пюре","bd":[]}
+{"sl":"uk","q":"смажена картопля","main":"fried potatoes","bd":[["noun",["French fries"]]]}
+{"sl":"en","q":"fried potatoes","main":"смажена картопля","bd":[]}
+{"sl":"uk","q":"печена картопля","main":"baked potatoes","bd":[]}
+{"sl":"en","q":"baked potato","main":"печена картопля","bd":[]}
+{"sl":"uk","q":"страва з рису","main":"rice dish","bd":[]}
+{"sl":"en","q":"rice dish","main":"страва з рису","bd":[]}
+{"sl":"uk","q":"вегетаріанська страва","main":"vegetarian dish","bd":[]}
+{"sl":"en","q":"vegetarian dish","main":"вегетаріанське блюдо","bd":[]}
+{"sl":"uk","q":"веганська страва","main":"vegan dish","bd":[]}
+{"sl":"en","q":"vegan dish","main":"веганське блюдо","bd":[]}
+{"sl":"uk","q":"українська кухня","main":"Ukrainian cuisine","bd":[]}
+{"sl":"en","q":"Ukrainian cuisine","main":"Українська кухня","bd":[]}
+{"sl":"uk","q":"італійська кухня","main":"Italian cuisine","bd":[]}
+{"sl":"en","q":"Italian cuisine","main":"Італійська кухня","bd":[]}
+{"sl":"uk","q":"азійська кухня","main":"Asian cuisine","bd":[]}
+{"sl":"en","q":"Asian cuisine","main":"Азіатська кухня","bd":[]}
+{"sl":"uk","q":"середземноморська кухня","main":"Mediterranean cuisine","bd":[]}
+{"sl":"en","q":"Mediterranean cuisine","main":"Середземноморська кухня","bd":[]}
+{"sl":"uk","q":"здорове харчування","main":"healthy food","bd":[]}
+{"sl":"en","q":"healthy diet","main":"здорове харчування","bd":[]}
+{"sl":"uk","q":"харчові звички","main":"eating habits","bd":[]}
+{"sl":"en","q":"eating habits","main":"харчові звички","bd":[]}
+{"sl":"uk","q":"споживання калорій","main":"calorie intake","bd":[]}
+{"sl":"en","q":"calorie intake","main":"споживання калорій","bd":[]}
+{"sl":"uk","q":"поживна речовина","main":"nutrient","bd":[["noun",["nutrient","nourisher"]]]}
+{"sl":"en","q":"nutrient","main":"поживна речовина","bd":[["adjective",["поживний"]],["noun",["поживна речовина"]]]}
+{"sl":"uk","q":"споживання солі","main":"salt consumption","bd":[]}
+{"sl":"en","q":"salt intake","main":"споживання солі","bd":[]}
+{"sl":"uk","q":"споживання цукру","main":"sugar consumption","bd":[]}
+{"sl":"en","q":"sugar intake","main":"споживання цукру","bd":[]}
+{"sl":"uk","q":"високобілковий","main":"high protein","bd":[]}
+{"sl":"en","q":"high-protein","main":"високопротеїнові","bd":[]}
+{"sl":"uk","q":"з низьким вмістом жиру","main":"with low fat content","bd":[]}
+{"sl":"en","q":"low-fat","main":"нежирний","bd":[]}
+{"sl":"uk","q":"низьковуглеводний","main":"low carb","bd":[]}
+{"sl":"en","q":"low-carb","main":"з низьким вмістом вуглеводів","bd":[]}
+{"sl":"uk","q":"без цукру","main":"without sugar","bd":[]}
+{"sl":"en","q":"sugar-free","main":"без цукру","bd":[]}
+{"sl":"uk","q":"без глютену","main":"gluten free","bd":[]}
+{"sl":"en","q":"gluten-free","main":"без глютену","bd":[]}
+{"sl":"uk","q":"без лактози","main":"without lactose","bd":[]}
+{"sl":"en","q":"lactose-free","main":"без лактози","bd":[]}
+{"sl":"uk","q":"без молочних продуктів","main":"without dairy products","bd":[]}
+{"sl":"en","q":"dairy-free","main":"безмолочні","bd":[]}
+{"sl":"uk","q":"харчова алергія","main":"food allergy","bd":[]}
+{"sl":"en","q":"food allergy","main":"харчова алергія","bd":[]}
+{"sl":"uk","q":"непереносимість лактози","main":"lactose intolerance","bd":[]}
+{"sl":"en","q":"lactose intolerance","main":"непереносимість лактози","bd":[]}
+{"sl":"uk","q":"повна ложка","main":"spoonful","bd":[["noun",["spoonful"]]]}
+{"sl":"en","q":"spoonful","main":"ложка","bd":[["noun",["повна ложка"]]]}
+{"sl":"uk","q":"повна чашка","main":"full cup","bd":[]}
+{"sl":"en","q":"cupful","main":"чашка","bd":[]}
+{"sl":"uk","q":"пластикова баночка","main":"plastic jar","bd":[]}
+{"sl":"en","q":"tub","main":"ванна","bd":[["noun",["балія","цебер","бачок","ванна","діжка","зільниця","кадка"]],["verb",["купати у ванні","саджати рослину у діжку"]]]}
+{"sl":"uk","q":"герметично закритий","main":"hermetically sealed","bd":[]}
+{"sl":"en","q":"sealed","main":"запечатаний","bd":[["adjective",["герметизований","запечатаний"]]]}
+{"sl":"uk","q":"початий","main":"begun","bd":[["adjective",["begun","opened"]]]}
+{"sl":"en","q":"opened","main":"відкрито","bd":[["adjective",["відкритий","відкупорений","відчинений","незагоєний","неприкритий","початий","розгорнутий","розкритий"]]]}
+{"sl":"uk","q":"невідкритий","main":"unopened","bd":[]}
+{"sl":"en","q":"unopened","main":"нерозкритий","bd":[]}
+{"sl":"uk","q":"герметичний контейнер","main":"sealed container","bd":[]}
+{"sl":"en","q":"airtight container","main":"герметичний контейнер","bd":[]}
+{"sl":"uk","q":"зберігання продуктів","main":"product storage","bd":[]}
+{"sl":"en","q":"food storage","main":"зберігання харчових продуктів","bd":[]}
+{"sl":"uk","q":"зберігати в холодильнику","main":"store in the refrigerator","bd":[]}
+{"sl":"en","q":"to refrigerate","main":"охолодити","bd":[["verb",["охолоджувати","охолоджуватися"]]]}
+{"sl":"uk","q":"заклад швидкого харчування","main":"fast food establishment","bd":[]}
+{"sl":"en","q":"fast-food restaurant","main":"ресторан швидкого харчування","bd":[]}
+{"sl":"uk","q":"їдальня при закладі","main":"canteen at the institution","bd":[]}
+{"sl":"en","q":"canteen","main":"їдальня","bd":[["noun",["буфет","їдальня","війскова крамниця","погрібець","солдатський клуб-їдальня","фляга"]]]}
+{"sl":"uk","q":"столик на двох","main":"a table for two","bd":[]}
+{"sl":"en","q":"table for two","main":"столик на двох","bd":[]}
+{"sl":"uk","q":"карта напоїв","main":"drink menu","bd":[]}
+{"sl":"en","q":"drinks menu","main":"меню напоїв","bd":[]}
+{"sl":"uk","q":"винна карта","main":"wine list","bd":[]}
+{"sl":"en","q":"wine list","main":"карта вин","bd":[]}
+{"sl":"uk","q":"страва дня","main":"dish of the day","bd":[]}
+{"sl":"en","q":"dish of the day","main":"страва дня","bd":[]}
+{"sl":"uk","q":"плата за обслуговування","main":"service charge","bd":[]}
+{"sl":"en","q":"service charge","main":"плата за обслуговування","bd":[]}
+{"sl":"uk","q":"душевний стан","main":"state of mind","bd":[]}
+{"sl":"en","q":"state of mind","main":"стан душі","bd":[]}
+{"sl":"uk","q":"емоційний стан","main":"emotional state","bd":[]}
+{"sl":"en","q":"emotional state","main":"емоційний стан","bd":[]}
+{"sl":"uk","q":"задоволеність життям","main":"life satisfaction","bd":[]}
+{"sl":"en","q":"contentment","main":"задоволення","bd":[["noun",["вдоволеність","задоволеність","задоволення"]]]}
+{"sl":"uk","q":"глибокий смуток","main":"deep sadness","bd":[]}
+{"sl":"en","q":"sorrow","main":"смуток","bd":[["noun",["жаль","печалування","журба","печаль","згризота","скорбота","смуток","сум"]],["verb",["печалитися"]]]}
+{"sl":"uk","q":"огида","main":"abomination","bd":[["noun",["abomination","aversion","loathing","abhorrence","repulsion","nausea","hate","repugnance"]]]}
+{"sl":"en","q":"disgust","main":"огида","bd":[["noun",["відраза","роздратування","гидота","несмак"]],["verb",["викликати огиду"]]]}
+{"sl":"uk","q":"відчай","main":"despair","bd":[["noun",["despair","hopelessness","calamity"]]]}
+{"sl":"en","q":"despair","main":"відчай","bd":[["noun",["відчай","зневіра","ненадійність","розпач","джерело страждань"]],["verb",["впадати в розпач","втрачати надію"]]]}
+{"sl":"uk","q":"самотність","main":"solitude","bd":[["noun",["solitude","isolation","abandonment","seclusion","intimity","sanctuary"]]]}
+{"sl":"en","q":"loneliness","main":"самотність","bd":[["noun",["відлюдність","самітність","самота"]]]}
+{"sl":"uk","q":"безмежно радий","main":"infinitely happy","bd":[]}
+{"sl":"en","q":"overjoyed","main":"в захваті від радості","bd":[["adjective",["дуже задоволений","щасливий"]]]}
+{"sl":"uk","q":"сповнений сенсу","main":"full of meaning","bd":[]}
+{"sl":"en","q":"fulfilled","main":"виконано","bd":[["verb",["вволити","виконати","виконувати","відповідати","відповідати умовам рівняння","завершувати","справджувати"]]]}
+{"sl":"uk","q":"розважений","main":"amused","bd":[]}
+{"sl":"en","q":"entertained","main":"розважали","bd":[["verb",["бавити","вбавити","приймати гостей","забавляти","пригощати","розважати","тішити","ураховувати"]]]}
+{"sl":"uk","q":"бадьорий","main":"cheerful","bd":[["adjective",["cheerful","sprightly","alive","cheery","lively","chipper"]]]}
+{"sl":"en","q":"upbeat","main":"оптимістичний","bd":[]}
+{"sl":"uk","q":"легкий на вдачу","main":"easy going","bd":[]}
+{"sl":"en","q":"light-hearted","main":"легковажний","bd":[["adjective",["безжурний","безтурботний"]]]}
+{"sl":"uk","q":"блаженство","main":"bliss","bd":[["noun",["bliss","blessedness","beatitude","dream","rapt"]]]}
+{"sl":"en","q":"bliss","main":"блаженство","bd":[["noun",["блаженство"]]]}
+{"sl":"uk","q":"задоволення від процесу","main":"satisfaction with the process","bd":[]}
+{"sl":"en","q":"enjoyment","main":"задоволення","bd":[["noun",["володіння","задоволення","насолода"]]]}
+{"sl":"uk","q":"почуття вдячності","main":"feeling of gratitude","bd":[]}
+{"sl":"en","q":"gratitude","main":"вдячність","bd":[["noun",["вдяка","вдячність","віддяка","дяка","подяка"]]]}
+{"sl":"uk","q":"підбадьоритися","main":"cheer up","bd":[]}
+{"sl":"en","q":"to cheer up","main":"підняти настрій","bd":[]}
+{"sl":"uk","q":"повеселішати","main":"have fun","bd":[]}
+{"sl":"en","q":"to brighten up","main":"скрасити","bd":[]}
+{"sl":"uk","q":"спустошений горем","main":"devastated by grief","bd":[]}
+{"sl":"en","q":"devastated","main":"спустошений","bd":[["verb",["плюндрувати","розгромити","розоряти","спустошувати"]]]}
+{"sl":"uk","q":"той, що сумує за домом","main":"one who misses home","bd":[]}
+{"sl":"en","q":"homesick","main":"туга за домом","bd":[["adjective",["який тужить за батьківщиною"]]]}
+{"sl":"uk","q":"той, що втратив ілюзії","main":"one who has lost his illusions","bd":[]}
+{"sl":"en","q":"disillusioned","main":"розчарований","bd":[["adjective",["зневірений"]]]}
+{"sl":"uk","q":"той, що втратив запал","main":"the one who lost his passion","bd":[]}
+{"sl":"en","q":"discouraged","main":"збентежений","bd":[["verb",["бентежити","відмовляти","знеохочувати","зражати","перешкоджати"]]]}
+{"sl":"uk","q":"занепалий духом","main":"crestfallen","bd":[["adjective",["downhearted","crestfallen","droopy","down"]]]}
+{"sl":"en","q":"disheartened","main":"зневірений","bd":[["verb",["засмучувати","зражати"]]]}
+{"sl":"uk","q":"сповнений жалю","main":"regretful","bd":[["adjective",["regretful"]]]}
+{"sl":"en","q":"regretful","main":"з жалем","bd":[["adjective",["який розкаюється","сповнений жалю"]]]}
+{"sl":"uk","q":"душевний біль","main":"heartache","bd":[["noun",["heartache"]]]}
+{"sl":"en","q":"heartache","main":"серцевий біль","bd":[["noun",["душевний біль","біль у серці","страждання"]]]}
+{"sl":"uk","q":"сповнений гіркоти","main":"full of bitterness","bd":[]}
+{"sl":"en","q":"resentful","main":"обурений","bd":[["adjective",["ображений","образливий","обурений"]]]}
+{"sl":"uk","q":"ображений","main":"offended","bd":[["adjective",["offended","injured","resentful","aggrieved","humiliated","pained","snuffy","sore"]]]}
+{"sl":"en","q":"offended","main":"ображений","bd":[["adjective",["ображений"]]]}
+{"sl":"uk","q":"принижений образою","main":"humiliated by insult","bd":[]}
+{"sl":"en","q":"insulted","main":"образили","bd":[["adjective",["зневажений"]]]}
+{"sl":"uk","q":"нестримна лють","main":"unbridled rage","bd":[]}
+{"sl":"en","q":"fury","main":"лють","bd":[["noun",["злість","каз","лютість","лють","нестямність","сказ","фурія","шаленість"]]]}
+{"sl":"uk","q":"роздратування","main":"irritation","bd":[["noun",["irritation","annoyance","exasperation","anger","chafe","disgust","harassment","fret"]]]}
+{"sl":"en","q":"irritation","main":"роздратування","bd":[["noun",["роздратування","хвороблива чутливість"]]]}
+{"sl":"uk","q":"досада","main":"annoyance","bd":[["noun",["annoyance","nuisance","vexation","chagrin","pinprick","pique","spite","heartburning"]]]}
+{"sl":"en","q":"annoyance","main":"роздратування","bd":[["noun",["докука","досада","набридання","надокучання","налазливість","непокоєння","прикрість","роздратування"]]]}
+{"sl":"uk","q":"затаєна образа","main":"hidden resentment","bd":[]}
+{"sl":"en","q":"resentment","main":"образа","bd":[["noun",["образа","обурення"]]]}
+{"sl":"uk","q":"подразнювати","main":"irritate","bd":[["verb",["irritate"]]]}
+{"sl":"en","q":"to irritate","main":"дратувати","bd":[["verb",["вередити","довадити","дражнити","дратувати","викликати збудження","злостити","лютити","подразнювати"]]]}
+{"sl":"uk","q":"розлютити","main":"make angry","bd":[["verb",["make angry"]]]}
+{"sl":"en","q":"to infuriate","main":"обурювати","bd":[["verb",["розгнівати","розлючувати"]]]}
+{"sl":"uk","q":"вибухнути гнівом","main":"explode with anger","bd":[]}
+{"sl":"en","q":"to blow up","main":"підривати","bd":[["verb",["висажувати в повітря","надимати","підривати"]]]}
+{"sl":"uk","q":"з відчуттям тривоги","main":"with a feeling of anxiety","bd":[]}
+{"sl":"en","q":"uneasy","main":"непросто","bd":[["adjective",["зніяковілий","незручний","непосидючий","неспокійний","тривожний"]]]}
+{"sl":"uk","q":"напружений","main":"strained","bd":[["adjective",["strained","stressful","tight","stretched","arduous","strung","taut","constrained"]]]}
+{"sl":"en","q":"tense","main":"напружений","bd":[["adjective",["збуджений","натягнутий"]],["noun",["час"]],["verb",["збуджувати","натягувати","натягуватися"]]]}
+{"sl":"uk","q":"стривожений через майбутнє","main":"anxious about the future","bd":[]}
+{"sl":"en","q":"apprehensive","main":"побоюється","bd":[["adjective",["кмітливий","сповнений передчуття тривоги","сприйнятливий","що стосується сприйняття"]]]}
+{"sl":"uk","q":"невпевнений у собі","main":"unsure of himself","bd":[]}
+{"sl":"en","q":"insecure","main":"невпевнений","bd":[["adjective",["небезпечний","ненадійний"]]]}
+{"sl":"uk","q":"той, що вагається","main":"one who hesitates","bd":[["noun",["doubting"]]]}
+{"sl":"en","q":"hesitant","main":"вагаючись","bd":[["adjective",["який заїкається","нерішучий"]]]}
+{"sl":"uk","q":"надмірно підозріливий","main":"overly suspicious","bd":[]}
+{"sl":"en","q":"paranoid","main":"параноїк","bd":[["adjective",["параноїдний"]],["noun",["параноїк"]]]}
+{"sl":"uk","q":"жахливе передчуття","main":"a terrible foreboding","bd":[]}
+{"sl":"en","q":"dread","main":"страх","bd":[["adjective",["страшний"]],["noun",["жахлива людина","страховище","страх"]],["verb",["боятися","відчувати благоговійний страх"]]]}
+{"sl":"uk","q":"неспокій","main":"trouble","bd":[["noun",["trouble","anxiety","unrest","worry","disquiet","bother","fidget","inquietude"]]]}
+{"sl":"en","q":"unease","main":"незручність","bd":[]}
+{"sl":"uk","q":"невпевненість у собі","main":"self-doubt","bd":[["noun",["self-distrust"]]]}
+{"sl":"en","q":"insecurity","main":"незахищеність","bd":[["noun",["небезпечність","ненадійність"]]]}
+{"sl":"uk","q":"тремтіти від хвилювання","main":"to tremble with excitement","bd":[]}
+{"sl":"en","q":"to tremble","main":"тремтіти","bd":[["verb",["вібрувати","тріпотіти","дрижати","трястися"]]]}
+{"sl":"uk","q":"надзвичайно здивований","main":"extremely surprised","bd":[]}
+{"sl":"en","q":"astonished","main":"здивований","bd":[["adjective",["здивований"]]]}
+{"sl":"uk","q":"ошелешений","main":"stunned","bd":[]}
+{"sl":"en","q":"stunned","main":"приголомшений","bd":[["verb",["обморочувати","оглушати","приголомшити","приголомшувати"]]]}
+{"sl":"uk","q":"той, що втратив дар мови","main":"the one who lost the gift of speech","bd":[]}
+{"sl":"en","q":"speechless","main":"безмовний","bd":[["adjective",["безмовний","занімілий","невимовний","німий"]]]}
+{"sl":"uk","q":"зачарований","main":"fascinated","bd":[["adjective",["fascinated","enchanted","charmed","spellbound","delighted","captive","captured","pixy-led"]]]}
+{"sl":"en","q":"fascinated","main":"зачарований","bd":[["adjective",["зачарований","очарований"]]]}
+{"sl":"uk","q":"спантеличений","main":"baffled","bd":[["adjective",["baffled","perplexed","distracted","bemused","blank","dizzy","raddled"]]]}
+{"sl":"en","q":"puzzled","main":"спантеличений","bd":[["verb",["бентежити","заплутувати","мішати","спантеличувати"]]]}
+{"sl":"uk","q":"геть спантеличений","main":"completely confused","bd":[]}
+{"sl":"en","q":"baffled","main":"збентежений","bd":[["adjective",["здивований","розгублений","спантеличений"]]]}
+{"sl":"uk","q":"дезорієнтований","main":"disoriented","bd":[["verb",["disorientate","misinform"]]]}
+{"sl":"en","q":"bewildered","main":"збентежений","bd":[["adjective",["збентежений","нестяменний"]]]}
+{"sl":"uk","q":"перевантажений","main":"overloaded","bd":[["adjective",["overloaded","loaded"]]]}
+{"sl":"en","q":"overwhelmed","main":"переповнений","bd":[["verb",["вражати","завалювати чимсь","закидати запитаннями","заливати","занапащати","затоплювати","захаращувати","обважувати"]]]}
+{"sl":"uk","q":"не вражений","main":"not impressed","bd":[]}
+{"sl":"en","q":"unimpressed","main":"не вражений","bd":[]}
+{"sl":"uk","q":"захоплене здивування","main":"rapturous astonishment","bd":[]}
+{"sl":"en","q":"amazement","main":"здивування","bd":[["noun",["замішання","збентеження","здивування","подив"]]]}
+{"sl":"uk","q":"байдужість","main":"indifference","bd":[["noun",["indifference","apathy","unconcern","negligence","coldness","insensibility","oscitation","callousness"]]]}
+{"sl":"en","q":"indifference","main":"байдужість","bd":[["noun",["байдужість","безкорисність","індеферентність","незначність","нейтральність"]]]}
+{"sl":"uk","q":"дивувати","main":"surprise","bd":[["verb",["surprise","amaze","astonish","astound","buffalo","daze","enamour","flabbergast"]]]}
+{"sl":"en","q":"to amaze","main":"дивувати","bd":[["verb",["вражати","здивувати","дивувати","зачудувати"]]]}
+{"sl":"uk","q":"вражати до глибини","main":"to impress to the depths","bd":[]}
+{"sl":"en","q":"to astonish","main":"дивувати","bd":[["verb",["дивувати","зачудувати","здивувати","уражати"]]]}
+{"sl":"uk","q":"принижений","main":"humiliated","bd":[["adjective",["humiliated","abject","diminished"]]]}
+{"sl":"en","q":"humiliated","main":"принижений","bd":[["adjective",["ображений","принижений"]]]}
+{"sl":"uk","q":"надто свідомий себе","main":"too self-conscious","bd":[]}
+{"sl":"en","q":"self-conscious","main":"самосвідомий","bd":[["adjective",["соромливий"]]]}
+{"sl":"uk","q":"сповнений бажання вибачитися","main":"full of desire to apologize","bd":[]}
+{"sl":"en","q":"apologetic","main":"вибачливий","bd":[["adjective",["апологетичний","вибачливий","виправдовуючий","захисний","перепрошуючий","примирливий"]]]}
+{"sl":"uk","q":"нижчий за становищем","main":"inferior in position","bd":[]}
+{"sl":"en","q":"inferior","main":"неповноцінний","bd":[["adjective",["гірший","поганий","нижній","нижчий"]],["noun",["підлеглий"]]]}
+{"sl":"uk","q":"нічого не вартий","main":"worthless","bd":[["adjective",["worthless","cheap"]],["phrase",["not worth a whistle"]]]}
+{"sl":"en","q":"worthless","main":"нічого не варто","bd":[["adjective",["нічого не вартий","нікудишній"]]]}
+{"sl":"uk","q":"приниження","main":"humiliation","bd":[["noun",["humiliation","abasement","debasement","abjection","depreciation","mortification","stoop","detraction"]],["verb",["climb down"]]]}
+{"sl":"en","q":"humiliation","main":"приниження","bd":[["noun",["згуда","приниження","принизливе становище"]]]}
+{"sl":"uk","q":"самооцінка","main":"self-esteem","bd":[]}
+{"sl":"en","q":"self-esteem","main":"самоповага","bd":[["noun",["зарозумілість","самоповага"]]]}
+{"sl":"uk","q":"упевненість у собі","main":"self-confidence","bd":[["noun",["self-reliance"]]]}
+{"sl":"en","q":"self-confidence","main":"впевненість у собі","bd":[["noun",["самовпевненість"]]]}
+{"sl":"uk","q":"сумнів у власних силах","main":"self-doubt","bd":[]}
+{"sl":"en","q":"self-doubt","main":"невпевненість у собі","bd":[]}
+{"sl":"uk","q":"здригатися від сорому","main":"shudder with shame","bd":[]}
+{"sl":"en","q":"to cringe","main":"зіщулюватися","bd":[["verb",["з'їжуватися","раболіпствувати","кланятися","ласитися"]]]}
+{"sl":"uk","q":"люблячий","main":"loving","bd":[["adjective",["loving","fond","affectionate","amatory"]]]}
+{"sl":"en","q":"loving","main":"люблячий","bd":[["adjective",["відданий","люблячий","любовний"]]]}
+{"sl":"uk","q":"ласкавий","main":"affectionate","bd":[["adjective",["affectionate","tender","soft","amiable","benign","accommodating","grandmotherly"]]]}
+{"sl":"en","q":"affectionate","main":"ласкавий","bd":[["adjective",["зичливий","ласкавий","люблячий","навратливий","ніжний","пестливий","пристрасний","приязний"]]]}
+{"sl":"uk","q":"прихильний до","main":"committed to","bd":[]}
+{"sl":"en","q":"fond of","main":"люблять","bd":[]}
+{"sl":"uk","q":"емоційно прив'язаний","main":"emotionally attached","bd":[]}
+{"sl":"en","q":"attached","main":"додається","bd":[["adjective",["арештований","відданий","доданий","прив'язаний","прикомандирований","прикріплений"]]]}
+{"sl":"uk","q":"здатний співпереживати","main":"able to empathize","bd":[]}
+{"sl":"en","q":"empathetic","main":"емпатичний","bd":[]}
+{"sl":"uk","q":"схильний довіряти","main":"inclined to trust","bd":[]}
+{"sl":"en","q":"trusting","main":"довірливий","bd":[["verb",["довіряти","звіряти","покладатися","сподіватися","доручати"]]]}
+{"sl":"uk","q":"заздрісний","main":"envious","bd":[["adjective",["envious","jealous","emulous","cankered"]]]}
+{"sl":"en","q":"envious","main":"заздрісні","bd":[["adjective",["завидливий","зависливий","заздрісний","недоброзичливий"]]]}
+{"sl":"uk","q":"надмірно ревнивий","main":"overly jealous","bd":[]}
+{"sl":"en","q":"possessive","main":"присвійний","bd":[["adjective",["власницький","присвійний"]],["noun",["присвійний відмінок"]]]}
+{"sl":"uk","q":"захоплення кимось","main":"admiration for someone","bd":[]}
+{"sl":"en","q":"admiration","main":"захоплення","bd":[["noun",["восторг","захоплення"]]]}
+{"sl":"uk","q":"обожнювання","main":"adoration","bd":[["noun",["adoration","deification","worship","apotheosis","dotage","canonization","cult","idolatry"]]]}
+{"sl":"en","q":"adoration","main":"обожнювання","bd":[["noun",["палке кохання","обожнювання","поклоніння"]]]}
+{"sl":"uk","q":"близькість","main":"proximity","bd":[["noun",["proximity","closeness","nearness","familiarity","neighborhood","propinquity","neighbourship","neighborship"]]]}
+{"sl":"en","q":"closeness","main":"близькість","bd":[["noun",["близькість","відлюдність","духота","задушливість","наближеність","самітність","самота","скупість"]]]}
+{"sl":"uk","q":"інтимна близькість","main":"intimacy","bd":[]}
+{"sl":"en","q":"intimacy","main":"інтимність","bd":[["noun",["близкість","зажилість","інтимність"]]]}
+{"sl":"uk","q":"емпатія","main":"empathy","bd":[]}
+{"sl":"en","q":"empathy","main":"емпатія","bd":[["noun",["співпереживання","співчуття"]]]}
+{"sl":"uk","q":"ревнощі","main":"jealousy","bd":[["noun",["jealousy","heartburning","heartburn","emulation"]]]}
+{"sl":"en","q":"jealousy","main":"ревнощі","bd":[["noun",["завидливість","зависть","заздрість","ревнощі"]]]}
+{"sl":"uk","q":"заздрість","main":"envy","bd":[["noun",["envy","jealousy","grudge","heartburning","heartburn"]]]}
+{"sl":"en","q":"envy","main":"заздрість","bd":[["noun",["завидки","заздрість","завидливість","зависть"]],["verb",["заздрити"]]]}
+{"sl":"uk","q":"бути небайдужим до","main":"to be indifferent to","bd":[]}
+{"sl":"en","q":"to care about","main":"піклуватися про","bd":[]}
+{"sl":"uk","q":"заспокоєний словами","main":"comforted by words","bd":[]}
+{"sl":"en","q":"reassured","main":"заспокоєний","bd":[["verb",["знову запевняти","умовляти"]]]}
+{"sl":"uk","q":"врівноважений","main":"balanced","bd":[]}
+{"sl":"en","q":"grounded","main":"заземлений","bd":[["adjective",["заземлений"]]]}
+{"sl":"uk","q":"уважний до теперішнього","main":"attentive to the present","bd":[]}
+{"sl":"en","q":"mindful","main":"уважний","bd":[["adjective",["дбайливий","пам'ятливий","пам'ятний","уважний"]]]}
+{"sl":"uk","q":"той, що приймає ситуацію","main":"one who accepts the situation","bd":[]}
+{"sl":"en","q":"accepting","main":"приймаючи","bd":[["verb",["визнавати","допускати","миритися","погоджуватися","приймати","припускати"]]]}
+{"sl":"uk","q":"душевний спокій","main":"peace of mind","bd":[["noun",["quietism"]]]}
+{"sl":"en","q":"peace of mind","main":"душевний спокій","bd":[]}
+{"sl":"uk","q":"заспокійливе запевнення","main":"reassuring reassurance","bd":[]}
+{"sl":"en","q":"reassurance","main":"заспокоєння","bd":[["noun",["повторне запевнення","знову здобутий спокій","умовляння"]]]}
+{"sl":"uk","q":"емоційна рівновага","main":"emotional balance","bd":[]}
+{"sl":"en","q":"emotional balance","main":"емоційна рівновага","bd":[]}
+{"sl":"uk","q":"відпустити ситуацію","main":"let go of the situation","bd":[]}
+{"sl":"en","q":"to let go","main":"відпустити","bd":[["verb",["випускати"]]]}
+{"sl":"uk","q":"натхненний","main":"inspired","bd":[["adjective",["inspired","animated","afflated","vatic","vatical","high-spirited"]]]}
+{"sl":"en","q":"inspired","main":"натхненний","bd":[["adjective",["захоплений","інспірований","натхненний"]]]}
+{"sl":"uk","q":"безнадійний","main":"hopeless","bd":[["adjective",["hopeless","desperate","incorrigible"]]]}
+{"sl":"en","q":"hopeless","main":"безнадійний","bd":[["adjective",["безвихідний","безнадійний","зневірений"]]]}
+{"sl":"uk","q":"сильна туга","main":"strong longing","bd":[]}
+{"sl":"en","q":"longing","main":"туга","bd":[["adjective",["жадаючий"]],["noun",["палке бажання","жадоба","жага"]]]}
+{"sl":"uk","q":"непереборний потяг","main":"an irresistible urge","bd":[]}
+{"sl":"en","q":"craving","main":"тяга","bd":[["noun",["палке бажання","палке благання","жадоба","прагнення"]]]}
+{"sl":"uk","q":"передчуття приємного","main":"a pleasant foreboding","bd":[]}
+{"sl":"en","q":"anticipation","main":"очікування","bd":[["noun",["передчасне настання","передчасність вимоги виконання","передчасність наступу","передчуття","побоювання","сподівання"]]]}
+{"sl":"uk","q":"тужити за","main":"yearn for","bd":[]}
+{"sl":"en","q":"to long for","main":"прагнути","bd":[["verb",["лакомитися","нудьгувати"]]]}
+{"sl":"uk","q":"жадати","main":"wish","bd":[["verb",["wish","covet","crave","thirst","hunger","long","pine","ache"]]]}
+{"sl":"en","q":"to crave","main":"жадати","bd":[["verb",["дуже бажати","палко бажати","благати","жадати","потребувати","просити"]]]}
+{"sl":"uk","q":"зосереджений","main":"concentrated","bd":[["adjective",["concentrated","intent","collected","undivided","converging"]]]}
+{"sl":"en","q":"focused","main":"зосереджений","bd":[["verb",["фокусувати"]]]}
+{"sl":"uk","q":"неуважний через задуму","main":"inattentive by design","bd":[]}
+{"sl":"en","q":"absent-minded","main":"розсіяний","bd":[["adjective",["неуважливий","неуважний"]]]}
+{"sl":"uk","q":"заглиблений","main":"immersed","bd":[["adjective",["immersed","deep","intent","rapt"]]]}
+{"sl":"en","q":"absorbed","main":"поглинається","bd":[["adjective",["вбираний","захоплений"]]]}
+{"sl":"uk","q":"психічно виснажений","main":"mentally exhausted","bd":[]}
+{"sl":"en","q":"mentally exhausted","main":"психічно виснажений","bd":[]}
+{"sl":"uk","q":"емоційно нечутливий","main":"emotionally insensitive","bd":[]}
+{"sl":"en","q":"numb","main":"оніміння","bd":[["adjective",["задубілий","затерплий","онімілий","отерплий","закляклий","заціпенілий","здерев'янілий","зомлілий"]],["verb",["викликати закляклість","викликати одубілість","викликати оніміння","ошелешити","приголомшити","примусити заціпеніти"]]]}
+{"sl":"uk","q":"емоційно відсторонений","main":"emotionally detached","bd":[]}
+{"sl":"en","q":"detached","main":"відокремлений","bd":[["adjective",["відірваний","відокремлений","незалежний","окремий"]]]}
+{"sl":"uk","q":"дезорієнтований у просторі","main":"disoriented in space","bd":[]}
+{"sl":"en","q":"disoriented","main":"дезорієнтований","bd":[]}
+{"sl":"uk","q":"у маренні","main":"delirious","bd":[]}
+{"sl":"en","q":"delirious","main":"марення","bd":[["adjective",["божевільний","гарячковий","що марить","несамовитий"]]]}
+{"sl":"uk","q":"емоційно нестабільний","main":"emotionally unstable","bd":[]}
+{"sl":"en","q":"emotionally unstable","main":"емоційно нестабільний","bd":[]}
+{"sl":"uk","q":"вигорання","main":"burnout","bd":[]}
+{"sl":"en","q":"burnout","main":"вигорання","bd":[["verb",["вигорати","випалювати","спалювати"]]]}
+{"sl":"uk","q":"розумова втома","main":"mental fatigue","bd":[]}
+{"sl":"en","q":"mental fatigue","main":"розумова втома","bd":[]}
+{"sl":"uk","q":"туман у голові","main":"fog in the head","bd":[]}
+{"sl":"en","q":"brain fog","main":"мозковий туман","bd":[]}
+{"sl":"uk","q":"тривалість концентрації уваги","main":"attention span","bd":[]}
+{"sl":"en","q":"attention span","main":"концентрація уваги","bd":[]}
+{"sl":"uk","q":"панічна атака","main":"panic attack","bd":[]}
+{"sl":"en","q":"panic attack","main":"напад паніки","bd":[]}
+{"sl":"uk","q":"нервовий зрив","main":"nervous breakdown","bd":[]}
+{"sl":"en","q":"nervous breakdown","main":"нервовий зрив","bd":[]}
+{"sl":"uk","q":"тривожний розлад","main":"anxiety disorder","bd":[]}
+{"sl":"en","q":"anxiety disorder","main":"тривожний розлад","bd":[]}
+{"sl":"uk","q":"механізм подолання стресу","main":"stress coping mechanism","bd":[]}
+{"sl":"en","q":"coping mechanism","main":"механізм подолання","bd":[]}
+{"sl":"uk","q":"відключитися думками","main":"turn off thoughts","bd":[]}
+{"sl":"en","q":"to zone out","main":"зонувати","bd":[]}
+{"sl":"uk","q":"надмірно все обдумувати","main":"overthink everything","bd":[]}
+{"sl":"en","q":"to overthink","main":"передумати","bd":[]}
+{"sl":"uk","q":"справлятися з","main":"cope with","bd":[]}
+{"sl":"en","q":"to cope with","main":"впоратися з","bd":[]}
+{"sl":"uk","q":"темперамент","main":"temperament","bd":[["noun",["temperament","kidney","zip","temperature"]]]}
+{"sl":"en","q":"temperament","main":"темперамент","bd":[["noun",["темперамент","характер"]]]}
+{"sl":"uk","q":"уявлення про себе","main":"self-image","bd":[]}
+{"sl":"en","q":"self-image","main":"образ себе","bd":[]}
+{"sl":"uk","q":"взірець для наслідування","main":"role model","bd":[]}
+{"sl":"en","q":"role model","main":"приклад для наслідування","bd":[]}
+{"sl":"uk","q":"перше враження","main":"first impression","bd":[]}
+{"sl":"en","q":"first impression","main":"перше враження","bd":[]}
+{"sl":"uk","q":"усебічно розвинений","main":"comprehensively developed","bd":[]}
+{"sl":"en","q":"well-rounded","main":"добре округлені","bd":[["adjective",["круглястий","плавний","складний"]]]}
+{"sl":"uk","q":"непослідовний","main":"inconsistent","bd":[["adjective",["inconsistent","incoherent","inconsequent","discursive","inconsequential"]]]}
+{"sl":"en","q":"inconsistent","main":"непослідовний","bd":[["adjective",["мінливий","непослідовний","несумісний"]]]}
+{"sl":"uk","q":"добросердий","main":"benign","bd":[["adjective",["benign","genial","good-natured","kind-hearted"]]]}
+{"sl":"en","q":"kind-hearted","main":"добросердий","bd":[["adjective",["добродушний","добросердий","чуйний"]]]}
+{"sl":"uk","q":"відкритий до нового","main":"open to new things","bd":[]}
+{"sl":"en","q":"open-minded","main":"відкритий","bd":[["adjective",["з широким кругозором","неупереджений","сприйнятливий"]]]}
+{"sl":"uk","q":"схильний пробачати","main":"inclined to forgive","bd":[]}
+{"sl":"en","q":"forgiving","main":"прощаючий","bd":[["adjective",["всепрощаючий","поблажливий"]]]}
+{"sl":"uk","q":"легкий у спілкуванні","main":"easy to communicate with","bd":[]}
+{"sl":"en","q":"easy-going","main":"невимушений","bd":[["adjective",["безжурний","безтурботний","добродушно-веселий"]]]}
+{"sl":"uk","q":"добродушний","main":"genial","bd":[["adjective",["genial","affable","debonair","kind-hearted","good-natured","well-natured","good-humored","good-humoured"]]]}
+{"sl":"en","q":"good-natured","main":"добродушний","bd":[["adjective",["добрий","добродушний","доброзичливий","добросердий","добротливий"]]]}
+{"sl":"uk","q":"вірний","main":"true","bd":[["adjective",["true","faithful","correct","loyal","certain","trusty","sure","staunch"]]]}
+{"sl":"en","q":"faithful","main":"вірний","bd":[["adjective",["вірний","правдивий","чесний"]]]}
+{"sl":"uk","q":"відданий справі","main":"committed to the cause","bd":[]}
+{"sl":"en","q":"committed","main":"скоєно","bd":[["adjective",["ідейний"]]]}
+{"sl":"uk","q":"принциповий","main":"principled","bd":[["adjective",["principled","high-toned"]]]}
+{"sl":"en","q":"principled","main":"принциповий","bd":[["adjective",["принциповий"]]]}
+{"sl":"uk","q":"шляхетний","main":"noble","bd":[["adjective",["noble","generous","noble-minded"]]]}
+{"sl":"en","q":"honorable","main":"почесний","bd":[["adjective",["благородний","достойний","знатний","почесний","чесний","шанований"]]]}
+{"sl":"uk","q":"порядний","main":"decent","bd":[["adjective",["decent","honest","conventional","gentlemanly","decorous","white","well-doing"]]]}
+{"sl":"en","q":"respectable","main":"респектабельний","bd":[["adjective",["значний","належний","поважний","респектабельний","шановний"]]]}
+{"sl":"uk","q":"законослухняний","main":"law abiding","bd":[]}
+{"sl":"en","q":"law-abiding","main":"законослухняний","bd":[["adjective",["законопослушний"]]]}
+{"sl":"uk","q":"підтримувати когось","main":"support someone","bd":[]}
+{"sl":"en","q":"to stand by someone","main":"стояти біля когось","bd":[]}
+{"sl":"uk","q":"зізнатися у своїй провині","main":"confess your guilt","bd":[]}
+{"sl":"en","q":"to own up","main":"володіти","bd":[["verb",["відверто зізнаватися","відверто признаватися","покірно погоджуватися"]]]}
+{"sl":"uk","q":"проникливий до людей","main":"sensitive to people","bd":[]}
+{"sl":"en","q":"perceptive","main":"проникливий","bd":[["adjective",["вбачливий","проникливий","що сприймає","сприйнятливий"]]]}
+{"sl":"uk","q":"з глибоким розумінням","main":"with deep understanding","bd":[]}
+{"sl":"en","q":"insightful","main":"проникливий","bd":[]}
+{"sl":"uk","q":"спостережливий","main":"observant","bd":[["adjective",["observant","observational","observing","inspective","regardant","observative","sharp-sighted","sharp-eyed"]]]}
+{"sl":"en","q":"observant","main":"спостережливий","bd":[["adjective",["дозорний","законопослушний","ретельний","спостережливий","уважний"]]]}
+{"sl":"uk","q":"із швидким розумом","main":"with a quick mind","bd":[]}
+{"sl":"en","q":"quick-witted","main":"кмітливий","bd":[["adjective",["винахідливий","дотепний"]]]}
+{"sl":"uk","q":"спритний у складній ситуації","main":"agile in a difficult situation","bd":[]}
+{"sl":"en","q":"resourceful","main":"винахідливий","bd":[["adjective",["винахідливий"]]]}
+{"sl":"uk","q":"обізнаний","main":"aware","bd":[["adjective",["aware","informed","acquainted","conversant","adept","expert","cognizant","well-informed"]]]}
+{"sl":"en","q":"knowledgeable","main":"обізнаний","bd":[["adjective",["добре обізнаний"]]]}
+{"sl":"uk","q":"спокійний у кризі","main":"calm in a crisis","bd":[]}
+{"sl":"en","q":"level-headed","main":"урівноважений","bd":[["adjective",["урівноважений"]]]}
+{"sl":"uk","q":"вузьколобий","main":"narrow-minded","bd":[["adjective",["narrow-minded"]]]}
+{"sl":"en","q":"narrow-minded","main":"вузьколобий","bd":[["adjective",["вузьколобий","з забобонами","обмежений"]]]}
+{"sl":"uk","q":"наївний","main":"naive","bd":[["adjective",["naive","innocent","artless","babyish","unsophisticated"]]]}
+{"sl":"en","q":"naive","main":"наївний","bd":[["adjective",["наївний","придуркуватий","простакуватий"]]]}
+{"sl":"uk","q":"легковірний","main":"gullible","bd":[["adjective",["gullible","credulous"]]]}
+{"sl":"en","q":"gullible","main":"легковірний","bd":[["adjective",["довірливий","легковірний"]]]}
+{"sl":"uk","q":"сумлінний","main":"conscientious","bd":[["adjective",["conscientious","honest","painstaking","religious"]]]}
+{"sl":"en","q":"conscientious","main":"сумлінний","bd":[["adjective",["добросовісний","совісний","справний","сумлінний","чесний"]]]}
+{"sl":"uk","q":"дисциплінований","main":"orderly","bd":[["adjective",["orderly"]]]}
+{"sl":"en","q":"disciplined","main":"дисциплінований","bd":[["verb",["дисциплінувати","карати","навчати"]]]}
+{"sl":"uk","q":"ініціативний","main":"enterprising","bd":[["adjective",["enterprising","ambitious","pushing"]]]}
+{"sl":"en","q":"proactive","main":"ініціативний","bd":[]}
+{"sl":"uk","q":"той, що не кидає почате","main":"the one who does not give up","bd":[]}
+{"sl":"en","q":"persevering","main":"наполегливий","bd":[["adjective",["наполегливий","напосідливий","настійливий","неухильний","нехибкий","нехибний","стійкий"]]]}
+{"sl":"uk","q":"здатний відновлюватися","main":"able to recover","bd":[]}
+{"sl":"en","q":"resilient","main":"пружний","bd":[["adjective",["еластичний","життєрадісний","пружний"]]]}
+{"sl":"uk","q":"той, що покладається на себе","main":"one who relies on himself","bd":[]}
+{"sl":"en","q":"self-reliant","main":"самостійний","bd":[["adjective",["упевнений у собі"]]]}
+{"sl":"uk","q":"безвідповідальний","main":"irresponsible","bd":[["adjective",["irresponsible","unaccountable","irresponsive","unanswerable"]]]}
+{"sl":"en","q":"irresponsible","main":"безвідповідальний","bd":[["adjective",["безвідповідальний","несамовитий"]]]}
+{"sl":"uk","q":"доводити справу до кінця","main":"bring the matter to an end","bd":[]}
+{"sl":"en","q":"to follow through","main":"до кінця","bd":[]}
+{"sl":"uk","q":"самовпевнений у доброму сенсі","main":"cocky in a good way","bd":[]}
+{"sl":"en","q":"self-assured","main":"самовпевнений","bd":[["adjective",["самовпевнений"]]]}
+{"sl":"uk","q":"із самоконтролем","main":"with self-control","bd":[]}
+{"sl":"en","q":"self-controlled","main":"самоконтрольований","bd":[["adjective",["стриманий"]]]}
+{"sl":"uk","q":"той, що стримує себе","main":"one who restrains himself","bd":[]}
+{"sl":"en","q":"restrained","main":"стриманий","bd":[["adjective",["обмежений","поміркований","стриманий"]]]}
+{"sl":"uk","q":"запальний","main":"inflammatory","bd":[["adjective",["inflammatory","fiery","passionate","hot","explosive","testy","hasty","peppery"]]]}
+{"sl":"en","q":"hot-headed","main":"гаряча голова","bd":[["adjective",["гарячий","запальний","необачний","нерозважливий"]]]}
+{"sl":"uk","q":"швидко зривається","main":"breaks down quickly","bd":[]}
+{"sl":"en","q":"short-tempered","main":"запальний","bd":[["adjective",["дратівливий","запальний"]]]}
+{"sl":"uk","q":"мінливий у настрої","main":"moody","bd":[]}
+{"sl":"en","q":"moody","main":"примхливий","bd":[["adjective",["з поганим характером","смутний"]]]}
+{"sl":"uk","q":"емоційно зрілий","main":"emotionally mature","bd":[]}
+{"sl":"en","q":"emotionally mature","main":"емоційно зрілий","bd":[]}
+{"sl":"uk","q":"екстравертний","main":"extrovert","bd":[]}
+{"sl":"en","q":"extroverted","main":"екстравертований","bd":[]}
+{"sl":"uk","q":"інтровертний","main":"introverted","bd":[]}
+{"sl":"en","q":"introverted","main":"інтровертований","bd":[["verb",["спрямовувати всередину","зосереджуватися на самому собі"]]]}
+{"sl":"uk","q":"говіркий","main":"talkative","bd":[["adjective",["talkative","talking","conversational","gabby","chatty","glib"]]]}
+{"sl":"en","q":"chatty","main":"балакучий","bd":[["adjective",["балакучий","язикатий","брудний","вошивий","говіркий","невимушений","неофіційний","неохайний"]],["noun",["череп'яний глечик"]]]}
+{"sl":"uk","q":"жвавий","main":"brisk","bd":[["adjective",["brisk","alive","animated","vivid","active","living","agile","jaunty"]]]}
+{"sl":"en","q":"lively","main":"жвавий","bd":[["adjective",["бадьорий","живий","пожвавлений","прудкий","рухливий"]],["adverb",["жваво"]]]}
+{"sl":"uk","q":"харизматичний","main":"charismatic","bd":[]}
+{"sl":"en","q":"charismatic","main":"харизматичний","bd":[]}
+{"sl":"uk","q":"симпатичний як людина","main":"nice as a person","bd":[]}
+{"sl":"en","q":"likeable","main":"симпатичний","bd":[["adjective",["привабливий","принадний"]]]}
+{"sl":"uk","q":"грайливий","main":"playful","bd":[["adjective",["playful","skittish","facetious","playsome","jocose","kittenish","chirk","frisky"]]]}
+{"sl":"en","q":"playful","main":"грайливий","bd":[["adjective",["грайливий","жартівливий"]]]}
+{"sl":"uk","q":"відсторонений і холодний","main":"aloof and cold","bd":[]}
+{"sl":"en","q":"aloof","main":"осторонь","bd":[["adverb",["байдуже","віддалік","на відстані","відчужено","осторонь","удалині"]]]}
+{"sl":"uk","q":"нетовариський","main":"unsociable","bd":[["adjective",["unsociable","uncommunicative","dissociable","incommunicative","antisocial","unconversable","offish","self-contained"]]]}
+{"sl":"en","q":"antisocial","main":"антисоціальний","bd":[["adjective",["антигромадський","антисоціальний","недружелюбний","нетовариський"]]]}
+{"sl":"uk","q":"надмірно прив'язливий","main":"overly clingy","bd":[]}
+{"sl":"en","q":"clingy","main":"чіпкий","bd":[]}
+{"sl":"uk","q":"той, що шукає уваги","main":"an attention seeker","bd":[]}
+{"sl":"en","q":"attention-seeking","main":"пошук уваги","bd":[]}
+{"sl":"uk","q":"егоцентричний","main":"egocentric","bd":[["adjective",["egocentric","self-centred"]]]}
+{"sl":"en","q":"self-centered","main":"егоцентричний","bd":[]}
+{"sl":"uk","q":"самозакоханий","main":"egotistic","bd":[["adjective",["vainglorious","egotistic","egotistical","nosewise"]]]}
+{"sl":"en","q":"egotistical","main":"егоїстичний","bd":[["adjective",["дуже зарозумілий","самозакоханий"]]]}
+{"sl":"uk","q":"пихатий від самовдоволення","main":"haughty with self-satisfaction","bd":[]}
+{"sl":"en","q":"conceited","main":"зарозумілий","bd":[["adjective",["гонористий","пихатий","химерний","чванливий"]]]}
+{"sl":"uk","q":"марнославний","main":"vainglorious","bd":[]}
+{"sl":"en","q":"vain","main":"даремно","bd":[["adjective",["даремний","марний","недоцільний","пихатий","пустий"]]]}
+{"sl":"uk","q":"снобістський","main":"snobbish","bd":[["adjective",["snobbish","snobby"]]]}
+{"sl":"en","q":"snobbish","main":"снобістський","bd":[["adjective",["бундючний","снобістський"]]]}
+{"sl":"uk","q":"той, що любить командувати","main":"one who likes to command","bd":[]}
+{"sl":"en","q":"bossy","main":"владний","bd":[["noun",["корова","м'ясо"]]]}
+{"sl":"uk","q":"схильний усе контролювати","main":"tends to control everything","bd":[]}
+{"sl":"en","q":"controlling","main":"контролюючий","bd":[["verb",["керувати","контролювати","настроювати","регулювати","стримувати","тамувати"]]]}
+{"sl":"uk","q":"деспотичний","main":"despotic","bd":[["adjective",["despotic","oppressive","arbitrary","autocratic","tyrannical","domineering","despotical","tyrannic"]]]}
+{"sl":"en","q":"domineering","main":"владний","bd":[["adjective",["деспотичний","зарозумілий","панівний"]]]}
+{"sl":"uk","q":"настирливий","main":"annoying","bd":[["adjective",["annoying","importunate","obtrusive","aggressive","wearisome","boring","obstinate","adhesive"]]]}
+{"sl":"en","q":"pushy","main":"настирливий","bd":[]}
+{"sl":"uk","q":"непоступливий","main":"unyielding","bd":[["adjective",["unyielding","stubborn","obstinate","tenacious","pertinacious"]]]}
+{"sl":"en","q":"inflexible","main":"негнучкий","bd":[["adjective",["негнучкий","незломний","неподатливий","непохитний","несхильний","неухильний"]]]}
+{"sl":"uk","q":"неуважний до інших","main":"inattentive to others","bd":[]}
+{"sl":"en","q":"inconsiderate","main":"неуважний","bd":[["adjective",["неделікатний","неоглядний","неопантровний","нерозважливий","нерозсудливий","неуважний"]]]}
+{"sl":"uk","q":"осудливий","main":"critical","bd":[["adjective",["critical","deprecative"]]]}
+{"sl":"en","q":"judgmental","main":"осудливий","bd":[]}
+{"sl":"uk","q":"брехливий","main":"lying","bd":[["adjective",["lying","mendacious","untruthful","scurrilous","calumniuos","double-tongued","double-meaning"]]]}
+{"sl":"en","q":"deceitful","main":"брехливий","bd":[["adjective",["віроломний","звідний","зводливий","крутий","облудний","обманливий","обманний","омильний"]]]}
+{"sl":"uk","q":"дволикий","main":"two-faced","bd":[["adjective",["two-faced","bifacial","bifront"]]]}
+{"sl":"en","q":"two-faced","main":"дволикий","bd":[["adjective",["дволикий","дволичний"]]]}
+{"sl":"uk","q":"лицемірний","main":"hypocritical","bd":[["adjective",["hypocritical","hypocrite","cant","canting","histrionic","specious","Jesuit","lefthanded"]]]}
+{"sl":"en","q":"hypocritical","main":"лицемірний","bd":[["adjective",["вдаваний","лицемірний","святенницький","удаваний"]]]}
+{"sl":"uk","q":"маніпулятивний","main":"manipulative","bd":[]}
+{"sl":"en","q":"manipulative","main":"маніпулятивний","bd":[["adjective",["зв'язаний з управлінням"]]]}
+{"sl":"uk","q":"той, що діє нишком","main":"the one who works in secret","bd":[]}
+{"sl":"en","q":"sneaky","main":"підступний","bd":[["adjective",["боягузливий","підлий","раболіпний"]]]}
+{"sl":"uk","q":"невдячний","main":"ungrateful","bd":[["adjective",["ungrateful","thankless","unthankful","ingrate","churlish"]]]}
+{"sl":"en","q":"ungrateful","main":"невдячний","bd":[["adjective",["невдячний","неприємний"]]]}
+{"sl":"uk","q":"дріб'язковий","main":"petty","bd":[["adjective",["minute","nugatory","fribble","toy","piddling","trifling","petty","pettifogging"]]]}
+{"sl":"en","q":"petty","main":"дріб'язковий","bd":[["noun",["дрібничка"]],["adjective",["вузький","дріб'язковий","малий","невеликий","незначний"]]]}
+{"sl":"uk","q":"непередбачуваний","main":"unpredictable","bd":[["adjective",["unpredictable"]]]}
+{"sl":"en","q":"unpredictable","main":"непередбачуваний","bd":[["adjective",["непередбачуваний"]]]}
+{"sl":"uk","q":"вихований","main":"educated","bd":[["adjective",["educated","bred","accomplished","gentlemanlike","civilized","nice","well-conditioned","well-conducted"]]]}
+{"sl":"en","q":"well-behaved","main":"добре вихований","bd":[["adjective",["гречний"]]]}
+{"sl":"uk","q":"невихований","main":"boorish","bd":[["adjective",["uncultured","boorish","discourteous","scurvy","unnurtured","chuffy","ill-mannered","ill-bred"]]]}
+{"sl":"uk","q":"неслухняний","main":"disobedient","bd":[["adjective",["disobedient","naughty","indocile","contumacious","ungovernable"]]]}
+{"sl":"en","q":"badly behaved","main":"погано поводився","bd":[]}
+{"sl":"uk","q":"чемний","main":"courteous","bd":[["adjective",["courteous","polite","affable","civil","mannerly","gentlemanly","attentive","debonair"]]]}
+{"sl":"en","q":"well-mannered","main":"добре вихований","bd":[["adjective",["гречний"]]]}
+{"sl":"uk","q":"невихований і грубий","main":"rude and rude","bd":[]}
+{"sl":"en","q":"ill-mannered","main":"невихований","bd":[["adjective",["неввічливий","невихований","нечемний"]]]}
+{"sl":"uk","q":"той, що заважає","main":"the one who gets in the way","bd":[]}
+{"sl":"en","q":"disruptive","main":"руйнівний","bd":[["adjective",["підривний","розрядний"]]]}
+{"sl":"uk","q":"той, що не бажає співпрацювати","main":"one that does not want to cooperate","bd":[]}
+{"sl":"en","q":"uncooperative","main":"відмова від співпраці","bd":[]}
+{"sl":"uk","q":"слухняний","main":"obedient","bd":[["adjective",["obedient","docile","dutiful","tractable","biddable","passive","amenable","obediential"]]]}
+{"sl":"en","q":"obedient","main":"слухняний","bd":[["adjective",["покірливий","покірний","послушний","слухняний"]]]}
+{"sl":"uk","q":"той, що зухвало кидає виклик","main":"one that defiantly challenges","bd":[]}
+{"sl":"en","q":"defiant","main":"зухвалий","bd":[["adjective",["визивний","демонстративний","недовірливий","непокірний"]]]}
+{"sl":"uk","q":"схильний бунтувати","main":"prone to rebellion","bd":[]}
+{"sl":"en","q":"rebellious","main":"бунтарський","bd":[["adjective",["м'ятежний","недисциплінований","непідхильний","повстанський","упертий"]]]}
+{"sl":"uk","q":"налаштований на співпрацю","main":"willing to cooperate","bd":[]}
+{"sl":"en","q":"collaborative","main":"спільний","bd":[]}
+{"sl":"uk","q":"пасивно-агресивний","main":"passive-aggressive","bd":[]}
+{"sl":"en","q":"passive-aggressive","main":"пасивно-агресивний","bd":[]}
+{"sl":"uk","q":"погано поводитися","main":"misbehave","bd":[["verb",["misbehave","misconduct","maltreat","do amiss","ill-treat","ill-use"]]]}
+{"sl":"en","q":"to misbehave","main":"погано поводитися","bd":[["verb",["погано поводитися"]]]}
+{"sl":"uk","q":"надмірно реагувати","main":"overreact","bd":[]}
+{"sl":"en","q":"to overreact","main":"надмірно реагувати","bd":[["verb",["приймати близько до серця"]]]}
+{"sl":"uk","q":"барахлити","main":"junk","bd":[]}
+{"sl":"en","q":"to act up","main":"діяти","bd":[]}
+{"sl":"uk","q":"приземлений у доброму сенсі","main":"down to earth in a good way","bd":[]}
+{"sl":"en","q":"down-to-earth","main":"приземлений","bd":[]}
+{"sl":"uk","q":"той, що потребує багато уваги","main":"one that needs a lot of attention","bd":[]}
+{"sl":"en","q":"high-maintenance","main":"високий рівень обслуговування","bd":[]}
+{"sl":"uk","q":"невибагливий","main":"unassuming","bd":[["adjective",["unassuming","promiscuous","homely","lowbrow","unpretending"]]]}
+{"sl":"en","q":"low-maintenance","main":"низький рівень обслуговування","bd":[]}
+{"sl":"uk","q":"вольовий","main":"willed","bd":[["adjective",["willed","forceful","willing"]]]}
+{"sl":"en","q":"strong-willed","main":"вольовий","bd":[["adjective",["рішучий","упертий"]]]}
+{"sl":"uk","q":"тихоголосий","main":"quiet voice","bd":[]}
+{"sl":"en","q":"soft-spoken","main":"м'якозвучний","bd":[["adjective",["солодкомовний","тихо сказаний"]]]}
+{"sl":"uk","q":"нечутливий до критики","main":"insensitive to criticism","bd":[]}
+{"sl":"en","q":"thick-skinned","main":"товстошкірий","bd":[["adjective",["товстошкірий"]]]}
+{"sl":"uk","q":"надто чутливий до критики","main":"too sensitive to criticism","bd":[]}
+{"sl":"en","q":"thin-skinned","main":"тонкошкірий","bd":[["adjective",["тонкошкірий","уразливий"]]]}
+{"sl":"uk","q":"широких поглядів","main":"broad views","bd":[]}
+{"sl":"en","q":"broad-minded","main":"широкі погляди","bd":[["adjective",["з широким кругозором"]]]}
+{"sl":"uk","q":"перфекціоніст","main":"a perfectionist","bd":[]}
+{"sl":"en","q":"perfectionist","main":"перфекціоніст","bd":[["noun",["прихильник доктрини удосконалення"]]]}
+{"sl":"uk","q":"трудоголік","main":"workaholic","bd":[]}
+{"sl":"en","q":"workaholic","main":"трудоголік","bd":[]}
+{"sl":"uk","q":"ладнати з","main":"get along with","bd":[]}
+{"sl":"en","q":"to get along with","main":"ладити з","bd":[]}
+{"sl":"uk","q":"бути схожим характером на когось","main":"to be similar in character to someone","bd":[]}
+{"sl":"en","q":"to take after someone","main":"брати за ким","bd":[]}
+{"sl":"uk","q":"світська розмова","main":"urbanity","bd":[["noun",["urbanity"]]]}
+{"sl":"en","q":"small talk","main":"світська розмова","bd":[]}
+{"sl":"uk","q":"слухач","main":"listener","bd":[["noun",["listener","student","hearer"]]]}
+{"sl":"en","q":"listener","main":"слухач","bd":[["noun",["радіослухач","слухач"]]]}
+{"sl":"uk","q":"мова тіла","main":"body language","bd":[]}
+{"sl":"en","q":"body language","main":"мова тіла","bd":[]}
+{"sl":"uk","q":"вираз обличчя","main":"countenance","bd":[["noun",["countenance","brow"]]]}
+{"sl":"en","q":"facial expression","main":"вираз обличчя","bd":[]}
+{"sl":"uk","q":"зоровий контакт","main":"eye contact","bd":[]}
+{"sl":"en","q":"eye contact","main":"зоровий контакт","bd":[]}
+{"sl":"uk","q":"перекрикувати співрозмовника","main":"to shout over the interlocutor","bd":[]}
+{"sl":"en","q":"to talk over someone","main":"переговорювати когось","bd":[]}
+{"sl":"uk","q":"точка зору","main":"point of view","bd":[["noun",["point of view","viewpoint","standpoint","notion","outlook","contention","angle","aspect"]]]}
+{"sl":"en","q":"point of view","main":"точки зору","bd":[["noun",["точка зору"]]]}
+{"sl":"uk","q":"контраргумент","main":"counterargument","bd":[]}
+{"sl":"en","q":"counterargument","main":"контраргумент","bd":[]}
+{"sl":"uk","q":"слушна думка","main":"good idea","bd":[]}
+{"sl":"en","q":"valid point","main":"дійсний пункт","bd":[]}
+{"sl":"uk","q":"спільна позиція","main":"common position","bd":[]}
+{"sl":"en","q":"common ground","main":"спільна основа","bd":[]}
+{"sl":"uk","q":"непорозуміння","main":"misunderstanding","bd":[["noun",["misunderstanding","misconception","mistake","misapprehension","miscomprehension","unpleasantness","imbroglio","cross-purpose"]]]}
+{"sl":"en","q":"misunderstanding","main":"непорозуміння","bd":[["noun",["незлагода","непорозуміння","неправильне розуміння"]]]}
+{"sl":"uk","q":"уточнення","main":"specification","bd":[["noun",["specification","rectification"]]]}
+{"sl":"en","q":"clarification","main":"уточнення","bd":[["noun",["з'ясування","освітлення","очищення","пояснення","прояснення"]]]}
+{"sl":"uk","q":"суперечити","main":"contradict","bd":[["verb",["contradict","conflict","disagree","counter","belie","gainsay","cut across"]]]}
+{"sl":"en","q":"to contradict","main":"суперечити","bd":[["verb",["заперечувати","перечити","суперечити"]]]}
+{"sl":"uk","q":"перефразувати","main":"rephrase","bd":[["verb",["rephrase"]]]}
+{"sl":"en","q":"to rephrase","main":"перефразувати","bd":[["verb",["перефразувати"]]]}
+{"sl":"uk","q":"мистецтво переконувати","main":"the art of persuasion","bd":[]}
+{"sl":"en","q":"persuasion","main":"переконання","bd":[["noun",["віросповідання","намова","переконаність","переконання","переконливість"]]]}
+{"sl":"uk","q":"вмовити когось зробити","main":"persuade someone to do","bd":[]}
+{"sl":"en","q":"to talk someone into","main":"наговорити когось","bd":[]}
+{"sl":"uk","q":"відмовити когось від дії","main":"discourage someone from taking action","bd":[]}
+{"sl":"en","q":"to talk someone out of","main":"відмовляти когось","bd":[]}
+{"sl":"uk","q":"апелювати до","main":"appeal to","bd":[]}
+{"sl":"en","q":"to appeal to","main":"звертатися до","bd":[]}
+{"sl":"uk","q":"такт","main":"tact","bd":[["noun",["tact","time","cadence","delicacy","lilt"]]]}
+{"sl":"en","q":"tact","main":"такт","bd":[["noun",["такт","тактовність"]]]}
+{"sl":"uk","q":"конфіденційність","main":"privacy","bd":[]}
+{"sl":"en","q":"confidentiality","main":"конфіденційність","bd":[]}
+{"sl":"uk","q":"делікатний у словах","main":"delicate in words","bd":[]}
+{"sl":"en","q":"tactful","main":"тактовний","bd":[["adjective",["тактовний"]]]}
+{"sl":"uk","q":"нетактовний","main":"tactless","bd":[["adjective",["tactless","impolite","tasteless","uncivil","clumsy","gauche"]]]}
+{"sl":"en","q":"tactless","main":"нетактовний","bd":[["adjective",["безтактний","неоглядний","нетактовний"]]]}
+{"sl":"uk","q":"надто прямий","main":"too direct","bd":[]}
+{"sl":"en","q":"blunt","main":"тупий","bd":[["adjective",["грубуватий","нетямущий","тупий","притуплений"]],["noun",["штопальна голка","гроші","бовдур"]],["verb",["затупляти","притупляти","притуплятися"]]]}
+{"sl":"uk","q":"конфіденційний","main":"confidential","bd":[["adjective",["confidential","fiduciary"]]]}
+{"sl":"en","q":"confidential","main":"конфіденційно","bd":[["adjective",["довірливий","імовірний","конфіденціальний","конфіденційний","секретний"]]]}
+{"sl":"uk","q":"висловитися вголос","main":"speak out loud","bd":[]}
+{"sl":"en","q":"to speak up","main":"говорити","bd":[]}
+{"sl":"uk","q":"словесна суперечка","main":"verbal dispute","bd":[]}
+{"sl":"en","q":"verbal argument","main":"словесний аргумент","bd":[]}
+{"sl":"uk","q":"сварка","main":"quarrel","bd":[["noun",["quarrel","altercation","squabble","bicker","controversy","jangle","embroilment","broil"]]]}
+{"sl":"en","q":"quarrel","main":"сварка","bd":[["noun",["лаянка","незмир","розлад","сварка","свара","скарга"]],["verb",["вадитися","насваритися","оспорювати","сваритися","перечитися"]]]}
+{"sl":"uk","q":"сваритися","main":"quarrel","bd":[["verb",["quarrel","revile","altercate","broil","feud","scold","disagree","part company"]]]}
+{"sl":"en","q":"to quarrel","main":"посваритися","bd":[["verb",["вадитися","насваритися","оспорювати","сваритися","перечитися"]]]}
+{"sl":"uk","q":"словесні образи","main":"verbal insults","bd":[]}
+{"sl":"en","q":"verbal abuse","main":"словесна образа","bd":[]}
+{"sl":"uk","q":"перехід на особистості","main":"transition to personality","bd":[]}
+{"sl":"en","q":"personal attack","main":"особистий напад","bd":[]}
+{"sl":"uk","q":"гаряча суперечка","main":"heated argument","bd":[]}
+{"sl":"en","q":"heated argument","main":"гаряча суперечка","bd":[]}
+{"sl":"uk","q":"налаштовувати проти себе","main":"set against oneself","bd":[]}
+{"sl":"en","q":"to antagonize","main":"антагонізувати","bd":[["verb",["породжувати антагонізм","боротися","ворогувати","викликати протидію","протидіяти"]]]}
+{"sl":"uk","q":"обман","main":"deception","bd":[["noun",["deception","deceit","fraud","lie","cheat","hoax","sham","trickery"]]]}
+{"sl":"en","q":"deception","main":"обман","bd":[["noun",["звідня","ілюзія","облуда","обман","шахрайство"]]]}
+{"sl":"uk","q":"плітки","main":"gossip","bd":[["noun",["gossip","tattle","scandal","newsmongering","tittle-tattle"]]]}
+{"sl":"en","q":"gossip","main":"плітки","bd":[["noun",["базікало","кум","набілки","патяки","поговір","базікання","кума","нагрубка"]],["verb",["базікати","ляси точити","патякати","розпускати плітки"]]]}
+{"sl":"uk","q":"шантаж","main":"blackmail","bd":[["noun",["blackmail","intimidation","chantage","racketeering","squeeze play"]]]}
+{"sl":"en","q":"blackmail","main":"шантаж","bd":[["noun",["шантаж"]],["verb",["шантажувати"]]]}
+{"sl":"uk","q":"емоційний шантаж","main":"emotional blackmail","bd":[]}
+{"sl":"en","q":"emotional blackmail","main":"емоційний шантаж","bd":[]}
+{"sl":"uk","q":"газлайтинг","main":"gaslighting","bd":[]}
+{"sl":"en","q":"gaslighting","main":"газове освітлення","bd":[]}
+{"sl":"uk","q":"нав'язування почуття провини","main":"imposition of guilt","bd":[]}
+{"sl":"en","q":"guilt trip","main":"почуття провини","bd":[]}
+{"sl":"uk","q":"демонстративне мовчання","main":"demonstrative silence","bd":[]}
+{"sl":"en","q":"silent treatment","main":"мовчазне лікування","bd":[]}
+{"sl":"uk","q":"подвійний стандарт","main":"double standard","bd":[]}
+{"sl":"en","q":"double standard","main":"подвійний стандарт","bd":[]}
+{"sl":"uk","q":"обдурювати","main":"deceive","bd":[["verb",["deceive","cheat","dupe","befool","hoodwink","chouse","bilk","counterfeit"]]]}
+{"sl":"en","q":"to deceive","main":"обманювати","bd":[["verb",["доводити до гріха","збаламучувати","звести","зводити","згулити","захоплювати зненацька","манити","мантити"]]]}
+{"sl":"uk","q":"вводити в оману","main":"mislead","bd":[["verb",["mislead","deceive","delude","misguide"]]]}
+{"sl":"en","q":"to mislead","main":"вводити в оману","bd":[["verb",["збивати з пуття","звести","зводити","вводити в оману","омиляти"]]]}
+{"sl":"uk","q":"тиснути через почуття провини","main":"push through guilt","bd":[]}
+{"sl":"en","q":"to guilt-trip","main":"до почуття провини","bd":[]}
+{"sl":"uk","q":"змушувати сумніватися у власному сприйнятті","main":"make you doubt your own perception","bd":[]}
+{"sl":"en","q":"to gaslight","main":"газувати","bd":[]}
+{"sl":"uk","q":"ухилятися від суті","main":"evade the point","bd":[]}
+{"sl":"en","q":"to deflect","main":"відхиляти","bd":[["verb",["відхилятися","змінювати напрям"]]]}
+{"sl":"uk","q":"урегулювання конфліктів","main":"settlement of conflicts","bd":[]}
+{"sl":"en","q":"conflict resolution","main":"вирішення конфлікту","bd":[]}
+{"sl":"uk","q":"готовність до компромісу","main":"willingness to compromise","bd":[]}
+{"sl":"en","q":"willingness to compromise","main":"готовність до компромісу","bd":[]}
+{"sl":"uk","q":"медіатор у конфлікті","main":"a mediator in a conflict","bd":[]}
+{"sl":"en","q":"mediator","main":"посередник","bd":[["noun",["зведенник","медіатор","медіятор","посередник"]]]}
+{"sl":"uk","q":"знизити напруження","main":"reduce tension","bd":[]}
+{"sl":"en","q":"to de-escalate","main":"для деескалації","bd":[]}
+{"sl":"uk","q":"вислухати когось до кінця","main":"to listen to someone completely","bd":[]}
+{"sl":"en","q":"to hear someone out","main":"вислухати когось","bd":[]}
+{"sl":"uk","q":"текстове повідомлення","main":"text message","bd":[]}
+{"sl":"en","q":"text message","main":"текстове повідомлення","bd":[]}
+{"sl":"uk","q":"голосове повідомлення","main":"voice message","bd":[]}
+{"sl":"en","q":"voice message","main":"голосове повідомлення","bd":[]}
+{"sl":"uk","q":"ланцюжок електронних листів","main":"email chain","bd":[]}
+{"sl":"en","q":"email thread","main":"ланцюжок електронної пошти","bd":[]}
+{"sl":"uk","q":"груповий чат","main":"group chat","bd":[]}
+{"sl":"en","q":"group chat","main":"груповий чат","bd":[]}
+{"sl":"uk","q":"реакція в соцмережі","main":"reaction in the social network","bd":[]}
+{"sl":"en","q":"online reaction","main":"онлайн реакція","bd":[]}
+{"sl":"uk","q":"підтвердження прочитання","main":"read confirmation","bd":[]}
+{"sl":"en","q":"read receipt","main":"квитанція про прочитання","bd":[]}
+{"sl":"uk","q":"друкарська помилка","main":"misprint","bd":[["noun",["misprint","literal","corrigendum"]]]}
+{"sl":"en","q":"typo","main":"опечатка","bd":[["noun",["друкар","друкарська машинка для сліпих"]]]}
+{"sl":"uk","q":"офіційний тон","main":"formal tone","bd":[]}
+{"sl":"en","q":"formal tone","main":"офіційний тон","bd":[]}
+{"sl":"uk","q":"неформальний тон","main":"informal tone","bd":[]}
+{"sl":"en","q":"informal tone","main":"неформальний тон","bd":[]}
+{"sl":"uk","q":"сарказм","main":"sarcasm","bd":[["noun",["sarcasm","caustic","squib"]]]}
+{"sl":"en","q":"sarcasm","main":"сарказм","bd":[["noun",["насмішкуватість","сарказм"]]]}
+{"sl":"uk","q":"додати когось у копію листа","main":"add someone to a copy of the letter","bd":[]}
+{"sl":"en","q":"to copy someone in","main":"копіювати когось","bd":[]}
+{"sl":"uk","q":"вимкнути звук","main":"turn off the sound","bd":[]}
+{"sl":"en","q":"to mute","main":"вимкнути звук","bd":[["verb",["надівати сурдинку"]]]}
+{"sl":"uk","q":"видалити з друзів","main":"remove from friends","bd":[]}
+{"sl":"en","q":"to unfriend","main":"вилучити з друзів","bd":[]}
+{"sl":"uk","q":"член сім'ї","main":"family member","bd":[]}
+{"sl":"en","q":"family member","main":"член сім'ї","bd":[]}
+{"sl":"uk","q":"близнюки","main":"twins","bd":[["noun",["twin"]]]}
+{"sl":"en","q":"twins","main":"близнюки","bd":[["noun",["близнята"]]]}
+{"sl":"uk","q":"однояйцеві близнюки","main":"identical twins","bd":[]}
+{"sl":"en","q":"identical twins","main":"однояйцеві близнюки","bd":[]}
+{"sl":"uk","q":"різнояйцеві близнюки","main":"fraternal twins","bd":[]}
+{"sl":"en","q":"fraternal twins","main":"разнояйцеві близнюки","bd":[]}
+{"sl":"uk","q":"єдина дитина в сім'ї","main":"the only child in the family","bd":[]}
+{"sl":"en","q":"only child","main":"єдина дитина","bd":[["noun",["єдина дитина"]]]}
+{"sl":"uk","q":"найстарша дитина","main":"the oldest child","bd":[]}
+{"sl":"en","q":"eldest child","main":"старша дитина","bd":[]}
+{"sl":"uk","q":"наймолодша дитина","main":"the youngest child","bd":[]}
+{"sl":"en","q":"youngest child","main":"молодша дитина","bd":[]}
+{"sl":"uk","q":"середня дитина","main":"middle child","bd":[]}
+{"sl":"en","q":"middle child","main":"середня дитина","bd":[]}
+{"sl":"uk","q":"подружня пара","main":"married couple","bd":[]}
+{"sl":"en","q":"married couple","main":"сімейна пара","bd":[["noun",["подружжя"]]]}
+{"sl":"uk","q":"одинокий батько або мати","main":"single parent","bd":[]}
+{"sl":"en","q":"single parent","main":"одинокий батько","bd":[]}
+{"sl":"uk","q":"нуклеарна сім'я","main":"nuclear family","bd":[]}
+{"sl":"en","q":"nuclear family","main":"нуклеарна сім'я","bd":[]}
+{"sl":"uk","q":"найближчі родичі","main":"closest relatives","bd":[]}
+{"sl":"en","q":"immediate family","main":"найближчі родичі","bd":[]}
+{"sl":"uk","q":"розширена сім'я","main":"extended family","bd":[]}
+{"sl":"en","q":"extended family","main":"розширена родина","bd":[]}
+{"sl":"uk","q":"прадідусь або прабабуся","main":"great-grandfather or great-grandmother","bd":[]}
+{"sl":"en","q":"great-grandparent","main":"прадід","bd":[["noun",["прабатько","прародитель"]]]}
+{"sl":"uk","q":"правнук або правнучка","main":"great-grandson or great-granddaughter","bd":[]}
+{"sl":"en","q":"great-grandchild","main":"правнук","bd":[["noun",["правнук","правнучка"]]]}
+{"sl":"uk","q":"двоюрідний брат або сестра","main":"cousin","bd":[]}
+{"sl":"en","q":"first cousin","main":"двоюрідний брат","bd":[]}
+{"sl":"uk","q":"троюрідний брат або сестра","main":"second cousin","bd":[]}
+{"sl":"en","q":"second cousin","main":"троюрідний брат","bd":[]}
+{"sl":"uk","q":"родичі чоловіка або дружини","main":"relatives of the husband or wife","bd":[]}
+{"sl":"en","q":"in-laws","main":"свекрухи","bd":[]}
+{"sl":"uk","q":"брат чоловіка або дружини","main":"husband's or wife's brother","bd":[]}
+{"sl":"en","q":"brother-in-law","main":"шурин","bd":[["noun",["дівер","зять"]]]}
+{"sl":"uk","q":"сестра чоловіка або дружини","main":"sister of husband or wife","bd":[]}
+{"sl":"en","q":"sister-in-law","main":"невістка","bd":[["noun",["діверка","зовиця","невістка"]]]}
+{"sl":"uk","q":"зведена сім'я","main":"step family","bd":[]}
+{"sl":"en","q":"stepfamily","main":"прийомна сім'я","bd":[]}
+{"sl":"uk","q":"вітчим або мачуха","main":"stepfather or stepmother","bd":[]}
+{"sl":"en","q":"stepparent","main":"вітчим","bd":[["noun",["вітчим","мачуха"]]]}
+{"sl":"uk","q":"брат по одному з батьків","main":"brother of one of the parents","bd":[]}
+{"sl":"en","q":"half-brother","main":"зведений брат","bd":[["noun",["єдиноутробний брат"]]]}
+{"sl":"uk","q":"сестра по одному з батьків","main":"sister of one of the parents","bd":[]}
+{"sl":"en","q":"half-sister","main":"зведена сестра","bd":[["noun",["однокровна сестра"]]]}
+{"sl":"uk","q":"усиновлювач","main":"adopter","bd":[]}
+{"sl":"en","q":"adoptive parent","main":"прийомний батько","bd":[]}
+{"sl":"uk","q":"усиновлена дитина","main":"adopted child","bd":[]}
+{"sl":"en","q":"adopted child","main":"прийомна дитина","bd":[]}
+{"sl":"uk","q":"прийомний вихователь","main":"foster carer","bd":[]}
+{"sl":"en","q":"foster parent","main":"прийомний батько","bd":[]}
+{"sl":"uk","q":"дитина у прийомній сім'ї","main":"a child in a foster family","bd":[]}
+{"sl":"en","q":"foster child","main":"прийомна дитина","bd":[]}
+{"sl":"uk","q":"опікун","main":"guardian","bd":[["noun",["guardian","trustee","custodian","curator","administrator","fiduciary","committee"]]]}
+{"sl":"en","q":"guardian","main":"опікун","bd":[["noun",["вартівник","вартовик","куратор","опікун","охоронець"]]]}
+{"sl":"uk","q":"сирота","main":"orphan","bd":[["noun",["orphan"]]]}
+{"sl":"en","q":"orphan","main":"сирота","bd":[["adjective",["сирітський"]],["noun",["людина, позбавлена чогось","сирота"]],["verb",["осиротити","зробити сиротою"]]]}
+{"sl":"uk","q":"хрещений батько або хрещена мати","main":"godfather or godmother","bd":[]}
+{"sl":"en","q":"godparent","main":"хресний батько","bd":[["noun",["хрещена мати","хрещений батько"]]]}
+{"sl":"uk","q":"хрещений батько","main":"godfather","bd":[["noun",["godfather","god-parent"]]]}
+{"sl":"en","q":"godfather","main":"кум","bd":[["noun",["кум","хрещений батько"]],["verb",["бути хрещеним батьком"]]]}
+{"sl":"uk","q":"хрещена мати","main":"godmother","bd":[["noun",["godmother","god-parent"]]]}
+{"sl":"en","q":"godmother","main":"хрещена мати","bd":[["noun",["кума","хрещена мати"]],["verb",["бути хрещеною матір'ю"]]]}
+{"sl":"uk","q":"родинне дерево","main":"family tree","bd":[]}
+{"sl":"en","q":"family tree","main":"родинне дерево","bd":[["noun",["родовід"]]]}
+{"sl":"uk","q":"очікувана дата пологів","main":"expected date of delivery","bd":[]}
+{"sl":"en","q":"due date","main":"термін виконання","bd":[]}
+{"sl":"uk","q":"пологи","main":"childbirth","bd":[["noun",["childbirth","accouchement","parturition","lying-in"]]]}
+{"sl":"en","q":"childbirth","main":"пологи","bd":[["noun",["пологи","роди","родиво"]]]}
+{"sl":"uk","q":"новонароджений","main":"newborn","bd":[["adjective",["newborn","new-fallen"]],["noun",["newborn","arrival"]]]}
+{"sl":"en","q":"newborn","main":"новонароджений","bd":[["adjective",["відроджений","оновлений","новонароджений"]],["noun",["новонароджений"]]]}
+{"sl":"uk","q":"дошкільник","main":"preschooler","bd":[]}
+{"sl":"en","q":"preschooler","main":"дошкільник","bd":[]}
+{"sl":"uk","q":"юнацький вік","main":"youthful age","bd":[]}
+{"sl":"en","q":"adolescence","main":"підлітковий вік","bd":[["noun",["нелітність","неповноліття","юнацтво","юність","юнь"]]]}
+{"sl":"uk","q":"доросле життя","main":"adult life","bd":[]}
+{"sl":"en","q":"adulthood","main":"повноліття","bd":[["noun",["дорослість","повнорічність"]]]}
+{"sl":"uk","q":"середній вік","main":"middle age","bd":[]}
+{"sl":"en","q":"middle age","main":"середній вік","bd":[]}
+{"sl":"uk","q":"людина старшого віку","main":"an older person","bd":[]}
+{"sl":"en","q":"senior citizen","main":"пенсіонер","bd":[]}
+{"sl":"uk","q":"різниця у віці","main":"age difference","bd":[]}
+{"sl":"en","q":"age gap","main":"розрив у віці","bd":[]}
+{"sl":"uk","q":"батьківство як стан","main":"parenthood as a state","bd":[]}
+{"sl":"en","q":"parenthood","main":"батьківство","bd":[["noun",["батьківство","материнство"]]]}
+{"sl":"uk","q":"виховання дітей","main":"raising children","bd":[]}
+{"sl":"en","q":"parenting","main":"виховання дітей","bd":[]}
+{"sl":"uk","q":"умови, у яких виросла людина","main":"the conditions in which a person grew up","bd":[]}
+{"sl":"en","q":"upbringing","main":"виховання","bd":[["noun",["виховання"]]]}
+{"sl":"uk","q":"догляд за дітьми","main":"child care","bd":[]}
+{"sl":"en","q":"childcare","main":"догляд за дітьми","bd":[]}
+{"sl":"uk","q":"тимчасова няня","main":"temporary babysitter","bd":[]}
+{"sl":"en","q":"babysitter","main":"няня","bd":[["noun",["нахожа нянька"]]]}
+{"sl":"uk","q":"няня","main":"nurse","bd":[["noun",["nurse","nanny","nursemaid","nurserymaid","dry-nurse"]]]}
+{"sl":"en","q":"nanny","main":"няня","bd":[["noun",["няня"]]]}
+{"sl":"uk","q":"денний догляд за дітьми","main":"day care for children","bd":[]}
+{"sl":"en","q":"daycare","main":"дитячий садок","bd":[]}
+{"sl":"uk","q":"декретна відпустка для матері","main":"maternity leave for the mother","bd":[]}
+{"sl":"en","q":"maternity leave","main":"декретна відпустка","bd":[]}
+{"sl":"uk","q":"відпустка для батька після народження дитини","main":"leave for the father after the birth of the child","bd":[]}
+{"sl":"en","q":"paternity leave","main":"батьківська відпустка","bd":[]}
+{"sl":"uk","q":"відпустка по догляду за дитиною","main":"parental leave","bd":[]}
+{"sl":"en","q":"parental leave","main":"відпустка по догляду за дитиною","bd":[]}
+{"sl":"uk","q":"сімейні цінності","main":"family values","bd":[]}
