@@ -1736,6 +1736,9 @@
   .qm-word:empty { display: none; }
   .q-mon.extra .qm-word::before { content: "⭐ "; }   /* екстра-слово з рівня поза вибором (сесія 64) */
   .q-mon.extra .qm-word { border-color: #b98cff; box-shadow: 0 0 18px rgba(185,140,255,.55), 0 6px 18px rgba(0,0,0,.35); }
+  /* повторення слова зі «Знаю» (streak ≥ 3) — зелена рамка, як фіолетова в екстра (06.11.2026, за запитом) */
+  .q-mon.known .qm-word::before { content: "✓ "; color: #7fdd40; }
+  .q-mon.known .qm-word { border-color: #7fdd40; box-shadow: 0 0 18px rgba(127,221,64,.5), 0 6px 18px rgba(0,0,0,.35); }
   .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
   .qm-hp i { width: 18px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.18); transition: background .25s, transform .25s; }
   .qm-hp i.on { background: linear-gradient(90deg, #ff6b6b, #ffa94d); box-shadow: 0 0 6px rgba(255,140,90,.6); }
@@ -3455,6 +3458,7 @@ function nextWord() {
   wordDisplay.classList.remove("multiline");
   modeHintEl.textContent = MODE_HINTS[mode] || "";   // оновлюємо щослова — для міксу та випадкових повторень
   if (currentExtra && !reviewRemaining) modeHintEl.textContent += " · ⭐ рідкісне слово " + cefrLvName(currentExtra);
+  else if (!reviewRemaining && isKnownIdx(currentWordIndex)) modeHintEl.textContent += " · ✓ повторення зі «Знаю»";
 
   if (mode === "ua-en") {
     const vals = getUa(currentWord);
@@ -6983,6 +6987,8 @@ function saveMastery(m) { localStorage.setItem(MASTERY_KEY, JSON.stringify(m)); 
 // (за запитом користувача): повторення / «📒 Помилки» — це засвоєння вже проваленого
 // слова, тож ні streak, ні c/w не чіпають. НЕ підключати їх до review-гілки.
 // Будь-яке нове читання mastery — через mStreak(), НЕ через голе значення.
+// слово вже у «Знаю» (streak ≥ 3) — для зеленої позначки повторення в грі й поході
+function isKnownIdx(idx) { return idx != null && WORDS[idx] != null && mStreak(loadMastery()[wordKey(WORDS[idx])]) >= 3; }
 function mStreak(v) { return (v !== null && typeof v === "object") ? v.s : v; }
 function mTally(v) { return (v !== null && typeof v === "object") ? { c: v.c || 0, w: v.w || 0 } : { c: 0, w: 0 }; }
 // ── ПЛАНУВАЛЬНИК ПОКАЗІВ (сесія 60, за запитом «щоб слова підкидались дозовано») ──
@@ -13276,6 +13282,7 @@ function qFight(noPhrase) {
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
   Q.mon = qSpawnMonster(idx, Q.side);
   if (Q.extraL) { Q.mon.classList.add("extra"); Q.mon.title = "⭐ рідкісне слово з рівня поза вибором · " + cefrLvName(Q.extraL); }
+  else if (isKnownIdx(idx)) { Q.mon.classList.add("known"); Q.mon.title = "✓ повторення слова зі «Знаю»"; }
   Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
   qRoadFitWord();
   Q.speedTo = 0;
