@@ -25614,3 +25614,1932 @@
 {"sl":"uk","q":"видимість","main":"visibility","bd":[["noun",["visibility","appearance","semblance","seeing","seeming","visual range","ostensibility","apparition"]]]}
 {"sl":"en","q":"visibility","main":"видимість","bd":[["noun",["видимий предмет","видимість"]]]}
 {"sl":"uk","q":"обмежена видимість","main":"limited visibility","bd":[]}
+{"sl":"en","q":"reduced visibility","main":"знижена видимість","bd":[]}
+{"sl":"uk","q":"нульова видимість","main":"zero visibility","bd":[]}
+{"sl":"en","q":"zero visibility","main":"нульова видимість","bd":[]}
+{"sl":"uk","q":"прояснення","main":"clarification","bd":[["noun",["clarification"]]]}
+{"sl":"en","q":"clearing","main":"очищення","bd":[["noun",["галява","галявина","ділянка землі","очистка","пліха","розчистка","розчищена під ниву"]]]}
+{"sl":"uk","q":"просвіт у хмарах","main":"clearing in the clouds","bd":[]}
+{"sl":"en","q":"break in the clouds","main":"розрив у хмарах","bd":[["noun",["промінь надії"]]]}
+{"sl":"uk","q":"мінлива хмарність","main":"changeable cloudiness","bd":[]}
+{"sl":"en","q":"partly cloudy","main":"мінлива хмарність","bd":[]}
+{"sl":"uk","q":"переважно хмарно","main":"mostly cloudy","bd":[]}
+{"sl":"en","q":"mostly cloudy","main":"переважно хмарно","bd":[]}
+{"sl":"uk","q":"затягнутий серпанком","main":"shrouded in haze","bd":[]}
+{"sl":"en","q":"hazy","main":"туманний","bd":[["adjective",["імлистий","млистий","невиразний","неясний","туманний"]]]}
+{"sl":"uk","q":"затягуватися хмарами","main":"linger in the clouds","bd":[]}
+{"sl":"en","q":"to cloud over","main":"хмарити","bd":[["verb",["захмарювати"]]]}
+{"sl":"uk","q":"кількість опадів","main":"the amount of precipitation","bd":[]}
+{"sl":"en","q":"rainfall","main":"кількість опадів","bd":[["noun",["атмосферні опади","дощ"]]]}
+{"sl":"uk","q":"опади","main":"precipitation","bd":[["noun",["precipitation","fall-out"]]]}
+{"sl":"en","q":"precipitation","main":"опади","bd":[["noun",["квапливість","навальність","опади","осаджування","повалення","прискорення","стрімкість","швидкий спуск"]]]}
+{"sl":"en","q":"torrential rain","main":"проливний дощ","bd":[]}
+{"sl":"uk","q":"сильний дощ","main":"heavy rain","bd":[]}
+{"sl":"en","q":"heavy rain","main":"сильний дощ","bd":[["noun",["злива"]]]}
+{"sl":"uk","q":"невеликий дощ","main":"a little rain","bd":[]}
+{"sl":"en","q":"light rain","main":"дрібний дощ","bd":[]}
+{"sl":"uk","q":"рівномірний тривалий дощ","main":"uniform long rain","bd":[]}
+{"sl":"en","q":"steady rain","main":"постійний дощ","bd":[]}
+{"sl":"uk","q":"дощова буря","main":"rain storm","bd":[]}
+{"sl":"en","q":"rainstorm","main":"дощ","bd":[]}
+{"sl":"uk","q":"грозовий дощ","main":"thunderstorm rain","bd":[]}
+{"sl":"en","q":"thunder shower","main":"грозовий дощ","bd":[]}
+{"sl":"uk","q":"сезон дощів","main":"rainy season","bd":[]}
+{"sl":"en","q":"rainy season","main":"сезон дощів","bd":[]}
+{"sl":"uk","q":"скупчення води","main":"accumulation of water","bd":[]}
+{"sl":"en","q":"pool of water","main":"басейн з водою","bd":[]}
+{"sl":"uk","q":"волога","main":"moisture","bd":[["noun",["dampness"]]]}
+{"sl":"en","q":"moisture","main":"вологи","bd":[["noun",["вільга","вільгість","вологість","моква","мокрота","сирість"]]]}
+{"sl":"uk","q":"вогкість","main":"damp","bd":[["noun",["damp","humidity"]]]}
+{"sl":"en","q":"dampness","main":"сирість","bd":[["noun",["волога","вологість","сирість"]]]}
+{"sl":"uk","q":"дощомір","main":"rain gauge","bd":[["noun",["rain gauge","udometer","ombrometer","pluviometer"]]]}
+{"sl":"en","q":"rain gauge","main":"дощомір","bd":[["noun",["дощомір"]]]}
+{"sl":"uk","q":"промоклий наскрізь","main":"saturate","bd":[["adjective",["saturate"]]]}
+{"sl":"en","q":"soaked","main":"розмочений","bd":[["adjective",["вимоклий"]]]}
+{"sl":"uk","q":"з короткочасними дощами","main":"with short rains","bd":[]}
+{"sl":"en","q":"showery","main":"душовий","bd":[["adjective",["дощовий","дощовитий","зливний","зливовий"]]]}
+{"sl":"uk","q":"висихати","main":"dry up","bd":[["verb",["dry up","shrivel","become dry","desiccate","exsiccate","wizen"]]]}
+{"sl":"en","q":"to dry out","main":"висихати","bd":[]}
+{"sl":"en","q":"exhaustion","main":"виснаження","bd":[["noun",["виснага","виснаженість","виснаження","витягування","знемога","знесилення"]]]}
+{"sl":"uk","q":"снігопад","main":"snowfall","bd":[["noun",["snowfall","snow"]]]}
+{"sl":"en","q":"snowfall","main":"снігопад","bd":[["noun",["кількість опадів у вигляді снігу","снігопад"]]]}
+{"sl":"uk","q":"короткочасний сніг","main":"short-term snow","bd":[]}
+{"sl":"en","q":"snow shower","main":"сніговий дощ","bd":[]}
+{"sl":"uk","q":"іній","main":"frost","bd":[["noun",["frost","hoarfrost","frosting","rime","hoar"]]]}
+{"sl":"en","q":"hoarfrost","main":"іній","bd":[["noun",["іній","паморозь"]]]}
+{"sl":"uk","q":"крижаний дощ","main":"freezing rain","bd":[]}
+{"sl":"en","q":"freezing rain","main":"крижаний дощ","bd":[]}
+{"sl":"uk","q":"сніговий покрив","main":"snow","bd":[["noun",["snow"]]]}
+{"sl":"en","q":"snow cover","main":"сніговий покрив","bd":[]}
+{"sl":"uk","q":"снігова каша","main":"snow porridge","bd":[]}
+{"sl":"en","q":"slush","main":"сльота","bd":[["noun",["відходи жиру","сльота","ляпанина","талий сніг","шуга"]],["verb",["ляпати"]]]}
+{"sl":"uk","q":"точка замерзання","main":"freezing point","bd":[]}
+{"sl":"en","q":"freezing point","main":"температура замерзання","bd":[]}
+{"sl":"uk","q":"температура нижче нуля","main":"the temperature is below zero","bd":[]}
+{"sl":"en","q":"sub-zero temperature","main":"мінусова температура","bd":[]}
+{"sl":"uk","q":"раптове коротке похолодання","main":"a sudden short chill","bd":[]}
+{"sl":"en","q":"cold snap","main":"похолодання","bd":[]}
+{"sl":"uk","q":"обмороження","main":"frostbite","bd":[]}
+{"sl":"en","q":"frostbite","main":"обмороження","bd":[["noun",["відморожене місце"]],["verb",["відморожувати"]]]}
+{"sl":"uk","q":"переохолодження","main":"hypothermia","bd":[]}
+{"sl":"en","q":"hypothermia","main":"переохолодження","bd":[["noun",["гіпотермія"]]]}
+{"sl":"uk","q":"пронизливо холодний","main":"piercingly cold","bd":[]}
+{"sl":"en","q":"bitterly cold","main":"гірко холодний","bd":[]}
+{"sl":"uk","q":"порив вітру","main":"gust of wind","bd":[["noun",["puff"]]]}
+{"sl":"en","q":"gust","main":"порив","bd":[["noun",["захоплення","порив","шквал"]]]}
+{"sl":"uk","q":"сильний вітер","main":"strong wind","bd":[["noun",["snorter"]]]}
+{"sl":"en","q":"strong wind","main":"сильний вітер","bd":[]}
+{"sl":"uk","q":"зустрічний вітер","main":"headwind","bd":[["noun",["cross-wind"]]]}
+{"sl":"en","q":"headwind","main":"зустрічний вітер","bd":[]}
+{"sl":"uk","q":"попутний вітер","main":"tailwind","bd":[]}
+{"sl":"en","q":"tailwind","main":"попутний вітер","bd":[]}
+{"sl":"uk","q":"температура за відчуттям з урахуванням вітру","main":"temperature according to feeling, taking into account the wind","bd":[]}
+{"sl":"en","q":"wind chill","main":"холодний вітер","bd":[]}
+{"sl":"uk","q":"гроза","main":"thunderstorm","bd":[["noun",["thunderstorm","thunder","tempest"]]]}
+{"sl":"en","q":"thunderstorm","main":"гроза","bd":[["noun",["гроза"]]]}
+{"sl":"uk","q":"спалах блискавки","main":"flash of lightning","bd":[]}
+{"sl":"en","q":"flash of lightning","main":"спалах блискавки","bd":[]}
+{"sl":"uk","q":"удар грому","main":"thunderclap","bd":[["noun",["thunderclap"]]]}
+{"sl":"en","q":"thunderclap","main":"удар грому","bd":[["noun",["гуркіт","несподіванка","удар грому"]]]}
+{"sl":"uk","q":"грозовий фронт","main":"storm front","bd":[]}
+{"sl":"en","q":"storm front","main":"грозовий фронт","bd":[]}
+{"sl":"uk","q":"тайфун","main":"typhoon","bd":[["noun",["typhoon"]]]}
+{"sl":"en","q":"typhoon","main":"тайфун","bd":[["noun",["тайфун"]]]}
+{"sl":"uk","q":"тропічний циклон","main":"tropical cyclone","bd":[]}
+{"sl":"en","q":"cyclone","main":"циклон","bd":[["noun",["циклон"]]]}
+{"sl":"uk","q":"штормовий нагін води","main":"storm surge of water","bd":[]}
+{"sl":"en","q":"storm surge","main":"штормовий нагін","bd":[]}
+{"sl":"uk","q":"поривчастий","main":"gusty","bd":[["adjective",["gusty","choppy","brash","jerky","catchy","puffy","fretful"]]]}
+{"sl":"en","q":"gusty","main":"поривчастий","bd":[["adjective",["бурхливий","вітряний","поривчастий"]]]}
+{"sl":"uk","q":"помірний клімат","main":"moderate climate","bd":[]}
+{"sl":"en","q":"temperate climate","main":"помірний клімат","bd":[]}
+{"sl":"uk","q":"вологий клімат","main":"humid climate","bd":[]}
+{"sl":"en","q":"humid climate","main":"вологий клімат","bd":[]}
+{"sl":"uk","q":"континентальний клімат","main":"continental climate","bd":[]}
+{"sl":"en","q":"continental climate","main":"континентальний клімат","bd":[]}
+{"sl":"uk","q":"морський клімат","main":"marine climate","bd":[]}
+{"sl":"en","q":"maritime climate","main":"морський клімат","bd":[]}
+{"sl":"uk","q":"мікроклімат","main":"microclimate","bd":[["noun",["microclimate"]]]}
+{"sl":"en","q":"microclimate","main":"мікроклімат","bd":[["noun",["мікроклімат"]]]}
+{"sl":"uk","q":"сухий сезон","main":"dry season","bd":[]}
+{"sl":"en","q":"dry season","main":"сухий сезон","bd":[]}
+{"sl":"uk","q":"мусон","main":"monsoon","bd":[["noun",["monsoon"]]]}
+{"sl":"en","q":"monsoon","main":"мусон","bd":[["noun",["мусон"]]]}
+{"sl":"uk","q":"кліматична тенденція","main":"climate trend","bd":[]}
+{"sl":"en","q":"climate trend","main":"кліматична тенденція","bd":[]}
+{"sl":"uk","q":"глобальне потепління","main":"global warming","bd":[]}
+{"sl":"en","q":"global warming","main":"глобальне потепління","bd":[]}
+{"sl":"uk","q":"парниковий газ","main":"greenhouse gas","bd":[]}
+{"sl":"en","q":"greenhouse gas","main":"парниковий газ","bd":[]}
+{"sl":"uk","q":"вуглецевий слід","main":"carbon footprint","bd":[]}
+{"sl":"en","q":"carbon footprint","main":"вуглецевий слід","bd":[]}
+{"sl":"uk","q":"екстремальні погодні явища","main":"extreme weather events","bd":[]}
+{"sl":"en","q":"extreme weather","main":"екстремальна погода","bd":[]}
+{"sl":"uk","q":"довгострокове середнє значення","main":"long-term average","bd":[]}
+{"sl":"en","q":"long-term average","main":"багаторічна середня","bd":[]}
+{"sl":"uk","q":"сезонний кліматичний режим","main":"seasonal climatic regime","bd":[]}
+{"sl":"en","q":"seasonal climate","main":"сезонний клімат","bd":[]}
+{"sl":"en","q":"temperate","main":"помірний","bd":[["adjective",["витриманий","відрегульований","міркований","непитущий","помірний","стриманий"]]]}
+{"sl":"uk","q":"вологий і задушливий","main":"damp and suffocating","bd":[]}
+{"sl":"en","q":"humid","main":"вологий","bd":[["adjective",["вільготний","вогкий","вологий","мокрий","мочливий","набряклий"]]]}
+{"sl":"uk","q":"посушливий","main":"arid","bd":[["adjective",["arid","dry","droughty","rainless"]]]}
+{"sl":"en","q":"arid","main":"посушливий","bd":[["adjective",["арідний","безводний","безплідний","нецікавий","нудний","посушливий","сухий"]]]}
+{"sl":"uk","q":"гірська система","main":"mountain system","bd":[]}
+{"sl":"en","q":"mountain range","main":"гірський масив","bd":[]}
+{"sl":"uk","q":"схил пагорба","main":"brae","bd":[["noun",["brae","bent"]]]}
+{"sl":"en","q":"hillside","main":"схил пагорба","bd":[["noun",["схил гори","узгір'я"]]]}
+{"sl":"uk","q":"скельна стіна","main":"rock wall","bd":[]}
+{"sl":"en","q":"rock face","main":"скельне обличчя","bd":[["noun",["рустівка"]]]}
+{"sl":"uk","q":"валун","main":"boulder","bd":[["noun",["boulder","nodule"]]]}
+{"sl":"en","q":"boulder","main":"валун","bd":[["noun",["брила","валун","галька"]]]}
+{"sl":"uk","q":"галька","main":"pebble","bd":[["noun",["pebble","shingle","boulder"]]]}
+{"sl":"en","q":"pebble","main":"галька","bd":[["noun",["галька","лінза з гірського кришталю"]]]}
+{"sl":"uk","q":"гірський перевал","main":"mountain pass","bd":[["noun",["notch"]]]}
+{"sl":"en","q":"mountain pass","main":"гірський перевал","bd":[]}
+{"sl":"uk","q":"гірський схил","main":"mountain slope","bd":[]}
+{"sl":"en","q":"mountainside","main":"схил гори","bd":[]}
+{"sl":"uk","q":"глибокий яр","main":"coulee","bd":[["noun",["gully","coulee"]]]}
+{"sl":"en","q":"ravine","main":"яр","bd":[["noun",["виярок","круча","ущелина","яр"]]]}
+{"sl":"uk","q":"глибока вузька ущелина","main":"a deep narrow gorge","bd":[]}
+{"sl":"en","q":"gorge","main":"ущелина","bd":[["noun",["глотка","обжерливість","ущелина","з'їдене","вузька ущелина","завал","затор","зів"]],["verb",["об'їдатися","переповнювати","жадібно поглинати"]]]}
+{"sl":"uk","q":"велика печера","main":"a large cave","bd":[]}
+{"sl":"en","q":"cavern","main":"печера","bd":[["noun",["каверна","карстова пустота","льох","печера"]]]}
+{"sl":"uk","q":"скельне утворення","main":"rock formation","bd":[]}
+{"sl":"en","q":"rock formation","main":"гірська порода","bd":[]}
+{"sl":"uk","q":"висота над рівнем моря","main":"altitude","bd":[["noun",["altitude"]]]}
+{"sl":"en","q":"altitude","main":"висота","bd":[["noun",["вершина","висока місцевість","висота","висоти","висота над рівнем моря","вишина"]]]}
+{"sl":"uk","q":"перевищення над рівнем моря","main":"elevation above sea level","bd":[]}
+{"sl":"en","q":"elevation","main":"висота","bd":[["noun",["велич","видвигнення","височина","підвишка","підвищення","піднесеність","підняття"]]]}
+{"sl":"uk","q":"рівень моря","main":"sea ​​level","bd":[]}
+{"sl":"en","q":"sea level","main":"рівень моря","bd":[]}
+{"sl":"uk","q":"скелястий","main":"rocky","bd":[["adjective",["rocky","craggy"]]]}
+{"sl":"en","q":"rocky","main":"скелястий","bd":[["adjective",["непохитний","скелястий","чутливий"]]]}
+{"sl":"uk","q":"гористий","main":"mountainous","bd":[["adjective",["mountainous"]]]}
+{"sl":"en","q":"mountainous","main":"гірський","bd":[["adjective",["величезний","гористий","згірний"]]]}
+{"sl":"uk","q":"із пласкою вершиною","main":"with a flat top","bd":[]}
+{"sl":"en","q":"flat-topped","main":"плосковерхий","bd":[]}
+{"sl":"uk","q":"низовина","main":"lowland","bd":[["noun",["lowland","low position"]]]}
+{"sl":"en","q":"lowland","main":"низовина","bd":[["noun",["низ","низина","низовина","низькоділ","поділ"]]]}
+{"sl":"uk","q":"піщана дюна","main":"sand dune","bd":[]}
+{"sl":"en","q":"sand dune","main":"піщана дюна","bd":[]}
+{"sl":"uk","q":"пустка","main":"barren","bd":[["noun",["barren"]]]}
+{"sl":"en","q":"wasteland","main":"пустка","bd":[["noun",["пустище"]]]}
+{"sl":"uk","q":"вересове пустище","main":"heather wasteland","bd":[]}
+{"sl":"en","q":"heath","main":"верес","bd":[["noun",["верес","пустище"]]]}
+{"sl":"uk","q":"торфове болото","main":"moss","bd":[["noun",["moss","peat bog"]]]}
+{"sl":"en","q":"bog","main":"болото","bd":[["adjective",["смішливий"]],["noun",["болотистий грунт","болото","трясовина"]]]}
+{"sl":"uk","q":"водно-болотне угіддя","main":"wetland","bd":[]}
+{"sl":"en","q":"wetland","main":"водно-болотна місцевість","bd":[]}
+{"sl":"uk","q":"фруктовий сад","main":"orchard","bd":[["noun",["orchard"]]]}
+{"sl":"en","q":"orchard","main":"фруктовий сад","bd":[["noun",["сад","фруктові дерева","фруктовий сад"]]]}
+{"sl":"uk","q":"лісова галявина","main":"forest clearing","bd":[]}
+{"sl":"en","q":"forest clearing","main":"розчищення лісу","bd":[]}
+{"sl":"uk","q":"відкрита місцевість","main":"open area","bd":[]}
+{"sl":"en","q":"open ground","main":"відкритий грунт","bd":[["adjective",["з відкритим грунтом"]]]}
+{"sl":"uk","q":"пересічена місцевість","main":"rugged terrain","bd":[]}
+{"sl":"en","q":"rough ground","main":"грубий грунт","bd":[]}
+{"sl":"uk","q":"нерівна місцевість","main":"rough","bd":[["noun",["rough"]]]}
+{"sl":"en","q":"uneven terrain","main":"нерівний рельєф","bd":[]}
+{"sl":"uk","q":"м'який ґрунт","main":"soft soil","bd":[]}
+{"sl":"en","q":"soft ground","main":"м'який грунт","bd":[]}
+{"sl":"uk","q":"твердий ґрунт","main":"solid ground","bd":[]}
+{"sl":"en","q":"firm ground","main":"тверда земля","bd":[]}
+{"sl":"uk","q":"піщаний","main":"sandy","bd":[["adjective",["sandy","gritty","arenaceous","arenose","sabulous"]]]}
+{"sl":"en","q":"sandy","main":"піщаний","bd":[["adjective",["піщаний","рудуватий"]]]}
+{"sl":"uk","q":"кам'янистий","main":"stony","bd":[["adjective",["stony","lapidose","petrous"]]]}
+{"sl":"en","q":"stony","main":"кам'янистий","bd":[["adjective",["безжалісний","кам'яний","кам'янистий"]]]}
+{"sl":"uk","q":"заболочений","main":"waterlogged","bd":[["adjective",["waterlogged","muddied","watery","soiled"]]]}
+{"sl":"en","q":"marshy","main":"болотистий","bd":[["adjective",["болотистий","болотяний"]]]}
+{"sl":"uk","q":"неродючий","main":"barren","bd":[["adjective",["barren","infertile","sterile","fruitless","nonbearing","jejune","hidebound"]]]}
+{"sl":"en","q":"barren","main":"безплідний","bd":[["adjective",["байдужий","стерильний","беззмістовний","яловий","безплідний","бідний","виснажений","неврожайний"]],["noun",["пустир","пустка"]]]}
+{"sl":"uk","q":"мінус","main":"minus","bd":[["noun",["minus","negative"]],["preposition",["minus"]]]}
+{"sl":"en","q":"minus","main":"мінус","bd":[["adjective",["від'ємний","негативний"]],["noun",["мінус","недолік"]],["preposition",["без","мінус"]]]}
+{"sl":"uk","q":"континентальний","main":"continental","bd":[["adjective",["continental"]]]}
+{"sl":"en","q":"continental","main":"континентальний","bd":[["adjective",["континентальний"]]]}
+{"sl":"uk","q":"приморський","main":"seaside","bd":[["adjective",["seaside","maritime"]]]}
+{"sl":"en","q":"maritime","main":"морський","bd":[["adjective",["морський","приморський"]]]}
+{"sl":"uk","q":"слід ноги","main":"footprint","bd":[]}
+{"sl":"en","q":"footprint","main":"слід","bd":[["noun",["слід"]]]}
+{"sl":"uk","q":"занурюватися","main":"dive","bd":[["verb",["dive","plunge","dip","douse","dowse","swamp","merge"]]]}
+{"sl":"en","q":"to sink","main":"тонути","bd":[["verb",["валитися","затонути","опускати","слабшати","тонути","заков'язнути","затопити","опускатися"]]]}
+{"sl":"uk","q":"невелика річка","main":"a small river","bd":[]}
+{"sl":"en","q":"creek","main":"струмок","bd":[["noun",["гирло ріки","невилика затока","притока","струмок"]]]}
+{"sl":"en","q":"brook","main":"струмок","bd":[["noun",["струмок"]],["verb",["терпіти"]]]}
+{"sl":"uk","q":"природне джерело","main":"natural source","bd":[]}
+{"sl":"en","q":"natural spring","main":"природне джерело","bd":[]}
+{"sl":"uk","q":"русло річки","main":"river bed","bd":[]}
+{"sl":"en","q":"riverbed","main":"русло річки","bd":[["noun",["корито","русло ріки"]]]}
+{"sl":"uk","q":"місце злиття річок","main":"confluence of rivers","bd":[]}
+{"sl":"en","q":"confluence","main":"злиття","bd":[["noun",["збіжність","злиття","натовп","скупчення"]]]}
+{"sl":"uk","q":"прісна вода","main":"fresh water","bd":[]}
+{"sl":"en","q":"fresh water","main":"свіжа вода","bd":[]}
+{"sl":"uk","q":"підземні води","main":"underground water","bd":[]}
+{"sl":"en","q":"groundwater","main":"грунтові води","bd":[]}
+{"sl":"uk","q":"рівень ґрунтових вод","main":"ground water level","bd":[]}
+{"sl":"en","q":"water table","main":"грунтові води","bd":[]}
+{"sl":"uk","q":"річкові пороги","main":"river rapids","bd":[]}
+{"sl":"en","q":"rapids","main":"пороги","bd":[["noun",["бистрина","поріг","бистрінь","поріг ріки"]]]}
+{"sl":"uk","q":"брід","main":"ford","bd":[["noun",["ford","wade"]]]}
+{"sl":"en","q":"ford","main":"брід","bd":[["noun",["брід","форд"]],["verb",["переходити вбрід"]]]}
+{"sl":"uk","q":"водний шлях","main":"waterway","bd":[["noun",["waterway","thoroughfare"]]]}
+{"sl":"en","q":"waterway","main":"водний шлях","bd":[["noun",["водний шлях","фарватер"]]]}
+{"sl":"uk","q":"вище за течією","main":"upstream","bd":[]}
+{"sl":"en","q":"upstream","main":"вгору за течією","bd":[["adverb",["проти течії","угору за течією"]]]}
+{"sl":"uk","q":"нижче за течією","main":"downstream","bd":[]}
+{"sl":"en","q":"downstream","main":"за течією","bd":[["adjective",["низовий","що знайходиться нижче за течією"]],["adverb",["униз за течією"]]]}
+{"sl":"uk","q":"виходити з берегів","main":"leave the shores","bd":[]}
+{"sl":"en","q":"to overflow","main":"переливатися","bd":[["verb",["бути багатим на щось","виходити за межі","заливати","затопити","затоплювати","переливатися","переливатися через край","переповнювати"]]]}
+{"sl":"uk","q":"пересихати","main":"dry","bd":[["verb",["dry","dry up","get dry"]]]}
+{"sl":"en","q":"to dry up","main":"висихати","bd":[["verb",["висихати","виснажитися","висушити","пересихати","пересохнути","сохнути"]]]}
+{"sl":"uk","q":"берегова лінія","main":"shoreline","bd":[["noun",["shoreline"]]]}
+{"sl":"en","q":"coastline","main":"берегова лінія","bd":[["noun",["узбережжя"]]]}
+{"sl":"uk","q":"невелика захищена бухта","main":"a small sheltered bay","bd":[]}
+{"sl":"en","q":"cove","main":"бухта","bd":[["noun",["невелика бухта","карстова печера","склепіння"]],["verb",["зводити склепіння","споруджувати"]]]}
+{"sl":"uk","q":"морська протока","main":"sea ​​strait","bd":[]}
+{"sl":"en","q":"sea channel","main":"морський канал","bd":[]}
+{"sl":"en","q":"headland","main":"мис","bd":[["noun",["мис"]]]}
+{"sl":"uk","q":"кораловий риф","main":"coral reef","bd":[["noun",["coral reef","cay"]]]}
+{"sl":"en","q":"coral reef","main":"кораловий риф","bd":[["noun",["кораловий риф"]]]}
+{"sl":"uk","q":"морське дно","main":"seabed","bd":[["noun",["seabed"]]]}
+{"sl":"en","q":"seabed","main":"морське дно","bd":[["noun",["морське дно"]]]}
+{"sl":"uk","q":"морське хвилювання","main":"sea ​​agitation","bd":[]}
+{"sl":"en","q":"swell","main":"набухати","bd":[["adjective",["відмінний","елегантний"]],["noun",["опух","підвищення","хвилювання","підпухлість"]],["verb",["видувати","запхати","опухати","розбухати","здійматися","пиндючити","роздуватися","здувати"]]]}
+{"sl":"uk","q":"пік припливу","main":"peak tide","bd":[]}
+{"sl":"en","q":"high tide","main":"приплив","bd":[]}
+{"sl":"uk","q":"відбійна течія","main":"countercurrent","bd":[]}
+{"sl":"en","q":"rip current","main":"розривний струм","bd":[]}
+{"sl":"uk","q":"морські бризки","main":"sea ​​spray","bd":[]}
+{"sl":"en","q":"sea spray","main":"морські бризки","bd":[]}
+{"sl":"en","q":"foam","main":"піна","bd":[["noun",["кипень","піна","мило"]],["verb",["мусувати","пінитися","накипати","спінювати","шумувати"]]]}
+{"sl":"uk","q":"морська вода","main":"seawater","bd":[["noun",["seawater","sea","salts"]]]}
+{"sl":"en","q":"salt water","main":"солона вода","bd":[["adjective",["солоний","що мешкає у солоній воді"]]]}
+{"sl":"uk","q":"віддалений від берега","main":"distant from the shore","bd":[]}
+{"sl":"en","q":"offshore","main":"офшори","bd":[["adverb",["у відкритому морі"]]]}
+{"sl":"uk","q":"береговий","main":"coastal","bd":[["adjective",["coastal","waterside","orarian"]]]}
+{"sl":"en","q":"onshore","main":"на суші","bd":[]}
+{"sl":"uk","q":"рідколісся","main":"sparse forest","bd":[]}
+{"sl":"en","q":"woodland","main":"лісистий масив","bd":[["adjective",["лісний"]],["noun",["лісиста місцевість"]]]}
+{"sl":"uk","q":"тропічний ліс","main":"rainforest","bd":[["noun",["rainforest"]]]}
+{"sl":"en","q":"rainforest","main":"тропічний ліс","bd":[["noun",["тропічний ліс"]]]}
+{"sl":"uk","q":"листяний ліс","main":"deciduous forest","bd":[]}
+{"sl":"en","q":"deciduous forest","main":"листяний ліс","bd":[]}
+{"sl":"uk","q":"хвойний ліс","main":"coniferous forest","bd":[]}
+{"sl":"en","q":"coniferous forest","main":"хвойний ліс","bd":[]}
+{"sl":"uk","q":"гілочка","main":"twig","bd":[["noun",["twig","sprig","branchlet","ramule"]]]}
+{"sl":"en","q":"twig","main":"гілочка","bd":[["noun",["гілочка","прут","сук"]],["verb",["зрозуміти","спостерігати"]]]}
+{"sl":"uk","q":"кора дерева","main":"tree bark","bd":[]}
+{"sl":"en","q":"bark","main":"кора","bd":[["noun",["барка","гавкання","кора","хінна кора","човен","дубильна кора","шкіра"]],["verb",["валувати","гавкати","здирати кору","чинити","гримати","покриватися корою","дубити","здирати шкіру"]]]}
+{"sl":"uk","q":"крона дерева","main":"tree crown","bd":[]}
+{"sl":"en","q":"tree crown","main":"крона дерева","bd":[]}
+{"sl":"uk","q":"сік рослини","main":"plant juice","bd":[]}
+{"sl":"en","q":"sap","main":"сік","bd":[["noun",["живиця","розмазня","життєві сили","сапа","зубрило","сік"]],["verb",["виснажувати","зубрити","сушити","підкопуватися","підривати"]]]}
+{"sl":"uk","q":"брунька","main":"bud","bd":[["noun",["bud","button","burgeon","shoot","gemma","oculus"]]]}
+{"sl":"en","q":"bud","main":"бутон","bd":[["noun",["брунька","пуп'янок","бутон","засновок","крихітка"]],["verb",["наброститися","розквітати","набрунитися","розпукуватися","накільчитися"]]]}
+{"sl":"uk","q":"цвіт дерева","main":"flower tree","bd":[]}
+{"sl":"en","q":"blossom","main":"цвітіння","bd":[["noun",["квіт","розквіт","цвіт","квітка"]],["verb",["процвітати","розквітати","розцвітати","цвісти"]]]}
+{"sl":"uk","q":"колючка","main":"thorn","bd":[["noun",["thorn","prickle","barb","bur","stickleback","tiddler","prick","sticker"]]]}
+{"sl":"en","q":"thorn","main":"шип","bd":[["noun",["колюча рослина","колючка","шип","шпичак"]]]}
+{"sl":"uk","q":"їстівна рослина","main":"edible plant","bd":[]}
+{"sl":"en","q":"edible plant","main":"їстівна рослина","bd":[]}
+{"sl":"uk","q":"оса","main":"wasp","bd":[["noun",["wasp"]]]}
+{"sl":"en","q":"wasp","main":"оса","bd":[["noun",["оса","стопроцентний американець"]]]}
+{"sl":"en","q":"beetle","main":"жук","bd":[["adjective",["звислий","навислий"]],["noun",["жук","кувалда","терниця","тупість","трамбівка","холостячка"]],["verb",["виступати","звисати","літати","подрібнювати","трамбувати","гупати чоботищами"]]]}
+{"sl":"uk","q":"равлик","main":"snail","bd":[["noun",["snail","argonaut"]]]}
+{"sl":"en","q":"snail","main":"равлик","bd":[["noun",["петрик","равлик","слимак","тихохід"]]]}
+{"sl":"uk","q":"дикий кабан","main":"boar","bd":[["noun",["boar"]]]}
+{"sl":"en","q":"wild boar","main":"дикий кабан","bd":[["noun",["вепер"]]]}
+{"sl":"uk","q":"їжак","main":"hedgehog","bd":[["noun",["hedgehog","urchin"]]]}
+{"sl":"en","q":"hedgehog","main":"їжак","bd":[["noun",["дикобраз","їжак"]]]}
+{"sl":"uk","q":"яструб","main":"hawk","bd":[["noun",["hawk","vulture"]]]}
+{"sl":"en","q":"hawk","main":"яструб","bd":[["noun",["коструб","яструб","крагулець","сокіл"]],["verb",["відкашллюватися","харкати","полювати з яструбом"]]]}
+{"sl":"uk","q":"ворона","main":"crow","bd":[["noun",["crow"]]]}
+{"sl":"en","q":"crow","main":"ворона","bd":[["noun",["ворона","спів півня","гукання","кракун"]],["verb",["агукати","кукурікати","співати"]]]}
+{"sl":"uk","q":"нора","main":"hole","bd":[["noun",["hole","burrow","cave","den","couch","house","covert","spring"]]]}
+{"sl":"en","q":"burrow","main":"нора","bd":[["noun",["нора","хід","червоточина"]],["verb",["рити нору","ховатися","ритися"]]]}
+{"sl":"uk","q":"зграя птахів","main":"flock of birds","bd":[]}
+{"sl":"en","q":"flock","main":"зграя","bd":[["noun",["ватага","стадо","табун","зграя","натовп","отара"]],["verb",["скупчуватися","сходитися","триматися разом"]]]}
+{"sl":"uk","q":"рій","main":"swarm","bd":[["noun",["cluster","nest","bike"]]]}
+{"sl":"en","q":"swarm","main":"рій","bd":[["noun",["кишнява","юрба","купа","рій бджіл"]],["verb",["кишіти","роїтися","юрмитися"]]]}
+{"sl":"uk","q":"вид під загрозою зникнення","main":"an endangered species","bd":[]}
+{"sl":"en","q":"endangered species","main":"види, що знаходяться під загрозою зникнення","bd":[]}
+{"sl":"uk","q":"мігрувати","main":"migrate","bd":[["verb",["migrate"]]]}
+{"sl":"en","q":"to migrate","main":"мігрувати","bd":[["verb",["кочувати","мігрувати","робити переліт","переселяти","переселятися"]]]}
+{"sl":"uk","q":"впадати в зимову сплячку","main":"fall into hibernation","bd":[]}
+{"sl":"en","q":"to hibernate","main":"зимувати","bd":[["verb",["бути бездіяльним","зимувати"]]]}
+{"sl":"uk","q":"екологія","main":"ecology","bd":[["noun",["ecology","oecology"]]]}
+{"sl":"en","q":"ecology","main":"екологія","bd":[["noun",["екологія"]]]}
+{"sl":"uk","q":"охорона довкілля","main":"environmental protection","bd":[]}
+{"sl":"en","q":"environmental protection","main":"захист навколишнього середовища","bd":[]}
+{"sl":"uk","q":"забруднювач","main":"polluter","bd":[]}
+{"sl":"en","q":"pollutant","main":"забруднювач","bd":[]}
+{"sl":"uk","q":"матеріал, придатний для переробки","main":"material suitable for processing","bd":[]}
+{"sl":"en","q":"recyclable material","main":"перероблений матеріал","bd":[]}
+{"sl":"uk","q":"одноразовий пластик","main":"disposable plastic","bd":[]}
+{"sl":"en","q":"single-use plastic","main":"одноразовий пластик","bd":[]}
+{"sl":"uk","q":"мікропластик","main":"microplastic","bd":[]}
+{"sl":"en","q":"microplastic","main":"мікропластик","bd":[]}
+{"sl":"uk","q":"сонячна енергетика","main":"solar energy","bd":[]}
+{"sl":"en","q":"solar power","main":"сонячна енергія","bd":[]}
+{"sl":"uk","q":"вітрова енергетика","main":"wind energy","bd":[]}
+{"sl":"en","q":"wind power","main":"енергія вітру","bd":[]}
+{"sl":"uk","q":"втрата середовища існування","main":"habitat loss","bd":[]}
+{"sl":"en","q":"habitat loss","main":"втрата середовища існування","bd":[]}
+{"sl":"uk","q":"вимирання","main":"extinction","bd":[["noun",["extinction","dying off","gradual mortality"]]]}
+{"sl":"en","q":"extinction","main":"вимирання","bd":[["noun",["вимирання","гасіння","затухання"]]]}
+{"sl":"uk","q":"браконьєрство","main":"poaching","bd":[]}
+{"sl":"en","q":"poaching","main":"браконьєрство","bd":[["verb",["в'язнути","вторгатися у чужі володіння","грузнути","красти","незаконно полювати","привласнювати","розмішувати","шахраювати"]]]}
+{"sl":"uk","q":"незаконна вирубка лісу","main":"illegal logging","bd":[]}
+{"sl":"en","q":"illegal logging","main":"незаконні рубки","bd":[]}
+{"sl":"uk","q":"безпечний для довкілля","main":"safe for the environment","bd":[]}
+{"sl":"en","q":"eco-friendly","main":"екологічно чистий","bd":[]}
+{"sl":"uk","q":"біорозкладний","main":"biodegradable","bd":[]}
+{"sl":"en","q":"biodegradable","main":"біологічно розкладається","bd":[]}
+{"sl":"uk","q":"забруднювати","main":"pollute","bd":[["verb",["pollute","contaminate","make dirty","puddle","defile","besmirch","gum up","moil"]]]}
+{"sl":"en","q":"to pollute","main":"забруднювати","bd":[["verb",["забруднювати","поганити","розбещувати"]]]}
+{"sl":"uk","q":"використовувати повторно","main":"reuse","bd":[]}
+{"sl":"en","q":"to reuse","main":"для повторного використання","bd":[["verb",["використовувати вдруге"]]]}
+{"sl":"uk","q":"стихійне лихо","main":"disaster","bd":[["noun",["disaster"]]]}
+{"sl":"en","q":"natural disaster","main":"стихійне лихо","bd":[]}
+{"sl":"uk","q":"слабкий землетрус","main":"weak earthquake","bd":[]}
+{"sl":"en","q":"tremor","main":"тремор","bd":[["noun",["дрож","поштовх","струс"]]]}
+{"sl":"uk","q":"повторний підземний поштовх","main":"repeated aftershock","bd":[]}
+{"sl":"en","q":"aftershock","main":"афтершок","bd":[]}
+{"sl":"uk","q":"епіцентр","main":"epicenter","bd":[["noun",["epicenter","epicentrum","epicentre"]]]}
+{"sl":"en","q":"epicenter","main":"епіцентр","bd":[["noun",["епіцентр"]]]}
+{"sl":"uk","q":"виверження","main":"eruption","bd":[["noun",["eruption","ejaculation","outing","effusion","eructation","ejecta"]]]}
+{"sl":"en","q":"eruption","main":"виверження","bd":[["noun",["виверження","прорив"]]]}
+{"sl":"uk","q":"хмара вулканічного попелу","main":"a cloud of volcanic ash","bd":[]}
+{"sl":"en","q":"ash cloud","main":"хмара попелу","bd":[]}
+{"sl":"uk","q":"раптова повінь","main":"flash flood","bd":[]}
+{"sl":"en","q":"flash flood","main":"раптовий паводок","bd":[]}
+{"sl":"uk","q":"паводкова вода","main":"floodwater","bd":[["noun",["floodwater"]]]}
+{"sl":"en","q":"floodwater","main":"паводкова вода","bd":[["noun",["паводкова вода"]]]}
+{"sl":"uk","q":"каменепад","main":"rockfall","bd":[["noun",["rockfall"]]]}
+{"sl":"en","q":"rockfall","main":"каменепад","bd":[["noun",["каменепад","обвал"]]]}
+{"sl":"uk","q":"карстова вирва","main":"karst crater","bd":[]}
+{"sl":"en","q":"sinkhole","main":"воронка","bd":[["noun",["водостічний колодязь"]]]}
+{"sl":"uk","q":"природна пожежа","main":"natural fire","bd":[]}
+{"sl":"en","q":"wildfire","main":"лісова пожежа","bd":[["noun",["бешиха","блукаючий вогник","грецький вогонь","зірниця","пожежа"]]]}
+{"sl":"uk","q":"лісова пожежа","main":"forest fire","bd":[]}
+{"sl":"en","q":"forest fire","main":"лісова пожежа","bd":[]}
+{"sl":"uk","q":"наказ про евакуацію","main":"evacuation order","bd":[]}
+{"sl":"en","q":"evacuation order","main":"порядок евакуації","bd":[]}
+{"sl":"uk","q":"допомога постраждалим від катастрофи","main":"assistance to disaster victims","bd":[]}
+{"sl":"en","q":"disaster relief","main":"ліквідація наслідків стихійного лиха","bd":[]}
+{"sl":"uk","q":"їстівний","main":"edible","bd":[["adjective",["edible","eatable","esculent","pabulary"]]]}
+{"sl":"en","q":"edible","main":"їстівні","bd":[["adjective",["їстівний"]]]}
+{"sl":"uk","q":"що перебуває під загрозою зникнення","main":"which is under threat of extinction","bd":[]}
+{"sl":"en","q":"endangered","main":"під загрозою зникнення","bd":[["verb",["погрожувати","ризикувати"]]]}
+{"sl":"uk","q":"придатний для переробки","main":"suitable for processing","bd":[]}
+{"sl":"en","q":"recyclable","main":"переробляється","bd":[]}
+{"sl":"uk","q":"хвойний","main":"coniferous","bd":[["adjective",["coniferous"]]]}
+{"sl":"en","q":"coniferous","main":"хвойні","bd":[["adjective",["хвойний","шишконосний"]]]}
+{"sl":"uk","q":"сільськогосподарські тварини","main":"farm animals","bd":[]}
+{"sl":"en","q":"livestock","main":"тваринництво","bd":[["noun",["скотина","худоба","домашня худоба"]]]}
+{"sl":"uk","q":"стадо великої рогатої худоби","main":"a herd of cattle","bd":[]}
+{"sl":"en","q":"cattle herd","main":"стадо великої рогатої худоби","bd":[]}
+{"sl":"uk","q":"стайня","main":"stable","bd":[["noun",["stable","barn"]]]}
+{"sl":"en","q":"horse stable","main":"конюшня","bd":[]}
+{"sl":"uk","q":"ґрунтова дорога через угіддя","main":"dirt road through the land","bd":[]}
+{"sl":"en","q":"farm track","main":"фермерська доріжка","bd":[]}
+{"sl":"uk","q":"зрошення","main":"irrigation","bd":[["noun",["irrigation","watering","bedewing"]]]}
+{"sl":"en","q":"irrigation","main":"зрошення","bd":[["noun",["зрошення","іригація"]]]}
+{"sl":"uk","q":"органічне землеробство","main":"organic farming","bd":[]}
+{"sl":"en","q":"organic farming","main":"органічне землеробство","bd":[]}
+{"sl":"uk","q":"ерозія ґрунту","main":"abrading","bd":[["noun",["abrading"]]]}
+{"sl":"en","q":"soil erosion","main":"ерозія ґрунту","bd":[]}
+{"sl":"uk","q":"неврожай","main":"crop failure","bd":[["noun",["poor crop","failure of crops"]]]}
+{"sl":"en","q":"crop failure","main":"неврожай","bd":[]}
+{"sl":"uk","q":"сіяти","main":"sow","bd":[["verb",["sow","plant","sift","seed","crop","corn","inseminate","drizzle"]]]}
+{"sl":"en","q":"to sow","main":"сіяти","bd":[["verb",["засівати","посіяти","поширювати","сіяти"]]]}
+{"sl":"uk","q":"зрошувати","main":"irrigate","bd":[["verb",["irrigate","water","flood"]]]}
+{"sl":"en","q":"to irrigate","main":"зрошувати","bd":[["verb",["зрошувати","наводнювати","наводняти","обводнювати"]]]}
+{"sl":"uk","q":"пішохідна стежка","main":"footpath","bd":[]}
+{"sl":"en","q":"footpath","main":"пішохідна доріжка","bd":[["noun",["стежка","тротуар"]]]}
+{"sl":"uk","q":"початок туристичного маршруту","main":"the beginning of the tourist route","bd":[]}
+{"sl":"en","q":"trailhead","main":"стежка","bd":[]}
+{"sl":"uk","q":"відгалуження дороги","main":"branch of the road","bd":[]}
+{"sl":"en","q":"turning","main":"точіння","bd":[["adjective",["токарний"]],["noun",["заворот","токарне ремесло","закрут","звертання","зворот","наворот","обертання","перетворення"]]]}
+{"sl":"uk","q":"вказівник","main":"pointer","bd":[]}
+{"sl":"en","q":"signpost","main":"покажчик","bd":[["noun",["дороговказ","безсумнівне свідчення"]]]}
+{"sl":"uk","q":"позначка маршруту","main":"route marker","bd":[]}
+{"sl":"en","q":"trail marker","main":"маркер стежки","bd":[]}
+{"sl":"uk","q":"маршрутна мітка","main":"route label","bd":[]}
+{"sl":"en","q":"waymark","main":"дороговказ","bd":[]}
+{"sl":"uk","q":"топографічна карта","main":"topographic map","bd":[]}
+{"sl":"en","q":"topographic map","main":"топографічна карта","bd":[]}
+{"sl":"uk","q":"сторона світу","main":"quarter","bd":[["noun",["quarter"]]]}
+{"sl":"en","q":"compass point","main":"точка компаса","bd":[]}
+{"sl":"uk","q":"азимут","main":"azimuth","bd":[["noun",["azimuth","bearings"]]]}
+{"sl":"en","q":"bearing","main":"підшипник","bd":[["adjective",["долаючий","насінний","плодоносний","терплячий","несучий"]],["noun",["аспект","значення","носіння","плодоношення","урожай","виправка","орієнтація","поведінка"]]]}
+{"sl":"uk","q":"глухий кут","main":"dead end","bd":[]}
+{"sl":"en","q":"dead end","main":"глухий кут","bd":[]}
+{"sl":"uk","q":"заняття на природі","main":"outdoor activities","bd":[]}
+{"sl":"en","q":"outdoor activity","main":"активний відпочинок на природі","bd":[]}
+{"sl":"uk","q":"спальний мішок","main":"sleeping bag","bd":[["noun",["sleeping bag"]]]}
+{"sl":"en","q":"sleeping bag","main":"спальний мішок","bd":[["noun",["спальний мішок"]]]}
+{"sl":"uk","q":"дрова","main":"wood","bd":[["noun",["wood","firewood","fuel"]]]}
+{"sl":"en","q":"firewood","main":"дрова","bd":[["noun",["дрова","паливо","пальне"]]]}
+{"sl":"uk","q":"джерело питної води","main":"source of drinking water","bd":[]}
+{"sl":"en","q":"drinking-water source","main":"джерело питної води","bd":[]}
+{"sl":"uk","q":"фільтр для води","main":"water filter","bd":[]}
+{"sl":"en","q":"water filter","main":"фільтр для води","bd":[]}
+{"sl":"uk","q":"рятувальна термоковдра","main":"rescue thermal blanket","bd":[]}
+{"sl":"en","q":"emergency blanket","main":"аварійна ковдра","bd":[]}
+{"sl":"uk","q":"налобний ліхтар","main":"headlamp","bd":[]}
+{"sl":"en","q":"head torch","main":"налобний ліхтар","bd":[]}
+{"sl":"uk","q":"засіб від комах","main":"insect repellent","bd":[]}
+{"sl":"en","q":"insect repellent","main":"засіб від комах","bd":[]}
+{"sl":"uk","q":"укус кліща","main":"tick bite","bd":[]}
+{"sl":"en","q":"tick bite","main":"укус кліща","bd":[]}
+{"sl":"uk","q":"отруйний плющ","main":"poison ivy","bd":[]}
+{"sl":"en","q":"poison ivy","main":"отруйний плющ","bd":[]}
+{"sl":"uk","q":"падіння каміння","main":"falling stones","bd":[]}
+{"sl":"en","q":"falling rocks","main":"падаючих каменів","bd":[]}
+{"sl":"uk","q":"нестійкий ґрунт","main":"unstable soil","bd":[]}
+{"sl":"en","q":"unstable ground","main":"нестабільний грунт","bd":[]}
+{"sl":"uk","q":"крутий обрив","main":"steep cliff","bd":[]}
+{"sl":"en","q":"steep drop","main":"крутий перепад","bd":[]}
+{"sl":"uk","q":"заборона розводити вогонь","main":"ban on making fire","bd":[]}
+{"sl":"en","q":"fire ban","main":"пожежна заборона","bd":[]}
+{"sl":"uk","q":"повернути назад","main":"turn back","bd":[["verb",["set back"]]]}
+{"sl":"en","q":"to turn back","main":"повернути назад","bd":[["verb",["відступити","навертати","обернутися","прогнати"]]]}
+{"sl":"en","q":"picturesque","main":"мальовничий","bd":[["adjective",["живописний","колоритний","мальовничий","образний","оригінальний","яскравий"]]]}
+{"sl":"uk","q":"буйний","main":"lush","bd":[["adjective",["lush","rampant","riotous","luxuriant","raving","turbulent","blusterous","roistering"]]]}
+{"sl":"en","q":"lush","main":"пишний","bd":[["adjective",["буйний","соковитий"]],["noun",["п'яний","спиртний напій"]],["verb",["напиватися","підпоювати"]]]}
+{"sl":"uk","q":"укритий листям","main":"covered with leaves","bd":[]}
+{"sl":"en","q":"leafy","main":"листяний","bd":[["adjective",["густолистий","листовий","листяний"]]]}
+{"sl":"uk","q":"рідкий","main":"liquid","bd":[["adjective",["liquid","rare","fluid","sparse","runny","thin","infrequent","weak"]]]}
+{"sl":"en","q":"sparse","main":"розріджений","bd":[["adjective",["рідкий","розсіяний"]]]}
+{"sl":"uk","q":"недоторканий","main":"untouchable","bd":[]}
+{"sl":"en","q":"untouched","main":"недоторканий","bd":[["adjective",["ненарушений","непорушений","нерушений","неткнений"]]]}
+{"sl":"uk","q":"первозданний","main":"primitive","bd":[["adjective",["primitive"]]]}
+{"sl":"en","q":"pristine","main":"незайманий","bd":[["adjective",["колишній","старовинний","чистий"]]]}
+{"sl":"uk","q":"забруднений","main":"contaminated","bd":[["adjective",["contaminated","soiled","stained","bedraggled","blurred","smudgy","feculent","maculate"]]]}
+{"sl":"en","q":"polluted","main":"забруднені","bd":[["verb",["забруднювати","поганити","розбещувати"]]]}
+{"sl":"uk","q":"уражений ерозією","main":"affected by erosion","bd":[]}
+{"sl":"en","q":"eroded","main":"ерозований","bd":[["verb",["підривати","підточувати","псувати","роз'їдати","розмивати"]]]}
+{"sl":"uk","q":"пересохлий","main":"parched","bd":[["adjective",["parched","dry","thirsty","droughty"]]]}
+{"sl":"en","q":"dried-out","main":"висохлий","bd":[]}
+{"sl":"uk","q":"випалений спекою","main":"scorched by the heat","bd":[]}
+{"sl":"en","q":"parched","main":"пересохлі","bd":[["adjective",["випалений","засмаглий","пересохлий","підсмажений","спалений"]]]}
+{"sl":"uk","q":"затоплений","main":"drowned","bd":[["adjective",["drowned","sunk","waterlogged"]]]}
+{"sl":"en","q":"flooded","main":"затоплені","bd":[["verb",["завалювати","зрошувати","наводнювати","заливати","наводняти","затоплювати","затопляти"]]]}
+{"sl":"uk","q":"укритий снігом","main":"covered with snow","bd":[]}
+{"sl":"en","q":"snow-covered","main":"засніжений","bd":[]}
+{"sl":"uk","q":"оповитий туманом","main":"shrouded in fog","bd":[]}
+{"sl":"en","q":"mist-covered","main":"вкритий туманом","bd":[]}
+{"sl":"uk","q":"хвилясті пагорби","main":"rolling hills","bd":[]}
+{"sl":"en","q":"rolling hills","main":"пагорби","bd":[]}
+{"sl":"uk","q":"відкрита сільська місцевість","main":"open countryside","bd":[]}
+{"sl":"en","q":"open countryside","main":"відкрита сільська місцевість","bd":[]}
+{"sl":"uk","q":"краєвид із висоти пташиного польоту","main":"bird's eye view","bd":[]}
+{"sl":"en","q":"bird's-eye view","main":"з висоти пташиного польоту","bd":[]}
+{"sl":"uk","q":"ерозія","main":"erosion","bd":[["noun",["erosion","washout","denudation","weathering"]]]}
+{"sl":"en","q":"erosion","main":"ерозія","bd":[["noun",["ерозія","роз'їдання"]]]}
+{"sl":"uk","q":"відлякувальний засіб","main":"deterrent","bd":[]}
+{"sl":"en","q":"repellent","main":"репелент","bd":[["adjective",["відштовхуючий","водонепроникний","огидний"]]]}
+{"sl":"uk","q":"плющ","main":"ivy","bd":[["noun",["ivy"]]]}
+{"sl":"en","q":"ivy","main":"плющ","bd":[["noun",["плющ"]]]}
+{"sl":"uk","q":"правова система","main":"legal system","bd":[]}
+{"sl":"en","q":"legal system","main":"правова система","bd":[]}
+{"sl":"uk","q":"писаний закон","main":"written law","bd":[]}
+{"sl":"en","q":"statute","main":"статут","bd":[["noun",["закон","законодавчий акт парламенту"]]]}
+{"sl":"uk","q":"правова норма","main":"legal norm","bd":[]}
+{"sl":"en","q":"legal rule","main":"правова норма","bd":[]}
+{"sl":"uk","q":"правовий принцип","main":"legal principle","bd":[]}
+{"sl":"en","q":"legal principle","main":"правовий принцип","bd":[]}
+{"sl":"uk","q":"правова база","main":"legal framework","bd":[]}
+{"sl":"en","q":"legal framework","main":"правова база","bd":[]}
+{"sl":"uk","q":"правове повноваження","main":"legal authority","bd":[]}
+{"sl":"en","q":"legal authority","main":"юридичний авторитет","bd":[]}
+{"sl":"uk","q":"правовий статус","main":"legal status","bd":[]}
+{"sl":"en","q":"legal status","main":"правовий статус","bd":[]}
+{"sl":"uk","q":"дієздатність","main":"legal capacity","bd":[]}
+{"sl":"en","q":"legal capacity","main":"дієздатність","bd":[]}
+{"sl":"uk","q":"кримінальна відповідальність","main":"criminal liability","bd":[]}
+{"sl":"en","q":"criminal liability","main":"кримінальна відповідальність","bd":[]}
+{"sl":"uk","q":"цивільна відповідальність","main":"civil liability","bd":[]}
+{"sl":"en","q":"civil liability","main":"цивільна відповідальність","bd":[]}
+{"sl":"uk","q":"адміністративна відповідальність","main":"administrative responsibility","bd":[]}
+{"sl":"en","q":"administrative liability","main":"адміністративна відповідальність","bd":[]}
+{"sl":"uk","q":"юридичний обов'язок","main":"legal obligation","bd":[]}
+{"sl":"en","q":"legal obligation","main":"юридичне зобов'язання","bd":[]}
+{"sl":"uk","q":"законне право","main":"legal right","bd":[]}
+{"sl":"en","q":"legal right","main":"законне право","bd":[]}
+{"sl":"uk","q":"засіб правового захисту","main":"remedy","bd":[]}
+{"sl":"en","q":"legal remedy","main":"правовий засіб захисту","bd":[]}
+{"sl":"uk","q":"правовий захист","main":"legal protection","bd":[]}
+{"sl":"en","q":"legal protection","main":"правовий захист","bd":[]}
+{"sl":"uk","q":"юридична процедура","main":"legal procedure","bd":[]}
+{"sl":"en","q":"legal procedure","main":"юридична процедура","bd":[]}
+{"sl":"uk","q":"належна правова процедура","main":"due process of law","bd":[]}
+{"sl":"en","q":"due process","main":"належний процес","bd":[]}
+{"sl":"uk","q":"судова практика","main":"jurisprudence","bd":[["noun",["jurisprudence"]]]}
+{"sl":"en","q":"case law","main":"судова практика","bd":[]}
+{"sl":"uk","q":"конституційне право","main":"constitutional law","bd":[]}
+{"sl":"en","q":"constitutional law","main":"конституційне право","bd":[]}
+{"sl":"uk","q":"кримінальне право","main":"criminal law","bd":[]}
+{"sl":"en","q":"criminal law","main":"кримінальне право","bd":[]}
+{"sl":"uk","q":"цивільне право","main":"civil law","bd":[]}
+{"sl":"en","q":"civil law","main":"цивільне право","bd":[]}
+{"sl":"uk","q":"адміністративне право","main":"administrative law","bd":[]}
+{"sl":"en","q":"administrative law","main":"адміністративне право","bd":[]}
+{"sl":"uk","q":"сімейне право","main":"family law","bd":[]}
+{"sl":"en","q":"family law","main":"сімейне право","bd":[]}
+{"sl":"uk","q":"трудове право","main":"labor law","bd":[]}
+{"sl":"en","q":"labor law","main":"трудове право","bd":[]}
+{"sl":"uk","q":"міжнародне право","main":"international law","bd":[]}
+{"sl":"en","q":"international law","main":"міжнародне право","bd":[]}
+{"sl":"uk","q":"правомірний","main":"lawful","bd":[["adjective",["lawful","legitimate","rightful"]]]}
+{"sl":"en","q":"lawful","main":"законний","bd":[["adjective",["законний","правомірний"]]]}
+{"sl":"uk","q":"неправомірний","main":"wrongful","bd":[["adjective",["wrongful"]]]}
+{"sl":"en","q":"unlawful","main":"незаконний","bd":[["adjective",["незаконний","незашлюбний","неправильний","неправний"]]]}
+{"sl":"uk","q":"юридично зобов'язувальний","main":"legally binding","bd":[]}
+{"sl":"en","q":"binding","main":"прив'язка","bd":[["adjective",["в'яжучий","зв'язуючий","палітурний","сполучний"]],["noun",["зв'язування","клямра","переплетення","кріплення","нав'язання","обшивання","оправлення"]]]}
+{"sl":"uk","q":"внутрішній паспорт","main":"internal passport","bd":[]}
+{"sl":"en","q":"domestic passport","main":"внутрішній паспорт","bd":[]}
+{"sl":"uk","q":"закордонний паспорт","main":"foreign passport","bd":[]}
+{"sl":"en","q":"international passport","main":"закордонний паспорт","bd":[]}
+{"sl":"uk","q":"біометричний паспорт","main":"biometric passport","bd":[]}
+{"sl":"en","q":"biometric passport","main":"біометричний паспорт","bd":[]}
+{"sl":"uk","q":"свідоцтво про реєстрацію транспортного засобу","main":"vehicle registration certificate","bd":[]}
+{"sl":"en","q":"vehicle registration certificate","main":"свідоцтво про реєстрацію транспортного засобу","bd":[]}
+{"sl":"uk","q":"свідоцтво про шлюб","main":"marriage certificate","bd":[]}
+{"sl":"en","q":"marriage certificate","main":"свідоцтво про шлюб","bd":[]}
+{"sl":"uk","q":"свідоцтво про розірвання шлюбу","main":"divorce certificate","bd":[]}
+{"sl":"en","q":"divorce certificate","main":"свідоцтво про розлучення","bd":[]}
+{"sl":"uk","q":"свідоцтво про смерть","main":"death certificate","bd":[]}
+{"sl":"en","q":"death certificate","main":"свідоцтво про смерть","bd":[]}
+{"sl":"uk","q":"ідентифікаційний код платника податків","main":"identification code of the taxpayer","bd":[]}
+{"sl":"en","q":"tax identification number","main":"податковий номер","bd":[]}
+{"sl":"uk","q":"номер соціального страхування","main":"social security number","bd":[]}
+{"sl":"en","q":"social security number","main":"номер соціального страхування","bd":[]}
+{"sl":"uk","q":"студентський квиток","main":"student card","bd":[]}
+{"sl":"en","q":"student ID","main":"студентський квиток","bd":[]}
+{"sl":"uk","q":"службове посвідчення","main":"service certificate","bd":[]}
+{"sl":"en","q":"employee ID","main":"ID працівника","bd":[]}
+{"sl":"uk","q":"пенсійне посвідчення","main":"pension certificate","bd":[]}
+{"sl":"en","q":"pensioner's card","main":"картку пенсіонера","bd":[]}
+{"sl":"uk","q":"військовий квиток","main":"military card","bd":[]}
+{"sl":"en","q":"military ID","main":"військовий квиток","bd":[]}
+{"sl":"uk","q":"зареєстроване місце проживання","main":"registered place of residence","bd":[]}
+{"sl":"en","q":"registered address","main":"юридична адреса","bd":[]}
+{"sl":"uk","q":"місце проживання за документами","main":"place of residence according to documents","bd":[]}
+{"sl":"en","q":"place of residence","main":"місце проживання","bd":[]}
+{"sl":"uk","q":"особисті дані","main":"personal data","bd":[]}
+{"sl":"en","q":"personal details","main":"особисті дані","bd":[]}
+{"sl":"en","q":"nationality","main":"національність","bd":[["noun",["громадянство","народ","національний характер","національність","нація","патріотизм","підданство","національні почуття"]]]}
+{"sl":"uk","q":"дата видачі","main":"date of issue","bd":[]}
+{"sl":"en","q":"date of issue","main":"дата випуску","bd":[]}
+{"sl":"uk","q":"орган, що видав документ","main":"the authority that issued the document","bd":[]}
+{"sl":"en","q":"issuing authority","main":"орган видачі","bd":[]}
+{"sl":"uk","q":"засвідчена копія","main":"certified copy","bd":[]}
+{"sl":"en","q":"certified copy","main":"завірена копія","bd":[]}
+{"sl":"uk","q":"письмовий запит","main":"written request","bd":[]}
+{"sl":"en","q":"written request","main":"письмовий запит","bd":[]}
+{"sl":"uk","q":"письмова заява під присягою","main":"written statement under oath","bd":[]}
+{"sl":"en","q":"affidavit","main":"афідевіт","bd":[["noun",["письмове свідчення під присягою"]]]}
+{"sl":"uk","q":"медична довідка","main":"medical certificate","bd":[]}
+{"sl":"en","q":"medical certificate","main":"медична довідка","bd":[]}
+{"sl":"uk","q":"довідка про несудимість","main":"certificate of criminal record","bd":[]}
+{"sl":"en","q":"criminal record certificate","main":"довідка про судимість","bd":[]}
+{"sl":"uk","q":"підтвердження місця проживання","main":"proof of residence","bd":[]}
+{"sl":"en","q":"proof of address","main":"підтвердження адреси","bd":[]}
+{"sl":"uk","q":"підтвердження доходу","main":"proof of income","bd":[]}
+{"sl":"en","q":"proof of income","main":"довідка про доходи","bd":[]}
+{"sl":"uk","q":"офіційний витяг","main":"official extract","bd":[]}
+{"sl":"en","q":"official extract","main":"офіційний витяг","bd":[]}
+{"sl":"uk","q":"державний реєстр","main":"state register","bd":[]}
+{"sl":"en","q":"public register","main":"публічний реєстр","bd":[]}
+{"sl":"uk","q":"вкладення до листа","main":"attachment to the letter","bd":[]}
+{"sl":"en","q":"enclosure","main":"корпус","bd":[["noun",["вкладання","додаток","запліт","обгороджене місце","огорожа"]]]}
+{"sl":"uk","q":"електронний підпис","main":"electronic signature","bd":[]}
+{"sl":"en","q":"electronic signature","main":"електронний підпис","bd":[]}
+{"sl":"uk","q":"цифровий підпис","main":"digital signature","bd":[]}
+{"sl":"en","q":"digital signature","main":"цифровий підпис","bd":[]}
+{"sl":"uk","q":"реєстраційний номер","main":"registration number","bd":[]}
+{"sl":"en","q":"reference number","main":"контрольний номер","bd":[]}
+{"sl":"uk","q":"підтвердження отримання","main":"confirmation of receipt","bd":[]}
+{"sl":"en","q":"acknowledgement of receipt","main":"підтвердження отримання","bd":[]}
+{"sl":"uk","q":"строк розгляду","main":"term of consideration","bd":[]}
+{"sl":"en","q":"processing time","main":"час обробки","bd":[]}
+{"sl":"uk","q":"письмова угода","main":"written agreement","bd":[]}
+{"sl":"en","q":"written agreement","main":"письмовий договір","bd":[]}
+{"sl":"uk","q":"усна угода","main":"oral agreement","bd":[]}
+{"sl":"en","q":"oral agreement","main":"усна домовленість","bd":[]}
+{"sl":"uk","q":"сторона договору","main":"party to the contract","bd":[]}
+{"sl":"en","q":"contracting party","main":"договірна сторона","bd":[]}
+{"sl":"uk","q":"предмет договору","main":"the subject of the contract","bd":[]}
+{"sl":"en","q":"subject matter","main":"тематика","bd":[]}
+{"sl":"uk","q":"умови оплати","main":"terms of payment","bd":[]}
+{"sl":"en","q":"payment terms","main":"умови оплати","bd":[]}
+{"sl":"uk","q":"умови постачання","main":"terms of supply","bd":[]}
+{"sl":"en","q":"delivery terms","main":"умови доставки","bd":[]}
+{"sl":"uk","q":"дата набрання чинності","main":"effective date","bd":[]}
+{"sl":"en","q":"effective date","main":"дата вступу в силу","bd":[]}
+{"sl":"uk","q":"розірвання договору","main":"termination of the contract","bd":[]}
+{"sl":"en","q":"termination","main":"припинення","bd":[["noun",["визвук","закінчення строку","припинення","результат"]]]}
+{"sl":"uk","q":"порушення договору","main":"breach of contract","bd":[]}
+{"sl":"en","q":"breach of contract","main":"порушення договору","bd":[]}
+{"sl":"uk","q":"відшкодування збитків","main":"compensation for damages","bd":[]}
+{"sl":"en","q":"damages","main":"збитки","bd":[["noun",["аварія","нівечення","пошкодження","ушкодження","шкода","врата","дефект"]],["verb",["забити","підбити","пошкоджувати","ушкоджувати","шкодити","завдавати збитків","травити","збавляти"]]]}
+{"sl":"uk","q":"положення про штраф","main":"penalty provisions","bd":[]}
+{"sl":"en","q":"penalty clause","main":"застереження про неустойку","bd":[]}
+{"sl":"uk","q":"положення про конфіденційність","main":"privacy policy","bd":[]}
+{"sl":"en","q":"confidentiality clause","main":"положення про конфіденційність","bd":[]}
+{"sl":"uk","q":"угода про нерозголошення","main":"non-disclosure agreement","bd":[]}
+{"sl":"en","q":"non-disclosure agreement","main":"договір про нерозголошення","bd":[]}
+{"sl":"uk","q":"обставини непереборної сили","main":"force majeure circumstances","bd":[]}
+{"sl":"en","q":"force majeure","main":"форс-мажор","bd":[]}
+{"sl":"uk","q":"додаткова угода","main":"additional agreement","bd":[]}
+{"sl":"en","q":"addendum","main":"додаток","bd":[["noun",["додаток"]]]}
+{"sl":"uk","q":"юридично обов'язковий","main":"legally binding","bd":[]}
+{"sl":"en","q":"legally binding","main":"юридично обов'язковий","bd":[]}
+{"sl":"uk","q":"оспорюваний","main":"disputed","bd":[]}
+{"sl":"en","q":"voidable","main":"скасоване","bd":[]}
+{"sl":"uk","q":"такий, що підлягає примусовому виконанню","main":"enforceable","bd":[]}
+{"sl":"en","q":"enforceable","main":"підлягає виконанню","bd":[["adjective",["здійснимий"]]]}
+{"sl":"uk","q":"неясний","main":"unclear","bd":[["adjective",["unclear","obscure","hazy","ambiguous","indistinct","faint","misty","undistinguished"]]]}
+{"sl":"en","q":"unclear","main":"незрозуміло","bd":[["adjective",["невпевнений","неясний"]]]}
+{"sl":"uk","q":"засвідчувати","main":"certify","bd":[["verb",["certify","attest","authenticate","witness","prove","bear witness","certificate"]]]}
+{"sl":"en","q":"to certify","main":"засвідчувати","bd":[["verb",["видавати довідку","дозволяти","завіряти","запевняти","засвідчити","засвідчувати","затверджувати","констатувати"]]]}
+{"sl":"uk","q":"письмове підтвердження","main":"written confirmation","bd":[]}
+{"sl":"en","q":"acknowledgement","main":"підтвердження","bd":[["noun",["вдячність","визнання","підтвердження","подяка"]]]}
+{"sl":"uk","q":"нотаріус","main":"notary","bd":[["noun",["notary","scrivener","tabellion"]]]}
+{"sl":"en","q":"notary","main":"нотаріус","bd":[["noun",["нотар","нотаріус"]]]}
+{"sl":"uk","q":"центральна влада","main":"central government","bd":[]}
+{"sl":"en","q":"central government","main":"центральний уряд","bd":[]}
+{"sl":"uk","q":"державний орган","main":"state body","bd":[]}
+{"sl":"en","q":"state body","main":"державний орган","bd":[]}
+{"sl":"uk","q":"державне відомство","main":"state department","bd":[]}
+{"sl":"en","q":"government agency","main":"державна установа","bd":[]}
+{"sl":"uk","q":"державна установа","main":"state institution","bd":[]}
+{"sl":"en","q":"public institution","main":"громадський заклад","bd":[]}
+{"sl":"uk","q":"урядове відомство","main":"government department","bd":[]}
+{"sl":"en","q":"government department","main":"урядове відомство","bd":[]}
+{"sl":"uk","q":"виконавча гілка влади","main":"executive branch of government","bd":[]}
+{"sl":"en","q":"executive branch","main":"виконавчої влади","bd":[]}
+{"sl":"uk","q":"законодавча гілка влади","main":"legislative branch of government","bd":[]}
+{"sl":"en","q":"legislative branch","main":"законодавча гілка влади","bd":[]}
+{"sl":"uk","q":"судова гілка влади","main":"judicial branch of government","bd":[]}
+{"sl":"en","q":"judicial branch","main":"судова гілка влади","bd":[]}
+{"sl":"uk","q":"глава держави","main":"head of state","bd":[]}
+{"sl":"en","q":"head of state","main":"глава держави","bd":[]}
+{"sl":"uk","q":"прем'єр-міністр","main":"prime minister","bd":[["noun",["premier","prime minister","cabinet-maker"]]]}
+{"sl":"en","q":"prime minister","main":"прем'єр-міністр","bd":[["noun",["прем'єр-міністр"]]]}
+{"sl":"uk","q":"посадова особа","main":"an official","bd":[]}
+{"sl":"en","q":"public official","main":"державний службовець","bd":[]}
+{"sl":"uk","q":"депутат парламенту","main":"Member of Parliament","bd":[]}
+{"sl":"en","q":"member of parliament","main":"депутат парламенту","bd":[]}
+{"sl":"uk","q":"державне управління","main":"public administration","bd":[]}
+{"sl":"en","q":"public administration","main":"державне управління","bd":[]}
+{"sl":"uk","q":"державна політика","main":"state policy","bd":[]}
+{"sl":"en","q":"public policy","main":"державна політика","bd":[]}
+{"sl":"uk","q":"указ","main":"decree","bd":[["noun",["decree","edict","ordinance","fiat","edit","enactment"]]]}
+{"sl":"en","q":"decree","main":"указ","bd":[["noun",["вирок","закон","постанова","указ","декрет","наказ","рескрипт","рішення"]],["verb",["видавати декрет","декретувати","наказувати","давати розпорядження","визначати","вирішувати"]]]}
+{"sl":"uk","q":"офіційний вісник","main":"official gazette","bd":[]}
+{"sl":"en","q":"official gazette","main":"офіційний вісник","bd":[]}
+{"sl":"uk","q":"компетентний орган","main":"competent authority","bd":[]}
+{"sl":"en","q":"competent authority","main":"компетентний орган","bd":[]}
+{"sl":"uk","q":"державний сектор","main":"public sector","bd":[]}
+{"sl":"en","q":"public sector","main":"державний сектор","bd":[]}
+{"sl":"uk","q":"фінансований державою","main":"funded by the state","bd":[]}
+{"sl":"en","q":"government-funded","main":"фінансується державою","bd":[]}
+{"sl":"uk","q":"рада містечка","main":"town council","bd":[]}
+{"sl":"en","q":"town council","main":"міська рада","bd":[]}
+{"sl":"uk","q":"місцева рада","main":"local council","bd":[]}
+{"sl":"en","q":"local council","main":"місцева рада","bd":[]}
+{"sl":"uk","q":"обласний орган влади","main":"regional authority","bd":[]}
+{"sl":"en","q":"regional authority","main":"регіональна влада","bd":[]}
+{"sl":"uk","q":"районний орган влади","main":"district authority","bd":[]}
+{"sl":"en","q":"district authority","main":"районна влада","bd":[]}
+{"sl":"uk","q":"адміністративна установа","main":"administrative institution","bd":[]}
+{"sl":"en","q":"administrative office","main":"адміністративний офіс","bd":[]}
+{"sl":"uk","q":"реєстр актів цивільного стану","main":"register of acts of civil status","bd":[]}
+{"sl":"en","q":"civil registry","main":"реєстрація актів цивільного стану","bd":[]}
+{"sl":"uk","q":"вікно обслуговування","main":"service window","bd":[]}
+{"sl":"en","q":"service desk","main":"служба обслуговування","bd":[]}
+{"sl":"uk","q":"номер у черзі","main":"number in the queue","bd":[]}
+{"sl":"en","q":"queue number","main":"номер черги","bd":[]}
+{"sl":"uk","q":"онлайн-послуга","main":"online service","bd":[]}
+{"sl":"en","q":"online service","main":"онлайн-сервіс","bd":[]}
+{"sl":"uk","q":"державний портал","main":"state portal","bd":[]}
+{"sl":"en","q":"government portal","main":"урядовий портал","bd":[]}
+{"sl":"uk","q":"електронна заява","main":"electronic application","bd":[]}
+{"sl":"en","q":"electronic application","main":"електронна заявка","bd":[]}
+{"sl":"uk","q":"адміністративний збір","main":"administrative fee","bd":[]}
+{"sl":"en","q":"administrative fee","main":"адміністративний збір","bd":[]}
+{"sl":"uk","q":"фахівець, який веде справу","main":"specialist who conducts the case","bd":[]}
+{"sl":"en","q":"caseworker","main":"працівник справи","bd":[]}
+{"sl":"uk","q":"відділ публічних записів","main":"public records department","bd":[]}
+{"sl":"en","q":"public records office","main":"державний архів","bd":[]}
+{"sl":"uk","q":"за попереднім записом","main":"by appointment","bd":[]}
+{"sl":"en","q":"by appointment","main":"за попереднім записом","bd":[]}
+{"sl":"uk","q":"оподаткування","main":"taxation","bd":[["noun",["taxation","taxing","imposition","levy","rating"]]]}
+{"sl":"en","q":"taxation","main":"оподаткування","bd":[["noun",["оподаткування","обкладення податком","прибуток від оподаткування","розмір податку","таксація"]]]}
+{"sl":"uk","q":"податковий орган","main":"tax authority","bd":[]}
+{"sl":"en","q":"tax authority","main":"податковий орган","bd":[]}
+{"sl":"en","q":"tax declaration","main":"податкова декларація","bd":[]}
+{"sl":"uk","q":"податок на нерухомість","main":"real estate tax","bd":[]}
+{"sl":"en","q":"property tax","main":"податок на майно","bd":[]}
+{"sl":"uk","q":"податкова ставка","main":"tax rate","bd":[]}
+{"sl":"en","q":"tax rate","main":"податкова ставка","bd":[]}
+{"sl":"uk","q":"податковий борг","main":"tax debt","bd":[]}
+{"sl":"en","q":"tax debt","main":"податковий борг","bd":[]}
+{"sl":"uk","q":"повернення податку","main":"tax refund","bd":[]}
+{"sl":"en","q":"tax refund","main":"повернення податку","bd":[]}
+{"sl":"uk","q":"податкова пільга","main":"tax relief","bd":[]}
+{"sl":"en","q":"tax relief","main":"податкові пільги","bd":[]}
+{"sl":"uk","q":"податкове вирахування","main":"tax deduction","bd":[]}
+{"sl":"en","q":"deduction","main":"дедукція","bd":[["noun",["висновок","від'ємник","віднімання","знижка","скидка","умовивід","утримання"]]]}
+{"sl":"uk","q":"повідомлення про сплату","main":"payment notification","bd":[]}
+{"sl":"en","q":"payment notice","main":"повідомлення про оплату","bd":[]}
+{"sl":"uk","q":"соціальна служба","main":"social service","bd":[]}
+{"sl":"en","q":"social service","main":"соціальна служба","bd":[]}
+{"sl":"uk","q":"соціальне забезпечення","main":"social security","bd":[]}
+{"sl":"en","q":"social welfare","main":"соціального забезпечення","bd":[]}
+{"sl":"uk","q":"допомога з безробіття","main":"unemployment benefit","bd":[]}
+{"sl":"en","q":"unemployment benefit","main":"допомога по безробіттю","bd":[]}
+{"sl":"uk","q":"допомога на дитину","main":"child benefit","bd":[]}
+{"sl":"en","q":"child benefit","main":"допомога на дітей","bd":[]}
+{"sl":"uk","q":"житлова субсидія","main":"housing subsidy","bd":[]}
+{"sl":"en","q":"housing benefit","main":"житлова допомога","bd":[]}
+{"sl":"uk","q":"допомога по інвалідності","main":"disability assistance","bd":[]}
+{"sl":"en","q":"disability benefit","main":"допомога по інвалідності","bd":[]}
+{"sl":"uk","q":"пенсійний фонд","main":"pension fund","bd":[]}
+{"sl":"en","q":"pension fund","main":"пенсійний фонд","bd":[]}
+{"sl":"uk","q":"соціальний працівник","main":"social worker","bd":[]}
+{"sl":"en","q":"social worker","main":"соціальний працівник","bd":[]}
+{"sl":"uk","q":"право на отримання","main":"the right to receive","bd":[]}
+{"sl":"en","q":"eligibility","main":"прийнятність","bd":[["noun",["бажаність","право на обрання","прийнятність"]]]}
+{"sl":"uk","q":"призначений після перевірки доходів","main":"appointed after income verification","bd":[]}
+{"sl":"en","q":"means-tested","main":"перевірка доходів","bd":[]}
+{"sl":"uk","q":"права людини","main":"human rights","bd":[]}
+{"sl":"en","q":"human rights","main":"прав людини","bd":[]}
+{"sl":"uk","q":"громадянські права","main":"civil rights","bd":[]}
+{"sl":"en","q":"civil rights","main":"громадянські права","bd":[]}
+{"sl":"uk","q":"основоположне право","main":"fundamental right","bd":[]}
+{"sl":"en","q":"fundamental right","main":"фундаментальне право","bd":[]}
+{"sl":"uk","q":"рівне ставлення","main":"equal treatment","bd":[]}
+{"sl":"en","q":"equal treatment","main":"рівне ставлення","bd":[]}
+{"sl":"uk","q":"персональні дані","main":"personal data","bd":[]}
+{"sl":"en","q":"personal data","main":"особисті дані","bd":[]}
+{"sl":"uk","q":"свобода слова","main":"freedom of speech","bd":[]}
+{"sl":"en","q":"freedom of speech","main":"свобода слова","bd":[]}
+{"sl":"uk","q":"свобода вираження поглядів","main":"freedom of expression","bd":[]}
+{"sl":"en","q":"freedom of expression","main":"свобода самовираження","bd":[]}
+{"sl":"uk","q":"свобода віросповідання","main":"freedom of religion","bd":[]}
+{"sl":"en","q":"freedom of religion","main":"свобода віросповідання","bd":[]}
+{"sl":"uk","q":"свобода мирних зібрань","main":"freedom of peaceful assembly","bd":[]}
+{"sl":"en","q":"freedom of assembly","main":"свобода зібрань","bd":[]}
+{"sl":"uk","q":"свобода пересування","main":"freedom of movement","bd":[]}
+{"sl":"en","q":"freedom of movement","main":"свобода пересування","bd":[]}
+{"sl":"uk","q":"право на справедливий суд","main":"the right to a fair trial","bd":[]}
+{"sl":"en","q":"right to a fair trial","main":"право на справедливий суд","bd":[]}
+{"sl":"uk","q":"право зберігати мовчання","main":"the right to remain silent","bd":[]}
+{"sl":"en","q":"right to remain silent","main":"право зберігати мовчання","bd":[]}
+{"sl":"uk","q":"право на правову допомогу","main":"the right to legal aid","bd":[]}
+{"sl":"en","q":"right to legal assistance","main":"право на правову допомогу","bd":[]}
+{"sl":"uk","q":"право доступу","main":"right of access","bd":[]}
+{"sl":"en","q":"right of access","main":"право доступу","bd":[]}
+{"sl":"uk","q":"право на оскарження","main":"the right to appeal","bd":[]}
+{"sl":"en","q":"right to appeal","main":"право на оскарження","bd":[]}
+{"sl":"uk","q":"громадянський обов'язок","main":"civic duty","bd":[]}
+{"sl":"en","q":"civic duty","main":"громадянський обов'язок","bd":[]}
+{"sl":"uk","q":"суспільний інтерес","main":"public interest","bd":[]}
+{"sl":"en","q":"public interest","main":"суспільний інтерес","bd":[]}
+{"sl":"uk","q":"інформована згода","main":"informed consent","bd":[]}
+{"sl":"en","q":"informed consent","main":"інформована згода","bd":[]}
+{"sl":"uk","q":"конфлікт інтересів","main":"conflict of interest","bd":[]}
+{"sl":"en","q":"conflict of interest","main":"конфлікт інтересів","bd":[]}
+{"sl":"uk","q":"омбудсман","main":"ombudsman","bd":[]}
+{"sl":"en","q":"ombudsman","main":"омбудсмен","bd":[]}
+{"sl":"uk","q":"порушення прав","main":"violation of rights","bd":[]}
+{"sl":"en","q":"rights violation","main":"порушення прав","bd":[]}
+{"sl":"uk","q":"правова гарантія","main":"legal guarantee","bd":[]}
+{"sl":"en","q":"legal safeguard","main":"правовий захист","bd":[]}
+{"sl":"uk","q":"дискримінаційний","main":"discriminating","bd":[["adjective",["discriminating"]]]}
+{"sl":"en","q":"discriminatory","main":"дискримінаційний","bd":[["adjective",["селективний"]]]}
+{"sl":"uk","q":"офіційний бюлетень","main":"official bulletin","bd":[]}
+{"sl":"en","q":"gazette","main":"бюлетень","bd":[["noun",["урядовий бюлетень","газета"]]]}
+{"sl":"uk","q":"вебпортал","main":"web portal","bd":[]}
+{"sl":"en","q":"portal","main":"портал","bd":[["noun",["брама","портал"]]]}
+{"sl":"uk","q":"гарантія захисту","main":"guarantee of protection","bd":[]}
+{"sl":"en","q":"safeguard","main":"захист","bd":[["noun",["гарантія","забезпека","запобіжник","конвой","охорона"]],["verb",["гарантувати","запобігати","охороняти"]]]}
+{"sl":"uk","q":"правоохоронні органи","main":"law enforcement agencies","bd":[]}
+{"sl":"en","q":"law enforcement","main":"правоохоронні органи","bd":[]}
+{"sl":"uk","q":"патрульний поліцейський","main":"patrol policeman","bd":[]}
+{"sl":"en","q":"patrol officer","main":"патрульний офіцер","bd":[]}
+{"sl":"uk","q":"поліцейський протокол","main":"police report","bd":[]}
+{"sl":"en","q":"police report","main":"звіт поліції","bd":[]}
+{"sl":"uk","q":"протокол про подію","main":"protocol of the event","bd":[]}
+{"sl":"en","q":"incident report","main":"звіт про подію","bd":[]}
+{"sl":"uk","q":"заява до поліції","main":"a statement to the police","bd":[]}
+{"sl":"en","q":"statement to the police","main":"заява в поліцію","bd":[]}
+{"sl":"uk","q":"показання свідка","main":"testimony","bd":[["noun",["testimony"]]]}
+{"sl":"en","q":"witness statement","main":"показання свідка","bd":[]}
+{"sl":"uk","q":"особа, яка цікавить слідство","main":"a person of interest to the investigation","bd":[]}
+{"sl":"en","q":"person of interest","main":"зацікавлена ​​особа","bd":[]}
+{"sl":"uk","q":"ордер на арешт","main":"arrest warrant","bd":[["noun",["border warrant","capias"]]]}
+{"sl":"en","q":"arrest warrant","main":"ордер на арешт","bd":[]}
+{"sl":"uk","q":"ордер на обшук","main":"search warrant","bd":[]}
+{"sl":"en","q":"search warrant","main":"ордер на обшук","bd":[]}
+{"sl":"uk","q":"перевірка документів","main":"verification of documents","bd":[]}
+{"sl":"en","q":"identity check","main":"перевірка особи","bd":[]}
+{"sl":"uk","q":"нагрудна камера","main":"chest camera","bd":[]}
+{"sl":"en","q":"body camera","main":"натільна камера","bd":[]}
+{"sl":"uk","q":"кримінальне правопорушення","main":"criminal offence","bd":[]}
+{"sl":"en","q":"criminal offense","main":"кримінальне правопорушення","bd":[["noun",["карний злочин"]]]}
+{"sl":"uk","q":"незначне правопорушення","main":"minor offence","bd":[]}
+{"sl":"en","q":"minor offense","main":"дрібне правопорушення","bd":[]}
+{"sl":"uk","q":"тяжке правопорушення","main":"a serious offence","bd":[]}
+{"sl":"en","q":"serious offense","main":"серйозне правопорушення","bd":[]}
+{"sl":"uk","q":"тяжкий злочин","main":"serious crime","bd":[]}
+{"sl":"en","q":"felony","main":"тяжкий злочин","bd":[["noun",["кримінальний злочин"]]]}
+{"sl":"uk","q":"підроблення документів","main":"forgery of documents","bd":[]}
+{"sl":"en","q":"forgery","main":"підробка","bd":[["noun",["підлог","підробка","фальсифікація","фальшивка"]]]}
+{"sl":"uk","q":"відмивання грошей","main":"money laundering","bd":[]}
+{"sl":"en","q":"money laundering","main":"відмивання грошей","bd":[]}
+{"sl":"uk","q":"ухилення від сплати податків","main":"tax evasion","bd":[]}
+{"sl":"en","q":"tax evasion","main":"ухилення від сплати податків","bd":[]}
+{"sl":"uk","q":"переслідування людини","main":"persecution of a person","bd":[]}
+{"sl":"en","q":"stalking","main":"переслідування","bd":[["verb",["крокувати","підкрадатися","приховано пересуватися"]]]}
+{"sl":"uk","q":"незаконне проникнення на чужу територію","main":"illegal entry into someone else's territory","bd":[]}
+{"sl":"en","q":"trespassing","main":"вторгнення","bd":[["verb",["зброїти","зловживати","порушувати чуже право володіння","учинити правопорушення"]]]}
+{"sl":"uk","q":"кіберзлочинність","main":"cybercrime","bd":[]}
+{"sl":"en","q":"cybercrime","main":"кіберзлочинність","bd":[]}
+{"sl":"uk","q":"зберігання наркотиків","main":"drug possession","bd":[]}
+{"sl":"en","q":"drug possession","main":"зберігання наркотиків","bd":[]}
+{"sl":"uk","q":"громадські роботи","main":"public works","bd":[]}
+{"sl":"en","q":"community service","main":"громадські роботи","bd":[]}
+{"sl":"uk","q":"пробація","main":"probation","bd":[]}
+{"sl":"en","q":"probation","main":"випробувальний термін","bd":[["noun",["випробування","іспит","іспитовий строк","послушенство"]]]}
+{"sl":"uk","q":"кримінальне розслідування","main":"criminal investigation","bd":[]}
+{"sl":"en","q":"criminal investigation","main":"кримінальний розшук","bd":[]}
+{"sl":"uk","q":"місце злочину","main":"crime scene","bd":[]}
+{"sl":"en","q":"crime scene","main":"місце злочину","bd":[]}
+{"sl":"uk","q":"речові докази","main":"material evidence","bd":[]}
+{"sl":"en","q":"physical evidence","main":"речові докази","bd":[]}
+{"sl":"uk","q":"письмові докази","main":"written evidence","bd":[]}
+{"sl":"en","q":"documentary evidence","main":"документальне підтвердження","bd":[]}
+{"sl":"uk","q":"цифрові докази","main":"digital evidence","bd":[]}
+{"sl":"en","q":"digital evidence","main":"цифрові докази","bd":[]}
+{"sl":"uk","q":"непрямі докази","main":"circumstantial evidence","bd":[]}
+{"sl":"en","q":"circumstantial evidence","main":"непрямі докази","bd":[]}
+{"sl":"uk","q":"прямі докази","main":"direct evidence","bd":[]}
+{"sl":"en","q":"direct evidence","main":"прямі докази","bd":[]}
+{"sl":"uk","q":"криміналістичні докази","main":"forensic evidence","bd":[]}
+{"sl":"en","q":"forensic evidence","main":"судові докази","bd":[]}
+{"sl":"uk","q":"зразок ДНК","main":"DNA sample","bd":[]}
+{"sl":"en","q":"DNA sample","main":"зразок ДНК","bd":[]}
+{"sl":"uk","q":"запис камери відеоспостереження","main":"video surveillance camera recording","bd":[]}
+{"sl":"en","q":"CCTV footage","main":"Запис камер відеоспостереження","bd":[]}
+{"sl":"uk","q":"документальний слід","main":"documentary trail","bd":[]}
+{"sl":"en","q":"document trail","main":"документний слід","bd":[]}
+{"sl":"uk","q":"очевидець","main":"witness","bd":[["noun",["witness","eyewitness","bystander","beholder","spectator"]]]}
+{"sl":"en","q":"eyewitness","main":"очевидець","bd":[["noun",["очевидець"]]]}
+{"sl":"uk","q":"судовий експерт","main":"forensic expert","bd":[]}
+{"sl":"en","q":"expert witness","main":"свідок-експерт","bd":[]}
+{"sl":"uk","q":"алібі","main":"alibi","bd":[["noun",["alibi"]]]}
+{"sl":"en","q":"alibi","main":"алібі","bd":[["noun",["алібі","привід","виправдання"]],["verb",["виправдовуватися"]]]}
+{"sl":"uk","q":"ланцюг зберігання доказів","main":"chain of custody of evidence","bd":[]}
+{"sl":"en","q":"chain of custody","main":"ланцюг охорони","bd":[]}
+{"sl":"uk","q":"криміналістична експертиза","main":"forensic examination","bd":[]}
+{"sl":"en","q":"forensic examination","main":"судово-медична експертиза","bd":[]}
+{"sl":"uk","q":"висновок експерта","main":"expert's opinion","bd":[]}
+{"sl":"en","q":"expert report","main":"експертний звіт","bd":[]}
+{"sl":"uk","q":"допустимий як доказ","main":"admissible as evidence","bd":[]}
+{"sl":"en","q":"admissible","main":"припустимий","bd":[["adjective",["допустимий","прийнятний","припустимий"]]]}
+{"sl":"uk","q":"недопустимий як доказ","main":"inadmissible as evidence","bd":[]}
+{"sl":"en","q":"inadmissible","main":"неприпустимий","bd":[["adjective",["недозволенний","недопустимий","неприпущенний"]]]}
+{"sl":"uk","q":"судове провадження","main":"legal proceedings","bd":[]}
+{"sl":"en","q":"proceedings","main":"провадження","bd":[["noun",["наукові записки","праця","робота","судова справа","судочинство"]]]}
+{"sl":"uk","q":"юридичне провадження","main":"legal proceedings","bd":[]}
+{"sl":"en","q":"legal proceedings","main":"судові процеси","bd":[["noun",["процес"]]]}
+{"sl":"uk","q":"матеріали справи","main":"case materials","bd":[]}
+{"sl":"en","q":"case file","main":"матеріал справи","bd":[]}
+{"sl":"uk","q":"протокол суду","main":"court record","bd":[]}
+{"sl":"en","q":"court record","main":"судовий протокол","bd":[]}
+{"sl":"uk","q":"ухвала суду","main":"court order","bd":[]}
+{"sl":"en","q":"court order","main":"судовий наказ","bd":[]}
+{"sl":"uk","q":"судова вимога з'явитися","main":"court order to appear","bd":[]}
+{"sl":"en","q":"subpoena","main":"повістка до суду","bd":[["noun",["повістка до суду"]],["verb",["викликати в суд"]]]}
+{"sl":"uk","q":"повідомлення про судове засідання","main":"notice of court session","bd":[]}
+{"sl":"en","q":"notice of hearing","main":"повідомлення про слухання","bd":[]}
+{"sl":"uk","q":"клопотання до суду","main":"petition to the court","bd":[]}
+{"sl":"en","q":"application to the court","main":"заява до суду","bd":[]}
+{"sl":"uk","q":"подання сторони в суді","main":"presentation of a party in court","bd":[]}
+{"sl":"en","q":"court submission","main":"подання до суду","bd":[]}
+{"sl":"uk","q":"присяжний","main":"sworn","bd":[["adjective",["sworn"]],["noun",["juryman"]]]}
+{"sl":"en","q":"juror","main":"присяжний","bd":[["noun",["член жюрі","присяжний засідатель"]]]}
+{"sl":"uk","q":"секретар суду","main":"clerk of the court","bd":[]}
+{"sl":"en","q":"court clerk","main":"судовий секретар","bd":[]}
+{"sl":"uk","q":"судовий розпорядник","main":"bailiff","bd":[]}
+{"sl":"en","q":"bailiff","main":"судовий виконавець","bd":[["noun",["заступник шерифа","судовий виконавець","судовий пристав","управитель маєтку"]]]}
+{"sl":"uk","q":"апелянт","main":"appellant","bd":[["noun",["appellant"]]]}
+{"sl":"en","q":"appellant","main":"скаржник","bd":[["adjective",["апелюючий","апеляційний"]],["noun",["апелянт","злочинець","скаржник"]]]}
+{"sl":"uk","q":"сторона, що відповідає на скаргу","main":"the party responding to the complaint","bd":[]}
+{"sl":"en","q":"respondent","main":"респондент","bd":[["adjective",["взаємний","чуйний","який відповідає"]],["noun",["відповідач","дисертант"]]]}
+{"sl":"uk","q":"судове рішення","main":"court decision","bd":[["noun",["adjudication","adjudgement","adjudgment","advice","opinion"]]]}
+{"sl":"en","q":"ruling","main":"правляча","bd":[["adjective",["владний","панівний","поточний","правлячий"]],["noun",["лініювання","постанова","управління"]]]}
+{"sl":"uk","q":"відкладення засідання","main":"adjournment of the meeting","bd":[]}
+{"sl":"en","q":"adjournment","main":"відстрочка","bd":[["noun",["відкладання","відстрочка","перерва"]]]}
+{"sl":"uk","q":"у відкритому засіданні","main":"in open session","bd":[]}
+{"sl":"en","q":"in public","main":"публічно","bd":[["adverb",["відверто","публічно"]]]}
+{"sl":"uk","q":"у закритому засіданні","main":"in closed session","bd":[]}
+{"sl":"en","q":"in private","main":"приватно","bd":[["adverb",["конфіденціально","секретно"]]]}
+{"sl":"uk","q":"криміналістичний","main":"forensic","bd":[]}
+{"sl":"en","q":"forensic","main":"криміналістичний","bd":[["adjective",["судовий"]]]}
+{"sl":"uk","q":"відмивання коштів","main":"money laundering","bd":[]}
+{"sl":"en","q":"laundering","main":"прання","bd":[["noun",["прання"]]]}
+{"sl":"uk","q":"ухилення","main":"avoidance","bd":[["noun",["avoidance","equivocation"]]]}
+{"sl":"en","q":"evasion","main":"ухилення","bd":[["noun",["виверт","вилаз","обхід","ухиляння"]]]}
+{"sl":"en","q":"circumstantial","main":"обставинні","bd":[["adjective",["випадковий","детальний","грунтовний","докладний"]],["noun",["деталь","привхідні моменти","побічні обставини","подробиця","другорядні риси"]]]}
+{"sl":"uk","q":"кримінальна справа","main":"criminal case","bd":[]}
+{"sl":"en","q":"criminal case","main":"кримінальна справа","bd":[]}
+{"sl":"uk","q":"кримінальне провадження","main":"criminal proceedings","bd":[]}
+{"sl":"en","q":"criminal proceedings","main":"кримінальне провадження","bd":[]}
+{"sl":"uk","q":"державний обвинувач","main":"public prosecutor","bd":[]}
+{"sl":"en","q":"public prosecutor","main":"прокурор","bd":[["noun",["прокурор"]]]}
+{"sl":"uk","q":"адвокат захисту","main":"defense attorney","bd":[]}
+{"sl":"en","q":"defense lawyer","main":"захисник","bd":[]}
+{"sl":"uk","q":"пункт кримінального обвинувачення","main":"point of criminal indictment","bd":[]}
+{"sl":"en","q":"criminal charge","main":"кримінальне звинувачення","bd":[]}
+{"sl":"uk","q":"визнання вини","main":"admission of guilt","bd":[]}
+{"sl":"en","q":"guilty plea","main":"явка з повинною","bd":[]}
+{"sl":"uk","q":"заява про невизнання вини","main":"plea of ​​not guilty","bd":[]}
+{"sl":"en","q":"not-guilty plea","main":"невизнання провини","bd":[]}
+{"sl":"uk","q":"угода про визнання вини","main":"plea agreement","bd":[]}
+{"sl":"en","q":"plea bargain","main":"угода про визнання провини","bd":[]}
+{"sl":"uk","q":"презумпція невинуватості","main":"presumption of innocence","bd":[]}
+{"sl":"en","q":"presumption of innocence","main":"презумпція невинуватості","bd":[]}
+{"sl":"uk","q":"тягар доказування","main":"burden of proof","bd":[]}
+{"sl":"en","q":"burden of proof","main":"тягар доведення","bd":[]}
+{"sl":"uk","q":"поза розумним сумнівом","main":"beyond a reasonable doubt","bd":[]}
+{"sl":"en","q":"beyond reasonable doubt","main":"поза розумним сумнівом","bd":[]}
+{"sl":"uk","q":"тримання під вартою до суду","main":"pretrial detention","bd":[]}
+{"sl":"en","q":"remand","main":"запобіжний захід","bd":[["noun",["дальше утримання під вартою"]],["verb",["відсилати на дослідування"]]]}
+{"sl":"uk","q":"досудове тримання під вартою","main":"pretrial detention","bd":[]}
+{"sl":"en","q":"pre-trial detention","main":"попереднє ув'язнення","bd":[]}
+{"sl":"uk","q":"звільнення під заставу","main":"release on bail","bd":[["noun",["bailment"]]]}
+{"sl":"en","q":"release on bail","main":"звільнення під заставу","bd":[]}
+{"sl":"uk","q":"виправдувальний вирок","main":"acquittal","bd":[]}
+{"sl":"en","q":"acquittal","main":"виправдувальний вирок","bd":[["noun",["виконання","виправдання","звільнення"]]]}
+{"sl":"uk","q":"попередня судимість","main":"previous criminal record","bd":[]}
+{"sl":"en","q":"previous conviction","main":"судимість","bd":[]}
+{"sl":"uk","q":"пом'якшувальна обставина","main":"mitigating circumstance","bd":[]}
+{"sl":"en","q":"mitigating circumstance","main":"обставина, що пом'якшує відповідальність","bd":[]}
+{"sl":"uk","q":"обтяжувальна обставина","main":"aggravating circumstance","bd":[]}
+{"sl":"en","q":"aggravating circumstance","main":"обставина, що обтяжує покарання","bd":[]}
+{"sl":"uk","q":"покарання у вигляді позбавлення волі","main":"punishment in the form of deprivation of liberty","bd":[]}
+{"sl":"en","q":"prison sentence","main":"тюремне ув'язнення","bd":[]}
+{"sl":"uk","q":"умовний вирок","main":"suspended sentence","bd":[]}
+{"sl":"en","q":"suspended sentence","main":"умовне покарання","bd":[]}
+{"sl":"uk","q":"довічне ув'язнення","main":"life imprisonment","bd":[["noun",["lifer"]]]}
+{"sl":"en","q":"life sentence","main":"довічне ув'язнення","bd":[]}
+{"sl":"uk","q":"виправдати","main":"justify","bd":[]}
+{"sl":"en","q":"to acquit","main":"виправдовувати","bd":[["verb",["виплачувати","виправдовувати","виправдувати","звільняти","платити","розквитатися","розплачуватися"]]]}
+{"sl":"uk","q":"цивільна справа","main":"civil case","bd":[]}
+{"sl":"en","q":"civil case","main":"цивільна справа","bd":[]}
+{"sl":"uk","q":"цивільний спір","main":"civil dispute","bd":[]}
+{"sl":"en","q":"civil dispute","main":"цивільний спір","bd":[]}
+{"sl":"uk","q":"юридичні дії","main":"legal actions","bd":[]}
+{"sl":"en","q":"legal action","main":"судові дії","bd":[]}
+{"sl":"uk","q":"підстава позову","main":"the basis of the claim","bd":[]}
+{"sl":"en","q":"cause of action","main":"причина позову","bd":[]}
+{"sl":"uk","q":"позивач у цивільній справі","main":"plaintiff in a civil case","bd":[]}
+{"sl":"en","q":"civil claimant","main":"цивільний позивач","bd":[]}
+{"sl":"uk","q":"відповідач у цивільній справі","main":"defendant in a civil case","bd":[]}
+{"sl":"en","q":"civil respondent","main":"цивільний відповідач","bd":[]}
+{"sl":"uk","q":"форма позову","main":"claim form","bd":[]}
+{"sl":"en","q":"claim form","main":"претензійна форма","bd":[]}
+{"sl":"uk","q":"позовна заява","main":"statement of claim","bd":[]}
+{"sl":"en","q":"statement of claim","main":"позовну заяву","bd":[]}
+{"sl":"uk","q":"зустрічний позов","main":"counterclaim","bd":[["noun",["counterclaim"]]]}
+{"sl":"en","q":"counterclaim","main":"зустрічний позов","bd":[["noun",["зустрічний позов","контрпретензія"]]]}
+{"sl":"uk","q":"недбалість","main":"negligence","bd":[["noun",["negligence","carelessness","neglect","laxity","backwardness","oscitancy","oscitation","looseness"]]]}
+{"sl":"en","q":"negligence","main":"недбалість","bd":[["noun",["байдужість","невимушеність","недбайливість","недбалість","недогляд","необачність","необережність","неохайність"]]]}
+{"sl":"uk","q":"обов'язок дбати про безпеку інших","main":"duty to care for the safety of others","bd":[]}
+{"sl":"en","q":"duty of care","main":"обов'язок догляду","bd":[]}
+{"sl":"uk","q":"відшкодування у цивільній справі","main":"compensation in a civil case","bd":[]}
+{"sl":"en","q":"civil damages","main":"цивільні збитки","bd":[]}
+{"sl":"uk","q":"майнові збитки","main":"property damage","bd":[]}
+{"sl":"en","q":"financial loss","main":"фінансові втрати","bd":[]}
+{"sl":"uk","q":"позов про відшкодування шкоди здоров'ю","main":"claim for compensation for damage to health","bd":[]}
+{"sl":"en","q":"personal injury claim","main":"позов про відшкодування тілесних ушкоджень","bd":[]}
+{"sl":"uk","q":"судова заборона","main":"injunction","bd":[["noun",["injunction"]]]}
+{"sl":"en","q":"injunction","main":"заборона","bd":[["noun",["наказ","судова заборона"]]]}
+{"sl":"uk","q":"декларативне рішення суду","main":"declarative court decision","bd":[]}
+{"sl":"en","q":"declaratory judgment","main":"констатаційне рішення","bd":[]}
+{"sl":"uk","q":"примусове виконання договору в натурі","main":"forced performance of the contract in kind","bd":[]}
+{"sl":"en","q":"specific performance","main":"конкретна продуктивність","bd":[]}
+{"sl":"uk","q":"позасудове врегулювання","main":"out-of-court settlement","bd":[]}
+{"sl":"en","q":"out-of-court settlement","main":"позасудове врегулювання","bd":[]}
+{"sl":"uk","q":"арбітраж","main":"arbitration","bd":[["noun",["arbitration","arbitrage","arbitrament"]]]}
+{"sl":"en","q":"arbitration","main":"арбітраж","bd":[["noun",["арбітраж","компроміс","рішення арбітра","розгляд суперечки третейським судом","третейський суд"]]]}
+{"sl":"uk","q":"строк позовної давності","main":"the statute of limitations","bd":[]}
+{"sl":"en","q":"limitation period","main":"термін давності","bd":[]}
+{"sl":"uk","q":"судовий збір","main":"court fee","bd":[]}
+{"sl":"en","q":"court fee","main":"судовий збір","bd":[]}
+{"sl":"uk","q":"судові витрати","main":"court costs","bd":[]}
+{"sl":"en","q":"legal costs","main":"судові витрати","bd":[]}
+{"sl":"uk","q":"виконавчий документ","main":"executive document","bd":[]}
+{"sl":"en","q":"enforcement order","main":"примусове виконання","bd":[]}
+{"sl":"uk","q":"адвокат вищих судів","main":"advocate of higher courts","bd":[]}
+{"sl":"en","q":"barrister","main":"адвокат","bd":[["noun",["адвокат"]]]}
+{"sl":"uk","q":"юрисконсульт","main":"legal advisor","bd":[["noun",["solicitor","jurisconsult","counsels"]]]}
+{"sl":"en","q":"legal adviser","main":"юрисконсульт","bd":[]}
+{"sl":"uk","q":"штатний юрист компанії","main":"staff lawyer of the company","bd":[]}
+{"sl":"en","q":"in-house lawyer","main":"штатний юрист","bd":[]}
+{"sl":"uk","q":"законний представник","main":"legal representative","bd":[]}
+{"sl":"en","q":"legal representative","main":"законний представник","bd":[]}
+{"sl":"uk","q":"юридичний радник","main":"legal advisor","bd":[]}
+{"sl":"en","q":"legal counsel","main":"юрисконсульт","bd":[]}
+{"sl":"uk","q":"державний захисник","main":"public defender","bd":[]}
+{"sl":"en","q":"public defender","main":"громадський захисник","bd":[]}
+{"sl":"uk","q":"адвокат безоплатної правничої допомоги","main":"free legal aid lawyer","bd":[]}
+{"sl":"en","q":"legal aid lawyer","main":"адвокат з правової допомоги","bd":[]}
+{"sl":"uk","q":"публічний нотаріус","main":"public notary","bd":[]}
+{"sl":"en","q":"notary public","main":"нотаріус","bd":[]}
+{"sl":"uk","q":"помічник юриста","main":"legal assistant","bd":[]}
+{"sl":"en","q":"paralegal","main":"помічник юриста","bd":[]}
+{"sl":"uk","q":"асистент юриста","main":"legal assistant","bd":[]}
+{"sl":"en","q":"legal assistant","main":"помічник юриста","bd":[]}
+{"sl":"uk","q":"юридична фірма","main":"law firm","bd":[]}
+{"sl":"en","q":"law firm","main":"юридична фірма","bd":[]}
+{"sl":"uk","q":"юридичний відділ","main":"legal department","bd":[]}
+{"sl":"en","q":"legal department","main":"юридичний відділ","bd":[]}
+{"sl":"uk","q":"юридична консультація","main":"legal advice","bd":[]}
+{"sl":"en","q":"legal advice","main":"юридичні консультації","bd":[]}
+{"sl":"uk","q":"правнича допомога","main":"legal aid","bd":[]}
+{"sl":"en","q":"legal assistance","main":"правова допомога","bd":[]}
+{"sl":"uk","q":"безоплатна правнича допомога","main":"free legal aid","bd":[]}
+{"sl":"en","q":"legal aid","main":"правова допомога","bd":[]}
+{"sl":"uk","q":"консультація з юристом","main":"consultation with a lawyer","bd":[]}
+{"sl":"en","q":"appointment with a lawyer","main":"зустріч з адвокатом","bd":[]}
+{"sl":"uk","q":"клієнтська справа","main":"client case","bd":[]}
+{"sl":"en","q":"client file","main":"файл клієнта","bd":[]}
+{"sl":"uk","q":"професійна таємниця","main":"professional secret","bd":[]}
+{"sl":"en","q":"professional secrecy","main":"професійна таємниця","bd":[]}
+{"sl":"uk","q":"адвокатська таємниця","main":"lawyer's secret","bd":[]}
+{"sl":"en","q":"attorney-client privilege","main":"адвокатська таємниця","bd":[]}
+{"sl":"uk","q":"юридичний висновок","main":"legal opinion","bd":[]}
+{"sl":"en","q":"legal opinion","main":"правовий висновок","bd":[]}
+{"sl":"uk","q":"довіреність","main":"power of attorney","bd":[]}
+{"sl":"en","q":"power of attorney","main":"довіреність","bd":[]}
+{"sl":"uk","q":"генеральна довіреність","main":"general power of attorney","bd":[]}
+{"sl":"en","q":"general power of attorney","main":"генеральна довіреність","bd":[]}
+{"sl":"uk","q":"уповноважений представник","main":"authorized representative","bd":[]}
+{"sl":"en","q":"authorized representative","main":"уповноважений представник","bd":[]}
+{"sl":"uk","q":"нотаріальна дія","main":"notarial act","bd":[]}
+{"sl":"en","q":"notarial act","main":"нотаріальна дія","bd":[]}
+{"sl":"uk","q":"нотаріальне засвідчення","main":"notarization","bd":[]}
+{"sl":"en","q":"notarization","main":"нотаріальне засвідчення","bd":[]}
+{"sl":"uk","q":"легалізація документа","main":"document legalization","bd":[]}
+{"sl":"en","q":"legalization","main":"легалізація","bd":[["noun",["легалізація","узаконення"]]]}
+{"sl":"uk","q":"апостиль","main":"apostille","bd":[]}
+{"sl":"en","q":"apostille","main":"апостиль","bd":[]}
+{"sl":"uk","q":"плата за юридичні послуги","main":"fees for legal services","bd":[]}
+{"sl":"en","q":"legal fee","main":"судовий збір","bd":[]}
+{"sl":"uk","q":"погодинна ставка","main":"hourly rate","bd":[]}
+{"sl":"en","q":"hourly rate","main":"погодинна ставка","bd":[]}
+{"sl":"uk","q":"аванс за юридичне обслуговування","main":"advance payment for legal services","bd":[]}
+{"sl":"en","q":"retainer","main":"фіксатор","bd":[["noun",["фіксатор"]]]}
+{"sl":"uk","q":"засвідчити нотаріально","main":"notarize","bd":[["verb",["notarize"]]]}
+{"sl":"en","q":"to notarize","main":"завірити нотаріально","bd":[["verb",["засвідчити нотаріально"]]]}
+{"sl":"uk","q":"умови праці за договором","main":"working conditions under the contract","bd":[]}
+{"sl":"en","q":"terms of employment","main":"умови найму","bd":[]}
+{"sl":"uk","q":"випробувальний строк","main":"probationary period","bd":[]}
+{"sl":"en","q":"probationary period","main":"випробувальний термін","bd":[]}
+{"sl":"uk","q":"розрахунковий листок","main":"calculation sheet","bd":[]}
+{"sl":"en","q":"payslip","main":"платіжний листок","bd":[]}
+{"sl":"uk","q":"охорона праці","main":"labor protection","bd":[]}
+{"sl":"en","q":"health and safety","main":"здоров'я та безпека","bd":[]}
+{"sl":"uk","q":"нещасний випадок на виробництві","main":"accident at work","bd":[]}
+{"sl":"en","q":"workplace accident","main":"нещасний випадок на виробництві","bd":[]}
+{"sl":"uk","q":"виробнича травма","main":"industrial injury","bd":[]}
+{"sl":"en","q":"occupational injury","main":"виробничий травматизм","bd":[]}
+{"sl":"uk","q":"дисциплінарне стягнення","main":"disciplinary action","bd":[]}
+{"sl":"en","q":"disciplinary action","main":"дисциплінарне стягнення","bd":[]}
+{"sl":"uk","q":"припинення трудових відносин","main":"termination of labor relations","bd":[]}
+{"sl":"en","q":"termination of employment","main":"припинення трудових відносин","bd":[]}
+{"sl":"uk","q":"незаконне звільнення","main":"illegal dismissal","bd":[]}
+{"sl":"en","q":"unfair dismissal","main":"несправедливе звільнення","bd":[]}
+{"sl":"uk","q":"дискримінація на роботі","main":"discrimination at work","bd":[]}
+{"sl":"en","q":"workplace discrimination","main":"дискримінація на робочому місці","bd":[]}
+{"sl":"uk","q":"профспілка","main":"trade union","bd":[["noun",["trade union","guild"]]]}
+{"sl":"en","q":"trade union","main":"профспілка","bd":[["noun",["профспілка","професійна спілка"]]]}
+{"sl":"uk","q":"колективний договір","main":"collective agreement","bd":[]}
+{"sl":"en","q":"collective agreement","main":"колективний договір","bd":[]}
+{"sl":"uk","q":"припущення за замовчуванням","main":"default assumption","bd":[]}
+{"sl":"en","q":"presumption","main":"презумпція","bd":[["noun",["презумпція","припущення","самовпевненість"]]]}
+{"sl":"uk","q":"невинуватість","main":"innocence","bd":[["noun",["innocence"]]]}
+{"sl":"en","q":"innocence","main":"невинність","bd":[["noun",["наївність","невада","невинність","невинуватість","неповинність","непорочність"]]]}
+{"sl":"uk","q":"таємність","main":"secrecy","bd":[]}
+{"sl":"en","q":"secrecy","main":"секретність","bd":[["noun",["секрет","таємниця","уміння зберігати таємницю"]]]}
+{"sl":"uk","q":"дисциплінарний","main":"disciplinary","bd":[["adjective",["disciplinary","disciplinarian"]]]}
+{"sl":"en","q":"disciplinary","main":"дисциплінарний","bd":[["adjective",["виховний","дисциплінарний"]]]}
+{"sl":"uk","q":"професійний, пов'язаний з роботою","main":"professional, work-related","bd":[]}
+{"sl":"en","q":"occupational","main":"професійний","bd":[["adjective",["професійний"]]]}
+{"sl":"uk","q":"співвласник","main":"co-owner","bd":[["noun",["part-owner"]]]}
+{"sl":"en","q":"co-owner","main":"співвласник","bd":[]}
+{"sl":"uk","q":"документ про право власності","main":"ownership document","bd":[]}
+{"sl":"en","q":"title deed","main":"документ про право власності","bd":[]}
+{"sl":"uk","q":"реєстр нерухомості","main":"real estate register","bd":[]}
+{"sl":"en","q":"property register","main":"реєстр власності","bd":[]}
+{"sl":"uk","q":"земельний реєстр","main":"land register","bd":[]}
+{"sl":"en","q":"land register","main":"земельна книга","bd":[]}
+{"sl":"uk","q":"підвищення орендної плати","main":"rent increase","bd":[]}
+{"sl":"en","q":"rent increase","main":"підвищення орендної плати","bd":[]}
+{"sl":"uk","q":"заборгованість з орендної плати","main":"rent arrears","bd":[]}
+{"sl":"en","q":"rent arrears","main":"заборгованість по орендній платі","bd":[]}
+{"sl":"uk","q":"рахунок за комунальні послуги","main":"utility bill","bd":[]}
+{"sl":"en","q":"utility bill","main":"рахунок за комунальні послуги","bd":[]}
+{"sl":"uk","q":"акт про стан житла","main":"act on housing condition","bd":[]}
+{"sl":"en","q":"condition report","main":"звіт про стан","bd":[]}
+{"sl":"uk","q":"повідомлення про припинення оренди","main":"notice of termination of lease","bd":[]}
+{"sl":"en","q":"notice to quit","main":"повідомлення про звільнення","bd":[]}
+{"sl":"uk","q":"виселення","main":"eviction","bd":[["noun",["eviction","dispossession","emigration","ejectment","ousting","ouster","ejection"]]]}
+{"sl":"en","q":"eviction","main":"виселення","bd":[["noun",["виселення","доказ","позбавлення майна"]]]}
+{"sl":"uk","q":"повідомлення про виселення","main":"eviction notice","bd":[]}
+{"sl":"en","q":"eviction notice","main":"повідомлення про виселення","bd":[]}
+{"sl":"uk","q":"судовий наказ про повернення володіння","main":"court order for return of possession","bd":[]}
+{"sl":"en","q":"possession order","main":"порядок володіння","bd":[]}
+{"sl":"uk","q":"спір між сусідами","main":"dispute between neighbors","bd":[]}
+{"sl":"en","q":"neighbor dispute","main":"сусідська суперечка","bd":[]}
+{"sl":"uk","q":"містобудівний дозвіл","main":"urban planning permit","bd":[]}
+{"sl":"en","q":"planning permission","main":"дозвіл на будівництво","bd":[]}
+{"sl":"uk","q":"дозвіл на будівництво","main":"construction permit","bd":[]}
+{"sl":"en","q":"building permit","main":"дозвіл на будівництво","bd":[]}
+{"sl":"uk","q":"успадковане майно","main":"inherited property","bd":[]}
+{"sl":"en","q":"inheritance property","main":"спадкове майно","bd":[]}
+{"sl":"uk","q":"питання сімейного права","main":"family law issues","bd":[]}
+{"sl":"en","q":"family-law matter","main":"сімейно-правова справа","bd":[]}
+{"sl":"uk","q":"сімейний стан","main":"marital status","bd":[]}
+{"sl":"en","q":"marital status","main":"сімейний стан","bd":[]}
+{"sl":"uk","q":"реєстрація шлюбу","main":"marriage registration","bd":[]}
+{"sl":"en","q":"marriage registration","main":"реєстрація шлюбу","bd":[]}
+{"sl":"uk","q":"цивільне партнерство","main":"civil partnership","bd":[]}
+{"sl":"en","q":"civil partnership","main":"цивільне товариство","bd":[]}
+{"sl":"uk","q":"заява про розірвання шлюбу","main":"application for divorce","bd":[]}
+{"sl":"en","q":"divorce petition","main":"заява про розлучення","bd":[]}
+{"sl":"uk","q":"батьківські права й обов'язки","main":"parental rights and responsibilities","bd":[]}
+{"sl":"en","q":"parental responsibility","main":"батьківська відповідальність","bd":[]}
+{"sl":"uk","q":"батьківські права","main":"parental rights","bd":[]}
+{"sl":"en","q":"parental rights","main":"батьківські права","bd":[]}
+{"sl":"uk","q":"визначення місця проживання дитини","main":"determination of the child's place of residence","bd":[]}
+{"sl":"en","q":"child custody","main":"опіка над дитиною","bd":[]}
+{"sl":"uk","q":"спільна опіка","main":"joint custody","bd":[]}
+{"sl":"en","q":"joint custody","main":"спільна опіка","bd":[]}
+{"sl":"uk","q":"одноосібна опіка","main":"sole custody","bd":[]}
+{"sl":"en","q":"sole custody","main":"одноосібна опіка","bd":[]}
+{"sl":"uk","q":"опіка над недієздатним","main":"guardianship of the disabled","bd":[]}
+{"sl":"en","q":"guardianship","main":"опіка","bd":[["noun",["опіка","опікування"]]]}
+{"sl":"uk","q":"аліменти","main":"alimony","bd":[["noun",["alimony"]]]}
+{"sl":"en","q":"maintenance payment","main":"оплата утримання","bd":[]}
+{"sl":"uk","q":"право на спілкування з дитиною","main":"the right to communicate with the child","bd":[]}
+{"sl":"en","q":"contact rights","main":"контактні права","bd":[]}
+{"sl":"uk","q":"жорстоке поводження в сім'ї","main":"abuse in the family","bd":[]}
+{"sl":"en","q":"domestic abuse","main":"домашнє насильство","bd":[]}
+{"sl":"uk","q":"судова заборона наближатися","main":"restraining order","bd":[]}
+{"sl":"en","q":"restraining order","main":"запобіжний захід","bd":[]}
+{"sl":"en","q":"inheritance","main":"успадкування","bd":[["noun",["насліддя","спадковість","спадщина","успадкування"]]]}
+{"sl":"uk","q":"заповіт","main":"will","bd":[["noun",["will","testament","devise"]]]}
+{"sl":"en","q":"will","main":"буде","bd":[["adjective",["заблудлий","розгублений"]],["noun",["бажання","воля","заповідання","заповіт","сила волі","енергія","похіть","хотіння"]],["verb",["бажати","жадати","заповідати","примушувати","хотіти"]]]}
+{"sl":"uk","q":"заповідач","main":"testator","bd":[["noun",["testator","legator","testate","deviser"]]]}
+{"sl":"en","q":"testator","main":"заповідач","bd":[["noun",["заповідач","свідок"]]]}
+{"sl":"uk","q":"спадкоємець","main":"heir","bd":[["noun",["heir","successor","inheritor","legatee","heritor","incomer"]]]}
+{"sl":"en","q":"heir","main":"спадкоємець","bd":[["noun",["наслідник","наслідниця","наступник","спадкоємець"]],["verb",["успадковувати"]]]}
+{"sl":"uk","q":"виконавець заповіту","main":"executor of the will","bd":[]}
+{"sl":"en","q":"executor","main":"виконавець","bd":[["noun",["виконувач духівниці","судовий виконавець"]]]}
+{"sl":"uk","q":"судове затвердження заповіту","main":"judicial approval of the will","bd":[]}
+{"sl":"en","q":"probate","main":"заповіту","bd":[["noun",["доказ","затвердження заповіту судом"]],["verb",["затверджувати заповіт"]]]}
+{"sl":"uk","q":"без заповіту","main":"without a will","bd":[]}
+{"sl":"en","q":"intestate","main":"без заповіту","bd":[["adjective",["померлий без заповіту"]]]}
+{"sl":"uk","q":"іноземець","main":"foreigner","bd":[["noun",["foreigner","alien","outlander","gringo"]]]}
+{"sl":"en","q":"foreigner","main":"іноземець","bd":[["noun",["заходень","іноземець","нетутешній","чужинець","чужоземець"]]]}
+{"sl":"uk","q":"іноземний громадянин","main":"foreign citizen","bd":[]}
+{"sl":"en","q":"foreign national","main":"іноземний громадянин","bd":[]}
+{"sl":"uk","q":"мігрант","main":"a migrant","bd":[]}
+{"sl":"en","q":"migrant","main":"мігрант","bd":[["adjective",["кочовий","мандрівний","перелітний"]],["noun",["перелітний птах","переселенець"]]]}
+{"sl":"uk","q":"емігрант","main":"emigrant","bd":[["noun",["emigrant","exile","expatriate"]]]}
+{"sl":"en","q":"emigrant","main":"емігрант","bd":[["adjective",["емігруючий","перелітний"]],["noun",["емігрант","переселенець"]]]}
+{"sl":"uk","q":"тимчасове проживання","main":"temporary residence","bd":[]}
+{"sl":"en","q":"temporary residence","main":"тимчасове проживання","bd":[]}
+{"sl":"uk","q":"постійне проживання","main":"permanent residence","bd":[]}
+{"sl":"en","q":"permanent residence","main":"постійне місце проживання","bd":[]}
+{"sl":"uk","q":"постійний житель","main":"permanent resident","bd":[]}
+{"sl":"en","q":"permanent resident","main":"постійний житель","bd":[]}
+{"sl":"uk","q":"статус проживання","main":"residence status","bd":[]}
+{"sl":"en","q":"residency status","main":"статус проживання","bd":[]}
+{"sl":"uk","q":"законне перебування","main":"legal stay","bd":[]}
+{"sl":"en","q":"legal stay","main":"легальне перебування","bd":[]}
+{"sl":"uk","q":"перебування після закінчення дозволеного строку","main":"stay after the end of the permitted period","bd":[]}
+{"sl":"en","q":"overstay","main":"передержка","bd":[["verb",["загостюватися","залишатися надто довго","засидітися"]]]}
+{"sl":"uk","q":"шукач притулку","main":"asylum seeker","bd":[]}
+{"sl":"en","q":"asylum seeker","main":"шукач притулку","bd":[]}
+{"sl":"uk","q":"тимчасовий захист","main":"temporary protection","bd":[]}
+{"sl":"en","q":"temporary protection","main":"тимчасовий захист","bd":[]}
+{"sl":"uk","q":"депортація","main":"deportation","bd":[]}
+{"sl":"en","q":"deportation","main":"депортація","bd":[["noun",["вигнання","висилка","заслання"]]]}
+{"sl":"uk","q":"наказ про видворення","main":"expulsion order","bd":[]}
+{"sl":"en","q":"removal order","main":"наказ про видалення","bd":[]}
+{"sl":"uk","q":"заборона на в'їзд","main":"entry ban","bd":[]}
+{"sl":"en","q":"entry ban","main":"заборона на в'їзд","bd":[]}
+{"sl":"uk","q":"подвійне громадянство","main":"dual citizenship","bd":[]}
+{"sl":"en","q":"dual citizenship","main":"подвійне громадянство","bd":[]}
+{"sl":"uk","q":"натуралізація","main":"naturalization","bd":[["noun",["naturalization","nationalization"]]]}
+{"sl":"en","q":"naturalization","main":"натуралізація","bd":[["noun",["акліматизація","натуралізація","проникнення нових звичаїв","запозичення слова"]]]}
+{"sl":"uk","q":"заява на отримання громадянства","main":"application for citizenship","bd":[]}
+{"sl":"en","q":"citizenship application","main":"заява про громадянство","bd":[]}
+{"sl":"uk","q":"тест для отримання громадянства","main":"citizenship test","bd":[]}
+{"sl":"en","q":"citizenship test","main":"тест на громадянство","bd":[]}
+{"sl":"uk","q":"присяга на вірність","main":"oath of allegiance","bd":[]}
+{"sl":"en","q":"oath of allegiance","main":"присяга на вірність","bd":[]}
+{"sl":"uk","q":"особа без громадянства","main":"stateless person","bd":[]}
+{"sl":"en","q":"stateless person","main":"особа без громадянства","bd":[]}
+{"sl":"uk","q":"безвізовий","main":"visa free","bd":[]}
+{"sl":"en","q":"visa-free","main":"безвізовий","bd":[]}
+{"sl":"uk","q":"без належних документів","main":"without proper documents","bd":[]}
+{"sl":"en","q":"undocumented","main":"бездокументований","bd":[]}
+{"sl":"uk","q":"загальні вибори","main":"general election","bd":[]}
+{"sl":"en","q":"general election","main":"загальні вибори","bd":[]}
+{"sl":"uk","q":"місцеві вибори","main":"local elections","bd":[]}
+{"sl":"en","q":"local election","main":"місцеві вибори","bd":[]}
+{"sl":"uk","q":"президентські вибори","main":"presidential elections","bd":[]}
+{"sl":"en","q":"presidential election","main":"президентські вибори","bd":[]}
+{"sl":"uk","q":"парламентські вибори","main":"parliamentary elections","bd":[]}
+{"sl":"en","q":"parliamentary election","main":"парламентські вибори","bd":[]}
+{"sl":"uk","q":"виборець","main":"voter","bd":[["noun",["voter","elector","constituent"]]]}
+{"sl":"en","q":"voter","main":"виборець","bd":[["noun",["виборець","учасник голосування"]]]}
+{"sl":"uk","q":"сукупність виборців","main":"totality of voters","bd":[]}
+{"sl":"en","q":"electorate","main":"електорат","bd":[["noun",["виборці","виборчий округ","електорат"]]]}
+{"sl":"uk","q":"політична партія","main":"a political party","bd":[]}
+{"sl":"en","q":"political party","main":"політична партія","bd":[]}
+{"sl":"uk","q":"передвиборча обіцянка","main":"pre-election promise","bd":[]}
+{"sl":"en","q":"campaign promise","main":"передвиборча обіцянка","bd":[]}
+{"sl":"uk","q":"передвиборча програма","main":"pre-election program","bd":[]}
+{"sl":"en","q":"manifesto","main":"маніфест","bd":[["noun",["маніфест"]]]}
+{"sl":"uk","q":"виборча дільниця","main":"polling station","bd":[]}
+{"sl":"en","q":"polling station","main":"виборча дільниця","bd":[]}
+{"sl":"uk","q":"виборчий бюлетень","main":"ballot paper","bd":[["noun",["ballot paper","ballot"]]]}
+{"sl":"en","q":"ballot paper","main":"бюлетень для голосування","bd":[["noun",["виборчий бюлетень"]]]}
+{"sl":"uk","q":"виборча урна","main":"ballot box","bd":[["noun",["ballot box"]]]}
+{"sl":"en","q":"ballot box","main":"урна для голосування","bd":[["noun",["виборча урна","урна"]]]}
+{"sl":"uk","q":"реєстрація виборців","main":"voter registration","bd":[]}
+{"sl":"en","q":"voter registration","main":"реєстрація виборців","bd":[]}
+{"sl":"uk","q":"список виборців","main":"list of voters","bd":[["noun",["poll"]]]}
+{"sl":"en","q":"voter list","main":"список виборців","bd":[]}
+{"sl":"uk","q":"опитування громадської думки","main":"public opinion polls","bd":[]}
+{"sl":"en","q":"opinion poll","main":"опитування громадської думки","bd":[]}
+{"sl":"uk","q":"підрахунок голосів","main":"counting of votes","bd":[["noun",["poll"]]]}
+{"sl":"en","q":"vote count","main":"підрахунок голосів","bd":[]}
+{"sl":"uk","q":"спостерігач","main":"observer","bd":[["noun",["observer","watcher","watchdog","onlooker","outlook","gazer","visualizer","beholder"]]]}
+{"sl":"en","q":"observer","main":"спостерігач","bd":[["noun",["видець","особа, що додержує закону","льотчик-спостерігач","оглядач","спостережник","спостерігач"]]]}
+{"sl":"uk","q":"виборча комісія","main":"election commission","bd":[]}
+{"sl":"en","q":"election commission","main":"виборча комісія","bd":[]}
+{"sl":"uk","q":"фальсифікація виборів","main":"election fraud","bd":[]}
+{"sl":"en","q":"electoral fraud","main":"фальсифікація виборів","bd":[]}
+{"sl":"uk","q":"громадське обговорення","main":"public discussion","bd":[]}
+{"sl":"en","q":"public consultation","main":"громадські консультації","bd":[]}
+{"sl":"uk","q":"громадські слухання","main":"public hearings","bd":[]}
+{"sl":"en","q":"public hearing","main":"громадські слухання","bd":[]}
+{"sl":"uk","q":"громадська петиція","main":"public petition","bd":[]}
+{"sl":"en","q":"public petition","main":"громадська петиція","bd":[]}
+{"sl":"uk","q":"громадянська участь","main":"civic participation","bd":[]}
+{"sl":"en","q":"civic participation","main":"громадянська участь","bd":[]}
+{"sl":"uk","q":"той, хто має право голосу","main":"one who has the right to vote","bd":[]}
+{"sl":"en","q":"eligible to vote","main":"право голосу","bd":[]}
+{"sl":"uk","q":"офіційна скарга","main":"formal complaint","bd":[]}
+{"sl":"en","q":"formal complaint","main":"офіційна скарга","bd":[]}
+{"sl":"uk","q":"адміністративна скарга","main":"administrative complaint","bd":[]}
+{"sl":"en","q":"administrative complaint","main":"адміністративна скарга","bd":[]}
+{"sl":"uk","q":"адміністративне оскарження","main":"administrative appeal","bd":[]}
+{"sl":"en","q":"administrative appeal","main":"адміністративне оскарження","bd":[]}
+{"sl":"uk","q":"судовий контроль за рішенням органу влади","main":"judicial control by decision of the authority","bd":[]}
+{"sl":"en","q":"judicial review","main":"судовий розгляд","bd":[]}
+{"sl":"uk","q":"повторний розгляд","main":"reconsideration","bd":[["noun",["re-examination"]]]}
+{"sl":"en","q":"reconsideration","main":"повторний розгляд","bd":[["noun",["повторне обговорення","перегляд"]]]}
+{"sl":"uk","q":"орган, що ухвалює рішення","main":"decision-making body","bd":[]}
+{"sl":"en","q":"decision-maker","main":"особа, яка приймає рішення","bd":[]}
+{"sl":"uk","q":"процедура розгляду скарг","main":"complaints procedure","bd":[]}
+{"sl":"en","q":"complaints procedure","main":"процедура розгляду скарг","bd":[]}
+{"sl":"uk","q":"процедура оскарження","main":"appeal procedure","bd":[]}
+{"sl":"en","q":"appeal procedure","main":"процедура оскарження","bd":[]}
+{"sl":"uk","q":"підстави для оскарження","main":"grounds for appeal","bd":[]}
+{"sl":"en","q":"grounds for appeal","main":"підстави для оскарження","bd":[]}
+{"sl":"uk","q":"граничний строк","main":"deadline","bd":[["noun",["deadline"]]]}
+{"sl":"en","q":"time limit","main":"обмеження часу","bd":[["noun",["крайній строк","регламент"]]]}
+{"sl":"uk","q":"продовження строку","main":"extension of time","bd":[]}
+{"sl":"en","q":"extension of time","main":"продовження часу","bd":[]}
+{"sl":"uk","q":"остаточне рішення","main":"final decision","bd":[]}
+{"sl":"en","q":"final decision","main":"остаточне рішення","bd":[]}
+{"sl":"uk","q":"мотивоване рішення","main":"reasoned decision","bd":[]}
+{"sl":"en","q":"reasoned decision","main":"мотивоване рішення","bd":[]}
+{"sl":"uk","q":"письмове обґрунтування","main":"written justification","bd":[]}
+{"sl":"en","q":"written reasons","main":"письмові причини","bd":[]}
+{"sl":"uk","q":"публічна інформація","main":"public information","bd":[]}
+{"sl":"en","q":"public information","main":"публічна інформація","bd":[]}
+{"sl":"uk","q":"доступ до публічної інформації","main":"access to public information","bd":[]}
+{"sl":"en","q":"freedom of information","main":"свобода інформації","bd":[]}
+{"sl":"uk","q":"запит на інформацію","main":"request for information","bd":[]}
+{"sl":"en","q":"information request","main":"інформаційний запит","bd":[]}
+{"sl":"uk","q":"публічний документ","main":"public document","bd":[]}
+{"sl":"en","q":"public record","main":"державний запис","bd":[]}
+{"sl":"uk","q":"підстава не розкривати інформацію","main":"reason not to disclose information","bd":[]}
+{"sl":"en","q":"exemption","main":"звільнення","bd":[["noun",["вільгота","звільнення","пільга","привілей"]]]}
+{"sl":"uk","q":"вилучення конфіденційних даних","main":"extraction of confidential data","bd":[]}
+{"sl":"en","q":"redaction","main":"редакція","bd":[["noun",["перероблене видання","редагування","формулювання"]]]}
+{"sl":"uk","q":"суб'єкт персональних даних","main":"subject of personal data","bd":[]}
+{"sl":"en","q":"data subject","main":"суб'єкт даних","bd":[]}
+{"sl":"uk","q":"володілець персональних даних","main":"owner of personal data","bd":[]}
+{"sl":"en","q":"data controller","main":"контролер даних","bd":[]}
+{"sl":"uk","q":"повідомлення про конфіденційність","main":"privacy notice","bd":[]}
+{"sl":"en","q":"privacy notice","main":"повідомлення про конфіденційність","bd":[]}
+{"sl":"uk","q":"наглядовий орган","main":"supervisory body","bd":[]}
+{"sl":"en","q":"supervisory authority","main":"наглядовий орган","bd":[]}
+{"sl":"uk","q":"заборгованість за платежами","main":"payment arrears","bd":[]}
+{"sl":"en","q":"arrears","main":"заборгованість","bd":[["noun",["борг","відставання","заборгованість"]]]}
+{"sl":"uk","q":"гаряча лінія","main":"hotline","bd":[]}
+{"sl":"en","q":"helpline","main":"телефон довіри","bd":[]}
+{"sl":"uk","q":"присяга","main":"oath","bd":[["noun",["oath","swear"]]]}
+{"sl":"en","q":"oath","main":"присяга","bd":[["verb",["виголошувати клятву","присягатися"]],["noun",["богохульство","божба","божіння","заклін","зарік","клятва","лайка","присяга"]]]}
+{"sl":"uk","q":"табель успішності","main":"report card","bd":[]}
+{"sl":"en","q":"report card","main":"табель","bd":[]}
+{"sl":"uk","q":"множення","main":"multiplication","bd":[["noun",["multiplication"]]]}
+{"sl":"en","q":"multiplication","main":"множення","bd":[["noun",["множення","розмножування"]]]}
+{"sl":"uk","q":"віднімання","main":"subtraction","bd":[["noun",["subtraction","deduction","offtake"]]]}
+{"sl":"en","q":"subtraction","main":"віднімання","bd":[["noun",["віднімання"]]]}
+{"sl":"uk","q":"дорівнювати","main":"equal","bd":[["verb",["equal","amount to","come to","total","sum"]]]}
+{"sl":"en","q":"to equal","main":"рівнятися","bd":[["verb",["дорівнювати","зрівнятися","ототожнювати"]]]}
+{"sl":"uk","q":"квадратний корінь","main":"square root","bd":[]}
+{"sl":"en","q":"square root","main":"квадратний корінь","bd":[]}
+{"sl":"uk","q":"кубічний корінь","main":"cube root","bd":[]}
+{"sl":"en","q":"cube root","main":"кубічний корінь","bd":[]}
+{"sl":"uk","q":"знаменник","main":"the denominator","bd":[]}
+{"sl":"en","q":"denominator","main":"знаменник","bd":[["noun",["дільник","найменник"]]]}
+{"sl":"uk","q":"частка від ділення","main":"fraction from division","bd":[]}
+{"sl":"en","q":"quotient","main":"коефіцієнт","bd":[["noun",["частина","частка"]]]}
+{"sl":"uk","q":"десяткова крапка","main":"decimal point","bd":[]}
+{"sl":"en","q":"decimal point","main":"десяткова кома","bd":[]}
+{"sl":"uk","q":"показник степеня","main":"exponent","bd":[]}
+{"sl":"en","q":"exponent","main":"експонента","bd":[["adjective",["пояснювальний"]],["noun",["експонент","представник","зразок","тлумач","показник"]]]}
+{"sl":"uk","q":"парне число","main":"even number","bd":[]}
+{"sl":"en","q":"even number","main":"парне число","bd":[]}
+{"sl":"uk","q":"непарне число","main":"odd number","bd":[]}
+{"sl":"en","q":"odd number","main":"непарне число","bd":[]}
+{"sl":"uk","q":"просте число","main":"prime","bd":[["noun",["prime"]]]}
+{"sl":"en","q":"prime number","main":"просте число","bd":[]}
+{"sl":"uk","q":"округлювати","main":"round","bd":[["verb",["round"]]]}
+{"sl":"en","q":"to round","main":"округляти","bd":[["verb",["завершувати","надуватися","округлювати","заокруглювати","наповнюватися","округлюватися","округляти"]]]}
+{"sl":"uk","q":"округлювати вгору","main":"round up","bd":[]}
+{"sl":"en","q":"to round up","main":"округляти","bd":[["verb",["зганяти","обкладати"]]]}
+{"sl":"uk","q":"округлювати вниз","main":"round down","bd":[]}
+{"sl":"en","q":"to round down","main":"округлити вниз","bd":[["verb",["округляти із зниженням"]]]}
+{"sl":"en","q":"to add up","main":"складати","bd":[["verb",["додавати","підраховувати","підсумовувати","знаходити суму"]]]}
+{"sl":"uk","q":"арифметика","main":"arithmetic","bd":[["noun",["arithmetic","numbers","sums"]]]}
+{"sl":"en","q":"arithmetic","main":"арифметика","bd":[["noun",["арифметика","лічба","підручник з арифметики"]],["adjective",["арифметичний","числовий"]]]}
+{"sl":"uk","q":"алгебра","main":"algebra","bd":[["noun",["algebra"]]]}
+{"sl":"en","q":"algebra","main":"алгебра","bd":[["noun",["алгебра"]]]}
+{"sl":"uk","q":"тригонометрія","main":"trigonometry","bd":[["noun",["trigonometry"]]]}
+{"sl":"en","q":"trigonometry","main":"тригонометрія","bd":[["noun",["тригонометрія"]]]}
+{"sl":"uk","q":"статистика","main":"statistics","bd":[["noun",["statistics","statistic"]]]}
+{"sl":"en","q":"statistics","main":"статистика","bd":[["noun",["статистика"]]]}
+{"sl":"uk","q":"графік функції","main":"function graph","bd":[]}
+{"sl":"en","q":"graph","main":"графік","bd":[["noun",["графік","діаграма"]]]}
+{"sl":"uk","q":"вісь координат","main":"coordinate axis","bd":[]}
+{"sl":"en","q":"axis","main":"вісь","bd":[["noun",["вісь","геометрична вісь","головне стебло","другий шийний хребец"]]]}
+{"sl":"uk","q":"радіус","main":"radius","bd":[["noun",["radius","ray","semidiameter"]]]}
+{"sl":"en","q":"radius","main":"радіус","bd":[["noun",["променева кістка","лімб","площа","радіус","район","спиця"]]]}
+{"sl":"uk","q":"периметр","main":"perimeter","bd":[["noun",["perimeter","perimetry"]]]}
+{"sl":"en","q":"perimeter","main":"периметр","bd":[["noun",["периметр"]]]}
+{"sl":"uk","q":"прямий кут","main":"right angle","bd":[]}
+{"sl":"en","q":"right angle","main":"прямий кут","bd":[]}
+{"sl":"uk","q":"симетрія","main":"symmetry","bd":[["noun",["symmetry"]]]}
+{"sl":"en","q":"symmetry","main":"симетрія","bd":[["noun",["симетрія"]]]}
+{"sl":"uk","q":"симетричний","main":"symmetrical","bd":[["adjective",["symmetrical","symmetric"]]]}
+{"sl":"en","q":"symmetrical","main":"симетричний","bd":[["adjective",["симетричний"]]]}
+{"sl":"uk","q":"ламати","main":"break","bd":[["verb",["break","destroy","fracture","outbreak","smash","circumvent","refract","transgress"]]]}
+{"sl":"en","q":"to break","main":"зламати","bd":[["verb",["вибухати","вириватися","зломити","нарушати","перебивати","переривати","проламувати","проломити"]]]}
+{"sl":"uk","q":"зв'язуватися","main":"to contact","bd":[["verb",["get through","get"]]]}
+{"sl":"en","q":"to contact","main":"зв'язатися","bd":[["verb",["установлювати зв'язок","бути в контакті","стикатися"]]]}
+{"sl":"uk","q":"залицятися","main":"woo","bd":[["verb",["woo","court","make love","squire","gallant","sweetheart","gallivant","wait upon"]]]}
+{"sl":"en","q":"to court","main":"до суду","bd":[["verb",["звертатися до суду"]]]}
+{"sl":"uk","q":"ушкоджувати","main":"damage","bd":[["verb",["damage","hurt","injury"]]]}
+{"sl":"en","q":"to damage","main":"пошкодити","bd":[["verb",["забити","підбити","пошкоджувати","ушкоджувати","шкодити","завдавати збитків","травити","збавляти"]]]}
+{"sl":"uk","q":"закінчити навчання","main":"to graduate","bd":[]}
+{"sl":"en","q":"to graduate","main":"закінчити навчання","bd":[["verb",["градуювати","давати диплом","закінчувати учбовий заклад"]]]}
+{"sl":"uk","q":"мати значення","main":"matter","bd":[["verb",["matter","be","be of importance","signify","import"]],["phrase",["cut ice"]]]}
+{"sl":"en","q":"to matter","main":"мати значення","bd":[["verb",["гноїтися","мати значення"]]]}
+{"sl":"en","q":"to stress","main":"підкреслити","bd":[["verb",["загострювати","ставити наголос","створювати напругу","підкреслювати"]]]}
+{"sl":"uk","q":"спричиняти","main":"cause","bd":[["verb",["cause","entail","induce","generate","evoke","occasion","promote","bring to pass"]]]}
+{"sl":"en","q":"to trigger","main":"викликати","bd":[]}
+{"sl":"uk","q":"математичний аналіз","main":"mathematical analysis","bd":[]}
+{"sl":"en","q":"calculus","main":"обчислення","bd":[["noun",["викладка","камінь","числення"]]]}
+{"sl":"uk","q":"геологія","main":"geology","bd":[["noun",["geology"]]]}
+{"sl":"en","q":"geology","main":"геологія","bd":[["noun",["геологія"]]]}
+{"sl":"uk","q":"генетика","main":"genetics","bd":[["noun",["genetics"]]]}
+{"sl":"en","q":"genetics","main":"генетика","bd":[["noun",["генетика"]]]}
+{"sl":"uk","q":"фізіологія","main":"physiology","bd":[["noun",["physiology"]]]}
+{"sl":"en","q":"physiology","main":"фізіологія","bd":[["noun",["фізіологія"]]]}
+{"sl":"uk","q":"мовознавство","main":"linguistics","bd":[["noun",["linguistics","philology"]]]}
+{"sl":"en","q":"linguistics","main":"лінгвістика","bd":[["noun",["лінгвістика","мовознавство"]]]}
+{"sl":"uk","q":"антропологія","main":"anthropology","bd":[["noun",["anthropology"]]]}
+{"sl":"en","q":"anthropology","main":"антропологія","bd":[["noun",["антропологія"]]]}
+{"sl":"uk","q":"педагогіка","main":"pedagogy","bd":[["noun",["pedagogy","pedagogics"]]]}
+{"sl":"en","q":"pedagogy","main":"педагогіки","bd":[["noun",["дидактика","педагогіка"]]]}
+{"sl":"uk","q":"стоматологія","main":"dentistry","bd":[]}
+{"sl":"en","q":"dentistry","main":"стоматологія","bd":[["noun",["фах зубного лікаря","зуболікування","лікування зубів"]]]}
+{"sl":"uk","q":"кримінологія","main":"criminology","bd":[["noun",["criminology"]]]}
+{"sl":"en","q":"criminology","main":"кримінології","bd":[["noun",["кримінологія"]]]}
+{"sl":"uk","q":"нейронаука","main":"neuroscience","bd":[]}
+{"sl":"en","q":"neuroscience","main":"неврології","bd":[]}
+{"sl":"uk","q":"робототехніка","main":"robotics","bd":[]}
+{"sl":"en","q":"robotics","main":"робототехніка","bd":[]}
+{"sl":"uk","q":"словниковий запас","main":"vocabulary","bd":[["noun",["vocabulary"]]]}
+{"sl":"en","q":"vocabulary","main":"словниковий запас","bd":[["noun",["лексика","словник","словниковий запас"]]]}
+{"sl":"uk","q":"бакалавр","main":"bachelor","bd":[["noun",["bachelor"]]]}
+{"sl":"en","q":"bachelor","main":"холостяк","bd":[["adjective",["нежонатий"]],["noun",["бакалавр","парубок","холостяк"]]]}
+{"sl":"uk","q":"декан","main":"dean","bd":[["noun",["dean","warden"]]]}
+{"sl":"en","q":"dean","main":"декан","bd":[["noun",["балка","викладач-вихователь","декан","настоятель собору"]]]}
+{"sl":"uk","q":"випускники","main":"graduates","bd":[["noun",["alumnus"]]]}
+{"sl":"en","q":"alumni","main":"випускники","bd":[["noun",["випускник","колишній вихованець","колишній студент"]]]}
+{"sl":"uk","q":"вибірковий предмет","main":"elective subject","bd":[]}
+{"sl":"en","q":"elective","main":"факультатив","bd":[["adjective",["виборчий","факультативний"]]]}
+{"sl":"uk","q":"юриспруденція","main":"jurisprudence","bd":[["noun",["jurisprudence","law","nomology"]]]}
+{"sl":"en","q":"jurisprudence","main":"юриспруденція","bd":[["noun",["правознавство","судова практика","юриспруденція"]]]}
+{"sl":"uk","q":"філологія","main":"philology","bd":[["noun",["philology"]]]}
+{"sl":"en","q":"philology","main":"філології","bd":[["noun",["мовознавство","філологія"]]]}
+{"sl":"uk","q":"інформатика","main":"computer science","bd":[]}
+{"sl":"en","q":"computer science","main":"інформатика","bd":[]}
+{"sl":"uk","q":"політологія","main":"political science","bd":[]}
+{"sl":"en","q":"political science","main":"політологія","bd":[]}
+{"sl":"uk","q":"суспільствознавство","main":"social science","bd":[["noun",["social science"]]]}
+{"sl":"en","q":"social studies","main":"суспільствознавство","bd":[]}
+{"sl":"uk","q":"міжнародні відносини","main":"international relations","bd":[]}
+{"sl":"en","q":"international relations","main":"міжнародні відносини","bd":[]}
+{"sl":"uk","q":"наука про дані","main":"data science","bd":[]}
+{"sl":"en","q":"data science","main":"наука про дані","bd":[]}
+{"sl":"uk","q":"громадське здоров'я","main":"public health","bd":[]}
+{"sl":"en","q":"public health","main":"громадське здоров'я","bd":[]}
+{"sl":"uk","q":"старша школа","main":"high school","bd":[]}
+{"sl":"en","q":"high school","main":"середня школа","bd":[]}
+{"sl":"uk","q":"середня школа","main":"secondary school","bd":[["noun",["secondary school"]]]}
+{"sl":"en","q":"middle school","main":"середня школа","bd":[]}
+{"sl":"uk","q":"початкова школа","main":"primary school","bd":[]}
+{"sl":"en","q":"elementary school","main":"початкова школа","bd":[]}
+{"sl":"uk","q":"образотворче мистецтво","main":"fine arts","bd":[["noun",["fine arts"]]]}
+{"sl":"en","q":"fine arts","main":"образотворче мистецтво","bd":[["noun",["образотворче мистецтво"]]]}
+{"sl":"uk","q":"гайковий ключ","main":"wrench","bd":[["noun",["wrench","spanner"]]]}
+{"sl":"en","q":"wrench","main":"гайковий ключ","bd":[["adjective",["гайковий"]],["noun",["вивих","гайковий ключ","звих","сіпання","смикання","перекручення"]],["verb",["вивихнути","закручувати","рвати","сіпати","видерти","викривляти","викривлятися","викручувати"]]]}
+{"sl":"uk","q":"задній двір","main":"back yard","bd":[["noun",["base court"]]]}
+{"sl":"en","q":"backyard","main":"задній двір","bd":[["adjective",["приватний"]],["noun",["город","заднє обійстя","затилля","садиба","садок за будинком"]]]}
+{"sl":"uk","q":"блукач","main":"wanderer","bd":[]}
+{"sl":"en","q":"wanderer","main":"мандрівник","bd":[["noun",["вандрівець","комета","мандрівник","подорожній"]]]}
+{"sl":"uk","q":"або","main":"or","bd":[["conjunction",["or","either"]]]}
+{"sl":"en","q":"either","main":"або","bd":[["adjective",["будь-який","кожний","обидва","обидві","один з двох"]],["adverb",["замість","також","теж"]],["conjunction",["або"]],["pronoun",["будь-який","хто-небудь"]]]}
+{"sl":"uk","q":"жоден із двох","main":"neither of the two","bd":[]}
+{"sl":"uk","q":"теж не","main":"not either","bd":[["conjunction",["nor"]]]}
+{"sl":"en","q":"neither","main":"ні","bd":[["adjective",["жоден","жодний","ні той, ні інший","ніякий"]],["adverb",["ні"]],["conjunction",["ані","також не"]],["pronoun",["жоден","жодний","ні той, ні інший","ніхто","ніщо"]]]}
+{"sl":"uk","q":"і не","main":"and not","bd":[]}
+{"sl":"en","q":"nor","main":"ні","bd":[["conjunction",["ані","ніж","також не","теж не"]]]}
+{"sl":"uk","q":"жоден","main":"none","bd":[["pronoun",["none","neither","not one"]],["adjective",["no","neither"]]]}
+{"sl":"en","q":"none","main":"немає","bd":[["adjective",["ніякий"]],["adverb",["аж ніяк","зовсім не","ніскільки","анітрохи"]],["pronoun",["жоден","зовсім не","ніскільки","ніякий","жоден з двох","ні той, ні інший","ніякі люди","жодний"]]]}
+{"sl":"uk","q":"якщо не","main":"if not","bd":[["conjunction",["if not","unless","except","save","nisi","saving"]]]}
+{"sl":"en","q":"unless","main":"хіба що","bd":[["conjunction",["хіба","хіба тільки","якщо не"]]]}
+{"sl":"uk","q":"варто","main":"worth","bd":[["adverb",["worthily"]]]}
+{"sl":"en","q":"ought to","main":"повинен","bd":[]}
+{"sl":"uk","q":"кого","main":"whom","bd":[["pronoun",["whom"]]]}
+{"sl":"en","q":"whom","main":"кому","bd":[["pronoun",["кого","кому"]]]}
+{"sl":"uk","q":"чий","main":"whose","bd":[["pronoun",["whose"]]]}
+{"sl":"en","q":"whose","main":"чий","bd":[["pronoun",["чиє","чиї","чий","чия","яких","якого","якой"]]]}
+{"sl":"uk","q":"більше не","main":"no longer","bd":[["adverb",["no longer","no more"]]]}
+{"sl":"en","q":"any more","main":"більше","bd":[]}
+{"sl":"en","q":"else","main":"інше","bd":[["adverb",["інакше","крім","ще"]],["conjunction",["ще"]],["pronoun",["інший"]]]}
+{"sl":"uk","q":"незважаючи на","main":"in spite of","bd":[["preposition",["in spite of","notwithstanding","regardless","with","after","without respect to"]],["conjunction",["nevertheless"]]]}
+{"sl":"en","q":"despite","main":"незважаючи на","bd":[["preposition",["незважаючи на наші зусилля"]]]}
+{"sl":"uk","q":"протягом усього","main":"throughout","bd":[]}
+{"sl":"en","q":"throughout","main":"всюди","bd":[["adverb",["всюди","повністю","усюди","весь час"]],["preposition",["через"]]]}
+{"sl":"uk","q":"у межах","main":"within","bd":[["preposition",["within"]],["adverb",["within the pale"]]]}
+{"sl":"en","q":"within","main":"в межах","bd":[["adjective",["внутрішній"]],["adverb",["вдома","всередині","всередину","в думці"]],["noun",["внутрішня частина"]],["preposition",["в","всередині","не далі","за","майже","у межах","ніж","протягом"]]]}
+{"sl":"uk","q":"на","main":"on","bd":[["adverb",["on"]],["preposition",["on","to","at","in","for","by","into","upon"]]]}
+{"sl":"uk","q":"одразу після","main":"immediately after","bd":[]}
+{"sl":"en","q":"upon","main":"на","bd":[["preposition",["з","на","о","об"]]]}
+{"sl":"uk","q":"мало","main":"small","bd":[["adverb",["small","little","few","scantily"]],["preposition",["near"]]]}
+{"sl":"en","q":"few","main":"мало","bd":[["adjective",["небагато","рідкісний"]],["adverb",["декілька","трохи","мало"]],["noun",["меншість","незначна кількість"]]]}
+{"sl":"en","q":"used to","main":"звикли","bd":[]}
+{"sl":"uk","q":"мусити","main":"must","bd":[["auxiliary verb",["must"]],["verb",["force","compel","get"]]]}
+{"sl":"en","q":"have to","main":"повинні","bd":[["auxiliary verb",["мати"]]]}
+{"sl":"en","q":"much","main":"багато","bd":[["adjective",["багато"]],["adverb",["велико","майже","дуже","немало","значно","чимало"]],["noun",["велика кількість"]]]}
+{"sl":"uk","q":"бежевий","main":"beige","bd":[["adjective",["beige"]]]}
+{"sl":"en","q":"beige","main":"бежевий","bd":[["adjective",["бежевий"]],["noun",["колір беж","тканина з нефарбованої вовни"]]]}
+{"sl":"uk","q":"бірюзово-синій","main":"turquoise blue","bd":[]}
+{"sl":"en","q":"teal","main":"чирок","bd":[]}
+{"sl":"uk","q":"темно-бордовий","main":"maroon","bd":[["adjective",["maroon"]]]}
+{"sl":"en","q":"maroon","main":"бордовий","bd":[["adjective",["темнобордовий"]],["noun",["марон"]],["verb",["покинути","тинятися"]]]}
+{"sl":"uk","q":"бордовий","main":"burgundy","bd":[]}
+{"sl":"en","q":"burgundy","main":"бордовий","bd":[["noun",["червоне вино"]]]}
+{"sl":"uk","q":"багряний","main":"purple","bd":[["adjective",["purple","incarnadine"]]]}
+{"sl":"en","q":"crimson","main":"малиновий","bd":[["adjective",["малиновий","темночервоний"]],["noun",["малиновий колір","густий рум'янець"]],["verb",["червоніти"]]]}
+{"sl":"uk","q":"хакі","main":"khaki","bd":[["noun",["khaki"]]]}
+{"sl":"en","q":"khaki","main":"хакі","bd":[["adjective",["захисного кольору","кольору хакі"]],["noun",["військова форма","захисний кольор","хакі"]]]}
+{"sl":"uk","q":"кольору слонової кістки","main":"ivory","bd":[["adjective",["ivory"]]]}
+{"sl":"en","q":"ivory","main":"слонова кістка","bd":[["adjective",["із слонової кістки","кольору слонової кістки"]],["noun",["бивні","слонова кістка"]]]}
+{"sl":"uk","q":"пурпуровий","main":"purple","bd":[]}
+{"sl":"en","q":"magenta","main":"пурпуровий","bd":[["noun",["фуксин"]]]}
+{"sl":"uk","q":"блакитний","main":"blue","bd":[["adjective",["blue","azure","sky-blue"]]]}
+{"sl":"en","q":"cyan","main":"блакитний","bd":[]}
+{"sl":"uk","q":"неоновий","main":"neon","bd":[]}
+{"sl":"en","q":"neon","main":"неон","bd":[["noun",["неон"]]]}
+{"sl":"uk","q":"матовий","main":"mat","bd":[["adjective",["mat","frosted","opaque","dim","matted"]]]}
+{"sl":"en","q":"matte","main":"матовий","bd":[["noun",["матова поверхня","матове скло"]]]}
+{"sl":"uk","q":"глянцевий","main":"glossy","bd":[]}
+{"sl":"en","q":"glossy","main":"глянцевий","bd":[["adjective",["блискучий","прихований"]]]}
+{"sl":"uk","q":"відтінок","main":"shade","bd":[["noun",["shade","hue","nuance","undertone","tincture","savor","tinct","savour"]]]}
+{"sl":"en","q":"hue","main":"відтінок","bd":[["verb",["забарвлювати"]],["noun",["відтінок","колір","колорит","різновидність"]]]}
+{"sl":"uk","q":"легкий відтінок","main":"light shade","bd":[]}
+{"sl":"en","q":"tint","main":"відтінок","bd":[["noun",["глибина тону","фарба","фарбування","фон"]],["verb",["відтіняти","забарвлюватися","обарвлювати","підфарбовувати"]]]}
+{"sl":"uk","q":"рум'яний","main":"ruddy","bd":[["adjective",["rosy","ruddy","red-faced","red","blushful","high-coloured","high-colored","rubicund"]]]}
+{"sl":"en","q":"rosy","main":"рожевий","bd":[["adjective",["радісний","рожевий","рум'яний"]]]}
+{"sl":"uk","q":"різнобарвний","main":"variegated","bd":[["adjective",["variegated","pied","motley","particoloured","particolored","painted"]]]}
+{"sl":"en","q":"multicolored","main":"різнокольоровий","bd":[["adjective",["багатобарвний","багатоколірний","сіменастий"]]]}
+{"sl":"uk","q":"смарагд","main":"emerald","bd":[["noun",["emerald","chrysolite"]]]}
+{"sl":"en","q":"emerald","main":"смарагдовий","bd":[["adjective",["смарагдовий"]],["noun",["смарагд"]]]}
+{"sl":"uk","q":"рубін","main":"ruby","bd":[["noun",["ruby"]]]}
+{"sl":"en","q":"ruby","main":"рубін","bd":[["adjective",["рубіновий","ясно-червоний"]],["noun",["рубін"]]]}
+{"sl":"uk","q":"сапфір","main":"sapphire","bd":[["noun",["sapphire"]]]}
+{"sl":"en","q":"sapphire","main":"сапфір","bd":[["adjective",["сапфірний"]],["noun",["сапфір"]]]}
+{"sl":"en","q":"ice-cold","main":"крижаний","bd":[["adjective",["крижаний","льодовий","дуже холодний"]]]}
+{"sl":"uk","q":"зимовий","main":"winter","bd":[["adjective",["winter","wintry","winterly","brumal","hibernal","wintered"]]]}
+{"sl":"en","q":"wintry","main":"зимовий","bd":[["adjective",["зимній","зимовий","крижаний","морозний","старезний"]]]}
+{"sl":"uk","q":"морська хвороба","main":"seasickness","bd":[["noun",["seasickness","nausea"]]]}
+{"sl":"en","q":"seasickness","main":"морська хвороба","bd":[["noun",["морська хвороба"]]]}
+{"sl":"uk","q":"встигнути","main":"catch","bd":[["verb",["catch"]]]}
+{"sl":"en","q":"in time","main":"вчасно","bd":[["adverb",["вчасно","у строк"]]]}
+{"sl":"uk","q":"галактика","main":"galaxy","bd":[["noun",["galaxy"]]]}
+{"sl":"en","q":"galaxy","main":"галактика","bd":[["noun",["галактика","плеяда"]]]}
+{"sl":"uk","q":"капелюх-панама","main":"Panama hat","bd":[]}
+{"sl":"en","q":"panama hat","main":"панамка","bd":[]}
+{"sl":"uk","q":"справляти враження","main":"make an impression","bd":[["verb",["make an impression"]]]}
+{"sl":"en","q":"to come across as","main":"натрапляти як","bd":[]}
+{"sl":"uk","q":"спалахнути","main":"break out","bd":[["verb",["break out","flash","blaze up","flame up","burst into flame","outblaze","flush"]]]}
+{"sl":"en","q":"to break out","main":"вирватися","bd":[["verb",["виламати","виламувати","спалахнути","утекти"]]]}
+{"sl":"en","q":"at once","main":"одразу","bd":[["adverb",["відразу","зразу","негайно"]]]}
+{"sl":"uk","q":"зовсім","main":"completely","bd":[["adverb",["completely","at all","altogether","utterly","wholly","clear","any","outright"]]]}
+{"sl":"en","q":"at all","main":"взагалі","bd":[["adverb",["взагалі","зовсім","цілком"]]]}
+{"sl":"uk","q":"спочатку","main":"first","bd":[["adverb",["first","initially","originally","at first","primarily","before","all over again","formerly"]]]}
+{"sl":"en","q":"at first","main":"спочатку","bd":[["adverb",["зразу","напершу","насамперед","спершу","спочатку"]]]}
+{"sl":"uk","q":"принаймні","main":"at least","bd":[["adverb",["at least","at any rate","leastways","leastwise"]]]}
+{"sl":"en","q":"at least","main":"принаймні","bd":[["adverb",["мінімально","принаймні","щонайменше"]]]}
+{"sl":"en","q":"at last","main":"нарешті","bd":[["adverb",["накінець","наостанку","напослідок","наприкінці","нарешті"]]]}
+{"sl":"uk","q":"чубчик","main":"bangs","bd":[["noun",["quiff"]]]}
+{"sl":"en","q":"bangs","main":"чубчик","bd":[["noun",["чілка"]]]}
+{"sl":"uk","q":"іде дощ","main":"it rains","bd":[["phrase",["it rains"]]]}
+{"sl":"en","q":"to rain","main":"до дощу","bd":[["verb",["крапати","сипати","сипатися"]]]}
+{"sl":"uk","q":"іде сніг","main":"it is snowing","bd":[["phrase",["It's snowing."]]]}
+{"sl":"en","q":"to snow","main":"до снігу","bd":[["verb",["іти","сипатися як сніг","литися потоком"]]]}
+{"sl":"uk","q":"Меркурій","main":"Mercury","bd":[["noun",["Mercury"]]]}
+{"sl":"en","q":"Mercury","main":"Меркурій","bd":[["noun",["Меркурій"]]]}
+{"sl":"uk","q":"Венера","main":"Venus","bd":[["noun",["Venus"]]]}
+{"sl":"en","q":"Venus","main":"Венера","bd":[["noun",["Венера"]]]}
+{"sl":"uk","q":"Марс","main":"Mars","bd":[["noun",["Mars"]]]}
+{"sl":"en","q":"Mars","main":"Марс","bd":[["noun",["Марс"]]]}
+{"sl":"uk","q":"Юпітер","main":"Jupiter","bd":[["noun",["Jupiter"]]]}
+{"sl":"en","q":"Jupiter","main":"Юпітер","bd":[["noun",["Юпітер"]]]}
+{"sl":"uk","q":"Сатурн","main":"Saturn","bd":[["noun",["Saturn"]]]}
+{"sl":"en","q":"Saturn","main":"Сатурн","bd":[["noun",["Сатурн"]]]}
+{"sl":"uk","q":"Уран","main":"Uranus","bd":[["noun",["Uranus"]]]}
+{"sl":"en","q":"Uranus","main":"Уран","bd":[["noun",["Уран"]]]}
+{"sl":"uk","q":"Нептун","main":"Neptune","bd":[["noun",["Neptune"]]]}
+{"sl":"en","q":"Neptune","main":"Нептун","bd":[["noun",["Нептун"]]]}
+{"sl":"uk","q":"Плутон","main":"Pluto","bd":[["noun",["Pluto"]]]}
+{"sl":"en","q":"Pluto","main":"Плутон","bd":[["noun",["Плутон"]]]}
+{"sl":"uk","q":"Чумацький Шлях","main":"Milky Way","bd":[["noun",["Milky Way","Galaxy","Via Lactea"]]]}
+{"sl":"en","q":"Milky Way","main":"Чумацький шлях","bd":[["noun",["Чумацький шлях"]]]}
+{"sl":"uk","q":"День святого Валентина","main":"Valentine's Day","bd":[]}
+{"sl":"en","q":"Valentine's Day","main":"День Святого Валентина","bd":[]}
+{"sl":"uk","q":"переддень Нового року","main":"New Year's Eve","bd":[]}
+{"sl":"en","q":"New Year's Eve","main":"Новорічна ніч","bd":[]}
+{"sl":"uk","q":"Святвечір","main":"Christmas Eve","bd":[]}
+{"sl":"en","q":"Christmas Eve","main":"Святвечір","bd":[]}
+{"sl":"uk","q":"День матері","main":"Mother's Day","bd":[]}
+{"sl":"en","q":"Mother's Day","main":"День Матері","bd":[]}
+{"sl":"uk","q":"День батька","main":"father's day","bd":[]}
+{"sl":"en","q":"Father's Day","main":"День батька","bd":[]}
+{"sl":"uk","q":"День незалежності","main":"Independence Day","bd":[]}
+{"sl":"en","q":"Independence Day","main":"День Незалежності","bd":[]}
+{"sl":"uk","q":"День сміху","main":"April Fool's Day","bd":[]}
+{"sl":"en","q":"April Fools' Day","main":"День сміху","bd":[]}
+{"sl":"uk","q":"Чорна п'ятниця","main":"Black Friday","bd":[]}
+{"sl":"en","q":"Black Friday","main":"Чорна п'ятниця","bd":[]}
+{"sl":"uk","q":"Європа","main":"Europe","bd":[["noun",["Europe"]]]}
+{"sl":"en","q":"Europe","main":"Європа","bd":[["noun",["Європа"]]]}
+{"sl":"uk","q":"Азія","main":"Asia","bd":[["noun",["Asia"]]]}
+{"sl":"en","q":"Asia","main":"Азії","bd":[["noun",["Азія"]]]}
+{"sl":"uk","q":"Африка","main":"Africa","bd":[["noun",["Africa"]]]}
+{"sl":"en","q":"Africa","main":"Африка","bd":[["noun",["Африка"]]]}
+{"sl":"uk","q":"Північна Америка","main":"North America","bd":[["noun",["North America"]]]}
+{"sl":"en","q":"North America","main":"Північна Америка","bd":[["noun",["північна Америка"]]]}
+{"sl":"uk","q":"Південна Америка","main":"South America","bd":[["noun",["South America"]]]}
+{"sl":"en","q":"South America","main":"Південна Америка","bd":[["noun",["південна Америка"]]]}
+{"sl":"uk","q":"Австралія","main":"Australia","bd":[["noun",["Australia"]]]}
+{"sl":"en","q":"Australia","main":"Австралія","bd":[["noun",["Австралія"]]]}
+{"sl":"uk","q":"Антарктида","main":"Antarctica","bd":[]}
+{"sl":"en","q":"Antarctica","main":"Антарктида","bd":[]}
+{"sl":"uk","q":"Атлантичний океан","main":"Atlantic Ocean","bd":[]}
+{"sl":"en","q":"Atlantic Ocean","main":"Атлантичний океан","bd":[]}
+{"sl":"uk","q":"Тихий океан","main":"Pacific Ocean","bd":[["noun",["Pacific Ocean","Pacific"]]]}
+{"sl":"en","q":"Pacific Ocean","main":"Тихий океан","bd":[["noun",["Тихий океан"]]]}
+{"sl":"uk","q":"Індійський океан","main":"Indian Ocean","bd":[]}
+{"sl":"en","q":"Indian Ocean","main":"Індійський океан","bd":[]}
+{"sl":"uk","q":"Північний Льодовитий океан","main":"Arctic Ocean","bd":[]}
+{"sl":"en","q":"Arctic Ocean","main":"Північний Льодовитий океан","bd":[["noun",["Льодовий океан"]]]}
+{"sl":"uk","q":"Україна","main":"Ukraine","bd":[["noun",["Ukraine"]]]}
+{"sl":"en","q":"Ukraine","main":"Україна","bd":[["noun",["Україна"]]]}
+{"sl":"uk","q":"США","main":"USA","bd":[["abbreviation",["USA"]],["noun",["Nunky"]]]}
+{"sl":"en","q":"USA","main":"США","bd":[["abbreviation",["США"]]]}
+{"sl":"uk","q":"Велика Британія","main":"Great Britain","bd":[["noun",["Great Britain"]]]}
+{"sl":"en","q":"UK","main":"Великобританія","bd":[]}
+{"sl":"uk","q":"Англія","main":"England","bd":[["noun",["England","Britain","Great Britain","Albion"]]]}
+{"sl":"en","q":"England","main":"Англія","bd":[["noun",["Англія"]]]}
+{"sl":"uk","q":"Шотландія","main":"Scotland","bd":[["noun",["Scotland","Caledonia"]]]}
+{"sl":"en","q":"Scotland","main":"Шотландія","bd":[["noun",["Шотландія"]]]}
+{"sl":"uk","q":"Ірландія","main":"Ireland","bd":[["noun",["Ireland","Erin"]]]}
+{"sl":"en","q":"Ireland","main":"Ірландія","bd":[["noun",["Ірландія"]]]}
+{"sl":"uk","q":"Канада","main":"Canada","bd":[["noun",["Canada"]]]}
+{"sl":"en","q":"Canada","main":"Канада","bd":[["noun",["Канада"]]]}
+{"sl":"uk","q":"Франція","main":"France","bd":[["noun",["France"]]]}
+{"sl":"en","q":"France","main":"Франція","bd":[["noun",["Франція"]]]}
+{"sl":"uk","q":"Німеччина","main":"Germany","bd":[["noun",["Germany"]]]}
+{"sl":"en","q":"Germany","main":"Німеччина","bd":[["noun",["німеччина"]]]}
+{"sl":"uk","q":"Польща","main":"Poland","bd":[]}
+{"sl":"en","q":"Poland","main":"Польща","bd":[["noun",["Польша"]]]}
+{"sl":"uk","q":"Італія","main":"Italy","bd":[["noun",["Italy"]]]}
+{"sl":"en","q":"Italy","main":"Італія","bd":[["noun",["Італія"]]]}
+{"sl":"uk","q":"Іспанія","main":"Spain","bd":[["noun",["Spain"]]]}
+{"sl":"en","q":"Spain","main":"Іспанія","bd":[["noun",["Іспанія"]]]}
+{"sl":"uk","q":"Японія","main":"Japan","bd":[["noun",["Japan"]]]}
+{"sl":"en","q":"Japan","main":"Японія","bd":[["noun",["Японія"]]]}
+{"sl":"uk","q":"Китай","main":"China","bd":[["noun",["China"]]]}
+{"sl":"en","q":"China","main":"Китай","bd":[["adjective",["китайський"]],["noun",["Китай"]]]}
+{"sl":"uk","q":"Індія","main":"India","bd":[["noun",["India"]]]}
+{"sl":"en","q":"India","main":"Індія","bd":[["noun",["Індія"]]]}
+{"sl":"uk","q":"Мексика","main":"Mexico","bd":[["noun",["Mexico"]]]}
+{"sl":"en","q":"Mexico","main":"Мексика","bd":[["noun",["Мексика","Мехіко"]]]}
+{"sl":"uk","q":"Бразилія","main":"Brazil","bd":[]}
+{"sl":"en","q":"Brazil","main":"Бразилія","bd":[]}
+{"sl":"uk","q":"англійська","main":"english","bd":[["adjective",["English","British","Anglican"]]]}
+{"sl":"en","q":"English","main":"англійська","bd":[["adjective",["англійський"]],["noun",["англійці","англійська мова"]]]}
+{"sl":"uk","q":"українська","main":"Ukrainian","bd":[["adjective",["Ukrainian"]]]}
+{"sl":"en","q":"Ukrainian","main":"українська","bd":[["adjective",["український"]],["noun",["українець"]]]}
+{"sl":"uk","q":"американський","main":"American","bd":[["adjective",["American","Yankee","Stateside"]]]}
+{"sl":"en","q":"American","main":"американський","bd":[["adjective",["американський"]],["noun",["американець","англійська мова американців"]]]}
+{"sl":"uk","q":"британський","main":"british","bd":[["adjective",["Britannic","royal"]]]}
+{"sl":"en","q":"British","main":"британець","bd":[["adjective",["англійський"]],["noun",["англійці"]]]}
+{"sl":"uk","q":"французька","main":"french","bd":[["adjective",["French"]]]}
+{"sl":"en","q":"French","main":"французька","bd":[["adjective",["французький"]],["noun",["французька мова"]]]}
+{"sl":"uk","q":"німецька","main":"german","bd":[["adjective",["German","Germanic"]]]}
+{"sl":"en","q":"German","main":"Німецький","bd":[["adjective",["німецький"]],["noun",["німець","німкеня"]]]}
+{"sl":"uk","q":"іспанська","main":"spanish","bd":[["adjective",["Spanish","Hispanic"]]]}
+{"sl":"en","q":"Spanish","main":"Іспанська","bd":[["adjective",["іспанський"]],["noun",["іспанська мова"]]]}
+{"sl":"uk","q":"італійська","main":"Italian","bd":[["adjective",["Italian","Italic","Italianate"]]]}
+{"sl":"en","q":"Italian","main":"італійська","bd":[["adjective",["італійський"]],["noun",["італієць","італійська мова"]]]}
+{"sl":"uk","q":"китайська","main":"Chinese","bd":[["adjective",["Chinese","China"]]]}
+{"sl":"en","q":"Chinese","main":"китайський","bd":[["adjective",["китайський"]],["noun",["китаєць","китайська мова"]]]}
+{"sl":"uk","q":"японська","main":"Japanese","bd":[["adjective",["Japanese","Nipponese"]]]}
+{"sl":"en","q":"Japanese","main":"Японський","bd":[["adjective",["японський"]],["noun",["японець","японська мова"]]]}
+{"sl":"uk","q":"польська","main":"Polish","bd":[["adjective",["Polish"]]]}
+{"sl":"en","q":"Polish","main":"польський","bd":[["adjective",["ляський","ляцький","польський"]],["noun",["польська мова"]]]}
+{"sl":"uk","q":"не пускати","main":"do not let","bd":[["verb",["hold off"]]]}
+{"sl":"en","q":"to keep out","main":"триматися поза","bd":[]}
+{"sl":"uk","q":"аж до","main":"up to","bd":[["preposition",["up to"]],["conjunction",["as far as"]]]}
+{"sl":"en","q":"until","main":"поки","bd":[["adverb",["допоки","поки"]],["conjunction",["аж","доки","доти"]],["preposition",["до","не раніше","не раніше, як"]]]}
+{"sl":"en","q":"to present","main":"представити","bd":[["verb",["бути","давати","дарувати","знайомити","брати на караул","обдаровувати","передавати","підносити"]]]}
+{"sl":"uk","q":"ставити","main":"put","bd":[["verb",["put","set","place","stage","give","install","stand","set up"]]]}
+{"sl":"en","q":"to set","main":"встановити","bd":[["verb",["зафіксовувати","набирати","назначати","наставляти","оправляти","поміщати","сідати","установлювати"]]]}
+{"sl":"uk","q":"маршувати","main":"to march","bd":[]}
+{"sl":"en","q":"to march","main":"марширувати","bd":[["verb",["виводити","марширувати","межувати"]]]}
+{"sl":"uk","q":"клітка","main":"cage","bd":[["noun",["cage","birdcage"]]]}
+{"sl":"en","q":"cage","main":"клітка","bd":[["noun",["в'язниця","ворота","кліть","рибник","кабіна","обойма","сажалка","кіш"]],["verb",["утримувати у в'язниці","саджати в клітку","посадити за грати","утримувати в клітці"]]]}
+{"sl":"uk","q":"самокат","main":"scooter","bd":[["noun",["scooter"]]]}
+{"sl":"en","q":"scooter","main":"скутер","bd":[["noun",["той, що біжить стрімголов","самокат","скутер"]]]}
+{"sl":"uk","q":"какао","main":"cocoa","bd":[["noun",["cocoa","cacao"]]]}
+{"sl":"en","q":"cocoa","main":"какао","bd":[["noun",["какао","кокос"]]]}
+{"sl":"en","q":"salesman","main":"продавець","bd":[["noun",["комівояжер","комісіонер","продавець","торговець"]]]}
+{"sl":"uk","q":"лосьйон","main":"lotion","bd":[["noun",["lotion"]]]}
+{"sl":"en","q":"lotion","main":"лосьйон","bd":[["noun",["лосьйон","примочка"]]]}
+{"sl":"uk","q":"йод","main":"iodine","bd":[["noun",["iodine"]]]}
+{"sl":"en","q":"iodine","main":"йод","bd":[["noun",["йод"]]]}
+{"sl":"uk","q":"скорочувати","main":"reduce","bd":[["verb",["reduce","cut","shrink","shorten","abbreviate","curtail","eliminate","abridge"]]]}
+{"sl":"en","q":"to shorten","main":"скорочувати","bd":[["verb",["скорочувати","скорочуватися","укоротити","укорочувати","урізувати"]]]}
+{"sl":"uk","q":"суперництво","main":"rivalry","bd":[["noun",["rivalry","contest","emulation"]]]}
+{"sl":"en","q":"rivalry","main":"суперництво","bd":[["noun",["конкуренція","суперництво"]]]}
+{"sl":"uk","q":"зустріч після розлуки","main":"meeting after separation","bd":[]}
+{"sl":"en","q":"reunion","main":"возз'єднання","bd":[["noun",["возз'єднання","збірка","об'єднання","примирення"]]]}
+{"sl":"uk","q":"еластичний","main":"elastic","bd":[["adjective",["elastic","flexible","resilient","stretchy","rubbery","springy","paddy","non-rigid"]]]}
+{"sl":"en","q":"elastic","main":"еластичний","bd":[["adjective",["гнучкий","еластичний","напругий","пружний"]],["noun",["гумка","еластик"]]]}
+{"sl":"en","q":"upright","main":"вертикально","bd":[["verb",["підняти у вертикальне положення"]],["adjective",["вертикальний","прямовисний","чесний"]],["adverb",["прямо","справедливо","сторч"]],["noun",["піаніно","підпора"]]]}
+{"sl":"uk","q":"блоха","main":"flea","bd":[["noun",["flea"]]]}
+{"sl":"en","q":"flea","main":"блоха","bd":[["noun",["блоха","блошиця","листоїд"]]]}
+{"sl":"en","q":"ice skating","main":"катання на ковзанах","bd":[["verb",["кататися на ковзанах"]]]}
+{"sl":"en","q":"to set up","main":"налаштувати","bd":[["verb",["засновувати","настовбурчувати","піднімати","поставити","постачати","пристроювати","пропонувати","пускати"]]]}
+{"sl":"en","q":"to go on","main":"продовжувати","bd":[["verb",["іти далі","продовжувати","продовжуватися","тривати"]]]}
+{"sl":"en","q":"to look up","main":"дивитися вгору","bd":[["verb",["дивитися угору","поліпшуватися"]]]}
+{"sl":"uk","q":"випадково зустріти","main":"come across","bd":[["verb",["come across","come upon"]]]}
+{"sl":"en","q":"to run into","main":"натрапити на","bd":[["verb",["вбігати","вливатися","впадати","набавлятися","убігати"]]]}
+{"sl":"uk","q":"вирізнятися","main":"stand out","bd":[]}
+{"sl":"en","q":"to stand out","main":"виділятися","bd":[["verb",["виставляти напоказ","відходити"]]]}
+{"sl":"uk","q":"тусуватися","main":"to hang out","bd":[]}
+{"sl":"en","q":"to hang out","main":"тусуватись","bd":[["verb",["вивішувати","висовувати","висовуватися","мешкати"]]]}
+{"sl":"en","q":"to come up","main":"підійти","bd":[["verb",["виникати","наштовхнутися","підійматися","сходити"]]]}
+{"sl":"uk","q":"знепритомніти","main":"faint","bd":[["verb",["faint","lose consciousness","swoon"]]]}
+{"sl":"en","q":"to pass out","main":"непритомніти","bd":[["verb",["зникати","непритомніти","померти","роздавати"]]]}
+{"sl":"uk","q":"зношувати","main":"wear","bd":[["verb",["wear","wear down","abrade","fray","chafe"]]]}
+{"sl":"en","q":"to wear out","main":"зношуватись","bd":[["verb",["виношувати","виснажуватися","вичерпуватися","зістарітися","коротати"]]]}
+{"sl":"uk","q":"кинути навчання","main":"drop out of school","bd":[]}
+{"sl":"en","q":"to drop out","main":"випадати","bd":[["verb",["вибувати","випадати","пропускати"]]]}
+{"sl":"uk","q":"заповнювати","main":"fill in","bd":[["verb",["fill in","fill up","stuff","pack","occupy","write in","bank","lard"]]]}
+{"sl":"en","q":"to fill in","main":"заповнювати","bd":[["verb",["вставляти","заливати","заміщати","заповнювати","заповнюватися","наповнювати"]]]}
+{"sl":"uk","q":"гасити","main":"extinguish","bd":[["verb",["extinguish","put out","douse","quench","out","turn out","choke","dowse"]]]}
+{"sl":"en","q":"to put out","main":"гасити","bd":[["verb",["виставити","витягувати","гасити","гасити вогонь","простягати"]]]}
+{"sl":"uk","q":"вломитися","main":"break in","bd":[]}
+{"sl":"en","q":"to break into","main":"вламати","bd":[["verb",["наїзджати","наїхати"]]]}
+{"sl":"uk","q":"вибухнути","main":"burst","bd":[["verb",["burst","burst out"]]]}
+{"sl":"en","q":"to burst out","main":"вибухнути","bd":[["verb",["вибухати","вибухнути"]]]}
+{"sl":"uk","q":"спалахувати","main":"flash","bd":[["verb",["flash","spark","flame","lighten","overflush"]]]}
+{"sl":"en","q":"to flare up","main":"спалахувати","bd":[["verb",["розгніватися","розгорятися"]]]}
+{"sl":"uk","q":"загорітися","main":"catch fire","bd":[["verb",["catch fire","outflame"]]]}
+{"sl":"en","q":"to catch fire","main":"загорітися","bd":[["verb",["загорітися","займатися"]]]}
+{"sl":"uk","q":"згортати","main":"fold","bd":[["verb",["fold","roll up","enroll","enfold","furl","convolve","belay","enrol"]]]}
+{"sl":"en","q":"to roll up","main":"згорнути","bd":[["verb",["загортати","загортатися","звивати","згортати"]]]}
+{"sl":"uk","q":"несподівано з'являтися","main":"to appear unexpectedly","bd":[["verb",["crop up"]]]}
+{"sl":"en","q":"to pop up","main":"спливати","bd":[["verb",["раптом схопитися"]]]}
+{"sl":"uk","q":"остерігатися","main":"beware","bd":[["verb",["beware","watch out","be careful","shun","ware","take heed"]]]}
+{"sl":"en","q":"to watch out","main":"остерігатися","bd":[]}
+{"sl":"uk","q":"змивати","main":"wash","bd":[["verb",["wash","wash off","rinse"]]]}
+{"sl":"en","q":"to wash away","main":"змити","bd":[["verb",["відмивати","нуртувати","розмивати"]]]}
+{"sl":"uk","q":"морока","main":"trouble","bd":[["noun",["trouble","fuss","stir","bother"]]]}
+{"sl":"en","q":"hassle","main":"клопоту","bd":[["noun",["бійка","лайка"]],["verb",["надокучати"]]]}
+{"sl":"uk","q":"листівка до дня народження","main":"birthday card","bd":[]}
+{"sl":"en","q":"birthday card","main":"листівка з днем ​​народження","bd":[]}
+{"sl":"uk","q":"іноземна мова","main":"foreign language","bd":[["noun",["bat"]]]}
+{"sl":"en","q":"foreign language","main":"іноземна мова","bd":[]}
+{"sl":"uk","q":"пляжний м'яч","main":"beach ball","bd":[]}
+{"sl":"en","q":"beach ball","main":"пляжний м'яч","bd":[]}
+{"sl":"uk","q":"пляжна парасоля","main":"beach umbrella","bd":[]}
+{"sl":"en","q":"beach umbrella","main":"пляжна парасолька","bd":[]}
+{"sl":"uk","q":"засмагати","main":"to sunbathe","bd":[]}
+{"sl":"en","q":"to sunbathe","main":"засмагати","bd":[["verb",["приймати сонячні ванни"]]]}
+{"sl":"uk","q":"морська мушля","main":"sea ​​shell","bd":[]}
+{"sl":"en","q":"seashell","main":"черепашка","bd":[["noun",["морська черепашка"]]]}
+{"sl":"uk","q":"морський коник","main":"sea ​​horse","bd":[["noun",["sea horse","hippocampus"]]]}
+{"sl":"en","q":"seahorse","main":"морський коник","bd":[["noun",["морж","морський коник"]]]}
+{"sl":"uk","q":"акула","main":"shark","bd":[["noun",["shark"]]]}
+{"sl":"en","q":"shark","main":"акула","bd":[["noun",["акула","хижак","шахрай"]]]}
+{"sl":"uk","q":"піранья","main":"piranha","bd":[]}
+{"sl":"en","q":"piranha","main":"піранья","bd":[]}
+{"sl":"uk","q":"медуза","main":"jellyfish","bd":[["noun",["jellyfish","medusa","nettle-fish"]]]}
+{"sl":"en","q":"jellyfish","main":"медузи","bd":[["noun",["медуза"]]]}
+{"sl":"uk","q":"золота рибка","main":"goldfish","bd":[["noun",["goldfish"]]]}
+{"sl":"en","q":"goldfish","main":"золота рибка","bd":[["noun",["золота рибка","сріблястий карась"]]]}
+{"sl":"uk","q":"морж","main":"walrus","bd":[["noun",["walrus","morse","sea horse"]]]}
+{"sl":"en","q":"walrus","main":"морж","bd":[["noun",["морж"]]]}
+{"sl":"uk","q":"півень","main":"cock","bd":[["noun",["cock","rooster"]]]}
+{"sl":"en","q":"rooster","main":"півень","bd":[["noun",["забіяка","когут","півень"]]]}
+{"sl":"uk","q":"лама","main":"lama","bd":[["noun",["lama","llama"]]]}
+{"sl":"en","q":"llama","main":"лама","bd":[["noun",["лама","ляма"]]]}
+{"sl":"uk","q":"ящірка","main":"lizard","bd":[["noun",["lizard"]]]}
+{"sl":"en","q":"lizard","main":"ящірка","bd":[["noun",["лізард","ящірка"]]]}
+{"sl":"uk","q":"кенгуру","main":"kangaroo","bd":[["noun",["kangaroo"]]]}
+{"sl":"en","q":"kangaroo","main":"кенгуру","bd":[["noun",["кенгуру"]]]}
+{"sl":"uk","q":"бегемот","main":"behemoth","bd":[["noun",["behemoth"]]]}
+{"sl":"en","q":"hippopotamus","main":"бегемот","bd":[["noun",["гіпопотам"]]]}
+{"sl":"uk","q":"алігатор","main":"alligator","bd":[["noun",["alligator"]]]}
+{"sl":"en","q":"alligator","main":"алігатор","bd":[["noun",["автомобіль-амфібія","алігатор","амфібія","каменедробарка"]]]}
+{"sl":"uk","q":"коник","main":"grasshopper","bd":[["noun",["grasshopper","hobby"]]]}
+{"sl":"en","q":"grasshopper","main":"коник","bd":[["noun",["коник","окрида","сарана"]]]}
+{"sl":"uk","q":"бабка","main":"grandmother","bd":[["noun",["grandmother","dragonfly","grandma","pastern","knucklebone","grandmamma","darning needle"]]]}
+{"sl":"en","q":"dragonfly","main":"бабка","bd":[["noun",["бабка","важка"]]]}
+{"sl":"uk","q":"сонечко","main":"ladybug","bd":[["noun",["ladybug","ladybird","lady-cow"]]]}
+{"sl":"en","q":"ladybug","main":"сонечко","bd":[["noun",["сонечко"]]]}
+{"sl":"uk","q":"павич","main":"peacock","bd":[["noun",["peacock","peafowl"]]]}
+{"sl":"en","q":"peacock","main":"павич","bd":[["noun",["павич"]],["verb",["запиндючитися","позувати","чванитися"]]]}
+{"sl":"en","q":"pigeon","main":"голуб","bd":[["noun",["безталанний гравець","голуб","простак"]]]}
+{"sl":"uk","q":"страус","main":"ostrich","bd":[["noun",["ostrich","camel-bird"]]]}
+{"sl":"en","q":"ostrich","main":"страус","bd":[["noun",["страус"]]]}
+{"sl":"uk","q":"лелека","main":"stork","bd":[["noun",["stork"]]]}
+{"sl":"en","q":"stork","main":"лелека","bd":[["noun",["лелека","чорногуз"]]]}
+{"sl":"uk","q":"фламінго","main":"flamingo","bd":[["noun",["flamingo"]]]}
+{"sl":"en","q":"flamingo","main":"фламінго","bd":[["noun",["фламінго"]]]}
+{"sl":"uk","q":"дятел","main":"woodpecker","bd":[["noun",["woodpecker","peckerwood"]]]}
+{"sl":"en","q":"woodpecker","main":"дятел","bd":[["noun",["дятел","клюйдерево","клюйдуб"]]]}
+{"sl":"uk","q":"пелікан","main":"pelican","bd":[["noun",["pelican"]]]}
+{"sl":"en","q":"pelican","main":"пелікан","bd":[["noun",["пелікан"]]]}
+{"sl":"uk","q":"сумка для підгузків","main":"diaper bag","bd":[]}
+{"sl":"en","q":"diaper bag","main":"сумка для підгузників","bd":[]}
+{"sl":"uk","q":"дитяча пляшечка","main":"baby bottle","bd":[]}
+{"sl":"en","q":"baby bottle","main":"дитяча пляшка","bd":[]}
+{"sl":"uk","q":"сповивальний столик","main":"changing table","bd":[]}
+{"sl":"en","q":"changing table","main":"пеленальний столик","bd":[]}
+{"sl":"uk","q":"наручний годинник","main":"wristwatch","bd":[["noun",["wristwatch"]]]}
+{"sl":"en","q":"wristwatch","main":"наручний годинник","bd":[["noun",["наручний годинник"]]]}
+{"sl":"uk","q":"запонка","main":"stud","bd":[["noun",["stud"]]]}
+{"sl":"en","q":"cufflink","main":"запонка","bd":[["noun",["запонка для манжет"]]]}
+{"sl":"uk","q":"олівець для брів","main":"crayon","bd":[["noun",["crayon"]]]}
+{"sl":"en","q":"eyebrow pencil","main":"олівець для брів","bd":[]}
+{"sl":"uk","q":"крем для гоління","main":"shaving cream","bd":[]}
+{"sl":"en","q":"shaving cream","main":"крем для гоління","bd":[]}
+{"sl":"uk","q":"кошик для сміття","main":"trash can","bd":[]}
+{"sl":"en","q":"wastebasket","main":"кошик для сміття","bd":[]}
+{"sl":"uk","q":"сільничка","main":"salt shaker","bd":[]}
+{"sl":"en","q":"salt shaker","main":"сільничка","bd":[]}
+{"sl":"uk","q":"перечниця","main":"pepper","bd":[["noun",["pepper","castor","pepper box"]]]}
+{"sl":"en","q":"pepper shaker","main":"перечниця","bd":[]}
+{"sl":"uk","q":"цукорниця","main":"sugar bowl","bd":[["noun",["sugar bowl","sugar basin"]]]}
+{"sl":"en","q":"sugar bowl","main":"цукорниця","bd":[["noun",["цукорниця"]]]}
+{"sl":"uk","q":"накривати на стіл","main":"cover the table","bd":[]}
+{"sl":"en","q":"to set the table","main":"щоб накрити стіл","bd":[]}
+{"sl":"uk","q":"м'ясна лавка","main":"butcher shop","bd":[]}
+{"sl":"en","q":"butcher shop","main":"м'ясний цех","bd":[]}
+{"sl":"uk","q":"список покупок","main":"shopping list","bd":[]}
+{"sl":"en","q":"shopping list","main":"список покупок","bd":[]}
+{"sl":"uk","q":"заморожені продукти","main":"frozen foods","bd":[]}
+{"sl":"en","q":"frozen food","main":"заморожені продукти","bd":[]}
+{"sl":"uk","q":"маракуйя","main":"passion fruit","bd":[]}
+{"sl":"en","q":"passion fruit","main":"маракуйя","bd":[]}
+{"sl":"uk","q":"паросток бамбука","main":"a bamboo shoot","bd":[]}
+{"sl":"en","q":"bamboo shoot","main":"пагон бамбука","bd":[]}
+{"sl":"en","q":"caraway","main":"кмин","bd":[["noun",["кмин","тмин"]]]}
+{"sl":"uk","q":"вершки для збивання","main":"whipping cream","bd":[]}
+{"sl":"en","q":"whipping cream","main":"вершки для збивання","bd":[]}
+{"sl":"uk","q":"філе-міньйон","main":"filet mignon","bd":[]}
+{"sl":"en","q":"filet mignon","main":"філе міньйон","bd":[["noun",["біфштекс з вирізки"]]]}
+{"sl":"uk","q":"бараняча відбивна","main":"lamb chop","bd":[]}
+{"sl":"en","q":"lamb chop","main":"баранячу відбивну","bd":[]}
+{"sl":"uk","q":"свиняча відбивна","main":"pork chop","bd":[]}
+{"sl":"en","q":"pork chop","main":"свиняча відбивна","bd":[]}
+{"sl":"uk","q":"тилапія","main":"tilapia","bd":[]}
+{"sl":"en","q":"tilapia","main":"тілапія","bd":[]}
+{"sl":"uk","q":"апельсиновий сік","main":"orange juice","bd":[["noun",["orange juice"]]]}
+{"sl":"en","q":"orange juice","main":"апельсиновий сік","bd":[["noun",["апельсиновий сік"]]]}
+{"sl":"uk","q":"пожежна машина","main":"fire truck","bd":[]}
+{"sl":"en","q":"fire truck","main":"пожежна машина","bd":[]}
+{"sl":"uk","q":"поліцейська машина","main":"police car","bd":[]}
+{"sl":"en","q":"police car","main":"поліцейська машина","bd":[]}
+{"sl":"uk","q":"позавчора","main":"day before yesterday","bd":[["adverb",["day before yesterday"]]]}
+{"sl":"en","q":"the day before yesterday","main":"позавчора","bd":[]}
+{"sl":"uk","q":"післязавтра","main":"day after tomorrow","bd":[["adverb",["day after tomorrow"]]]}
+{"sl":"en","q":"the day after tomorrow","main":"післязавтра","bd":[]}
+{"sl":"uk","q":"електрогрілка","main":"electric heater","bd":[]}
+{"sl":"en","q":"heating pad","main":"грілка","bd":[]}
+{"sl":"uk","q":"катетер","main":"catheter","bd":[["noun",["catheter"]]]}
+{"sl":"en","q":"catheter","main":"катетер","bd":[["noun",["катетер"]]]}
+{"sl":"uk","q":"ватна паличка","main":"cotton swab","bd":[]}
+{"sl":"en","q":"cotton swab","main":"ватний тампон","bd":[]}
+{"sl":"uk","q":"постільний режим","main":"bed rest","bd":[]}
+{"sl":"en","q":"bed rest","main":"постільний режим","bd":[]}
+{"sl":"uk","q":"вихід на посадку","main":"departure for landing","bd":[]}
+{"sl":"en","q":"boarding gate","main":"вихід на посадку","bd":[]}
+{"sl":"uk","q":"безмитний","main":"duty free","bd":[["adjective",["duty-free","toll-free","tax-free"]]]}
+{"sl":"en","q":"duty-free","main":"безмитний","bd":[["adjective",["безмитний","безоплатний"]]]}
+{"sl":"uk","q":"траволатор","main":"travolator","bd":[]}
+{"sl":"en","q":"moving walkway","main":"рухома доріжка","bd":[]}
+{"sl":"uk","q":"багажний візок","main":"luggage cart","bd":[["noun",["luggage cart"]]]}
+{"sl":"en","q":"baggage cart","main":"багажний візок","bd":[]}
+{"sl":"uk","q":"офісний працівник","main":"office worker","bd":[]}
+{"sl":"en","q":"office worker","main":"офісний працівник","bd":[]}
+{"sl":"uk","q":"водій автобуса","main":"bus driver","bd":[["noun",["busman"]]]}
+{"sl":"en","q":"bus driver","main":"водій автобуса","bd":[]}
+{"sl":"uk","q":"факс","main":"fax","bd":[["noun",["fax"]]]}
+{"sl":"en","q":"fax machine","main":"факс","bd":[]}
+{"sl":"uk","q":"друкарська машинка","main":"typewriter","bd":[["noun",["typewriter"]]]}
+{"sl":"en","q":"typewriter","main":"друкарська машинка","bd":[["noun",["друкарка","друкарська машинка"]]]}
+{"sl":"uk","q":"поштова марка","main":"postage stamp","bd":[]}
+{"sl":"en","q":"postage stamp","main":"поштова марка","bd":[]}
+{"sl":"uk","q":"суспільне надбання","main":"public property","bd":[]}
+{"sl":"en","q":"public domain","main":"суспільне надбання","bd":[]}
+{"sl":"uk","q":"кіберпростір","main":"cyberspace","bd":[]}
+{"sl":"en","q":"cyberspace","main":"кіберпростір","bd":[]}
+{"sl":"uk","q":"адресна книга","main":"address book","bd":[["noun",["directory"]]]}
+{"sl":"en","q":"address book","main":"адресна книга","bd":[]}
+{"sl":"uk","q":"гостьова книга","main":"guest book","bd":[]}
+{"sl":"en","q":"guest book","main":"гостьова книга","bd":[]}
+{"sl":"uk","q":"група новин","main":"newsgroup","bd":[]}
+{"sl":"en","q":"newsgroup","main":"група новин","bd":[["noun",["група підготовки новин"]]]}
+{"sl":"uk","q":"підписуватися","main":"subscribe","bd":[["verb",["subscribe","sign","undersign","endorse","underwrite","indorse"]]]}
+{"sl":"en","q":"to subscribe","main":"щоб підписатися","bd":[["verb",["заабонувати","передплачувати","підписатися на","підписувати","підписуватися","приєднуватися","субсидувати"]]]}
+{"sl":"uk","q":"перенесення слів","main":"transfer of words","bd":[]}
+{"sl":"en","q":"word wrap","main":"перенесення слів","bd":[]}
+{"sl":"uk","q":"нічого","main":"nothing","bd":[["noun",["nothing","nil","naught","nix","nihil"]],["pronoun",["nothing"]]]}
+{"sl":"en","q":"nothing","main":"нічого","bd":[["adverb",["зовсім ні"]],["noun",["безбожник","пусте місце","ніщо","нуль","відсутність","небуття","пустота","дрібниця"]],["pronoun",["нічого","ніщо"]]]}
+{"sl":"uk","q":"щось","main":"something","bd":[["pronoun",["something","anything"]],["adverb",["about","a bit","rather"]],["noun",["whatnot"]]]}
+{"sl":"en","q":"something","main":"щось","bd":[["adjective",["проклятий","сякий-такий"]],["adverb",["досить","приблизно","кілька"]],["pronoun",["дещо","якоюсь мірою","що-небудь","щось"]]]}
+{"sl":"uk","q":"усе","main":"all","bd":[["pronoun",["all","everything","anything","all-in-all"]]]}
+{"sl":"en","q":"everything","main":"все","bd":[["pronoun",["усе"]]]}
+{"sl":"uk","q":"деякі","main":"some","bd":[["adjective",["some"]]]}
+{"sl":"en","q":"some","main":"деякі","bd":[["adjective",["деякі","кілька","якийсь"]],["adverb",["дуже","кілька","ледве","приблизно","трохи","чимало"]],["pronoun",["дехто","кілька","неякийсь","дещо","деяка кількість","котрий","котрий-небудь","котрийсь"]]]}
+{"sl":"uk","q":"учора ввечері","main":"last night","bd":[["adverb",["last night"]]]}
+{"sl":"en","q":"last night","main":"минулої ночі","bd":[["adverb",["минулої ночі","вчора увечері","учора ввечері"]]]}
+{"sl":"uk","q":"курча","main":"chicken","bd":[["noun",["chicken","chick","poult","chuck"]]]}
+{"sl":"en","q":"chick","main":"пташеня","bd":[["noun",["курча","пташеня","пташенятко","ціпочка"]]]}
