@@ -25470,3 +25470,147 @@
 {"sl":"uk","q":"трамплін для стрибків у воду","main":"diving board","bd":[]}
 {"sl":"en","q":"diving board","main":"трамплін","bd":[]}
 {"sl":"uk","q":"задня лінія тенісного корту","main":"the back line of the tennis court","bd":[]}
+{"sl":"en","q":"tennis baseline","main":"базова лінія тенісу","bd":[]}
+{"sl":"uk","q":"матчбол","main":"match ball","bd":[]}
+{"sl":"en","q":"match point","main":"матч-пойнт","bd":[]}
+{"sl":"uk","q":"боксерська рукавичка","main":"boxing glove","bd":[["noun",["boxing glove","muffle","mitten","mitt","pillow"]]]}
+{"sl":"en","q":"boxing glove","main":"боксерська рукавичка","bd":[["noun",["боксерська рукавичка"]]]}
+{"sl":"uk","q":"джеб","main":"jab","bd":[]}
+{"sl":"en","q":"jab","main":"удар","bd":[["noun",["штовхан"]],["verb",["штовхати","штрикати"]]]}
+{"sl":"uk","q":"аперкот","main":"uppercut","bd":[["noun",["uppercut"]]]}
+{"sl":"en","q":"uppercut","main":"аперкот","bd":[["noun",["аперкот"]]]}
+{"sl":"uk","q":"круговий удар ногою","main":"roundhouse kick","bd":[]}
+{"sl":"en","q":"roundhouse kick","main":"круглий удар","bd":[]}
+{"sl":"uk","q":"спаринг","main":"sparring","bd":[["noun",["sparring"]]]}
+{"sl":"en","q":"sparring","main":"спаринги","bd":[["noun",["двобій","двоєборство","спаринг","суперечка"]]]}
+{"sl":"uk","q":"нокаут","main":"knockout","bd":[["noun",["knockout"]]]}
+{"sl":"en","q":"knockout","main":"нокаут","bd":[["noun",["незвичайна річ","нокаут","поразка"]]]}
+{"sl":"uk","q":"ухилятися","main":"depart","bd":[["verb",["depart","dodge","evade","avoid","shirk","wriggle","equivocate","elude"]]]}
+{"sl":"en","q":"to dodge","main":"ухилятися","bd":[["verb",["вивертатися","ухилятися","шахраювати","обводити"]]]}
+{"sl":"uk","q":"лижна палиця","main":"pole","bd":[["noun",["pole"]]]}
+{"sl":"en","q":"ski pole","main":"лижна палиця","bd":[]}
+{"sl":"uk","q":"лижний схил","main":"ski slope","bd":[]}
+{"sl":"en","q":"ski slope","main":"гірськолижний схил","bd":[]}
+{"sl":"uk","q":"лижний підйомник","main":"ski lift","bd":[]}
+{"sl":"en","q":"ski lift","main":"гірськолижний підйомник","bd":[]}
+{"sl":"uk","q":"лижні окуляри","main":"ski goggles","bd":[]}
+{"sl":"en","q":"ski goggles","main":"лижні окуляри","bd":[]}
+{"sl":"uk","q":"ковзанка","main":"skating rink","bd":[["noun",["skating rink","rink","slide"]]]}
+{"sl":"en","q":"skating rink","main":"каток","bd":[["noun",["ковзанка","коток"]]]}
+{"sl":"uk","q":"кататися на сноуборді","main":"go snowboarding","bd":[]}
+{"sl":"en","q":"to snowboard","main":"кататися на сноуборді","bd":[]}
+{"sl":"uk","q":"молочна сироватка","main":"milk whey","bd":[]}
+{"sl":"en","q":"whey","main":"молочна сироватка","bd":[["noun",["сироватка"]]]}
+{"sl":"uk","q":"навколишня місцевість","main":"the surrounding area","bd":[]}
+{"sl":"en","q":"surroundings","main":"оточення","bd":[["noun",["околиці","оточення","середовище"]]]}
+{"sl":"uk","q":"безлюдна місцевість","main":"deserted area","bd":[]}
+{"sl":"en","q":"wilderness","main":"пустелі","bd":[["noun",["безліч","застум","незаймана природа","пустеля","цілина"]]]}
+{"sl":"uk","q":"біорізноманіття","main":"biodiversity","bd":[]}
+{"sl":"en","q":"biodiversity","main":"біорізноманіття","bd":[]}
+{"sl":"uk","q":"рослинний світ","main":"plant life","bd":[["noun",["plantage"]]]}
+{"sl":"en","q":"flora","main":"флора","bd":[["noun",["флора"]]]}
+{"sl":"uk","q":"тваринний світ","main":"animal world","bd":[]}
+{"sl":"en","q":"fauna","main":"тваринний світ","bd":[["noun",["фауна"]]]}
+{"sl":"uk","q":"природний ресурс","main":"natural resource","bd":[]}
+{"sl":"en","q":"natural resource","main":"природний ресурс","bd":[]}
+{"sl":"uk","q":"віддалена місцевість","main":"remote area","bd":[]}
+{"sl":"en","q":"remote area","main":"віддалена територія","bd":[]}
+{"sl":"uk","q":"природоохоронна територія","main":"nature conservation area","bd":[]}
+{"sl":"en","q":"protected area","main":"заповідна зона","bd":[]}
+{"sl":"uk","q":"природний заповідник","main":"nature reserve","bd":[]}
+{"sl":"en","q":"nature reserve","main":"заповідник","bd":[["noun",["заповідник"]]]}
+{"sl":"uk","q":"національний парк","main":"national park","bd":[]}
+{"sl":"en","q":"national park","main":"національний парк","bd":[]}
+{"sl":"uk","q":"природний об'єкт","main":"natural object","bd":[]}
+{"sl":"en","q":"natural feature","main":"природна особливість","bd":[]}
+{"sl":"uk","q":"незайманий","main":"virgin","bd":[["adjective",["untapped","wild","inviolate","chaste","zoned"]]]}
+{"sl":"en","q":"unspoilt","main":"незіпсований","bd":[]}
+{"sl":"uk","q":"зведення про погоду","main":"weather summary","bd":[]}
+{"sl":"en","q":"weather report","main":"звіт про погоду","bd":[["noun",["метеорологічне зведення"]]]}
+{"sl":"uk","q":"погодні умови","main":"weather conditions","bd":[]}
+{"sl":"en","q":"weather conditions","main":"погодні умови","bd":[]}
+{"sl":"uk","q":"температура за відчуттями","main":"temperature according to sensations","bd":[]}
+{"sl":"en","q":"feels-like temperature","main":"відчувається температура","bd":[]}
+{"sl":"uk","q":"атмосферний тиск","main":"atmospheric pressure","bd":[]}
+{"sl":"en","q":"air pressure","main":"тиск повітря","bd":[]}
+{"sl":"uk","q":"характер погоди","main":"the nature of the weather","bd":[]}
+{"sl":"en","q":"weather pattern","main":"картина погоди","bd":[]}
+{"sl":"uk","q":"погодна система","main":"weather system","bd":[]}
+{"sl":"en","q":"weather system","main":"погодна система","bd":[]}
+{"sl":"uk","q":"холодний фронт","main":"cold front","bd":[]}
+{"sl":"en","q":"cold front","main":"холодний фронт","bd":[]}
+{"sl":"uk","q":"теплий фронт","main":"warm front","bd":[]}
+{"sl":"en","q":"warm front","main":"теплий фронт","bd":[]}
+{"sl":"uk","q":"антициклон","main":"anticyclone","bd":[["noun",["anticyclone"]]]}
+{"sl":"en","q":"high-pressure system","main":"система високого тиску","bd":[]}
+{"sl":"uk","q":"циклон","main":"cyclone","bd":[["noun",["cyclone"]]]}
+{"sl":"en","q":"low-pressure system","main":"система низького тиску","bd":[]}
+{"sl":"uk","q":"синоптик","main":"synoptic","bd":[["noun",["synoptic","weatherman","predictor","prognosticator"]]]}
+{"sl":"en","q":"meteorologist","main":"метеоролог","bd":[["noun",["метеоролог"]]]}
+{"sl":"uk","q":"метеостанція","main":"weather station","bd":[]}
+{"sl":"en","q":"weather station","main":"метеостанція","bd":[]}
+{"sl":"uk","q":"погодний радар","main":"weather radar","bd":[]}
+{"sl":"en","q":"weather radar","main":"погодний радар","bd":[]}
+{"sl":"uk","q":"супутниковий знімок","main":"satellite image","bd":[]}
+{"sl":"en","q":"satellite image","main":"супутниковий знімок","bd":[]}
+{"sl":"uk","q":"попередження про небезпечну погоду","main":"hazardous weather warning","bd":[]}
+{"sl":"en","q":"weather warning","main":"попередження про погоду","bd":[]}
+{"sl":"uk","q":"попередження про сильну негоду","main":"severe weather warning","bd":[]}
+{"sl":"en","q":"severe weather alert","main":"оповіщення про сувору погоду","bd":[]}
+{"sl":"uk","q":"мінливий","main":"variable","bd":[["adjective",["variable","changeable","choppy","changeful","capricious","inconsistent","stayless","wavy"]]]}
+{"sl":"en","q":"changeable","main":"мінливий","bd":[["adjective",["з відливом","відмінний","змінний","мінливий","непостійний","несталий","переливчастий","що піддається змінам"]]]}
+{"sl":"uk","q":"нестійкий","main":"unstable","bd":[["adjective",["unstable","unsteady","erratic","labile","sliding","infirm","quaky","astatic"]]]}
+{"sl":"en","q":"unsettled","main":"неврегульований","bd":[["adjective",["неврегульований","неоплачений","неспокійний","несталий","нестійкий"]]]}
+{"sl":"uk","q":"сезонний","main":"seasonal","bd":[["adjective",["seasonal","season"]]]}
+{"sl":"en","q":"seasonal","main":"сезонний","bd":[["adjective",["періодичний","сезонний","тимчасовий"]]]}
+{"sl":"uk","q":"незвично тепло для пори року","main":"unusually warm for the time of year","bd":[]}
+{"sl":"en","q":"unseasonably warm","main":"не по сезону тепло","bd":[]}
+{"sl":"uk","q":"сонячна погода","main":"sunshine","bd":[["noun",["sunshine"]]]}
+{"sl":"en","q":"sunshine","main":"сонячне світло","bd":[["noun",["радість","сонячна погода","яскраве сонячне світло"]]]}
+{"sl":"uk","q":"сонячний промінь","main":"sunbeam","bd":[["noun",["sunbeam"]]]}
+{"sl":"en","q":"sunbeam","main":"сонячний промінь","bd":[["noun",["життєрадісна людина","колібрі","сонячний промінь"]]]}
+{"sl":"uk","q":"промінь сонця","main":"a ray of the sun","bd":[]}
+{"sl":"en","q":"ray of sunlight","main":"промінь сонячного світла","bd":[]}
+{"sl":"uk","q":"ясне небо","main":"clear sky","bd":[]}
+{"sl":"en","q":"clear sky","main":"чисте небо","bd":[]}
+{"sl":"uk","q":"період прояснення","main":"clarification period","bd":[]}
+{"sl":"en","q":"bright spell","main":"яскраве заклинання","bd":[]}
+{"sl":"uk","q":"період спекотної погоди","main":"period of hot weather","bd":[]}
+{"sl":"en","q":"hot spell","main":"гаряче заклинання","bd":[]}
+{"sl":"uk","q":"пекуча спека","main":"scorching heat","bd":[]}
+{"sl":"en","q":"scorching heat","main":"пекуча спека","bd":[]}
+{"sl":"uk","q":"тривалий період без дощу","main":"a long period without rain","bd":[]}
+{"sl":"en","q":"dry spell","main":"посушливий період","bd":[]}
+{"sl":"uk","q":"денне світло","main":"daylight","bd":[["noun",["daylight","day star"]]]}
+{"sl":"en","q":"daylight","main":"денне світло","bd":[["noun",["гласність","денно світло","природне освітленя","просвіт","світання","світанок","денне світло","сонячне світло"]]]}
+{"sl":"uk","q":"ультрафіолетовий індекс","main":"ultraviolet index","bd":[]}
+{"sl":"en","q":"UV index","main":"УФ-індекс","bd":[]}
+{"sl":"uk","q":"ультрафіолетове випромінювання","main":"ultraviolet radiation","bd":[]}
+{"sl":"en","q":"UV radiation","main":"УФ-випромінювання","bd":[]}
+{"sl":"uk","q":"перебування на сонці","main":"staying in the sun","bd":[]}
+{"sl":"en","q":"sun exposure","main":"перебування на сонці","bd":[]}
+{"sl":"uk","q":"теплове виснаження","main":"heat exhaustion","bd":[]}
+{"sl":"en","q":"heat exhaustion","main":"теплове виснаження","bd":[]}
+{"sl":"uk","q":"тепловий удар","main":"heatstroke","bd":[["noun",["heatstroke"]]]}
+{"sl":"en","q":"heatstroke","main":"тепловий удар","bd":[["noun",["тепловий удар"]]]}
+{"sl":"uk","q":"хмарний покрив","main":"cloud cover","bd":[]}
+{"sl":"en","q":"cloud cover","main":"хмарність","bd":[]}
+{"sl":"uk","q":"суцільно хмарне небо","main":"completely cloudy sky","bd":[]}
+{"sl":"en","q":"overcast sky","main":"хмарне небо","bd":[]}
+{"sl":"uk","q":"маса хмар","main":"a mass of clouds","bd":[]}
+{"sl":"en","q":"cloud bank","main":"хмарний банк","bd":[]}
+{"sl":"uk","q":"грозова хмара","main":"storm cloud","bd":[]}
+{"sl":"en","q":"storm cloud","main":"грозова хмара","bd":[]}
+{"sl":"uk","q":"низька хмарність","main":"low cloud cover","bd":[]}
+{"sl":"en","q":"low cloud","main":"низька хмарність","bd":[]}
+{"sl":"uk","q":"висока хмарність","main":"high cloudiness","bd":[]}
+{"sl":"en","q":"high cloud","main":"висока хмарність","bd":[]}
+{"sl":"uk","q":"серпанок","main":"haze","bd":[["noun",["haze","mist","veil","gauze","wisp","zephyr"]]]}
+{"sl":"en","q":"haze","main":"серпанок","bd":[["noun",["імла","серпанок","мгла","мла"]],["verb",["затуманюватися","нахмурюватися"]]]}
+{"sl":"uk","q":"смуга густого туману","main":"a band of thick fog","bd":[]}
+{"sl":"en","q":"fog bank","main":"банка туману","bd":[]}
+{"sl":"uk","q":"ділянка туману","main":"patch of fog","bd":[]}
+{"sl":"en","q":"patch of fog","main":"пляма туману","bd":[]}
+{"sl":"uk","q":"видимість","main":"visibility","bd":[["noun",["visibility","appearance","semblance","seeing","seeming","visual range","ostensibility","apparition"]]]}
+{"sl":"en","q":"visibility","main":"видимість","bd":[["noun",["видимий предмет","видимість"]]]}
+{"sl":"uk","q":"обмежена видимість","main":"limited visibility","bd":[]}
