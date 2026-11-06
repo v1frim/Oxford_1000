@@ -19891,3 +19891,1139 @@
 {"sl":"uk","q":"відпустка по догляду за дитиною","main":"parental leave","bd":[]}
 {"sl":"en","q":"parental leave","main":"відпустка по догляду за дитиною","bd":[]}
 {"sl":"uk","q":"сімейні цінності","main":"family values","bd":[]}
+{"sl":"en","q":"family values","main":"сімейні цінності","bd":[]}
+{"sl":"uk","q":"сімейна традиція","main":"family tradition","bd":[]}
+{"sl":"en","q":"family tradition","main":"сімейна традиція","bd":[]}
+{"sl":"uk","q":"домашні справи","main":"household chores","bd":[]}
+{"sl":"en","q":"household chores","main":"домашні справи","bd":[]}
+{"sl":"uk","q":"час, до якого треба бути вдома","main":"the time you have to be home by","bd":[]}
+{"sl":"en","q":"curfew","main":"комендантська година","bd":[["noun",["комендантська година"]]]}
+{"sl":"uk","q":"суворий батько або мати","main":"a strict father or mother","bd":[]}
+{"sl":"en","q":"strict parent","main":"суворий батько","bd":[]}
+{"sl":"uk","q":"надмірно опікунський","main":"overly protective","bd":[]}
+{"sl":"en","q":"overprotective","main":"надмірно захисний","bd":[]}
+{"sl":"uk","q":"суперництво між братами й сестрами","main":"sibling rivalry","bd":[]}
+{"sl":"en","q":"sibling rivalry","main":"суперництво братів і сестер","bd":[]}
+{"sl":"uk","q":"сімейна зустріч","main":"family meeting","bd":[]}
+{"sl":"en","q":"family gathering","main":"сімейні збори","bd":[]}
+{"sl":"uk","q":"зустріч великої родини після розлуки","main":"reunion of extended family after separation","bd":[]}
+{"sl":"en","q":"family reunion","main":"возз'єднання сім'ї","bd":[]}
+{"sl":"uk","q":"якісний час","main":"quality time","bd":[]}
+{"sl":"en","q":"quality time","main":"якісний час","bd":[]}
+{"sl":"uk","q":"піклуватися про","main":"take care of","bd":[]}
+{"sl":"en","q":"to take care of","main":"доглядати","bd":[]}
+{"sl":"uk","q":"фізичний потяг","main":"physical attraction","bd":[]}
+{"sl":"en","q":"physical attraction","main":"фізичний потяг","bd":[]}
+{"sl":"uk","q":"флірт","main":"flirtation","bd":[["noun",["flirtation"]]]}
+{"sl":"en","q":"flirting","main":"флірт","bd":[["noun",["зачеп"]]]}
+{"sl":"uk","q":"залицяльник","main":"boyfriend","bd":[["noun",["boyfriend","admirer","beau","adorer","philander","wolf","swain","love-maker"]]]}
+{"sl":"en","q":"flirt","main":"фліртувати","bd":[["noun",["змах","кокетка"]],["verb",["женихатися","підштовхувати","загравати","фліртувати"]]]}
+{"sl":"uk","q":"фраза для знайомства","main":"phrase for getting to know each other","bd":[]}
+{"sl":"en","q":"pickup line","main":"лінія прийому","bd":[]}
+{"sl":"uk","q":"процес знайомств","main":"dating process","bd":[]}
+{"sl":"en","q":"dating","main":"знайомство","bd":[["noun",["датування"]]]}
+{"sl":"uk","q":"побачення наосліп","main":"blind date","bd":[]}
+{"sl":"en","q":"blind date","main":"побачення наосліп","bd":[]}
+{"sl":"uk","q":"перше побачення","main":"first date","bd":[]}
+{"sl":"en","q":"first date","main":"перше побачення","bd":[]}
+{"sl":"uk","q":"застосунок для знайомств","main":"dating app","bd":[]}
+{"sl":"en","q":"dating app","main":"додаток для знайомств","bd":[]}
+{"sl":"uk","q":"короткий опис у профілі","main":"short description in profile","bd":[]}
+{"sl":"en","q":"bio","main":"біографія","bd":[]}
+{"sl":"uk","q":"підкатувати до когось","main":"drive up to someone","bd":[]}
+{"sl":"en","q":"to hit on someone","main":"ударити по комусь","bd":[]}
+{"sl":"uk","q":"заговорити з романтичним наміром","main":"to speak with romantic intent","bd":[]}
+{"sl":"en","q":"to chat someone up","main":"спілкуватися з кимось","bd":[]}
+{"sl":"uk","q":"запросити когось на побачення","main":"ask someone out","bd":[]}
+{"sl":"en","q":"to ask someone out","main":"запросити когось на побачення","bd":[]}
+{"sl":"uk","q":"раптово припинити відповідати","main":"suddenly stop responding","bd":[]}
+{"sl":"en","q":"to ghost","main":"до привида","bd":[["verb",["з'являтися","переслідувати"]]]}
+{"sl":"uk","q":"не прийти на домовлене побачення","main":"do not come to the arranged date","bd":[]}
+{"sl":"en","q":"to stand someone up","main":"підняти когось","bd":[]}
+{"sl":"uk","q":"відмовити комусь","main":"refuse someone","bd":[]}
+{"sl":"en","q":"to turn someone down","main":"відмовити комусь","bd":[]}
+{"sl":"uk","q":"стосунки закоханих","main":"relationship of lovers","bd":[]}
+{"sl":"en","q":"romantic relationship","main":"романтичні стосунки","bd":[]}
+{"sl":"uk","q":"серйозні стосунки","main":"serious relationship","bd":[]}
+{"sl":"en","q":"serious relationship","main":"серйозні стосунки","bd":[]}
+{"sl":"uk","q":"стабільні віддані стосунки","main":"stable committed relationships","bd":[]}
+{"sl":"en","q":"committed relationship","main":"віддані стосунки","bd":[]}
+{"sl":"uk","q":"необов'язкові стосунки","main":"optional relationship","bd":[]}
+{"sl":"en","q":"casual relationship","main":"випадкові стосунки","bd":[]}
+{"sl":"uk","q":"стосунки на відстані","main":"long distance relationship","bd":[]}
+{"sl":"en","q":"long-distance relationship","main":"відносини на відстані","bd":[]}
+{"sl":"uk","q":"відкриті стосунки","main":"open relationship","bd":[]}
+{"sl":"en","q":"open relationship","main":"відкриті стосунки","bd":[]}
+{"sl":"uk","q":"одностатева пара","main":"same-sex couple","bd":[]}
+{"sl":"en","q":"same-sex couple","main":"одностатева пара","bd":[]}
+{"sl":"uk","q":"кохана людина","main":"loved one","bd":[]}
+{"sl":"en","q":"significant other","main":"значимий інший","bd":[]}
+{"sl":"uk","q":"колишній партнер","main":"former partner","bd":[]}
+{"sl":"en","q":"ex","main":"пр","bd":[["preposition",["без","з","із","франко"]]]}
+{"sl":"uk","q":"сумісність","main":"compatibility","bd":[["noun",["compatibility"]]]}
+{"sl":"en","q":"compatibility","main":"сумісність","bd":[["noun",["сполучність","сумісність"]]]}
+{"sl":"uk","q":"взаємна повага","main":"mutual respect","bd":[]}
+{"sl":"en","q":"mutual respect","main":"взаємна повага","bd":[]}
+{"sl":"uk","q":"емоційна підтримка","main":"emotional support","bd":[]}
+{"sl":"en","q":"emotional support","main":"емоційна підтримка","bd":[]}
+{"sl":"uk","q":"особистий простір","main":"personal space","bd":[]}
+{"sl":"en","q":"personal space","main":"особистий простір","bd":[]}
+{"sl":"uk","q":"особисті межі","main":"personal boundaries","bd":[]}
+{"sl":"en","q":"boundaries","main":"межі","bd":[["noun",["кордон","перетика"]]]}
+{"sl":"uk","q":"тривожний сигнал у поведінці","main":"alarm signal in behavior","bd":[]}
+{"sl":"en","q":"red flag","main":"червоний прапор","bd":[]}
+{"sl":"uk","q":"ознака здорових стосунків","main":"a sign of a healthy relationship","bd":[]}
+{"sl":"en","q":"green flag","main":"зелений прапор","bd":[]}
+{"sl":"uk","q":"власницька поведінка","main":"possessive behavior","bd":[]}
+{"sl":"en","q":"possessiveness","main":"володіння","bd":[]}
+{"sl":"uk","q":"емоційно відкритися комусь","main":"to open up emotionally to someone","bd":[]}
+{"sl":"en","q":"to open up to someone","main":"відкриватися комусь","bd":[]}
+{"sl":"uk","q":"проблема у стосунках","main":"relationship problem","bd":[]}
+{"sl":"en","q":"relationship problem","main":"проблема відносин","bd":[]}
+{"sl":"uk","q":"проблема з довірою","main":"trust issue","bd":[]}
+{"sl":"en","q":"trust issue","main":"проблема довіри","bd":[]}
+{"sl":"uk","q":"токсичні стосунки","main":"toxic relationships","bd":[]}
+{"sl":"en","q":"toxic relationship","main":"токсичні відносини","bd":[]}
+{"sl":"uk","q":"емоційне насильство","main":"emotional abuse","bd":[]}
+{"sl":"en","q":"emotional abuse","main":"емоційне насильство","bd":[]}
+{"sl":"uk","q":"домашнє насильство","main":"domestic violence","bd":[]}
+{"sl":"en","q":"domestic violence","main":"домашнє насильство","bd":[]}
+{"sl":"uk","q":"подружня невірність","main":"misconduct","bd":[["noun",["misconduct"]]]}
+{"sl":"en","q":"infidelity","main":"невірність","bd":[["noun",["атеїзм","віроломність","зрада","невіра","непевність","язичество"]]]}
+{"sl":"uk","q":"зрада у стосунках","main":"betrayal in a relationship","bd":[]}
+{"sl":"en","q":"cheating","main":"обман","bd":[["verb",["дурити","мантити","начиняти","обманювати","ошукати","шахраювати","збивати з пантелику","обдурювати"]]]}
+{"sl":"uk","q":"розрив стосунків","main":"breakup","bd":[]}
+{"sl":"en","q":"breakup","main":"розрив","bd":[["noun",["поділ","припинення","розвал","розпад","розруха"]]]}
+{"sl":"uk","q":"душевний біль після розриву","main":"heartache after a breakup","bd":[]}
+{"sl":"en","q":"heartbreak","main":"розбите серце","bd":[]}
+{"sl":"uk","q":"емоційно віддалитися","main":"become emotionally distant","bd":[]}
+{"sl":"en","q":"to grow apart","main":"розростатися","bd":[]}
+{"sl":"uk","q":"розійтися з кимось","main":"break up with someone","bd":[]}
+{"sl":"en","q":"to break up with someone","main":"розлучитися з кимось","bd":[]}
+{"sl":"uk","q":"кинути когось","main":"throw someone","bd":[]}
+{"sl":"en","q":"to dump someone","main":"кинути когось","bd":[]}
+{"sl":"uk","q":"пережити розрив","main":"survive a breakup","bd":[]}
+{"sl":"en","q":"to get over someone","main":"здолати когось","bd":[]}
+{"sl":"uk","q":"рухатися далі","main":"move on","bd":[]}
+{"sl":"en","q":"to move on","main":"рухатися далі","bd":[["verb",["іти далі"]]]}
+{"sl":"uk","q":"аліменти на дитину","main":"child support","bd":[]}
+{"sl":"en","q":"child support","main":"аліменти на дітей","bd":[]}
+{"sl":"uk","q":"спільно виховувати дитину після розриву","main":"raise a child together after a breakup","bd":[]}
+{"sl":"en","q":"to co-parent","main":"до співбатька","bd":[]}
+{"sl":"uk","q":"весільна церемонія","main":"wedding ceremony","bd":[]}
+{"sl":"en","q":"wedding ceremony","main":"вінчання","bd":[]}
+{"sl":"uk","q":"молодята","main":"newlyweds","bd":[]}
+{"sl":"en","q":"newlyweds","main":"молодята","bd":[["noun",["молодожон"]]]}
+{"sl":"uk","q":"свідок нареченого","main":"groom's witness","bd":[]}
+{"sl":"en","q":"best man","main":"кум","bd":[]}
+{"sl":"uk","q":"головна дружка нареченої","main":"the main friend of the bride","bd":[]}
+{"sl":"en","q":"maid of honor","main":"фрейліна","bd":[]}
+{"sl":"uk","q":"дружка нареченої","main":"friend of the bride","bd":[]}
+{"sl":"en","q":"bridesmaid","main":"подружка нареченої","bd":[["noun",["дружка"]]]}
+{"sl":"uk","q":"шлюбні обітниці","main":"wedding vows","bd":[]}
+{"sl":"en","q":"wedding vows","main":"весільні клятви","bd":[]}
+{"sl":"uk","q":"річниця весілля","main":"wedding","bd":[["noun",["wedding"]]]}
+{"sl":"en","q":"wedding anniversary","main":"річниця весілля","bd":[]}
+{"sl":"uk","q":"відділ реєстрації шлюбу","main":"marriage registration department","bd":[]}
+{"sl":"en","q":"registry office","main":"загс","bd":[]}
+{"sl":"uk","q":"цивільна церемонія шлюбу","main":"civil marriage ceremony","bd":[]}
+{"sl":"en","q":"civil ceremony","main":"цивільна церемонія","bd":[]}
+{"sl":"uk","q":"шлюбний договір","main":"marriage contract","bd":[]}
+{"sl":"en","q":"prenuptial agreement","main":"передшлюбний договір","bd":[]}
+{"sl":"uk","q":"сексуальна орієнтація","main":"sexual orientation","bd":[]}
+{"sl":"en","q":"sexual orientation","main":"сексуальна орієнтація","bd":[]}
+{"sl":"uk","q":"бісексуальний","main":"bisexual","bd":[]}
+{"sl":"en","q":"bisexual","main":"двостатеві","bd":[["adjective",["гермафродитний"]]]}
+{"sl":"uk","q":"асексуальний","main":"asexual","bd":[["adjective",["asexual"]]]}
+{"sl":"en","q":"asexual","main":"нестатеві","bd":[["adjective",["асексуальний","безстатевий","вегетативний"]]]}
+{"sl":"uk","q":"сексуальний партнер","main":"sexual partner","bd":[]}
+{"sl":"en","q":"sexual partner","main":"статевий партнер","bd":[]}
+{"sl":"uk","q":"інтимний партнер","main":"intimate partner","bd":[]}
+{"sl":"en","q":"intimate partner","main":"інтимний партнер","bd":[]}
+{"sl":"uk","q":"сексуальний потяг","main":"sex drive","bd":[]}
+{"sl":"en","q":"sexual attraction","main":"сексуальний потяг","bd":[]}
+{"sl":"uk","q":"сексуальне бажання","main":"sexual desire","bd":[]}
+{"sl":"en","q":"sexual desire","main":"сексуальне бажання","bd":[]}
+{"sl":"uk","q":"статевий потяг","main":"libido","bd":[["noun",["libido"]]]}
+{"sl":"en","q":"sex drive","main":"статевий потяг","bd":[]}
+{"sl":"uk","q":"сексуальне збудження","main":"sexual arousal","bd":[]}
+{"sl":"en","q":"arousal","main":"збудження","bd":[["noun",["пробудження"]]]}
+{"sl":"uk","q":"сексуально збуджений","main":"sexually aroused","bd":[]}
+{"sl":"en","q":"turned on","main":"включений","bd":[["verb",["відточувати","вмикати","засвічувати","пускати","увімкнути"]]]}
+{"sl":"uk","q":"попередні пестощі","main":"previous caresses","bd":[]}
+{"sl":"en","q":"foreplay","main":"прелюдія","bd":[]}
+{"sl":"uk","q":"статевий акт","main":"coitus","bd":[["noun",["coitus","fuck"]]]}
+{"sl":"en","q":"intercourse","main":"статевий акт","bd":[["noun",["взаємозв'язок","відносини","зв'язок","комунікація","спілкування"]]]}
+{"sl":"uk","q":"вагінальний секс","main":"vaginal sex","bd":[]}
+{"sl":"en","q":"vaginal sex","main":"вагінальний секс","bd":[]}
+{"sl":"uk","q":"оральний секс","main":"oral sex","bd":[]}
+{"sl":"en","q":"oral sex","main":"оральний секс","bd":[]}
+{"sl":"uk","q":"анальний секс","main":"anal sex","bd":[]}
+{"sl":"en","q":"anal sex","main":"анальний секс","bd":[]}
+{"sl":"uk","q":"мастурбація","main":"masturbation","bd":[["noun",["masturbation","self-abuse"]]]}
+{"sl":"en","q":"masturbation","main":"мастурбація","bd":[["noun",["малахвія","мастурбація"]]]}
+{"sl":"uk","q":"оргазм","main":"orgasm","bd":[["noun",["orgasm"]]]}
+{"sl":"en","q":"orgasm","main":"оргазм","bd":[["noun",["оргазм"]]]}
+{"sl":"uk","q":"еякуляція","main":"ejaculation","bd":[["noun",["ejaculation"]]]}
+{"sl":"en","q":"ejaculation","main":"еякуляція","bd":[["noun",["виверження","вигук","випромінювання","еякуляція"]]]}
+{"sl":"uk","q":"передчасна еякуляція","main":"premature ejaculation","bd":[]}
+{"sl":"en","q":"premature ejaculation","main":"передчасна еякуляція","bd":[]}
+{"sl":"uk","q":"еректильна дисфункція","main":"erectile dysfunction","bd":[]}
+{"sl":"en","q":"erectile dysfunction","main":"імпотенція","bd":[]}
+{"sl":"uk","q":"сексуальна дисфункція","main":"sexual dysfunction","bd":[]}
+{"sl":"en","q":"sexual dysfunction","main":"статева дисфункція","bd":[]}
+{"sl":"uk","q":"пристрасний поцілунок","main":"passionate kiss","bd":[]}
+{"sl":"en","q":"passionate kiss","main":"пристрасний поцілунок","bd":[]}
+{"sl":"uk","q":"фізичний дотик","main":"physical touch","bd":[]}
+{"sl":"en","q":"physical touch","main":"фізичний дотик","bd":[]}
+{"sl":"uk","q":"пристрасно цілуватися","main":"kiss passionately","bd":[]}
+{"sl":"en","q":"to make out","main":"оформляти","bd":[["verb",["виписувати","доводити","розбирати","розрізняти"]]]}
+{"sl":"uk","q":"притискатися","main":"to press","bd":[]}
+{"sl":"en","q":"to cuddle","main":"обійматися","bd":[["verb",["міцно обіймати","пригорнутися","притулитися"]]]}
+{"sl":"uk","q":"мати випадковий інтимний контакт","main":"have casual intimate contact","bd":[]}
+{"sl":"en","q":"to hook up","main":"підключити","bd":[]}
+{"sl":"uk","q":"секс на одну ніч","main":"one night stand","bd":[]}
+{"sl":"en","q":"one-night stand","main":"стосунки на одну ніч","bd":[]}
+{"sl":"uk","q":"друзі із сексуальними стосунками","main":"friends with sexual relations","bd":[]}
+{"sl":"en","q":"friends with benefits","main":"друзі з перевагами","bd":[]}
+{"sl":"uk","q":"сексуальна сумісність","main":"sexual compatibility","bd":[]}
+{"sl":"en","q":"sexual compatibility","main":"сексуальна сумісність","bd":[]}
+{"sl":"uk","q":"взаємна згода","main":"mutual consent","bd":[]}
+{"sl":"en","q":"mutual consent","main":"взаємна згода","bd":[]}
+{"sl":"uk","q":"вік сексуальної згоди","main":"age of sexual consent","bd":[]}
+{"sl":"en","q":"age of consent","main":"вік згоди","bd":[]}
+{"sl":"uk","q":"сексуальна межа","main":"sexual boundary","bd":[]}
+{"sl":"en","q":"sexual boundary","main":"статева межа","bd":[]}
+{"sl":"uk","q":"захищений секс","main":"protected sex","bd":[]}
+{"sl":"en","q":"safe sex","main":"безпечний секс","bd":[]}
+{"sl":"uk","q":"контрацепція","main":"contraception","bd":[["noun",["contraception"]]]}
+{"sl":"en","q":"contraception","main":"контрацепція","bd":[["noun",["контрацепція"]]]}
+{"sl":"uk","q":"засоби запобігання вагітності","main":"means of preventing pregnancy","bd":[]}
+{"sl":"en","q":"birth control","main":"контроль народжуваності","bd":[["noun",["протизаплідні засоби","регулювання народжуваності"]]]}
+{"sl":"uk","q":"протизаплідний засіб","main":"contraceptive","bd":[["noun",["contraceptive"]]]}
+{"sl":"en","q":"contraceptive","main":"контрацептивний","bd":[["adjective",["протизаплідний"]],["noun",["протизаплідний засіб"]]]}
+{"sl":"uk","q":"презерватив","main":"condom","bd":[["noun",["condom"]]]}
+{"sl":"en","q":"condom","main":"презерватив","bd":[["noun",["презерватив"]]]}
+{"sl":"uk","q":"внутрішній презерватив","main":"internal condom","bd":[]}
+{"sl":"en","q":"internal condom","main":"внутрішній презерватив","bd":[]}
+{"sl":"uk","q":"протизаплідна таблетка","main":"birth control pill","bd":[]}
+{"sl":"en","q":"contraceptive pill","main":"протизаплідні таблетки","bd":[]}
+{"sl":"uk","q":"екстрена контрацепція","main":"emergency contraception","bd":[]}
+{"sl":"en","q":"emergency contraception","main":"екстрена контрацепція","bd":[]}
+{"sl":"uk","q":"таблетка екстреної контрацепції","main":"emergency contraceptive pill","bd":[]}
+{"sl":"en","q":"morning-after pill","main":"таблетки на наступний день","bd":[]}
+{"sl":"uk","q":"контрацептивний імплант","main":"contraceptive implant","bd":[]}
+{"sl":"en","q":"contraceptive implant","main":"контрацептивний імплантат","bd":[]}
+{"sl":"uk","q":"інтимна змазка","main":"intimate lubrication","bd":[]}
+{"sl":"en","q":"lubricant","main":"мастильний матеріал","bd":[["noun",["мастило"]]]}
+{"sl":"uk","q":"незахищений секс","main":"unprotected sex","bd":[]}
+{"sl":"en","q":"unprotected sex","main":"незахищений секс","bd":[]}
+{"sl":"uk","q":"перерваний статевий акт","main":"interrupted intercourse","bd":[]}
+{"sl":"en","q":"withdrawal method","main":"спосіб вилучення","bd":[]}
+{"sl":"uk","q":"тест на вагітність","main":"pregnancy test","bd":[]}
+{"sl":"en","q":"pregnancy test","main":"тест на вагітність","bd":[]}
+{"sl":"uk","q":"здатність до зачаття","main":"the ability to conceive","bd":[]}
+{"sl":"en","q":"fertility","main":"плодючість","bd":[["noun",["достаток","родючість"]]]}
+{"sl":"uk","q":"безпліддя","main":"infertility","bd":[]}
+{"sl":"en","q":"infertility","main":"безпліддя","bd":[["noun",["неродючість","стерильність"]]]}
+{"sl":"uk","q":"фертильне вікно","main":"fertile window","bd":[]}
+{"sl":"en","q":"fertile window","main":"родюче вікно","bd":[]}
+{"sl":"uk","q":"овуляція","main":"ovulation","bd":[["noun",["ovulation"]]]}
+{"sl":"en","q":"ovulation","main":"овуляція","bd":[["noun",["овуляція"]]]}
+{"sl":"uk","q":"інфекція, що передається статевим шляхом","main":"a sexually transmitted infection","bd":[]}
+{"sl":"en","q":"sexually transmitted infection","main":"інфекція, що передається статевим шляхом","bd":[]}
+{"sl":"uk","q":"захворювання, що передається статевим шляхом","main":"a sexually transmitted disease","bd":[]}
+{"sl":"en","q":"STD","main":"STD","bd":[]}
+{"sl":"uk","q":"тест на ІПСШ","main":"STD test","bd":[]}
+{"sl":"en","q":"STI test","main":"Тест на ІПСШ","bd":[]}
+{"sl":"uk","q":"профілактичне обстеження","main":"preventive examination","bd":[]}
+{"sl":"en","q":"screening","main":"скринінг","bd":[["noun",["екранування","маскування","просіювання"]]]}
+{"sl":"uk","q":"клініка сексуального здоров'я","main":"sexual health clinic","bd":[]}
+{"sl":"en","q":"sexual health clinic","main":"клініка сексуального здоров'я","bd":[]}
+{"sl":"uk","q":"постійна робота","main":"constant work","bd":[]}
+{"sl":"en","q":"permanent job","main":"постійна робота","bd":[]}
+{"sl":"uk","q":"тимчасова робота","main":"temporary work","bd":[]}
+{"sl":"en","q":"temporary job","main":"тимчасова робота","bd":[]}
+{"sl":"uk","q":"сезонна робота","main":"seasonal work","bd":[]}
+{"sl":"en","q":"seasonal work","main":"сезонна робота","bd":[]}
+{"sl":"uk","q":"дистанційна робота","main":"remote work","bd":[]}
+{"sl":"en","q":"remote work","main":"віддалена робота","bd":[]}
+{"sl":"uk","q":"гібридна робота","main":"hybrid work","bd":[]}
+{"sl":"en","q":"hybrid work","main":"гібридна робота","bd":[]}
+{"sl":"uk","q":"позаштатна робота","main":"freelance work","bd":[]}
+{"sl":"en","q":"freelance","main":"позаштатний","bd":[["adjective",["бездоговірний","незалежний","нештатний","позаштатний"]],["verb",["працювати не за наймом"]]]}
+{"sl":"uk","q":"самозайнятий","main":"self employed","bd":[]}
+{"sl":"en","q":"self-employed","main":"самозайнятий","bd":[["adjective",["який обслуговує власне підприємство"]]]}
+{"sl":"uk","q":"стабільність зайнятості","main":"employment stability","bd":[]}
+{"sl":"en","q":"job security","main":"безпека роботи","bd":[]}
+{"sl":"uk","q":"умови праці","main":"working conditions","bd":[]}
+{"sl":"en","q":"working conditions","main":"умови праці","bd":[]}
+{"sl":"uk","q":"баланс між роботою й особистим життям","main":"balance between work and personal life","bd":[]}
+{"sl":"en","q":"work-life balance","main":"баланс роботи та особистого життя","bd":[]}
+{"sl":"uk","q":"назва посади","main":"job title","bd":[]}
+{"sl":"en","q":"job title","main":"назва посади","bd":[]}
+{"sl":"uk","q":"власник","main":"owner","bd":[["noun",["owner","holder","proprietor","possessor","keeper","proprietary","haver"]]]}
+{"sl":"en","q":"owner","main":"власник","bd":[["noun",["власник","володар","командир корабля","хазяїн"]]]}
+{"sl":"uk","q":"співзасновник","main":"co-founder","bd":[]}
+{"sl":"en","q":"co-founder","main":"співзасновник","bd":[]}
+{"sl":"uk","q":"власник бізнесу","main":"business owner","bd":[]}
+{"sl":"en","q":"business owner","main":"власник бізнесу","bd":[]}
+{"sl":"uk","q":"генеральний директор","main":"general director","bd":[]}
+{"sl":"en","q":"CEO","main":"генеральний директор","bd":[]}
+{"sl":"uk","q":"керівник команди","main":"team leader","bd":[]}
+{"sl":"en","q":"team leader","main":"керівник групи","bd":[]}
+{"sl":"uk","q":"керівник відділу","main":"head of the department","bd":[]}
+{"sl":"en","q":"head of department","main":"начальник відділу","bd":[]}
+{"sl":"uk","q":"фахівець високого рівня","main":"a high-level specialist","bd":[]}
+{"sl":"en","q":"senior employee","main":"старший співробітник","bd":[]}
+{"sl":"uk","q":"молодший працівник","main":"junior employee","bd":[]}
+{"sl":"en","q":"junior employee","main":"молодший службовець","bd":[]}
+{"sl":"uk","q":"працівник на навчанні","main":"employee in training","bd":[]}
+{"sl":"en","q":"trainee","main":"практикант","bd":[["noun",["стажер"]]]}
+{"sl":"uk","q":"субпідрядник","main":"subcontractor","bd":[["noun",["subcontractor"]]]}
+{"sl":"en","q":"subcontractor","main":"субпідрядник","bd":[["noun",["субпідрядник"]]]}
+{"sl":"uk","q":"зацікавлена сторона","main":"interested party","bd":[]}
+{"sl":"en","q":"stakeholder","main":"зацікавлена ​​сторона","bd":[["noun",["посередник"]]]}
+{"sl":"uk","q":"вище керівництво","main":"senior management","bd":[]}
+{"sl":"en","q":"senior management","main":"вище керівництво","bd":[]}
+{"sl":"uk","q":"керівники середньої ланки","main":"middle managers","bd":[]}
+{"sl":"en","q":"middle management","main":"середній менеджмент","bd":[]}
+{"sl":"uk","q":"безпосередній підлеглий","main":"direct subordinate","bd":[]}
+{"sl":"en","q":"direct report","main":"прямий звіт","bd":[]}
+{"sl":"uk","q":"підлеглий","main":"subordinate","bd":[["adjective",["subordinate","subject","under","dependent","adjective","subservient","junior","subaltern"]],["noun",["subordinate","inferior","secondary","dependent","junior","subaltern","dependant"]]]}
+{"sl":"en","q":"subordinate","main":"підлеглий","bd":[["adjective",["другорядний","підлеглий","підрядний","зависимий","залежний"]],["noun",["підлеглий"]],["verb",["підкоряти","підпорядковувати","підпорядкувати"]]]}
+{"sl":"uk","q":"ієрархія підпорядкування","main":"hierarchy of submission","bd":[]}
+{"sl":"en","q":"chain of command","main":"ланцюг командування","bd":[]}
+{"sl":"uk","q":"підпорядковуватися комусь","main":"to obey someone","bd":[]}
+{"sl":"en","q":"to report to someone","main":"звітувати комусь","bd":[]}
+{"sl":"uk","q":"відкрита вакансія","main":"open vacancy","bd":[]}
+{"sl":"en","q":"job opening","main":"відкриття вакансії","bd":[]}
+{"sl":"uk","q":"оголошення про вакансію","main":"vacancy announcement","bd":[]}
+{"sl":"en","q":"job advertisement","main":"оголошення про роботу","bd":[]}
+{"sl":"uk","q":"посадова інструкція","main":"job description","bd":[]}
+{"sl":"en","q":"job description","main":"посадова інструкція","bd":[]}
+{"sl":"uk","q":"управління персоналом","main":"personnel management","bd":[]}
+{"sl":"en","q":"human resources","main":"людські ресурси","bd":[]}
+{"sl":"uk","q":"супровідний лист","main":"cover letter","bd":[]}
+{"sl":"en","q":"cover letter","main":"супровідний лист","bd":[]}
+{"sl":"uk","q":"професійне портфоліо","main":"professional portfolio","bd":[]}
+{"sl":"en","q":"professional portfolio","main":"професійне портфоліо","bd":[]}
+{"sl":"uk","q":"анкета кандидата","main":"candidate questionnaire","bd":[]}
+{"sl":"en","q":"application form","main":"анкета","bd":[]}
+{"sl":"uk","q":"співбесіда","main":"interview","bd":[["noun",["interview","apposition"]]]}
+{"sl":"en","q":"job interview","main":"співбесіда при прийомі на роботу","bd":[]}
+{"sl":"uk","q":"кандидат на співбесіді","main":"candidate at the interview","bd":[]}
+{"sl":"en","q":"interviewee","main":"співрозмовник","bd":[["noun",["той, хто дає інтерв'ю"]]]}
+{"sl":"uk","q":"офіційна пропозиція роботи","main":"official job offer","bd":[]}
+{"sl":"en","q":"formal job offer","main":"офіційна пропозиція роботи","bd":[]}
+{"sl":"uk","q":"пропозиція працевлаштування","main":"job offer","bd":[]}
+{"sl":"en","q":"job offer","main":"пропозиція роботи","bd":[]}
+{"sl":"uk","q":"трудовий договір","main":"employment contract","bd":[]}
+{"sl":"en","q":"employment contract","main":"трудовий договір","bd":[]}
+{"sl":"uk","q":"випробувальний термін","main":"probationary period","bd":[]}
+{"sl":"en","q":"probation period","main":"випробувальний термін","bd":[]}
+{"sl":"uk","q":"строк попередження про звільнення","main":"notice period for dismissal","bd":[]}
+{"sl":"en","q":"notice period","main":"термін повідомлення","bd":[]}
+{"sl":"uk","q":"перевірка біографічних даних","main":"verification of biographical data","bd":[]}
+{"sl":"en","q":"background check","main":"перевірка репутації","bd":[]}
+{"sl":"uk","q":"включити до короткого списку","main":"shortlist","bd":[]}
+{"sl":"en","q":"to shortlist","main":"до короткого списку","bd":[]}
+{"sl":"uk","q":"проводити співбесіду з кимось","main":"to interview someone","bd":[]}
+{"sl":"en","q":"to interview someone","main":"взяти інтерв'ю у когось","bd":[]}
+{"sl":"uk","q":"вводити нового працівника в роботу","main":"introduce a new employee to work","bd":[]}
+{"sl":"en","q":"to onboard","main":"на борт","bd":[]}
+{"sl":"uk","q":"звільнити через скорочення","main":"lay off due to downsizing","bd":[]}
+{"sl":"en","q":"to lay someone off","main":"звільнити когось","bd":[]}
+{"sl":"uk","q":"вихідна допомога","main":"severance pay","bd":[]}
+{"sl":"en","q":"severance pay","main":"вихідна допомога","bd":[]}
+{"sl":"uk","q":"робочі години","main":"working hours","bd":[]}
+{"sl":"en","q":"working hours","main":"робочий час","bd":[]}
+{"sl":"uk","q":"денна зміна","main":"day shift","bd":[["noun",["day shift"]]]}
+{"sl":"en","q":"day shift","main":"денна зміна","bd":[["noun",["денна зміна"]]]}
+{"sl":"uk","q":"нічна зміна","main":"night shift","bd":[["noun",["night shift"]]]}
+{"sl":"en","q":"night shift","main":"нічна зміна","bd":[["noun",["нічна зміна","жіноча нічна сорочка"]]]}
+{"sl":"uk","q":"вихідний день","main":"day off","bd":[]}
+{"sl":"en","q":"day off","main":"вихідний день","bd":[]}
+{"sl":"uk","q":"лікарняний","main":"hospital","bd":[["adjective",["hospital"]]]}
+{"sl":"en","q":"sick leave","main":"листок непрацездатності","bd":[]}
+{"sl":"uk","q":"обідня перерва","main":"lunch break","bd":[]}
+{"sl":"en","q":"lunch break","main":"обідня перерва","bd":[]}
+{"sl":"uk","q":"запізнення","main":"being late","bd":[["noun",["lateness","backing","backwardness"]]]}
+{"sl":"en","q":"lateness","main":"запізнення","bd":[["noun",["запізнення","запізнілість","спізнення"]]]}
+{"sl":"uk","q":"робоче навантаження","main":"workload","bd":[]}
+{"sl":"en","q":"workload","main":"навантаження","bd":[]}
+{"sl":"uk","q":"посадові обов'язки","main":"job duties","bd":[]}
+{"sl":"en","q":"responsibilities","main":"обов'язки","bd":[["noun",["відповідальність","обов'язок","підопічний","платоспроможність"]]]}
+{"sl":"uk","q":"ключовий етап проєкту","main":"key stage of the project","bd":[]}
+{"sl":"en","q":"milestone","main":"віха","bd":[["noun",["верстовий стовп"]]]}
+{"sl":"uk","q":"робочий процес","main":"work process","bd":[]}
+{"sl":"en","q":"workflow","main":"робочий процес","bd":[]}
+{"sl":"uk","q":"список невиконаних завдань","main":"list of unfinished tasks","bd":[]}
+{"sl":"en","q":"backlog","main":"відставання","bd":[["noun",["велике поліно","заборгованість","резерв"]]]}
+{"sl":"uk","q":"відмітити початок зміни","main":"mark the beginning of the change","bd":[]}
+{"sl":"en","q":"to clock in","main":"годинник","bd":[]}
+{"sl":"uk","q":"відмітити кінець зміни","main":"mark the end of the shift","bd":[]}
+{"sl":"en","q":"to clock out","main":"до годинника","bd":[]}
+{"sl":"uk","q":"визначати пріоритети","main":"determine priorities","bd":[]}
+{"sl":"en","q":"to prioritize","main":"розставляти пріоритети","bd":[]}
+{"sl":"uk","q":"взяти на себе роботу","main":"take on the job","bd":[]}
+{"sl":"en","q":"to take on work","main":"взятися за роботу","bd":[]}
+{"sl":"uk","q":"повернутися до питання","main":"back to the question","bd":[]}
+{"sl":"en","q":"to follow up","main":"слідкувати","bd":[["verb",["доводити до кінця","уперто переслідувати"]]]}
+{"sl":"uk","q":"відставати від графіка","main":"be behind schedule","bd":[["verb",["be behind schedule"]]]}
+{"sl":"en","q":"to fall behind","main":"відставати","bd":[]}
+{"sl":"uk","q":"професійна технічна навичка","main":"professional technical skill","bd":[]}
+{"sl":"en","q":"hard skill","main":"важка майстерність","bd":[]}
+{"sl":"uk","q":"м'яка навичка","main":"a soft skill","bd":[]}
+{"sl":"en","q":"soft skill","main":"soft skill","bd":[]}
+{"sl":"uk","q":"навичка спілкування","main":"communication skill","bd":[]}
+{"sl":"en","q":"communication skill","main":"навик спілкування","bd":[]}
+{"sl":"uk","q":"управління часом","main":"time management","bd":[]}
+{"sl":"en","q":"time management","main":"управління часом","bd":[]}
+{"sl":"uk","q":"увага до деталей","main":"attention to detail","bd":[]}
+{"sl":"en","q":"attention to detail","main":"увага до деталей","bd":[]}
+{"sl":"uk","q":"здатність пристосовуватися","main":"adaptability","bd":[]}
+{"sl":"en","q":"adaptability","main":"адаптивність","bd":[["noun",["пристосовність","здатність пристосовуватися"]]]}
+{"sl":"uk","q":"якість роботи","main":"quality of work","bd":[]}
+{"sl":"en","q":"quality of work","main":"якість роботи","bd":[]}
+{"sl":"uk","q":"ключовий показник ефективності","main":"key performance indicator","bd":[]}
+{"sl":"en","q":"KPI","main":"KPI","bd":[]}
+{"sl":"uk","q":"оцінювання результатів роботи","main":"evaluation of work results","bd":[]}
+{"sl":"en","q":"performance review","main":"огляд продуктивності","bd":[]}
+{"sl":"uk","q":"професійний розвиток","main":"professional development","bd":[]}
+{"sl":"en","q":"professional development","main":"професійний розвиток","bd":[]}
+{"sl":"uk","q":"кар'єрний шлях","main":"career path","bd":[]}
+{"sl":"en","q":"career path","main":"кар'єрний шлях","bd":[]}
+{"sl":"uk","q":"підвищення на посаді","main":"promotion","bd":[]}
+{"sl":"en","q":"job promotion","main":"просування по роботі","bd":[]}
+{"sl":"uk","q":"пониження на посаді","main":"demotion","bd":[["noun",["demotion"]]]}
+{"sl":"en","q":"demotion","main":"пониження в посаді","bd":[["noun",["пониження на посаді","усунення з посади"]]]}
+{"sl":"uk","q":"задоволеність роботою","main":"job satisfaction","bd":[]}
+{"sl":"en","q":"job satisfaction","main":"задоволеність роботою","bd":[]}
+{"sl":"uk","q":"показувати результати нижче очікуваних","main":"show results below expectations","bd":[]}
+{"sl":"en","q":"to underperform","main":"недопрацювати","bd":[]}
+{"sl":"uk","q":"протокол зустрічі","main":"minutes of the meeting","bd":[]}
+{"sl":"en","q":"minutes","main":"хвилин","bd":[["noun",["протокол"]]]}
+{"sl":"uk","q":"присутній учасник заходу","main":"the participant of the event is present","bd":[]}
+{"sl":"en","q":"attendee","main":"учасник","bd":[]}
+{"sl":"uk","q":"головуючий на зустрічі","main":"chairing the meeting","bd":[]}
+{"sl":"en","q":"chairperson","main":"голова","bd":[]}
+{"sl":"uk","q":"коротка нарада","main":"short meeting","bd":[]}
+{"sl":"en","q":"briefing","main":"брифінг","bd":[["noun",["брифінг","інструктаж"]]]}
+{"sl":"uk","q":"конкретне завдання після зустрічі","main":"a specific task after the meeting","bd":[]}
+{"sl":"en","q":"action item","main":"елемент дії","bd":[]}
+{"sl":"uk","q":"конференц-дзвінок","main":"conference call","bd":[]}
+{"sl":"en","q":"conference call","main":"конференц-дзвінок","bd":[]}
+{"sl":"uk","q":"відеодзвінок","main":"video call","bd":[]}
+{"sl":"en","q":"video call","main":"відеодзвінок","bd":[]}
+{"sl":"uk","q":"особиста зустріч керівника з працівником","main":"a personal meeting between the manager and the employee","bd":[]}
+{"sl":"en","q":"one-on-one","main":"один на один","bd":[]}
+{"sl":"uk","q":"стартап","main":"startup","bd":[]}
+{"sl":"en","q":"startup","main":"запуск","bd":[["verb",["схоплюватися"]]]}
+{"sl":"uk","q":"малий бізнес","main":"small business","bd":[]}
+{"sl":"en","q":"small business","main":"малий бізнес","bd":[]}
+{"sl":"uk","q":"фізична особа-підприємець","main":"individual entrepreneur","bd":[]}
+{"sl":"en","q":"sole trader","main":"індивідуальний підприємець","bd":[]}
+{"sl":"uk","q":"компанія з обмеженою відповідальністю","main":"limited liability company","bd":[]}
+{"sl":"en","q":"limited company","main":"товариство з обмеженою відповідальністю","bd":[]}
+{"sl":"uk","q":"бізнес-модель","main":"business model","bd":[]}
+{"sl":"en","q":"business model","main":"бізнес-модель","bd":[]}
+{"sl":"uk","q":"бізнес-план","main":"business plan","bd":[]}
+{"sl":"en","q":"business plan","main":"бізнес план","bd":[]}
+{"sl":"uk","q":"ціннісна пропозиція","main":"value proposition","bd":[]}
+{"sl":"en","q":"value proposition","main":"ціннісна пропозиція","bd":[]}
+{"sl":"uk","q":"конкурентна перевага","main":"competitive advantage","bd":[]}
+{"sl":"en","q":"competitive advantage","main":"конкурентна перевага","bd":[]}
+{"sl":"uk","q":"частка ринку","main":"market share","bd":[]}
+{"sl":"en","q":"market share","main":"частка ринку","bd":[]}
+{"sl":"uk","q":"масштабованість","main":"scalability","bd":[]}
+{"sl":"en","q":"scalability","main":"масштабованість","bd":[]}
+{"sl":"uk","q":"здатність довго функціонувати","main":"the ability to function for a long time","bd":[]}
+{"sl":"en","q":"sustainability","main":"стійкість","bd":[]}
+{"sl":"uk","q":"масштабуватися","main":"to scale","bd":[]}
+{"sl":"en","q":"to scale up","main":"збільшити масштаб","bd":[["verb",["поступово збільшувати","поступово підвищувати"]]]}
+{"sl":"uk","q":"асортимент товарів","main":"assortment of goods","bd":[]}
+{"sl":"en","q":"product range","main":"асортимент продукції","bd":[]}
+{"sl":"uk","q":"одиниця складського обліку","main":"warehouse accounting unit","bd":[]}
+{"sl":"en","q":"SKU","main":"SKU","bd":[]}
+{"sl":"uk","q":"виробник","main":"producer","bd":[["noun",["producer","manufacturer","maker","generator"]]]}
+{"sl":"en","q":"manufacturer","main":"виробник","bd":[["noun",["виготовлювач","виробник","постачальник","фабрикант"]]]}
+{"sl":"uk","q":"кінцевий користувач","main":"end user","bd":[]}
+{"sl":"en","q":"end user","main":"кінцевий користувач","bd":[]}
+{"sl":"uk","q":"ланцюг постачання","main":"supply chain","bd":[]}
+{"sl":"en","q":"supply chain","main":"ланцюг поставок","bd":[]}
+{"sl":"uk","q":"закупівлі для компанії","main":"purchases for the company","bd":[]}
+{"sl":"en","q":"procurement","main":"закупівлі","bd":[["noun",["звідництво","одержання","постачання","придбання"]]]}
+{"sl":"uk","q":"товарні запаси","main":"commodity stocks","bd":[]}
+{"sl":"en","q":"inventory","main":"інвентар","bd":[["noun",["анкета","переоблік","список","інвентар","інвентаризація"]],["verb",["складати опис","підсумовувати"]]]}
+{"sl":"uk","q":"сировина","main":"raw","bd":[["noun",["raw","raw stuff"]]]}
+{"sl":"en","q":"raw material","main":"сировина","bd":[]}
+{"sl":"uk","q":"упаковка","main":"packaging","bd":[["noun",["packaging","wrapping","pack","cover","wrapper","boxing","encasement"]]]}
+{"sl":"en","q":"packaging","main":"упаковка","bd":[["noun",["пакувальна справа","пакування","засіб пакування","упаковка","упакування"]]]}
+{"sl":"uk","q":"партія, виготовлена за раз","main":"batch made at a time","bd":[]}
+{"sl":"en","q":"batch","main":"партія","bd":[["noun",["одна випічка хліба","заміс","група","купа","дозування","партія","парубок","пачка"]],["verb",["дозувати"]]]}
+{"sl":"uk","q":"контроль якості","main":"quality control","bd":[]}
+{"sl":"en","q":"quality control","main":"контроль якості","bd":[]}
+{"sl":"uk","q":"пошкоджені товари","main":"damaged goods","bd":[]}
+{"sl":"en","q":"damaged goods","main":"пошкоджений товар","bd":[]}
+{"sl":"uk","q":"персоналізація","main":"personalization","bd":[]}
+{"sl":"en","q":"personalization","main":"персоналізація","bd":[["noun",["втілення","уособлення"]]]}
+{"sl":"uk","q":"замовлення на закупівлю","main":"purchase order","bd":[]}
+{"sl":"en","q":"purchase order","main":"замовлення на купівлю","bd":[]}
+{"sl":"uk","q":"мінімальна кількість замовлення","main":"minimum order quantity","bd":[]}
+{"sl":"en","q":"MOQ","main":"MOQ","bd":[]}
+{"sl":"uk","q":"час від замовлення до доставки","main":"time from order to delivery","bd":[]}
+{"sl":"en","q":"lead time","main":"час виконання","bd":[]}
+{"sl":"uk","q":"партія вантажу","main":"consignment of cargo","bd":[]}
+{"sl":"en","q":"shipment","main":"відвантаження","bd":[["noun",["вантаж","вантаження"]]]}
+{"sl":"uk","q":"номер відстеження","main":"tracking number","bd":[]}
+{"sl":"en","q":"tracking number","main":"номер відстеження","bd":[]}
+{"sl":"uk","q":"поповнити запаси","main":"replenish stocks","bd":[]}
+{"sl":"en","q":"to restock","main":"поповнювати запаси","bd":[["verb",["поповнювати запаси"]]]}
+{"sl":"uk","q":"брендинг","main":"branding","bd":[]}
+{"sl":"en","q":"branding","main":"брендинг","bd":[["verb",["випалити","значити","клеймувати","нап'ятнувати","таврувати","клеймити","натаврити"]]]}
+{"sl":"uk","q":"впізнаваність бренду","main":"brand recognition","bd":[]}
+{"sl":"en","q":"brand awareness","main":"впізнаваність бренду","bd":[]}
+{"sl":"uk","q":"фірмовий образ","main":"corporate image","bd":[]}
+{"sl":"en","q":"brand identity","main":"ідентичність бренду","bd":[]}
+{"sl":"uk","q":"контент-стратегія","main":"content strategy","bd":[]}
+{"sl":"en","q":"content strategy","main":"контент-стратегія","bd":[]}
+{"sl":"uk","q":"соціальні мережі","main":"social networks","bd":[]}
+{"sl":"en","q":"social media","main":"соціальні мережі","bd":[]}
+{"sl":"uk","q":"підпис до публікації","main":"signature to the publication","bd":[]}
+{"sl":"en","q":"caption","main":"підпис","bd":[["noun",["арешт за постановою суду","заголовок","напис на екрані","підпис","титр","чіпляння"]]]}
+{"sl":"uk","q":"цільова аудиторія","main":"target audience","bd":[]}
+{"sl":"en","q":"target audience","main":"цільова аудиторія","bd":[]}
+{"sl":"uk","q":"налаштування аудиторії","main":"audience settings","bd":[]}
+{"sl":"en","q":"targeting","main":"націлювання","bd":[["verb",["робити когось мішенню","пристрілювати"]]]}
+{"sl":"uk","q":"сегмент клієнтів","main":"customer segment","bd":[]}
+{"sl":"en","q":"customer segment","main":"клієнтський сегмент","bd":[]}
+{"sl":"uk","q":"портрет типового покупця","main":"portrait of a typical buyer","bd":[]}
+{"sl":"en","q":"buyer persona","main":"персона покупця","bd":[]}
+{"sl":"uk","q":"коефіцієнт кліків","main":"click rate","bd":[]}
+{"sl":"en","q":"CTR","main":"CTR","bd":[]}
+{"sl":"uk","q":"коефіцієнт конверсії","main":"conversion factor","bd":[]}
+{"sl":"en","q":"conversion rate","main":"коефіцієнт конверсії","bd":[]}
+{"sl":"uk","q":"вартість кліку","main":"cost per click","bd":[]}
+{"sl":"en","q":"CPC","main":"CPC","bd":[]}
+{"sl":"uk","q":"вартість залучення клієнта","main":"customer acquisition cost","bd":[]}
+{"sl":"en","q":"CPA","main":"CPA","bd":[]}
+{"sl":"uk","q":"окупність рекламних витрат","main":"return on advertising costs","bd":[]}
+{"sl":"en","q":"ROAS","main":"ROAS","bd":[]}
+{"sl":"uk","q":"заклик до дії","main":"call to action","bd":[]}
+{"sl":"en","q":"CTA","main":"CTA","bd":[]}
+{"sl":"uk","q":"посадкова сторінка","main":"landing page","bd":[]}
+{"sl":"en","q":"landing page","main":"цільова сторінка","bd":[]}
+{"sl":"uk","q":"органічне охоплення","main":"organic reach","bd":[]}
+{"sl":"en","q":"organic reach","main":"органічне охоплення","bd":[]}
+{"sl":"uk","q":"платна реклама","main":"paid advertising","bd":[]}
+{"sl":"en","q":"paid advertising","main":"платна реклама","bd":[]}
+{"sl":"uk","q":"сарафанне радіо","main":"word of mouth radio","bd":[]}
+{"sl":"en","q":"word of mouth","main":"з вуст в уста","bd":[]}
+{"sl":"uk","q":"дослідження ринку","main":"market research","bd":[]}
+{"sl":"en","q":"market research","main":"дослідження ринку","bd":[]}
+{"sl":"uk","q":"аналіз конкурентів","main":"competitor analysis","bd":[]}
+{"sl":"en","q":"competitor analysis","main":"аналіз конкурентів","bd":[]}
+{"sl":"uk","q":"відділ продажів","main":"sales department","bd":[]}
+{"sl":"en","q":"sales","main":"продажу","bd":[["noun",["випродаж","збут","продаж","розпродаж","торгівля"]]]}
+{"sl":"uk","q":"менеджер із продажів","main":"sales manager","bd":[]}
+{"sl":"en","q":"salesperson","main":"продавець","bd":[]}
+{"sl":"uk","q":"торговий представник","main":"sales representative","bd":[]}
+{"sl":"en","q":"sales rep","main":"торговий представник","bd":[]}
+{"sl":"uk","q":"керівник із продажів","main":"sales manager","bd":[]}
+{"sl":"en","q":"sales manager","main":"менеджер з продажу","bd":[]}
+{"sl":"uk","q":"воронка продажів","main":"sales funnel","bd":[]}
+{"sl":"en","q":"sales funnel","main":"воронка продажів","bd":[]}
+{"sl":"uk","q":"перелік потенційних угод за етапами","main":"list of potential deals by stages","bd":[]}
+{"sl":"en","q":"sales pipeline","main":"конвеєр продажів","bd":[]}
+{"sl":"uk","q":"умови договору","main":"terms of the contract","bd":[]}
+{"sl":"en","q":"terms and conditions","main":"умови","bd":[]}
+{"sl":"uk","q":"прайс-лист","main":"price list","bd":[]}
+{"sl":"en","q":"price list","main":"прайс лист","bd":[["noun",["прейскурант"]]]}
+{"sl":"uk","q":"роздрібна ціна","main":"retail price","bd":[]}
+{"sl":"en","q":"retail price","main":"роздрібна ціна","bd":[]}
+{"sl":"uk","q":"оптова ціна","main":"wholesale price","bd":[]}
+{"sl":"en","q":"wholesale price","main":"оптова ціна","bd":[]}
+{"sl":"uk","q":"ціна за одиницю","main":"price per unit","bd":[]}
+{"sl":"en","q":"unit price","main":"ціна за одиницю","bd":[]}
+{"sl":"uk","q":"запитувана ціна","main":"asking price","bd":[]}
+{"sl":"en","q":"asking price","main":"ціна питання","bd":[]}
+{"sl":"uk","q":"спеціальна пропозиція","main":"special offer","bd":[["noun",["special offer"]]]}
+{"sl":"en","q":"special offer","main":"спеціальна пропозиція","bd":[["noun",["спеціальна пропозиція"]]]}
+{"sl":"uk","q":"пакетна пропозиція","main":"package deal","bd":[]}
+{"sl":"en","q":"bundle","main":"пучок","bd":[["noun",["в'язка","вузлик","згорка","жмут","клунок","колекція","оберемок","пакет"]],["verb",["відсилати","зв'язувати у клунок","укладати"]]]}
+{"sl":"uk","q":"допродаж дорожчого варіанта","main":"resale of a more expensive option","bd":[]}
+{"sl":"en","q":"upselling","main":"додатковий продаж","bd":[]}
+{"sl":"uk","q":"допродаж супутнього товару","main":"resale of related goods","bd":[]}
+{"sl":"en","q":"cross-selling","main":"крос-продаж","bd":[]}
+{"sl":"uk","q":"торг про ціну","main":"price bargaining","bd":[]}
+{"sl":"en","q":"bargaining","main":"торг","bd":[["noun",["торг"]]]}
+{"sl":"uk","q":"зустрічна пропозиція","main":"counter offer","bd":[]}
+{"sl":"en","q":"counteroffer","main":"зустрічна пропозиція","bd":[["noun",["контрпропонування"]]]}
+{"sl":"uk","q":"план продажів","main":"sales plan","bd":[]}
+{"sl":"en","q":"sales target","main":"цільовий обсяг продажів","bd":[]}
+{"sl":"uk","q":"обсяг продажів","main":"sales volume","bd":[]}
+{"sl":"en","q":"sales volume","main":"обсяг продажів","bd":[]}
+{"sl":"uk","q":"середній чек","main":"average check","bd":[]}
+{"sl":"en","q":"AOV","main":"AOV","bd":[]}
+{"sl":"uk","q":"повторний клієнт","main":"repeat customer","bd":[]}
+{"sl":"en","q":"repeat customer","main":"постійний клієнт","bd":[]}
+{"sl":"uk","q":"утримання клієнтів","main":"customer retention","bd":[]}
+{"sl":"en","q":"customer retention","main":"утримання клієнтів","bd":[]}
+{"sl":"uk","q":"продати дорожчу версію","main":"sell a more expensive version","bd":[]}
+{"sl":"en","q":"to upsell","main":"to upsell","bd":[]}
+{"sl":"uk","q":"продати супутній товар","main":"sell a related product","bd":[]}
+{"sl":"en","q":"to cross-sell","main":"перехресний продаж","bd":[]}
+{"sl":"uk","q":"обслуговування клієнтів","main":"customer service","bd":[]}
+{"sl":"en","q":"customer service","main":"обслуговування клієнтів","bd":[["noun",["відділ обслуговування клієнтів"]]]}
+{"sl":"uk","q":"підтримка клієнтів","main":"customer support","bd":[]}
+{"sl":"en","q":"customer support","main":"підтримка клієнтів","bd":[]}
+{"sl":"uk","q":"клієнтський досвід","main":"customer experience","bd":[]}
+{"sl":"en","q":"customer experience","main":"клієнтський досвід","bd":[]}
+{"sl":"uk","q":"задоволеність клієнтів","main":"customer satisfaction","bd":[]}
+{"sl":"en","q":"customer satisfaction","main":"задоволеність клієнтів","bd":[]}
+{"sl":"uk","q":"час відповіді","main":"response time","bd":[]}
+{"sl":"en","q":"response time","main":"час відповіді","bd":[]}
+{"sl":"uk","q":"час очікування","main":"waiting time","bd":[]}
+{"sl":"en","q":"waiting time","main":"час очікування","bd":[]}
+{"sl":"uk","q":"повернення товару","main":"return of goods","bd":[]}
+{"sl":"en","q":"product return","main":"повернення товару","bd":[]}
+{"sl":"uk","q":"часткове повернення коштів","main":"partial refund","bd":[]}
+{"sl":"en","q":"partial refund","main":"часткове повернення коштів","bd":[]}
+{"sl":"uk","q":"гарантійний строк","main":"warranty period","bd":[]}
+{"sl":"en","q":"warranty period","main":"гарантійний термін","bd":[]}
+{"sl":"uk","q":"підтвердження покупки","main":"confirmation of purchase","bd":[]}
+{"sl":"en","q":"proof of purchase","main":"підтвердження покупки","bd":[]}
+{"sl":"uk","q":"пошкоджена одиниця товару","main":"a damaged product unit","bd":[]}
+{"sl":"en","q":"damaged item","main":"пошкоджений предмет","bd":[]}
+{"sl":"uk","q":"несправний товар","main":"defective product","bd":[]}
+{"sl":"en","q":"faulty item","main":"несправний предмет","bd":[]}
+{"sl":"uk","q":"не той товар","main":"wrong product","bd":[]}
+{"sl":"en","q":"wrong item","main":"неправильний предмет","bd":[]}
+{"sl":"uk","q":"відсутня позиція","main":"there is no position","bd":[]}
+{"sl":"en","q":"missing item","main":"відсутній елемент","bd":[]}
+{"sl":"uk","q":"післяпродажне обслуговування","main":"after-sales service","bd":[]}
+{"sl":"en","q":"after-sales service","main":"післяпродажне обслуговування","bd":[]}
+{"sl":"uk","q":"бухгалтерський облік","main":"accounting","bd":[]}
+{"sl":"en","q":"accounting","main":"облік","bd":[["noun",["бухгалтерська справа","звітність","облік","розрахунок"]]]}
+{"sl":"uk","q":"ведення бухгалтерських записів","main":"keeping accounting records","bd":[]}
+{"sl":"en","q":"bookkeeping","main":"бухгалтерія","bd":[["noun",["рахівництво"]]]}
+{"sl":"uk","q":"бухгалтер з первинного обліку","main":"primary accounting accountant","bd":[]}
+{"sl":"en","q":"bookkeeper","main":"бухгалтер","bd":[["noun",["бухгалтер","діловод","рахівник"]]]}
+{"sl":"uk","q":"фінансова звітність","main":"financial reporting","bd":[]}
+{"sl":"en","q":"financial statement","main":"фінансовий звіт","bd":[]}
+{"sl":"uk","q":"звіт про фінансовий стан","main":"financial statement","bd":[]}
+{"sl":"en","q":"balance sheet","main":"бухгалтерський баланс","bd":[["noun",["балансовий звіт"]]]}
+{"sl":"uk","q":"звіт про прибутки та збитки","main":"profit and loss statement","bd":[]}
+{"sl":"en","q":"income statement","main":"звіт про доходи","bd":[]}
+{"sl":"uk","q":"звіт про рух грошових коштів","main":"cash flow statement","bd":[]}
+{"sl":"en","q":"cash flow statement","main":"звіт про рух грошових коштів","bd":[]}
+{"sl":"uk","q":"виручка від продажів","main":"sales revenue","bd":[]}
+{"sl":"en","q":"sales revenue","main":"виручка від реалізації","bd":[]}
+{"sl":"uk","q":"валовий прибуток","main":"gross profit","bd":[]}
+{"sl":"en","q":"gross profit","main":"валовий прибуток","bd":[]}
+{"sl":"uk","q":"чистий прибуток","main":"net profit","bd":[["noun",["net"]]]}
+{"sl":"en","q":"net profit","main":"чистий прибуток","bd":[["noun",["чистий дохід"]]]}
+{"sl":"uk","q":"маржа прибутку","main":"profit margin","bd":[]}
+{"sl":"en","q":"profit margin","main":"норма прибутку","bd":[]}
+{"sl":"uk","q":"валова маржа","main":"gross margin","bd":[]}
+{"sl":"en","q":"gross margin","main":"валовий прибуток","bd":[]}
+{"sl":"uk","q":"націнка","main":"mark-up","bd":[["noun",["mark-up","extra"]]]}
+{"sl":"en","q":"markup","main":"розмітка","bd":[["noun",["націнка","підвищення цін"]]]}
+{"sl":"uk","q":"собівартість","main":"cost","bd":[["noun",["cost"]]]}
+{"sl":"en","q":"cost price","main":"собівартість","bd":[]}
+{"sl":"uk","q":"собівартість реалізованих товарів","main":"cost of goods sold","bd":[]}
+{"sl":"en","q":"COGS","main":"COGS","bd":[["noun",["зубець","невеликий рибальський човен","кулак"]],["verb",["з'єднувати в гребінь","обдурювати","шахраювати"]]]}
+{"sl":"uk","q":"операційна витрата","main":"operating expense","bd":[]}
+{"sl":"en","q":"operating expense","main":"операційні витрати","bd":[]}
+{"sl":"uk","q":"постійна витрата","main":"constant expense","bd":[]}
+{"sl":"en","q":"fixed cost","main":"постійна вартість","bd":[]}
+{"sl":"uk","q":"змінна витрата","main":"variable cost","bd":[]}
+{"sl":"en","q":"variable cost","main":"змінна вартість","bd":[]}
+{"sl":"uk","q":"накладні витрати","main":"overhead","bd":[["noun",["overhead","overheads","oncost"]]]}
+{"sl":"en","q":"overhead","main":"накладні витрати","bd":[["adjective",["верхній","надземний","накладні видатки","підвісний","високий","повітряний","височенний","стельовий"]],["adverb",["вище голови","угорі","з головою","над головою","нагорі"]],["noun",["накладні витрати","стеля каюти"]]]}
+{"sl":"uk","q":"фонд оплати праці","main":"wage fund","bd":[]}
+{"sl":"en","q":"payroll","main":"нарахування заробітної плати","bd":[["noun",["платіжна відомість"]]]}
+{"sl":"uk","q":"комісійна плата","main":"commission fee","bd":[]}
+{"sl":"en","q":"commission fee","main":"комісійна винагорода","bd":[]}
+{"sl":"uk","q":"грошовий потік","main":"cash flow","bd":[]}
+{"sl":"en","q":"cash flow","main":"грошовий потік","bd":[]}
+{"sl":"uk","q":"позитивний грошовий потік","main":"positive cash flow","bd":[]}
+{"sl":"en","q":"positive cash flow","main":"позитивний грошовий потік","bd":[]}
+{"sl":"uk","q":"від'ємний грошовий потік","main":"negative cash flow","bd":[]}
+{"sl":"en","q":"negative cash flow","main":"негативний грошовий потік","bd":[]}
+{"sl":"uk","q":"фінансовий рік","main":"financial year","bd":[]}
+{"sl":"en","q":"fiscal year","main":"фінансовий рік","bd":[]}
+{"sl":"uk","q":"фінансове зобов'язання","main":"financial obligation","bd":[]}
+{"sl":"en","q":"liability","main":"відповідальність","bd":[["noun",["відповідальність","зобов'язання"]]]}
+{"sl":"uk","q":"кредитор","main":"creditor","bd":[["noun",["creditor","obligee"]]]}
+{"sl":"en","q":"creditor","main":"кредитор","bd":[["noun",["віритель","кредитор"]]]}
+{"sl":"uk","q":"боржник","main":"debtor","bd":[["noun",["debtor","obligor","ower"]]]}
+{"sl":"en","q":"debtor","main":"боржник","bd":[["noun",["боржник","дебет","дебітор","прибуток"]]]}
+{"sl":"uk","q":"податок на доходи","main":"income tax","bd":[]}
+{"sl":"en","q":"income tax","main":"прибутковий податок","bd":[]}
+{"sl":"uk","q":"податок на прибуток підприємств","main":"corporate income tax","bd":[]}
+{"sl":"en","q":"corporate tax","main":"корпоративний податок","bd":[]}
+{"sl":"uk","q":"податок на додану вартість","main":"value added tax","bd":[]}
+{"sl":"en","q":"VAT","main":"ПДВ","bd":[["noun",["бочка","ванна","зільниця","кадка","чан"]]]}
+{"sl":"uk","q":"податок із продажу","main":"sales tax","bd":[]}
+{"sl":"en","q":"sales tax","main":"податок з продажу","bd":[]}
+{"sl":"uk","q":"податкова декларація","main":"tax declaration","bd":[]}
+{"sl":"en","q":"tax return","main":"податкова декларація","bd":[]}
+{"sl":"uk","q":"податкове зобов'язання","main":"tax liability","bd":[]}
+{"sl":"en","q":"tax liability","main":"податкове зобов'язання","bd":[]}
+{"sl":"uk","q":"податкове відрахування","main":"tax deduction","bd":[]}
+{"sl":"en","q":"tax deduction","main":"податкове вирахування","bd":[]}
+{"sl":"uk","q":"звільнення від податку","main":"tax exemption","bd":[]}
+{"sl":"en","q":"tax exemption","main":"звільнення від сплати податків","bd":[]}
+{"sl":"uk","q":"банківський рахунок","main":"bank account","bd":[]}
+{"sl":"en","q":"bank account","main":"банківський рахунок","bd":[]}
+{"sl":"uk","q":"рахунок для бізнесу","main":"business account","bd":[]}
+{"sl":"en","q":"business account","main":"бізнес-рахунок","bd":[]}
+{"sl":"uk","q":"поточний рахунок","main":"current account","bd":[["noun",["checking account"]]]}
+{"sl":"en","q":"current account","main":"поточний рахунок","bd":[]}
+{"sl":"uk","q":"ощадний рахунок","main":"savings account","bd":[["noun",["savings account"]]]}
+{"sl":"en","q":"savings account","main":"ощадний рахунок","bd":[["noun",["ощадний рахунок"]]]}
+{"sl":"uk","q":"залишок на рахунку","main":"account balance","bd":[]}
+{"sl":"en","q":"account balance","main":"баланс рахунку","bd":[]}
+{"sl":"uk","q":"банківський переказ","main":"bank transfer","bd":[]}
+{"sl":"en","q":"bank transfer","main":"банківський переказ","bd":[]}
+{"sl":"uk","q":"банківський електронний переказ","main":"electronic bank transfer","bd":[]}
+{"sl":"en","q":"wire transfer","main":"банківський переказ","bd":[]}
+{"sl":"uk","q":"спосіб оплати","main":"payment method","bd":[]}
+{"sl":"en","q":"payment method","main":"спосіб оплати","bd":[]}
+{"sl":"uk","q":"оплата карткою","main":"payment by card","bd":[]}
+{"sl":"en","q":"card payment","main":"оплата карткою","bd":[]}
+{"sl":"uk","q":"кредитна картка","main":"credit card","bd":[["noun",["credit card"]]]}
+{"sl":"en","q":"credit card","main":"кредитна картка","bd":[["noun",["кредитна картка"]]]}
+{"sl":"uk","q":"дебетова картка","main":"debit card","bd":[]}
+{"sl":"en","q":"debit card","main":"дебетова картка","bd":[]}
+{"sl":"uk","q":"безконтактна оплата","main":"contactless payment","bd":[]}
+{"sl":"en","q":"contactless payment","main":"безконтактна оплата","bd":[]}
+{"sl":"uk","q":"онлайн-оплата","main":"online payment","bd":[]}
+{"sl":"en","q":"online payment","main":"онлайн оплата","bd":[]}
+{"sl":"uk","q":"платіж частинами","main":"payment in installments","bd":[]}
+{"sl":"en","q":"installment","main":"розстрочка","bd":[["noun",["окремий випуск","партія товару","рата"]]]}
+{"sl":"uk","q":"графік платежів","main":"payment schedule","bd":[]}
+{"sl":"en","q":"payment plan","main":"план оплати","bd":[]}
+{"sl":"uk","q":"прострочений платіж","main":"overdue payment","bd":[]}
+{"sl":"en","q":"overdue payment","main":"прострочена оплата","bd":[]}
+{"sl":"uk","q":"штраф за прострочення","main":"late payment penalty","bd":[]}
+{"sl":"en","q":"late fee","main":"пеня за прострочення","bd":[]}
+{"sl":"uk","q":"комісія за транзакцію","main":"transaction fee","bd":[]}
+{"sl":"en","q":"transaction fee","main":"комісія за транзакцію","bd":[]}
+{"sl":"uk","q":"обмінний курс","main":"exchange rate","bd":[]}
+{"sl":"en","q":"exchange rate","main":"валютний курс","bd":[]}
+{"sl":"uk","q":"іноземна валюта","main":"foreign currency","bd":[["noun",["exchange","valuta"]]]}
+{"sl":"en","q":"foreign currency","main":"іноземна валюта","bd":[]}
+{"sl":"uk","q":"особистий дохід","main":"personal income","bd":[]}
+{"sl":"en","q":"personal income","main":"особистий дохід","bd":[]}
+{"sl":"uk","q":"дохід після податків","main":"income after taxes","bd":[]}
+{"sl":"en","q":"disposable income","main":"наявний дохід","bd":[]}
+{"sl":"uk","q":"фінансова подушка","main":"financial cushion","bd":[]}
+{"sl":"en","q":"emergency fund","main":"надзвичайний фонд","bd":[]}
+{"sl":"uk","q":"витрати на життя","main":"living expenses","bd":[]}
+{"sl":"en","q":"living expenses","main":"витрати на проживання","bd":[]}
+{"sl":"uk","q":"сімейний бюджет","main":"family budget","bd":[]}
+{"sl":"en","q":"household budget","main":"сімейний бюджет","bd":[]}
+{"sl":"uk","q":"доступність за ціною","main":"affordability at a price","bd":[]}
+{"sl":"en","q":"affordability","main":"доступність","bd":[]}
+{"sl":"uk","q":"чисті статки","main":"net worth","bd":[]}
+{"sl":"en","q":"net worth","main":"чистий капітал","bd":[]}
+{"sl":"uk","q":"кредитний рейтинг","main":"credit rating","bd":[]}
+{"sl":"en","q":"credit score","main":"кредитна оцінка","bd":[]}
+{"sl":"uk","q":"кредитний ліміт","main":"credit limit","bd":[]}
+{"sl":"en","q":"credit limit","main":"кредитний ліміт","bd":[]}
+{"sl":"uk","q":"погашення боргу","main":"debt repayment","bd":[]}
+{"sl":"en","q":"debt repayment","main":"погашення боргу","bd":[]}
+{"sl":"uk","q":"прибуток на інвестицію","main":"return on investment","bd":[]}
+{"sl":"en","q":"investment return","main":"повернення інвестицій","bd":[]}
+{"sl":"uk","q":"окупність інвестицій","main":"return on investment","bd":[]}
+{"sl":"en","q":"ROI","main":"ROI","bd":[]}
+{"sl":"uk","q":"дивіденд","main":"dividend","bd":[]}
+{"sl":"en","q":"dividend","main":"дивіденд","bd":[["noun",["дивідент","пай","частина","частка"]]]}
+{"sl":"uk","q":"приріст капіталу","main":"capital gains","bd":[]}
+{"sl":"en","q":"capital gain","main":"приріст капіталу","bd":[]}
+{"sl":"uk","q":"купівельна спроможність","main":"purchasing power","bd":[]}
+{"sl":"en","q":"purchasing power","main":"купівельна спроможність","bd":[]}
+{"sl":"uk","q":"тренінг","main":"training","bd":[]}
+{"sl":"en","q":"training","main":"навчання","bd":[["adjective",["навчальний","тренувальний"]],["noun",["виховання","підготовка","тренування","дресирування"]]]}
+{"sl":"uk","q":"механічний транспортний засіб","main":"mechanical vehicle","bd":[]}
+{"sl":"en","q":"motor vehicle","main":"автотранспортний засіб","bd":[]}
+{"sl":"uk","q":"легковий автомобіль","main":"passenger car","bd":[]}
+{"sl":"en","q":"passenger car","main":"легковий автомобіль","bd":[]}
+{"sl":"uk","q":"компактний автомобіль","main":"compact car","bd":[]}
+{"sl":"en","q":"compact car","main":"компактний автомобіль","bd":[]}
+{"sl":"uk","q":"міський малолітражний автомобіль","main":"city ​​compact car","bd":[]}
+{"sl":"en","q":"city car","main":"міський автомобіль","bd":[]}
+{"sl":"uk","q":"універсал","main":"station wagon","bd":[]}
+{"sl":"en","q":"station wagon","main":"універсал","bd":[]}
+{"sl":"uk","q":"позашляховик","main":"SUV","bd":[]}
+{"sl":"en","q":"SUV","main":"позашляховик","bd":[]}
+{"sl":"uk","q":"кросовер","main":"crossover","bd":[]}
+{"sl":"en","q":"crossover","main":"кросовер","bd":[["noun",["перехрещування"]]]}
+{"sl":"uk","q":"авто для бездоріжжя","main":"off-road car","bd":[]}
+{"sl":"en","q":"off-road vehicle","main":"позашляховик","bd":[]}
+{"sl":"uk","q":"дводверне купе","main":"two-door coupe","bd":[]}
+{"sl":"en","q":"coupe","main":"купе","bd":[["noun",["поруб"]]]}
+{"sl":"uk","q":"спортивний автомобіль","main":"sports car","bd":[]}
+{"sl":"en","q":"sports car","main":"спортивний автомобіль","bd":[]}
+{"sl":"uk","q":"суперкар","main":"supercar","bd":[]}
+{"sl":"en","q":"supercar","main":"суперкар","bd":[]}
+{"sl":"uk","q":"автомобіль класу люкс","main":"a luxury car","bd":[]}
+{"sl":"en","q":"luxury car","main":"розкішний автомобіль","bd":[]}
+{"sl":"uk","q":"електромобіль","main":"electric car","bd":[]}
+{"sl":"en","q":"electric vehicle","main":"електромобіль","bd":[]}
+{"sl":"uk","q":"плагін-гібрид","main":"plug-in hybrid","bd":[]}
+{"sl":"en","q":"plug-in hybrid","main":"плагін гібрид","bd":[]}
+{"sl":"uk","q":"бензиновий автомобіль","main":"gasoline car","bd":[]}
+{"sl":"en","q":"petrol car","main":"бензиновий автомобіль","bd":[]}
+{"sl":"uk","q":"дизельний автомобіль","main":"diesel car","bd":[]}
+{"sl":"en","q":"diesel car","main":"дизельний автомобіль","bd":[]}
+{"sl":"uk","q":"автомобіль із механічною коробкою","main":"a car with a manual transmission","bd":[]}
+{"sl":"en","q":"manual car","main":"ручна машина","bd":[]}
+{"sl":"uk","q":"автомобіль з автоматичною коробкою","main":"car with automatic transmission","bd":[]}
+{"sl":"en","q":"automatic car","main":"автоматична машина","bd":[]}
+{"sl":"uk","q":"праве розташування керма","main":"right steering wheel","bd":[]}
+{"sl":"en","q":"right-hand drive","main":"правий керм","bd":[]}
+{"sl":"uk","q":"ліве розташування керма","main":"left steering wheel","bd":[]}
+{"sl":"en","q":"left-hand drive","main":"лівий керм","bd":[]}
+{"sl":"uk","q":"велосипедист","main":"bicyclist","bd":[["noun",["bicyclist","wheelman","bicycler","cycler"]]]}
+{"sl":"en","q":"cyclist","main":"велосипедист","bd":[["noun",["цикліт"]]]}
+{"sl":"uk","q":"мотоцикліст","main":"motorcyclist","bd":[["noun",["motorcyclist"]]]}
+{"sl":"en","q":"motorcyclist","main":"мотоцикліст","bd":[["noun",["мотоцикліст"]]]}
+{"sl":"uk","q":"водій-учень","main":"learner driver","bd":[]}
+{"sl":"en","q":"learner driver","main":"учень-водій","bd":[]}
+{"sl":"uk","q":"інструктор з водіння","main":"driving instructor","bd":[]}
+{"sl":"en","q":"driving instructor","main":"інструктор з водіння","bd":[]}
+{"sl":"uk","q":"власник автомобіля","main":"car owner","bd":[]}
+{"sl":"en","q":"car owner","main":"власник автомобіля","bd":[]}
+{"sl":"uk","q":"зареєстрований утримувач авто","main":"registered car holder","bd":[]}
+{"sl":"en","q":"registered keeper","main":"зареєстрований утримувач","bd":[]}
+{"sl":"uk","q":"учасник дорожнього руху","main":"road user","bd":[]}
+{"sl":"en","q":"road user","main":"учасник дорожнього руху","bd":[]}
+{"sl":"uk","q":"кришка багажника","main":"trunk lid","bd":[]}
+{"sl":"en","q":"trunk lid","main":"кришка багажника","bd":[]}
+{"sl":"uk","q":"панорамний дах","main":"panoramic roof","bd":[]}
+{"sl":"en","q":"panoramic roof","main":"панорамний дах","bd":[]}
+{"sl":"uk","q":"складний дах","main":"folding roof","bd":[]}
+{"sl":"en","q":"convertible roof","main":"розкладний дах","bd":[]}
+{"sl":"uk","q":"дверний замок","main":"door lock","bd":[]}
+{"sl":"en","q":"door lock","main":"дверний замок","bd":[]}
+{"sl":"uk","q":"центральний замок","main":"central castle","bd":[]}
+{"sl":"en","q":"central locking","main":"центральний замок","bd":[]}
+{"sl":"uk","q":"решітка радіатора","main":"radiator grille","bd":[]}
+{"sl":"en","q":"grille","main":"решітка","bd":[["noun",["рибоводний інкубатор","решітка"]]]}
+{"sl":"uk","q":"заднє скло","main":"rear window","bd":[]}
+{"sl":"en","q":"rear window","main":"заднє скло","bd":[]}
+{"sl":"uk","q":"бічне скло","main":"side glass","bd":[]}
+{"sl":"en","q":"side window","main":"бічне вікно","bd":[]}
+{"sl":"uk","q":"ущільнювач скла","main":"glass sealer","bd":[]}
+{"sl":"en","q":"window seal","main":"віконний ущільнювач","bd":[]}
+{"sl":"uk","q":"склоочисник","main":"windscreen wiper","bd":[["noun",["windscreen wiper","wipe"]]]}
+{"sl":"en","q":"windshield wiper","main":"склоочисник","bd":[["noun",["склоочищувач"]]]}
+{"sl":"uk","q":"щітка склоочисника","main":"wiper blade","bd":[]}
+{"sl":"en","q":"wiper blade","main":"щітка склоочисника","bd":[]}
+{"sl":"uk","q":"рідина омивача","main":"washer fluid","bd":[]}
+{"sl":"en","q":"washer fluid","main":"рідина омивача","bd":[]}
+{"sl":"uk","q":"форсунка омивача","main":"washer nozzle","bd":[]}
+{"sl":"en","q":"washer nozzle","main":"насадка омивача","bd":[]}
+{"sl":"uk","q":"бічне дзеркало","main":"side mirror","bd":[]}
+{"sl":"en","q":"side mirror","main":"бокове дзеркало","bd":[["noun",["бокове дзеркало"]]]}
+{"sl":"uk","q":"дзеркало заднього виду","main":"rearview mirror","bd":[["noun",["rearview mirror"]]]}
+{"sl":"en","q":"rear-view mirror","main":"дзеркало заднього виду","bd":[["noun",["дзеркало заднього виду"]]]}
+{"sl":"uk","q":"корпус дзеркала","main":"mirror housing","bd":[]}
+{"sl":"en","q":"mirror housing","main":"корпус дзеркала","bd":[]}
+{"sl":"uk","q":"колісна арка","main":"wheel arch","bd":[]}
+{"sl":"en","q":"wheel arch","main":"колісна арка","bd":[]}
+{"sl":"uk","q":"багажник на даху","main":"roof rack","bd":[]}
+{"sl":"en","q":"roof rack","main":"багажник на дах","bd":[]}
+{"sl":"uk","q":"рейлінг на даху","main":"railing on the roof","bd":[]}
+{"sl":"en","q":"roof rail","main":"рейлінги на даху","bd":[]}
+{"sl":"uk","q":"фаркоп","main":"tow bar","bd":[]}
+{"sl":"en","q":"tow bar","main":"фаркоп","bd":[]}
+{"sl":"uk","q":"лакофарбове покриття","main":"paint coating","bd":[]}
+{"sl":"en","q":"paintwork","main":"лакофарбове покриття","bd":[["noun",["покриття"]]]}
+{"sl":"uk","q":"прозорий лак","main":"transparent varnish","bd":[]}
+{"sl":"en","q":"clear coat","main":"прозоре покриття","bd":[]}
+{"sl":"uk","q":"корозія","main":"corrosion","bd":[["noun",["corrosion"]]]}
+{"sl":"en","q":"corrosion","main":"корозії","bd":[["noun",["іржавіння","корозія","окислення"]]]}
+{"sl":"uk","q":"дорожній просвіт","main":"ground clearance","bd":[]}
+{"sl":"en","q":"ground clearance","main":"кліренс","bd":[]}
+{"sl":"uk","q":"колісна база","main":"wheel base","bd":[]}
+{"sl":"en","q":"wheelbase","main":"колісна база","bd":[]}
+{"sl":"uk","q":"кузов","main":"body","bd":[["noun",["body","basket","bodywork","cab"]]]}
+{"sl":"en","q":"bodywork","main":"кузовні роботи","bd":[["noun",["кузов","кузовобудування","несумлінна робота"]]]}
+{"sl":"uk","q":"поріг кузова","main":"body threshold","bd":[]}
+{"sl":"en","q":"rocker panel","main":"рокерна панель","bd":[]}
+{"sl":"uk","q":"панорамний","main":"panoramic","bd":[["adjective",["panoramic"]]]}
+{"sl":"en","q":"panoramic","main":"панорамний","bd":[["adjective",["панорамний"]]]}
+{"sl":"uk","q":"зазор","main":"clearance","bd":[["noun",["clearance","air gap","airspace","yawn","slack"]]]}
+{"sl":"en","q":"clearance","main":"кліренс","bd":[["noun",["зазор","люфт","отвір","очищення","проміжок","розпродаж","розчищення","сплата боргу"]]]}
+{"sl":"uk","q":"щиток приладів","main":"instrument panel","bd":[]}
+{"sl":"en","q":"instrument panel","main":"панель приладів","bd":[]}
+{"sl":"uk","q":"панель приладів","main":"instrument panel","bd":[]}
+{"sl":"en","q":"dashboard","main":"приладова панель","bd":[["noun",["приладова дошка","крило","приборна панель","щиток"]]]}
+{"sl":"uk","q":"комбінація приладів","main":"combination of devices","bd":[]}
+{"sl":"en","q":"instrument cluster","main":"комбінація приладів","bd":[]}
+{"sl":"uk","q":"бортовий комп'ютер","main":"on-board computer","bd":[]}
+{"sl":"en","q":"trip computer","main":"бортовий комп'ютер","bd":[]}
+{"sl":"uk","q":"покажчик рівня пального","main":"fuel level indicator","bd":[]}
+{"sl":"en","q":"fuel gauge","main":"паливомір","bd":[]}
+{"sl":"uk","q":"покажчик температури","main":"temperature indicator","bd":[]}
+{"sl":"en","q":"temperature gauge","main":"датчик температури","bd":[]}
+{"sl":"uk","q":"контрольна лампа","main":"control lamp","bd":[]}
+{"sl":"en","q":"warning light","main":"сигнальна лампа","bd":[]}
+{"sl":"uk","q":"індикатор несправності двигуна","main":"engine malfunction indicator","bd":[]}
+{"sl":"en","q":"check engine light","main":"перевірте світло двигуна","bd":[]}
+{"sl":"uk","q":"кермо","main":"helm","bd":[["noun",["helm","handlebar","rudder"]]]}
+{"sl":"en","q":"steering wheel","main":"кермо","bd":[["noun",["рульове колесо","штурвал"]]]}
+{"sl":"uk","q":"кермова колонка","main":"steering column","bd":[]}
+{"sl":"en","q":"steering column","main":"рульова колонка","bd":[]}
+{"sl":"uk","q":"аварійна сигналізація","main":"emergency alarm","bd":[]}
+{"sl":"en","q":"hazard lights","main":"аварійні вогні","bd":[]}
+{"sl":"uk","q":"педаль гальма","main":"brake pedal","bd":[]}
+{"sl":"en","q":"brake pedal","main":"педаль гальма","bd":[["noun",["гальмова педаль"]]]}
+{"sl":"uk","q":"педаль зчеплення","main":"clutch pedal","bd":[]}
+{"sl":"en","q":"clutch pedal","main":"педаль зчеплення","bd":[]}
+{"sl":"uk","q":"простір для ніг","main":"leg room","bd":[]}
+{"sl":"en","q":"footwell","main":"місце для ніг","bd":[]}
+{"sl":"uk","q":"бардачок","main":"glove compartment","bd":[["noun",["glove compartment"]]]}
+{"sl":"en","q":"glove compartment","main":"бардачок","bd":[["noun",["бардачок"]]]}
+{"sl":"uk","q":"центральна консоль","main":"center console","bd":[]}
+{"sl":"en","q":"center console","main":"центральна консоль","bd":[]}
+{"sl":"uk","q":"підсклянник","main":"coaster","bd":[]}
+{"sl":"en","q":"cup holder","main":"підстаканник","bd":[]}
+{"sl":"uk","q":"водійське сидіння","main":"driver's seat","bd":[]}
+{"sl":"en","q":"driver's seat","main":"водійське сидіння","bd":[["noun",["місце водія"]]]}
+{"sl":"uk","q":"пасажирське сидіння","main":"passenger seat","bd":[]}
+{"sl":"en","q":"passenger seat","main":"пасажирське сидіння","bd":[]}
+{"sl":"uk","q":"заднє сидіння","main":"back seat","bd":[]}
+{"sl":"en","q":"rear seat","main":"заднє сидіння","bd":[]}
+{"sl":"uk","q":"замок ременя безпеки","main":"seat belt lock","bd":[]}
+{"sl":"en","q":"seat-belt buckle","main":"застібка ременя безпеки","bd":[]}
+{"sl":"uk","q":"дитяче автокрісло","main":"child car seat","bd":[]}
+{"sl":"en","q":"child seat","main":"дитяче крісло","bd":[]}
+{"sl":"uk","q":"автомобільний килимок","main":"car mat","bd":[]}
+{"sl":"en","q":"floor mat","main":"підлоговий килимок","bd":[["noun",["коць"]]]}
+{"sl":"uk","q":"сонцезахисний козирок","main":"sun visor","bd":[]}
+{"sl":"en","q":"sun visor","main":"сонцезахисний козирок","bd":[]}
+{"sl":"uk","q":"салонне освітлення","main":"interior lighting","bd":[]}
+{"sl":"en","q":"interior light","main":"внутрішнє світло","bd":[]}
+{"sl":"uk","q":"клімат-контроль","main":"climate control","bd":[]}
+{"sl":"en","q":"climate control","main":"клімат контроль","bd":[]}
+{"sl":"uk","q":"сидіння з підігрівом","main":"heated seats","bd":[]}
+{"sl":"en","q":"heated seat","main":"підігрів сидіння","bd":[]}
+{"sl":"uk","q":"регулювання сидіння","main":"seat adjustment","bd":[]}
+{"sl":"en","q":"seat adjustment","main":"регулювання сидіння","bd":[]}
+{"sl":"uk","q":"електричний склопідіймач","main":"electric window lifter","bd":[]}
+{"sl":"en","q":"power window","main":"склопідйомник","bd":[]}
+{"sl":"uk","q":"кнопка склопідіймача","main":"window lifter button","bd":[]}
+{"sl":"en","q":"window switch","main":"віконний вимикач","bd":[]}
+{"sl":"uk","q":"замок запалювання","main":"ignition lock","bd":[]}
+{"sl":"en","q":"ignition switch","main":"вимикач запалювання","bd":[]}
+{"sl":"uk","q":"автомобільний ключ","main":"car key","bd":[]}
+{"sl":"en","q":"car key","main":"ключ від машини","bd":[]}
+{"sl":"uk","q":"брелок-ключ","main":"key fob","bd":[]}
+{"sl":"en","q":"key fob","main":"брелок для ключів","bd":[]}
+{"sl":"uk","q":"запуск двигуна кнопкою","main":"engine start with a button","bd":[]}
+{"sl":"en","q":"push-button start","main":"кнопковий запуск","bd":[]}
+{"sl":"uk","q":"інформаційно-розважальна система","main":"infotainment system","bd":[]}
+{"sl":"en","q":"infotainment system","main":"інформаційно-розважальна система","bd":[]}
+{"sl":"uk","q":"сенсорний екран","main":"touch screen","bd":[]}
+{"sl":"en","q":"touchscreen","main":"сенсорний екран","bd":[]}
+{"sl":"uk","q":"механічна коробка передач","main":"manual gearbox","bd":[]}
+{"sl":"en","q":"manual transmission","main":"механічна коробка передач","bd":[]}
+{"sl":"uk","q":"автоматична коробка передач","main":"automatic transmission","bd":[]}
+{"sl":"en","q":"automatic transmission","main":"автоматична коробка передач","bd":[]}
+{"sl":"uk","q":"напівавтоматична коробка передач","main":"semi-automatic gearbox","bd":[]}
+{"sl":"en","q":"semi-automatic transmission","main":"напівавтоматична трансмісія","bd":[]}
+{"sl":"uk","q":"безступінчаста трансмісія","main":"continuously variable transmission","bd":[]}
+{"sl":"en","q":"continuously variable transmission","main":"безступінчаста трансмісія","bd":[]}
+{"sl":"uk","q":"роботизована коробка з подвійним зчепленням","main":"robotic box with double clutch","bd":[]}
+{"sl":"en","q":"dual-clutch transmission","main":"трансмісія з подвійним зчепленням","bd":[]}
+{"sl":"uk","q":"перша передача","main":"first gear","bd":[]}
+{"sl":"en","q":"first gear","main":"перша передача","bd":[]}
+{"sl":"uk","q":"диск зчеплення","main":"clutch disc","bd":[]}
+{"sl":"en","q":"clutch disc","main":"диск зчеплення","bd":[]}
+{"sl":"uk","q":"маховик","main":"flywheel","bd":[["noun",["flywheel"]]]}
+{"sl":"en","q":"flywheel","main":"маховик","bd":[["noun",["гончак","маховик"]]]}
+{"sl":"uk","q":"силова передача","main":"power transmission","bd":[]}
+{"sl":"en","q":"drivetrain","main":"трансмісія","bd":[]}
+{"sl":"uk","q":"карданний вал","main":"cardan shaft","bd":[]}
+{"sl":"en","q":"driveshaft","main":"карданний вал","bd":[]}
+{"sl":"uk","q":"піввісь","main":"semiaxis","bd":[["noun",["semiaxis","axle"]]]}
+{"sl":"en","q":"axle shaft","main":"півосі","bd":[]}
+{"sl":"uk","q":"ШРУС","main":"SHRUS","bd":[]}
+{"sl":"en","q":"CV joint","main":"ШРУС","bd":[]}
+{"sl":"uk","q":"диференціал","main":"differential","bd":[["noun",["differential"]]]}
+{"sl":"en","q":"differential","main":"диференціал","bd":[["adjective",["відмітний","диференціальний","різничковий","характерний"]],["noun",["диференціал"]]]}
+{"sl":"uk","q":"передній привід","main":"front wheel drive","bd":[]}
+{"sl":"en","q":"front-wheel drive","main":"передній привід","bd":[]}
+{"sl":"uk","q":"задній привід","main":"rear wheel drive","bd":[]}
+{"sl":"en","q":"rear-wheel drive","main":"задній привід","bd":[]}
+{"sl":"uk","q":"повний привід","main":"all-wheel drive","bd":[]}
+{"sl":"en","q":"all-wheel drive","main":"повний привід","bd":[]}
+{"sl":"uk","q":"повний привід 4х4","main":"four-wheel drive 4x4","bd":[]}
+{"sl":"en","q":"four-wheel drive","main":"повний привід","bd":[]}
+{"sl":"uk","q":"передавальне число","main":"gear ratio","bd":[]}
+{"sl":"en","q":"gear ratio","main":"передавальне число","bd":[]}
+{"sl":"uk","q":"перемикати передачу","main":"shift gear","bd":[]}
+{"sl":"en","q":"to change gear","main":"перемикати передачу","bd":[]}
+{"sl":"uk","q":"вимірювальний прилад","main":"gauge","bd":[["noun",["gauge"]]]}
+{"sl":"en","q":"gauge","main":"калібр","bd":[["noun",["вимірювальний прилад","калібр","масштаб","міра"]],["verb",["вимірювати","калібрувати"]]]}
+{"sl":"uk","q":"двигун внутрішнього згоряння","main":"internal combustion engine","bd":[]}
+{"sl":"en","q":"internal combustion engine","main":"двигун внутрішнього згоряння","bd":[]}
+{"sl":"uk","q":"моторний відсік","main":"engine compartment","bd":[]}
+{"sl":"en","q":"engine bay","main":"моторний відсік","bd":[]}
+{"sl":"uk","q":"блок циліндрів","main":"cylinder block","bd":[]}
+{"sl":"en","q":"engine block","main":"блок двигуна","bd":[]}
+{"sl":"uk","q":"поршень","main":"piston","bd":[["noun",["piston","forcer"]]]}
+{"sl":"en","q":"piston","main":"поршень","bd":[["noun",["пістон","поршень"]]]}
+{"sl":"uk","q":"головка блока циліндрів","main":"cylinder head","bd":[]}
+{"sl":"en","q":"cylinder head","main":"головка блоку циліндрів","bd":[]}
+{"sl":"uk","q":"прокладка головки блока","main":"block head gasket","bd":[]}
+{"sl":"en","q":"head gasket","main":"прокладка головки","bd":[]}
+{"sl":"uk","q":"колінчастий вал","main":"crankshaft","bd":[["noun",["crankshaft"]]]}
+{"sl":"en","q":"crankshaft","main":"колінчастий вал","bd":[["noun",["колінчастий вал"]]]}
+{"sl":"uk","q":"розподільний вал","main":"camshaft","bd":[]}
+{"sl":"en","q":"camshaft","main":"розподільний вал","bd":[]}
+{"sl":"uk","q":"ремінь ГРМ","main":"timing belt","bd":[]}
+{"sl":"en","q":"timing belt","main":"ремінь ГРМ","bd":[]}
+{"sl":"uk","q":"ланцюг ГРМ","main":"timing chain","bd":[]}
+{"sl":"en","q":"timing chain","main":"ланцюг ГРМ","bd":[]}
+{"sl":"uk","q":"свічка запалювання","main":"spark plug","bd":[]}
+{"sl":"en","q":"spark plug","main":"свічка запалювання","bd":[]}
+{"sl":"uk","q":"свічка розжарювання","main":"glow plug","bd":[]}
+{"sl":"en","q":"glow plug","main":"свічка розжарювання","bd":[]}
+{"sl":"uk","q":"котушка запалювання","main":"ignition coil","bd":[]}
+{"sl":"en","q":"ignition coil","main":"котушка запалювання","bd":[]}
+{"sl":"uk","q":"повітряний фільтр","main":"air filter","bd":[]}
+{"sl":"en","q":"air filter","main":"повітряний фільтр","bd":[]}
+{"sl":"uk","q":"масляний фільтр","main":"oil filter","bd":[]}
+{"sl":"en","q":"oil filter","main":"масляний фільтр","bd":[]}
+{"sl":"uk","q":"паливний фільтр","main":"fuel filter","bd":[]}
+{"sl":"en","q":"fuel filter","main":"паливний фільтр","bd":[]}
+{"sl":"uk","q":"моторна олива","main":"motor oil","bd":[]}
+{"sl":"en","q":"engine oil","main":"моторне масло","bd":[]}
+{"sl":"uk","q":"рівень оливи","main":"oil level","bd":[]}
+{"sl":"en","q":"oil level","main":"рівень масла","bd":[]}
+{"sl":"uk","q":"масляний піддон","main":"oil pan","bd":[]}
+{"sl":"en","q":"oil pan","main":"масляний піддон","bd":[["noun",["піддон картера двигуна"]]]}
+{"sl":"uk","q":"охолоджувальна рідина","main":"coolant","bd":[]}
+{"sl":"en","q":"coolant","main":"теплоносій","bd":[]}
+{"sl":"uk","q":"кришка радіатора","main":"radiator cap","bd":[]}
+{"sl":"en","q":"radiator cap","main":"кришка радіатора","bd":[]}
+{"sl":"uk","q":"вентилятор охолодження","main":"cooling fan","bd":[]}
+{"sl":"en","q":"cooling fan","main":"вентилятор охолодження","bd":[]}
+{"sl":"uk","q":"водяний насос","main":"water pump","bd":[]}
+{"sl":"en","q":"water pump","main":"водяний насос","bd":[]}
+{"sl":"uk","q":"паливний насос","main":"fuel pump","bd":[]}
+{"sl":"en","q":"fuel pump","main":"паливний насос","bd":[]}
+{"sl":"uk","q":"паливна форсунка","main":"fuel injector","bd":[]}
+{"sl":"en","q":"fuel injector","main":"паливний інжектор","bd":[]}
+{"sl":"uk","q":"упорскування пального","main":"fuel injection","bd":[]}
+{"sl":"en","q":"fuel injection","main":"впорскування палива","bd":[]}
+{"sl":"uk","q":"карбюратор","main":"carburettor","bd":[["noun",["carburettor"]]]}
+{"sl":"en","q":"carburetor","main":"карбюратор","bd":[]}
+{"sl":"uk","q":"турбокомпресор","main":"turbocharger","bd":[]}
+{"sl":"en","q":"turbocharger","main":"турбокомпресор","bd":[]}
+{"sl":"uk","q":"механічний нагнітач","main":"mechanical supercharger","bd":[]}
+{"sl":"en","q":"supercharger","main":"нагнітач","bd":[["noun",["компресор наддування","нагнітач"]]]}
+{"sl":"uk","q":"кінська сила","main":"horsepower","bd":[["noun",["horsepower"]]]}
+{"sl":"en","q":"horsepower","main":"кінських сил","bd":[["noun",["кінний привод","кінська сила"]]]}
+{"sl":"uk","q":"крутний момент","main":"torque","bd":[]}
+{"sl":"en","q":"torque","main":"крутний момент","bd":[["noun",["кручений металевий браслет"]]]}
+{"sl":"uk","q":"робочий об'єм двигуна","main":"working volume of the engine","bd":[]}
+{"sl":"en","q":"engine displacement","main":"об'єм двигуна","bd":[]}
+{"sl":"uk","q":"оберти за хвилину","main":"revolutions per minute","bd":[]}
+{"sl":"en","q":"RPM","main":"RPM","bd":[]}
+{"sl":"uk","q":"вихлопна система","main":"exhaust system","bd":[]}
+{"sl":"en","q":"exhaust system","main":"вихлопна система","bd":[]}
+{"sl":"uk","q":"вихлопна труба","main":"exhaust","bd":[["noun",["exhaust"]]]}
+{"sl":"en","q":"exhaust pipe","main":"вихлопна труба","bd":[]}
+{"sl":"uk","q":"каталітичний нейтралізатор","main":"catalytic converter","bd":[]}
+{"sl":"en","q":"catalytic converter","main":"каталітичний нейтралізатор","bd":[]}
+{"sl":"uk","q":"вихлопні гази","main":"exhaust gases","bd":[]}
+{"sl":"en","q":"exhaust fumes","main":"вихлопні гази","bd":[]}
+{"sl":"uk","q":"дизельне пальне","main":"diesel","bd":[["noun",["diesel"]]]}
+{"sl":"en","q":"diesel fuel","main":"дизельне паливо","bd":[]}
+{"sl":"uk","q":"витрата пального","main":"fuel consumption","bd":[]}
+{"sl":"en","q":"fuel consumption","main":"витрата палива","bd":[]}
+{"sl":"uk","q":"пробіг","main":"run","bd":[["noun",["run","race"]]]}
+{"sl":"en","q":"mileage","main":"пробіг","bd":[["noun",["кілометраж","відстань у милях"]]]}
+{"sl":"uk","q":"перегріватися","main":"overheat","bd":[["verb",["overheat","become overheat"]]]}
+{"sl":"en","q":"to overheat","main":"перегріватися","bd":[["verb",["перегрівати","перегріватися","пережарювати","пережарюватися"]]]}
+{"sl":"uk","q":"світитися","main":"glow","bd":[["verb",["glow","shine","lighten","gleam","phosphoresce","stream"]]]}
+{"sl":"en","q":"to glow","main":"світитися","bd":[["verb",["жевріти","згоріти","світитися","згоряти","розжарюватися"]]]}
+{"sl":"uk","q":"котушка дроту","main":"coil of wire","bd":[]}
+{"sl":"en","q":"coil","main":"котушка","bd":[["noun",["змійовик","обруч","кільце","котушка"]],["verb",["намотати","намотувати","обвиватися"]]]}
+{"sl":"uk","q":"витіснення","main":"displacement","bd":[["noun",["extrusion"]]]}
+{"sl":"en","q":"displacement","main":"переміщення","bd":[["noun",["зміщення","переміщення","пересування"]]]}
+{"sl":"uk","q":"випари","main":"fumes","bd":[["noun",["evaporation","vapor","exhalation","steam","steaming","vapour"]]]}
+{"sl":"en","q":"fumes","main":"дим","bd":[["noun",["чад"]]]}
+{"sl":"uk","q":"прокладка ущільнювальна","main":"sealing gasket","bd":[]}
+{"sl":"en","q":"gasket","main":"прокладка","bd":[["noun",["прокладка"]]]}
+{"sl":"uk","q":"вихлоп","main":"exhaust","bd":[["noun",["exhaust","expulsion"]]]}
+{"sl":"en","q":"exhaust","main":"вихлоп","bd":[["noun",["вихлоп","вихлопна труба"]],["verb",["винужати","вичерпати","виснажувати","вичерпувати","відпрацювати","зморювати","змучити","маніжити"]]]}
+{"sl":"uk","q":"гальмівна система","main":"braking system","bd":[]}
+{"sl":"en","q":"braking system","main":"гальмівна система","bd":[]}
+{"sl":"uk","q":"гальмівна колодка","main":"brake pad","bd":[]}
+{"sl":"en","q":"brake pad","main":"гальмівна колодка","bd":[]}
+{"sl":"uk","q":"гальмівний диск","main":"brake disc","bd":[]}
+{"sl":"en","q":"brake disc","main":"гальмівний диск","bd":[]}
+{"sl":"uk","q":"гальмівний барабан","main":"brake drum","bd":[]}
+{"sl":"en","q":"brake drum","main":"гальмівний барабан","bd":[]}
+{"sl":"uk","q":"гальмівна рідина","main":"brake fluid","bd":[]}
+{"sl":"en","q":"brake fluid","main":"гальмівна рідина","bd":[]}
+{"sl":"uk","q":"гальмівна магістраль","main":"brake line","bd":[]}
+{"sl":"en","q":"brake line","main":"гальмівна магістраль","bd":[]}
+{"sl":"uk","q":"антиблокувальна система гальм","main":"anti-lock braking system","bd":[]}
+{"sl":"en","q":"anti-lock braking system","main":"антиблокувальна система гальм","bd":[]}
+{"sl":"uk","q":"гальмівний шлях","main":"braking distance","bd":[]}
+{"sl":"en","q":"braking distance","main":"гальмівний шлях","bd":[]}
+{"sl":"uk","q":"зупинний шлях","main":"stopping way","bd":[]}
+{"sl":"en","q":"stopping distance","main":"гальмівний шлях","bd":[]}
+{"sl":"uk","q":"кермове керування","main":"steering control","bd":[]}
+{"sl":"en","q":"steering","main":"рульове керування","bd":[["noun",["керованість","наведення","пілотування","руління","управління рулем"]]]}
+{"sl":"uk","q":"кермова система","main":"steering system","bd":[]}
+{"sl":"en","q":"steering system","main":"система рульового управління","bd":[]}
+{"sl":"uk","q":"підсилювач керма","main":"power steering","bd":[]}
+{"sl":"en","q":"power steering","main":"гідропідсилювач керма","bd":[]}
+{"sl":"uk","q":"кермова рейка","main":"steering rack","bd":[]}
+{"sl":"en","q":"steering rack","main":"рульова рейка","bd":[]}
+{"sl":"uk","q":"кермова тяга","main":"steering thrust","bd":[]}
+{"sl":"en","q":"tie rod","main":"рульова тяга","bd":[]}
+{"sl":"uk","q":"розвал-сходження","main":"camber-ascent","bd":[]}
+{"sl":"en","q":"wheel alignment","main":"розвал коліс","bd":[]}
+{"sl":"uk","q":"радіус розвороту","main":"turning radius","bd":[]}
+{"sl":"en","q":"turning circle","main":"коло повороту","bd":[]}
+{"sl":"uk","q":"амортизатор","main":"shock absorber","bd":[["noun",["shock absorber","snubber","damper","buffer","air cushion"]]]}
+{"sl":"en","q":"shock absorber","main":"амортизатор","bd":[["noun",["амортизатор"]]]}
+{"sl":"uk","q":"амортизаційна стійка","main":"shock absorber","bd":[]}
+{"sl":"en","q":"strut","main":"стійка","bd":[["noun",["бундючна хода","стояк"]],["verb",["ходити з бундючним виглядом","красуватися","підпирати"]]]}
+{"sl":"uk","q":"пружина підвіски","main":"suspension spring","bd":[]}
+{"sl":"en","q":"coil spring","main":"спіральна пружина","bd":[]}
+{"sl":"uk","q":"листова ресора","main":"leaf spring","bd":[]}
+{"sl":"en","q":"leaf spring","main":"листова пружина","bd":[]}
+{"sl":"uk","q":"важіль підвіски","main":"suspension lever","bd":[]}
+{"sl":"en","q":"control arm","main":"важіль керування","bd":[]}
+{"sl":"uk","q":"кульова опора","main":"ball bearing","bd":[]}
+{"sl":"en","q":"ball joint","main":"кульовий шарнір","bd":[]}
+{"sl":"uk","q":"стабілізатор поперечної стійкості","main":"stabilizer bar","bd":[]}
+{"sl":"en","q":"stabilizer bar","main":"стійка стабілізатора","bd":[]}
+{"sl":"uk","q":"ступичний підшипник","main":"hub bearing","bd":[]}
+{"sl":"en","q":"wheel bearing","main":"підшипник колеса","bd":[]}
+{"sl":"uk","q":"плавність ходу","main":"smoothness of movement","bd":[]}
+{"sl":"en","q":"ride quality","main":"ходові якості","bd":[]}
+{"sl":"uk","q":"керованість автомобіля","main":"car controllability","bd":[]}
+{"sl":"en","q":"handling","main":"поводження","bd":[["noun",["користування","володіння м'ячем","поводження"]]]}
+{"sl":"uk","q":"крен кузова","main":"body roll","bd":[]}
+{"sl":"en","q":"body roll","main":"крен тіла","bd":[]}
+{"sl":"uk","q":"недостатня повертальність","main":"insufficient returnability","bd":[]}
+{"sl":"en","q":"understeer","main":"недостатня керованість","bd":[]}
+{"sl":"uk","q":"надмірна повертальність","main":"excessive turnover","bd":[]}
+{"sl":"en","q":"oversteer","main":"надмірна поворотність","bd":[]}
+{"sl":"uk","q":"зчеплення коліс із дорогою","main":"traction of the wheels with the road","bd":[]}
+{"sl":"en","q":"traction","main":"тяги","bd":[["noun",["волочіння","притягальна сила","тяга"]]]}
+{"sl":"uk","q":"легкосплавний диск","main":"alloy disc","bd":[]}
