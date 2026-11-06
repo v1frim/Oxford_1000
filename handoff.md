@@ -3304,7 +3304,7 @@ EN→EN і `setMode`.
      `ua` (на «очікувати» з картки expect зараховує await), але НЕ їхні `enAlt` — «wait for» проходить лише на монстрі з
      картки `to await`. Чекає рішення користувача.
   6. **🕒 «Рекорди за період» — ПІДСУМОК ПОХОДІВ під пунктиром** (`questPeriodTotalHtml`, кінець `renderTabPeriod`, рядок
-     `li.lb-gap-total.lb-q-total`): «Усього за період:» монстри за видом (сума `questKills` усіх походів періоду, не лише топ-10)
+     `li.lb-gap-total.lb-q-total`): «Разом:» монстри за видом (сума `questKills` усіх походів періоду, не лише топ-10)
      + 🦉/📚/💬 з журналу походів (`duo`/`lh`/`phr` — лише пройдене В ПОХОДАХ, як значки в рядках). Без походів — рядка нема.
   5. **Запуск браузерних тестів у хмарі:** `PW_CORE=playwright PW_CHROME=/opt/pw-browsers/chromium node test-sched.js`
      (`playwright-core` не встановлено; автопошук `exe()` бере `chromium-1243/chrome-linux/chrome`, якого немає).

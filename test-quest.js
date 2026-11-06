@@ -192,7 +192,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   // сесія 65: чипс «За весь час» прибрано; похід у будь-якому списку — «⚔️ · дата», без «· 14.0k»
   const rowW = await p.evaluate(() => { lbActiveTab = "period"; lbPeriod = "d7"; renderLeaderboard();
     return { rows: [...document.querySelectorAll("#lb-list li")].map(l => l.className + "|" + l.textContent), sum: document.getElementById("lb-period-chips").textContent }; });
-  t("у 🕒 «Тиждень» похід — у рейтингу (не «ост»), у підсумку «1 похід»", rowW.rows.length === 3 && /^lb-sep\|/.test(rowW.rows[1]) && /lb-q-total\|Усього за період:/.test(rowW.rows[2]) && /⚔️ ·/.test(rowW.rows[0]) && !/\dk\b/.test(rowW.rows[0]) && !/lb-latest/.test(rowW.rows[0]) && /1 похід/.test(rowW.sum), JSON.stringify(rowW));
+  t("у 🕒 «Тиждень» похід — у рейтингу (не «ост»), у підсумку «1 похід»", rowW.rows.length === 3 && /^lb-sep\|/.test(rowW.rows[1]) && /lb-q-total\|Разом:/.test(rowW.rows[2]) && /⚔️ ·/.test(rowW.rows[0]) && !/\dk\b/.test(rowW.rows[0]) && !/lb-latest/.test(rowW.rows[0]) && /1 похід/.test(rowW.sum), JSON.stringify(rowW));
 
   // 4. Обірваний похід: утечений монстр чекає й відкриває НАСТУПНИЙ похід ареною
   await p.click("#quest-btn"); await p.waitForTimeout(200);

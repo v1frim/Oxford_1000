@@ -9483,7 +9483,7 @@ function questPeriodTotalHtml(qGames) {
   const body = (anyK ? questKillsHtml(k) : "") + questSideHtml(side);
   if (!body) return "";
   return '<li class="lb-sep"></li><li class="lb-gap-total lb-q-total" title="усі походи за період: переможені монстри за видом (дорога + арена) і пройдене в походах">' +
-    '<span class="lb-detail">Усього за період:</span>' + body + '</li>';
+    '<span class="lb-detail">Разом:</span>' + body + '</li>';
 }
 function questGames() { return loadGamesLog().filter(g => g.tag === "quest"); }
 function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = Math.floor(sec / 60); return m + ":" + String(sec % 60).padStart(2, "0"); }
