@@ -149,6 +149,7 @@
   .lb-list li.lb-gap .lb-score { color: #ff9d9d; }
   .lb-list li.lb-gap-total { counter-increment: none; background: none !important; justify-content: center; }
   .lb-list li.lb-gap-total::before { content: none; }
+  .lb-list li.lb-q-total { gap: 5px; flex-wrap: wrap; }
   /* Вкладка 🎓 (сесія 43): рядки — рекорди РІЗНИХ пулів (рівнів), а не місця в одному
      рейтингу, тож без медалей і без нумерації; ліворуч — шапочка. ⚠️ Правила стоять ДО
      .lb-today/.lb-latest::before, щоб ті рядки лишили свої «★»/«ост». */
@@ -9415,6 +9416,7 @@ function renderTabPeriod() {
   const at = newest ? games.findIndex(g => g.ts === newest.ts) : -1;
   if (at >= 10) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", at + 1, ctx);
   else if (newest && newest.tag === "quest" && !questsRanked) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", null, ctx);   // похід — без місця
+  html += questPeriodTotalHtml(allGames.filter(g => g.tag === "quest"));
   lbListEl.innerHTML = html;
 }
 
@@ -9463,6 +9465,25 @@ function questKillsHtml(k) {
   const parts = QUEST_KILL_ORDER.filter(L => k[L]).map(L => '<span class="lb-mon" title="' + (L === "none" ? "без рівня" : L) + '">' + questMonsterSvg(L) + '</span>' + k[L]);
   // ⚠️ БЕЗ «·» у рядках походу (сесія 65, за запитом «впираємося по місцю»): групи розділяє проміжок flex
   return parts.length ? '<span class="lb-games lb-kills" title="убито монстрів за видом (дорога + арена)">' + parts.join(" ") + '</span>' : "";
+}
+// ⚔️ ПІДСУМОК ПОХОДІВ ПЕРІОДУ (06.11.2026, за запитом): під рискою в 🕒 — скільки за період переможено монстрів
+// кожного виду (дорога + арена) і скільки 🦉 Duolingo / 📚 LingoHut / 💬 фраз пройдено В ПОХОДАХ — сума тих самих
+// значків, що в рядках походів (рахуємо ВСІ походи періоду, не лише топ-10).
+function questPeriodTotalHtml(qGames) {
+  if (!qGames.length) return "";
+  let qlog = []; try { qlog = JSON.parse(localStorage.getItem("oxford_quest_log_v1") || "[]"); } catch (e) {}
+  const k = {}, side = { duo: 0, lh: 0, phr: 0 };
+  let anyK = false;
+  qGames.forEach(g => {
+    const gk = questKills(g, qlog);
+    if (gk) Object.keys(gk).forEach(L => { k[L] = (k[L] || 0) + gk[L]; anyK = true; });
+    const r = qlog.find(x => x.ts === g.ts);
+    if (r) ["duo", "lh", "phr"].forEach(f => { side[f] += r[f] || 0; });
+  });
+  const body = (anyK ? questKillsHtml(k) : "") + questSideHtml(side);
+  if (!body) return "";
+  return '<li class="lb-sep"></li><li class="lb-gap-total lb-q-total" title="усі походи за період: переможені монстри за видом (дорога + арена) і пройдене в походах">' +
+    '<span class="lb-detail">Усього за період:</span>' + body + '</li>';
 }
 function questGames() { return loadGamesLog().filter(g => g.tag === "quest"); }
 function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = Math.floor(sec / 60); return m + ":" + String(sec % 60).padStart(2, "0"); }
