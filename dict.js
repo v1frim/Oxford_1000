@@ -5749,7 +5749,7 @@ const WORDS = [
   {en:"audit",ua:"аудит",uaAlt:["перевірка звітності"]},
   {en:"autonomy",ua:"автономія",uaAlt:["самостійність"]},
   {en:"availability",ua:"доступність",uaAlt:["наявність"]},
-  {en:"to await",ua:"очікувати",uaAlt:["чекати на","дочекатися","чекати"]},
+  {en:"to await",ua:"очікувати",uaAlt:["чекати на","дочекатися","чекати"],enAlt:["wait for"]},
   {en:"backup",ua:"резервна копія",uaAlt:["підтримка","запасний","резервне копіювання"],enAlt:["backup copy"]},
   {en:"ballot",ua:"бюлетень (для голосування)",uaAlt:["бюлетень","голосування"]},
   {en:"barrel",ua:"бочка",uaAlt:["барель","ствол"]},
@@ -25246,7 +25246,9 @@ const TRANS = {
   "it is raining":"/ɪt ɪz ˈreɪ.nɪŋ/","it's raining":"/ɪts ˈreɪ.nɪŋ/","it is snowing":"/ɪt ɪz ˈsnoʊ.ɪŋ/","it's snowing":"/ɪts ˈsnoʊ.ɪŋ/",
   "up to":"/ˈʌp tuː/","drop out of school":"/ˌdrɑːp ˌaʊt əv ˈskuːl/","break in":"/ˌbreɪk ˈɪn/","crop up":"/ˌkrɑːp ˈʌp/",
   "sea shell":"/ˈsiː ˌʃel/","sea horse":"/ˈsiː ˌhɔːrs/","travolator":"/ˈtræv.ə.leɪ.t̬ɚ/","luggage cart":"/ˈlʌɡ.ɪdʒ ˌkɑːrt/",
-  "fax":"/fæks/"
+  "fax":"/fæks/",
+  // ── ipa-add ──
+  "wait for":"/ˈweɪt fɔr/"
 };
 const HINTS = {
   "wonderful": "загальне захоплення",
