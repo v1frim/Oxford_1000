@@ -26,9 +26,9 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("лічильник показів стартує з 0 і росте", h.before === 0 && h.after === 1 && h.stored === "1", JSON.stringify([h.before, h.after, h.stored]));
   t("функції планувальника на місці", h.fns);
-  t("вікно вставки квоти = 5 (гра на 9 слів мусить дійти до квотового)", h.span === 5, String(h.span));
+  t("вікно вставки квоти = 6 (гра на 9 слів мусить дійти до квотового)", h.span === 6, String(h.span));
   t("інтервали: 100-200 / 200-400 / 300-500 / 1500-2500", JSON.stringify(h.iv) === JSON.stringify({wrong:[100,200],s1:[200,400],s2:[300,500],rev:[1500,2500]}), JSON.stringify(h.iv));
-  t("підлога 2 дні, квота 1 старе + 2 нових на гру (сесія 61)", h.floor === 2 && JSON.stringify(h.quota) === "[1,2]", JSON.stringify(h.quota));
+  t("підлога 2 дні, квота 1 старе + 3 нових на гру (06.11.2026)", h.floor === 2 && JSON.stringify(h.quota) === "[1,3]", JSON.stringify(h.quota));
   t("oxford_seen_v1 у BACKUP_KEYS", h.backup);
   t("schedRand тримається меж [100,200] включно", h.rnd.every(v => v >= 100 && v <= 200) && h.rnd.some(v => v === 100 || v === 200) === (h.rnd.length > 0 && (Math.min(...h.rnd) === 100 || Math.max(...h.rnd) === 200)), String(Math.min(...h.rnd)) + ".." + String(Math.max(...h.rnd)));
 
@@ -107,8 +107,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("показане сьогодні — НЕ в черзі", !q.out.includes(16));
   t("показане вчора — НЕ в черзі", !q.out.includes(17));
   t("показане позавчора — у черзі", q.out.includes(18));
-  t("квота: старе «Вивчаю» без розкладу — у перших 5", q.oldInHead, JSON.stringify(q.head));
-  t("квота: ДВА справді нових слова — у перших 5 (сесія 61)", q.freshInHead >= 2, JSON.stringify(q.head));
+  t("квота: старе «Вивчаю» без розкладу — у перших 6", q.oldInHead, JSON.stringify(q.head));
+  t("квота: ТРИ справді нових слова — у перших 6", q.freshInHead >= 3, JSON.stringify(q.head));
   t("черга ≤ 40 і без дублів ключів", q.out.length <= 40 && q.uniq, String(q.out.length));
   t("schedStats: на сьогодні 6 (5 прострочених + позавчорашнє), ревізій 0, у роботі 10 (усі записи зі streak<3)",
     q.stats.due === 6 && q.stats.rev === 0 && q.stats.active === 10, JSON.stringify(q.stats));
@@ -123,7 +123,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     for (let g = 0; g < 8; g++) { const out = buildSchedQueue(pool); runs.push(out.filter(i => i >= 860).length); }
     return { runs, max: Math.max(...runs) };
   });
-  t("поки планів нема, нових у черзі рівно квота — 2 (сесія 61)", quotaOnly.max === 2 && quotaOnly.runs.every(n => n === 2), JSON.stringify(quotaOnly.runs));
+  t("поки планів нема, нових у черзі рівно квота — 3", quotaOnly.max === 3 && quotaOnly.runs.every(n => n === 3), JSON.stringify(quotaOnly.runs));
 
   // 7c. ⚠️ СТРЕС: усі квотові слова ЩОРАЗУ в перших SCHED_QUOTA_SPAN позиціях (сесія 61).
   // Одиночна перевірка вище ловила зсув квоти лише через раз: наступна вставка штовхала
@@ -148,8 +148,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     }
     return { bad, worstPos, freshWrong };
   });
-  t("300 черг: 1 старе + 2 нових ЩОРАЗУ в перших 5 позиціях", stress.bad === 0, JSON.stringify(stress));
-  t("300 черг: нових рівно 2, не більше й не менше", stress.freshWrong === 0, JSON.stringify(stress));
+  t("300 черг: 1 старе + 3 нових ЩОРАЗУ в перших 6 позиціях", stress.bad === 0, JSON.stringify(stress));
+  t("300 черг: нових рівно 3, не більше й не менше", stress.freshWrong === 0, JSON.stringify(stress));
 
   // 8. найзатриманіші першими: 60 прострочених, черга 30 → беруться 30 найдавніших
   const late = await p.evaluate(() => {
@@ -278,7 +278,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
     const r = { len: shuffledIndices.length, ok: seq.every(i => typeof i === "number" && WORDS[i]) };
     endGame(true); return r;
   });
-  t("живий прогін 21 слова без помилок; черга = 30 + 3 квотові", live.ok && live.len === 33, JSON.stringify(live));
+  t("живий прогін 21 слова без помилок; черга = 30 + 4 квотові (1+3)", live.ok && live.len === 34, JSON.stringify(live));
 
   // ── ДВОБІЧНЕ ЗНАННЯ (сесія 61): 2 правильні в ОДНОМУ напрямку → 3-й показ у ІНШОМУ ──
   const dir = await p.evaluate(() => {
