@@ -13036,7 +13036,7 @@ function qFeedRaw(label, items) {
   Q.feed.unshift(e); Q.feedCur = null;
   qFeed(null, [], "redraw");
 }
-function qFeed(idx, items, kind) {
+function qFeed(idx, items, kind, word) {
   if (!Q) return;
   let e;
   if (kind === "redraw") e = Q.feed[0];
@@ -13048,7 +13048,12 @@ function qFeed(idx, items, kind) {
     e.items = [{ v: 2 * e.kills, l: "добито " + e.kills }];
     items = [];
     qXpBy("arena", ARENA_KILL_XP);
-  } else { const W = WORDS[idx]; e = Q.feedCur = { w: getEn(W)[0], items: [] }; e.say = e.w;
+  } else { const W = WORDS[idx];
+    // ⚠️ word — ЯК САМЕ відповів (06.11.2026, скарга: ввів «garbage can», а в стрічці «dustbin» — головне слово
+    // картки, про яке й не згадував). Показуємо прийняту англ. альтернативу картки, у її канонічному написанні.
+    const typed = word ? word.toLowerCase().replace(/^to\s+/, "").trim() : "";
+    const alt = typed && getEn(W).concat(W.enAlt || []).find(x => x.toLowerCase().replace(/^to\s+/, "").trim() === typed);
+    e = Q.feedCur = { w: alt || getEn(W)[0], items: [] }; e.say = e.w;
     // 🔍 ховер (04.11.2026, за запитом): переклади САМЕ цієї картки + транскрипція — як .hw на картках
     e.tr = [...new Set(getUa(W).concat(W.uaAlt || []))].join(", "); e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
     Q.feed.unshift(e); }
@@ -13347,7 +13352,7 @@ function qFightAnswer(val, auto) {
     qSayWon(c.idx, val, c.dir);
     // ⚠️ у стрічці — картка, ЯКУ ЗАРАХОВАНО (`t`), а не картка монстра (04.11.2026, скарга: на «піднімати» відповів
     // raise, а в стрічці стояло lift). Mastery й бонус «у Знаю» теж ідуть на `t`, тож так і чесніше.
-    qFeed(t, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight");
+    qFeed(t, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.dir === "ua-en" ? val : "");
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
     qHero("strike face-" + Q.side);
@@ -14192,7 +14197,7 @@ document.addEventListener("keydown", e => {
     // ⚠️ currentShown, а НЕ Q.cur.shown: у повторенні напрямок міняється, і Q.cur.shown лишався
     // українським промптом бою — Tab озвучував українське слово (скарга користувача)
     else if (mode === "en-ua" && (Q.phase === "fight" || Q.phase === "drill" || Q.phase === "arena")) speak(currentShown);
-    else if (Q.lastEn && (Q.phase === "walk" || Q.phase === "kill")) speak(Q.lastEn);   // 🔊 повтор щойно переможеного слова
+    else if (Q.lastEn && (Q.phase === "walk" || Q.phase === "kill" || Q.phase === "flee")) speak(Q.lastEn);   // 🔊 повтор щойно переможеного / підівченого (утеча — 06.11.2026: Tab там мовчав)
   } else if (e.key === " " && Q.phase === "phrase") {
     e.preventDefault();                            // 💬 фраза: Пробіл — показати / «ще вчу» (як у тренажері карток)
     Q.phrase.open ? qPhraseRate("learning") : qPhraseOpen();
