@@ -8320,7 +8320,7 @@ const WORDS = [
   {en:"beachwear",ua:"пляжний одяг"},
   {en:"wetsuit",ua:"гідрокостюм",enAlt:["diving suit"]},
   {en:"ankle boots",ua:"ботильйони",uaAlt:["черевики до щиколотки","черевики по щиколотку"]},
-  {en:"knee-high boots",ua:"чоботи до коліна",uaAlt:["високі чоботи"]},
+  {en:"knee-high boots",ua:"чоботи до коліна",uaAlt:["високі чоботи","чоботи до колін"]},
   {en:"winter boots",ua:"зимові чоботи",uaAlt:["зимові черевики"]},
   {en:"hiking boots",ua:"туристичні черевики",uaAlt:["трекінгові черевики","туристичне взуття"]},
   {en:"work boots",ua:"робочі черевики",uaAlt:["робочі чоботи"]},
