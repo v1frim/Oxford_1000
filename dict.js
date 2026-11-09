@@ -1265,7 +1265,7 @@ const WORDS = [
   {en:"stunning",ua:"приголомшливий",uaAlt:["вражаючий","чудовий"]},
   {en:"sturdy",ua:"міцний",uaAlt:["витривалий","кремезний"],enAlt:["solid"]},
   {en:"subtract",ua:"віднімати",uaAlt:["відняти"]},
-  {en:"succeed",ua:"досягати успіху",uaAlt:["успадковувати","вдаватися","досягти успіху","домогтися успіху","мати успіх","вдатися","успадкувати"]},
+  {en:"succeed",ua:"досягати успіху",uaAlt:["успадковувати","вдаватися","досягти успіху","домогтися успіху","мати успіх","вдатися","успадкувати"],enAlt:["achieve success"]},
   {en:"sunrise",ua:"схід сонця",uaAlt:["світанок","схід"]},
   {en:"sunscreen",ua:"сонцезахисний крем",enAlt:["sun cream","sunblock"]},
   {en:"sunset",ua:"захід сонця",uaAlt:["сутінки","смеркання"]},
@@ -25248,7 +25248,9 @@ const TRANS = {
   "sea shell":"/ˈsiː ˌʃel/","sea horse":"/ˈsiː ˌhɔːrs/","travolator":"/ˈtræv.ə.leɪ.t̬ɚ/","luggage cart":"/ˈlʌɡ.ɪdʒ ˌkɑːrt/",
   "fax":"/fæks/",
   // ── ipa-add ──
-  "wait for":"/ˈweɪt fɔr/"
+  "wait for":"/ˈweɪt fɔr/",
+  // ── ipa-add ──
+  "achieve success":"/əˈtʃiv səkˈsɛs/"
 };
 const HINTS = {
   "wonderful": "загальне захоплення",
