@@ -416,7 +416,7 @@ const WORDS = [
   {en:"carefully",ua:"обережно",uaAlt:["уважно","ретельно"]},{en:"easily",ua:"легко"},{en:"well",ua:"добре",uaAlt:["ну","що ж"]},
   {en:"badly",ua:"погано",uaAlt:["сильно"]},{en:"loudly",ua:"голосно",uaAlt:["гучно"]},{en:"quietly",ua:"тихо"},
   {en:"suddenly",ua:"раптово",uaAlt:["раптом"]},{en:"finally",ua:"нарешті",uaAlt:["врешті","зрештою"]},{en:"together",ua:"разом"},
-  {en:"alone",ua:["один","сам","самотній"],uaAlt:["поодинці"]},{en:"simply",ua:"просто"},{en:"exactly",ua:"точно",uaAlt:["саме"]},
+  {en:"alone",ua:["один","сам","самотній"],uaAlt:["поодинці"]},{en:"simply",ua:"просто"},{en:"exactly",ua:"точно",uaAlt:["саме","саме так","якраз","рівно"]},
   {en:"recently",ua:"нещодавно",uaAlt:["останнім часом","недавно"]},{en:"clearly",ua:"чітко",uaAlt:["ясно","зрозуміло"]},{en:"deeply",ua:"глибоко"},
   {en:"strongly",ua:"сильно",uaAlt:["категорично","рішуче"]},{en:"especially",ua:"особливо",uaAlt:["надто","зокрема"]},{en:"mostly",ua:"переважно",uaAlt:["здебільшого","в основному"],enAlt:["mainly"]},
   {en:"however",ua:"однак",uaAlt:["проте","втім","хоча"]},{en:"therefore",ua:"тому",uaAlt:["отже","відтак"]},{en:"instead",ua:"натомість",uaAlt:["замість того","замість цього","замість"]},
