@@ -214,7 +214,7 @@
   #lb-today-strip li::before { content: attr(data-rank) "."; font-size: 12px; opacity: 0.7; }
   #lb-today-strip li:not([data-rank])::before { content: "–"; }
   /* похід у «ост. гра» клікабельний — підсвітка всього рядка, як у ⚔️ (.q-row:hover); !important — бо вище transparent !important */
-  #lb-today-strip li[data-qts] { cursor: pointer; border-radius: 8px; } #lb-today-strip li[data-qts]:hover { background: rgba(255,209,102,.07) !important; }
+  #lb-today-strip li[data-qts], .lb-list li[data-qts] { cursor: pointer; border-radius: 8px; } #lb-today-strip li[data-qts]:hover, .lb-list li[data-qts]:hover { background: rgba(255,209,102,.07) !important; }
   /* Сесія 65: два рядки — «ост. гра» і «за день»; підпис фіксованої ширини, щоб числа стояли в колонку */
   #lb-today-strip li + li { border-top: 1px dashed rgba(255,255,255,0.12); }
   #lb-today-strip .lb-strip-cap { flex: 0 0 auto; width: 52px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.55; white-space: nowrap; }
@@ -9444,7 +9444,11 @@ function renderTabPeriod() {
   // у межах періоду, а не спільний топ, з якого CEFR свідомо виключений (сесія 42).
   const ctx = { latest: loadLatest(), today: todayKey(),
                 rankAnyPool: true, rankTitle: "місце за цей період" };
-  let html = games.slice(0, 10).map(g => renderGameRow(g, "", null, ctx)).join("");
+  // ⚔️ рядок походу — клікабельний, як у чипсі «Походи» (12.11.2026, за запитом: «результати походів можу
+  // глянути лише у "Походи", а у "Тиждень" і "Місяць" — ні»). Клік ловить спільний обробник lbListEl.
+  const row = (g, cls, rank) => { const h = renderGameRow(g, cls, rank, ctx);
+    return g.tag === "quest" ? h.replace("<li ", '<li data-qts="' + g.ts + '" ') : h; };
+  let html = games.slice(0, 10).map(g => row(g, "", null)).join("");
   // ⚠️ ОСТАННЯ ГРА ПЕРІОДУ — окремим рядком під рискою (сесія 51, за запитом: «останній
   // результат у рекордах за період також варто показувати, як це у інших категоріях»).
   // Патерн 1-в-1 як у «Найкращих іграх»: якщо гра вже в топі — вона просто підсвічена
@@ -9452,8 +9456,8 @@ function renderTabPeriod() {
   // Номер місця — саме в межах періоду, тому беремо позицію у ВЖЕ відсортованому списку.
   const newest = allGames.reduce((a, g) => (!a || g.ts > a.ts ? g : a), null);
   const at = newest ? games.findIndex(g => g.ts === newest.ts) : -1;
-  if (at >= 10) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", at + 1, ctx);
-  else if (newest && newest.tag === "quest" && !questsRanked) html += '<li class="lb-sep"></li>' + renderGameRow(newest, "lb-latest", null, ctx);   // похід — без місця
+  if (at >= 10) html += '<li class="lb-sep"></li>' + row(newest, "lb-latest", at + 1);
+  else if (newest && newest.tag === "quest" && !questsRanked) html += '<li class="lb-sep"></li>' + row(newest, "lb-latest", null);   // похід — без місця
   html += questPeriodTotalHtml(allGames.filter(g => g.tag === "quest"));
   lbListEl.innerHTML = html;
 }
@@ -14028,9 +14032,10 @@ document.addEventListener("keydown", e => {   // capture: Enter позаду н�
   if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); closeQuestRecord(); }
 }, true);
 lbListEl.addEventListener("click", e => {
-  if (!(lbActiveTab === "period" && lbPeriod === "quests")) return;   // ⚔️ походи — чипс вкладки period (сесія 65)
-  const li = e.target.closest("li[data-ts]");
-  if (li) openQuestRecord(Number(li.dataset.ts));
+  if (lbActiveTab !== "period") return;
+  // ⚔️ чипс «Походи» — li[data-ts] (renderQuestRow); «Тиждень»/«Місяць» — li[data-qts] лише на рядках походів
+  const li = lbPeriod === "quests" ? e.target.closest("li[data-ts]") : e.target.closest("li[data-qts]");
+  if (li) openQuestRecord(Number(li.dataset.ts || li.dataset.qts));
 });
 // Смужка під лідербордом: клік по «ост. гра»-походу → той самий результат, що у ⚔️ (сесія 65, за запитом)
 document.getElementById("lb-today-strip").addEventListener("click", e => {
