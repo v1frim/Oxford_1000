@@ -9202,7 +9202,7 @@ const WORDS = [
   {en:"long-distance relationship",ua:"стосунки на відстані",uaAlt:["стосунки на дистанції","роман на відстані","відносини на відстані"]},
   {en:"open relationship",ua:"відкриті стосунки",uaAlt:["вільні стосунки","стосунки без ексклюзивності"]},
   {en:"same-sex couple",ua:"одностатева пара",uaAlt:["пара однієї статі","гей-пара"]},
-  {en:"significant other",ua:"кохана людина",uaAlt:["партнер"],enAlt:["loved one"]},
+  {en:"significant other",ua:"кохана людина",uaAlt:["партнер","друга половина","друга половинка","половинка","партнерка"],enAlt:["loved one"]},
   {en:"ex",ua:"колишній партнер",enAlt:["former partner"]},
   {en:"compatibility",ua:"сумісність"},
   {en:"mutual respect",ua:"взаємна повага",uaAlt:["взаємоповага"]},
