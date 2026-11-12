@@ -13652,12 +13652,16 @@ function questStop() {
   if (!Q || Q.stage !== "road") return;
   clearTimeout(Q.timer);
   Q.stage = "pause";
+  // ⚠️ ФАЗУ СКИДАЄМО (12.11.2026, скарга «гра зависла і не дає монстрів з арени»): стара фаза (offer —
+  // пропозиція Duolingo/LingoHut, phrase, study, arenaStudy) лишалась, і Enter на привалі йшов у її гілку
+  // `qEnter` — напр. qSideSkip ховав картку привалу, а дорога вже стояла → порожній екран без поля вводу.
   Q.speedTo = 0;
   qT("pause");
   questOverlay.classList.add("q-noinput");
   qHero("");
   if (Q.mon && Q.phase === "fight") Q.mon.remove();   // недобитий монстр без відповіді — просто зникає
   else if (Q.mon) { const w = Q.mon.querySelector(".qm-word"); if (w) w.textContent = ""; }   // стоп посеред повторення — без бульбашки над привалом
+  Q.phase = "pause"; Q.sideQ = null; Q.phrase = null;
   qSetInput(false);
   const fled = qArenaPending();   // і з цього походу, і недобиті з попередніх
   Q.arenaPool = fled;
@@ -14275,13 +14279,14 @@ function questClose(again) {
 }
 function qEnter() {
   if (!Q) return;
+  // привал і фінал — ПЕРШИМИ: стадія важливіша за фазу (див. questStop)
+  if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart(false) : questFinal(); return; }
+  if (Q.stage === "final") { questClose(false); return; }
   if (Q.phase === "study") { qDrillStart(); return; }
   if (Q.phase === "arenaStudy") { qArenaStudyDone(); return; }
   if (Q.phase === "phrase") { Q.phrase.open ? qPhraseRate("learned") : qPhraseOpen(); return; }
   if (Q.phase === "offer") { qSideSkip(); return; }
   if (Q.phase === "side") { qSideDone(); return; }
-  if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart(false) : questFinal(); return; }
-  if (Q.stage === "final") { questClose(false); return; }
   if (!qAnswerEl.disabled) qOnAnswer(qAnswerEl.value, false);
 }
 qAnswerEl.addEventListener("input", () => { if (Q && !qAnswerEl.disabled && qAnswerEl.value.trim()) qOnAnswer(qAnswerEl.value, true); });
