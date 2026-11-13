@@ -1740,6 +1740,9 @@
   /* повторення слова зі «Знаю» (streak ≥ 3) — зелена рамка, як фіолетова в екстра (06.11.2026, за запитом) */
   .q-mon.known .qm-word::before { content: "✓ "; color: #7fdd40; }
   .q-mon.known .qm-word { border-color: #7fdd40; box-shadow: 0 0 18px rgba(127,221,64,.5), 0 6px 18px rgba(0,0,0,.35); }
+  /* нове слово — ще жодного разу не було в грі (13.11.2026, за запитом «нові слова якось також помічати»); «●» — як «● Нові» в меню */
+  .q-mon.fresh .qm-word::before { content: "● "; color: #ffa94d; }
+  .q-mon.fresh .qm-word { border-color: #ffa94d; box-shadow: 0 0 18px rgba(255,169,77,.55), 0 6px 18px rgba(0,0,0,.35); }
   .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
   .qm-hp i { width: 18px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.18); transition: background .25s, transform .25s; }
   .qm-hp i.on { background: linear-gradient(90deg, #ff6b6b, #ffa94d); box-shadow: 0 0 6px rgba(255,140,90,.6); }
@@ -13402,6 +13405,7 @@ function qFight(noPhrase) {
   Q.mon = qSpawnMonster(idx, Q.side);
   if (Q.extraL) { Q.mon.classList.add("extra"); Q.mon.title = "⭐ рідкісне слово з рівня поза вибором · " + cefrLvName(Q.extraL); }
   else if (isKnownIdx(idx)) { Q.mon.classList.add("known"); Q.mon.title = "✓ повторення слова зі «Знаю»"; }
+  else if (loadMastery()[wordKey(WORDS[idx])] === undefined) { Q.mon.classList.add("fresh"); Q.mon.title = "● нове слово — ще не траплялось у грі"; }
   Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
   qRoadFitWord();
   Q.speedTo = 0;
