@@ -9530,7 +9530,7 @@ function questPeriodTotalHtml(qGames) {
     const gk = questKills(g, qlog);
     if (gk) Object.keys(gk).forEach(L => { k[L] = (k[L] || 0) + gk[L]; anyK = true; });
     const r = qlog.find(x => x.ts === g.ts);
-    if (r) ["duo", "lh", "phr"].forEach(f => { side[f] += r[f] || 0; });
+    if (r) ["duo", "lh", "phr", "gpt"].forEach(f => { side[f] = (side[f] || 0) + (r[f] || 0); });
   });
   const body = (anyK ? questKillsHtml(k) : "") + questSideHtml(side);
   if (!body) return "";
@@ -9542,7 +9542,7 @@ function fmtQuestTime(sec) { sec = Math.max(0, Math.round(sec || 0)); const m = 
 // 🦉 📚 💬 у рядку походу (сесія 65, за запитом) — з детального журналу (поля phr/duo/lh пишуться з сесії 65)
 function questSideHtml(r) {
   if (!r) return "";
-  const parts = [["🦉", r.duo, "Duolingo"], ["📚", r.lh, "LingoHut"], ["💬", r.phr, "фраз"]].filter(x => x[1])
+  const parts = [["🦉", r.duo, "Duolingo"], ["📚", r.lh, "LingoHut"], ["💬", r.phr, "фраз"], ["🤖", r.gpt, "запитів GPT"]].filter(x => x[1])
     .map(([i, n, t]) => '<span title="' + t + ' у поході">' + i + n + '</span>');
   return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
 }
@@ -13892,8 +13892,19 @@ function questTimeSummary() {
 // Запис походу в журнал ігор + детальний журнал. Кличуть фінал І `pagehide`: похід, обірваний
 // перезавантаженням / закритою вкладкою, день уже зарахував (`quests` — з першої відповіді), а в
 // журнал він не потрапляв — і «Походів» у статистиці (5) розходились із ⚔️ «Рекордами походів» (4).
+// 🤖 ЗАПИТИ GPT ЗА ЧАС ПОХОДУ (13.11.2026, за запитом: «якщо GPT було додане під час походу — там це також
+// зараховуй, лише просто вказати, щоби не було подвійного зарахування»). Байдуже, звідки: GPT-лінк на картці
+// поразки, «+» біля кнопки GPT чи інша вкладка. XP нарахував countGptRequest і він УЖЕ в прирості XP походу
+// (qXp — різниця XP), раніше падав у «· інше». Тут — ЛИШЕ ПОКАЗ: плитка, рядок XP, журнал, рекорди.
+function qGptTotal() { return Object.values(loadGptRequests()).reduce((a, n) => a + (n || 0), 0); }
+function qGptUpd() {
+  if (!Q || Q.gpt0 == null) return;
+  Q.gpt = Math.max(0, qGptTotal() - Q.gpt0);
+  if (Q.gpt) Q.xpBy.gpt = { v: Q.gpt * GPT_XP, n: Q.gpt }; else delete Q.xpBy.gpt;   // присвоєння, не += (кличуть кілька разів)
+}
 function qLogQuest(ts) {
   if (!Q || !Q.counted || Q.logged) return;
+  qGptUpd();
   Q.logged = true;
   ts = ts || questTimeSummary();
   const g = { score: Q.won, wrong: Q.fled.length, skipped: 0, mode: Q.auto ? "mix" : Q.dir, ts: Date.now(), wordCount: WORDS.length, tag: "quest",
@@ -13903,7 +13914,8 @@ function qLogQuest(ts) {
   // ⏱ детальний журнал походу: кожен монстр (думав / картка / повторення / спроби) і кожен на арені
   qSaveLog({ ts: g.ts, t0: Q.t0, dir: g.mode, time: ts.sec, n: ts.n, won: Q.won, fled: Q.fled.length, pts: Q.pts, answers: Q.answers,
              xp: qXp(), xpBy: Q.xpBy, monsters: Q.mlog, arena: Q.alog,
-             ...(Q.phr || Q.duo || Q.lh ? { phr: Q.phr, duo: Q.duo, lh: Q.lh, xPts: Q.xPts } : {}) });   // сесія 65
+             ...(Q.phr || Q.duo || Q.lh ? { phr: Q.phr, duo: Q.duo, lh: Q.lh, xPts: Q.xPts } : {}),   // сесія 65
+             ...(Q.gpt ? { gpt: Q.gpt } : {}) });
 }
 addEventListener("pagehide", () => { try { if (Q) { qT(null); qLogQuest(); } } catch (e) {} });
 // 📜 СЛОВА ПОХОДУ на фіналі (сесія 63, за запитом: «після гри можна було подивитися слова, які відповів
@@ -13929,6 +13941,7 @@ function questFinal() {
   if (!Q) return;
   clearTimeout(Q.timer);
   qT(null);                                        // ⏱ облік зупинено
+  qGptUpd();
   // недобиті на арені лишаються стояти (чекають наступного походу), але вже без слова й підсвітки
   qEl("q-actors").querySelectorAll(".q-mon").forEach(m => { m.classList.remove("target"); const w = m.querySelector(".qm-word"); if (w) w.textContent = ""; });
   const ts = questTimeSummary();
@@ -13971,7 +13984,8 @@ function qSideTiles(r) {
   const phrK = (r.xpBy && r.xpBy.phrK && r.xpBy.phrK.n) || 0;
   return (r.phr ? t("💬", r.phr, plural(r.phr, "фраза", "фрази", "фраз") + (phrK ? '<small class="qc-pts">⭐ ' + phrK + ' у «Знаю»</small>' : '')) : '') +
     (r.duo || r.lh ? t("🗺️", (r.duo || 0) + (r.lh || 0), plural((r.duo || 0) + (r.lh || 0), "квест", "квести", "квестів") + '<small class="qc-pts">' +
-      [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '');
+      [r.duo ? "🦉 Duolingo " + r.duo : "", r.lh ? "📚 LingoHut " + r.lh : ""].filter(Boolean).join(" · ") + '</small>') : '') +
+    (r.gpt ? t("🤖", r.gpt, "GPT" + '<small class="qc-pts">XP уже враховано</small>') : '');   // лише показ (qGptUpd)
 }
 // Фінал / минулий похід: зліва ✨ XP за джерелами, справа ⏱ час по етапах (сесія 65). Без XP — час на всю ширину.
 function qSplitHtml(left, right) { return left ? '<div class="qc-split">' + left + right + '</div>' : right; }
@@ -13979,7 +13993,7 @@ function qXpHtml(by, total) {
   if (!by) return "";
   const rows = [["win", "⚔️", "Перемоги"], ["new", "🆕", "Нові слова"], ["know", "⭐", "У «Знаю»"], ["drop", "📉", "Випали зі «Знаю»"],
     ["bonus", "✨", "Бонуси слів"], ["drill", "🔁", "Підівчив після картки"], ["arena", "🏟️", "Арена"],
-    ["phr", "💬", "Фрази"], ["phrK", "💬", "Фрази у «Знаю»"], ["duo", "🦉", "Duolingo"], ["lh", "📚", "LingoHut"], ["side", "🗺️", "Бонус за квести"]];
+    ["phr", "💬", "Фрази"], ["phrK", "💬", "Фрази у «Знаю»"], ["duo", "🦉", "Duolingo"], ["lh", "📚", "LingoHut"], ["gpt", "🤖", "Запити GPT"], ["side", "🗺️", "Бонус за квести"]];
   let sum = 0;
   const html = rows.filter(([k]) => by[k] && by[k].v).map(([k, ic, name]) => {
     const o = by[k]; sum += o.v;
@@ -14254,7 +14268,8 @@ function questStart() {
         stage: "road", phase: "walk", won: 0, fled: [], log: [], arenaWon: 0, counted: false, answers: 0, pts: 0, pre: false,
         speed: 0, speedTo: 0, off: 0, lastTs: 0, t0: Date.now(), timer: null, mon: null, xp0: loadXp(),
         tm: {}, tB: null, tAt: 0, mlog: [], alog: [], rec: null, feed: [],
-        phr: 0, duo: 0, lh: 0, xPts: 0, xpBy: {} };   // 💬 фрази, 🦉/📚 побічні квести і їхні пункти «Плани» в межах походу (сесія 65)
+        phr: 0, duo: 0, lh: 0, xPts: 0, xpBy: {},
+        gpt0: qGptTotal(), gpt: 0 };   // 🤖 запити GPT за час походу (13.11.2026)   // 💬 фрази, 🦉/📚 побічні квести і їхні пункти «Плани» в межах походу (сесія 65)
   Q.answers = Q.carry = qLoadCarry();   // недобрані 🌡️ очки минулого походу
   _gameSessionActive = true;          // вітання (рівень, ачівки) — після повернення в меню
   resetLastGameTrans();               // «✨ останньої гри» = цей похід
