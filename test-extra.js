@@ -38,8 +38,8 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   });
   t("рівні екстра = поза вибором (B2, C1, C2, —)", sim.levels.join(",") === "B2,C1,C2,none", sim.levels.join(","));
   const near = (x, p) => Math.abs(x - p) < p * 0.25;
-  t("частоти ≈ 1/300 · 1/500 · 1/800 · 1/150", near(sim.B2, 1/300) && near(sim.C1, 1/500) && near(sim.C2, 1/800) && near(sim.none, 1/150), JSON.stringify(sim));
-  t("разом ≈ 1,3% на слово", near(sim.total, 1/300 + 1/500 + 1/800 + 1/150), String(sim.total));
+  t("частоти ≈ 1/150 · 1/200 · 1/250 · 1/90", near(sim.B2, 1/150) && near(sim.C1, 1/200) && near(sim.C2, 1/250) && near(sim.none, 1/90), JSON.stringify(sim));
+  t("разом ≈ 2,7% на слово", near(sim.total, 1/150 + 1/200 + 1/250 + 1/90), String(sim.total));
   t("слова з «Знаю» не потрапляють", sim.known === 0 && sim.c2Excluded, JSON.stringify(sim));
   t("слова обраних рівнів екстра не бувають", sim.inSel === 0);
 
