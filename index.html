@@ -1815,6 +1815,16 @@
   .lb-acts span + span, .lb-kills .lb-mon ~ .lb-mon { margin-left: 1px; }
   .lb-mon svg { width: 100%; height: 100%; }
   .lb-kills { white-space: nowrap; }
+  /* ⚠️ РЯДОК ПОХОДУ НЕ ВМІЩАВСЯ (14.11.2026, скарга зі скріном: до +45px, дата з'їжджала за край). Ущільнено без втрати
+     даних: групи монстрів / 🦉📚💬 без пробілів (відступ 3px), 🎯 лише в тултіпі (число «88%» тьмяніше), номер місця вужчий.
+     Страховка: середина (монстри, квести) стискається з обрізанням, а рахунок і ДАТА — ніколи. Повне — кліком по рядку. */
+  .lb-list li.q-row { gap: 3px; }
+  .lb-list li.q-row::before { width: 20px; }
+  .lb-list li.q-row .lb-mon { width: 15px; height: 14px; }
+  .lb-kills .lb-mon ~ .lb-mon, .lb-acts span + span { margin-left: 2px; }
+  .lb-acc { opacity: .6; }
+  .lb-list li.q-row > * { flex-shrink: 0; }
+  .lb-list li.q-row > .lb-kills, .lb-list li.q-row > .lb-acts { flex-shrink: 1; min-width: 0; overflow: hidden; }
   .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
   .qc-words { margin-top: 8px; }
   .qw-list { max-height: 240px; overflow-y: auto; text-align: left; font-size: 13px; border-radius: 8px; background: rgba(255,255,255,.04); padding: 4px 8px; }
@@ -9514,9 +9524,9 @@ function questKills(g, qlog) {
 }
 function questKillsHtml(k) {
   if (!k) return "";
-  const parts = QUEST_KILL_ORDER.filter(L => k[L]).map(L => '<span class="lb-mon" title="' + (L === "none" ? "без рівня" : L) + '">' + questMonsterSvg(L) + '</span>' + k[L]);
+  const parts = QUEST_KILL_ORDER.filter(L => k[L]).map(L => '<span class="lb-mon" title="' + (L === "none" ? "без рівня" : L) + '">' + questMonsterSvg(L) + '</span>' + k[L]);   // 14.11.2026: групи без пробілу між собою — відступ дає CSS (місце в рядку)
   // ⚠️ БЕЗ «·» у рядках походу (сесія 65, за запитом «впираємося по місцю»): групи розділяє проміжок flex
-  return parts.length ? '<span class="lb-games lb-kills" title="убито монстрів за видом (дорога + арена)">' + parts.join(" ") + '</span>' : "";
+  return parts.length ? '<span class="lb-games lb-kills" title="убито монстрів за видом (дорога + арена)">' + parts.join("") + '</span>' : "";
 }
 // ⚔️ ПІДСУМОК ПОХОДІВ ПЕРІОДУ (06.11.2026, за запитом): під рискою в 🕒 — скільки за період переможено монстрів
 // кожного виду (дорога + арена) і скільки 🦉 Duolingo / 📚 LingoHut / 💬 фраз пройдено В ПОХОДАХ — сума тих самих
@@ -9544,7 +9554,7 @@ function questSideHtml(r) {
   if (!r) return "";
   const parts = [["🦉", r.duo, "Duolingo"], ["📚", r.lh, "LingoHut"], ["💬", r.phr, "фраз"], ["🤖", r.gpt, "запитів GPT"]].filter(x => x[1])
     .map(([i, n, t]) => '<span title="' + t + ' у поході">' + i + n + '</span>');
-  return parts.length ? '<span class="lb-games lb-acts">' + parts.join(" ") + '</span>' : "";
+  return parts.length ? '<span class="lb-games lb-acts">' + parts.join("") + '</span>' : "";
 }
 function renderQuestRow(g, cls, rank, qlog) {
   const bad = (g.wrong || 0) + (g.skipped || 0), t = g.time && g.time.total, ar = g.n && g.n.arena;
@@ -9553,7 +9563,7 @@ function renderQuestRow(g, cls, rank, qlog) {
       ' title="' + (rank ? 'місце серед усіх походів · ' : '') + 'клік — повний результат походу">' +
     '<span class="lb-score">' + g.score + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
-    (qAccPct(g.score, bad) != null ? '<span class="lb-games" title="точність походу: правильні / усі монстри">🎯' + qAccPct(g.score, bad) + '%</span>' : '') +
+    (qAccPct(g.score, bad) != null ? '<span class="lb-games lb-acc" title="🎯 точність походу: правильні / усі монстри">' + qAccPct(g.score, bad) + '%</span>' : '') +
     (t ? '<span class="lb-games" title="тривалість походу">⏱' + fmtQuestTime(t) + '</span>' : '') +
     (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">відновлено</span>' : '') +
     // монстри за видом замість «🏟️ N» (сесія 63); без даних (старі/відновлені) — як було
