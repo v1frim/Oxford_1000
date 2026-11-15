@@ -1822,7 +1822,6 @@
   .lb-list li.q-row::before { width: 20px; }
   .lb-list li.q-row .lb-mon { width: 15px; height: 14px; }
   .lb-kills .lb-mon ~ .lb-mon, .lb-acts span + span { margin-left: 2px; }
-  .lb-acc { opacity: .6; }
   .lb-list li.q-row > * { flex-shrink: 0; }
   .lb-list li.q-row > .lb-kills, .lb-list li.q-row > .lb-acts { flex-shrink: 1; min-width: 0; overflow: hidden; }
   .qc-pts { display: block; font-size: 10px; opacity: .75; margin-top: 2px; }
@@ -9563,7 +9562,7 @@ function renderQuestRow(g, cls, rank, qlog) {
       ' title="' + (rank ? 'місце серед усіх походів · ' : '') + 'клік — повний результат походу">' +
     '<span class="lb-score">' + g.score + '</span>' +
     '<span class="lb-detail">(<span class="lb-bad">' + bad + '</span>/<span class="lb-total">' + (g.score + bad) + '</span>)</span>' +
-    (qAccPct(g.score, bad) != null ? '<span class="lb-games lb-acc" title="🎯 точність походу: правильні / усі монстри">' + qAccPct(g.score, bad) + '%</span>' : '') +
+    // 🎯 точність у рядку лідерборду ПРИБРАНО (15.11.2026, за запитом) — лише в самому поході (фінал / минулий похід)
     (t ? '<span class="lb-games" title="тривалість походу">⏱' + fmtQuestTime(t) + '</span>' : '') +
     (g.rec ? '<span class="lb-games" title="похід обірвано до фіналу або зіграно до появи журналу — відновлено з денної статистики, без часу">відновлено</span>' : '') +
     // монстри за видом замість «🏟️ N» (сесія 63); без даних (старі/відновлені) — як було
