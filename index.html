@@ -13978,9 +13978,11 @@ function questFinal() {
       // 🌡️ і пункти, і ОЧКИ (сесія 63, за запитом «невідомо скільки очок дало»): +зароблені цим походом
       // (без залишку з минулого). «ще N до пункту» прибрано за запитом (01.11.2026) — на фіналі походу зайве.
       // Формат (01.11.2026): «+2 за монстрів (4+59 очок) · +1 за квести» — пункти розкладено за джерелом.
-      '<div><b>📋 ' + (Q.pts + Q.xPts) + '</b>пунктів «Плани»<small class="qc-pts">🌡️ +' + Q.pts + ' за монстрів (' + (Q.carry ? Q.carry + '+' : '') + (Q.answers - (Q.carry || 0)) + ' очок)' + (Q.xPts ? ' · +' + Q.xPts + ' за квести' : '') + '</small></div>' +
+      // 🎯 точність і 📋 пункти «Плани» поміняно місцями (15.11.2026, за запитом) — точність 4-ю плиткою першого ряду
+      qAccTile(Q.won, Q.fled.length) +
       '<div><b>⏱ ' + qFmtT(ts.sec.total * 1000) + '</b>тривалість</div>' +
-      '<div><b class="xp">⚡ +' + qXp() + '</b>XP</div><div><b>⭐ +' + newK + '</b>у «Знаю»</div>' + qAccTile(Q.won, Q.fled.length) + qSideTiles(Q) + '</div>' +
+      '<div><b class="xp">⚡ +' + qXp() + '</b>XP</div><div><b>⭐ +' + newK + '</b>у «Знаю»</div>' +
+      '<div><b>📋 ' + (Q.pts + Q.xPts) + '</b>пунктів «Плани»<small class="qc-pts">🌡️ +' + Q.pts + ' за монстрів (' + (Q.carry ? Q.carry + '+' : '') + (Q.answers - (Q.carry || 0)) + ' очок)' + (Q.xPts ? ' · +' + Q.xPts + ' за квести' : '') + '</small></div>' + qSideTiles(Q) + '</div>' +
     qSplitHtml(qXpHtml(Q.xpBy, qXp()), qTimeHtml(ts)) +
     // слова, що цей похід перевів у «Знаю», — позначкою в рядку «Слів походу» (сесія 63; було окремим рядком чипсів)
     qWordsHtml(new Set(newKeys)) +
@@ -14047,8 +14049,8 @@ function openQuestRecord(ts) {
   const tile = (ic, v, lab, cls) => '<div><b' + (cls ? ' class="' + cls + '"' : '') + '>' + ic + ' ' + v + '</b>' + lab + '</div>';
   let html = '<div class="qc-title">⚔️ Похід · ' + fmtDate(ts) + ' · ' + hm + (g && g.cefr ? ' · ' + cefrLabelHtml(g.cefr) : '') + '</div>' +
     '<div class="qc-stats qc-fin">' + tile("⚔️", won, "правильних", "ok") + tile("💨", fled, "неправильних", "bad") + tile("👾", won + fled, "монстрів") +
-      (r ? tile("📋", r.pts + (r.xPts || 0), "пунктів «Плани»") : '') + (sec && sec.total ? tile("⏱", qFmtT(sec.total * 1000), "тривалість") : '') +
-      (r && r.xp != null ? tile("⚡", '+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile("🏟️", r.arena.length, "добито на арені") : '') + qAccTile(won, fled) + (r ? qSideTiles(r) : '') + '</div>';
+      qAccTile(won, fled) + (sec && sec.total ? tile("⏱", qFmtT(sec.total * 1000), "тривалість") : '') +
+      (r && r.xp != null ? tile("⚡", '+' + r.xp, "XP", "xp") : '') + (r && r.arena ? tile("🏟️", r.arena.length, "добито на арені") : '') + (r ? tile("📋", r.pts + (r.xPts || 0), "пунктів «Плани»") : '') + (r ? qSideTiles(r) : '') + '</div>';
   if (sec && n) {
     const ms = {}; Q_TIME_KEYS.forEach(k => (ms[k] = (sec[k] || 0) * 1000));
     html += qSplitHtml(r && r.xpBy ? qXpHtml(r.xpBy, r.xp || 0) : "", qTimeHtml({ n }, ms));
