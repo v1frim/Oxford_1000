@@ -1872,6 +1872,7 @@
   .qf-w.say:hover { text-decoration: underline dotted; }
   .qf-row:not(:first-child) { opacity: .78; }
   .qf-w { font-weight: 700; margin-right: 2px; }
+  .qf-w.qf-blur { filter: blur(5px); user-select: none; }   /* 🙈 слово-відповідь під час повтору */
   .qf-it { color: #06d6a0; } .qf-it.neg { color: #ff8a8a; } .qf-it.zero { color: rgba(255,255,255,.5); }
   .qf-sum { color: #ffd166; margin-left: 4px; pointer-events: auto; cursor: help; } .qf-sum.neg { color: #ff8a8a; }
   .qc-time { margin: 10px auto 0; max-width: 520px; text-align: left; font-size: 13px; }
@@ -13200,7 +13201,7 @@ function qFeed(idx, items, kind, word) {
   if (!Q) return;
   let e;
   if (kind === "redraw") e = Q.feed[0];
-  else if (kind === "drill" && Q.feedCur) e = Q.feedCur;
+  else if (kind === "drill" && Q.feedCur) { e = Q.feedCur; delete e.hide; }
   else if (kind === "arena") {
     e = Q.feedArena;
     if (!e) { e = Q.feedArena = { w: Q.pre === "mid" ? "🏟️ Арена посеред походу" : Q.pre ? "🏟️ Арена (минулий похід)" : "🏟️ Арена", items: [], kills: 0 }; Q.feed.unshift(e); }
@@ -13209,11 +13210,15 @@ function qFeed(idx, items, kind, word) {
     items = [];
     qXpBy("arena", ARENA_KILL_XP);
   } else { const W = WORDS[idx];
+    if (Q.feedCur) delete Q.feedCur.hide;   // повтор кинуто («Втекти») — наступний монстр відкриває попереднє слово
     // ⚠️ word — ЯК САМЕ відповів (06.11.2026, скарга: ввів «garbage can», а в стрічці «dustbin» — головне слово
     // картки, про яке й не згадував). Показуємо прийняту англ. альтернативу картки, у її канонічному написанні.
     const typed = word ? word.toLowerCase().replace(/^to\s+/, "").trim() : "";
     const alt = typed && getEn(W).concat(W.enAlt || []).find(x => x.toLowerCase().replace(/^to\s+/, "").trim() === typed);
     e = Q.feedCur = { w: alt || getEn(W)[0], items: [] }; e.say = e.w;
+    // 🙈 (16.11.2026, за запитом) «втік» → слово в стрічці розмите, поки не пройдеш 3 повтори: інакше воно ж
+    // і є відповіддю на картці повторення. Знімає розмиття «підівчив» (kind "drill") — див. нижче.
+    if (items[0] && items[0][1] === "втік") e.hide = true;
     // 🔍 ховер (04.11.2026, за запитом): переклади САМЕ цієї картки + транскрипція — як .hw на картках
     e.tr = [...new Set(getUa(W).concat(W.uaAlt || []))].join(", "); e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
     Q.feed.unshift(e); }
@@ -13224,6 +13229,8 @@ function qFeed(idx, items, kind, word) {
   const box = qEl("q-feed");
   box.innerHTML = Q.feed.slice(0, 5).map(x => {
     const sum = x.items.reduce((a, it) => a + it.v, 0);
+    if (x.hide) return '<div class="qf-row"><span class="qf-w qf-blur" title="слово відкриється після 3 правильних повторів">' + esc(x.w) + '</span>' +
+      x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") + '</div>';
     return '<div class="qf-row"><span class="qf-w' + (x.say ? ' say hw" data-say="' + escAttr(x.say) + '"' + (x.tr ? ' data-trans="' + escAttr(x.tr) + '"' : '') + (x.ipa ? ' data-ipa="' + escAttr(x.ipa) + '"' : '') : '"') + '>' + esc(x.w) + '</span>' +
       x.items.map(it => '<span class="qf-it' + (it.v < 0 ? ' neg' : it.v === 0 ? ' zero' : '') + '">' + (it.v > 0 ? "+" : "") + it.v + ' ' + esc(it.l) + '</span>').join("") +
       '<b class="qf-sum' + (sum < 0 ? ' neg' : '') + '" title="XP за це слово">' + (sum > 0 ? "+" : "") + sum + ' XP</b></div>';
