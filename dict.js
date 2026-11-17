@@ -9442,7 +9442,7 @@ const WORDS = [
   {en:"competitor analysis",ua:"аналіз конкурентів",uaAlt:["аналіз конкуренції","розбір конкурентів"]},
   // ── Робота, партія 4/6: продажі й переговори, клієнтський сервіс і гарантія (сесія 47) ──
   {en:"sales",ua:"відділ продажів",uaAlt:["продажі","продаж"],enAlt:["sales department"]},
-  {en:"salesperson",ua:"менеджер із продажів",uaAlt:["продавець"]},
+  {en:"salesperson",ua:"менеджер із продажів",uaAlt:["продавець"],enAlt:["sales manager","salesman","saleswoman"]},
   {en:"sales rep",ua:"торговий представник",enAlt:["sales representative"],uaAlt:["торгпред","менеджер з продажів"]},
   {en:"sales manager",ua:"керівник із продажів",uaAlt:["керівник з продажів","керівник з продажу","менеджер з продажу"]},
   {en:"sales funnel",ua:"воронка продажів",uaAlt:["воронка","лійка продажів"]},
@@ -25271,7 +25271,9 @@ const TRANS = {
   "there used to be":"/ðɛr ˈjuːst tə biː/",
   "there seems to be":"/ðɛr ˈsiːmz tə biː/",
   // ── ipa-add ──
-  "just":"/dʒʌst/"
+  "just":"/dʒʌst/",
+  // ── ipa-add ──
+  "saleswoman":"/ˈseɪlzˌwʊmən/"
 };
 const HINTS = {
   "wonderful": "загальне захоплення",
