@@ -358,7 +358,7 @@ const WORDS = [
   {en:"amused",ua:"розвеселений",uaAlt:["потішений"]},{en:"distracted",ua:"розсіяний",uaAlt:["відволічений"]},{en:"indifferent",ua:"байдужий"},
   {en:"sympathetic",ua:"співчутливий",uaAlt:["сповнений співчуття"]},{en:"intrigued",ua:"заінтригований",uaAlt:["зацікавлений"]},
   {en:"ecstatic",ua:"в екстазі",uaAlt:["у нестямі від щастя","екстатичний"]},{en:"disgusted",ua:"з огидою",uaAlt:["огиджений","сповнений огиди","обурений"]},
-  {en:"funny",ua:["смішний","кумедний"]},{en:"strange",ua:"дивний",uaAlt:["чудний","незнайомий"]},{en:"wonderful",ua:"чудовий",uaAlt:["прекрасний","дивовижний"],enAlt:["excellent","amazing","fantastic","marvelous"]},
+  {en:"funny",ua:["смішний","кумедний"],uaAlt:["забавний","потішний"]},{en:"strange",ua:"дивний",uaAlt:["чудний","незнайомий"]},{en:"wonderful",ua:"чудовий",uaAlt:["прекрасний","дивовижний"],enAlt:["excellent","amazing","fantastic","marvelous"]},
   {en:"terrible",ua:"жахливий",uaAlt:["страшний","кошмарний"]},{en:"excellent",ua:"відмінний (чудовий)",uaAlt:["відмінний","чудовий","прекрасний"]},{en:"perfect",ua:"ідеальний",uaAlt:["досконалий"]},
   {en:"important",ua:"важливий",uaAlt:["значущий"],enAlt:["significant"]},{en:"necessary",ua:"необхідний",uaAlt:["потрібний"],enAlt:["needed"]},{en:"possible",ua:"можливий"},
   {en:"impossible",ua:"неможливий",uaAlt:["неможливо"]},{en:"difficult",ua:"складний",uaAlt:["важкий","тяжкий"]},
