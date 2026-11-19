@@ -13719,6 +13719,11 @@ function qArenaStart(pre) {
   qEl("q-actors").querySelectorAll(".q-mon").forEach(x => x.remove());
   Q.arena = { left: new Set(Q.arenaPool), cnt: {}, plan: buildReviewDirPlan(Q.arenaPool), last: null, els: {}, rec: {}, sp: {} };
   Q.arenaPool.forEach(idx => { Q.arena.sp[idx] = Math.pow(3, Math.random() * 2 - 1); });   // «швидкість» ⅓…3 (qArenaNext)
+  // 🚫 (19.11.2026, за запитом) останнє хибне слово НІКОЛИ не перше на арені, якщо слів >1: воно щойно
+  // було на екрані (картка + 3 повтори). Кладемо його в A.recent — qArenaNext виключає «нещодавні».
+  // Для арени минулого походу (Q.fled порожній) — останнє в черзі арени (qArenaAdd додає в кінець).
+  const lastBad = Q.fled && Q.fled.length ? Q.fled[Q.fled.length - 1] : Q.arenaPool[Q.arenaPool.length - 1];
+  if (Q.arenaPool.length > 1 && Q.arenaPool.includes(lastBad)) Q.arena.recent = [lastBad];
   Q.arenaPool.forEach((idx, i) => {
     const el = qSpawnMonster(idx, "right");
     el.classList.add("lined");
