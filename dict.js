@@ -12492,7 +12492,7 @@ const WORDS = [
   {en:"executive branch",ua:"виконавча гілка влади",uaAlt:["виконавча влада","уряд як гілка влади"],enAlt:["executive branch of government"]},
   {en:"legislative branch",ua:"законодавча гілка влади",uaAlt:["законодавча влада","парламент як гілка влади"],enAlt:["legislative branch of government"]},
   {en:"judicial branch",ua:"судова гілка влади",uaAlt:["судова влада","суди як гілка влади"],enAlt:["judicial branch of government"]},
-  {en:"head of state",ua:"глава держави",uaAlt:["очільник держави","керівник країни"]},
+  {en:"head of state",ua:"глава держави",uaAlt:["очільник держави","керівник країни","голова держави","керівник держави"]},
   {en:"prime minister",ua:"прем'єр-міністр",uaAlt:["прем'єр","голова уряду"]},
   {en:"public official",ua:"посадова особа",uaAlt:["державний службовець","чиновник"]},
   {en:"member of parliament",ua:"депутат парламенту",enAlt:["MP"],uaAlt:["депутат","народний обранець"]},
