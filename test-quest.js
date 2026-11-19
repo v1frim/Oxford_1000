@@ -157,7 +157,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   t("добитий на арені монстр зник зі збереженої арени", await p.evaluate(() => loadQArena().length === 0));
   const pts = await p.evaluate(() => ({ need: [1,2,3,4,5,6,7].map(questPointNeed).join(","), d: loadDays()[todayKey()].questPts || 0,
     ans: Q.answers, q: Q.pts, exp: questPointsFor(Q.answers), at10: questPointsFor(10), at45: questPointsFor(45), at62: questPointsFor(62) }));
-  t("пункти «Плани»: кожні 30 очок (19.11.2026; було 29, 27, 24, ще раніше 15)", pts.need === "30,60,90,120,150,180,210" && pts.at10 === 0 && pts.at45 === 1 && pts.at62 === 2, JSON.stringify(pts));
+  t("пункти «Плани»: кожні 29 очок (19.11.2026; було 27, 24, ще раніше 15)", pts.need === "29,58,87,116,145,174,203" && pts.at10 === 0 && pts.at45 === 1 && pts.at62 === 2, JSON.stringify(pts));
   // очки (31.10.2026): монстр ✓ (1) + монстр ✗ (1) + завершене повторення (4) + добитий на арені (2) = 8;
   // помилки в повторенні й на арені очок НЕ дають
   t("очки походу: бій 1 + бій 1 + повторення 4 + арена 1 = 7 (ставки 01.11.2026)", pts.ans === 7, JSON.stringify(pts));
@@ -206,7 +206,7 @@ function exe(){ const d=fs.readdirSync("/opt/pw-browsers").find(x=>/^chromium-\d
   // сесія 64: «🌡️ 0 пунктів» + шкала до наступного пункту (перенесене — окремим кольором) + «N/14 оч.»
   const hud = await p.evaluate(() => { qHud(); const el = document.querySelector("#q-hud-stats .q-pts");
     return { txt: el.textContent, carry: parseFloat(el.querySelector(".q-pts-bar i.c").style.width), now: parseFloat(el.querySelector(".q-pts-bar i.n").style.width), tip: el.title }; });
-  t("шапка: пункти + шкала з перенесеними очками + «N/30 оч.»", /🌡️ 0пунктів[1-9]\d*\/30 оч\./.test(hud.txt) && hud.carry > 0 && hud.now === 0 && /перенесено/.test(hud.tip), JSON.stringify(hud));
+  t("шапка: пункти + шкала з перенесеними очками + «N/29 оч.»", /🌡️ 0пунктів[1-9]\d*\/29 оч\./.test(hud.txt) && hud.carry > 0 && hud.now === 0 && /перенесено/.test(hud.tip), JSON.stringify(hud));
   const pre = await p.evaluate(() => ({ stage: Q.stage, pre: Q.pre, n: document.querySelectorAll(".q-mon.lined").length, idx: Q.cur && Q.cur.idx, hint: document.getElementById("q-hint").textContent }));
   t("новий похід починається з арени недобитих", pre.stage === "arena" && pre.pre && pre.n === 1 && pre.idx === idx3, JSON.stringify(pre));
   t("підказка: «спершу добий монстрів із минулого походу»", /минулого походу/.test(pre.hint), pre.hint);
