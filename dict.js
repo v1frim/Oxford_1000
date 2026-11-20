@@ -28164,6 +28164,8 @@ const HINTS = {
   "inconvenience": "незручності, завдані комусь; клопіт, морока — hassle, bother",
   "drop off": "підвезти й випустити з машини; ≠ to land",
   "to land": "про літак, птаха; ≠ drop off — висадити з машини",
+  "overhead": "непрямі витрати бізнесу: оренда, світло, офіс; ≠ operating expense — усі поточні",
+  "operating expense": "усі поточні витрати бізнесу; ≠ overhead — лише непрямі",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
