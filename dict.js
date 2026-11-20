@@ -28162,6 +28162,8 @@ const HINTS = {
   "training": "процес підготовки, тренінг; одне заняття в залі — workout",
   "markup": "у торгівлі; в IT — розмітка тексту, HTML — HyperText Markup Language",
   "inconvenience": "незручності, завдані комусь; клопіт, морока — hassle, bother",
+  "drop off": "підвезти й випустити з машини; ≠ to land",
+  "to land": "про літак, птаха; ≠ drop off — висадити з машини",
 };
 const EXAMPLES = {
   "win:перемога":"Their win in the final was a surprise.",
