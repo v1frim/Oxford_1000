@@ -2722,7 +2722,7 @@ const WORDS = [
   {en:"hummus",ua:"хумус"},
   {en:"hypnotherapy",ua:"гіпнотерапія"},
   {en:"ice-skating",ua:"катання на ковзанах",uaAlt:["ковзанярство"],enAlt:["skating","ice skating"]},
-  {en:"influencer",ua:"інфлюенсер",uaAlt:["лідер думок"]},
+  {en:"influencer",ua:"інфлюенсер",uaAlt:["лідер думок","інфлюєнсер","впливова людина","блогер"]},
   {en:"infrared",ua:"інфрачервоний"},
   {en:"irritating",ua:"дратівний",uaAlt:["набридливий"]},
   {en:"jackfruit",ua:"джекфрут"},
