@@ -1013,6 +1013,12 @@
   .empty { padding: 24px; opacity: 0.7; }
 
   /* correction panel */
+  /* 🔁 синонім замість очікуваного слова (22.11.2026) */
+  .syn-note { margin: 8px auto 0; max-width: 520px; padding: 8px 12px; border-radius: 10px; font-size: 14px; text-align: center;
+    background: rgba(6,214,160,.1); border: 1px solid rgba(6,214,160,.4); }
+  .syn-note.hidden { display: none; }
+  .syn-note.miss { background: rgba(255,209,102,.1); border-color: rgba(255,209,102,.45); }
+  .syn-note b { color: #ffd166; }
   .correction {
     margin-top: 14px;
     padding: 13px 16px;
@@ -2141,6 +2147,7 @@
     <div class="word-display" id="word-display">—</div>
     <div id="word-trans"></div>
     <input id="answer" type="text" placeholder="Переклад" autocomplete="off" autocorrect="off" spellcheck="false">
+    <div id="syn-note" class="syn-note hidden"></div>
     <button id="skip-btn" class="skip">Пропустити</button>
     <button id="end-btn" class="skip end-btn">Закінчити</button>
     <div id="correction" class="correction hidden">
@@ -3435,7 +3442,7 @@ function shuffle(arr) {
 }
 
 function nextWord() {
-  hideCorrection();
+  hideCorrection(); hideSynNote();
   if (reviewRemaining) {
     if (reviewRemaining.size === 0) { endGame(); return; }
     const indices = [...reviewRemaining];
@@ -4122,19 +4129,68 @@ function advanceAfterCorrection() {
 }
 
 function handleInput() {
-  if (awaitingAfterWrong || answerEl.value === "") return;
+  if (awaitingAfterWrong || answerEl.value === "" || synTimer) return;
+  if (synRetry) { if (ownEnMatch(currentWordIndex, answerEl.value)) synResolve(true); return; }
   if (isCorrect(answerEl.value)) {
     recordAnswer(answerEl.value, "correct");
+    if (synPending) { startSynRetry(answerEl.value); return; }
     if (waitingForLastAnswer) endGame();
     else nextWord();
   }
 }
 
+// 🔁 СИНОНІМ ЗАМІСТЬ ОЧІКУВАНОГО (22.11.2026, за запитом; варіант «дограти очікуване»).
+// Проблема: у UA→US на промпт «основний» (картка basic) можна щоразу писати main — відповідь
+// приймається, прогрес іде main (правило сесії 37, masteryTargetIndex), а basic не дістає НІЧОГО
+// і просувається лише в US→UA. Тепер: синонім зараховано як і раніше (+1 введеному слову), але
+// гра одразу просить дописати ОЧІКУВАНЕ слово. Вписав — +1 і показаній картці. Не вписав
+// (порожній Enter / інше слово) — показуємо його, без помилки й без штрафу.
+// Синонім = зараховано ІНШУ картку з ІНШИМ wordKey (омографи з тим самим ключем — не синоніми).
+function isSynonymHit(t, shownIdx) { return t !== shownIdx && wordKey(WORDS[t]) !== wordKey(WORDS[shownIdx]); }
+function ownEnMatch(idx, val) {
+  const n = s => String(s).toLowerCase().replace(/[\u2019\u02BC\u2018`´]/g, "'").replace(/^to\s+/, "").replace(/\s+/g, " ").trim();
+  const v = n(val || "");
+  return !!v && getEn(WORDS[idx]).concat(WORDS[idx].enAlt || []).some(e => n(e) === v);
+}
+let synPending = false, synRetry = false, synTimer = null;
+const synNoteEl = document.getElementById("syn-note");
+function hideSynNote() {
+  synRetry = false; synPending = false;
+  if (synTimer) { clearTimeout(synTimer); synTimer = null; }
+  synNoteEl.classList.add("hidden"); synNoteEl.classList.remove("miss");
+}
+function startSynRetry(typed) {
+  synPending = false; synRetry = true;
+  answerEl.value = "";
+  synNoteEl.innerHTML = '✓ <b>' + esc(typed.trim()) + '</b> — теж правильно, зараховано. А тут очікувалось інше слово — впиши його' +
+    '<br><small>Enter — показати</small>';
+  synNoteEl.classList.remove("hidden", "miss");
+}
+function synGoOn() {
+  hideSynNote();
+  if (waitingForLastAnswer) endGame(); else nextWord();
+}
+function synResolve(ok) {
+  if (!synRetry) { synGoOn(); return; }          // друге Enter під час паузи — одразу далі
+  synRetry = false;
+  if (ok) {
+    updateMastery(currentWordIndex, true);
+    synGoOn();
+    return;
+  }
+  synNoteEl.innerHTML = 'Очікувалось: ' + wrapEnWord(getEn(currentWord)[0]) + ' <small>· без штрафу</small>';
+  synNoteEl.classList.add("miss");
+  answerEl.value = "";
+  synTimer = setTimeout(synGoOn, 2200);
+}
+
 function submitAnswer() {
+  if (synRetry || synTimer) { synResolve(ownEnMatch(currentWordIndex, answerEl.value)); return; }
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   if (answerEl.value.trim() === "") { skipWord(); return; }
   const correct = isCorrect(answerEl.value);
   recordAnswer(answerEl.value, correct ? "correct" : "wrong");
+  if (correct && synPending) { startSynRetry(answerEl.value); return; }
   if (correct) {
     if (waitingForLastAnswer) endGame();
     else nextWord();
@@ -4144,6 +4200,7 @@ function submitAnswer() {
 }
 
 function skipWord() {
+  if (synRetry || synTimer) { synResolve(false); return; }
   if (awaitingAfterWrong) { advanceAfterCorrection(); return; }
   recordAnswer(null, "skipped");
   showCorrection(getCorrectAnswer());
@@ -4176,6 +4233,7 @@ function recordAnswer(userVal, status) {
   // Сесія 60: лічильник показів для планувальника — ЛИШЕ звичайна гра (як mastery).
   // Бамп ДО updateMastery: план наступного показу рахується від цього показу включно.
   if (!reviewRemaining) bumpSeen();
+  synPending = false;
   if (status === "correct") {
     score++; scoreEl.textContent = score;
     if (reviewRemaining) {
@@ -4208,6 +4266,7 @@ function recordAnswer(userVal, status) {
       addXp(1);
       const mTarget = masteryTargetIndex(userVal);
       updateMastery(mTarget, true);                        // ua-en: прогрес введеному слову
+      synPending = isSynonymHit(mTarget, currentWordIndex); // 🔁 → дограти очікуване (submitAnswer/handleInput)
       if (mTarget !== currentWordIndex) schedTouch(currentWordIndex);   // показану картку — не завтра
       // підмішане боргове слово вгадане — борг закрито (одного разу досить)
       if (dueThisGame && dueThisGame.has(currentWordIndex)) {
@@ -4580,6 +4639,7 @@ function startGame(pool, opts) {
 }
 
 function endGame(endedEarly) {
+  hideSynNote();
   if (correctionTimer) { clearTimeout(correctionTimer); correctionTimer = null; }
   correctionEl.classList.add("hidden");
   answerEl.disabled = false;
@@ -13504,8 +13564,28 @@ function qSayWon(idx, val, dir) {
 function qOnAnswer(val, auto) {
   if (!Q) return;
   if (Q.phase === "fight") return qFightAnswer(val, auto);
+  if (Q.phase === "syn") return qSynAnswer(val, auto);
   if (Q.phase === "drill") return qDrillAnswer(val, auto);
   if (Q.phase === "arena") return qArenaAnswer(val, auto);
+}
+function qKillMon(walkMs) {
+  qHero("strike face-" + Q.side);
+  qSfx("hit");
+  const mon = Q.mon;
+  setTimeout(() => { mon.classList.remove("fighting"); mon.classList.add("dead"); qSfx("kill"); qFloat("+1 XP", "xp", Q.side === "left" ? 30 : 70); }, 260);
+  setTimeout(() => mon.remove(), 1500);
+  Q.timer = setTimeout(qWalk, walkMs);
+}
+// 🔁 дописування очікуваного слова після синоніма (22.11.2026). Вписав — +1 і картці монстра;
+// порожній Enter / «Втекти» / інше слово — показуємо очікуване, без помилки, монстр однаково переможений.
+function qSynAnswer(val, auto) {
+  const c = Q.cur, ok = ownEnMatch(c.idx, val);
+  if (auto && !ok) return;
+  Q.phase = "kill";
+  qSetInput(false);
+  if (ok) { updateMastery(c.idx, true); qHint("✓ " + getEn(WORDS[c.idx])[0]); qKillMon(900); return; }
+  qHint("Очікувалось: " + getEn(WORDS[c.idx])[0] + " · без штрафу");
+  qKillMon(2200);
 }
 function qFightAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
@@ -13532,13 +13612,16 @@ function qFightAnswer(val, auto) {
     qFeed(t, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.dir === "ua-en" ? val : "");
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
-    qHero("strike face-" + Q.side);
-    qSfx("hit");
-    const mon = Q.mon;
-    setTimeout(() => { mon.classList.remove("fighting"); mon.classList.add("dead"); qSfx("kill"); qFloat("+1 XP", "xp", Q.side === "left" ? 30 : 70); }, 260);
-    setTimeout(() => mon.remove(), 1500);
     qHud();
-    Q.timer = setTimeout(qWalk, 900);
+    // 🔁 синонім (див. isSynonymHit): монстр ще стоїть — дописати очікуване слово (qSynAnswer)
+    if (c.dir === "ua-en" && isSynonymHit(t, c.idx)) {
+      Q.phase = "syn";
+      qSfx("hit");
+      qSetInput(true, "очікуване слово…");
+      qHint("✓ " + val.trim() + " — теж правильно, зараховано. А тут очікувалось інше слово — впиши його · Enter — показати");
+      return;
+    }
+    qKillMon(900);
   } else {
     updateMastery(c.idx, false);
     const bonus = loadXp() - xpA;
