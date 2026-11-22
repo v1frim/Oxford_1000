@@ -9447,7 +9447,7 @@ const WORDS = [
   {en:"sales manager",ua:"керівник із продажів",uaAlt:["керівник з продажів","керівник з продажу","менеджер з продажу"]},
   {en:"sales funnel",ua:"воронка продажів",uaAlt:["воронка","лійка продажів"]},
   {en:"sales pipeline",ua:"перелік потенційних угод за етапами",uaAlt:["воронка продажів","список угод за етапами"]},
-  {en:"terms and conditions",ua:"умови договору",uaAlt:["умови та положення","правила користування","умови"],enAlt:["terms of the contract"]},
+  {en:"terms and conditions",ua:"умови договору",uaAlt:["умови та положення","правила користування","умови"],enAlt:["terms of the contract","contract terms","terms of contract"]},
   {en:"price list",ua:"прайс-лист"},
   {en:"retail price",ua:"роздрібна ціна",uaAlt:["ціна в роздріб","роздрібна вартість"]},
   {en:"wholesale price",ua:"оптова ціна",uaAlt:["ціна оптом","оптова вартість"]},
@@ -25273,7 +25273,9 @@ const TRANS = {
   // ── ipa-add ──
   "just":"/dʒʌst/",
   // ── ipa-add ──
-  "saleswoman":"/ˈseɪlzˌwʊmən/"
+  "saleswoman":"/ˈseɪlzˌwʊmən/",
+  // ── ipa-add ──
+  "contract terms":"/ˈkɑːntrækt tɝːmz/","terms of contract":"/tɝːmz əv ˈkɑːntrækt/"
 };
 const HINTS = {
   "wonderful": "загальне захоплення",
