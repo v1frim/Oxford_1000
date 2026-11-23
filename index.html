@@ -4809,7 +4809,9 @@ const EN_TO_UA = (() => {
     // `store` показувало саме «магазин», бо «зберігати» в цій картці — uaAlt.
     // Скан знайшов 115 таких речень. ⚠️ На ЗАРАХУВАННЯ це не впливає: EN_TO_UA живить
     // лише ховер і переклад речень; `isCorrect` читає ua/uaAlt/enAlt напряму.
-    const uaList = getUa(w).concat(w.uaAlt || []);
+    // ⚠️ `uaShow: N` у картці (23.11.2026, за запитом) — у ХОВЕРІ лише ua + перші N uaAlt; решта uaAlt
+    // і далі ПРИЙМАЄТЬСЯ (isCorrect читає uaAlt напряму). Для карток із десятком перефразувань.
+    const uaList = getUa(w).concat((w.uaAlt || []).slice(0, w.uaShow == null ? undefined : w.uaShow));
     enList.forEach(en => {
       const key = en.toLowerCase();
       if (!m.has(key)) m.set(key, []);
@@ -13296,7 +13298,7 @@ function qFeed(idx, items, kind, word) {
     // і є відповіддю на картці повторення. Знімає розмиття «підівчив» (kind "drill") — див. нижче.
     if (items[0] && items[0][1] === "втік") e.hide = true;
     // 🔍 ховер (04.11.2026, за запитом): переклади САМЕ цієї картки + транскрипція — як .hw на картках
-    e.tr = [...new Set(getUa(W).concat(W.uaAlt || []))].join(", "); e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
+    e.tr = [...new Set(getUa(W).concat((W.uaAlt || []).slice(0, W.uaShow == null ? undefined : W.uaShow)))].join(", ");   // uaShow — як у EN_TO_UA e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
     Q.feed.unshift(e); }
   if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
   items.forEach(([v, l]) => qXpBy(QUEST_XP_CAT[l] || "bonus", +v));
