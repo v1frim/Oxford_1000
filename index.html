@@ -12816,11 +12816,9 @@ function renderHero() {
   if (d.idle === 1) buffs.push(["neg", "🌙 Сьогодні ще не тренувався"]);
   if (d.idle !== null && d.idle >= 2) buffs.push(["neg", "😴 Втома — " + wDays(d.idle) + " без тренувань (мине після гри)"]);
   document.getElementById("hero-head").innerHTML =
-    '<div><h2>🧙 Герой</h2> <span class="sh-sub">твій рівень — це звання героя</span></div>' +
-    '<span class="w-keys">Esc — закрити</span><button class="songs-close" data-act="close">✕</button>';
+    // 23.11.2026 (за запитом): у шапці лише «🧙 Герой» і ✕ — без підзаголовка, «Esc — закрити» й банера «Сьогодні…»
+    '<div><h2>🧙 Герой</h2></div><button class="songs-close" data-act="close">✕</button>';
   document.getElementById("hero-body").innerHTML =
-    '<div class="w-banner"><span class="w-big">⚔️</span><span>Сьогодні: ігор <b>' + d.gamesToday + '</b> · у «Знаю» <b>+' + d.harvest.length +
-      '</b> · XP <b>+' + fmtXpNum(d.xpToday) + '</b> · за тиждень у «Знаю» <b>+' + d.weekK + '</b></span></div>' +
     '<div class="hero" style="--hc:' + lg.color + ';--hc2:' + lg.color2 + '">' +
       '<div class="h-left"><div class="h-card">' +
         '<div class="h-ava">' + heroSvg(st) + '</div>' +
@@ -12834,10 +12832,7 @@ function renderHero() {
       '<div class="h-right">' +
         '<div class="w-sec" style="margin-top:0">Спорядження · ліги досягнень</div><div class="h-gear">' + gear + '</div>' +
         '<div class="w-sec">Характеристики · із «Загальної статистики»</div><div class="h-stats">' + stats + '</div>' +
-        '<div class="w-sec">Стан</div><div class="h-buffs">' +
-          (buffs.length ? buffs.map(b => '<span class="h-buff ' + b[0] + '">' + b[1] + '</span>').join("") : '<span class="h-buff">🙂 Звичайний день</span>') +
-          (d.missed ? '<span class="h-buff info">⏸️ Пропущено днів за весь час: ' + d.missed + '</span>' : '') +
-        '</div>' + heroHarvestHtml(d) +
+        // «Стан» і «Сьогодні в «Знаю»» ПРИБРАНО (23.11.2026, за запитом). buffs/heroHarvestHtml лишились у коді — не показуються.
       '</div>' +
     '</div>';
   document.getElementById("hero-body").scrollTop = 0;
