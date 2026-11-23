@@ -13400,7 +13400,9 @@ function qWalk() {
 // ймовірності — об'єктом (не const-числами), щоб тести могли їх вимкнути/форсувати
 // 🗺️ побічні квести (сесія 65, за запитом): разом 4,8% на паузу — 🦉 Duolingo 3% + 📚 LingoHut 1,8% (сесія 65: 3,5% + 2,5%; ще раніше 5% порівну).
 // Усі уроки LingoHut пройдено → лишається тільки Duolingo зі своїми 3%.
-const QUEST_CHANCE = window.__QUEST_CHANCE || { phrase: 0.08, duo: 0.03, lh: 0.018 };   // тести підставляють свої (addInitScript)
+// 💬 фраза 8% → 13% (23.11.2026, за запитом «щоб фрази закінчились синхронно з грою»; компроміс: ≈2/3 із 2054 фраз
+// до кінця словника, монстрів-слів ≈ −5%). 19% закрило б усі в одному напрямку, але −12% слів — відхилено.
+const QUEST_CHANCE = window.__QUEST_CHANCE || { phrase: 0.13, duo: 0.03, lh: 0.018 };   // тести підставляють свої (addInitScript)
 function qPhraseStart() {
   const dir = (Q.auto ? Math.random() < 0.5 : Q.dir === "ua-en") ? "ua2en" : "en2ua";
   const st = loadExprStatus(dir), seen = Q.phrases || (Q.phrases = new Set());
@@ -13521,7 +13523,7 @@ function qSideDone() {
 function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card").classList.add("hidden"); Q.phase = "walk"; qT("road"); qFight(true); }
 function qFight(noPhrase) {
   if (!Q || Q.stage !== "road") return;
-  if (noPhrase !== true && Math.random() < QUEST_CHANCE.phrase && qPhraseStart()) return;   // 💬 8% — фраза замість монстра
+  if (noPhrase !== true && Math.random() < QUEST_CHANCE.phrase && qPhraseStart()) return;   // 💬 13% — фраза замість монстра
   const idx = qNextIdx(), dir = qDirFor(idx);
   Q.side = Math.random() < 0.5 ? "left" : "right";
   Q.cur = { idx, dir, shown: qAsk(idx, dir) };
