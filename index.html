@@ -7376,6 +7376,7 @@ async function writeToHandle(handle) {
   await writable.write(getBackupData());
   await writable.close();
   localStorage.setItem(BACKUP_DATE_KEY, todayKey());
+  document.getElementById("backup-btn").title = "";   // знімаємо підказку «натисни» (autoBackup)
   updateBackupLabel();
 }
 
@@ -7429,13 +7430,25 @@ async function handleBackupClick() {
     return;
   }
   let handle = await idbGet("fileHandle");
+  // ⚠️ (23.11.2026, скарга «тисну — нічого не відбувається», хоча Chrome показує дозвіл на файл).
+  // Було: будь-яка помилка запису у збережений файл тихо ковталась, а далі showSaveFilePicker теж
+  // падав — жест користувача вже «витрачено» на requestPermission. Тепер: помилку ПОКАЗУЄМО, зіпсований
+  // хендл (файл переміщено / видалено / перейменовано) забуваємо — наступний клік відкриє вибір файлу.
   if (handle) {
-    try {
-      if ((await handle.requestPermission({ writable: true })) === "granted") {
-        await writeToHandle(handle);
+    let perm = "denied";
+    try { perm = await handle.requestPermission({ writable: true }); } catch (e) { perm = "error:" + e.name; }
+    if (perm === "granted") {
+      try { await writeToHandle(handle); flashBackupBtn("✓ Збережено"); return; }
+      catch (e) {
+        await idbSet("fileHandle", null);
+        alert("Не вдалось записати у файл копії (" + e.name + ": " + e.message + ").\n\n" +
+          "Схоже, файл переміщено, перейменовано чи видалено. Натисни кнопку копії ще раз і вибери файл заново.");
         return;
       }
-    } catch(e) {}
+    }
+    await idbSet("fileHandle", null);
+    alert("Браузер не дав дозволу на запис у файл копії (" + perm + ").\nНатисни кнопку ще раз — відкриється вибір файлу.");
+    return;
   }
   try {
     handle = await window.showSaveFilePicker({
@@ -7444,7 +7457,14 @@ async function handleBackupClick() {
     });
     await idbSet("fileHandle", handle);
     await writeToHandle(handle);
-  } catch(e) {}
+    flashBackupBtn("✓ Збережено");
+  } catch (e) {
+    if (e.name !== "AbortError") alert("Не вдалось зберегти копію (" + e.name + ": " + e.message + ").");
+  }
+}
+function flashBackupBtn(txt) {
+  document.getElementById("backup-label").textContent = txt;
+  setTimeout(updateBackupLabel, 1500);
 }
 
 function handleImportClick() {
