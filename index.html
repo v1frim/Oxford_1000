@@ -7401,7 +7401,16 @@ async function autoBackup() {
   const handle = await idbGet("fileHandle");
   if (!handle) return;
   try {
-    if ((await handle.queryPermission({ writable: true })) !== "granted") return;
+    // ⚠️ (23.11.2026, скарга «копія перестала синхронізуватись») Chrome СКИДАЄ дозвіл на запис у файл
+    // після перезапуску/оновлення браузера (якщо не обрано «Дозволяти під час кожного відвідування»).
+    // Без жесту користувача requestPermission не можна — тож лише підказуємо на кнопці, що треба клікнути.
+    if ((await handle.queryPermission({ writable: true })) !== "granted") {
+      const label = document.getElementById("backup-label"), btn = document.getElementById("backup-btn");
+      if (!/натисни/.test(label.textContent)) label.textContent += " · натисни";
+      btn.title = "Браузер скинув дозвіл на запис у файл копії (після перезапуску чи оновлення Chrome). " +
+        "Клікни — і в запиті обери «Дозволяти під час кожного відвідування», тоді копія знову йтиме сама.";
+      return;
+    }
     await writeToHandle(handle);
   } catch(e) {}
 }
