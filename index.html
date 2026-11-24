@@ -13672,7 +13672,7 @@ function qFightAnswer(val, auto) {
     if (c.dir === "ua-en" && isSynonymHit(t, c.idx)) {
       Q.phase = "syn";
       qSfx("hit");
-      qSetInput(true, "очікуване слово…");
+      qSetInput(true, "очікуване слово англійською…");   // ⚠️ «англ» у плейсхолдері — по ньому kbTargetLang вмикає автомову (24.11.2026)
       qHint("✓ " + val.trim() + " — теж правильно, зараховано. А тут очікувалось інше слово — впиши його · Enter — показати");
       return;
     }
