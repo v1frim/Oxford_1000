@@ -1741,6 +1741,7 @@
     font-size: 24px; font-weight: 800; box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: opacity .2s;
   }
   .qm-word:empty { display: none; }
+  .qm-word.syn-miss { border-color: #7fdd40; color: #c9ff9e; box-shadow: 0 0 18px rgba(127,221,64,.55), 0 6px 18px rgba(0,0,0,.35); }
   .q-mon.extra .qm-word::before { content: "⭐ "; }   /* екстра-слово з рівня поза вибором (сесія 64) */
   .q-mon.extra .qm-word { border-color: #b98cff; box-shadow: 0 0 18px rgba(185,140,255,.55), 0 6px 18px rgba(0,0,0,.35); }
   /* повторення слова зі «Знаю» (streak ≥ 3) — зелена рамка, як фіолетова в екстра (06.11.2026, за запитом) */
@@ -13639,8 +13640,15 @@ function qSynAnswer(val, auto) {
   Q.phase = "kill";
   qSetInput(false);
   if (ok) { updateMastery(c.idx, true); qHint("✓ " + getEn(WORDS[c.idx])[0]); qKillMon(900); return; }
-  qHint("Очікувалось: " + getEn(WORDS[c.idx])[0] + " · без штрафу");
-  qKillMon(2200);
+  // ⚠️ (24.11.2026, «не показало саме слово — я не зрозумію, яким воно мало бути») — підказка внизу
+  // жила 2,2 с і губилась. Тепер очікуване слово: (1) у бульбашці над монстром на 2,8 с (монстр падає ПІСЛЯ),
+  // (2) окремим рядком у стрічці XP («0 не дописав», з ховером-перекладом) — лишається на екрані.
+  const exp = getEn(WORDS[c.idx])[0];
+  qHint("Очікувалось: " + exp + " · без штрафу");
+  const bw = Q.mon && Q.mon.querySelector(".qm-word");
+  if (bw) { bw.textContent = exp; bw.classList.add("syn-miss"); }
+  qFeed(c.idx, [["0", "не дописав"]], "fight");
+  Q.timer = setTimeout(() => { if (Q && Q.phase === "kill") qKillMon(900); }, 2800);
 }
 function qFightAnswer(val, auto) {
   const ok = val.trim() !== "" && isCorrect(val);
