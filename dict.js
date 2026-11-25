@@ -2660,7 +2660,7 @@ const WORDS = [
   {en:"mochi",ua:"мочі (десерт)",uaAlt:["мочі","моті"]},
   {en:"mocktail",ua:"безалкогольний коктейль",uaAlt:["моктейль"],enAlt:["non-alcoholic cocktail"]},
   {en:"monkfish",ua:"морський чорт",enAlt:["anglerfish"]},
-  {en:"mortarboard",ua:"академічна шапочка",enAlt:["academic cap"]},
+  {en:"mortarboard",ua:"академічна шапочка",enAlt:["academic cap"],uaAlt:["конфедератка","академічна шапка","шапка випускника","шапочка випускника","випускна шапочка","випускна шапка","дошка для розчину"],uaShow:1},
   {en:"motorbike",ua:"мотоцикл (легкий)",uaAlt:["мотоцикл легкий","мотоцикл"]},
   {en:"motocross",ua:"мотокрос"},
   {en:"motorcycle",ua:"мотоцикл"},
