@@ -2331,38 +2331,71 @@
      до свого reveal-виклику. Реєструється ДО songs.js, бо не має залежностей. -->
 <script>
 addEventListener("load",function(){var l=document.querySelector(".layout");if(l)l.classList.add("ready");});
-// ── Фон за порою дня (Київ) ──
+// ── Фон за порою дня (Тернопіль) ──
 // Виконується ДО songs.js/основного скрипта → правильний фон з першого кадру, без блимання.
 // ?tod=morning|day|evening|night — форс для перевірки.
 // ⚠️ (24.11.2026, «на дворі вже темно, а в грі день» о 17:20) Раніше межі були трьома сезонами
 // (сесія 33): листопад ішов «осінню» [6,8,18,21] — як вересень, хоча сонце сідає о 15:59.
-// Тепер — реальні схід/захід сонця в Києві (місцевий час, з урахуванням літнього), середина кожного
-// місяця, лінійно між ними по днях. Фази: ніч — до (схід − 45 хв) і після (захід + 45 хв, вже темно);
+// Фази: ніч — до (схід − 45 хв) і після (захід + 45 хв, вже темно);
 // ранок — до (схід + 1 год 15 хв); вечір — від (захід − 30 хв); між ними день.
 // ⚠️ (25.11.2026, «гра рано потемніла, а надворі ще світло») вечір був від (захід − 1 год 15 хв) — у
 // листопаді це 14:48, ясний день. Захід малюється помаранчевим небом, тож вмикаємо його лише перед самим заходом.
-var SUN_KYIV = [ // [схід, захід] у годинах, 15-те число місяця
-  [7.87, 16.33], [7.25, 17.25], [6.17, 17.97], [6.17, 19.83], [5.25, 20.67], [4.78, 21.22],
-  [5.08, 21.08], [5.83, 20.25], [6.67, 19.17], [7.42, 18.33], [7.30, 16.15], [7.87, 15.87]];
+// ⚠️ (25.11.2026, за запитом: користувач у ТЕРНОПОЛІ, не в Києві — сонце там на ~20 хв пізніше)
+// Джерело №1 — точні схід/захід на сьогодні з Open-Meteo (без ключа), лише в пам'яті, без localStorage.
+// Джерело №2 (поки відповідь не прийшла / мережа впала) — таблиця нижче: розрахунок NOAA для
+// Тернополя (49.55° пн. ш., 25.59° сх. д.), 15-те число місяця, місцевий час з урахуванням літнього;
+// між серединами сусідніх місяців — лінійно по днях. Похибка таблиці — кілька хвилин.
+var SUN_LAT = 49.55, SUN_LON = 25.59;
+var SUN_TABLE = [ // [схід, захід] у годинах, 15-те число місяця, Тернопіль
+  [8.13, 16.72], [7.48, 17.57], [6.55, 18.33], [6.45, 20.13], [5.57, 20.88], [5.15, 21.42],
+  [5.43, 21.33], [6.12, 20.62], [6.87, 19.55], [7.60, 18.48], [7.45, 16.60], [8.12, 16.30]];
+var SUN_LIVE = null;   // { day: "YYYY-MM-DD", rise: год, set: год } — з Open-Meteo
 function sunFor(m, day) {
   // m 1..12; між серединами сусідніх місяців — лінійно
   var i = m - 1, j, f;
   if (day >= 15) { j = (i + 1) % 12; f = (day - 15) / 30; } else { j = i; i = (i + 11) % 12; f = (day + 15) / 30; }
-  return [SUN_KYIV[i][0] + (SUN_KYIV[j][0] - SUN_KYIV[i][0]) * f, SUN_KYIV[i][1] + (SUN_KYIV[j][1] - SUN_KYIV[i][1]) * f];
+  return [SUN_TABLE[i][0] + (SUN_TABLE[j][0] - SUN_TABLE[i][0]) * f, SUN_TABLE[i][1] + (SUN_TABLE[j][1] - SUN_TABLE[i][1]) * f];
 }
-function todFor(m, h, day) {
-  var sun = sunFor(m, day || 15), rise = sun[0], set = sun[1];
+function todFor(m, h, day, sun) {
+  sun = sun || sunFor(m, day || 15);
+  var rise = sun[0], set = sun[1];
   return (h < rise - 0.75 || h >= set + 0.75) ? "night"
        : h < rise + 1.25 ? "morning" : h >= set - 0.5 ? "evening" : "day";
 }
+function dayKeyLocal(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
 function todNow() {
   var d = new Date();
-  return todFor(d.getMonth() + 1, d.getHours() + d.getMinutes() / 60, d.getDate());
+  var live = SUN_LIVE && SUN_LIVE.day === dayKeyLocal(d) ? [SUN_LIVE.rise, SUN_LIVE.set] : null;
+  return todFor(d.getMonth() + 1, d.getHours() + d.getMinutes() / 60, d.getDate(), live);
+}
+// "2026-11-25T16:26" → 16.433. Час уже місцевий (timezone=Europe/Kyiv у запиті), Date не парсимо — без UTC-пасток.
+function hhOf(iso) { var t = /T(\d\d):(\d\d)/.exec(iso || ""); return t ? +t[1] + +t[2] / 60 : NaN; }
+function sunFetch(apply) {
+  if (!window.fetch) return;
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=" + SUN_LAT + "&longitude=" + SUN_LON +
+        "&daily=sunrise,sunset&timezone=Europe%2FKyiv&forecast_days=1")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) {
+      var dd = j && j.daily; if (!dd || !dd.time) return;
+      var rise = hhOf(dd.sunrise && dd.sunrise[0]), set = hhOf(dd.sunset && dd.sunset[0]);
+      // Санітарна перевірка: абсурдна відповідь → лишаємось на таблиці
+      if (!(rise > 3 && rise < 10 && set > 15 && set < 23)) return;
+      SUN_LIVE = { day: dd.time[0], rise: rise, set: set };
+      apply();
+    })
+    .catch(function (e) { console.warn("Open-Meteo: схід/захід недоступні, фон за таблицею", e); });
 }
 (function () {
   var force = new URLSearchParams(location.search).get("tod");
   document.documentElement.dataset.tod = force || todNow();
-  if (!force) setInterval(function () { document.documentElement.dataset.tod = todNow(); }, 10 * 60 * 1000);
+  if (force) return;
+  var apply = function () { document.documentElement.dataset.tod = todNow(); };
+  sunFetch(apply);
+  setInterval(function () {
+    // нова доба → свіжі схід/захід
+    if (!SUN_LIVE || SUN_LIVE.day !== dayKeyLocal(new Date())) sunFetch(apply);
+    apply();
+  }, 10 * 60 * 1000);
 })();
 </script>
 <script src="songs.js"></script>
