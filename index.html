@@ -13341,7 +13341,8 @@ function qFeed(idx, items, kind, word) {
     // і є відповіддю на картці повторення. Знімає розмиття «підівчив» (kind "drill") — див. нижче.
     if (items[0] && items[0][1] === "втік") e.hide = true;
     // 🔍 ховер (04.11.2026, за запитом): переклади САМЕ цієї картки + транскрипція — як .hw на картках
-    e.tr = [...new Set(getUa(W).concat((W.uaAlt || []).slice(0, W.uaShow == null ? undefined : W.uaShow)))].join(", ");   // uaShow — як у EN_TO_UA e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
+    e.tr = [...new Set(getUa(W).concat((W.uaAlt || []).slice(0, W.uaShow == null ? undefined : W.uaShow)))].join(", ");   // uaShow — як у EN_TO_UA
+    e.ipa = TRANS[e.w] || TRANS[e.w.replace(/^to /, "")] || "";
     Q.feed.unshift(e); }
   if (Q.feed[0] !== e) { Q.feed.splice(Q.feed.indexOf(e), 1); Q.feed.unshift(e); }
   items.forEach(([v, l]) => qXpBy(QUEST_XP_CAT[l] || "bonus", +v));
