@@ -3332,8 +3332,15 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | A1 | +259 | +51 | +42 |
-  **▶ ДАЛІ:** A1 партія 2 — решта ~431 слово A1 без DEFS (від `good`; список: WORDS у порядку, A1 з CEFR_DATA, без DEFS[en]),
-     потім A2 (1263 без DEFS), B1. Службові слова (than, their, those…) — тлумачення, що однозначно веде до слова, або пропуск.
+     - **A1, партія 2** — `good` … `hello`: DEFS +247, SYNS +77, ANTS +66. Покриття A1: DEFS 81% · SYNS 26% · ANTS 20%.
+       Дні/місяці — «the day of the week after Sunday», «the fifth month of the year»; кольори — «the color of grass».
+       **Свідомо ПРОПУЩЕНІ службові** (тлумачення не веде однозначно до слова): very, really, quite, still, also, too, however,
+       even, only, through, those, than, their — НЕ «доповнювати» в наступних партіях.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A1 | +247 | +77 | +66 |
+  **▶ ДАЛІ:** A1 партія 3 — решта ~171 слово A1 без DEFS (після `hello`; список: WORDS у порядку, A1 з CEFR_DATA, без DEFS[en],
+     мінус пропущені вище), потім A2 (1263 без DEFS), B1. ⚠️ `leaks` ловить і «moving» для movie (корінь «movi») — переформулюй.
 
 - **📌 СЕСІЯ 76 (2026-11-25…26, хмара) — UASHOW МАСОВО, ТЕРНОПІЛЬ + OPEN-METEO, CLOZE, ФІЛЬТР РІВНІВ У ENGLISH-ONLY.**
   ⚠️ Правда тут, якщо суперечить «📌 СЕСІЯ 75». `./verify.sh` зелений на кожному коміті; режими — Playwright-прогін.
