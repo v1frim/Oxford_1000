@@ -3339,8 +3339,15 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | A1 | +247 | +77 | +66 |
-  **▶ ДАЛІ:** A1 партія 3 — решта ~171 слово A1 без DEFS (після `hello`; список: WORDS у порядку, A1 з CEFR_DATA, без DEFS[en],
-     мінус пропущені вище), потім A2 (1263 без DEFS), B1. ⚠️ `leaks` ловить і «moving» для movie (корінь «movi») — переформулюй.
+     - **A1, партія 3** — `goodbye` … `last night`: DEFS +164, SYNS +41, ANTS +18. **A1 ЗАКРИТО: DEFS 98% (928/949)** · SYNS 30% · ANTS 21%.
+       Ще свідомо пропущені: some, else, ever, there is / there are / there was / there were / there is no (граматика).
+       Мови — через місто/країну («the language spoken in Tokyo and Osaka» — «Japan» `leaks` ловить як корінь Japanese).
+       Фразові синоніми (to turn on → switch on) лишено — це справжні синоніми.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A1 | +164 | +41 | +18 |
+  **▶ ДАЛІ:** A2 — 1263 слова без DEFS (список: WORDS у порядку, A2 з CEFR_DATA, без DEFS[en]), партіями ~250; потім B1.
+     ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
 - **📌 СЕСІЯ 76 (2026-11-25…26, хмара) — UASHOW МАСОВО, ТЕРНОПІЛЬ + OPEN-METEO, CLOZE, ФІЛЬТР РІВНІВ У ENGLISH-ONLY.**
   ⚠️ Правда тут, якщо суперечить «📌 СЕСІЯ 75». `./verify.sh` зелений на кожному коміті; режими — Playwright-прогін.
