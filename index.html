@@ -12766,7 +12766,7 @@ function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card")
 // Режим береться, ЛИШЕ якщо для слова є дані (Cloze — пропуск знайдено в прикладі). По QUEST_EN_CHANCE[режим] на
 // КОЖЕН режим («рідше, а там поправлятимемо»). Правильно = звичайна ревізія «Знаю»; помилка = звичайна помилка
 // (картка вивчення з повним реченням → 3 повтори в перекладі → арена). Def / Syn / Ant — наступним кроком (дані).
-const QUEST_EN_CHANCE = window.__QUEST_EN_CHANCE || { "en-cloze": 0.02 };   // тести підставляють свої (addInitScript)
+const QUEST_EN_CHANCE = window.__QUEST_EN_CHANCE || { "en-cloze": 0.2 };   // 27.11.2026: 2% → 20% (1/5 монстрів-«Знаю», за запитом); тести підставляють свої (addInitScript)
 // → { task, text } або null. text — промпт завдання (речення з пропуском для Cloze)
 function qEnTask(idx) {
   if (Q.extraL || !isKnownIdx(idx)) return null;
