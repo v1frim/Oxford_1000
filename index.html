@@ -1752,6 +1752,10 @@
     font-size: 24px; font-weight: 800; box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: opacity .2s;
   }
   .qm-word:empty { display: none; }
+  .qc-opts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 10px 0 6px; }
+  .qc-opt { padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); font-size: 18px; }
+  .qc-opt.got { background: rgba(127,221,64,.16); border-color: #7fdd40; color: #c9ff9e; }
+  .qc-score { font-size: .8em; color: #ffe08a; margin-left: 6px; }
   .qm-word .qm-got { color: #9dff7a; font-weight: 700; }
   .qm-word .qm-rest { display: block; font-size: .78em; color: #ffe08a; margin-top: 2px; }
   .qm-word.syn-miss { border-color: #7fdd40; color: #c9ff9e; box-shadow: 0 0 18px rgba(127,221,64,.55), 0 6px 18px rgba(0,0,0,.35); }
@@ -12824,14 +12828,14 @@ function qFight(noPhrase) {
   qSetInput(true, dir === "en-ua" ? "українською…" : "англійською…");   // ⚠️ «англ/укр» — по них kbTargetLang вмикає автомову
   qEl("q-skip").textContent = qIsMulti() ? "⏭ Далі" : "💨 Втекти";   // Syn/Ant — пропуск без штрафу, тож не «втекти»
   if (qIsMulti()) { Q.cur.got = []; qHint(qMultiHint()); return; }
-  qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
+  qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — " + (Q.cur.task ? "показати відповідь (без штрафу)" : "втекти") + " · Esc — стоп");
 }
 // 🔁↔ SYN / ANT У ПОХОДІ — КІЛЬКА ВІДПОВІДЕЙ (28.11.2026, за запитом: «щоби давало можливість кількох вписувати,
 // і пропуск не зараховувало як помилку — Герой просто йде далі; показуватиме, які ще можна було б вписати»).
 // Монстр стоїть, поки вписуєш варіанти по одному (кожен вірний — ✓ у бульбашці). Порожній Enter / «Втекти» —
-// завершити: ≥1 вірний = перемога (+1 XP, ревізія «Знаю» зарахована); 0 вірних = БЕЗ помилки — mastery не
+// завершити: ≥1 вірний = перемога (+1 XP за КОЖНЕ вгадане, ревізія «Знаю» зарахована); 0 вірних = БЕЗ помилки — mastery не
 // чіпаємо (лише штамп дня schedTouch), ні арени, ні картки вивчення. Слово не зі списку — просто «не в списку»,
-// спробуй ще. Наприкінці в бульбашці — решта варіантів зі SYNS/ANTS. Усі варіанти вгадано — завершує саме.
+// спробуй ще. Наприкінці — картка з усіма варіантами (ховер), далі — Enter. Усі варіанти вгадано — картка одразу.
 // ⚠️ Def / Cloze — як були (одна відповідь, помилка = помилка): там відповідь одна.
 function qIsMulti() { return !!(Q && Q.cur && (Q.cur.task === "en-syn" || Q.cur.task === "en-ant")); }
 function qMultiList() { const c = Q.cur; return ((c.task === "en-syn" ? SYNS : ANTS)[c.text] || []); }
@@ -12863,44 +12867,81 @@ function qMultiAnswer(val, auto) {
     if (c.got.length < list.length) { qHint("✓ " + hit + " · " + qMultiHint()); return; }
   }
   // ── завершення: порожній Enter / усі варіанти вгадано ──
+  // ⚠️ (28.11.2026, за запитом) НЕ автоперехід: картка з УСІМА варіантами (ховер — транскрипція й переклади,
+  // клік — озвучити), далі — коли сам натиснеш Enter / «Далі». XP — по 1 за КОЖНЕ вгадане слово.
   const ok = c.got.length > 0, rest = list.filter(s => c.got.indexOf(s) < 0);
-  Q.phase = "kill";
-  qT("road");
+  Q.phase = "multiDone";
+  qT("study");
   Q.rec = { w: wordKey(WORDS[c.idx]), dir: c.dir, ok, t: qNow() - Q.mAt, n: c.got.length };
   Q.mlog.push(Q.rec);
   qCountAnswer(QUEST_PTS.fight);
   bumpSeen();
   if (!Q.counted) { Q.counted = true; qDayAdd("quests"); }
   qSetInput(false);
-  qMultiBubble(rest);
-  if (rest.length) Q.mon.querySelector(".qm-word").classList.add("syn-miss");
+  qMultiBubble();
   const lbl = c.got.length + " із " + list.length;
   if (ok) {
     const xpA = loadXp();
-    addXp(1); Q.won++;
+    addXp(c.got.length); Q.won++;
     updateMastery(c.idx, true);
-    const bonus = loadXp() - xpA - 1;
+    const bonus = loadXp() - xpA - c.got.length;
     Q.lastEn = c.text;
-    qFeed(c.idx, [["+1", "перемога · " + lbl]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.got.join(" / "));
+    qFeed(c.idx, [["+" + c.got.length, "перемога · " + lbl]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.got.join(" / "));
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
-    qHint("✓ " + lbl + (rest.length ? " · ще можна було: " + rest.join(", ") : " — усі!"));
-    qHud();
-    Q.timer = setTimeout(() => { if (Q && Q.phase === "kill") qKillMon(900); }, rest.length ? 3200 : 600);
-    return;
+  } else {
+    schedTouch(c.idx);   // нуль вгаданих — без помилки: «Знаю» не чіпаємо, лише штамп дня
+    qFeed(c.idx, [["0", "пропустив · без штрафу"]], "fight");
   }
-  // нуль вгаданих — без помилки: монстр зникає, Герой іде далі
-  schedTouch(c.idx);
-  qFeed(c.idx, [["0", "пропустив · без штрафу"]], "fight");
-  qHint("Без штрафу · можна було: " + rest.join(", "));
   qHud();
-  Q.timer = setTimeout(() => {
-    if (!Q || Q.phase !== "kill") return;
-    const mon = Q.mon;
-    mon.classList.remove("fighting"); mon.classList.add("behind");
-    setTimeout(() => mon.remove(), 1400);
-    Q.timer = setTimeout(qWalk, 700);
-  }, 3200);
+  const hw = w => '<span class="qc-opt' + (c.got.indexOf(w) >= 0 ? ' got' : '') + '">' + (c.got.indexOf(w) >= 0 ? '✓ ' : '') + wrapEnWord(w) + '</span>';
+  qEl("q-card").innerHTML =
+    '<div class="qc-title">' + QUEST_EN_TAG[c.task] + ' ' + (c.task === "en-syn" ? "Синоніми" : "Антоніми") + ' до <b>' + wrapEnWord(c.text) + '</b>' +
+      ' <span class="qc-score">' + (ok ? "✓ " + lbl + " · +" + c.got.length + " XP" : "0 із " + list.length + " · без штрафу") + '</span></div>' +
+    '<div class="qc-opts">' + list.map(hw).join("") + '</div>' +
+    '<div class="qc-your">наведи на слово — транскрипція й переклади · клік — озвучити</div>' +
+    '<button class="qc-go" data-q="multi-next">➜ Далі <small>Enter</small></button>';
+  qEl("q-card").classList.remove("hidden");
+  Q.say = c.text; Q.sayEx = null;
+  qHint("Enter — далі · Tab — озвучити слово");
+}
+function qMultiNext() {
+  if (!Q || Q.phase !== "multiDone") return;
+  const c = Q.cur;
+  qEl("q-card").classList.add("hidden");
+  qT("road");
+  Q.phase = "kill";
+  if (c.got.length) { qKillMon(500, c.got.length); return; }
+  const mon = Q.mon;   // нуль вгаданих — монстр просто зникає, Герой іде далі
+  mon.classList.remove("fighting"); mon.classList.add("behind");
+  setTimeout(() => mon.remove(), 1400);
+  Q.timer = setTimeout(qWalk, 500);
+}
+// 📖📝 Def / Cloze ПРОГРАНО — БЕЗ ШТРАФУ (28.11.2026, за запитом: «поки жодне слово не викидай зі "Знаю", обкатаємо
+// схему»). Ні mastery, ні «неправильних» дня, ні арени, ні повторів — картка з правильним словом, перекладом,
+// прикладом; далі — Enter. Повернути старе (qStudy) — коли користувач скаже, що схема обкатана.
+function qTaskMiss(val) {
+  const c = Q.cur, t = c.task;
+  schedTouch(c.idx);
+  qFeed(c.idx, [["0", "не вгадав · без штрафу"]], "fight");
+  qHud();
+  c.taskLine = '<span class="qc-task">' + QUEST_EN_TAG[t] + '</span> ' +
+    (t === "en-def" ? "«" + esc(c.text) + "»" : wrapSentence(c.text.split(CLOZE_GAP).join("____"))) + " → " + wrapEnWord(getEn(WORDS[c.idx])[0]);
+  c.dir = "ua-en"; c.shown = qAsk(c.idx, "ua-en");
+  Q.phase = "taskMiss";
+  qT("study");
+  qStudyCard(val, "💡 Не вгадав — без штрафу, слово лишається у «Знаю»",
+    '<button class="qc-go" data-q="task-next">➜ Далі <small>Enter</small></button>');
+}
+function qTaskMissNext() {
+  if (!Q || Q.phase !== "taskMiss") return;
+  qEl("q-card").classList.add("hidden");
+  qT("road");
+  Q.phase = "kill";
+  const mon = Q.mon;
+  mon.classList.remove("fighting"); mon.classList.add("behind");
+  setTimeout(() => mon.remove(), 1400);
+  Q.timer = setTimeout(qWalk, 500);
 }
 // ⏱ ОБЛІК ЧАСУ ПОХОДУ (сесія 61, за запитом «важливо зафіксувати, скільки часу йде на кожен етап»).
 // Кошики: road — ходьба, удари, втечі; fight — від появи монстра до першої відповіді (думав);
@@ -12966,11 +13007,11 @@ function qOnAnswer(val, auto) {
   if (Q.phase === "drill") return qDrillAnswer(val, auto);
   if (Q.phase === "arena") return qArenaAnswer(val, auto);
 }
-function qKillMon(walkMs) {
+function qKillMon(walkMs, xp) {
   qHero("strike face-" + Q.side);
   qSfx("hit");
   const mon = Q.mon;
-  setTimeout(() => { mon.classList.remove("fighting"); mon.classList.add("dead"); qSfx("kill"); qFloat("+1 XP", "xp", Q.side === "left" ? 30 : 70); }, 260);
+  setTimeout(() => { mon.classList.remove("fighting"); mon.classList.add("dead"); qSfx("kill"); qFloat("+" + (xp || 1) + " XP", "xp", Q.side === "left" ? 30 : 70); }, 260);
   setTimeout(() => mon.remove(), 1500);
   Q.timer = setTimeout(qWalk, walkMs);
 }
@@ -13028,6 +13069,7 @@ function qFightAnswer(val, auto) {
     }
     qKillMon(900);
   } else {
+    if (c.task) { qTaskMiss(val.trim()); return; }   // 📖📝 Def/Cloze — без штрафу (див. qTaskMiss)
     updateMastery(c.idx, false);
     const bonus = loadXp() - xpA;
     // «втік» — ЗАВЖДИ (скарга: «від монстра з dustbin я втік, але там не показало» — бонус нового
@@ -13847,6 +13889,8 @@ function qEnter() {
   if (Q.stage === "pause") { Q.arenaPool.length ? qArenaStart(false) : questFinal(); return; }
   if (Q.stage === "final") { questClose(false); return; }
   if (Q.phase === "study") { qDrillStart(); return; }
+  if (Q.phase === "multiDone") { qMultiNext(); return; }
+  if (Q.phase === "taskMiss") { qTaskMissNext(); return; }
   if (Q.phase === "arenaStudy") { qArenaStudyDone(); return; }
   if (Q.phase === "phrase") { Q.phrase.open ? qPhraseRate("learned") : qPhraseOpen(); return; }
   if (Q.phase === "offer") { qSideSkip(); return; }
@@ -13866,6 +13910,10 @@ questOverlay.addEventListener("click", e => {
   else if (a === "exua") b.classList.toggle("open");
   else if (a === "gpt") countGptRequest();          // як GPT-лінк фінал-екрана: клік = запит
   else if (a === "ready") qDrillStart();
+  else if (a === "multi-next") qMultiNext();
+  else if (a === "task-next") qTaskMissNext();
+  else if (a === "skip" && Q.phase === "multiDone") qMultiNext();
+  else if (a === "skip" && Q.phase === "taskMiss") qTaskMissNext();
   else if (a === "arena-next") qArenaStudyDone();
   else if (a === "arena") qArenaStart(false);
   else if (a === "final") questFinal();
@@ -13903,7 +13951,7 @@ document.addEventListener("keydown", e => {
     else if (Q.stage === "pause") questFinal();
   } else if (e.key === "Tab") {
     e.preventDefault();
-    if (Q.phase === "study" || Q.phase === "arenaStudy") speak(Q.say);
+    if (Q.phase === "study" || Q.phase === "arenaStudy" || Q.phase === "multiDone" || Q.phase === "taskMiss") speak(Q.say);
     else if (Q.phase === "phrase" && Q.phrase && (Q.phrase.dir === "en2ua" || Q.phrase.open)) speak(Q.phrase.c.en);
     // ⚠️ currentShown, а НЕ Q.cur.shown: у повторенні напрямок міняється, і Q.cur.shown лишався
     // українським промптом бою — Tab озвучував українське слово (скарга користувача)
