@@ -3553,7 +3553,8 @@ EN→EN і `setMode`.
      **🏁 C1 ЗАКРИТО:** DEFS 99% (3145/3179; решта — ключі CEFR_DATA, що не є головним en картки) · SYNS 56% · ANTS 24%.
      - **C2, партія 1** — `elated` … `consignment` (емоції, рослини й кулінарія, атмосфера, абстрактна книжна лексика A–C): DEFS +250, SYNS +169, ANTS +83. Покриття C2: DEFS 26%.
      - **C2, партія 2** — `consternation` … `marketability` (книжна абстрактна лексика C–M): DEFS +250, SYNS +234, ANTS +133. Покриття C2: DEFS 51%.
-  **▶ ДАЛІ:** C2 партія 3 — вибірка: WORDS у порядку, `CEFR_DATA.C2`, без DEFS[en].
+     - **C2, партія 3** — `marvel` … `uncanny` (книжна абстрактна лексика M–U): DEFS +250, SYNS +232, ANTS +127. Покриття C2: DEFS 77%.
+  **▶ ДАЛІ:** C2 партія 4 — вибірка: WORDS у порядку, `CEFR_DATA.C2`, без DEFS[en].
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
