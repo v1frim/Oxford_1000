@@ -524,8 +524,15 @@
   #tm-levels button.taken:hover, #tm-solo button.taken:hover { background: rgba(255,255,255,0.05); }
   #tm-solo-wrap.hidden { display: none; }
   #tm-solo-h .soloh-ico { font-size: 12.5px; }
-  #tm-solo button .lvp { margin-left: 6px; font-size: 10.5px; color: #7be07b; font-weight: 700; }
-  #tm-solo button.on .lvp { color: #1a5c1a; }
+  /* 🎓 статистика за рівнями (26.11.2026) */
+  .lvs-row { display: grid; grid-template-columns: 70px repeat(4, 1fr); align-items: center; gap: 4px; padding: 7px 8px; list-style: none; }
+  .lvs-lv { font-weight: 800; color: #ffd166; font-size: 14px; }
+  .lvs-c { display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
+  .lvs-c b { font-size: 14px; }
+  .lvs-c small { font-size: 9.5px; opacity: .6; }
+  .lvs-sum .lvs-lv { color: #e8e8f0; font-size: 12px; }
+  #tm-solo button .lvp, #tm-levels button .lvp { margin-left: 6px; font-size: 10.5px; color: #7be07b; font-weight: 700; }
+  #tm-solo button.on .lvp, #tm-levels button.on .lvp { color: #1a5c1a; }
   #tm-solo button.full { opacity: 0.45; }
   #tm-go {
     width: 100%; margin-top: 18px; border: none; cursor: pointer; line-height: 1.3;
@@ -8743,9 +8750,13 @@ let cefrSoloSel = (() => {
 function saveCefrSoloSel() {
   try { localStorage.setItem(CEFR_SOLO_KEY, JSON.stringify([...cefrSoloSel])); } catch (e) {}
 }
-(() => {                      // нормалізація збереженого стану: перетин рядів неможливий
-  cefrSoloSel.forEach(L => { if (cefrSel.has(L)) cefrSoloSel.delete(L); });
-  if (!cefrSel.size && !cefrSoloSel.size) cefrSel.add("A1");
+(() => {                      // нормалізація збереженого стану
+  // ⚠️ 📖-РЯД ПРИБРАНО (26.11.2026, за запитом: «всі слова у «Знаю» будемо повторювати, бо кожне можу
+  // забути»). 📖-рівень грав лише слова поза «Знаю» — засвоєні не поверталися НІКОЛИ. Тепер кожен
+  // 📖-рівень переходить у повний вибір: «Знаю» повертається планувальником (ревізії, ≤30% черги).
+  // Механіку cefrSoloSel не видаляли — вона просто завжди порожня (старі мітки «A1 📖» в історії живі).
+  if (cefrSoloSel.size) { cefrSoloSel.forEach(L => cefrSel.add(L)); cefrSoloSel.clear(); saveCefrSel(); saveCefrSoloSel(); }
+  if (!cefrSel.size) cefrSel.add("A1");
 })();
 const cefrPickCount = () => cefrSel.size + cefrSoloSel.size;
 function cefrPickLevel(L, solo) {
@@ -8890,15 +8901,19 @@ function renderTrainModal() {
   const soloWrap = document.getElementById("tm-solo-wrap");
   const showLv = trainSet === "cefr";
   lv.classList.toggle("hidden", !showLv);
-  soloWrap.classList.toggle("hidden", !showLv);
+  soloWrap.classList.add("hidden");   // 📖-ряд прибрано (26.11.2026) — див. нормалізацію cefrSoloSel
   if (showLv) {
-    lv.innerHTML = CEFR_LEVELS.map(L =>
-      '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : cefrSoloSel.has(L) ? "taken" : "") + '"' +
-      (cefrSoloSel.has(L) ? ' title="рівень уже обрано нижче — лише невивчені слова"' : '') + '>' +
-      cefrLvName(L) + '<span class="lvn">' + counts[L] + "</span></button>").join("");
+    // % на чипсі — скільки рівня вже в «Знаю» (переїхало з 📖-ряду)
+    const kst = cefrKnownStats();
+    lv.innerHTML = CEFR_LEVELS.map(L => {
+      const k = kst[L], pc = k.total ? Math.round(k.known / k.total * 100) : 0;
+      return '<button data-lv="' + L + '" class="' + (cefrSel.has(L) ? "on" : "") + '" title="' +
+        cefrLvName(L) + ': ' + k.known + ' з ' + k.total + ' у «Знаю»">' +
+        cefrLvName(L) + '<span class="lvp">' + pc + '%</span><span class="lvn">' + counts[L] + "</span></button>";
+    }).join("");
     // Другий ряд: ті самі рівні, але тільки слова поза «Знаю». Число на чипсі —
     // скільки слів залишилось грати, відсоток — скільки рівня вже в «Знаю».
-    const st = cefrKnownStats();
+    const st = kst;
     document.getElementById("tm-solo").innerHTML = CEFR_LEVELS.map(L => {
       const s = st[L], left = s.total - s.known;
       const pc = s.total ? Math.round((s.known / s.total) * 100) : 0;
@@ -9456,129 +9471,45 @@ function cefrLabelHtml(label) {
   return esc(String(label))
     .replace(/([A-C][12]|—)\s*📖/g, '<span class="cefr-solo" title="лише невивчені слова">$1</span>');
 }
+// ⚠️ 26.11.2026 (за запитом): РЕЙТИНГ наборів рівнів → СТАТИСТИКА ПО КОЖНОМУ РІВНЮ. Привід: звичайні ігри
+// користувач уже не грає (лише походи), тож «рекорд набору за 60 с» втратив сенс. Рядок = рівень:
+// ✓ правильних · ✗ неправильних · точність · скільки рівня в «Знаю». Джерело — лічильники c/w у mastery
+// (рухає updateMastery — і гра, і похід; повторення після раунду — ні). Нового сховища НЕ заводимо.
+// ⚠️ c/w пишуться з сесії 40 — відповіді до неї тут не враховані, тож сума менша за «Відповідей» у статистиці.
+// Пари карток з однаковим en (bank, tip…) — один запис mastery, рахується раз (як у cefrKnownStats).
 function renderTabCefr() {
-  setLbTitle("Рекорди за рівнями CEFR");
-  const log = loadGamesLog();
-  const games = log.filter(g => g.tag && g.tag.indexOf("cefr:") === 0);
-  // ⚔️ ПОХОДИ тим самим набором рівнів (сесія 64, за запитом): додаються до лічильника й суми
-  // відповідей рядка, але РЕКОРДУ не ставлять — похід без 60-секундного таймера, рахунки
-  // непорівнювані. Мітка набору — поле `cefr` (пишеться з сесії 64; старі — міграція tagOldQuestsCefr).
-  const quests = log.filter(g => g.tag === "quest" && g.cefr);
-  if (!games.length && !quests.length) {
+  setLbTitle("Статистика за рівнями CEFR");
+  const m = loadMastery(), seen = new Set(), st = {};
+  CEFR_LEVELS.forEach(L => (st[L] = { c: 0, w: 0, known: 0, total: 0 }));
+  for (let i = 0; i < WORDS.length; i++) {
+    const k = wordKey(WORDS[i]);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    const x = st[cefrLevelOf(WORDS[i])], t = mTally(m[k]);
+    x.c += t.c; x.w += t.w; x.total++;
+    if (mStreak(m[k]) >= 3) x.known++;
+  }
+  const sum = { c: 0, w: 0, known: 0, total: 0 };
+  CEFR_LEVELS.forEach(L => { for (const f in sum) sum[f] += st[L][f]; });
+  if (!sum.c && !sum.w) {
     lbListEl.innerHTML = "";
-    lbEmptyEl.textContent = "Зіграй «🎓 Рівні CEFR» — тут з'являться рекорди по кожному рівню.";
+    lbEmptyEl.textContent = "Зіграй гру чи похід — тут з'явиться статистика по кожному рівню.";
     lbEmptyEl.classList.remove("hidden");
     return;
   }
   lbEmptyEl.classList.add("hidden");
-  const today = todayKey();
-  const isBetter = (a, b) => b.score > a.score || (b.score === a.score && (b.wrong + b.skipped) < (a.wrong + a.skipped));
-  const best = new Map();     // мітка рівнів → найкраща гра цим пулом
-  const count = new Map();    // мітка рівнів → скільки ігор зіграно
-  const agg = new Map();      // мітка рівнів → сума по ВСІХ іграх (і походах) цим пулом (сесія 45)
-  const qCount = new Map();   // мітка рівнів → скільки походів (сесія 64)
-  const qLast = new Map();    // мітка рівнів → останній похід (для рядка без жодної гри)
-  const ALL_KEY = "🌐";      // рядок «усі слова» (сесія 65)
-  const lvLabel = k => k === ALL_KEY ? '<span title="ігри без режиму рівнів — увесь словник">🌐 усі слова</span>' : cefrLabelHtml(k);
-  const addAgg = (k, g) => {
-    const a = agg.get(k) || { score: 0, bad: 0, total: 0 };
-    const bad = (g.wrong || 0) + (g.skipped || 0);
-    a.score += g.score || 0; a.bad += bad; a.total += (g.score || 0) + bad;
-    agg.set(k, a);
-  };
-  games.forEach(g => {
-    const k = g.tag.slice(5);
-    count.set(k, (count.get(k) || 0) + 1);
-    addAgg(k, g);
-    if (!best.has(k) || isBetter(best.get(k), g)) best.set(k, g);
-  });
-  // 🌐 УСІ СЛОВА (сесія 65, за запитом): ігри БЕЗ режиму рівнів і без особливого пулу (тег відсутній —
-  // увесь словник) — окремим рядком у кінці списку (diffOrder для ALL_KEY дає [99…]).
-  log.filter(g => !g.tag).forEach(g => {
-    count.set(ALL_KEY, (count.get(ALL_KEY) || 0) + 1);
-    addAgg(ALL_KEY, g);
-    if (!best.has(ALL_KEY) || isBetter(best.get(ALL_KEY), g)) best.set(ALL_KEY, g);
-  });
-  quests.forEach(g => {
-    const k = g.cefr;
-    qCount.set(k, (qCount.get(k) || 0) + 1);
-    addAgg(k, g);
-    if (!qLast.has(k) || g.ts > qLast.get(k).ts) qLast.set(k, g);
-  });
-  // ⚠️ ПОРЯДОК РЯДКІВ — ЗА СКЛАДНІСТЮ НАБОРУ, а не за рахунком (сесія 45, за запитом:
-  // «вверху найлегші, далі до найважчих комбінацій»). Ключ сортування:
-  //   1) НАЙВИЩИЙ рівень у наборі — пул із C2 важкий, хоч би що ще в ньому було;
-  //   2) найнижчий — чистий A2 важчий за мішанку A1+A2, бо в мішанці половина слів легкі;
-  //   3) ширина набору.
-  // Мітка буває «A1», «A1+A2», «A1-B1» (суцільний діапазон, див. cefrTagLabel) і «—»
-  // (слова без рівня) — «—» це індекс "none" у CEFR_LEVELS, тобто завжди в кінці.
-  const diffOrder = k => {
-    // Маркер 📖 (рівень грався без уже засвоєних слів, сесія 46) стоїть при КОЖНОМУ
-    // такому рівню мітки: «A1 📖», «A1 📖+B1». Сортується поруч зі своїм рівнем, але
-    // ОКРЕМИМ рядком: пул без засвоєних слів важчий, рахунки не порівнювані.
-    // Маркери зрізаємо перед розбором і кладемо ознаку в 4-й ключ.
-    const solo = /📖/.test(String(k)) ? 1 : 0;
-    const s = String(k).replace(/\s*📖/g, "");
-    let idx = [];
-    if (s.includes("-")) {
-      const [a, b] = s.split("-").map(x => CEFR_LEVELS.indexOf(x));
-      if (a >= 0 && b >= a) for (let i = a; i <= b; i++) idx.push(i);
-    } else {
-      idx = s.split("+").map(x => CEFR_LEVELS.indexOf(x === "—" ? "none" : x)).filter(i => i >= 0);
-    }
-    if (!idx.length) return [99, 99, 0, solo];
-    return [Math.max(...idx), Math.min(...idx), idx.length, solo];
-  };
-  const renderCefrRow = (g, label, cls, isExtra) => {
-    const ts = g ? g.ts : qLast.get(label).ts;
-    const isTodayGame = tsToDayKey(ts) === today;
-    const isYesterdayGame = !isTodayGame && isYesterdayKey(tsToDayKey(ts));
-    const klass = (cls || "") + (isTodayGame ? " is-today-game" : "") + (isYesterdayGame ? " lb-yesterday-date" : "");
-    const n = count.get(label) || 0, nq = isExtra ? 0 : (qCount.get(label) || 0);
-    // Поруч із кількістю ігор — сума по ВСІХ іграх цього набору, як у «Найкращих
-    // ігрових днях» (сесія 45, за запитом). Показуємо лише коли ігор >1: на одній
-    // грі сума дослівно дублювала б рахунок рекорду ліворуч. Походи (⚔️N) входять у суму —
-    // з ними вона вже не дубль рекорду, тож показується й при одній грі.
-    const a = agg.get(label);
-    const many = !isExtra && (n > 1 || nq > 0);
-    const sumStr = (many && a)
-      ? '<span class="lb-games-sum">· ' + a.score + ' (<span class="lb-bad">' + a.bad +
-        '</span>/<span class="lb-total">' + a.total + '</span>)</span>' : "";
-    const qStr = nq ? ' <span title="походів цим набором рівнів — у сумі відповідей, але не в рекорді">⚔️' + nq + '</span>' : "";
-    const gamesStr = many
-      ? '<span class="lb-games">· ' + (n ? '<span title="ігор цим набором рівнів">🎮' + n + '</span>' : "") + qStr + "</span>" + sumStr : "";   // 🎮 замість «ігор» (сесія 64)
-    if (!g) {   // набір, зіграний лише походами: рекорду нема (походи його не ставлять)
-      const lq = qLast.get(label);
-      return '<li class="' + klass + '" title="лише походи — рекорд ставлять тільки ігри на час">' +
-        '<span class="lb-score">—</span><span class="lb-detail"></span>' + gamesStr +
-        '<span class="lb-mode">' + cefrLabelHtml(label) + ' · ' + fmtDate(lq.ts) + '</span></li>';
-    }
-    // Розмір словника («· 13.8k») тут НЕ показуємо (сесія 65, за запитом): пул задає набір рівнів, не словник.
-    const isQ = g.tag === "quest";   // «ост» може бути й походом (сесія 64)
-    return '<li class="' + klass + '" title="' + (isQ ? "останній похід рівнями (рекорду не ставить)" : isExtra ? "остання гра рівнями" : label === ALL_KEY ? "рекорд ігор без режиму рівнів (увесь словник)" : "рекорд цього набору рівнів") + '">' +
-      '<span class="lb-score">' + g.score + '</span>' +
-      '<span class="lb-detail">(<span class="lb-bad">' + (g.wrong + g.skipped) + '</span>/<span class="lb-total">' + (g.score + g.wrong + g.skipped) + '</span>)</span>' +
-      gamesStr +
-      '<span class="lb-mode">' + (isQ ? "⚔️ " : "") + lvLabel(label) + ' · ' + fmtDate(g.ts) + '</span>' +
-    '</li>';
-  };
-  // остання CEFR-гра підсвічується синьою рискою просто в списку (як is-latest-game у «Найкращих іграх»)
-  const last = games.length ? games.reduce((a, b) => (b.ts > a.ts ? b : a)) : null;
-  let html = [...new Set([...best.keys(), ...qCount.keys()])]
-    .sort((a, b) => { const x = diffOrder(a), y = diffOrder(b);
-      return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || x[3] - y[3] || String(a).localeCompare(String(b)); })
-    .map(k => renderCefrRow(best.get(k), k, last && best.has(k) && best.get(k).ts === last.ts && !quests.some(q => q.ts > last.ts) ? "is-latest-game" : ""))
-    .join("");
-  // під рискою — останнє заняття рівнями, якщо воно саме не є рекордом (як «ост» у «Найкращих іграх»).
-  // ⚠️ Сесія 64 (скарга: «ост» показував стару гру, хоча щойно був похід): «ост» = новіше з ГРИ чи ПОХОДУ
-  // рівнями; похід позначено ⚔️. Рекорди — як і раніше, лише з ігор.
-  const lastQ = quests.length ? quests.reduce((a, b) => (b.ts > a.ts ? b : a)) : null;
-  if (lastQ && (!last || lastQ.ts > last.ts)) {
-    html += '<li class="lb-sep"></li>' + renderCefrRow(lastQ, lastQ.cefr, "lb-latest", true);
-  } else if (last && ![...best.values()].some(g => g.ts === last.ts)) {
-    html += '<li class="lb-sep"></li>' + renderCefrRow(last, last.tag.slice(5), "lb-latest", true);
-  }
-  lbListEl.innerHTML = html;
+  const pct = x => (x.c + x.w) ? (x.c / (x.c + x.w) * 100).toFixed(1).replace(".", ",") + "%" : "—";
+  const cell = (v, cap, c) => '<span class="lvs-c"><b' + (c ? ' style="color:' + c + '"' : '') + '>' + v + '</b><small>' + cap + '</small></span>';
+  const row = (label, x, cls) => [
+    '<li class="lvs-row', cls ? " " + cls : "", '" title="', esc(label), ': ', x.known, ' з ', x.total, ' слів у «Знаю»">',
+    '<span class="lvs-lv">', esc(label), '</span>',
+    cell(x.c, "правильно", "#7be07b"), cell(x.w, "неправильно", "#ff9d9d"),
+    cell(pct(x), "точність", "#ffd166"),
+    cell(x.total ? Math.round(x.known / x.total * 100) + "%" : "—", "у «Знаю»", "#8fd3ff"),
+    '</li>'].join("");
+  lbListEl.innerHTML = CEFR_LEVELS.filter(L => st[L].total)
+    .map(L => row(cefrLvName(L), st[L])).join("") +
+    '<li class="lb-sep"></li>' + row("Разом", sum, "lvs-sum");
 }
 // ── Вкладка 🕒 «Рекорди за останній період» (сесія 51, за запитом) ─────────────
 // Привід користувача: «є лідерборд за весь час по всім іграм та за весь час по рівням
@@ -9613,7 +9544,7 @@ const LB_PERIODS = [
   { id: "d30",   label: "Місяць",     sub: "останні 30 днів",    kind: "days",  n: 30 },
   // Сесія 61, за запитом: «Рекорди за рівнями CEFR» переїхали з окремої вкладки 🎓 сюди.
   // Рендер — той самий renderTabCefr (сесія 65: + рядок «🌐 усі слова» — ігри без режиму рівнів).
-  { id: "cefr",  label: "Рівні CEFR",  sub: "рекорд кожного набору рівнів", kind: "cefr" },
+  { id: "cefr",  label: "Рівні CEFR",  sub: "правильно · неправильно · точність по кожному рівню", kind: "cefr" },
 ];
 let lbPeriod = (() => {
   const saved = localStorage.getItem(LB_PERIOD_KEY);
@@ -10164,19 +10095,15 @@ function renderLbTotals() {
     row("📅", "Активних днів", activeDays, null, "Дні з будь-якою активністю: ігри, Duolingo, LingoHut, пісні, GPT, кіно, вирази") +
     row("⏸️", "Пропущено днів", missedDays + ' <span style="opacity:.6;font-size:.85em">(' + missedPct + '%)</span>', "#ff9d9d",
         "Дні без жодних занять від першого дня до вчора · у дужках — частка від усіх днів (активні + пропущені)") +
-    // ⚔️ Походи — ПЕРШИМИ, під ними їхня статистика, далі ігри (за запитом: «поміняй місцями ігор і
-    // походів, під походами додай статистику… і скільки в середньому слів на 1 похід»)
-    row("⚔️", "Походів", quests, null, "⚔️ Похід героя — окремий режим без таймера; його відповіді входять у «Відповідей» і точність") +
-    // монстри — такою ж плашкою на три числа, як відповіді ігор (сесія 63, за запитом «аналогічно»)
-    (qLogged ? trio("🗡️", "Монстри на дорозі походів — за журналом походів (" + qLogged + "): переможені · втечі · усього",
-        qWon, "переможених", qBad, "втеч", "монстрів") +
-      row("📊", "Слів на 1 похід", ((qWon + qBad) / qLogged).toFixed(1).replace(".", ","), "",
+    // ⚠️ 26.11.2026 (за запитом «об'єднаємо статистику по відповідях, перемогах… у походах і іграх»):
+    // Походів · Ігор · Слів на 1 похід · ОДНА плашка відповідей = ігри + походи (перемога = правильна,
+    // втеча = неправильна). Раніше — дві окремі плашки: 🗡️ монстри походів і 🧮 відповіді ігор.
+    row("⚔️", "Походів", quests, null, "⚔️ Похід героя — режим без таймера") +
+    row("🎮", "Ігор", games, null, "Ігри на 60 секунд") +
+    (qLogged ? row("📊", "Слів на 1 похід", ((qWon + qBad) / qLogged).toFixed(1).replace(".", ","), "",
         "У середньому монстрів-слів на дорозі за один похід (без арени)") : "") +
-    row("🎮", "Ігор", games) +
-    // ⚠️ Відповіді / правильні / неправильні — ОДНА плашка під «Ігор» (сесія 63, за запитом: «об'єднати,
-    // але цифри й підписи окремо — числа вже великі»). ЛИШЕ ІГРИ: походи — своєю плашкою вище.
-    trio("🧮", "Відповіді в іграх (без походів): правильні · неправильні й пропущені · усього",
-      gOk, "правильних", gBad, "неправильних", "відповідей") +
+    trio("🧮", "Усі відповіді — ігри й походи разом: правильні (і переможені монстри) · неправильні, пропущені й втечі · усього",
+      gOk + qWon, "правильних", gBad + qBad, "неправильних", "відповідей") +
     row("🎯", "Точність · весь час", accAllHtml, "") +
     // ⚠️ ПІДПИС «300 слів», а не «ост. 300» (сесія 58, за запитом: «так буде набагато
     // зрозуміліше»). Довжина та сама, що в рядка «весь час», тож плашка не поїхала.
