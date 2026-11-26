@@ -3551,7 +3551,8 @@ EN→EN і `setMode`.
      старе = прибрати рядок `if (c.task) { qTaskMiss(...) }` у `qFightAnswer`. Стенд: scratchpad `t-multi2.js` (6/6) + test-quest 122/122.
      - **C1, партія 13** — `trespassing` … `word wrap` (право й суд, міграція, вибори, математика, науки — C1 закрито): DEFS +145, SYNS +59, ANTS +18. Покриття C1: DEFS 99%.
      **🏁 C1 ЗАКРИТО:** DEFS 99% (3145/3179; решта — ключі CEFR_DATA, що не є головним en картки) · SYNS 56% · ANTS 24%.
-  **▶ ДАЛІ:** C2 (979 слів, 0%) — та сама вибірка з `CEFR_DATA.C2` (скрипт `next.js` у scratchpad — замінити C1 на C2), партіями ~250.
+     - **C2, партія 1** — `elated` … `consignment` (емоції, рослини й кулінарія, атмосфера, абстрактна книжна лексика A–C): DEFS +250, SYNS +169, ANTS +83. Покриття C2: DEFS 26%.
+  **▶ ДАЛІ:** C2 партія 2 — вибірка: WORDS у порядку, `CEFR_DATA.C2`, без DEFS[en].
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
