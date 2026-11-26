@@ -1761,6 +1761,10 @@
   /* нове слово — ще жодного разу не було в грі (13.11.2026, за запитом «нові слова якось також помічати»); «●» — як «● Нові» в меню */
   .q-mon.fresh .qm-word::before { content: "● "; color: #ffa94d; }
   .q-mon.fresh .qm-word { border-color: #ffa94d; box-shadow: 0 0 18px rgba(255,169,77,.55), 0 6px 18px rgba(0,0,0,.35); }
+  /* 📝 англійське завдання (Cloze) — речення з пропуском: переноситься, вужча бульбашка (26.11.2026) */
+  .q-mon.task .qm-word { white-space: normal; width: max-content; max-width: min(460px, 44vw); font-size: 19px; font-weight: 700; line-height: 1.35; text-align: center; padding: 8px 16px; }
+  .q-mon.task .qm-word .qm-task { display: block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #ffd166; margin-bottom: 3px; }
+  .q-mon.known.task .qm-word::before { content: none; }
   .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
   .qm-hp i { width: 18px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.18); transition: background .25s, transform .25s; }
   .qm-hp i.on { background: linear-gradient(90deg, #ff6b6b, #ffa94d); box-shadow: 0 0 6px rgba(255,140,90,.6); }
@@ -13577,17 +13581,45 @@ function qSideDone() {
 }
 // «Битися далі» = саме МОНСТР (не фраза): накладок квест → фраза не буває (сесія 64, «щоби не було накладки»)
 function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card").classList.add("hidden"); Q.phase = "walk"; qT("road"); qFight(true); }
+// 📝 ENGLISH-ONLY ЗАВДАННЯ В ПОХОДІ (26.11.2026, за запитом; план «📌 СЕСІЯ 76», п. 13). Монстр зі словом зі «Знаю»
+// (streak ≥ 3) з малою ймовірністю просить не переклад, а англійське завдання. Нові / «Вивчаю» / ⭐ екстра — ніколи.
+// Режим береться, ЛИШЕ якщо для слова є дані (Cloze — пропуск знайдено в прикладі). По QUEST_EN_CHANCE[режим] на
+// КОЖЕН режим («рідше, а там поправлятимемо»). Правильно = звичайна ревізія «Знаю»; помилка = звичайна помилка
+// (картка вивчення з повним реченням → 3 повтори в перекладі → арена). Def / Syn / Ant — наступним кроком (дані).
+const QUEST_EN_CHANCE = window.__QUEST_EN_CHANCE || { "en-cloze": 0.02 };   // тести підставляють свої (addInitScript)
+// → { task, text } або null. text — промпт завдання (речення з пропуском для Cloze)
+function qEnTask(idx) {
+  if (Q.extraL || !isKnownIdx(idx)) return null;
+  let r = Math.random();
+  for (const m in QUEST_EN_CHANCE) {
+    const p = QUEST_EN_CHANCE[m] || 0;
+    if (r >= p) { r -= p; continue; }
+    const w = WORDS[idx];
+    if (m === "en-cloze") {
+      const text = clozeBlank(lookupExample(EXAMPLES, getEn(w)[0], getUa(w)[0]), w);
+      return text ? { task: m, text } : null;
+    }
+    return null;
+  }
+  return null;
+}
 function qFight(noPhrase) {
   if (!Q || Q.stage !== "road") return;
   if (noPhrase !== true && Math.random() < QUEST_CHANCE.phrase && qPhraseStart()) return;   // 💬 13% — фраза замість монстра
-  const idx = qNextIdx(), dir = qDirFor(idx);
+  const idx = qNextIdx(), en = qEnTask(idx), dir = en ? en.task : qDirFor(idx);
   Q.side = Math.random() < 0.5 ? "left" : "right";
-  Q.cur = { idx, dir, shown: qAsk(idx, dir) };
+  // 📝 англійське завдання: глобали гри — як у режимі en-cloze (isCorrect приймає en + enAlt картки)
+  Q.cur = en ? { idx, dir, shown: qAsk(idx, "en-ua"), task: en.task, text: en.text } : { idx, dir, shown: qAsk(idx, dir) };
+  if (en) mode = en.task;
   Q.mon = qSpawnMonster(idx, Q.side);
   if (Q.extraL) { Q.mon.classList.add("extra"); Q.mon.title = "⭐ рідкісне слово з рівня поза вибором · " + cefrLvName(Q.extraL); }
   else if (isKnownIdx(idx)) { Q.mon.classList.add("known"); Q.mon.title = "✓ повторення слова зі «Знаю»"; }
   else if (loadMastery()[wordKey(WORDS[idx])] === undefined) { Q.mon.classList.add("fresh"); Q.mon.title = "● нове слово — ще не траплялось у грі"; }
-  Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
+  if (en) {
+    Q.mon.classList.add("task");
+    Q.mon.title = "📝 Cloze — слово зі «Знаю» в реченні";
+    Q.mon.querySelector(".qm-word").innerHTML = '<span class="qm-task">📝 Cloze</span>' + esc(en.text).split(CLOZE_GAP).join('<span class="blank">____</span>');
+  } else Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
   qRoadFitWord();
   Q.speedTo = 0;
   Q.phase = "fight";
@@ -13598,7 +13630,7 @@ function qFight(noPhrase) {
     qHero("fighting face-" + Q.side);
     Q.mon.classList.add("fighting");
   }, 650);
-  qSetInput(true, dir === "ua-en" ? "англійською…" : "українською…");
+  qSetInput(true, dir === "en-ua" ? "українською…" : "англійською…");   // ⚠️ «англ/укр» — по них kbTargetLang вмикає автомову
   qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
 }
 // ⏱ ОБЛІК ЧАСУ ПОХОДУ (сесія 61, за запитом «важливо зафіксувати, скільки часу йде на кожен етап»).
@@ -13713,7 +13745,7 @@ function qFightAnswer(val, auto) {
     qSayWon(c.idx, val, c.dir);
     // ⚠️ у стрічці — картка, ЯКУ ЗАРАХОВАНО (`t`), а не картка монстра (04.11.2026, скарга: на «піднімати» відповів
     // raise, а в стрічці стояло lift). Mastery й бонус «у Знаю» теж ідуть на `t`, тож так і чесніше.
-    qFeed(t, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.dir === "ua-en" ? val : "");
+    qFeed(t, [["+1", "перемога"]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.dir !== "en-ua" ? val : "");
     qDayAdd("correct");
     Q.log.push({ idx: c.idx, ok: true });
     qHud();
@@ -13746,6 +13778,9 @@ function qFightAnswer(val, auto) {
 }
 // ── вивчення посеред походу: слово + приклад із перекладом → «Готово» → 3 правильні ──
 function qStudy(userVal) {
+  // 📝 англійське завдання програно → далі як звичайна помилка: картка «укр = англ» з ПОВНИМ реченням-прикладом,
+  // повтори — у перекладі (ua-en → en-ua → ua-en), бо відповідь була англійською
+  if (Q.cur.task) { Q.cur.dir = "ua-en"; Q.cur.shown = qAsk(Q.cur.idx, "ua-en"); }
   Q.phase = "study";
   qT("study");
   Q.rec.s0 = qNow();
