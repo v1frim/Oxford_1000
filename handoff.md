@@ -3549,7 +3549,8 @@ EN→EN і `setMode`.
      (`qTaskMiss`, фаза `taskMiss`): ні mastery, ні wrong дня, ні арени, ні повторів — картка з правильним словом, перекладом,
      прикладом, Enter — далі (`qTaskMissNext`). ⚠️ ТИМЧАСОВО «обкатати схему» — користувач дасть зворотний зв'язок; повернути
      старе = прибрати рядок `if (c.task) { qTaskMiss(...) }` у `qFightAnswer`. Стенд: scratchpad `t-multi2.js` (6/6) + test-quest 122/122.
-  **▶ ДАЛІ:** C1 партія 13 — вибірка: WORDS у порядку, `CEFR_DATA.C1`, без DEFS[en].
+     - **C1, партія 13** — `trespassing` … `word wrap` (право й суд, міграція, вибори, математика, науки — C1 закрито): DEFS +145, SYNS +59, ANTS +18. Покриття C1: DEFS 99%.
+  **▶ ДАЛІ:** C1 партія 14 — вибірка: WORDS у порядку, `CEFR_DATA.C1`, без DEFS[en].
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
