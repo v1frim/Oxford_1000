@@ -3358,7 +3358,12 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | A2 | +249 | +166 | +73 |
-  **▶ ДАЛІ:** A2 партія 3 — ~763 слова без DEFS (від першого після `seafood` у порядку WORDS; пропускати yet, rather), партіями ~250; потім B1.
+     - **A2, партія 3** — `deal` … `diary`: DEFS +250, SYNS +74, ANTS +18. Покриття A2: DEFS 63%. Багато складених (hair dryer,
+       space station, north pole) — `leaks` ловить КОЖНЕ слово складеного: тлумач без «hair»/«space»/«north» (16 переписано).
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A2 | +250 | +74 | +18 |
+  **▶ ДАЛІ:** A2 партія 4 — ~513 слів без DEFS (від першого після `diary` у порядку WORDS; пропускати yet, rather), партіями ~250; потім B1.
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
 - **📌 СЕСІЯ 76 (2026-11-25…26, хмара) — UASHOW МАСОВО, ТЕРНОПІЛЬ + OPEN-METEO, CLOZE, ФІЛЬТР РІВНІВ У ENGLISH-ONLY.**
