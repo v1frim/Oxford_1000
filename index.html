@@ -1752,6 +1752,8 @@
     font-size: 24px; font-weight: 800; box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: opacity .2s;
   }
   .qm-word:empty { display: none; }
+  .qm-word .qm-got { color: #9dff7a; font-weight: 700; }
+  .qm-word .qm-rest { display: block; font-size: .78em; color: #ffe08a; margin-top: 2px; }
   .qm-word.syn-miss { border-color: #7fdd40; color: #c9ff9e; box-shadow: 0 0 18px rgba(127,221,64,.55), 0 6px 18px rgba(0,0,0,.35); }
   .q-mon.extra .qm-word::before { content: "⭐ "; }   /* екстра-слово з рівня поза вибором (сесія 64) */
   .q-mon.extra .qm-word { border-color: #b98cff; box-shadow: 0 0 18px rgba(185,140,255,.55), 0 6px 18px rgba(0,0,0,.35); }
@@ -12820,7 +12822,85 @@ function qFight(noPhrase) {
     Q.mon.classList.add("fighting");
   }, 650);
   qSetInput(true, dir === "en-ua" ? "українською…" : "англійською…");   // ⚠️ «англ/укр» — по них kbTargetLang вмикає автомову
+  qEl("q-skip").textContent = qIsMulti() ? "⏭ Далі" : "💨 Втекти";   // Syn/Ant — пропуск без штрафу, тож не «втекти»
+  if (qIsMulti()) { Q.cur.got = []; qHint(qMultiHint()); return; }
   qHint((MODE_HINTS[dir] || "") + " · Enter — удар · порожній Enter — втекти · Esc — стоп");
+}
+// 🔁↔ SYN / ANT У ПОХОДІ — КІЛЬКА ВІДПОВІДЕЙ (28.11.2026, за запитом: «щоби давало можливість кількох вписувати,
+// і пропуск не зараховувало як помилку — Герой просто йде далі; показуватиме, які ще можна було б вписати»).
+// Монстр стоїть, поки вписуєш варіанти по одному (кожен вірний — ✓ у бульбашці). Порожній Enter / «Втекти» —
+// завершити: ≥1 вірний = перемога (+1 XP, ревізія «Знаю» зарахована); 0 вірних = БЕЗ помилки — mastery не
+// чіпаємо (лише штамп дня schedTouch), ні арени, ні картки вивчення. Слово не зі списку — просто «не в списку»,
+// спробуй ще. Наприкінці в бульбашці — решта варіантів зі SYNS/ANTS. Усі варіанти вгадано — завершує саме.
+// ⚠️ Def / Cloze — як були (одна відповідь, помилка = помилка): там відповідь одна.
+function qIsMulti() { return !!(Q && Q.cur && (Q.cur.task === "en-syn" || Q.cur.task === "en-ant")); }
+function qMultiList() { const c = Q.cur; return ((c.task === "en-syn" ? SYNS : ANTS)[c.text] || []); }
+function qMultiHint() {
+  const c = Q.cur, n = qMultiList().length, k = c.got.length;
+  return (c.task === "en-syn" ? "Синоніми" : "Антоніми") + " до «" + c.text + "» — вписуй по одному, скільки знаєш" +
+    " (є " + n + ")" + (k ? " · ✓ " + k : "") + " · порожній Enter — далі, без штрафу · Esc — стоп";
+}
+function qMultiBubble(rest) {
+  const c = Q.cur, bw = Q.mon && Q.mon.querySelector(".qm-word");
+  if (!bw) return;
+  bw.innerHTML = '<span class="qm-task">' + QUEST_EN_TAG[c.task] + '</span>' + esc(c.text) +
+    (c.got.length ? '<span class="qm-got"> ✓ ' + c.got.map(esc).join(", ") + '</span>' : '') +
+    (rest && rest.length ? '<span class="qm-rest">ще: ' + rest.map(esc).join(", ") + '</span>' : '');
+  qRoadFitWord();
+}
+function qMultiAnswer(val, auto) {
+  const c = Q.cur, list = qMultiList(), v = val.trim().toLowerCase();
+  if (v) {
+    const hit = list.find(s => s.toLowerCase() === v);
+    if (auto && (!hit || c.got.indexOf(hit) >= 0)) return;   // друк — лише автозарахування нового вірного
+    qAnswerEl.value = "";
+    if (!hit) { qHint("✗ «" + val.trim() + "» — не в списку · ще варіант або порожній Enter"); return; }
+    if (c.got.indexOf(hit) >= 0) { qHint("«" + hit + "» уже є · " + qMultiHint()); return; }
+    c.got.push(hit);
+    qSfx("hit");
+    qRestart(Q.mon, "hit", 380);
+    qMultiBubble();
+    if (c.got.length < list.length) { qHint("✓ " + hit + " · " + qMultiHint()); return; }
+  }
+  // ── завершення: порожній Enter / усі варіанти вгадано ──
+  const ok = c.got.length > 0, rest = list.filter(s => c.got.indexOf(s) < 0);
+  Q.phase = "kill";
+  qT("road");
+  Q.rec = { w: wordKey(WORDS[c.idx]), dir: c.dir, ok, t: qNow() - Q.mAt, n: c.got.length };
+  Q.mlog.push(Q.rec);
+  qCountAnswer(QUEST_PTS.fight);
+  bumpSeen();
+  if (!Q.counted) { Q.counted = true; qDayAdd("quests"); }
+  qSetInput(false);
+  qMultiBubble(rest);
+  if (rest.length) Q.mon.querySelector(".qm-word").classList.add("syn-miss");
+  const lbl = c.got.length + " із " + list.length;
+  if (ok) {
+    const xpA = loadXp();
+    addXp(1); Q.won++;
+    updateMastery(c.idx, true);
+    const bonus = loadXp() - xpA - 1;
+    Q.lastEn = c.text;
+    qFeed(c.idx, [["+1", "перемога · " + lbl]].concat(bonus ? [[(bonus > 0 ? "+" : "") + bonus, qBonusLabel(bonus)]] : []), "fight", c.got.join(" / "));
+    qDayAdd("correct");
+    Q.log.push({ idx: c.idx, ok: true });
+    qHint("✓ " + lbl + (rest.length ? " · ще можна було: " + rest.join(", ") : " — усі!"));
+    qHud();
+    Q.timer = setTimeout(() => { if (Q && Q.phase === "kill") qKillMon(900); }, rest.length ? 3200 : 600);
+    return;
+  }
+  // нуль вгаданих — без помилки: монстр зникає, Герой іде далі
+  schedTouch(c.idx);
+  qFeed(c.idx, [["0", "пропустив · без штрафу"]], "fight");
+  qHint("Без штрафу · можна було: " + rest.join(", "));
+  qHud();
+  Q.timer = setTimeout(() => {
+    if (!Q || Q.phase !== "kill") return;
+    const mon = Q.mon;
+    mon.classList.remove("fighting"); mon.classList.add("behind");
+    setTimeout(() => mon.remove(), 1400);
+    Q.timer = setTimeout(qWalk, 700);
+  }, 3200);
 }
 // ⏱ ОБЛІК ЧАСУ ПОХОДУ (сесія 61, за запитом «важливо зафіксувати, скільки часу йде на кожен етап»).
 // Кошики: road — ходьба, удари, втечі; fight — від появи монстра до першої відповіді (думав);
@@ -12881,7 +12961,7 @@ function qSayWon(idx, val, dir) {
 }
 function qOnAnswer(val, auto) {
   if (!Q) return;
-  if (Q.phase === "fight") return qFightAnswer(val, auto);
+  if (Q.phase === "fight") return qIsMulti() ? qMultiAnswer(val, auto) : qFightAnswer(val, auto);
   if (Q.phase === "syn") return qSynAnswer(val, auto);
   if (Q.phase === "drill") return qDrillAnswer(val, auto);
   if (Q.phase === "arena") return qArenaAnswer(val, auto);
