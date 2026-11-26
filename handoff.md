@@ -3367,7 +3367,15 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | A2 | +247 | +104 | +31 |
-  **▶ ДАЛІ:** A2 партія 5 (остання) — ~263 слова без DEFS (від першого після `gym shoes`; пропускати yet, rather, anyway, such, hers); потім B1.
+     - **A2, партія 5** — `high heels` … `office worker`: DEFS +256, SYNS +83, ANTS +44. **A2 ЗАКРИТО: DEFS 99% (1390/1402)** · SYNS 42% · ANTS 18%.
+       Свідомо пропущені в A2: yet, rather, anyway, such, hers, whether, either, neither, whose, any more, at all, there will be.
+       ⚠️ «day» ≤ 4 літер — `leaks` ловить і «days»: the day before yesterday → «two dates ago; forty-eight hours back».
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A2 | +256 | +83 | +44 |
+     **Разом за кроки A1+A2 (сесія 77):** DEFS +1916 · SYNS +717 · ANTS +341.
+  **▶ ДАЛІ:** B1 — ~3330 слів без DEFS (список: WORDS у порядку, B1 з CEFR_DATA, без DEFS[en]), партіями ~250 (≈13 партій).
+     Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
 - **📌 СЕСІЯ 76 (2026-11-25…26, хмара) — UASHOW МАСОВО, ТЕРНОПІЛЬ + OPEN-METEO, CLOZE, ФІЛЬТР РІВНІВ У ENGLISH-ONLY.**
