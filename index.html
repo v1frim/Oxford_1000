@@ -1765,6 +1765,7 @@
   .q-mon.task .qm-word { white-space: normal; width: max-content; max-width: min(460px, 44vw); font-size: 19px; font-weight: 700; line-height: 1.35; text-align: center; padding: 8px 16px; }
   .q-mon.task .qm-word .qm-task { display: block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #ffd166; margin-bottom: 3px; }
   .q-mon.known.task .qm-word::before { content: none; }
+  .qc-taskline .qc-task { font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #ffd166; text-transform: uppercase; }
   .qm-hp { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
   .qm-hp i { width: 18px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.18); transition: background .25s, transform .25s; }
   .qm-hp i.on { background: linear-gradient(90deg, #ff6b6b, #ffa94d); box-shadow: 0 0 6px rgba(255,140,90,.6); }
@@ -12765,9 +12766,14 @@ function qSideSkip() { if (!Q || !Q.sideQ) return; Q.sideQ = null; qEl("q-card")
 // (streak ≥ 3) з малою ймовірністю просить не переклад, а англійське завдання. Нові / «Вивчаю» / ⭐ екстра — ніколи.
 // Режим береться, ЛИШЕ якщо для слова є дані (Cloze — пропуск знайдено в прикладі). По QUEST_EN_CHANCE[режим] на
 // КОЖЕН режим («рідше, а там поправлятимемо»). Правильно = звичайна ревізія «Знаю»; помилка = звичайна помилка
-// (картка вивчення з повним реченням → 3 повтори в перекладі → арена). Def / Syn / Ant — наступним кроком (дані).
-const QUEST_EN_CHANCE = window.__QUEST_EN_CHANCE || { "en-cloze": 0.2 };   // 27.11.2026: 2% → 20% (1/5 монстрів-«Знаю», за запитом); тести підставляють свої (addInitScript)
-// → { task, text } або null. text — промпт завдання (речення з пропуском для Cloze)
+// (картка вивчення з повним реченням → 3 повтори в перекладі → арена).
+// 📖 Def / 🔁 Syn / ↔ Ant (27.11.2026, крок 2 плану): дані DEFS/SYNS/ANTS у dict.js (A1–B1 ≈ 100% / 30–43% / 20%).
+// Def — промпт тлумачення, відповідь = en/enAlt картки; Syn/Ant — промпт саме слово, відповідь = будь-що з SYNS/ANTS[en].
+// Кидок ОДИН на всі режими: сума ймовірностей ≤ 1. Разом ≈ 35% монстрів-«Знаю» (Cloze 20 + по 5).
+const QUEST_EN_CHANCE = window.__QUEST_EN_CHANCE || { "en-cloze": 0.2, "en-def": 0.05, "en-syn": 0.05, "en-ant": 0.05 };   // 27.11.2026: Cloze 2% → 20% (1/5 монстрів-«Знаю», за запитом); тести підставляють свої (addInitScript)
+const QUEST_EN_TAG = { "en-cloze": "📝 Cloze", "en-def": "📖 Def", "en-syn": "🔁 Syn", "en-ant": "↔ Ant" };
+const QUEST_EN_TITLE = { "en-cloze": "слово зі «Знаю» в реченні", "en-def": "слово зі «Знаю» за тлумаченням", "en-syn": "синонім до слова зі «Знаю»", "en-ant": "антонім до слова зі «Знаю»" };
+// → { task, text } або null. text — промпт завдання (речення з пропуском / тлумачення / саме слово)
 function qEnTask(idx) {
   if (Q.extraL || !isKnownIdx(idx)) return null;
   let r = Math.random();
@@ -12779,7 +12785,10 @@ function qEnTask(idx) {
       const text = clozeBlank(lookupExample(EXAMPLES, getEn(w)[0], getUa(w)[0]), w);
       return text ? { task: m, text } : null;
     }
-    return null;
+    const en = getEn(w)[0];
+    if (m === "en-def") return DEFS[en] ? { task: m, text: DEFS[en] } : null;
+    const list = (m === "en-syn" ? SYNS : ANTS)[en];
+    return list && list.length ? { task: m, text: en } : null;
   }
   return null;
 }
@@ -12797,8 +12806,8 @@ function qFight(noPhrase) {
   else if (loadMastery()[wordKey(WORDS[idx])] === undefined) { Q.mon.classList.add("fresh"); Q.mon.title = "● нове слово — ще не траплялось у грі"; }
   if (en) {
     Q.mon.classList.add("task");
-    Q.mon.title = "📝 Cloze — слово зі «Знаю» в реченні";
-    Q.mon.querySelector(".qm-word").innerHTML = '<span class="qm-task">📝 Cloze</span>' + esc(en.text).split(CLOZE_GAP).join('<span class="blank">____</span>');
+    Q.mon.title = QUEST_EN_TAG[en.task] + " — " + QUEST_EN_TITLE[en.task];
+    Q.mon.querySelector(".qm-word").innerHTML = '<span class="qm-task">' + QUEST_EN_TAG[en.task] + '</span>' + esc(en.text).split(CLOZE_GAP).join('<span class="blank">____</span>');
   } else Q.mon.querySelector(".qm-word").textContent = Q.cur.shown;
   qRoadFitWord();
   Q.speedTo = 0;
@@ -12960,7 +12969,14 @@ function qFightAnswer(val, auto) {
 function qStudy(userVal) {
   // 📝 англійське завдання програно → далі як звичайна помилка: картка «укр = англ» з ПОВНИМ реченням-прикладом,
   // повтори — у перекладі (ua-en → en-ua → ua-en), бо відповідь була англійською
-  if (Q.cur.task) { Q.cur.dir = "ua-en"; Q.cur.shown = qAsk(Q.cur.idx, "ua-en"); }
+  // Def/Syn/Ant: на картці ще й рядок завдання з правильними відповідями (рахуємо ДО перемикання mode)
+  if (Q.cur.task) {
+    const c = Q.cur, t = c.task;
+    c.taskLine = t === "en-cloze" ? "" : '<span class="qc-task">' + QUEST_EN_TAG[t] + '</span> ' +
+      (t === "en-def" ? "«" + esc(c.text) + "»" : (t === "en-syn" ? "синоніми" : "антоніми") + " до <b>" + esc(c.text) + "</b>") +
+      " → " + wrapEnWord(getCorrectAnswer());
+    c.dir = "ua-en"; c.shown = qAsk(c.idx, "ua-en");
+  }
   Q.phase = "study";
   qT("study");
   Q.rec.s0 = qNow();
@@ -12980,6 +12996,7 @@ function qStudyCard(userVal, title, btn) {
     // як відповідь у UA→US (скарга «shovel без варіантів перекладу та транскрипції»)
     '<div class="qc-word"><span class="qc-shown">' + (c.dir === "en-ua" ? wrapEnWord(c.shown) : esc(c.shown)) + '</span> = <b>' + (c.dir === "ua-en" ? wrapEnWord(ans) : esc(ans)) + '</b>' +
       '<button class="speak-btn" data-q="say" title="Прослухати (Tab)">🔊</button></div>' +
+    (c.taskLine ? '<div class="qc-your qc-taskline">' + c.taskLine + '</div>' : '') +
     (userVal ? '<div class="qc-your">твоя відповідь: <s>' + esc(userVal) + '</s></div>' : '<div class="qc-your">пропущено</div>') +
     (ex ? '<div class="qc-ex">«' + wrapSentence(ex) + '» <button class="speak-btn speak-btn-sm" data-q="sayex">🔊</button></div>' : '') +
     // ⚠️ Переклад речення ЗАБЛЮРЕНО до наведення/кліку (скарга: «речення і переклад одне над одним —
