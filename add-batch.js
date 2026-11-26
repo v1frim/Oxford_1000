@@ -6,7 +6,9 @@
 //
 // Використання:
 //   node add-batch.js batch.json "Oxford-добір, партія N: B2 (сесія 42)" '[["truck","lorry"]]'
-//     batch.json = [{"en","ua":[..],"uaAlt":[..],"enAlt":[..],"ipa","ex","exUa"}, ...]
+//     batch.json = [{"en","ua":[..],"uaAlt":[..],"enAlt":[..],"ipa","ex","exUa","def","syn":[..],"ant":[..]}, ...]
+//     def — ОБОВ'ЯЗКОВЕ (сесія 77, вартовий check-defs.js): просте англ. тлумачення БЕЗ самого слова й кореня;
+//     syn / ant — необов'язкові, лише справжні однослівні (1–5). Ключ у DEFS/SYNS/ANTS — en картки.
 //     3-й аргумент — коментар-роздільник у WORDS; 4-й (опційно) — пари [база, новий enAlt].
 //
 // ⚠️ ПІСЛЯ вставки ОБОВ'ЯЗКОВО ./verify.sh (coverage + синтаксис + стенд).
@@ -19,7 +21,7 @@ const uaField=a=>a.length===1?q(a[0]):"["+a.map(q).join(",")+"]";
 function endOf(startRe,endRe){const s=L.findIndex(x=>startRe.test(x));
  for(let i=s+1;i<L.length;i++) if(endRe.test(L[i])) return i; throw Error("no end "+startRe);}
 function insert(startRe,endRe,lines){const e=endOf(startRe,endRe);
- L[e-1]=L[e-1].replace(/([}"])\s*$/,"$1,");            // кома до попереднього останнього запису
+ L[e-1]=L[e-1].replace(/([}"\]])\s*$/,"$1,");   // ] — кінець запису SYNS/ANTS (сесія 77)            // кома до попереднього останнього запису
  L.splice(e,0,...lines);}
 
 const words=D.map(d=>"  {en:"+q(d.en)+",ua:"+uaField(d.ua)+
@@ -31,6 +33,16 @@ insert(/^const WORDS = \[$/,/^\];$/,["  // ── "+process.argv[3]+" ──",..
 insert(/^const TRANS = \{$/,/^\};$/,mk("ipa"));
 insert(/^const EXAMPLES = \{$/,/^\};$/,mk("ex"));
 insert(/^const EXAMPLES_UA = \{$/,/^\};$/,mk("exUa"));
+// EN→EN (сесія 77): DEFS / SYNS / ANTS — лише для записів, де поле є
+const has=(B,en)=>{const s=L.findIndex(x=>x==="const "+B+" = {");   // ключ уже є (пара з тим самим en) — не дублюємо
+ for(let i=s+1;i<L.length&&L[i]!=="};";i++) if(L[i].startsWith("  "+q(en)+":")) return true; return false;};
+const opt=(f,v,B)=>{const a=D.filter(d=>d[f]&&(!Array.isArray(d[f])||d[f].length)&&!has(B,d.en));
+ return a.map(d=>"  "+q(d.en)+":"+v(d[f])+",").map((s,i,x)=>i===x.length-1?s.replace(/,$/,""):s);};
+const arr=a=>"["+a.map(q).join(",")+"]";
+[["DEFS","def",q],["SYNS","syn",arr],["ANTS","ant",arr]].forEach(([B,f,v])=>{const ls=opt(f,v,B);
+ if(ls.length) insert(new RegExp("^const "+B+" = \\{$"),/^\};$/,ls);});
+const noDef=D.filter(d=>!d.def).map(d=>d.en);
+if(noDef.length) console.log("⚠️ без def (вартовий check-defs.js не пропустить):",noDef.join(", "));
 
 // enAlt-доповнення до наявних карток (брит./амер. варіанти й синоніми)
 const ALT=JSON.parse(process.argv[4]||"[]");
