@@ -3491,7 +3491,12 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B2 | +250 | +100 | +32 |
-  **▶ ДАЛІ:** B2 партія 11 — ~1450 слів без DEFS (список заново: WORDS у порядку, B2, без DEFS[en]; пропускати otherwise), партіями ~250.
+     - **B2, партія 11** — `business attire` … `judgmental` (одяг/фасони/тканини, зовнішність, кухня, емоції, характер): DEFS +250, SYNS +110, ANTS +52. Покриття B2: DEFS 69%.
+       ⚠️ `leaks` ловить і корінь у формах: warmth ← warmer, made ← -made, best ← best-before, allergies ← allergen.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B2 | +250 | +110 | +52 |
+  **▶ ДАЛІ:** B2 партія 12 — ~1200 слів без DEFS (список заново: WORDS у порядку, B2, без DEFS[en]; пропускати otherwise), партіями ~250.
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
