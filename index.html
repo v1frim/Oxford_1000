@@ -3466,7 +3466,82 @@ const MODE_HINTS = {
 function buildEnDefPool()   { return WORDS.map((_,i)=>i).filter(i=>DEFS[getEn(WORDS[i])[0]]); }
 function buildEnSynPool()   { return WORDS.map((_,i)=>i).filter(i=>{ const e=getEn(WORDS[i])[0]; return SYNS[e] && SYNS[e].length > 0; }); }
 function buildEnAntPool()   { return WORDS.map((_,i)=>i).filter(i=>{ const e=getEn(WORDS[i])[0]; return ANTS[e] && ANTS[e].length > 0; }); }
-function buildEnClozePool() { return WORDS.map((_,i)=>i).filter(i=>EXAMPLES[getEn(WORDS[i])[0]]); }
+// ── CLOZE: пропуск у реченні (25–26.11.2026, за запитом «адаптуй Cloze під нові слова») ──
+// ⚠️ БУЛО: регулярка «слово + (s|es|ed|ing|er|est|'s)». Не знаходила ~7% речень (C2 — 15%):
+// неправильні форми (buy → bought), подвоєння (stop → stopped), y → ied, e → ing (make → making),
+// і ВСІ фразові `to …` (шукала буквально «to swipe»). Пропуску не було → відповідь видно в реченні.
+// ТЕПЕР: кожне слово фрази матчиться будь-якою своєю формою (IRREGULAR знає неправильні),
+// someone/something тощо — 1–3 довільні слова (лишаються видимими), а дієслово + частка
+// фразового дієслова може мати між собою до 3 слів («pick the kids up»).
+// Слова, для яких пропуск усе одно не знайдено, з пулу Cloze ВИКЛЮЧАЮТЬСЯ — краще не показати,
+// ніж показати речення з готовою відповіддю.
+let _irrByBase = null;
+// Неправильні форми, яких немає в IRREGULAR. Свідомо НЕ дописані туди: IRREGULAR керує ще й
+// перекладом при наведенні (bound ≠ лише «bind»), а тут потрібні тільки для пропуску.
+const CLOZE_IRR_EXTRA = { forbid: ["forbidden", "forbade"], weep: ["wept"], bind: ["bound"] };
+function clozeForms(b) {
+  if (!_irrByBase) {
+    _irrByBase = {};
+    for (const k in IRREGULAR) (_irrByBase[IRREGULAR[k]] = _irrByBase[IRREGULAR[k]] || []).push(k);
+  }
+  const f = new Set([b]);
+  ["s", "es", "ed", "ing", "er", "est", "'s", "s'"].forEach(x => f.add(b + x));
+  if (/e$/.test(b)) ["d", "r", "st"].forEach(x => f.add(b + x)), f.add(b.slice(0, -1) + "ing");
+  if (/ie$/.test(b)) f.add(b.slice(0, -2) + "ying");
+  if (/[^aeiou]y$/.test(b)) { const st = b.slice(0, -1); ["ies", "ied", "ier", "iest"].forEach(x => f.add(st + x)); }
+  // подвоєння приголосної: stop → stopped; qu рахується як приголосна: equip → equipped
+  if (/(^|[^aeiou]|qu)[aeiou][bdgklmnprtz]$/.test(b)) { const d = b + b.slice(-1); ["ed", "ing", "er", "est"].forEach(x => f.add(d + x)); }
+  if (/(s|x|z|ch|sh)$/.test(b)) f.add(b + "es");
+  (_irrByBase[b] || []).forEach(x => f.add(x));
+  (CLOZE_IRR_EXTRA[b] || []).forEach(x => f.add(x));
+  return [...f];
+}
+const CLOZE_HOLDERS = /^(someone|somebody|something|sb|sth|one's|someone's|somewhere)$/;
+const CLOZE_PARTICLES = /^(up|out|off|on|in|down|away|back|over|around|about|through|along|apart|aside|together|forward)$/;
+const reEsc = x => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const CLOZE_GAP = "⁠____⁠";
+// → речення з пропусками або null, якщо жодна форма жодного варіанта картки не знайдена
+function clozeBlank(sentence, w) {
+  if (!sentence) return null;
+  // Спершу основні en картки, лише потім enAlt: інакше «town» з enAlt «small town» ховав і «small».
+  const prep = xs => xs.map(x => String(x).replace(/^to\s+/i, "").trim()).filter(Boolean).sort((a, b) => b.length - a.length);
+  const cands = [...new Set(prep(getEn(w)).concat(prep(w.enAlt || [])))];
+  for (const c of cands) {
+    const toks = c.toLowerCase().split(/\s+/);
+    let src = "", groups = [];
+    toks.forEach((t, i) => {
+      const sep = i === 0 ? "" : "\\s+";
+      if (CLOZE_HOLDERS.test(t)) { src += sep + "((?:[\\w'’-]+\\s+){0,2}[\\w'’-]+)"; groups.push("hold"); return; }
+      // частка фразового дієслова (verb + particle) — дозволяємо розрив до 3 слів
+      const gap = i === 1 && toks.length === 2 && CLOZE_PARTICLES.test(t);
+      if (gap) { src += "(\\s+(?:[\\w'’-]+\\s+){0,3})"; groups.push("gap"); }
+      else src += sep;
+      const forms = (i === 0 || i === toks.length - 1) ? clozeForms(t) : [t];
+      src += "(" + forms.sort((a, b) => b.length - a.length).map(reEsc).join("|") + ")"; groups.push("word");
+    });
+    const re = new RegExp("(^|[^\\w'’-])" + src + "(?![\\w’-])", "gi");
+    if (!re.test(sentence)) continue;
+    re.lastIndex = 0;
+    return sentence.replace(re, (...m) => {
+      // word → пропуск; someone/something → як у реченні; розрив фразового — як є (з пробілами)
+      let out = m[1];
+      groups.forEach((g, k) => {
+        const v = m[k + 2];
+        if (g === "gap") { out += v; return; }
+        if (k > 0 && groups[k - 1] !== "gap") out += " ";
+        out += g === "word" ? CLOZE_GAP : v;
+      });
+      return out;
+    });
+  }
+  return null;
+}
+function buildEnClozePool() {
+  return WORDS.map((_, i) => i).filter(i => {
+    const w = WORDS[i];
+    return clozeBlank(lookupExample(EXAMPLES, getEn(w)[0], getUa(w)[0]), w) !== null;
+  });
+}
 
 function setMode(m) {
   selectedMode = m;
@@ -3596,10 +3671,8 @@ function nextWord() {
     const uaWord = getUa(currentWord)[0];
     currentShown = enWord;
     const sentence = lookupExample(EXAMPLES, enWord, uaWord) || "";
-    // Replace the word in the sentence with ____
-    const blank = "⁠____⁠";
-    const re = new RegExp("\\b" + enWord.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "(?:s|es|ed|ing|er|est|'s)?" + "\\b", "gi");
-    const clozeText = sentence.replace(re, blank);
+    // Пропуск — clozeBlank (див. buildEnClozePool); без збігу пул таке слово не дає, тут — страховка
+    const clozeText = clozeBlank(sentence, currentWord) || sentence;
     wordDisplay.classList.add("multiline");
     // Use innerHTML to style the blank
     wordDisplay.innerHTML = esc(clozeText).replace(/⁠____⁠/g, '<span class="blank">____</span>');
@@ -3757,8 +3830,8 @@ function isCorrect(input) {
     return !cands.length && /[-\s]/.test(inpNorm) &&
       getEn(currentWord).concat(currentWord.enAlt || []).some(e => dh(normEn(e)) === dh(inpNorm));
   } else if (mode === "en-def" || mode === "en-cloze") {
-    // Answer is the English word itself
-    return getEn(currentWord).some(e => normEn(e) === inpNorm);
+    // Відповідь — саме англійське слово. + enAlt: Cloze може ставити пропуск на місці синоніма картки
+    return getEn(currentWord).concat(currentWord.enAlt || []).some(e => normEn(e) === inpNorm);
   } else if (mode === "en-syn") {
     const enWord = getEn(currentWord)[0];
     const syns = SYNS[enWord] || [];
@@ -4638,14 +4711,15 @@ function startGame(pool, opts) {
     sourcePool = timedPool;
   } else if (activePool) {
     sourcePool = activePool;
-  } else if (mode === "en-def") {
-    sourcePool = buildEnDefPool();
-  } else if (mode === "en-syn") {
-    sourcePool = buildEnSynPool();
-  } else if (mode === "en-ant") {
-    sourcePool = buildEnAntPool();
-  } else if (mode === "en-cloze") {
-    sourcePool = buildEnClozePool();
+  } else if (mode === "en-def" || mode === "en-syn" || mode === "en-ant" || mode === "en-cloze") {
+    // ⚠️ English-only ЗВАЖАЮТЬ на набір з «⚙️ Режим» (26.11.2026, за запитом): раніше брали всі слова з
+    // даними — при A1+A2+B1 Cloze підсовував C2. Перетин із trainPool(); якщо він порожній (Syn/Ant/Def
+    // мають дані майже лише для A1–A2) — граємо по всіх словах режиму, ніж показати порожню гру.
+    const all = mode === "en-def" ? buildEnDefPool() : mode === "en-syn" ? buildEnSynPool()
+              : mode === "en-ant" ? buildEnAntPool() : buildEnClozePool();
+    const tp = trainPool();
+    if (tp) { const inSet = new Set(tp); const f = all.filter(i => inSet.has(i)); sourcePool = f.length ? f : all; }
+    else sourcePool = all;
   } else {
     sourcePool = [...Array(WORDS.length).keys()];
   }
