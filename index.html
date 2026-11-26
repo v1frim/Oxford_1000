@@ -529,8 +529,6 @@
      один над одним. ::before (номер місця з .lb-list) ставав зайвим грід-елементом і зсував рядок — вимкнено. */
   .lb-list li.lvs-row { display: grid; grid-template-columns: 74px repeat(4, minmax(0, 1fr)); align-items: center; gap: 4px; padding: 7px 8px; list-style: none; }
   .lb-list li.lvs-row::before { content: none; display: none; }
-  .lb-list li.lvs-note { display: block; white-space: normal; font-size: 10.5px; opacity: .55; line-height: 1.35; padding: 6px 8px; background: none; }
-  .lb-list li.lvs-note::before { content: none; display: none; }
   .lb-list li.lvs-row:nth-child(n) { background: none; }
   .lvs-lv { font-weight: 800; color: #ffd166; font-size: 14px; }
   .lvs-c { display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
@@ -9515,9 +9513,7 @@ function renderTabCefr() {
     '</li>'].join("");
   lbListEl.innerHTML = CEFR_LEVELS.filter(L => st[L].total)
     .map(L => row(cefrLvName(L), st[L])).join("") +
-    '<li class="lb-sep"></li>' + row("Разом", sum, "lvs-sum") +
-    // Чому «Разом» менше за «правильних» у Загальній статистиці (скарга 26.11: 4626 проти 6404) — пояснюємо на місці
-    '<li class="lvs-note">Лічба по словах — з сесії 40, без повторення помилок після раунду. Тому менше, ніж у Загальній статистиці: там — підсумки всіх ігор і походів за весь час.</li>';
+    '<li class="lb-sep"></li>' + row("Разом", sum, "lvs-sum");
 }
 // ── Вкладка 🕒 «Рекорди за останній період» (сесія 51, за запитом) ─────────────
 // Привід користувача: «є лідерборд за весь час по всім іграм та за весь час по рівням
