@@ -3501,7 +3501,12 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B2 | +250 | +67 | +18 |
-  **▶ ДАЛІ:** B2 партія 13 — ~950 слів без DEFS (список заново: WORDS у порядку, B2, без DEFS[en]; пропускати otherwise), партіями ~250.
+     - **B2, партія 13** — `parallel parking` … `sales process` (авто, комп'ютер/файли/інтернет, програмування, місто, покупки/доставка/повернення/гарантія): DEFS +250, SYNS +56, ANTS +22. Покриття B2: DEFS 81%.
+       Абревіатури (HDD, SSD, FAQ, ETA, ID…) у syn не кладемо. `leaks`: servers ← service, list ← list price.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B2 | +250 | +56 | +22 |
+  **▶ ДАЛІ:** B2 партія 14 — ~700 слів без DEFS (список заново: WORDS у порядку, B2, без DEFS[en]; пропускати otherwise), партіями ~250.
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
