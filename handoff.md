@@ -3424,8 +3424,26 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B1 | +250 | +60 | +38 |
-  **▶ ДАЛІ:** B1 партія 13 (остання) — ~332 слова без DEFS (список заново: WORDS у порядку, B1, без DEFS[en]; пропускати though, indeed,
-     meanwhile, whatever, whenever, due).
+     - **B1, партія 13 (остання)** — `protective gear` … `switched off`: DEFS +325, SYNS +118, ANTS +42.
+       Свідомо пропущені в B1: though, indeed, meanwhile, whatever, whenever, due, nor, unless, throughout, within, upon,
+       there used to be, there seems to be.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B1 | +325 | +118 | +42 |
+     **🏁 ПІДСУМОК КРОКУ 4 (A1–B1 — увесь набір гри користувача):**
+     | рівень | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A1 | 98% (928/949) | 30% | 21% |
+     | A2 | 99% (1390/1402) | 42% | 18% |
+     | B1 | 100% (3357/3370) | 43% | 20% |
+     Разом за сесію 77: DEFS ≈ +5240 · SYNS ≈ +2120 · ANTS ≈ +870. B2–C2 ≈ 0 (не починали).
+     ⚠️ Граблі `leaks`: складені слова — КОЖНА частина заборонена (muscle group ← «muscles»; short words ≤ 4 — і з «s»: day ← «days»);
+     корінь у сусідніх словах (Japan ← Japanese, China ← Chinese, moving ← movie). Обхід — синонім або опис («biters», «pals»).
+  **▶ ДАЛІ (на вибір користувача):**
+     (а) **крок 2 плану — Def / Syn / Ant у поході**: `QUEST_EN_CHANCE` + гілки в `qEnTask` (text = DEFS[en] для Def; для Syn/Ant —
+         саме слово, відповідь = будь-що з SYNS/ANTS, як `isCorrect` у режимі en-syn/en-ant; тег у бульбашці «📖 Def» / «🔁 Syn» / «↔ Ant»).
+         Частку погодити: Cloze уже 0.2 для «Знаю»; кидок один на всі режими (сума ≤ 1).
+     (б) B2 — 4012 слів без DEFS (≈16 партій).
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
