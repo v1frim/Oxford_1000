@@ -3420,8 +3420,12 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B1 | +250 | +90 | +37 |
-  **▶ ДАЛІ:** B1 партія 12 — ~582 слова без DEFS (список заново: WORDS у порядку, B1, без DEFS[en]; пропускати though, indeed, meanwhile,
-     whatever, whenever, due), партіями ~250.
+     - **B1, партія 12** — `mobile ticket` … `sore joint` (аеропорт, готель, фітнес): DEFS +250, SYNS +60, ANTS +38. Покриття B1: DEFS 90%.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B1 | +250 | +60 | +38 |
+  **▶ ДАЛІ:** B1 партія 13 (остання) — ~332 слова без DEFS (список заново: WORDS у порядку, B1, без DEFS[en]; пропускати though, indeed,
+     meanwhile, whatever, whenever, due).
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
