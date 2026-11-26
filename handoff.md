@@ -3382,7 +3382,11 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B1 | +250 | +182 | +115 |
-  **▶ ДАЛІ:** B1 партія 3 — ~2831 слово без DEFS (від першого після `highlights` у порядку WORDS; пропускати though), партіями ~250.
+     - **B1, партія 3** — `facial hair` … `dumpling`: DEFS +250, SYNS +91, ANTS +35. Покриття B1: DEFS 23% · SYNS 13% · ANTS 7%.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B1 | +250 | +91 | +35 |
+  **▶ ДАЛІ:** B1 партія 4 — ~2581 слово без DEFS (від першого після `dumpling` у порядку WORDS; пропускати though), партіями ~250.
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
