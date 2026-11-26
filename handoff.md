@@ -3363,7 +3363,11 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | A2 | +250 | +74 | +18 |
-  **▶ ДАЛІ:** A2 партія 4 — ~513 слів без DEFS (від першого після `diary` у порядку WORDS; пропускати yet, rather), партіями ~250; потім B1.
+     - **A2, партія 4** — `farming` … `gym shoes`: DEFS +247 (пропущено anyway, such, hers), SYNS +104, ANTS +31. Покриття A2: DEFS 80%.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A2 | +247 | +104 | +31 |
+  **▶ ДАЛІ:** A2 партія 5 (остання) — ~263 слова без DEFS (від першого після `gym shoes`; пропускати yet, rather, anyway, such, hers); потім B1.
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
 - **📌 СЕСІЯ 76 (2026-11-25…26, хмара) — UASHOW МАСОВО, ТЕРНОПІЛЬ + OPEN-METEO, CLOZE, ФІЛЬТР РІВНІВ У ENGLISH-ONLY.**
