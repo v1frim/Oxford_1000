@@ -3538,7 +3538,8 @@ EN→EN і `setMode`.
      - **C1, партія 5** — `citizenship` … `handy` (академічна й суспільна лексика C–H): DEFS +250, SYNS +246, ANTS +121. Покриття C1: DEFS 39%.
      - **C1, партія 6** — `harassment` … `rejection` (суспільство, політика, право, абстрактна лексика H–R): DEFS +250, SYNS +241, ANTS +110. Покриття C1: DEFS 47%.
      - **C1, партія 7** — `relevance` … `functional` (абстрактна лексика R–Z і A–F): DEFS +250, SYNS +237, ANTS +121. Покриття C1: DEFS 55%.
-  **▶ ДАЛІ:** C1 партія 8 — вибірка: WORDS у порядку, `CEFR_DATA.C1`, без DEFS[en].
+     - **C1, партія 8** — `governance` … `engine block` (абстрактна лексика, анатомія, дім та інженерні системи, авто): DEFS +250, SYNS +127, ANTS +52. Покриття C1: DEFS 63%.
+  **▶ ДАЛІ:** C1 партія 9 — вибірка: WORDS у порядку, `CEFR_DATA.C1`, без DEFS[en].
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
