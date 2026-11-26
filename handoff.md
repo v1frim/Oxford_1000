@@ -3408,7 +3408,11 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B1 | +250 | +140 | +84 |
-  **▶ ДАЛІ:** B1 партія 9 — ~1332 слова без DEFS (список заново: WORDS у порядку, B1, без DEFS[en]; пропускати though, indeed, meanwhile,
+     - **B1, партія 9** — `ungrateful` … `wrong item` (стосунки, сім'я, робота, бізнес): DEFS +250, SYNS +90, ANTS +42. Покриття B1: DEFS 68% · SYNS 33% · ANTS 15%.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B1 | +250 | +90 | +42 |
+  **▶ ДАЛІ:** B1 партія 10 — ~1082 слова без DEFS (список заново: WORDS у порядку, B1, без DEFS[en]; пропускати though, indeed, meanwhile,
      whatever, whenever, due), партіями ~250.
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
