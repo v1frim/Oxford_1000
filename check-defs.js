@@ -52,6 +52,8 @@ function leaks(en, def) {
     return new RegExp("[ '-]" + st.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(d);
   });
 }
+module.exports = { leaks };   // defs-add.js бере звідси ту саму перевірку кореня
+if (require.main !== module) return;
 const badList = x => !Array.isArray(x) || !x.length || x.some(s => typeof s !== "string" || !s.trim());
 
 const cur = load(fs.readFileSync(FILE, "utf8"));
