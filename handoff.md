@@ -3354,7 +3354,11 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | A2 | +249 | +121 | +49 |
-  **▶ ДАЛІ:** A2 партія 2 — ~1013 слів без DEFS (від першого після `steal` у порядку WORDS), партіями ~250; потім B1.
+     - **A2, партія 2** — `touch` … `seafood`: DEFS +249 (пропущено `rather`), SYNS +166, ANTS +73. Покриття A2: DEFS 45% · SYNS 23% · ANTS 12%.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | A2 | +249 | +166 | +73 |
+  **▶ ДАЛІ:** A2 партія 3 — ~763 слова без DEFS (від першого після `seafood` у порядку WORDS; пропускати yet, rather), партіями ~250; потім B1.
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
 - **📌 СЕСІЯ 76 (2026-11-25…26, хмара) — UASHOW МАСОВО, ТЕРНОПІЛЬ + OPEN-METEO, CLOZE, ФІЛЬТР РІВНІВ У ENGLISH-ONLY.**
