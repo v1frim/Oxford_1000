@@ -3395,7 +3395,13 @@ EN→EN і `setMode`.
      | CEFR | DEFS | SYNS | ANTS |
      |---|---|---|---|
      | B1 | +249 | +90 | +15 |
-  **▶ ДАЛІ:** B1 партія 6 — ~2082 слова без DEFS (список генерується заново: WORDS у порядку, B1, без DEFS[en]; пропускати though), партіями ~250.
+     - **B1, партія 6** — `clarinet` … `charger`: DEFS +245 (пропущено indeed, meanwhile, whatever, whenever, due), SYNS +146, ANTS +68.
+       Покриття B1: DEFS 45% · SYNS 23% · ANTS 10%.
+     | CEFR | DEFS | SYNS | ANTS |
+     |---|---|---|---|
+     | B1 | +245 | +146 | +68 |
+  **▶ ДАЛІ:** B1 партія 7 — ~1832 слова без DEFS (список заново: WORDS у порядку, B1, без DEFS[en]; пропускати though, indeed, meanwhile,
+     whatever, whenever, due), партіями ~250.
      Потім крок 2 плану — Def/Syn/Ant у поході (частку погодити з користувачем: Cloze уже 20% для «Знаю»).
      ⚠️ `leaks` ловить корінь і в схожих словах (movie ← «moving», Chinese ← «China», operating room ← «room») — переформулюй.
 
