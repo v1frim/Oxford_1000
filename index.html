@@ -367,7 +367,26 @@
      Головна кнопка → модалка «Тренування» (набір × напрямок); під нею ряд
      щоденних активностей і дрібний ряд English-only. Бічні панелі не чіпані. */
   #start-row { display: flex; gap: 8px; margin-top: 22px; }
-  #start-row > button { flex: 1 1 0; min-width: 0; margin-top: 0; }
+  #start-row > button { min-width: 0; margin-top: 0; }
+  #start-row #quest-btn { flex: 1 1 auto; width: auto; }
+  #start-row #mode-btn { flex: 0 0 34%; }
+  #start-row #start-sub { white-space: normal; }
+  #more-toggle { width: 100%; margin: 0; padding: 9px; border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.78); background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.22); }
+  #more-toggle:hover { background: rgba(255,255,255,0.09); color: #fff; }
+  #more-list { margin-top: 8px; padding: 10px; border-radius: 14px; background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.10); }
+  #more-list.hidden { display: none; }
+  #game-line { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  /* Гра — другорядна (Похід — основа): не золота заливка, а золотий контур */
+  #game-line #start-btn { margin: 0; width: 100%; padding: 9px 14px; font-size: 15px; color: #ffe39e; box-shadow: none;
+    background: rgba(255,209,102,0.10); border: 1px solid rgba(255,209,102,0.45); }
+  #game-line #start-btn:hover { background: rgba(255,209,102,0.2); }
+  #game-dirs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  #game-dirs .gdir { margin: 0; padding: 6px 4px; border-radius: 10px; cursor: pointer; font-family: inherit; font-size: 12px; font-weight: 700;
+    color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
+  #game-dirs .gdir.on { color: #ffe39e; background: rgba(255,209,102,0.16); border-color: #ffd166; }
+  #game-dirs .gdir.next { border-style: dashed; border-color: rgba(255,209,102,0.5); }
+  #eng-row button small { display: block; font-size: 10px; opacity: .6; font-weight: 500; margin-top: 2px; }
   #start-btn { font-size: 18px; font-weight: 800; padding: 14px 16px; line-height: 1.25; }
   #start-btn small { display: block; font-size: 11.5px; font-weight: 600; opacity: 0.6; margin-top: 4px; }
   #mode-btn { font-size: 16px; font-weight: 800; padding: 14px 12px; line-height: 1.25; color: #ffe39e;
@@ -386,8 +405,7 @@
      удвічі більше місця, інакше підпис ріжеться в «Duoling…»/«♫…» (сесія 44). */
   #daily-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
   #daily-row > * { min-width: 0; }
-  #duo-wrap, #songsess-wrap { grid-column: span 3; }
-  #lh-btn, #expr-btn, #movie-wrap { grid-column: span 2; }
+  #duo-wrap, #songsess-wrap, #lh-btn, #expr-btn, #movie-wrap, #daily-row #gpt-wrap { grid-column: span 2; }
   #eng-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
   #daily-row button, #eng-row button {
     width: 100%; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.11);
@@ -1933,9 +1951,10 @@
   #q-answer.wrong { border-color: #ff6b6b; }
   .q-skip { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; padding: 0 16px; cursor: pointer; font-family: inherit; font-weight: 700; }
   /* кнопка в меню */
-  #quest-btn { width: 100%; margin-top: 8px; padding: 10px 14px; border-radius: 14px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 800; color: #fff;
-    background: linear-gradient(180deg, rgba(192,57,43,.55), rgba(124,29,15,.55)); border: 1px solid rgba(255,120,90,.55); box-shadow: 0 4px 16px rgba(192,57,43,.25); }
-  #quest-btn:hover { background: linear-gradient(180deg, rgba(220,70,50,.7), rgba(140,35,20,.7)); }
+  /* 28.11.2026: Похід — ГОЛОВНА кнопка (золота, як колись «Гра»); Гра переїхала в «Інші режими» */
+  #quest-btn { width: 100%; margin-top: 8px; padding: 14px 16px; border-radius: 14px; cursor: pointer; font-family: inherit; font-size: 19px; font-weight: 800; color: #1a1206;
+    background: linear-gradient(180deg, #ffe08a, #ffc94d); border: 1px solid #ffd166; box-shadow: 0 6px 22px rgba(255,201,77,0.35); line-height: 1.25; }
+  #quest-btn:hover { background: linear-gradient(180deg, #fff0b8, #ffd166); }
   #quest-btn small { display: block; font-size: 11.5px; font-weight: 600; opacity: .75; margin-top: 2px; }
   /* — 🧙 Герой (сесія 61): екран героя — клік по смужці рівня — */
   /* z-index 210 — ВИЩЕ за «Загальну статистику» й ліві кнопки (200): на 1366px вони наїжджали на панель */
@@ -2125,37 +2144,54 @@
         </div>
       </div>
     </div>
-    <!-- Сесія 64, за запитом: «Тренування» розділено — зліва вибір режиму, справа гра. Enter = похід, Ctrl+Enter = гра -->
+    <!-- 28.11.2026, за запитом («Похід — основа, решта згорнута»; варіант А з трьох макетів): головна дія — ⚔️ Похід (Enter),
+         поруч 🎓 Набір (лише рівні, БЕЗ напрямку). Гра 60 сек і English-only — у згорнутому «🎯 Інші режими» (стан пам'ятається).
+         Напрямок — тільки для Гри (у списку), Похід — завжди «по черзі». GPT переїхав сюди з лівого нижнього кута. -->
     <div id="start-row">
-      <button id="mode-btn" title="Набір слів і напрямок — для гри і для походу">⚙️ Режим<span id="start-sub"></span></button>
-      <button id="start-btn" title="Гра на 60 секунд обраним режимом — одразу, без вікна вибору">▶ Гра · 60 сек<small>Ctrl+Enter</small></button>
+      <button id="quest-btn" title="Без таймера: монстри зі словами, доки сам не зупиниш">⚔️ Похід героя<small>переможи монстрів словами · Enter</small></button>
+      <button id="mode-btn" title="Набір слів (рівні) — для Походу і всіх режимів">🎓 Набір<span id="start-sub"></span></button>
     </div>
-    <button id="quest-btn" title="Без таймера: монстри зі словами, доки сам не зупиниш">⚔️ Похід героя<small>без таймера · переможи монстрів словами · Enter</small></button>
     <div class="panel-lab">Щодня</div>
     <div id="daily-row">
       <div id="duo-wrap" class="pair">
         <button id="duo-btn">🦉 Duolingo<span id="duo-count" style="display:none"></span></button>
         <button id="duo-minus" title="Скасувати останню сесію (лише сьогодні)">−</button>
       </div>
+      <button id="lh-btn">📚 LingoHut</button>
+      <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази</button>
       <div id="songsess-wrap" class="pair">
         <button id="songs-btn">🎵 Пісні</button>
         <button id="songsess-plus" title="Відмітити заняття піснями сьогодні (+2 пункти «Плани», +75 XP)">🎧+<span id="songsess-count" style="display:none"></span></button>
         <button id="songsess-minus" title="Скасувати останнє заняття (лише сьогодні)">−</button>
       </div>
-      <button id="lh-btn">📚 LingoHut</button>
-      <button id="expr-btn" title="Ідіоми, вирази та сленг — флеш-картки">💬 Вирази</button>
       <div id="movie-wrap" class="pair">
         <button id="movie-btn" title="Відкрити 2sub.movie — кіно з подвійними субтитрами (не рахується як сеанс)">🎬 Кіно<span id="movie-count" style="display:none"></span></button>
         <button id="movie-plus" title="Відмітити сеанс перегляду (+2 пункти «Плани», +75 XP)">+</button>
         <button id="movie-minus" title="Скасувати останній сеанс (лише сьогодні)">−</button>
       </div>
+      <div id="gpt-wrap" class="pair">
+        <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
+        <button id="gpt-plus" title="Додати запит GPT (+1, +17 XP)">+</button>
+        <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
+      </div>
     </div>
-    <div class="panel-lab">English only · на потім</div>
-    <div id="eng-row">
-      <button id="btn-en-def" class="mode-btn">📖 Def</button>
-      <button id="btn-en-syn" class="mode-btn">🔁 Syn</button>
-      <button id="btn-en-ant" class="mode-btn">↔ Ant</button>
-      <button id="btn-en-cloze" class="mode-btn">📝 Cloze</button>
+    <div class="panel-lab">Інші режими</div>
+    <button id="more-toggle" type="button">🎯 Інші режими <span id="more-arrow">▾</span></button>
+    <div id="more-list" class="hidden">
+      <div id="game-line">
+        <button id="start-btn" title="Гра на 60 секунд обраним набором — одразу">▶ Гра · 60 сек<small>Ctrl+Enter</small></button>
+        <div id="game-dirs">
+          <button class="gdir" data-dir="ua-en">UA → US</button>
+          <button class="gdir" data-dir="en-ua">US → UA</button>
+          <button class="gdir" data-dir="auto" title="Напрямок чергується щогри">⇄ По черзі</button>
+        </div>
+      </div>
+      <div id="eng-row">
+        <button id="btn-en-def" class="mode-btn">📖 Def<small>тлумачення</small></button>
+        <button id="btn-en-syn" class="mode-btn">🔁 Syn<small>синоніми</small></button>
+        <button id="btn-en-ant" class="mode-btn">↔ Ant<small>антоніми</small></button>
+        <button id="btn-en-cloze" class="mode-btn">📝 Cloze<small>в реченні</small></button>
+      </div>
     </div>
   </div>
 
@@ -2209,9 +2245,9 @@
 </div>
 <div id="train-modal" class="hidden">
   <div class="tm-card">
-    <div class="tm-title">Режим</div>
-    <div class="tm-keys"><b>Tab</b> — набір · <b>Shift</b> — напрямок · <b>Enter</b> — готово · <b>Ctrl+Enter</b> — гра · <b>Esc</b> — назад</div>
-    <div class="tm-sec">Вибір режиму</div>
+    <div class="tm-title">🎓 Набір слів</div>
+    <div class="tm-keys"><b>Tab</b> — набір · <b>Enter</b> — готово · <b>Ctrl+Enter</b> — гра · <b>Esc</b> — назад</div>
+    <div class="tm-sec">Які слова — для Походу й усіх режимів</div>
     <div class="tm-sets">
       <button class="tm-set" data-set="cefr"><span class="tm-ico">🎓</span><b>Рівні CEFR</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
       <button class="tm-set" data-set="all"><span class="tm-ico">📚</span><b>Весь словник</b><small class="tm-note"></small><span class="tm-cnt"></span></button>
@@ -2222,12 +2258,7 @@
       <div id="tm-solo-h"><span class="soloh-ico">📖</span> Ті самі рівні — лише невивчені слова</div>
       <div id="tm-solo"></div>
     </div>
-    <div class="tm-sec" style="margin-top:18px">Напрямок</div>
-    <div class="tm-dirs">
-      <button class="tm-dir" data-dir="ua-en"><b>UA → US</b></button>
-      <button class="tm-dir" data-dir="en-ua"><b>US → UA</b></button>
-      <button class="tm-dir" data-dir="auto" title="Напрямок чергується щогри: раз UA → US, раз US → UA"><b>⇄ По черзі</b><small></small></button>
-    </div>
+    <!-- 28.11.2026: напрямок звідси прибрано — Похід завжди «по черзі», Гра 60 сек має свій вибір у «🎯 Інші режими» -->
     <label class="tm-kb" title="Гра сама підставляє літери потрібної мови за фізичною клавішею — розкладку Windows перемикати не треба"><input type="checkbox" id="tm-kb"> ⌨️ Автомова клавіатури <small>набирай на будь-якій розкладці</small></label>
     <button id="tm-go">✓ Готово<small></small></button>
     <button id="tm-cancel">Скасувати</button>
@@ -2300,11 +2331,6 @@
   <button id="progress-btn">📈 Прогрес по днях</button>
   <button id="backup-btn">💾 <span id="backup-label">Налаштувати копію</span></button>
   <button id="import-btn">📂 Відновити</button>
-  <div id="gpt-wrap">
-    <button id="gpt-btn" title="Відкрити ChatGPT (не рахується як запит)">🤖 GPT<span id="gpt-count" style="display:none"></span></button>
-    <button id="gpt-plus" title="Додати запит GPT (+1, +17 XP)">+</button>
-    <button id="gpt-minus" title="Скасувати останній запит (лише сьогодні)">−</button>
-  </div>
 </div>
 
 <div id="songs-overlay" class="hidden">
@@ -6080,12 +6106,8 @@ document.addEventListener("keyup", e => {
   const onEnd = !endScreen.classList.contains("hidden");
   if (!onMenu && !onEnd) return;
   // У ВІДКРИТІЙ модалці «Тренування» Shift перемикає напрямок перекладу (сесія 44).
-  if (onMenu && !document.getElementById("train-modal").classList.contains("hidden")) {
-    trainDir = trainDir === "ua-en" ? "en-ua" : "ua-en";
-    saveTrainSel();
-    renderTrainModal();
-    return;
-  }
+  // ⚠️ 28.11.2026: напрямку в модалці більше нема (він у «🎯 Інші режими» для Гри) — Shift тут мовчить.
+  if (onMenu && !document.getElementById("train-modal").classList.contains("hidden")) return;
   // ⚠️ Модалки поверх меню перехоплюють клавіші — Shift у них мовчить.
   if (!document.getElementById("cat-modal").classList.contains("hidden")) return;
   if (!document.getElementById("review-mode-modal").classList.contains("hidden")) return;
@@ -8071,7 +8093,7 @@ function plGames(n) {
 function trainCount() { const pool = trainPool(); return pool ? pool.length : WORDS.length; }
 function renderTrainModal() {
   const counts = cefrCounts();
-  document.querySelectorAll(".tm-set").forEach(b => {
+document.querySelectorAll(".tm-set").forEach(b => {
     const k = b.dataset.set;
     b.classList.toggle("on", k === trainSet);
     const note = b.querySelector(".tm-note"), cnt = b.querySelector(".tm-cnt");
@@ -8120,14 +8142,20 @@ function renderTrainModal() {
     }).join("");
   }
   const go = document.getElementById("tm-go");
-  go.innerHTML = "✓ Готово<small>" + trainSetHtml() + " · " + esc(trainDirLabel()) + "</small>";
+  go.innerHTML = "✓ Готово<small>" + trainSetHtml() + " · " + plWords(trainCount()) + "</small>";
   go.disabled = !trainCount();
   renderStartSub();
 }
 // підпис під головною кнопкою меню: чим гратимеш, якщо просто тиснути Enter
 function renderStartSub() {
   const el = document.getElementById("start-sub");
-  if (el) el.innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());
+  if (el) el.innerHTML = trainSetHtml() + " · " + plWords(trainCount());
+  // напрямок Гри 60 сек — кнопки в «🎯 Інші режими» (28.11.2026); «.next» — яким піде наступна гра «по черзі»
+  document.querySelectorAll("#game-dirs .gdir").forEach(b => {
+    const d = b.dataset.dir;
+    b.classList.toggle("on", d === "auto" ? trainAuto : (!trainAuto && d === trainDir));
+    b.classList.toggle("next", d !== "auto" && trainAuto && d === trainDir);
+  });
   renderDueBanner();   // плашка рахується по поточному набору — оновлюємо разом із підписом
 }
 function openTrainModal() { renderTrainModal(); document.getElementById("train-modal").classList.remove("hidden"); }
@@ -8144,6 +8172,22 @@ function startTraining() {
   if (pool) startGame(pool, { timed: true, tag: tag, sched: true });
   else startGame(null, { sched: true });
 }
+document.querySelectorAll("#game-dirs .gdir").forEach(b =>
+  b.addEventListener("click", () => {
+    if (b.dataset.dir === "auto") trainAuto = !trainAuto;
+    else { trainDir = b.dataset.dir; trainAuto = false; }
+    saveTrainSel(); renderStartSub();
+  }));
+// 🎯 «Інші режими» — згорнутий список (28.11.2026, варіант А); стан — UI-преференція, не дані (у бекап не йде)
+const MORE_OPEN_KEY = "oxford_ui_more_open_v1";
+function setMoreOpen(open) {
+  document.getElementById("more-list").classList.toggle("hidden", !open);
+  document.getElementById("more-arrow").textContent = open ? "▴" : "▾";
+  try { localStorage.setItem(MORE_OPEN_KEY, open ? "1" : "0"); } catch (e) { console.warn("more-open", e); }
+}
+document.getElementById("more-toggle").addEventListener("click", () =>
+  setMoreOpen(document.getElementById("more-list").classList.contains("hidden")));
+setMoreOpen(localStorage.getItem(MORE_OPEN_KEY) === "1");
 document.querySelectorAll(".tm-set").forEach(b =>
   b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
 document.querySelectorAll(".tm-dir").forEach(b =>
@@ -13836,7 +13880,8 @@ function questStart() {
   // 📱 вузький екран (телефон, 08.11.2026): масштаб за ШИРИНОЮ, інакше монстр вилазить за край. ПК (≥760) — як було.
   const scale = window.innerWidth < 760 ? Math.max(0.6, Math.min(1, window.innerWidth / 560))
     : Math.max(1, Math.min(1.6, (window.innerHeight - 190) / 520));
-  Q = { pool, queue: buildSchedQueue(pool, true), qpos: 0, recent: [], dir: trainDir, auto: trainAuto, flip: false,
+  // ⚠️ 28.11.2026, за запитом: у Поході напрямок НЕ вибирається — завжди «по черзі» (auto) + правило двобічного знання
+  Q = { pool, queue: buildSchedQueue(pool, true), qpos: 0, recent: [], dir: trainDir, auto: true, flip: false,
         cefr: trainSet === "cefr" ? cefrMixLabel() : null,   // мітка набору рівнів — та сама, що в тегу CEFR-гри
         extra: trainSet === "cefr" ? extraInit() : null, extraL: null,   // ⭐ екстра-слова (сесія 64)
         scale, gap: Math.round(85 * scale + 18),
@@ -13855,7 +13900,7 @@ function questStart() {
   Q.sceneLs = questSceneLevels(); qApplyScene(Q.sceneLs);   // 🌄 краєвид: рівні × пора дня (сесія 64 / 01.11.2026)
   qEl("q-hero").innerHTML = heroSvg(heroState());
   qEl("q-hero").style.width = Math.round(170 * scale) + "px";
-  qEl("q-set").innerHTML = trainSetHtml() + " · " + esc(trainDirLabel());
+  qEl("q-set").innerHTML = trainSetHtml() + " · ⇄ по черзі";
   qEl("q-skip").textContent = "💨 Втекти";
   questOverlay.classList.remove("hidden", "q-noinput", "q-final");
   qHud();
