@@ -374,7 +374,11 @@
   #more-toggle { width: 100%; margin: 0; padding: 9px; border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700;
     color: rgba(255,255,255,0.78); background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.22); }
   #more-toggle:hover { background: rgba(255,255,255,0.09); color: #fff; }
-  #more-list { margin-top: 8px; padding: 10px; border-radius: 14px; background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.10); }
+  /* ⚠️ Список — ПЛАВАЮЧИЙ (absolute), не в потоці (28.11.2026, скарга «менюшки пригають»): панелі центровані по вертикалі,
+     і зростання висоти картки зсувало всі три колонки. Тепер картка не міняє висоту — список лягає поверх. */
+  #more-wrap { position: relative; }
+  #more-list { position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 60; padding: 10px; border-radius: 14px;
+    background: #141830; border: 1px solid rgba(255,209,102,0.28); box-shadow: 0 14px 40px rgba(0,0,0,0.6); }
   #more-list.hidden { display: none; }
   #game-line { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
   /* Гра — другорядна (Похід — основа): не золота заливка, а золотий контур */
@@ -2176,6 +2180,7 @@
       </div>
     </div>
     <div class="panel-lab">Інші режими</div>
+    <div id="more-wrap">
     <button id="more-toggle" type="button">🎯 Інші режими <span id="more-arrow">▾</span></button>
     <div id="more-list" class="hidden">
       <div id="game-line">
@@ -2192,6 +2197,7 @@
         <button id="btn-en-ant" class="mode-btn">↔ Ant<small>антоніми</small></button>
         <button id="btn-en-cloze" class="mode-btn">📝 Cloze<small>в реченні</small></button>
       </div>
+    </div>
     </div>
   </div>
 
@@ -8188,6 +8194,10 @@ function setMoreOpen(open) {
 document.getElementById("more-toggle").addEventListener("click", () =>
   setMoreOpen(document.getElementById("more-list").classList.contains("hidden")));
 setMoreOpen(localStorage.getItem(MORE_OPEN_KEY) === "1");
+// клік поза списком — згорнути (список плаває поверх, тож не має висіти відкритим над іншим)
+document.addEventListener("click", e => {
+  if (!document.getElementById("more-list").classList.contains("hidden") && !e.target.closest("#more-wrap")) setMoreOpen(false);
+});
 document.querySelectorAll(".tm-set").forEach(b =>
   b.addEventListener("click", () => { trainSet = b.dataset.set; saveTrainSel(); renderTrainModal(); }));
 document.querySelectorAll(".tm-dir").forEach(b =>
